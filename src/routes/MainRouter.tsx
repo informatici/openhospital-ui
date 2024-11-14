@@ -1,4 +1,7 @@
-import { tokenHasExpired } from "libraries/authUtils/tokenHasExpired";
+import {
+  refreshTokenHasExpired,
+  tokenHasExpired,
+} from "libraries/authUtils/tokenHasExpired";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { SessionStorage } from "libraries/storage/storage";
 import React, { useEffect } from "react";
@@ -15,7 +18,7 @@ import NotFound from "../components/activities/notFound/NotFound";
 import VisitsActivity from "../components/activities/visitsActivity/VisitsActivity";
 import { AUTH_KEY, PATHS } from "../consts";
 import { withPermission } from "../libraries/permissionUtils/withPermission";
-import { getUserSettings, refreshToken } from "../state/main";
+import { getUserSettings, refreshToken, setLogout } from "../state/main";
 import { AdminRoutes } from "./Admin";
 import { PatientsRoutes } from "./Patients/PatientsRoutes";
 
@@ -32,7 +35,9 @@ export const MainRouter: React.FC = () => {
     const id = setInterval(() => {
       const userCredentials = SessionStorage.read(AUTH_KEY);
       if (userCredentials?.token && tokenHasExpired(userCredentials.token)) {
-        dispatch(refreshToken(userCredentials.refreshToken));
+        if (refreshTokenHasExpired(userCredentials.refreshToken)) {
+          dispatch(setLogout());
+        } else dispatch(refreshToken(userCredentials.refreshToken));
       }
     }, 5000);
     return () => {
