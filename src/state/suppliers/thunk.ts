@@ -1,4 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { wrapper } from "libraries/apiUtils/wrapper";
 import { SupplierDTO, SuppliersApi } from "../../generated";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 
@@ -7,8 +8,7 @@ const api = new SuppliersApi(customConfiguration());
 export const getSuppliers = createAsyncThunk(
   "suppliers/getSuppliers",
   async (excludeDeleted: boolean | undefined, thunkApi) =>
-    api
-      .getSuppliers({ excludeDeleted })
+    wrapper(() => api.getSuppliers({ excludeDeleted }))
       .toPromise()
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );
@@ -16,8 +16,7 @@ export const getSuppliers = createAsyncThunk(
 export const createSupplier = createAsyncThunk(
   "suppliers/createSupplier",
   async (supplierDTO: SupplierDTO, thunkApi) =>
-    api
-      .saveSupplier({ supplierDTO })
+    wrapper(() => api.saveSupplier({ supplierDTO }))
       .toPromise()
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );
@@ -25,8 +24,7 @@ export const createSupplier = createAsyncThunk(
 export const updateSupplier = createAsyncThunk(
   "suppliers/updateSupplier",
   async (supplierDTO: SupplierDTO, thunkApi) =>
-    api
-      .updateSupplier({ supplierDTO })
+    wrapper(() => api.updateSupplier({ supplierDTO }))
       .toPromise()
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );
@@ -34,8 +32,7 @@ export const updateSupplier = createAsyncThunk(
 export const deleteSupplier = createAsyncThunk(
   "suppliers/deleteSupplier",
   async (id: number, thunkApi) =>
-    api
-      .deleteSupplier({ id })
+    wrapper(() => api.deleteSupplier({ id }))
       .toPromise()
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );

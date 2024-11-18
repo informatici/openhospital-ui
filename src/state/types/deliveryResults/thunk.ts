@@ -1,4 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { wrapper } from "libraries/apiUtils/wrapper";
 import {
   DeliveryResultTypeApi,
   DeliveryResultTypeDTO,
@@ -10,8 +11,7 @@ const api = new DeliveryResultTypeApi(customConfiguration());
 export const getDeliveryResultTypes = createAsyncThunk(
   "deliveryResultTypes/getDeliveryResultTypes",
   async (_, thunkApi) =>
-    api
-      .getDeliveryResultTypes()
+    wrapper(() => api.getDeliveryResultTypes())
       .toPromise()
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );
@@ -19,8 +19,7 @@ export const getDeliveryResultTypes = createAsyncThunk(
 export const createDeliveryResultType = createAsyncThunk(
   "deliveryResultTypes/createDeliveryResultType",
   async (deliveryResultTypeDTO: DeliveryResultTypeDTO, thunkApi) =>
-    api
-      .newDeliveryResultType({ deliveryResultTypeDTO })
+    wrapper(() => api.newDeliveryResultType({ deliveryResultTypeDTO }))
       .toPromise()
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );
@@ -28,8 +27,7 @@ export const createDeliveryResultType = createAsyncThunk(
 export const updateDeliveryResultType = createAsyncThunk(
   "deliveryResultTypes/updateDeliveryResultType",
   async (deliveryResultTypeDTO: DeliveryResultTypeDTO, thunkApi) =>
-    api
-      .updateDeliveryResultTypes({ deliveryResultTypeDTO })
+    wrapper(() => api.updateDeliveryResultTypes({ deliveryResultTypeDTO }))
       .toPromise()
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );
@@ -37,8 +35,7 @@ export const updateDeliveryResultType = createAsyncThunk(
 export const deleteDeliveryResultType = createAsyncThunk(
   "deliveryResultTypes/deleteDeliveryResultType",
   async (code: string, thunkApi) =>
-    api
-      .deleteDeliveryResultType({ code })
+    wrapper(() => api.deleteDeliveryResultType({ code }))
       .toPromise()
       .then(() => ({ code }))
       .catch((error) => thunkApi.rejectWithValue(error.response))

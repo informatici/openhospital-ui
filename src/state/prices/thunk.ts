@@ -1,4 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { wrapper } from "libraries/apiUtils/wrapper";
 import { PriceListDTO, PriceListsApi } from "../../generated";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 
@@ -7,8 +8,7 @@ const api = new PriceListsApi(customConfiguration());
 export const getPrices = createAsyncThunk(
   "prices/getPrices",
   async (_, thunkApi) =>
-    api
-      .getPrices()
+    wrapper(() => api.getPrices())
       .toPromise()
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );
@@ -16,8 +16,7 @@ export const getPrices = createAsyncThunk(
 export const getPriceLists = createAsyncThunk(
   "prices/getPriceLists",
   async (_, thunkApi) =>
-    api
-      .getPriceLists()
+    wrapper(() => api.getPriceLists())
       .toPromise()
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );
@@ -25,8 +24,7 @@ export const getPriceLists = createAsyncThunk(
 export const createPriceList = createAsyncThunk(
   "prices/createPriceList",
   async (priceListDTO: PriceListDTO, thunkApi) =>
-    api
-      .newPriceList({ priceListDTO })
+    wrapper(() => api.newPriceList({ priceListDTO }))
       .toPromise()
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );
@@ -34,8 +32,7 @@ export const createPriceList = createAsyncThunk(
 export const updatePriceList = createAsyncThunk(
   "prices/updatePriceList",
   async (payload: { id: number; priceListDTO: PriceListDTO }, thunkApi) =>
-    api
-      .updatePriceLists(payload)
+    wrapper(() => api.updatePriceLists(payload))
       .toPromise()
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );
@@ -43,8 +40,7 @@ export const updatePriceList = createAsyncThunk(
 export const deletePriceList = createAsyncThunk(
   "prices/deletePriceList",
   async (id: number, thunkApi) =>
-    api
-      .deletePriceList({ id })
+    wrapper(() => api.deletePriceList({ id }))
       .toPromise()
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );

@@ -1,4 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { wrapper } from "libraries/apiUtils/wrapper";
+import { concat, of } from "rxjs";
+import { catchError, map, toArray } from "rxjs/operators";
 import {
   AdmissionsApi,
   ExaminationsApi,
@@ -9,8 +12,6 @@ import {
   VisitApi,
 } from "../../generated";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
-import { of, concat } from "rxjs";
-import { catchError, map, toArray } from "rxjs/operators";
 import { convertToSummaryData } from "../../libraries/reduxUtils/convert";
 import { SummaryField } from "./consts";
 
@@ -29,11 +30,11 @@ export const loadSummaryData = createAsyncThunk(
   "summary/loadSummaryData",
   async (code: number, thunkApi) =>
     concat(
-      examinationsApi.getByPatientId({ patId: code }).pipe(
+      wrapper(() => examinationsApi.getByPatientId({ patId: code })).pipe(
         map((res) => convertToSummaryData(res, SummaryField.triage)),
         catchError(() => of([]))
       ),
-      opdControllerrApi.getOpdByPatient({ pcode: code }).pipe(
+      wrapper(() => opdControllerrApi.getOpdByPatient({ pcode: code })).pipe(
         map((res) =>
           convertToSummaryData(
             res.map((e) => e.opdDTO),
@@ -42,7 +43,7 @@ export const loadSummaryData = createAsyncThunk(
         ),
         catchError(() => of([]))
       ),
-      laboratoriesApi.getLaboratory1({ patId: code }).pipe(
+      wrapper(() => laboratoriesApi.getLaboratory1({ patId: code })).pipe(
         map((res) =>
           convertToSummaryData(
             res.map((e) => e.laboratoryDTO),
@@ -51,19 +52,21 @@ export const loadSummaryData = createAsyncThunk(
         ),
         catchError(() => of([]))
       ),
-      admissionsApi.getAdmissions1({ patientCode: code }).pipe(
+      wrapper(() => admissionsApi.getAdmissions1({ patientCode: code })).pipe(
         map((res) => convertToSummaryData(res, SummaryField.admission)),
         catchError(() => of([]))
       ),
-      visitControllerrApi.getVisit({ patID: code }).pipe(
+      wrapper(() => visitControllerrApi.getVisit({ patID: code })).pipe(
         map((res) => convertToSummaryData(res, SummaryField.visit)),
         catchError(() => of([]))
       ),
-      operationsApi.getOperationRowsByPatient({ patientCode: code }).pipe(
+      wrapper(() =>
+        operationsApi.getOperationRowsByPatient({ patientCode: code })
+      ).pipe(
         map((res) => convertToSummaryData(res, SummaryField.operation)),
         catchError(() => of([]))
       ),
-      therapiesApi.getTherapyRows({ codePatient: code }).pipe(
+      wrapper(() => therapiesApi.getTherapyRows({ codePatient: code })).pipe(
         map((res) => convertToSummaryData(res, SummaryField.therapy)),
         catchError(() => of([]))
       )

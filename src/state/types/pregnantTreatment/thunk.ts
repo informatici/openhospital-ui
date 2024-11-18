@@ -1,7 +1,8 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { wrapper } from "libraries/apiUtils/wrapper";
 import {
-  PregnantTreatmentTypesApi,
   PregnantTreatmentTypeDTO,
+  PregnantTreatmentTypesApi,
 } from "../../../generated";
 import { customConfiguration } from "../../../libraries/apiUtils/configuration";
 
@@ -10,8 +11,7 @@ const api = new PregnantTreatmentTypesApi(customConfiguration());
 export const getPregnantTreatmentTypes = createAsyncThunk(
   "pregnantTreatmentTypes/getPregnantTreatmentTypes",
   async (_, thunkApi) =>
-    api
-      .getPregnantTreatmentTypes()
+    wrapper(() => api.getPregnantTreatmentTypes())
       .toPromise()
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );
@@ -19,8 +19,7 @@ export const getPregnantTreatmentTypes = createAsyncThunk(
 export const createPregnantTreatmentType = createAsyncThunk(
   "pregnantTreatmentTypes/createPregnantTreatmentType",
   async (pregnantTreatmentTypeDTO: PregnantTreatmentTypeDTO, thunkApi) =>
-    api
-      .newPregnantTreatmentType({ pregnantTreatmentTypeDTO })
+    wrapper(() => api.newPregnantTreatmentType({ pregnantTreatmentTypeDTO }))
       .toPromise()
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );
@@ -34,8 +33,7 @@ export const updatePregnantTreatmentType = createAsyncThunk(
     },
     thunkApi
   ) =>
-    api
-      .updatePregnantTreatmentTypes(payload)
+    wrapper(() => api.updatePregnantTreatmentTypes(payload))
       .toPromise()
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );
@@ -43,8 +41,7 @@ export const updatePregnantTreatmentType = createAsyncThunk(
 export const deletePregnantTreatmentType = createAsyncThunk(
   "pregnantTreatmentTypes/deletePregnantTreatmentType",
   async (code: string, thunkApi) =>
-    api
-      .deletePregnantTreatmentType({ code })
+    wrapper(() => api.deletePregnantTreatmentType({ code }))
       .toPromise()
       .then(() => ({ code }))
       .catch((error) => thunkApi.rejectWithValue(error.response))

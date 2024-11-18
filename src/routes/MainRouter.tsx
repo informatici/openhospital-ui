@@ -1,9 +1,4 @@
-import {
-  refreshTokenHasExpired,
-  tokenHasExpired,
-} from "libraries/authUtils/tokenHasExpired";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-import { SessionStorage } from "libraries/storage/storage";
 import React, { useEffect } from "react";
 import { Navigate, Route, Routes } from "react-router";
 import { BrowserRouter } from "react-router-dom";
@@ -16,9 +11,9 @@ import LoginActivity from "../components/activities/loginActivity/LoginActivity"
 import { RedirectAfterLogin } from "../components/activities/loginActivity/RedirectAfterLogin";
 import NotFound from "../components/activities/notFound/NotFound";
 import VisitsActivity from "../components/activities/visitsActivity/VisitsActivity";
-import { AUTH_KEY, PATHS } from "../consts";
+import { PATHS } from "../consts";
 import { withPermission } from "../libraries/permissionUtils/withPermission";
-import { getUserSettings, refreshToken, setLogout } from "../state/main";
+import { getUserSettings } from "../state/main";
 import { AdminRoutes } from "./Admin";
 import { PatientsRoutes } from "./Patients/PatientsRoutes";
 
@@ -30,20 +25,6 @@ export const MainRouter: React.FC = () => {
       dispatch(getUserSettings());
     }
   }, [dispatch, status]);
-
-  useEffect(() => {
-    const id = setInterval(() => {
-      const userCredentials = SessionStorage.read(AUTH_KEY);
-      if (userCredentials?.token && tokenHasExpired(userCredentials.token)) {
-        if (refreshTokenHasExpired(userCredentials.refreshToken)) {
-          dispatch(setLogout());
-        } else dispatch(refreshToken(userCredentials.refreshToken));
-      }
-    }, 5000);
-    return () => {
-      clearInterval(id);
-    };
-  }, [dispatch]);
 
   const RequiredAdminAccess = withPermission(
     "admin.access",

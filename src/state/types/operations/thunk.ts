@@ -1,4 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { wrapper } from "libraries/apiUtils/wrapper";
 import { OperationTypeDTO, OperationsTypesApi } from "../../../generated";
 import { customConfiguration } from "../../../libraries/apiUtils/configuration";
 
@@ -7,8 +8,7 @@ const api = new OperationsTypesApi(customConfiguration());
 export const getOperationTypes = createAsyncThunk(
   "operationTypes/getOperationTypes",
   async (_, thunkApi) =>
-    api
-      .getOperationTypes()
+    wrapper(() => api.getOperationTypes())
       .toPromise()
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );
@@ -16,8 +16,7 @@ export const getOperationTypes = createAsyncThunk(
 export const createOperationType = createAsyncThunk(
   "operationTypes/createOperationType",
   async (operationTypeDTO: OperationTypeDTO, thunkApi) =>
-    api
-      .newOperationType({ operationTypeDTO })
+    wrapper(() => api.newOperationType({ operationTypeDTO }))
       .toPromise()
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );
@@ -28,8 +27,7 @@ export const updateOperationType = createAsyncThunk(
     payload: { code: string; operationTypeDTO: OperationTypeDTO },
     thunkApi
   ) =>
-    api
-      .updateOperationTypes(payload)
+    wrapper(() => api.updateOperationTypes(payload))
       .toPromise()
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );
@@ -37,8 +35,7 @@ export const updateOperationType = createAsyncThunk(
 export const deleteOperationType = createAsyncThunk(
   "operationTypes/deleteOperationType",
   async (code: string, thunkApi) =>
-    api
-      .deleteOperationType({ code })
+    wrapper(() => api.deleteOperationType({ code }))
       .toPromise()
       .then(() => ({ code }))
       .catch((error) => thunkApi.rejectWithValue(error.response))

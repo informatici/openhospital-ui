@@ -1,4 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { wrapper } from "libraries/apiUtils/wrapper";
 import moment from "moment";
 import { TValues } from "../../components/activities/searchPatientActivity/types";
 import { PatientDTO, PatientsApi, UpdatePatientRequest } from "../../generated";
@@ -10,19 +11,19 @@ export const searchPatient = createAsyncThunk(
   "patients/searchPatient",
   async (values: TValues, thunkApi) => {
     if (values.id) {
-      return api
-        .getPatient({ code: parseInt(values.id) })
+      return wrapper(() => api.getPatient({ code: parseInt(values.id) }))
         .toPromise()
         .then((result) => (result ? [result] : []))
         .catch((error) => thunkApi.rejectWithValue(error.response));
     }
-    return api
-      .searchPatient({
+    return wrapper(() =>
+      api.searchPatient({
         ...values,
         birthDate: moment(values.birthDate).isValid()
           ? values.birthDate
           : undefined,
       })
+    )
       .toPromise()
       .catch((error) => thunkApi.rejectWithValue(error.response));
   }
@@ -31,8 +32,7 @@ export const searchPatient = createAsyncThunk(
 export const getCities = createAsyncThunk(
   "patients/getCities",
   async (_, thunkApi) =>
-    api
-      .getPatientCities()
+    wrapper(() => api.getPatientCities())
       .toPromise()
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );
@@ -40,11 +40,12 @@ export const getCities = createAsyncThunk(
 export const getPatients = createAsyncThunk(
   "patients/getPatients",
   async ({ page, size }: { page?: number; size?: number }, thunkApi) =>
-    api
-      .getPatients({
+    wrapper(() =>
+      api.getPatients({
         page: page ?? 0,
         size: size ?? 80,
       })
+    )
       .toPromise()
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );
@@ -52,8 +53,7 @@ export const getPatients = createAsyncThunk(
 export const getPatient = createAsyncThunk(
   "patients/getPatient",
   async (id: string, thunkApi) =>
-    api
-      .getPatient({ code: parseInt(id) })
+    wrapper(() => api.getPatient({ code: parseInt(id) }))
       .toPromise()
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );
@@ -61,8 +61,7 @@ export const getPatient = createAsyncThunk(
 export const createPatient = createAsyncThunk(
   "patients/createPatient",
   async (patientDTO: PatientDTO, thunkApi) =>
-    api
-      .newPatient({ patientDTO })
+    wrapper(() => api.newPatient({ patientDTO }))
       .toPromise()
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );
@@ -70,8 +69,7 @@ export const createPatient = createAsyncThunk(
 export const updatePatient = createAsyncThunk(
   "patients/updatePatient",
   async (payload: UpdatePatientRequest, thunkApi) =>
-    api
-      .updatePatient(payload)
+    wrapper(() => api.updatePatient(payload))
       .toPromise()
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );

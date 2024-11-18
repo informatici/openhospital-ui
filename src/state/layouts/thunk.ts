@@ -1,4 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { wrapper } from "libraries/apiUtils/wrapper";
 import createDebouncedAsyncThunk from "libraries/reduxUtils/createDebounceAsyncThunk";
 import { decodeLayoutConfig } from "../../components/accessories/dashboard/layouts/consts";
 import { UserSettingDTO, UserSettingsApi } from "../../generated";
@@ -9,8 +10,7 @@ const api = new UserSettingsApi(customConfiguration());
 export const getLayouts = createAsyncThunk(
   "layouts/getLayouts",
   async (userName: string, thunkApi) =>
-    api
-      .getUserSettingByUser({ configName: "dashboard" })
+    wrapper(() => api.getUserSettingByUser({ configName: "dashboard" }))
       .toPromise()
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );
@@ -18,14 +18,15 @@ export const getLayouts = createAsyncThunk(
 export const saveLayouts = createDebouncedAsyncThunk(
   "layouts/saveLayouts",
   async (setting: UserSettingDTO, thunkApi) =>
-    (setting.id > 0
-      ? api.updateUserSettings({
-          id: setting.id,
-          userSettingDTO: setting,
-        })
-      : api.newUserSettings({
-          userSettingDTO: setting,
-        })
+    wrapper(() =>
+      setting.id > 0
+        ? api.updateUserSettings({
+            id: setting.id,
+            userSettingDTO: setting,
+          })
+        : api.newUserSettings({
+            userSettingDTO: setting,
+          })
     )
       .toPromise()
       .then((data) => ({ ...decodeLayoutConfig(setting.configValue), data }))

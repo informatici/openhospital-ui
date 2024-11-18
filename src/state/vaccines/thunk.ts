@@ -1,4 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { wrapper } from "libraries/apiUtils/wrapper";
 import { VaccineDTO, VaccinesApi } from "../../generated";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 
@@ -7,8 +8,7 @@ const api = new VaccinesApi(customConfiguration());
 export const getVaccines = createAsyncThunk(
   "vaccines/getVaccines",
   async (_, thunkApi) =>
-    api
-      .getVaccines()
+    wrapper(() => api.getVaccines())
       .toPromise()
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );
@@ -16,8 +16,7 @@ export const getVaccines = createAsyncThunk(
 export const createVaccine = createAsyncThunk(
   "vaccines/createVaccine",
   async (vaccineDTO: VaccineDTO, thunkApi) =>
-    api
-      .newVaccine({ vaccineDTO })
+    wrapper(() => api.newVaccine({ vaccineDTO }))
       .toPromise()
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );
@@ -25,8 +24,7 @@ export const createVaccine = createAsyncThunk(
 export const updateVaccine = createAsyncThunk(
   "vaccines/updateVaccine",
   async (vaccineDTO: VaccineDTO, thunkApi) =>
-    api
-      .updateVaccine({ vaccineDTO })
+    wrapper(() => api.updateVaccine({ vaccineDTO }))
       .toPromise()
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );
@@ -34,8 +32,7 @@ export const updateVaccine = createAsyncThunk(
 export const deleteVaccine = createAsyncThunk(
   "vaccines/deleteVaccine",
   async (code: string, thunkApi) =>
-    api
-      .deleteVaccine({ code })
+    wrapper(() => api.deleteVaccine({ code }))
       .toPromise()
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );
