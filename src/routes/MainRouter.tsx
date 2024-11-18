@@ -5,7 +5,7 @@ import {
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { SessionStorage } from "libraries/storage/storage";
 import React, { useEffect } from "react";
-import { Navigate, Route, Routes, useNavigate } from "react-router";
+import { Navigate, Route, Routes } from "react-router";
 import { BrowserRouter } from "react-router-dom";
 import { Private } from "../components/Private";
 import Dashboard from "../components/accessories/dashboard/Dashboard";
@@ -24,7 +24,6 @@ import { PatientsRoutes } from "./Patients/PatientsRoutes";
 
 export const MainRouter: React.FC = () => {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
   const status = useAppSelector((state) => state.main.authentication.status!);
   useEffect(() => {
     if (status === "SUCCESS") {
@@ -38,7 +37,6 @@ export const MainRouter: React.FC = () => {
       if (userCredentials?.token && tokenHasExpired(userCredentials.token)) {
         if (refreshTokenHasExpired(userCredentials.refreshToken)) {
           dispatch(setLogout());
-          navigate(PATHS.login);
         } else dispatch(refreshToken(userCredentials.refreshToken));
       }
     }, 5000);
