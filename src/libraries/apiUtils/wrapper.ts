@@ -20,11 +20,7 @@ export function wrapper<T>(callback: () => Observable<T>): Observable<T> {
     catchError((error) => {
       if (error.status === 401) {
         const refreshToken = SessionStorage.read(AUTH_KEY)?.refreshToken;
-        if (
-          error.status === 401 &&
-          refreshToken &&
-          !refreshTokenHasExpired(refreshToken)
-        ) {
+        if (refreshToken && !refreshTokenHasExpired(refreshToken)) {
           return from(
             mutex.runExclusive(async () => {
               const token = SessionStorage.read(AUTH_KEY)?.token;
