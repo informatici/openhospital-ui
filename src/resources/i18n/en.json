@@ -51,7 +51,9 @@
     "validateGroupCode": "Invalid group code",
     "validatePasswordMustMatch": "Passwords must match",
     "validateUserName": "You need to specify a user name",
-    "validateUserNameRegex": "Allowed characters: lowercase letters(abc), numbers(123), dot(.), dash (-) and underscore (_)"
+    "validateUserNameRegex": "Allowed characters: lowercase letters(abc), numbers(123), dot(.), dash (-) and underscore (_)",
+    "confirmUserDeletion": "Are you sure you want to delete the user ?",
+    "confirmUserGroupDeletion": "Are you sure you want to delete the user group ?"
   },
   "hospital": {
     "address": "Address",
@@ -567,7 +569,12 @@
     "to": "To",
     "datebefore": "Should be before the end date",
     "dateafter": "should be after start date",
-    "option": "Option"
+    "option": "Option",
+    "deleted": "Deleted",
+    "restore": "Restore",
+    "restoreConfirmation": "Are you sure to restore this item ?",
+    "softDelete": "Mark as deleted",
+    "softDeleteConfirmation": "Are you sure to mark this item as deleted ?"
   },
   "permission": {
     "denied": "Permission denied",
@@ -879,6 +886,24 @@
       },
       "thecodeistoolongmax1char": {
         "msg": "The ward is too long. It should three characters or less"
+      }
+    },
+    "groupsbrowser": {
+      "alreadysoftdeleted": {
+        "msg": "The user group is already set as deleted."
+      },
+      "thisgrouphasusersandcannotbedeleted": {
+        "msg": "The group you want to delete has users and cannot be deleted."
+      }
+    },
+    "sql": {
+      "theselecteditemisstillusedsomewhere": {
+        "msg": "The selected item is still used somewhere."
+      }
+    },
+    "userbrowser": {
+      "alreadysoftdeleted": {
+        "msg": "The user is already set as deleted."
       }
     }
   },

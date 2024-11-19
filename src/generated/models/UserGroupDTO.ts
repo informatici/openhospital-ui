@@ -34,6 +34,12 @@ export interface UserGroupDTO {
      */
     desc?: string;
     /**
+     * Whether the group has been soft deleted or not
+     * @type {boolean}
+     * @memberof UserGroupDTO
+     */
+    deleted?: boolean;
+    /**
      * List of group\'s permissions
      * @type {Array<PermissionDTO>}
      * @memberof UserGroupDTO

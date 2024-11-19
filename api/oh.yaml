@@ -9,14 +9,14 @@ info:
     url: https://github.com/informatici/openhospital-api?tab=GPL-3.0-1-ov-file#readme
   version: 0.1.0
 servers:
-- url: http://localhost:8080
+  - url: http://localhost:8080
 security:
-- bearerAuth: []
+  - bearerAuth: []
 paths:
   /wards:
     get:
       tags:
-      - Wards
+        - Wards
       operationId: getWards
       responses:
         "200":
@@ -28,10 +28,10 @@ paths:
                 items:
                   $ref: "#/components/schemas/WardDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     put:
       tags:
-      - Wards
+        - Wards
       operationId: updateWard
       requestBody:
         content:
@@ -47,10 +47,10 @@ paths:
               schema:
                 $ref: "#/components/schemas/WardDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     post:
       tags:
-      - Wards
+        - Wards
       operationId: newWard
       requestBody:
         content:
@@ -66,19 +66,19 @@ paths:
               schema:
                 $ref: "#/components/schemas/WardDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /visits/{visitID}:
     put:
       tags:
-      - Visit
+        - Visit
       operationId: updateVisit
       parameters:
-      - name: visitID
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: visitID
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       requestBody:
         content:
           application/json:
@@ -93,11 +93,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/VisitDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /vaccinetypes:
     get:
       tags:
-      - Vaccine Type
+        - Vaccine Type
       operationId: getVaccineType
       responses:
         "200":
@@ -109,10 +109,10 @@ paths:
                 items:
                   $ref: "#/components/schemas/VaccineTypeDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     put:
       tags:
-      - Vaccine Type
+        - Vaccine Type
       operationId: updateVaccineType
       requestBody:
         content:
@@ -128,10 +128,10 @@ paths:
               schema:
                 $ref: "#/components/schemas/VaccineTypeDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     post:
       tags:
-      - Vaccine Type
+        - Vaccine Type
       operationId: newVaccineType
       requestBody:
         content:
@@ -147,11 +147,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/VaccineTypeDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /vaccines:
     get:
       tags:
-      - Vaccines
+        - Vaccines
       operationId: getVaccines
       responses:
         "200":
@@ -163,10 +163,10 @@ paths:
                 items:
                   $ref: "#/components/schemas/VaccineDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     put:
       tags:
-      - Vaccines
+        - Vaccines
       operationId: updateVaccine
       requestBody:
         content:
@@ -182,10 +182,10 @@ paths:
               schema:
                 $ref: "#/components/schemas/VaccineDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     post:
       tags:
-      - Vaccines
+        - Vaccines
       operationId: newVaccine
       requestBody:
         content:
@@ -201,19 +201,19 @@ paths:
               schema:
                 $ref: "#/components/schemas/VaccineDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /usersettings/{id}:
     put:
       tags:
-      - User Settings
+        - User Settings
       operationId: updateUserSettings
       parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       requestBody:
         content:
           application/json:
@@ -228,34 +228,34 @@ paths:
               schema:
                 $ref: "#/components/schemas/UserSettingDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     delete:
       tags:
-      - User Settings
+        - User Settings
       operationId: deleteUserSetting
       parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "204":
           description: No Content
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /users/{username}:
     get:
       tags:
-      - Users
+        - Users
       operationId: getUserByName
       parameters:
-      - name: username
-        in: path
-        required: true
-        schema:
-          type: string
+        - name: username
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         "200":
           description: OK
@@ -264,17 +264,17 @@ paths:
               schema:
                 $ref: "#/components/schemas/UserDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     put:
       tags:
-      - Users
+        - Users
       operationId: updateUser
       parameters:
-      - name: username
-        in: path
-        required: true
-        schema:
-          type: string
+        - name: username
+          in: path
+          required: true
+          schema:
+            type: string
       requestBody:
         content:
           application/json:
@@ -289,26 +289,26 @@ paths:
               schema:
                 $ref: "#/components/schemas/UserDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     delete:
       tags:
-      - Users
+        - Users
       operationId: deleteUser
       parameters:
-      - name: username
-        in: path
-        required: true
-        schema:
-          type: string
+        - name: username
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         "204":
           description: No Content
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /users/me:
     get:
       tags:
-      - Users
+        - Users
       operationId: retrieveProfileByCurrentLoggedInUser
       responses:
         "200":
@@ -318,10 +318,10 @@ paths:
               schema:
                 $ref: "#/components/schemas/UserProfileDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     put:
       tags:
-      - Users
+        - Users
       operationId: updateProfile
       requestBody:
         content:
@@ -337,18 +337,18 @@ paths:
               schema:
                 $ref: "#/components/schemas/UserProfileDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /usergroups/{group_code}:
     get:
       tags:
-      - User Groups
+        - User Groups
       operationId: getUserGroup
       parameters:
-      - name: group_code
-        in: path
-        required: true
-        schema:
-          type: string
+        - name: group_code
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         "200":
           description: OK
@@ -357,17 +357,17 @@ paths:
               schema:
                 $ref: "#/components/schemas/UserGroupDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     put:
       tags:
-      - User Groups
+        - User Groups
       operationId: updateUserGroup
       parameters:
-      - name: group_code
-        in: path
-        required: true
-        schema:
-          type: string
+        - name: group_code
+          in: path
+          required: true
+          schema:
+            type: string
       requestBody:
         content:
           application/json:
@@ -382,33 +382,33 @@ paths:
               schema:
                 $ref: "#/components/schemas/UserGroupDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     delete:
       tags:
-      - User Groups
+        - User Groups
       operationId: deleteGroup
       parameters:
-      - name: group_code
-        in: path
-        required: true
-        schema:
-          type: string
+        - name: group_code
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         "204":
           description: No Content
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /usergroups/{group_code}/permissions:
     put:
       tags:
-      - User Groups
+        - User Groups
       operationId: updateGroupPermissions
       parameters:
-      - name: group_code
-        in: path
-        required: true
-        schema:
-          type: string
+        - name: group_code
+          in: path
+          required: true
+          schema:
+            type: string
       requestBody:
         content:
           application/json:
@@ -425,17 +425,17 @@ paths:
                 items:
                   $ref: "#/components/schemas/PermissionDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     patch:
       tags:
-      - User Groups
+        - User Groups
       operationId: replaceGroupPermissions
       parameters:
-      - name: group_code
-        in: path
-        required: true
-        schema:
-          type: string
+        - name: group_code
+          in: path
+          required: true
+          schema:
+            type: string
       requestBody:
         content:
           application/json:
@@ -452,19 +452,19 @@ paths:
                 items:
                   $ref: "#/components/schemas/PermissionDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /suppliers:
     get:
       tags:
-      - Suppliers
+        - Suppliers
       operationId: getSuppliers
       parameters:
-      - name: exclude_deleted
-        in: query
-        required: false
-        schema:
-          type: boolean
-          default: true
+        - name: exclude_deleted
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: true
       responses:
         "200":
           description: OK
@@ -475,10 +475,10 @@ paths:
                 items:
                   $ref: "#/components/schemas/SupplierDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     put:
       tags:
-      - Suppliers
+        - Suppliers
       operationId: updateSupplier
       requestBody:
         content:
@@ -494,10 +494,10 @@ paths:
               schema:
                 $ref: "#/components/schemas/SupplierDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     post:
       tags:
-      - Suppliers
+        - Suppliers
       operationId: saveSupplier
       requestBody:
         content:
@@ -543,15 +543,15 @@ paths:
   /pricesothers/{id}:
     put:
       tags:
-      - Others Price
+        - Others Price
       operationId: updatePricesOthers
       parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       requestBody:
         content:
           application/json:
@@ -566,18 +566,18 @@ paths:
               schema:
                 $ref: "#/components/schemas/PricesOthersDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     delete:
       tags:
-      - Others Price
+        - Others Price
       operationId: deletePricesOthers
       parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "200":
           description: OK
@@ -586,19 +586,19 @@ paths:
               schema:
                 type: boolean
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /pricelists/{id}:
     put:
       tags:
-      - Price Lists
+        - Price Lists
       operationId: updatePriceLists
       parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       requestBody:
         content:
           application/json:
@@ -613,18 +613,18 @@ paths:
               schema:
                 $ref: "#/components/schemas/PriceListDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     delete:
       tags:
-      - Price Lists
+        - Price Lists
       operationId: deletePriceList
       parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "200":
           description: OK
@@ -633,18 +633,18 @@ paths:
               schema:
                 type: boolean
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /pregnanttreatmenttypes/{code}:
     put:
       tags:
-      - Pregnant Treatment Types
+        - Pregnant Treatment Types
       operationId: updatePregnantTreatmentTypes
       parameters:
-      - name: code
-        in: path
-        required: true
-        schema:
-          type: string
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: string
       requestBody:
         content:
           application/json:
@@ -659,17 +659,17 @@ paths:
               schema:
                 $ref: "#/components/schemas/PregnantTreatmentTypeDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     delete:
       tags:
-      - Pregnant Treatment Types
+        - Pregnant Treatment Types
       operationId: deletePregnantTreatmentType
       parameters:
-      - name: code
-        in: path
-        required: true
-        schema:
-          type: string
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         "200":
           description: OK
@@ -678,19 +678,19 @@ paths:
               schema:
                 type: boolean
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /patientvaccines/{code}:
     put:
       tags:
-      - Patient Vaccines
+        - Patient Vaccines
       operationId: updatePatientVaccinet
       parameters:
-      - name: code
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       requestBody:
         content:
           application/json:
@@ -705,18 +705,18 @@ paths:
               schema:
                 $ref: "#/components/schemas/PatientVaccineDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     delete:
       tags:
-      - Patient Vaccines
+        - Patient Vaccines
       operationId: deletePatientVaccine
       parameters:
-      - name: code
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "200":
           description: OK
@@ -725,19 +725,19 @@ paths:
               schema:
                 type: boolean
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /patients/{code}:
     get:
       tags:
-      - Patients
+        - Patients
       operationId: getPatient
       parameters:
-      - name: code
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "200":
           description: OK
@@ -746,18 +746,18 @@ paths:
               schema:
                 $ref: "#/components/schemas/PatientDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     put:
       tags:
-      - Patients
+        - Patients
       operationId: updatePatient
       parameters:
-      - name: code
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       requestBody:
         content:
           application/json:
@@ -772,18 +772,18 @@ paths:
               schema:
                 $ref: "#/components/schemas/PatientDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     delete:
       tags:
-      - Patients
+        - Patients
       operationId: deletePatient
       parameters:
-      - name: code
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "200":
           description: OK
@@ -792,19 +792,19 @@ paths:
               schema:
                 type: boolean
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /patientconsensus/{patientId}:
     get:
       tags:
-      - Patient Consensus
+        - Patient Consensus
       operationId: getPatientConsensus
       parameters:
-      - name: patientId
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: patientId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "200":
           description: OK
@@ -813,18 +813,18 @@ paths:
               schema:
                 $ref: "#/components/schemas/PatientConsensusDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     put:
       tags:
-      - Patient Consensus
+        - Patient Consensus
       operationId: updatePatientConsensus
       parameters:
-      - name: patientId
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: patientId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       requestBody:
         content:
           application/json:
@@ -839,18 +839,18 @@ paths:
               schema:
                 $ref: "#/components/schemas/PatientConsensusDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /operationtypes/{code}:
     put:
       tags:
-      - Operations Types
+        - Operations Types
       operationId: updateOperationTypes
       parameters:
-      - name: code
-        in: path
-        required: true
-        schema:
-          type: string
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: string
       requestBody:
         content:
           application/json:
@@ -865,17 +865,17 @@ paths:
               schema:
                 $ref: "#/components/schemas/OperationTypeDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     delete:
       tags:
-      - Operations Types
+        - Operations Types
       operationId: deleteOperationType
       parameters:
-      - name: code
-        in: path
-        required: true
-        schema:
-          type: string
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         "200":
           description: OK
@@ -884,18 +884,18 @@ paths:
               schema:
                 type: boolean
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /operations/{code}:
     get:
       tags:
-      - Operations
+        - Operations
       operationId: getOperationByCode
       parameters:
-      - name: code
-        in: path
-        required: true
-        schema:
-          type: string
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         "200":
           description: OK
@@ -904,17 +904,17 @@ paths:
               schema:
                 $ref: "#/components/schemas/OperationDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     put:
       tags:
-      - Operations
+        - Operations
       operationId: updateOperation
       parameters:
-      - name: code
-        in: path
-        required: true
-        schema:
-          type: string
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: string
       requestBody:
         content:
           application/json:
@@ -929,17 +929,17 @@ paths:
               schema:
                 $ref: "#/components/schemas/OperationDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     delete:
       tags:
-      - Operations
+        - Operations
       operationId: deleteOperation
       parameters:
-      - name: code
-        in: path
-        required: true
-        schema:
-          type: string
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         "200":
           description: OK
@@ -948,11 +948,11 @@ paths:
               schema:
                 type: boolean
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /operations/rows:
     put:
       tags:
-      - Operations
+        - Operations
       operationId: updateOperationRow
       requestBody:
         content:
@@ -969,10 +969,10 @@ paths:
                 type: integer
                 format: int32
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     post:
       tags:
-      - Operations
+        - Operations
       operationId: newOperationRow
       requestBody:
         content:
@@ -988,19 +988,19 @@ paths:
               schema:
                 $ref: "#/components/schemas/OperationRowDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /opds/{code}:
     put:
       tags:
-      - Opds
+        - Opds
       operationId: updateOpd
       parameters:
-      - name: code
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       requestBody:
         content:
           application/json:
@@ -1015,18 +1015,18 @@ paths:
               schema:
                 $ref: "#/components/schemas/OpdDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     delete:
       tags:
-      - Opds
+        - Opds
       operationId: deleteOpd
       parameters:
-      - name: code
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "200":
           description: OK
@@ -1035,19 +1035,19 @@ paths:
               schema:
                 type: boolean
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /opds/rows/{code}:
     put:
       tags:
-      - Opds
+        - Opds
       operationId: updateOpdWithOperationRow
       parameters:
-      - name: code
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       requestBody:
         content:
           application/json:
@@ -1062,11 +1062,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/OpdWithOperationRowDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /medstockmovementtypes:
     get:
       tags:
-      - Medical Stock Movement Type
+        - Medical Stock Movement Type
       operationId: getMedicalDsrStockMovementType
       responses:
         "200":
@@ -1078,10 +1078,10 @@ paths:
                 items:
                   $ref: "#/components/schemas/MovementTypeDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     put:
       tags:
-      - Medical Stock Movement Type
+        - Medical Stock Movement Type
       operationId: updateMedicalDsrStockMovementType
       requestBody:
         content:
@@ -1097,10 +1097,10 @@ paths:
               schema:
                 $ref: "#/components/schemas/MovementTypeDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     post:
       tags:
-      - Medical Stock Movement Type
+        - Medical Stock Movement Type
       operationId: newMedicalDsrStockMovementType
       requestBody:
         content:
@@ -1116,11 +1116,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/MovementTypeDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /medicaltypes:
     get:
       tags:
-      - Medical Types
+        - Medical Types
       operationId: getMedicalTypes
       responses:
         "200":
@@ -1132,10 +1132,10 @@ paths:
                 items:
                   $ref: "#/components/schemas/MedicalTypeDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     put:
       tags:
-      - Medical Types
+        - Medical Types
       operationId: updateMedicalType
       requestBody:
         content:
@@ -1151,10 +1151,10 @@ paths:
               schema:
                 $ref: "#/components/schemas/MedicalTypeDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     post:
       tags:
-      - Medical Types
+        - Medical Types
       operationId: createMedicalType
       requestBody:
         content:
@@ -1170,22 +1170,22 @@ paths:
               schema:
                 $ref: "#/components/schemas/MedicalTypeDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /medicals:
     get:
       tags:
-      - Medicals
+        - Medicals
       operationId: getMedicals
       parameters:
-      - name: sort_by
-        in: query
-        required: false
-        schema:
-          type: string
-          enum:
-          - NONE
-          - CODE
-          - NAME
+        - name: sort_by
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - NONE
+              - CODE
+              - NAME
       responses:
         "200":
           description: OK
@@ -1196,18 +1196,18 @@ paths:
                 items:
                   $ref: "#/components/schemas/MedicalDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     put:
       tags:
-      - Medicals
+        - Medicals
       operationId: updateMedical
       parameters:
-      - name: ignore_similar
-        in: query
-        required: false
-        schema:
-          type: boolean
-          default: false
+        - name: ignore_similar
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: false
       requestBody:
         content:
           application/json:
@@ -1222,18 +1222,18 @@ paths:
               schema:
                 $ref: "#/components/schemas/MedicalDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     post:
       tags:
-      - Medicals
+        - Medicals
       operationId: newMedical
       parameters:
-      - name: ignore_similar
-        in: query
-        required: false
-        schema:
-          type: boolean
-          default: false
+        - name: ignore_similar
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: false
       requestBody:
         content:
           application/json:
@@ -1248,11 +1248,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/MedicalDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /malnutritions:
     put:
       tags:
-      - Malnutritions
+        - Malnutritions
       operationId: updateMalnutrition
       requestBody:
         content:
@@ -1268,10 +1268,10 @@ paths:
               schema:
                 $ref: "#/components/schemas/MalnutritionDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     post:
       tags:
-      - Malnutritions
+        - Malnutritions
       operationId: newMalnutrition
       requestBody:
         content:
@@ -1287,18 +1287,18 @@ paths:
               schema:
                 $ref: "#/components/schemas/MalnutritionDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     delete:
       tags:
-      - Malnutritions
+        - Malnutritions
       operationId: deleteMalnutrition
       parameters:
-      - name: code
-        in: query
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: code
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "200":
           description: OK
@@ -1307,19 +1307,19 @@ paths:
               schema:
                 type: boolean
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /laboratories/{code}:
     get:
       tags:
-      - Laboratories
+        - Laboratories
       operationId: getExamById
       parameters:
-      - name: code
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "200":
           description: OK
@@ -1328,18 +1328,18 @@ paths:
               schema:
                 $ref: "#/components/schemas/LaboratoryDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     put:
       tags:
-      - Laboratories
+        - Laboratories
       operationId: updateLaboratory
       parameters:
-      - name: code
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       requestBody:
         content:
           application/json:
@@ -1354,18 +1354,18 @@ paths:
               schema:
                 type: boolean
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     delete:
       tags:
-      - Laboratories
+        - Laboratories
       operationId: deleteExam
       parameters:
-      - name: code
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "200":
           description: OK
@@ -1374,24 +1374,24 @@ paths:
               schema:
                 type: boolean
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /laboratories/examRequest/{code}:
     put:
       tags:
-      - Laboratories
+        - Laboratories
       operationId: updateExamRequest
       parameters:
-      - name: code
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
-      - name: status
-        in: query
-        required: true
-        schema:
-          type: string
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: status
+          in: query
+          required: true
+          schema:
+            type: string
       responses:
         "200":
           description: OK
@@ -1400,18 +1400,18 @@ paths:
               schema:
                 type: boolean
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     delete:
       tags:
-      - Laboratories
+        - Laboratories
       operationId: deleteExamRequest
       parameters:
-      - name: code
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "200":
           description: OK
@@ -1420,18 +1420,18 @@ paths:
               schema:
                 type: boolean
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /hospitals/{code}:
     put:
       tags:
-      - Hospitals
+        - Hospitals
       operationId: updateHospital
       parameters:
-      - name: code
-        in: path
-        required: true
-        schema:
-          type: string
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: string
       requestBody:
         content:
           application/json:
@@ -1446,18 +1446,18 @@ paths:
               schema:
                 $ref: "#/components/schemas/HospitalDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /examtypes/{code}:
     put:
       tags:
-      - Exam Types
+        - Exam Types
       operationId: updateExamType
       parameters:
-      - name: code
-        in: path
-        required: true
-        schema:
-          type: string
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: string
       requestBody:
         content:
           application/json:
@@ -1472,17 +1472,17 @@ paths:
               schema:
                 $ref: "#/components/schemas/ExamTypeDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     delete:
       tags:
-      - Exam Types
+        - Exam Types
       operationId: deleteExamType
       parameters:
-      - name: code
-        in: path
-        required: true
-        schema:
-          type: string
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         "200":
           description: OK
@@ -1491,18 +1491,18 @@ paths:
               schema:
                 type: boolean
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /exams/{code}:
     put:
       tags:
-      - Exams
+        - Exams
       operationId: updateExam
       parameters:
-      - name: code
-        in: path
-        required: true
-        schema:
-          type: string
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: string
       requestBody:
         content:
           application/json:
@@ -1517,17 +1517,17 @@ paths:
               schema:
                 $ref: "#/components/schemas/ExamDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     delete:
       tags:
-      - Exams
+        - Exams
       operationId: deleteExam_1
       parameters:
-      - name: code
-        in: path
-        required: true
-        schema:
-          type: string
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         "200":
           description: OK
@@ -1536,19 +1536,19 @@ paths:
               schema:
                 type: boolean
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /examinations/{id}:
     get:
       tags:
-      - Examinations
+        - Examinations
       operationId: getByID
       parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "200":
           description: OK
@@ -1557,18 +1557,18 @@ paths:
               schema:
                 $ref: "#/components/schemas/PatientExaminationDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     put:
       tags:
-      - Examinations
+        - Examinations
       operationId: updateExamination
       parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       requestBody:
         content:
           application/json:
@@ -1583,11 +1583,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/PatientExaminationDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /diseasetypes:
     get:
       tags:
-      - Disease Types
+        - Disease Types
       operationId: getAllDiseaseTypes
       responses:
         "200":
@@ -1599,10 +1599,10 @@ paths:
                 items:
                   $ref: "#/components/schemas/DiseaseTypeDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     put:
       tags:
-      - Disease Types
+        - Disease Types
       operationId: updateDiseaseType
       requestBody:
         content:
@@ -1618,10 +1618,10 @@ paths:
               schema:
                 $ref: "#/components/schemas/DiseaseTypeDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     post:
       tags:
-      - Disease Types
+        - Disease Types
       operationId: newDiseaseType
       requestBody:
         content:
@@ -1637,11 +1637,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/DiseaseTypeDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /diseases:
     put:
       tags:
-      - Diseases
+        - Diseases
       operationId: updateDisease
       requestBody:
         content:
@@ -1657,10 +1657,10 @@ paths:
               schema:
                 $ref: "#/components/schemas/DiseaseDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     post:
       tags:
-      - Diseases
+        - Diseases
       operationId: newDisease
       requestBody:
         content:
@@ -1676,11 +1676,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/DiseaseDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /dischargetypes:
     get:
       tags:
-      - DischargeType
+        - DischargeType
       operationId: getDischargeTypes
       responses:
         "200":
@@ -1692,10 +1692,10 @@ paths:
                 items:
                   $ref: "#/components/schemas/DischargeTypeDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     put:
       tags:
-      - DischargeType
+        - DischargeType
       operationId: updateDischargeType
       requestBody:
         content:
@@ -1711,10 +1711,10 @@ paths:
               schema:
                 $ref: "#/components/schemas/DischargeTypeDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     post:
       tags:
-      - DischargeType
+        - DischargeType
       operationId: newDischargeType
       requestBody:
         content:
@@ -1730,11 +1730,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/DischargeTypeDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /deliverytypes:
     get:
       tags:
-      - Delivery Type
+        - Delivery Type
       operationId: getDeliveryTypes
       responses:
         "200":
@@ -1746,10 +1746,10 @@ paths:
                 items:
                   $ref: "#/components/schemas/DeliveryTypeDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     put:
       tags:
-      - Delivery Type
+        - Delivery Type
       operationId: updateDeliveryTypes
       requestBody:
         content:
@@ -1765,10 +1765,10 @@ paths:
               schema:
                 $ref: "#/components/schemas/DeliveryTypeDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     post:
       tags:
-      - Delivery Type
+        - Delivery Type
       operationId: newDeliveryType
       requestBody:
         content:
@@ -1784,11 +1784,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/DeliveryTypeDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /deliveryresulttypes:
     get:
       tags:
-      - Delivery Result Type
+        - Delivery Result Type
       operationId: getDeliveryResultTypes
       responses:
         "200":
@@ -1800,10 +1800,10 @@ paths:
                 items:
                   $ref: "#/components/schemas/DeliveryResultTypeDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     put:
       tags:
-      - Delivery Result Type
+        - Delivery Result Type
       operationId: updateDeliveryResultTypes
       requestBody:
         content:
@@ -1819,10 +1819,10 @@ paths:
               schema:
                 $ref: "#/components/schemas/DeliveryResultTypeDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     post:
       tags:
-      - Delivery Result Type
+        - Delivery Result Type
       operationId: newDeliveryResultType
       requestBody:
         content:
@@ -1838,19 +1838,19 @@ paths:
               schema:
                 $ref: "#/components/schemas/DeliveryResultTypeDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /bills/{id}:
     get:
       tags:
-      - Bills
+        - Bills
       operationId: getBill
       parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "200":
           description: OK
@@ -1859,18 +1859,18 @@ paths:
               schema:
                 $ref: "#/components/schemas/BillDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     put:
       tags:
-      - Bills
+        - Bills
       operationId: updateBill
       parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       requestBody:
         content:
           application/json:
@@ -1885,18 +1885,18 @@ paths:
               schema:
                 $ref: "#/components/schemas/FullBillDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     delete:
       tags:
-      - Bills
+        - Bills
       operationId: deleteBill
       parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "200":
           description: OK
@@ -1905,11 +1905,11 @@ paths:
               schema:
                 type: boolean
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /agetypes:
     get:
       tags:
-      - AgeTypes
+        - AgeTypes
       operationId: getAllAgeTypes
       responses:
         "200":
@@ -1921,10 +1921,10 @@ paths:
                 items:
                   $ref: "#/components/schemas/AgeTypeDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     put:
       tags:
-      - AgeTypes
+        - AgeTypes
       operationId: updateAgeType
       requestBody:
         content:
@@ -1944,11 +1944,11 @@ paths:
                 items:
                   $ref: "#/components/schemas/AgeTypeDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /admissiontypes:
     get:
       tags:
-      - AdmissionTypes
+        - AdmissionTypes
       operationId: getAdmissionTypes
       responses:
         "200":
@@ -1960,10 +1960,10 @@ paths:
                 items:
                   $ref: "#/components/schemas/AdmissionTypeDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     put:
       tags:
-      - AdmissionTypes
+        - AdmissionTypes
       operationId: updateAdmissionTypes
       requestBody:
         content:
@@ -1979,10 +1979,10 @@ paths:
               schema:
                 $ref: "#/components/schemas/AdmissionTypeDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     post:
       tags:
-      - AdmissionTypes
+        - AdmissionTypes
       operationId: newAdmissionType
       requestBody:
         content:
@@ -1998,40 +1998,40 @@ paths:
               schema:
                 $ref: "#/components/schemas/AdmissionTypeDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /admissions:
     get:
       tags:
-      - Admissions
+        - Admissions
       operationId: getAdmissions
       parameters:
-      - name: admissionrange
-        in: query
-        required: true
-        schema:
-          type: array
-          items:
-            type: string
-      - name: page
-        in: query
-        required: false
-        schema:
-          type: integer
-          format: int32
-          default: 0
-      - name: size
-        in: query
-        required: false
-        schema:
-          type: integer
-          format: int32
-          default: 80
-      - name: paged
-        in: query
-        required: false
-        schema:
-          type: boolean
-          default: false
+        - name: admissionrange
+          in: query
+          required: true
+          schema:
+            type: array
+            items:
+              type: string
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: size
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 80
+        - name: paged
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: false
       responses:
         "400":
           description: Bad Request
@@ -2042,10 +2042,10 @@ paths:
               schema:
                 $ref: "#/components/schemas/PageAdmissionDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     put:
       tags:
-      - Admissions
+        - Admissions
       operationId: updateAdmissions
       requestBody:
         content:
@@ -2063,10 +2063,10 @@ paths:
               schema:
                 $ref: "#/components/schemas/AdmissionDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     post:
       tags:
-      - Admissions
+        - Admissions
       operationId: newAdmissions
       requestBody:
         content:
@@ -2084,11 +2084,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/AdmissionDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /visits:
     post:
       tags:
-      - Visit
+        - Visit
       operationId: newVisit
       requestBody:
         content:
@@ -2104,11 +2104,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/VisitDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /visits/insertList:
     post:
       tags:
-      - Visit
+        - Visit
       operationId: newVisits
       requestBody:
         content:
@@ -2126,11 +2126,11 @@ paths:
               schema:
                 type: boolean
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /usersettings:
     get:
       tags:
-      - User Settings
+        - User Settings
       operationId: getUserSettings
       responses:
         "200":
@@ -2142,10 +2142,10 @@ paths:
                 items:
                   $ref: "#/components/schemas/UserSettingDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     post:
       tags:
-      - User Settings
+        - User Settings
       operationId: newUserSettings
       requestBody:
         content:
@@ -2161,18 +2161,18 @@ paths:
               schema:
                 $ref: "#/components/schemas/UserSettingDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /users:
     get:
       tags:
-      - Users
+        - Users
       operationId: getUser
       parameters:
-      - name: group_id
-        in: query
-        required: false
-        schema:
-          type: string
+        - name: group_id
+          in: query
+          required: false
+          schema:
+            type: string
       responses:
         "200":
           description: OK
@@ -2183,10 +2183,10 @@ paths:
                 items:
                   $ref: "#/components/schemas/UserDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     post:
       tags:
-      - Users
+        - Users
       operationId: newUser
       requestBody:
         content:
@@ -2202,11 +2202,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/UserDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /usergroups:
     get:
       tags:
-      - User Groups
+        - User Groups
       operationId: getUserGroups
       responses:
         "200":
@@ -2218,10 +2218,10 @@ paths:
                 items:
                   $ref: "#/components/schemas/UserGroupDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     post:
       tags:
-      - User Groups
+        - User Groups
       operationId: newUserGroup
       requestBody:
         content:
@@ -2237,24 +2237,24 @@ paths:
               schema:
                 $ref: "#/components/schemas/UserGroupDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /usergroups/{group_code}/permissions/{id}:
     post:
       tags:
-      - User Groups
+        - User Groups
       operationId: assignPermission
       parameters:
-      - name: group_code
-        in: path
-        required: true
-        schema:
-          type: string
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: group_code
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "201":
           description: Created
@@ -2264,32 +2264,32 @@ paths:
                 type: integer
                 format: int32
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     delete:
       tags:
-      - User Groups
+        - User Groups
       operationId: revokePermission
       parameters:
-      - name: group_code
-        in: path
-        required: true
-        schema:
-          type: string
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: group_code
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "204":
           description: No Content
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /therapies:
     post:
       tags:
-      - Therapies
+        - Therapies
       operationId: newTherapy
       requestBody:
         content:
@@ -2305,11 +2305,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/TherapyRowDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /therapies/replace:
     post:
       tags:
-      - Therapies
+        - Therapies
       operationId: replaceTherapies
       requestBody:
         content:
@@ -2327,11 +2327,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/TherapyRowDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /therapies/meds-out-of-stock:
     post:
       tags:
-      - Therapies
+        - Therapies
       operationId: getMedicalsOutOfStock
       requestBody:
         content:
@@ -2351,11 +2351,11 @@ paths:
                 items:
                   $ref: "#/components/schemas/MedicalDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /therapies/from-rows:
     post:
       tags:
-      - Therapies
+        - Therapies
       operationId: getTherapies
       requestBody:
         content:
@@ -2375,11 +2375,11 @@ paths:
                 items:
                   $ref: "#/components/schemas/TherapyDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /therapies/from-row:
     post:
       tags:
-      - Therapies
+        - Therapies
       operationId: getTherapy
       requestBody:
         content:
@@ -2395,18 +2395,18 @@ paths:
               schema:
                 $ref: "#/components/schemas/TherapyDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /stockmovements/discharge:
     post:
       tags:
-      - Stock Movements
+        - Stock Movements
       operationId: newMultipleDischargingMovements
       parameters:
-      - name: ref
-        in: query
-        required: true
-        schema:
-          type: string
+        - name: ref
+          in: query
+          required: true
+          schema:
+            type: string
       requestBody:
         content:
           application/json:
@@ -2423,18 +2423,18 @@ paths:
               schema:
                 type: boolean
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /stockmovements/charge:
     post:
       tags:
-      - Stock Movements
+        - Stock Movements
       operationId: newMultipleChargingMovements
       parameters:
-      - name: ref
-        in: query
-        required: true
-        schema:
-          type: string
+        - name: ref
+          in: query
+          required: true
+          schema:
+            type: string
       requestBody:
         content:
           application/json:
@@ -2451,23 +2451,23 @@ paths:
               schema:
                 type: boolean
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /sms:
     get:
       tags:
-      - SMS
+        - SMS
       operationId: getAll
       parameters:
-      - name: dateFrom
-        in: query
-        required: true
-        schema:
-          type: string
-      - name: dateTo
-        in: query
-        required: true
-        schema:
-          type: string
+        - name: dateFrom
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: dateTo
+          in: query
+          required: true
+          schema:
+            type: string
       responses:
         "200":
           description: OK
@@ -2478,18 +2478,18 @@ paths:
                 items:
                   $ref: "#/components/schemas/SmsDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     post:
       tags:
-      - SMS
+        - SMS
       operationId: saveSms
       parameters:
-      - name: split
-        in: query
-        required: false
-        schema:
-          type: boolean
-          default: false
+        - name: split
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: false
       requestBody:
         content:
           application/json:
@@ -2504,11 +2504,11 @@ paths:
               schema:
                 type: boolean
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /sms/delete:
     post:
       tags:
-      - SMS
+        - SMS
       operationId: deleteSms
       requestBody:
         content:
@@ -2544,7 +2544,7 @@ paths:
   /pricesothers:
     get:
       tags:
-      - Others Price
+        - Others Price
       operationId: getPricesOthers
       responses:
         "200":
@@ -2556,10 +2556,10 @@ paths:
                 items:
                   $ref: "#/components/schemas/PricesOthersDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     post:
       tags:
-      - Others Price
+        - Others Price
       operationId: newPricesOthers
       requestBody:
         content:
@@ -2575,11 +2575,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/PricesOthersDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /pricelists:
     get:
       tags:
-      - Price Lists
+        - Price Lists
       operationId: getPriceLists
       responses:
         "200":
@@ -2591,10 +2591,10 @@ paths:
                 items:
                   $ref: "#/components/schemas/PriceListDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     post:
       tags:
-      - Price Lists
+        - Price Lists
       operationId: newPriceList
       requestBody:
         content:
@@ -2610,11 +2610,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/PriceListDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /pregnanttreatmenttypes:
     get:
       tags:
-      - Pregnant Treatment Types
+        - Pregnant Treatment Types
       operationId: getPregnantTreatmentTypes
       responses:
         "200":
@@ -2626,10 +2626,10 @@ paths:
                 items:
                   $ref: "#/components/schemas/PregnantTreatmentTypeDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     post:
       tags:
-      - Pregnant Treatment Types
+        - Pregnant Treatment Types
       operationId: newPregnantTreatmentType
       requestBody:
         content:
@@ -2645,11 +2645,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/PregnantTreatmentTypeDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /patientvaccines:
     post:
       tags:
-      - Patient Vaccines
+        - Patient Vaccines
       operationId: newPatientVaccine
       requestBody:
         content:
@@ -2665,27 +2665,27 @@ paths:
               schema:
                 $ref: "#/components/schemas/PatientVaccineDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /patients:
     get:
       tags:
-      - Patients
+        - Patients
       operationId: getPatients
       parameters:
-      - name: page
-        in: query
-        required: false
-        schema:
-          type: integer
-          format: int32
-          default: 0
-      - name: size
-        in: query
-        required: false
-        schema:
-          type: integer
-          format: int32
-          default: 80
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: size
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 80
       responses:
         "200":
           description: OK
@@ -2694,10 +2694,10 @@ paths:
               schema:
                 $ref: "#/components/schemas/PagePatientDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     post:
       tags:
-      - Patients
+        - Patients
       operationId: newPatient
       requestBody:
         content:
@@ -2713,11 +2713,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/PatientDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /operationtypes:
     get:
       tags:
-      - Operations Types
+        - Operations Types
       operationId: getOperationTypes
       responses:
         "200":
@@ -2729,10 +2729,10 @@ paths:
                 items:
                   $ref: "#/components/schemas/OperationTypeDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     post:
       tags:
-      - Operations Types
+        - Operations Types
       operationId: newOperationType
       requestBody:
         content:
@@ -2748,11 +2748,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/OperationTypeDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /operations:
     get:
       tags:
-      - Operations
+        - Operations
       operationId: getOperations
       responses:
         "200":
@@ -2764,10 +2764,10 @@ paths:
                 items:
                   $ref: "#/components/schemas/OperationDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     post:
       tags:
-      - Operations
+        - Operations
       operationId: newOperation
       requestBody:
         content:
@@ -2783,11 +2783,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/OperationDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /operations/rows/search/opd:
     post:
       tags:
-      - Operations
+        - Operations
       operationId: getOperationRowsByOpd
       requestBody:
         content:
@@ -2805,11 +2805,11 @@ paths:
                 items:
                   $ref: "#/components/schemas/OperationRowDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /opds:
     post:
       tags:
-      - Opds
+        - Opds
       operationId: newOpd
       requestBody:
         content:
@@ -2825,11 +2825,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/OpdDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /opds/rows:
     post:
       tags:
-      - Opds
+        - Opds
       operationId: newOpdWithOperationRow
       requestBody:
         content:
@@ -2845,11 +2845,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/OpdWithOperationRowDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /medicalstockward/movements:
     post:
       tags:
-      - Medical Stock Ward
+        - Medical Stock Ward
       operationId: newMovementWard
       requestBody:
         content:
@@ -2865,18 +2865,18 @@ paths:
               schema:
                 type: boolean
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /medicalstockmovements/discharge:
     post:
       tags:
-      - Stock Movements
+        - Stock Movements
       operationId: newMultipleDischargingMovements_1
       parameters:
-      - name: ref
-        in: query
-        required: true
-        schema:
-          type: string
+        - name: ref
+          in: query
+          required: true
+          schema:
+            type: string
       requestBody:
         content:
           application/json:
@@ -2893,18 +2893,18 @@ paths:
               schema:
                 type: boolean
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /medicalstockmovements/charge:
     post:
       tags:
-      - Stock Movements
+        - Stock Movements
       operationId: newMultipleChargingMovements_1
       parameters:
-      - name: ref
-        in: query
-        required: true
-        schema:
-          type: string
+        - name: ref
+          in: query
+          required: true
+          schema:
+            type: string
       requestBody:
         content:
           application/json:
@@ -2921,30 +2921,30 @@ paths:
               schema:
                 type: boolean
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /laboratories:
     get:
       tags:
-      - Laboratories
+        - Laboratories
       operationId: getLaboratory
       parameters:
-      - name: oneWeek
-        in: query
-        required: true
-        schema:
-          type: boolean
-      - name: page
-        in: query
-        required: true
-        schema:
-          type: integer
-          format: int32
-      - name: size
-        in: query
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: oneWeek
+          in: query
+          required: true
+          schema:
+            type: boolean
+        - name: page
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: size
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "200":
           description: OK
@@ -2953,10 +2953,10 @@ paths:
               schema:
                 $ref: "#/components/schemas/PageLabWithRowsDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     post:
       tags:
-      - Laboratories
+        - Laboratories
       operationId: newLaboratory
       requestBody:
         content:
@@ -2972,11 +2972,11 @@ paths:
               schema:
                 type: boolean
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /laboratories/insertList:
     post:
       tags:
-      - Laboratories
+        - Laboratories
       operationId: newLaboratory2
       requestBody:
         content:
@@ -2994,11 +2994,11 @@ paths:
               schema:
                 type: boolean
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /laboratories/examRequest:
     get:
       tags:
-      - Laboratories
+        - Laboratories
       operationId: getLaboratoryExamRequest
       responses:
         "200":
@@ -3010,10 +3010,10 @@ paths:
                 items:
                   $ref: "#/components/schemas/LaboratoryDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     post:
       tags:
-      - Laboratories
+        - Laboratories
       operationId: newExamRequest
       requestBody:
         content:
@@ -3029,11 +3029,11 @@ paths:
               schema:
                 type: boolean
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /examtypes:
     get:
       tags:
-      - Exam Types
+        - Exam Types
       operationId: getExamTypes
       responses:
         "200":
@@ -3045,10 +3045,10 @@ paths:
                 items:
                   $ref: "#/components/schemas/ExamTypeDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     post:
       tags:
-      - Exam Types
+        - Exam Types
       operationId: newExamType
       requestBody:
         content:
@@ -3064,11 +3064,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/ExamTypeDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /exams:
     get:
       tags:
-      - Exams
+        - Exams
       operationId: getExams
       responses:
         "200":
@@ -3080,10 +3080,10 @@ paths:
                 items:
                   $ref: "#/components/schemas/ExamDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     post:
       tags:
-      - Exams
+        - Exams
       operationId: newExam
       requestBody:
         content:
@@ -3099,11 +3099,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/ExamDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /examrows:
     get:
       tags:
-      - Exam Rows
+        - Exam Rows
       operationId: getExamRows
       responses:
         "200":
@@ -3115,10 +3115,10 @@ paths:
                 items:
                   $ref: "#/components/schemas/ExamRowDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     post:
       tags:
-      - Exam Rows
+        - Exam Rows
       operationId: newExamRow
       requestBody:
         content:
@@ -3134,11 +3134,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/ExamRowDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /examinations:
     post:
       tags:
-      - Examinations
+        - Examinations
       operationId: newPatientExamination
       requestBody:
         content:
@@ -3154,29 +3154,29 @@ paths:
               schema:
                 $ref: "#/components/schemas/PatientExaminationDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /bills:
     get:
       tags:
-      - Bills
+        - Bills
       operationId: searchBills_1
       parameters:
-      - name: datefrom
-        in: query
-        required: true
-        schema:
-          type: string
-      - name: dateto
-        in: query
-        required: true
-        schema:
-          type: string
-      - name: patient_code
-        in: query
-        required: false
-        schema:
-          type: integer
-          format: int32
+        - name: datefrom
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: dateto
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: patient_code
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
       responses:
         "200":
           description: OK
@@ -3187,10 +3187,10 @@ paths:
                 items:
                   $ref: "#/components/schemas/BillDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     post:
       tags:
-      - Bills
+        - Bills
       operationId: newBill
       requestBody:
         content:
@@ -3206,11 +3206,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/FullBillDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /bills/search/by/payments:
     post:
       tags:
-      - Bills
+        - Bills
       operationId: searchBillsByPayments
       requestBody:
         content:
@@ -3230,23 +3230,23 @@ paths:
                 items:
                   $ref: "#/components/schemas/BillDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /bills/search/by/item:
     post:
       tags:
-      - Bills
+        - Bills
       operationId: searchBills
       parameters:
-      - name: datefrom
-        in: query
-        required: true
-        schema:
-          type: string
-      - name: dateto
-        in: query
-        required: true
-        schema:
-          type: string
+        - name: datefrom
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: dateto
+          in: query
+          required: true
+          schema:
+            type: string
       requestBody:
         content:
           application/json:
@@ -3263,11 +3263,11 @@ paths:
                 items:
                   $ref: "#/components/schemas/BillDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /auth/refresh-token:
     post:
       tags:
-      - Login
+        - Login
       operationId: refreshToken
       requestBody:
         content:
@@ -3283,11 +3283,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/LoginResponse"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /auth/logout:
     post:
       tags:
-      - Login
+        - Login
       description: Logout the current user.
       operationId: logout
       responses:
@@ -3296,7 +3296,7 @@ paths:
   /auth/login:
     post:
       tags:
-      - Login
+        - Login
       operationId: authenticateUser
       requestBody:
         content:
@@ -3312,19 +3312,19 @@ paths:
               schema:
                 $ref: "#/components/schemas/LoginResponse"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /admissions/discharge:
     post:
       tags:
-      - Admissions
+        - Admissions
       operationId: dischargePatient
       parameters:
-      - name: patientCode
-        in: query
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: patientCode
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
       requestBody:
         content:
           application/json:
@@ -3341,11 +3341,11 @@ paths:
               schema:
                 type: boolean
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /wardsNoMaternity:
     get:
       tags:
-      - Wards
+        - Wards
       operationId: getWardsNoMaternity
       responses:
         "200":
@@ -3357,18 +3357,18 @@ paths:
                 items:
                   $ref: "#/components/schemas/WardDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /wards/occupation/{code}:
     get:
       tags:
-      - Wards
+        - Wards
       operationId: getCurrentOccupation
       parameters:
-      - name: code
-        in: path
-        required: true
-        schema:
-          type: string
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         "200":
           description: OK
@@ -3378,18 +3378,18 @@ paths:
                 type: integer
                 format: int32
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /wards/check/{code}:
     get:
       tags:
-      - Wards
+        - Wards
       operationId: checkWardCode
       parameters:
-      - name: code
-        in: path
-        required: true
-        schema:
-          type: string
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         "200":
           description: OK
@@ -3398,18 +3398,18 @@ paths:
               schema:
                 type: boolean
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /wards/check/maternity/{createIfNotExist}:
     get:
       tags:
-      - Wards
+        - Wards
       operationId: checkWardMaternityCode
       parameters:
-      - name: createIfNotExist
-        in: path
-        required: true
-        schema:
-          type: boolean
+        - name: createIfNotExist
+          in: path
+          required: true
+          schema:
+            type: boolean
       responses:
         "200":
           description: OK
@@ -3418,19 +3418,19 @@ paths:
               schema:
                 type: boolean
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /visits/patient/{patID}:
     get:
       tags:
-      - Visit
+        - Visit
       operationId: getVisit
       parameters:
-      - name: patID
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: patID
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "200":
           description: OK
@@ -3441,18 +3441,18 @@ paths:
                 items:
                   $ref: "#/components/schemas/VisitDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /vaccinetypes/check/{code}:
     get:
       tags:
-      - Vaccine Type
+        - Vaccine Type
       operationId: checkVaccineTypeCode
       parameters:
-      - name: code
-        in: path
-        required: true
-        schema:
-          type: string
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         "200":
           description: OK
@@ -3461,18 +3461,18 @@ paths:
               schema:
                 type: boolean
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /vaccines/type-code/{vaccineTypeCode}:
     get:
       tags:
-      - Vaccines
+        - Vaccines
       operationId: getVaccinesByVaccineTypeCode
       parameters:
-      - name: vaccineTypeCode
-        in: path
-        required: true
-        schema:
-          type: string
+        - name: vaccineTypeCode
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         "200":
           description: OK
@@ -3483,18 +3483,18 @@ paths:
                 items:
                   $ref: "#/components/schemas/VaccineDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /vaccines/check/{code}:
     get:
       tags:
-      - Vaccines
+        - Vaccines
       operationId: checkVaccineCode
       parameters:
-      - name: code
-        in: path
-        required: true
-        schema:
-          type: string
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         "200":
           description: OK
@@ -3503,18 +3503,18 @@ paths:
               schema:
                 type: boolean
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /usersettings/{configName}:
     get:
       tags:
-      - User Settings
+        - User Settings
       operationId: getUserSettingByUser
       parameters:
-      - name: configName
-        in: path
-        required: true
-        schema:
-          type: string
+        - name: configName
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         "200":
           description: OK
@@ -3523,18 +3523,18 @@ paths:
               schema:
                 $ref: "#/components/schemas/UserSettingDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /users/{username}/permissions:
     get:
       tags:
-      - Users
+        - Users
       operationId: retrievePermissionsByUsername
       parameters:
-      - name: username
-        in: path
-        required: true
-        schema:
-          type: string
+        - name: username
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         "200":
           description: OK
@@ -3545,19 +3545,19 @@ paths:
                 items:
                   $ref: "#/components/schemas/PermissionDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /therapies/{code_patient}:
     get:
       tags:
-      - Therapies
+        - Therapies
       operationId: getTherapyRows
       parameters:
-      - name: code_patient
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: code_patient
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "200":
           description: OK
@@ -3568,18 +3568,18 @@ paths:
                 items:
                   $ref: "#/components/schemas/TherapyRowDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     delete:
       tags:
-      - Therapies
+        - Therapies
       operationId: deleteAllTherapies
       parameters:
-      - name: code_patient
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: code_patient
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "200":
           description: OK
@@ -3588,19 +3588,19 @@ paths:
               schema:
                 type: boolean
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /suppliers/{id}:
     get:
       tags:
-      - Suppliers
+        - Suppliers
       operationId: getSuppliers_1
       parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "200":
           description: OK
@@ -3609,27 +3609,27 @@ paths:
               schema:
                 $ref: "#/components/schemas/SupplierDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     delete:
       tags:
-      - Suppliers
+        - Suppliers
       operationId: deleteSupplier
       parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "204":
           description: No Content
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /stockmovements:
     get:
       tags:
-      - Stock Movements
+        - Stock Movements
       operationId: getMovements
       responses:
         "200":
@@ -3641,18 +3641,18 @@ paths:
                 items:
                   $ref: "#/components/schemas/MovementDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /stockmovements/{ref}:
     get:
       tags:
-      - Stock Movements
+        - Stock Movements
       operationId: getMovements_1
       parameters:
-      - name: ref
-        in: path
-        required: true
-        schema:
-          type: string
+        - name: ref
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         "200":
           description: OK
@@ -3663,19 +3663,19 @@ paths:
                 items:
                   $ref: "#/components/schemas/MovementDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /stockmovements/lot/{med_code}:
     get:
       tags:
-      - Stock Movements
+        - Stock Movements
       operationId: getLotByMedical
       parameters:
-      - name: med_code
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: med_code
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "200":
           description: OK
@@ -3686,70 +3686,70 @@ paths:
                 items:
                   $ref: "#/components/schemas/LotDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /stockmovements/filter/v2:
     get:
       tags:
-      - Stock Movements
+        - Stock Movements
       operationId: getMovements_2
       parameters:
-      - name: med_code
-        in: query
-        required: false
-        schema:
-          type: integer
-          format: int32
-      - name: med_type
-        in: query
-        required: false
-        schema:
-          type: string
-      - name: ward_id
-        in: query
-        required: false
-        schema:
-          type: string
-      - name: mov_type
-        in: query
-        required: false
-        schema:
-          type: string
-      - name: mov_from
-        in: query
-        required: false
-        schema:
-          type: string
-          format: date-time
-      - name: mov_to
-        in: query
-        required: false
-        schema:
-          type: string
-          format: date-time
-      - name: lot_prep_from
-        in: query
-        required: false
-        schema:
-          type: string
-          format: date-time
-      - name: lot_prep_to
-        in: query
-        required: false
-        schema:
-          type: string
-          format: date-time
-      - name: lot_due_from
-        in: query
-        required: false
-        schema:
-          type: string
-          format: date-time
-      - name: lot_due_to
-        in: query
-        required: false
-        schema:
-          type: string
-          format: date-time
+        - name: med_code
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+        - name: med_type
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: ward_id
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: mov_type
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: mov_from
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: mov_to
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: lot_prep_from
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: lot_prep_to
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: lot_due_from
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: lot_due_to
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date-time
       responses:
         "200":
           description: OK
@@ -3760,30 +3760,30 @@ paths:
                 items:
                   $ref: "#/components/schemas/MovementDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /stockmovements/filter/v1:
     get:
       tags:
-      - Stock Movements
+        - Stock Movements
       operationId: getMovements_3
       parameters:
-      - name: ward_id
-        in: query
-        required: true
-        schema:
-          type: string
-      - name: from
-        in: query
-        required: true
-        schema:
-          type: string
-          format: date-time
-      - name: to
-        in: query
-        required: true
-        schema:
-          type: string
-          format: date-time
+        - name: ward_id
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: from
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date-time
+        - name: to
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date-time
       responses:
         "200":
           description: OK
@@ -3794,25 +3794,25 @@ paths:
                 items:
                   $ref: "#/components/schemas/MovementDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /stockmovements/critical/check:
     get:
       tags:
-      - Stock Movements
+        - Stock Movements
       operationId: alertCriticalQuantity
       parameters:
-      - name: med_code
-        in: query
-        required: true
-        schema:
-          type: integer
-          format: int32
-      - name: qty
-        in: query
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: med_code
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: qty
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "200":
           description: OK
@@ -3882,7 +3882,7 @@ paths:
   /reports/exams-list:
     get:
       tags:
-      - Reports
+        - Reports
       operationId: printExamsListPdf
       responses:
         "200":
@@ -3895,11 +3895,11 @@ paths:
                   type: string
                   format: byte
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /reports/diseases-list:
     get:
       tags:
-      - Reports
+        - Reports
       operationId: printDiseasesListPdf
       responses:
         "200":
@@ -3912,11 +3912,11 @@ paths:
                   type: string
                   format: byte
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /pricelists/prices:
     get:
       tags:
-      - Price Lists
+        - Price Lists
       operationId: getPrices
       responses:
         "200":
@@ -3928,19 +3928,19 @@ paths:
                 items:
                   $ref: "#/components/schemas/PriceDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /pricelists/duplicate/{id}:
     get:
       tags:
-      - Price Lists
+        - Price Lists
       operationId: copyList
       parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int64
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
         "200":
           description: OK
@@ -3949,31 +3949,31 @@ paths:
               schema:
                 type: boolean
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /pricelists/duplicate/byfactor/{id}:
     get:
       tags:
-      - Price Lists
+        - Price Lists
       operationId: copyByFactorAndStep
       parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int64
-      - name: factor
-        in: query
-        required: true
-        schema:
-          type: number
-          format: double
-      - name: step
-        in: query
-        required: true
-        schema:
-          type: number
-          format: double
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: factor
+          in: query
+          required: true
+          schema:
+            type: number
+            format: double
+        - name: step
+          in: query
+          required: true
+          schema:
+            type: number
+            format: double
       responses:
         "200":
           description: OK
@@ -3982,11 +3982,11 @@ paths:
               schema:
                 type: boolean
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /permissions:
     get:
       tags:
-      - Permissions
+        - Permissions
       operationId: retrieveAllPermissions
       responses:
         "200":
@@ -3998,19 +3998,19 @@ paths:
                 items:
                   $ref: "#/components/schemas/PermissionDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /permissions/{id}:
     get:
       tags:
-      - Permissions
+        - Permissions
       operationId: retrievePermissionById
       parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "200":
           description: OK
@@ -4019,18 +4019,18 @@ paths:
               schema:
                 $ref: "#/components/schemas/PermissionDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /permissions/userGroupCode/{userGroupCode}:
     get:
       tags:
-      - Permissions
+        - Permissions
       operationId: retrievePermissionsByUserGroupCode
       parameters:
-      - name: userGroupCode
-        in: path
-        required: true
-        schema:
-          type: string
+        - name: userGroupCode
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         "200":
           description: OK
@@ -4041,18 +4041,18 @@ paths:
                 items:
                   $ref: "#/components/schemas/PermissionDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /permissions/name/{name}:
     get:
       tags:
-      - Permissions
+        - Permissions
       operationId: retrievePermissionByName
       parameters:
-      - name: name
-        in: path
-        required: true
-        schema:
-          type: string
+        - name: name
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         "200":
           description: OK
@@ -4061,18 +4061,18 @@ paths:
               schema:
                 $ref: "#/components/schemas/PermissionDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /patientvaccines/week:
     get:
       tags:
-      - Patient Vaccines
+        - Patient Vaccines
       operationId: getPatientVaccines
       parameters:
-      - name: oneWeek
-        in: query
-        required: false
-        schema:
-          type: boolean
+        - name: oneWeek
+          in: query
+          required: false
+          schema:
+            type: boolean
       responses:
         "200":
           description: OK
@@ -4083,19 +4083,19 @@ paths:
                 items:
                   $ref: "#/components/schemas/PatientVaccineDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /patientvaccines/progyear/{year}:
     get:
       tags:
-      - Patient Vaccines
+        - Patient Vaccines
       operationId: getProgYear
       parameters:
-      - name: year
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: year
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "200":
           description: OK
@@ -4105,52 +4105,52 @@ paths:
                 type: integer
                 format: int32
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /patientvaccines/filter:
     get:
       tags:
-      - Patient Vaccines
+        - Patient Vaccines
       operationId: getPatientVaccinesByDatesRanges
       parameters:
-      - name: vaccineTypeCode
-        in: query
-        required: true
-        schema:
-          type: string
-      - name: vaccineCode
-        in: query
-        required: true
-        schema:
-          type: string
-      - name: dateFrom
-        in: query
-        required: true
-        schema:
-          type: string
-          format: date
-      - name: dateTo
-        in: query
-        required: true
-        schema:
-          type: string
-          format: date
-      - name: sex
-        in: query
-        required: true
-        schema:
-          type: string
-      - name: ageFrom
-        in: query
-        required: true
-        schema:
-          type: integer
-          format: int32
-      - name: ageTo
-        in: query
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: vaccineTypeCode
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: vaccineCode
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: dateFrom
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date
+        - name: dateTo
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date
+        - name: sex
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: ageFrom
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: ageTo
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "200":
           description: OK
@@ -4161,37 +4161,37 @@ paths:
                 items:
                   $ref: "#/components/schemas/PatientVaccineDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /patients/search:
     get:
       tags:
-      - Patients
+        - Patients
       operationId: searchPatient
       parameters:
-      - name: firstName
-        in: query
-        required: false
-        schema:
-          type: string
-          default: ""
-      - name: secondName
-        in: query
-        required: false
-        schema:
-          type: string
-          default: ""
-      - name: birthDate
-        in: query
-        required: false
-        schema:
-          type: string
-          format: date-time
-      - name: address
-        in: query
-        required: false
-        schema:
-          type: string
-          default: ""
+        - name: firstName
+          in: query
+          required: false
+          schema:
+            type: string
+            default: ""
+        - name: secondName
+          in: query
+          required: false
+          schema:
+            type: string
+            default: ""
+        - name: birthDate
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: address
+          in: query
+          required: false
+          schema:
+            type: string
+            default: ""
       responses:
         "200":
           description: OK
@@ -4202,11 +4202,11 @@ paths:
                 items:
                   $ref: "#/components/schemas/PatientDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /patients/nextcode:
     get:
       tags:
-      - Patients
+        - Patients
       operationId: getPatientNextCode
       responses:
         "200":
@@ -4217,25 +4217,25 @@ paths:
                 type: integer
                 format: int32
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /patients/merge:
     get:
       tags:
-      - Patients
+        - Patients
       operationId: mergePatients
       parameters:
-      - name: mergedcode
-        in: query
-        required: true
-        schema:
-          type: integer
-          format: int32
-      - name: code2
-        in: query
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: mergedcode
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: code2
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "200":
           description: OK
@@ -4244,11 +4244,11 @@ paths:
               schema:
                 type: boolean
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /patients/cities:
     get:
       tags:
-      - Patients
+        - Patients
       operationId: getPatientCities
       responses:
         "200":
@@ -4260,19 +4260,19 @@ paths:
                 items:
                   type: string
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /patients/all:
     get:
       tags:
-      - Patients
+        - Patients
       operationId: getPatientAll
       parameters:
-      - name: code
-        in: query
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: code
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "200":
           description: OK
@@ -4281,18 +4281,18 @@ paths:
               schema:
                 $ref: "#/components/schemas/PatientDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /operations/search/type:
     get:
       tags:
-      - Operations
+        - Operations
       operationId: getOperationByTypeDescription
       parameters:
-      - name: typeDescription
-        in: query
-        required: true
-        schema:
-          type: string
+        - name: typeDescription
+          in: query
+          required: true
+          schema:
+            type: string
       responses:
         "200":
           description: OK
@@ -4303,19 +4303,19 @@ paths:
                 items:
                   $ref: "#/components/schemas/OperationDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /operations/rows/search/patient:
     get:
       tags:
-      - Operations
+        - Operations
       operationId: getOperationRowsByPatient
       parameters:
-      - name: patientCode
-        in: query
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: patientCode
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "200":
           description: OK
@@ -4326,19 +4326,19 @@ paths:
                 items:
                   $ref: "#/components/schemas/OperationRowDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /operations/rows/search/admission:
     get:
       tags:
-      - Operations
+        - Operations
       operationId: getOperationRowsByAdmt
       parameters:
-      - name: admissionId
-        in: query
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: admissionId
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "200":
           description: OK
@@ -4349,18 +4349,18 @@ paths:
                 items:
                   $ref: "#/components/schemas/OperationRowDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /opds/weekly:
     get:
       tags:
-      - Opds
+        - Opds
       operationId: getOpdToDayOrWeek
       parameters:
-      - name: oneWeek
-        in: query
-        required: false
-        schema:
-          type: boolean
+        - name: oneWeek
+          in: query
+          required: false
+          schema:
+            type: boolean
       responses:
         "200":
           description: OK
@@ -4371,91 +4371,91 @@ paths:
                 items:
                   $ref: "#/components/schemas/OpdDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /opds/search:
     get:
       tags:
-      - Opds
+        - Opds
       operationId: getOpdByDates
       parameters:
-      - name: dateFrom
-        in: query
-        required: true
-        schema:
-          type: string
-      - name: dateTo
-        in: query
-        required: true
-        schema:
-          type: string
-      - name: diseaseTypeCode
-        in: query
-        required: false
-        schema:
-          type: string
-      - name: diseaseCode
-        in: query
-        required: false
-        schema:
-          type: string
-      - name: ageFrom
-        in: query
-        required: false
-        schema:
-          type: integer
-          format: int32
-          default: 0
-      - name: ageTo
-        in: query
-        required: false
-        schema:
-          type: integer
-          format: int32
-          default: 200
-      - name: sex
-        in: query
-        required: false
-        schema:
-          type: string
-          default: A
-      - name: newPatient
-        in: query
-        required: false
-        schema:
-          type: string
-          default: A
-      - name: patientCode
-        in: query
-        required: false
-        schema:
-          type: integer
-          format: int32
-          default: 0
-      - name: page
-        in: query
-        required: false
-        schema:
-          type: integer
-          format: int32
-          default: 0
-      - name: size
-        in: query
-        required: false
-        schema:
-          type: integer
-          format: int32
-          default: 80
-      - name: paged
-        in: query
-        required: false
-        schema:
-          type: boolean
-          default: false
-      - name: wardCode
-        in: query
-        required: false
-        schema:
-          type: string
+        - name: dateFrom
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: dateTo
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: diseaseTypeCode
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: diseaseCode
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: ageFrom
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: ageTo
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 200
+        - name: sex
+          in: query
+          required: false
+          schema:
+            type: string
+            default: A
+        - name: newPatient
+          in: query
+          required: false
+          schema:
+            type: string
+            default: A
+        - name: patientCode
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: size
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 80
+        - name: paged
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - name: wardCode
+          in: query
+          required: false
+          schema:
+            type: string
       responses:
         "200":
           description: OK
@@ -4464,19 +4464,19 @@ paths:
               schema:
                 $ref: "#/components/schemas/PageOpdDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /opds/patient/{pcode}:
     get:
       tags:
-      - Opds
+        - Opds
       operationId: getOpdByPatient
       parameters:
-      - name: pcode
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: pcode
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "200":
           description: OK
@@ -4487,19 +4487,19 @@ paths:
                 items:
                   $ref: "#/components/schemas/OpdWithOperationRowDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /opds/last/{patientCode}:
     get:
       tags:
-      - Opds
+        - Opds
       operationId: getLastOpd
       parameters:
-      - name: patientCode
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: patientCode
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "200":
           description: OK
@@ -4508,25 +4508,25 @@ paths:
               schema:
                 $ref: "#/components/schemas/OpdDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /opds/check/progyear:
     get:
       tags:
-      - Opds
+        - Opds
       operationId: isExistOpdNum
       parameters:
-      - name: opdNum
-        in: query
-        required: true
-        schema:
-          type: integer
-          format: int32
-      - name: year
-        in: query
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: opdNum
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: year
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "200":
           description: OK
@@ -4535,19 +4535,19 @@ paths:
               schema:
                 type: boolean
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /opds/ProgYear/{year}:
     get:
       tags:
-      - Opds
+        - Opds
       operationId: getProgressiveYear
       parameters:
-      - name: year
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: year
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "200":
           description: OK
@@ -4557,18 +4557,18 @@ paths:
                 type: integer
                 format: int32
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /medstockmovementtypes/{code}:
     get:
       tags:
-      - Medical Stock Movement Type
+        - Medical Stock Movement Type
       operationId: getMovementType
       parameters:
-      - name: code
-        in: path
-        required: true
-        schema:
-          type: string
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         "200":
           description: OK
@@ -4577,17 +4577,17 @@ paths:
               schema:
                 $ref: "#/components/schemas/MovementTypeDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     delete:
       tags:
-      - Medical Stock Movement Type
+        - Medical Stock Movement Type
       operationId: deleteMedicalDsrStockMovementType
       parameters:
-      - name: code
-        in: path
-        required: true
-        schema:
-          type: string
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         "200":
           description: OK
@@ -4596,18 +4596,18 @@ paths:
               schema:
                 type: boolean
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /medstockmovementtypes/check/{code}:
     get:
       tags:
-      - Medical Stock Movement Type
+        - Medical Stock Movement Type
       operationId: isCodeUsed
       parameters:
-      - name: code
-        in: path
-        required: true
-        schema:
-          type: string
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         "200":
           description: OK
@@ -4616,18 +4616,18 @@ paths:
               schema:
                 type: boolean
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /medicaltypes/check/{code}:
     get:
       tags:
-      - Medical Types
+        - Medical Types
       operationId: isCodeUsed_1
       parameters:
-      - name: code
-        in: path
-        required: true
-        schema:
-          type: string
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         "200":
           description: OK
@@ -4636,18 +4636,18 @@ paths:
               schema:
                 type: boolean
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /medicalstockward/{ward_code}:
     get:
       tags:
-      - Medical Stock Ward
+        - Medical Stock Ward
       operationId: getMedicalsWard
       parameters:
-      - name: ward_code
-        in: path
-        required: true
-        schema:
-          type: string
+        - name: ward_code
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         "200":
           description: OK
@@ -4658,30 +4658,30 @@ paths:
                 items:
                   $ref: "#/components/schemas/MedicalWardDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /medicalstockward/movements/{ward_code}:
     get:
       tags:
-      - Medical Stock Ward
+        - Medical Stock Ward
       operationId: getMovementWard
       parameters:
-      - name: ward_code
-        in: path
-        required: true
-        schema:
-          type: string
-      - name: from
-        in: query
-        required: true
-        schema:
-          type: string
-          format: date
-      - name: to
-        in: query
-        required: true
-        schema:
-          type: string
-          format: date
+        - name: ward_code
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: from
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date
+        - name: to
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date
       responses:
         "200":
           description: OK
@@ -4692,30 +4692,30 @@ paths:
                 items:
                   $ref: "#/components/schemas/MovementWardDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /medicalstockward/movements/to/{target_ward_code}:
     get:
       tags:
-      - Medical Stock Ward
+        - Medical Stock Ward
       operationId: getWardMovementsToWard
       parameters:
-      - name: target_ward_code
-        in: path
-        required: true
-        schema:
-          type: string
-      - name: from
-        in: query
-        required: true
-        schema:
-          type: string
-          format: date-time
-      - name: to
-        in: query
-        required: true
-        schema:
-          type: string
-          format: date-time
+        - name: target_ward_code
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: from
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date-time
+        - name: to
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date-time
       responses:
         "200":
           description: OK
@@ -4726,24 +4726,24 @@ paths:
                 items:
                   $ref: "#/components/schemas/MovementWardDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /medicalstockward/current/{ward_code}:
     get:
       tags:
-      - Medical Stock Ward
+        - Medical Stock Ward
       operationId: getCurrentQuantityInWard
       parameters:
-      - name: ward_code
-        in: path
-        required: true
-        schema:
-          type: string
-      - name: med_id
-        in: query
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: ward_code
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: med_id
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "200":
           description: OK
@@ -4753,11 +4753,11 @@ paths:
                 type: integer
                 format: int32
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /medicalstockmovements:
     get:
       tags:
-      - Stock Movements
+        - Stock Movements
       operationId: getMovements_4
       responses:
         "200":
@@ -4769,18 +4769,18 @@ paths:
                 items:
                   $ref: "#/components/schemas/MovementDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /medicalstockmovements/{ref}:
     get:
       tags:
-      - Stock Movements
+        - Stock Movements
       operationId: getMovements_5
       parameters:
-      - name: ref
-        in: path
-        required: true
-        schema:
-          type: string
+        - name: ref
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         "200":
           description: OK
@@ -4791,19 +4791,19 @@ paths:
                 items:
                   $ref: "#/components/schemas/MovementDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /medicalstockmovements/lot/{med_code}:
     get:
       tags:
-      - Stock Movements
+        - Stock Movements
       operationId: getLotByMedical_1
       parameters:
-      - name: med_code
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: med_code
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "200":
           description: OK
@@ -4814,70 +4814,70 @@ paths:
                 items:
                   $ref: "#/components/schemas/LotDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /medicalstockmovements/filter/v2:
     get:
       tags:
-      - Stock Movements
+        - Stock Movements
       operationId: getMovements_6
       parameters:
-      - name: med_code
-        in: query
-        required: false
-        schema:
-          type: integer
-          format: int32
-      - name: med_type
-        in: query
-        required: false
-        schema:
-          type: string
-      - name: ward_id
-        in: query
-        required: false
-        schema:
-          type: string
-      - name: mov_type
-        in: query
-        required: false
-        schema:
-          type: string
-      - name: mov_from
-        in: query
-        required: false
-        schema:
-          type: string
-          format: date-time
-      - name: mov_to
-        in: query
-        required: false
-        schema:
-          type: string
-          format: date-time
-      - name: lot_prep_from
-        in: query
-        required: false
-        schema:
-          type: string
-          format: date-time
-      - name: lot_prep_to
-        in: query
-        required: false
-        schema:
-          type: string
-          format: date-time
-      - name: lot_due_from
-        in: query
-        required: false
-        schema:
-          type: string
-          format: date-time
-      - name: lot_due_to
-        in: query
-        required: false
-        schema:
-          type: string
-          format: date-time
+        - name: med_code
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+        - name: med_type
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: ward_id
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: mov_type
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: mov_from
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: mov_to
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: lot_prep_from
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: lot_prep_to
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: lot_due_from
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: lot_due_to
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date-time
       responses:
         "200":
           description: OK
@@ -4888,30 +4888,30 @@ paths:
                 items:
                   $ref: "#/components/schemas/MovementDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /medicalstockmovements/filter/v1:
     get:
       tags:
-      - Stock Movements
+        - Stock Movements
       operationId: getMovements_7
       parameters:
-      - name: ward_id
-        in: query
-        required: true
-        schema:
-          type: string
-      - name: from
-        in: query
-        required: true
-        schema:
-          type: string
-          format: date-time
-      - name: to
-        in: query
-        required: true
-        schema:
-          type: string
-          format: date-time
+        - name: ward_id
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: from
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date-time
+        - name: to
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date-time
       responses:
         "200":
           description: OK
@@ -4922,25 +4922,25 @@ paths:
                 items:
                   $ref: "#/components/schemas/MovementDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /medicalstockmovements/critical/check:
     get:
       tags:
-      - Stock Movements
+        - Stock Movements
       operationId: alertCriticalQuantity_1
       parameters:
-      - name: med_code
-        in: query
-        required: true
-        schema:
-          type: integer
-          format: int32
-      - name: qty
-        in: query
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: med_code
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: qty
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "200":
           description: OK
@@ -4949,19 +4949,19 @@ paths:
               schema:
                 type: boolean
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /medicals/{code}:
     get:
       tags:
-      - Medicals
+        - Medicals
       operationId: getMedical
       parameters:
-      - name: code
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "200":
           description: OK
@@ -4970,18 +4970,18 @@ paths:
               schema:
                 $ref: "#/components/schemas/MedicalDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     delete:
       tags:
-      - Medicals
+        - Medicals
       operationId: deleteMedical
       parameters:
-      - name: code
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "200":
           description: OK
@@ -4990,35 +4990,35 @@ paths:
               schema:
                 type: boolean
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /medicals/filter:
     get:
       tags:
-      - Medicals
+        - Medicals
       operationId: filterMedicals
       parameters:
-      - name: desc
-        in: query
-        required: false
-        schema:
-          type: string
-      - name: type
-        in: query
-        required: false
-        schema:
-          type: string
-      - name: critical
-        in: query
-        required: false
-        schema:
-          type: boolean
-          default: false
-      - name: name_sorted
-        in: query
-        required: false
-        schema:
-          type: boolean
-          default: false
+        - name: desc
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: type
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: critical
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - name: name_sorted
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: false
       responses:
         "200":
           description: OK
@@ -5029,18 +5029,18 @@ paths:
                 items:
                   $ref: "#/components/schemas/MedicalDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /malnutritions/{id_admission}:
     get:
       tags:
-      - Malnutritions
+        - Malnutritions
       operationId: getMalnutrition
       parameters:
-      - name: id_admission
-        in: path
-        required: true
-        schema:
-          type: string
+        - name: id_admission
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         "200":
           description: OK
@@ -5051,19 +5051,19 @@ paths:
                 items:
                   $ref: "#/components/schemas/MalnutritionDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /malnutritions/last/{id_patient}:
     get:
       tags:
-      - Malnutritions
+        - Malnutritions
       operationId: getLastMalnutrition
       parameters:
-      - name: id_patient
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: id_patient
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "200":
           description: OK
@@ -5072,11 +5072,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/MalnutritionDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /laboratories/materials:
     get:
       tags:
-      - Laboratories
+        - Laboratories
       operationId: getMaterials
       responses:
         "200":
@@ -5088,62 +5088,62 @@ paths:
                 items:
                   type: string
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /laboratories/exams:
     get:
       tags:
-      - Laboratories
+        - Laboratories
       operationId: getLaboratoryForPrint
       parameters:
-      - name: examName
-        in: query
-        required: false
-        schema:
-          type: string
-          default: ""
-      - name: dateFrom
-        in: query
-        required: true
-        schema:
-          type: string
-      - name: dateTo
-        in: query
-        required: true
-        schema:
-          type: string
-      - name: patientCode
-        in: query
-        required: false
-        schema:
-          type: integer
-          format: int32
-          default: 0
-      - name: status
-        in: query
-        required: false
-        schema:
-          type: string
-          default: ""
-      - name: page
-        in: query
-        required: false
-        schema:
-          type: integer
-          format: int32
-          default: 0
-      - name: size
-        in: query
-        required: false
-        schema:
-          type: integer
-          format: int32
-          default: 80
-      - name: paged
-        in: query
-        required: false
-        schema:
-          type: boolean
-          default: false
+        - name: examName
+          in: query
+          required: false
+          schema:
+            type: string
+            default: ""
+        - name: dateFrom
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: dateTo
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: patientCode
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: status
+          in: query
+          required: false
+          schema:
+            type: string
+            default: ""
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: size
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 80
+        - name: paged
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: false
       responses:
         "200":
           description: OK
@@ -5152,19 +5152,19 @@ paths:
               schema:
                 $ref: "#/components/schemas/PageLabWithRowsDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /laboratories/exams/{code}:
     get:
       tags:
-      - Laboratories
+        - Laboratories
       operationId: getExamWithRowsById
       parameters:
-      - name: code
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "200":
           description: OK
@@ -5173,19 +5173,19 @@ paths:
               schema:
                 $ref: "#/components/schemas/LabWithRowsDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /laboratories/examRequest/patient/{patId}:
     get:
       tags:
-      - Laboratories
+        - Laboratories
       operationId: getLaboratoryExamRequest_1
       parameters:
-      - name: patId
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: patId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "200":
           description: OK
@@ -5196,19 +5196,19 @@ paths:
                 items:
                   $ref: "#/components/schemas/LaboratoryDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /laboratories/byPatientId/{patId}:
     get:
       tags:
-      - Laboratories
+        - Laboratories
       operationId: getLaboratory_1
       parameters:
-      - name: patId
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: patId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "200":
           description: OK
@@ -5219,11 +5219,11 @@ paths:
                 items:
                   $ref: "#/components/schemas/LabWithRowsDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /hospitals:
     get:
       tags:
-      - Hospitals
+        - Hospitals
       operationId: getHospital
       responses:
         "200":
@@ -5233,11 +5233,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/HospitalDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /hospitals/currencyCode:
     get:
       tags:
-      - Hospitals
+        - Hospitals
       operationId: getHospitalCurrencyCode
       responses:
         "200":
@@ -5247,18 +5247,18 @@ paths:
               schema:
                 type: string
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /exams/description/{description}:
     get:
       tags:
-      - Exams
+        - Exams
       operationId: getExams_1
       parameters:
-      - name: description
-        in: path
-        required: true
-        schema:
-          type: string
+        - name: description
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         "200":
           description: OK
@@ -5269,19 +5269,19 @@ paths:
                 items:
                   $ref: "#/components/schemas/ExamDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /examrows/{code}:
     get:
       tags:
-      - Exam Rows
+        - Exam Rows
       operationId: getExamRowsByCode
       parameters:
-      - name: code
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "200":
           description: OK
@@ -5292,18 +5292,18 @@ paths:
                 items:
                   $ref: "#/components/schemas/ExamRowDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     delete:
       tags:
-      - Exam Rows
+        - Exam Rows
       operationId: deleteExam_2
       parameters:
-      - name: code
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "200":
           description: OK
@@ -5312,24 +5312,24 @@ paths:
               schema:
                 type: boolean
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /examrows/search:
     get:
       tags:
-      - Exam Rows
+        - Exam Rows
       operationId: getExamRowsByCodeAndDescription
       parameters:
-      - name: code
-        in: query
-        required: true
-        schema:
-          type: integer
-          format: int32
-      - name: description
-        in: query
-        required: true
-        schema:
-          type: string
+        - name: code
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: description
+          in: query
+          required: true
+          schema:
+            type: string
       responses:
         "200":
           description: OK
@@ -5340,18 +5340,18 @@ paths:
                 items:
                   $ref: "#/components/schemas/ExamRowDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /examrows/byExamCode/{examCode}:
     get:
       tags:
-      - Exam Rows
+        - Exam Rows
       operationId: getExamRowsByExamCode
       parameters:
-      - name: examCode
-        in: path
-        required: true
-        schema:
-          type: string
+        - name: examCode
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         "200":
           description: OK
@@ -5362,25 +5362,25 @@ paths:
                 items:
                   $ref: "#/components/schemas/ExamRowDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /examinations/lastNByPatId:
     get:
       tags:
-      - Examinations
+        - Examinations
       operationId: getLastNByPatID
       parameters:
-      - name: limit
-        in: query
-        required: true
-        schema:
-          type: integer
-          format: int32
-      - name: patId
-        in: query
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: limit
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: patId
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "200":
           description: OK
@@ -5389,19 +5389,19 @@ paths:
               schema:
                 $ref: "#/components/schemas/PagePatientExaminationDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /examinations/lastByPatientId/{patId}:
     get:
       tags:
-      - Examinations
+        - Examinations
       operationId: getLastByPatientId
       parameters:
-      - name: patId
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: patId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "200":
           description: OK
@@ -5410,19 +5410,19 @@ paths:
               schema:
                 $ref: "#/components/schemas/PatientExaminationDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /examinations/fromLastPatientExamination/{id}:
     get:
       tags:
-      - Examinations
+        - Examinations
       operationId: getFromLastPatientExamination
       parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "200":
           description: OK
@@ -5431,19 +5431,19 @@ paths:
               schema:
                 $ref: "#/components/schemas/PatientExaminationDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /examinations/defaultPatientExamination:
     get:
       tags:
-      - Examinations
+        - Examinations
       operationId: getDefaultPatientExamination
       parameters:
-      - name: patId
-        in: query
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: patId
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "200":
           description: OK
@@ -5452,19 +5452,19 @@ paths:
               schema:
                 $ref: "#/components/schemas/PatientExaminationDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /examinations/byPatientId/{patId}:
     get:
       tags:
-      - Examinations
+        - Examinations
       operationId: getByPatientId
       parameters:
-      - name: patId
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: patId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "200":
           description: OK
@@ -5475,18 +5475,18 @@ paths:
                 items:
                   $ref: "#/components/schemas/PatientExaminationDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /diseases/{code}:
     get:
       tags:
-      - Diseases
+        - Diseases
       operationId: getDiseaseByCode
       parameters:
-      - name: code
-        in: path
-        required: true
-        schema:
-          type: string
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         "200":
           description: OK
@@ -5495,17 +5495,17 @@ paths:
               schema:
                 $ref: "#/components/schemas/DiseaseDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
     delete:
       tags:
-      - Diseases
+        - Diseases
       operationId: deleteDisease
       parameters:
-      - name: code
-        in: path
-        required: true
-        schema:
-          type: string
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         "200":
           description: OK
@@ -5514,11 +5514,11 @@ paths:
               schema:
                 type: boolean
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /diseases/opd:
     get:
       tags:
-      - Diseases
+        - Diseases
       operationId: getDiseasesOpd
       responses:
         "200":
@@ -5530,18 +5530,18 @@ paths:
                 items:
                   $ref: "#/components/schemas/DiseaseDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /diseases/opd/{typecode}:
     get:
       tags:
-      - Diseases
+        - Diseases
       operationId: getDiseasesOpdByCode
       parameters:
-      - name: typecode
-        in: path
-        required: true
-        schema:
-          type: string
+        - name: typecode
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         "200":
           description: OK
@@ -5552,11 +5552,11 @@ paths:
                 items:
                   $ref: "#/components/schemas/DiseaseDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /diseases/ipd/out:
     get:
       tags:
-      - Diseases
+        - Diseases
       operationId: getDiseasesIpdOut
       responses:
         "200":
@@ -5568,18 +5568,18 @@ paths:
                 items:
                   $ref: "#/components/schemas/DiseaseDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /diseases/ipd/out/{typecode}:
     get:
       tags:
-      - Diseases
+        - Diseases
       operationId: getDiseasesIpdOutByCode
       parameters:
-      - name: typecode
-        in: path
-        required: true
-        schema:
-          type: string
+        - name: typecode
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         "200":
           description: OK
@@ -5590,11 +5590,11 @@ paths:
                 items:
                   $ref: "#/components/schemas/DiseaseDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /diseases/ipd/in:
     get:
       tags:
-      - Diseases
+        - Diseases
       operationId: getDiseasesIpdIn
       responses:
         "200":
@@ -5606,18 +5606,18 @@ paths:
                 items:
                   $ref: "#/components/schemas/DiseaseDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /diseases/ipd/in/{typecode}:
     get:
       tags:
-      - Diseases
+        - Diseases
       operationId: getDiseasesIpdInByCode
       parameters:
-      - name: typecode
-        in: path
-        required: true
-        schema:
-          type: string
+        - name: typecode
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         "200":
           description: OK
@@ -5628,11 +5628,11 @@ paths:
                 items:
                   $ref: "#/components/schemas/DiseaseDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /diseases/both:
     get:
       tags:
-      - Diseases
+        - Diseases
       operationId: getDiseases
       responses:
         "200":
@@ -5644,18 +5644,18 @@ paths:
                 items:
                   $ref: "#/components/schemas/DiseaseDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /diseases/both/{typecode}:
     get:
       tags:
-      - Diseases
+        - Diseases
       operationId: getDiseases_1
       parameters:
-      - name: typecode
-        in: path
-        required: true
-        schema:
-          type: string
+        - name: typecode
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         "200":
           description: OK
@@ -5666,11 +5666,11 @@ paths:
                 items:
                   $ref: "#/components/schemas/DiseaseDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /diseases/all:
     get:
       tags:
-      - Diseases
+        - Diseases
       operationId: getAllDiseases
       responses:
         "200":
@@ -5682,19 +5682,19 @@ paths:
                 items:
                   $ref: "#/components/schemas/DiseaseDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /bills/pending:
     get:
       tags:
-      - Bills
+        - Bills
       operationId: getPendingBills
       parameters:
-      - name: patient_code
-        in: query
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: patient_code
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "200":
           description: OK
@@ -5705,19 +5705,19 @@ paths:
                 items:
                   $ref: "#/components/schemas/BillDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /bills/pending/affiliate:
     get:
       tags:
-      - Bills
+        - Bills
       operationId: getPendingBillsAffiliate
       parameters:
-      - name: patient_code
-        in: query
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: patient_code
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "200":
           description: OK
@@ -5728,29 +5728,29 @@ paths:
                 items:
                   $ref: "#/components/schemas/BillDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /bills/payments:
     get:
       tags:
-      - Bills
+        - Bills
       operationId: searchBillsPayments
       parameters:
-      - name: datefrom
-        in: query
-        required: true
-        schema:
-          type: string
-      - name: dateto
-        in: query
-        required: true
-        schema:
-          type: string
-      - name: patient_code
-        in: query
-        required: false
-        schema:
-          type: integer
-          format: int32
+        - name: datefrom
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: dateto
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: patient_code
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
       responses:
         "200":
           description: OK
@@ -5761,19 +5761,19 @@ paths:
                 items:
                   $ref: "#/components/schemas/BillPaymentsDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /bills/payments/{bill_id}:
     get:
       tags:
-      - Bills
+        - Bills
       operationId: getPaymentsByBillId
       parameters:
-      - name: bill_id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: bill_id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "200":
           description: OK
@@ -5784,11 +5784,11 @@ paths:
                 items:
                   $ref: "#/components/schemas/BillPaymentsDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /bills/items:
     get:
       tags:
-      - Bills
+        - Bills
       operationId: getDistinctItems
       responses:
         "200":
@@ -5800,19 +5800,19 @@ paths:
                 items:
                   $ref: "#/components/schemas/BillItemsDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /bills/items/{bill_id}:
     get:
       tags:
-      - Bills
+        - Bills
       operationId: getItems
       parameters:
-      - name: bill_id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: bill_id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "200":
           description: OK
@@ -5823,19 +5823,19 @@ paths:
                 items:
                   $ref: "#/components/schemas/BillItemsDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /agetypes/{index}:
     get:
       tags:
-      - AgeTypes
+        - AgeTypes
       operationId: getAgeTypeByIndex
       parameters:
-      - name: index
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: index
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "200":
           description: OK
@@ -5844,19 +5844,19 @@ paths:
               schema:
                 $ref: "#/components/schemas/AgeTypeDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /agetypes/code:
     get:
       tags:
-      - AgeTypes
+        - AgeTypes
       operationId: getAgeTypeCodeByAge
       parameters:
-      - name: age
-        in: query
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: age
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "200":
           description: OK
@@ -5867,19 +5867,19 @@ paths:
                 additionalProperties:
                   type: string
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /admissions/patient/{patientCode}:
     get:
       tags:
-      - Admissions
+        - Admissions
       operationId: getAdmissions_1
       parameters:
-      - name: patientCode
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: patientCode
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "400":
           description: Bad Request
@@ -5892,18 +5892,18 @@ paths:
                 items:
                   $ref: "#/components/schemas/AdmissionDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /admissions/getNextProgressiveIdInYear:
     get:
       tags:
-      - Admissions
+        - Admissions
       operationId: getNextYearProgressiveId
       parameters:
-      - name: wardcode
-        in: query
-        required: true
-        schema:
-          type: string
+        - name: wardcode
+          in: query
+          required: true
+          schema:
+            type: string
       responses:
         "400":
           description: Bad Request
@@ -5915,18 +5915,18 @@ paths:
                 type: integer
                 format: int32
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /admissions/getBedsOccupationInWard:
     get:
       tags:
-      - Admissions
+        - Admissions
       operationId: getUsedWardBed
       parameters:
-      - name: wardid
-        in: query
-        required: true
-        schema:
-          type: string
+        - name: wardid
+          in: query
+          required: true
+          schema:
+            type: string
       responses:
         "400":
           description: Bad Request
@@ -5938,34 +5938,34 @@ paths:
                 type: integer
                 format: int32
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /admissions/discharges:
     get:
       tags:
-      - Admissions
+        - Admissions
       operationId: getDischarges
       parameters:
-      - name: dischargerange
-        in: query
-        required: true
-        schema:
-          type: array
-          items:
-            type: string
-      - name: page
-        in: query
-        required: false
-        schema:
-          type: integer
-          format: int32
-          default: 0
-      - name: size
-        in: query
-        required: false
-        schema:
-          type: integer
-          format: int32
-          default: 80
+        - name: dischargerange
+          in: query
+          required: true
+          schema:
+            type: array
+            items:
+              type: string
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: size
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 80
       responses:
         "400":
           description: Bad Request
@@ -5976,19 +5976,19 @@ paths:
               schema:
                 $ref: "#/components/schemas/PageAdmissionDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /admissions/current:
     get:
       tags:
-      - Admissions
+        - Admissions
       operationId: getCurrentAdmission
       parameters:
-      - name: patientCode
-        in: query
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: patientCode
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "400":
           description: Bad Request
@@ -5999,33 +5999,33 @@ paths:
               schema:
                 $ref: "#/components/schemas/AdmissionDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /admissions/admittedPatients:
     get:
       tags:
-      - Admissions
+        - Admissions
       operationId: getAdmittedPatients
       parameters:
-      - name: searchterms
-        in: query
-        required: false
-        schema:
-          type: string
-          default: ""
-      - name: admissionrange
-        in: query
-        required: false
-        schema:
-          type: array
-          items:
+        - name: searchterms
+          in: query
+          required: false
+          schema:
             type: string
-      - name: dischargerange
-        in: query
-        required: false
-        schema:
-          type: array
-          items:
-            type: string
+            default: ""
+        - name: admissionrange
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - name: dischargerange
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
       responses:
         "400":
           description: Bad Request
@@ -6038,18 +6038,18 @@ paths:
                 items:
                   $ref: "#/components/schemas/AdmittedPatientDTO"
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /wards/{code}:
     delete:
       tags:
-      - Wards
+        - Wards
       operationId: deleteWard
       parameters:
-      - name: code
-        in: path
-        required: true
-        schema:
-          type: string
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         "200":
           description: OK
@@ -6058,19 +6058,19 @@ paths:
               schema:
                 type: boolean
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /visits/delete/{patID}:
     delete:
       tags:
-      - Visit
+        - Visit
       operationId: deleteVisitsRelatedToPatient
       parameters:
-      - name: patID
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: patID
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "200":
           description: OK
@@ -6079,18 +6079,18 @@ paths:
               schema:
                 type: boolean
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /vaccinetypes/{code}:
     delete:
       tags:
-      - Vaccine Type
+        - Vaccine Type
       operationId: deleteVaccineType
       parameters:
-      - name: code
-        in: path
-        required: true
-        schema:
-          type: string
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         "200":
           description: OK
@@ -6099,18 +6099,18 @@ paths:
               schema:
                 type: boolean
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /vaccines/{code}:
     delete:
       tags:
-      - Vaccines
+        - Vaccines
       operationId: deleteVaccine
       parameters:
-      - name: code
-        in: path
-        required: true
-        schema:
-          type: string
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         "200":
           description: OK
@@ -6119,19 +6119,19 @@ paths:
               schema:
                 type: boolean
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /operations/rows/{code}:
     delete:
       tags:
-      - Operations
+        - Operations
       operationId: deleteOperationRow
       parameters:
-      - name: code
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "200":
           description: OK
@@ -6140,18 +6140,18 @@ paths:
               schema:
                 type: boolean
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /medicaltypes/{code}:
     delete:
       tags:
-      - Medical Types
+        - Medical Types
       operationId: deleteMedicalType
       parameters:
-      - name: code
-        in: path
-        required: true
-        schema:
-          type: string
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         "200":
           description: OK
@@ -6160,18 +6160,18 @@ paths:
               schema:
                 type: boolean
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /diseasetypes/{code}:
     delete:
       tags:
-      - Disease Types
+        - Disease Types
       operationId: deleteDiseaseType
       parameters:
-      - name: code
-        in: path
-        required: true
-        schema:
-          type: string
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         "200":
           description: OK
@@ -6180,18 +6180,18 @@ paths:
               schema:
                 type: boolean
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /dischargetypes/{code}:
     delete:
       tags:
-      - DischargeType
+        - DischargeType
       operationId: deleteDischargeType
       parameters:
-      - name: code
-        in: path
-        required: true
-        schema:
-          type: string
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         "200":
           description: OK
@@ -6200,18 +6200,18 @@ paths:
               schema:
                 type: boolean
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /deliverytypes/{code}:
     delete:
       tags:
-      - Delivery Type
+        - Delivery Type
       operationId: deleteDeliveryType
       parameters:
-      - name: code
-        in: path
-        required: true
-        schema:
-          type: string
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         "200":
           description: OK
@@ -6220,18 +6220,18 @@ paths:
               schema:
                 type: boolean
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /deliveryresulttypes/{code}:
     delete:
       tags:
-      - Delivery Result Type
+        - Delivery Result Type
       operationId: deleteDeliveryResultType
       parameters:
-      - name: code
-        in: path
-        required: true
-        schema:
-          type: string
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         "200":
           description: OK
@@ -6240,18 +6240,18 @@ paths:
               schema:
                 type: boolean
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /admissiontypes/{code}:
     delete:
       tags:
-      - AdmissionTypes
+        - AdmissionTypes
       operationId: deleteAdmissionType
       parameters:
-      - name: code
-        in: path
-        required: true
-        schema:
-          type: string
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         "200":
           description: OK
@@ -6260,19 +6260,19 @@ paths:
               schema:
                 type: boolean
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /admissions/{id}:
     delete:
       tags:
-      - Admissions
+        - Admissions
       operationId: deleteAdmissionType_1
       parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
       responses:
         "400":
           description: Bad Request
@@ -6283,16 +6283,16 @@ paths:
               schema:
                 type: boolean
       security:
-      - bearerAuth: []
+        - bearerAuth: []
 components:
   schemas:
     WardDTO:
       required:
-      - beds
-      - description
-      - docs
-      - nurs
-      - visitDuration
+        - beds
+        - description
+        - docs
+        - nurs
+        - visitDuration
       type: object
       properties:
         code:
@@ -6336,20 +6336,20 @@ components:
           type: boolean
         male:
           type: boolean
-        pharmacy:
-          type: boolean
         opd:
+          type: boolean
+        pharmacy:
           type: boolean
     PatientDTO:
       required:
-      - age
-      - bloodType
-      - city
-      - fatherName
-      - firstName
-      - motherName
-      - secondName
-      - sex
+        - age
+        - bloodType
+        - city
+        - fatherName
+        - firstName
+        - motherName
+        - secondName
+        - sex
       type: object
       properties:
         code:
@@ -6387,8 +6387,8 @@ components:
           description: Sex
           example: M
           enum:
-          - M
-          - F
+            - M
+            - F
         address:
           maxLength: 50
           type: string
@@ -6422,8 +6422,8 @@ components:
           description: "Mother's status (D=dead, A=alive)"
           example: A
           enum:
-          - D
-          - A
+            - D
+            - A
         fatherName:
           maxLength: 50
           type: string
@@ -6434,35 +6434,35 @@ components:
           description: "Father's status (D=dead, A=alive)"
           example: D
           enum:
-          - D
-          - A
+            - D
+            - A
         bloodType:
           type: string
           description: "Blood type (0-/+, A-/+ , B-/+, AB-/+)"
           example: A+
           enum:
-          - 0-
-          - 0+
-          - A-
-          - A+
-          - B-
-          - B+
-          - AB-
-          - AB+
+            - 0-
+            - 0+
+            - A-
+            - A+
+            - B-
+            - B+
+            - AB-
+            - AB+
         hasInsurance:
           type: string
           description: "HasInsurance (Y=Yes, N=no)"
           example: "N"
           enum:
-          - "Y"
-          - "N"
+            - "Y"
+            - "N"
         parentTogether:
           type: string
           description: "Parent together (Y=Yes, N=no)"
           example: "N"
           enum:
-          - "Y"
-          - "N"
+            - "Y"
+            - "N"
         taxCode:
           maxLength: 30
           type: string
@@ -6497,8 +6497,8 @@ components:
           description: Status
           example: I
           enum:
-          - I
-          - O
+            - I
+            - O
         consensusFlag:
           type: boolean
           description: Consensus flag
@@ -6510,8 +6510,8 @@ components:
       description: Class representing a patient
     VisitDTO:
       required:
-      - date
-      - patient
+        - date
+        - patient
       type: object
       properties:
         visitID:
@@ -6549,8 +6549,8 @@ components:
       description: Class representing a vaccine type
     VaccineTypeDTO:
       required:
-      - code
-      - description
+        - code
+        - description
       type: object
       properties:
         code:
@@ -6566,9 +6566,9 @@ components:
       description: Class representing a vaccine type
     VaccineDTO:
       required:
-      - code
-      - description
-      - vaccineType
+        - code
+        - description
+        - vaccineType
       type: object
       properties:
         code:
@@ -6591,10 +6591,10 @@ components:
       description: Class representing a vaccine
     UserSettingDTO:
       required:
-      - configName
-      - configValue
-      - id
-      - user
+        - configName
+        - configValue
+        - id
+        - user
       type: object
       properties:
         id:
@@ -6622,8 +6622,8 @@ components:
           example: 0
     PermissionDTO:
       required:
-      - description
-      - id
+        - description
+        - id
       type: object
       properties:
         name:
@@ -6639,9 +6639,9 @@ components:
       description: List of group's permissions
     UserDTO:
       required:
-      - passwd
-      - userGroupName
-      - userName
+        - passwd
+        - userGroupName
+        - userName
       type: object
       properties:
         userName:
@@ -6661,9 +6661,13 @@ components:
           type: string
           description: The user's description
           example: Lab chief technician
+        deleted:
+          type: boolean
+          description: Whether the user has been soft deleted or not
+          example: false
     UserGroupDTO:
       required:
-      - code
+        - code
       type: object
       properties:
         code:
@@ -6676,6 +6680,10 @@ components:
           type: string
           description: The description of the group
           example: Staff members working in the laboratory
+        deleted:
+          type: boolean
+          description: Whether the group has been soft deleted or not
+          example: false
         permissions:
           type: array
           description: List of group's permissions
@@ -6700,16 +6708,16 @@ components:
           type: array
           description: List of permissions' ids
           example:
-          - 48
-          - 24
+            - 48
+            - 24
           items:
             type: integer
             description: List of permissions' ids
             format: int32
     SupplierDTO:
       required:
-      - supId
-      - supName
+        - supId
+        - supName
       type: object
       properties:
         supId:
@@ -6824,11 +6832,11 @@ components:
           example: true
     PricesOthersDTO:
       required:
-      - code
-      - daily
-      - description
-      - ipdInclude
-      - opdInclude
+        - code
+        - daily
+        - description
+        - ipdInclude
+        - opdInclude
       type: object
       properties:
         id:
@@ -6901,8 +6909,8 @@ components:
       description: Class representing a price list
     PregnantTreatmentTypeDTO:
       required:
-      - code
-      - description
+        - code
+        - description
       type: object
       properties:
         code:
@@ -6920,10 +6928,10 @@ components:
       description: Class representing a pregnant treatment type
     PatientVaccineDTO:
       required:
-      - patient
-      - progr
-      - vaccine
-      - vaccineDate
+        - patient
+        - progr
+        - vaccine
+        - vaccineDate
       type: object
       properties:
         code:
@@ -6952,7 +6960,7 @@ components:
           readOnly: true
     PatientConsensusDTO:
       required:
-      - patientId
+        - patientId
       type: object
       properties:
         consensusFlag:
@@ -6968,8 +6976,8 @@ components:
       description: Class representing a patient consensus
     OperationTypeDTO:
       required:
-      - code
-      - description
+        - code
+        - description
       type: object
       properties:
         code:
@@ -6982,11 +6990,11 @@ components:
           description: The operation type
     OperationDTO:
       required:
-      - code
-      - description
-      - major
-      - opeFor
-      - type
+        - code
+        - description
+        - major
+        - opeFor
+        - type
       type: object
       properties:
         code:
@@ -7004,9 +7012,9 @@ components:
           description: The operation context
           example: opd_admission
           enum:
-          - opd_admission
-          - admission
-          - opd
+            - opd_admission
+            - admission
+            - opd
         major:
           type: integer
           description: The operation major
@@ -7018,10 +7026,10 @@ components:
           example: 0
     AdmissionDTO:
       required:
-      - admDate
-      - admitted
-      - deleted
-      - type
+        - admDate
+        - admitted
+        - deleted
+        - type
       type: object
       properties:
         id:
@@ -7062,7 +7070,7 @@ components:
           description: Operation date
         opResult:
           type: string
-          description: 'Operation result value is ''P'' or ''N'' '
+          description: "Operation result value is 'P' or 'N' "
           example: "N"
         disDate:
           type: string
@@ -7118,16 +7126,16 @@ components:
           type: string
           description: "Flag record deleted, values are 'Y' OR 'N' "
           example: "N"
-        fhu:
-          type: string
         yprog:
           type: integer
           format: int32
+        fhu:
+          type: string
       description: The admission
     AdmissionTypeDTO:
       required:
-      - code
-      - description
+        - code
+        - description
       type: object
       properties:
         code:
@@ -7142,15 +7150,15 @@ components:
       description: Admission type
     BillDTO:
       required:
-      - amount
-      - balance
-      - date
-      - listName
-      - patName
-      - patientTrue
-      - status
-      - update
-      - user
+        - amount
+        - balance
+        - date
+        - listName
+        - patName
+        - patientTrue
+        - status
+        - update
+        - user
       type: object
       properties:
         id:
@@ -7211,8 +7219,8 @@ components:
       description: Class representing a bill
     DeliveryResultTypeDTO:
       required:
-      - code
-      - description
+        - code
+        - description
       type: object
       properties:
         code:
@@ -7227,8 +7235,8 @@ components:
       description: Delivery result type
     DeliveryTypeDTO:
       required:
-      - code
-      - description
+        - code
+        - description
       type: object
       properties:
         code:
@@ -7243,8 +7251,8 @@ components:
       description: Delivery type
     DischargeTypeDTO:
       required:
-      - code
-      - description
+        - code
+        - description
       type: object
       properties:
         code:
@@ -7259,12 +7267,12 @@ components:
       description: DisChargeType
     DiseaseDTO:
       required:
-      - code
-      - description
-      - diseaseType
-      - ipdInInclude
-      - ipdOutInclude
-      - opdInclude
+        - code
+        - description
+        - diseaseType
+        - ipdInInclude
+        - ipdOutInclude
+        - opdInclude
       type: object
       properties:
         code:
@@ -7302,8 +7310,8 @@ components:
       description: Class representing a disease
     DiseaseTypeDTO:
       required:
-      - code
-      - description
+        - code
+        - description
       type: object
       properties:
         code:
@@ -7317,11 +7325,11 @@ components:
       description: Class representing a disease type
     OpdDTO:
       required:
-      - age
-      - newPatient
-      - note
-      - sex
-      - ward
+        - age
+        - newPatient
+        - note
+        - sex
+        - ward
       type: object
       properties:
         code:
@@ -7416,10 +7424,10 @@ components:
       description: The opd
     OperationRowDTO:
       required:
-      - opDate
-      - opResult
-      - operation
-      - prescriber
+        - opDate
+        - opResult
+        - operation
+        - prescriber
       type: object
       properties:
         id:
@@ -7467,9 +7475,9 @@ components:
             $ref: "#/components/schemas/OperationRowDTO"
     MovementTypeDTO:
       required:
-      - code
-      - description
-      - type
+        - code
+        - description
+        - type
       type: object
       properties:
         code:
@@ -7488,8 +7496,8 @@ components:
           example: "-"
     MedicalTypeDTO:
       required:
-      - code
-      - description
+        - code
+        - description
       type: object
       properties:
         code:
@@ -7554,10 +7562,10 @@ components:
           example: 0
     MalnutritionDTO:
       required:
-      - admission
-      - dateSupp
-      - height
-      - weight
+        - admission
+        - dateSupp
+        - height
+        - weight
       type: object
       properties:
         code:
@@ -7612,7 +7620,7 @@ components:
           maxLength: 50
           type: string
           description: Exam Default Result
-          example: '>=12 (NORMAL)'
+          example: ">=12 (NORMAL)"
         examtype:
           $ref: "#/components/schemas/ExamTypeDTO"
         lock:
@@ -7687,8 +7695,8 @@ components:
           description: Laboratory Patient InOut
           example: "0"
           enum:
-          - I
-          - O
+            - I
+            - O
         age:
           type: integer
           description: Laboratory Patient Age
@@ -7702,11 +7710,11 @@ components:
           description: Laboratory status
           example: DRAFT
           enum:
-          - draft
-          - open
-          - done
-          - invalid
-          - deleted
+            - draft
+            - open
+            - done
+            - invalid
+            - deleted
     HospitalDTO:
       type: object
       properties:
@@ -7757,25 +7765,27 @@ components:
           example: 0
     ExamWithRowsDTO:
       required:
-      - exam
+        - exam
       type: object
       properties:
         exam:
           $ref: "#/components/schemas/ExamDTO"
         rows:
           type: array
-          description: Possible result for the exam(only for exams with procedure
+          description:
+            Possible result for the exam(only for exams with procedure
             1 and 2)
           example: "['>=12 (NORMAL)', 'IRREGULAR']"
           items:
             type: string
-            description: Possible result for the exam(only for exams with procedure
+            description:
+              Possible result for the exam(only for exams with procedure
               1 and 2)
             example: "['>=12 (NORMAL)', 'IRREGULAR']"
     PatientExaminationDTO:
       required:
-      - patientCode
-      - pex_date
+        - patientCode
+        - pex_date
       type: object
       properties:
         pex_ID:
@@ -7828,12 +7838,12 @@ components:
           description: Patient ausculation
           example: normal
           enum:
-          - normal
-          - wheezes
-          - rhonchi
-          - crackles
-          - stridor
-          - bronchial
+            - normal
+            - wheezes
+            - rhonchi
+            - crackles
+            - stridor
+            - bronchial
         pex_hgt:
           type: integer
           description: Hemo Glucose Test
@@ -7847,14 +7857,14 @@ components:
           description: Diuresis description
           example: physiological
           enum:
-          - physiological
-          - oliguria
-          - anuria
-          - frequent
-          - nocturia
-          - stranguria
-          - hematuria
-          - pyuria
+            - physiological
+            - oliguria
+            - anuria
+            - frequent
+            - nocturia
+            - stranguria
+            - hematuria
+            - pyuria
         pex_note:
           maxLength: 2000
           type: string
@@ -7864,10 +7874,10 @@ components:
           description: Bowel Function
           example: regular
           enum:
-          - constipation
-          - regular
-          - diarrheal
-          - irregular
+            - constipation
+            - regular
+            - diarrheal
+            - irregular
         lock:
           type: integer
           description: Lock
@@ -7875,12 +7885,12 @@ components:
           example: 0
     BillItemsDTO:
       required:
-      - itemAmount
-      - itemDescription
-      - itemDisplayCode
-      - itemId
-      - itemQuantity
-      - priceId
+        - itemAmount
+        - itemDescription
+        - itemDisplayCode
+        - itemId
+        - itemQuantity
+        - priceId
       type: object
       properties:
         id:
@@ -7925,10 +7935,10 @@ components:
       description: Class representing a billItem
     BillPaymentsDTO:
       required:
-      - amount
-      - billId
-      - date
-      - user
+        - amount
+        - billId
+        - date
+        - user
       type: object
       properties:
         id:
@@ -7959,8 +7969,8 @@ components:
       description: Class representing a billPayment
     FullBillDTO:
       required:
-      - bill
-      - billItems
+        - bill
+        - billItems
       type: object
       properties:
         bill:
@@ -7977,9 +7987,9 @@ components:
             $ref: "#/components/schemas/BillPaymentsDTO"
     AgeTypeDTO:
       required:
-      - description
-      - from
-      - to
+        - description
+        - from
+        - to
       type: object
       properties:
         code:
@@ -8007,16 +8017,16 @@ components:
       description: Class representing an age type which is typically a range
     TherapyRowDTO:
       required:
-      - endDate
-      - freqInDay
-      - freqInPeriod
-      - medicalId
-      - notifyInt
-      - patID
-      - qty
-      - smsInt
-      - startDate
-      - unitID
+        - endDate
+        - freqInDay
+        - freqInPeriod
+        - medicalId
+        - notifyInt
+        - patID
+        - qty
+        - smsInt
+        - startDate
+        - unitID
       type: object
       properties:
         therapyID:
@@ -8066,7 +8076,8 @@ components:
           example: Sample note
         notifyInt:
           type: integer
-          description: "the notify flag: 1 if the notification need to be activated,\
+          description:
+            "the notify flag: 1 if the notification need to be activated,\
             \ 0 otherwise"
           format: int32
           example: 0
@@ -8092,8 +8103,8 @@ components:
           type: array
           description: The dates of the therapy
           example:
-          - 2022-01-01T10:00:00
-          - 2022-01-02T15:30:00
+            - 2022-01-01T10:00:00
+            - 2022-01-02T15:30:00
           items:
             type: string
             description: The dates of the therapy
@@ -8120,19 +8131,21 @@ components:
           example: Sample note
         notify:
           type: boolean
-          description: "The notify flag: true if the notification need to be activated,\
+          description:
+            "The notify flag: true if the notification need to be activated,\
             \ false otherwise"
           example: false
         sms:
           type: boolean
-          description: "The sms flag: true if sms need to be sent to patient, false\
+          description:
+            "The sms flag: true if sms need to be sent to patient, false\
             \ otherwise"
           example: false
     LotDTO:
       required:
-      - code
-      - dueDate
-      - preparationDate
+        - code
+        - dueDate
+        - preparationDate
       type: object
       properties:
         code:
@@ -8155,11 +8168,11 @@ components:
       description: The lot
     MovementDTO:
       required:
-      - date
-      - medical
-      - quantity
-      - refNo
-      - type
+        - date
+        - medical
+        - quantity
+        - refNo
+        - type
       type: object
       properties:
         code:
@@ -8192,12 +8205,12 @@ components:
           example: MVN152445
     SmsDTO:
       required:
-      - module
-      - smsDate
-      - smsDateSched
-      - smsNumber
-      - smsText
-      - smsUser
+        - module
+        - smsDate
+        - smsDateSched
+        - smsNumber
+        - smsText
+        - smsUser
       type: object
       properties:
         smsId:
@@ -8243,11 +8256,11 @@ components:
           description: SMS module Id
     MovementWardDTO:
       required:
-      - date
-      - description
-      - quantity
-      - units
-      - ward
+        - date
+        - description
+        - quantity
+        - units
+        - ward
       type: object
       properties:
         code:
@@ -8271,7 +8284,8 @@ components:
           example: 21
         weight:
           type: number
-          description: The patient's weight in case the movement is associated to
+          description:
+            The patient's weight in case the movement is associated to
             a patient
           format: float
           example: 75
@@ -8333,8 +8347,8 @@ components:
       description: Class representing a Login response
     LoginRequest:
       required:
-      - password
-      - username
+        - password
+        - username
       type: object
       properties:
         username:
@@ -8347,11 +8361,11 @@ components:
           example: admin
     PriceDTO:
       required:
-      - description
-      - group
-      - item
-      - list
-      - price
+        - description
+        - group
+        - item
+        - list
+        - price
       type: object
       properties:
         id:
@@ -8445,8 +8459,8 @@ components:
           example: 89
     MedicalWardIdDTO:
       required:
-      - medical
-      - ward
+        - medical
+        - ward
       type: object
       properties:
         ward:

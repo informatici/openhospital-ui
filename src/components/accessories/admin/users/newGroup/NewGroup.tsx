@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
@@ -13,6 +13,7 @@ import TextField from "../../../textField/TextField";
 import { PATHS } from "../../../../../consts";
 import { UserGroupDTO } from "../../../../../generated";
 
+import CheckboxField from "components/accessories/checkboxField/CheckboxField";
 import {
   createUserGroup,
   createUserGroupReset,
@@ -42,6 +43,8 @@ export const NewGroup = () => {
     resetForm,
     errors,
     touched,
+    values,
+    setFieldValue,
   } = useFormik({
     initialValues,
     validationSchema: userGroupSchema(t),
@@ -55,6 +58,13 @@ export const NewGroup = () => {
       dispatch(createUserGroupReset());
     };
   }, [dispatch]);
+
+  const handleCheckboxChange = useCallback(
+    (fieldName: string) => (value: boolean) => {
+      setFieldValue(fieldName, value);
+    },
+    [setFieldValue]
+  );
 
   return (
     <div className="newGroupForm">
@@ -81,6 +91,14 @@ export const NewGroup = () => {
               onBlur={handleBlur}
             />
           </div>
+          <div className="newGroupForm__item fullWidth">
+            <CheckboxField
+              fieldName={"deleted"}
+              checked={!!values.deleted}
+              label={t("common.deleted")}
+              onChange={handleCheckboxChange("deleted")}
+            />
+          </div>
         </div>
         <div className="newGroupForm__item fullWidth">
           <p>{t("user.groupPermissionsOnlyOnUpdate")}</p>
@@ -88,7 +106,7 @@ export const NewGroup = () => {
             <div className="info-box-container">
               <InfoBox
                 type="error"
-                message={create.error?.message ?? t("common.somethingwrong")}
+                message={t(create.error?.message ?? "common.somethingwrong")}
               />
             </div>
           )}

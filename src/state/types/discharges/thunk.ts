@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { DischargeTypeApi, DischargeTypeDTO } from "../../../generated";
+import { DischargeTypeDTO } from "generated/models/DischargeTypeDTO";
+import { DischargeTypeApi } from "../../../generated";
 import { customConfiguration } from "../../../libraries/apiUtils/configuration";
 
 const api = new DischargeTypeApi(customConfiguration());

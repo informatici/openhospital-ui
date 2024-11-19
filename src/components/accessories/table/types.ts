@@ -16,6 +16,8 @@ export interface IProps {
   onPrint?: (row: any) => void;
   onView?: (row: any) => void;
   onAdd?: (row: any) => void;
+  onRestore?: (row: any) => void;
+  onSoftDelete?: (row: any) => void;
   addTitle?: string;
   showEmptyCell?: boolean;
   rowClassNames?: <T>(row: T) => string;
@@ -28,6 +30,7 @@ export interface IProps {
   onCancel?: (row: any) => void;
   detailColSpan?: number;
   displayRowAction?: (row: any, action: TActions) => boolean;
+  disableRowAction?: (row: any, action: TActions) => boolean;
   detailsExcludedFields?: string[];
   /**
    * Column used for the filter. When this prop is provided, don't forget to provide also [rawData]
@@ -57,6 +60,9 @@ export interface IProps {
    */
   rowKey?: string;
   headerActions?: ReactNode;
+  labels?: Partial<
+    Record<TActions, { title?: string; message?: string; tooltip?: string }>
+  >;
 }
 
 export interface IRowProps {
@@ -84,4 +90,6 @@ export type TActions =
   | "pay"
   | "close"
   | "cancel"
-  | "add";
+  | "add"
+  | "restore"
+  | "softDelete";

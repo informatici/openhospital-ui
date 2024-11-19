@@ -6,7 +6,7 @@ import {
 } from "@mui/material";
 import { useFormik } from "formik";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-import React, { ReactNode, useEffect } from "react";
+import React, { ReactNode, useCallback, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import checkIcon from "../../../../../assets/check-icon.png";
@@ -15,9 +15,11 @@ import Button from "../../../button/Button";
 import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
 import TextField from "../../../textField/TextField";
 
-import { UserDTO, UserGroupDTO } from "../../../../../generated";
 import { IState } from "../../../../../types";
 
+import CheckboxField from "components/accessories/checkboxField/CheckboxField";
+import { UserDTO } from "generated/models/UserDTO";
+import { UserGroupDTO } from "generated/models/UserGroupDTO";
 import { PATHS } from "../../../../../consts";
 import { getUserGroups } from "../../../../../state/usergroups";
 import { createUser, createUserReset } from "../../../../../state/users";
@@ -75,6 +77,13 @@ export const NewUser = () => {
       dispatch(createUserReset());
     };
   }, [create.hasSucceeded, dispatch, navigate]);
+
+  const handleCheckboxChange = useCallback(
+    (fieldName: string) => (value: boolean) => {
+      setFieldValue(fieldName, value);
+    },
+    [setFieldValue]
+  );
 
   return (
     <div className="newUserForm">
@@ -165,6 +174,14 @@ export const NewUser = () => {
               onBlur={handleBlur}
               rows={3}
               multiline
+            />
+          </div>
+          <div className="newUserForm__item fullWidth">
+            <CheckboxField
+              fieldName={"deleted"}
+              checked={!!values.deleted}
+              label={t("common.deleted")}
+              onChange={handleCheckboxChange("deleted")}
             />
           </div>
         </div>
