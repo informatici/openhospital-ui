@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router";
 import { useNavigate } from "react-router-dom";
@@ -51,13 +51,23 @@ export const EditGroup = () => {
   const [dirtyPermissions, setDirtyPermissions] = useState<boolean>(false);
 
   // make sure everything is loaded before displaying the editor
-  const [isPermissionEditorAvailable, setIsPermissionEditorAvailable] =
-    useState<boolean>(false);
+  const isPermissionEditorAvailable = useMemo(
+    () => canUpdatePermissions && group.data && permissions.data,
+    [canUpdatePermissions, group.data, permissions.data]
+  );
 
-  // keep track of which permissions have been updated and how
-  const [updatedPermissionsStack, setUpdatedPermissionsStack] = useState<
-    Array<PermissionActionType>
-  >([]);
+  // compare permissions to update the update stack
+  // and display permissions when ready
+  const updatedPermissionsStack = useMemo(() => {
+    if (canUpdatePermissions && group.data && permissions.data) {
+      return comparePermissions(
+        permissions.data,
+        group.data?.permissions ?? [],
+        groupPermissions
+      );
+    }
+    return [];
+  }, [canUpdatePermissions, group.data, permissions.data, groupPermissions]);
 
   const handleUpdatePermissions = ({
     permissions: perms,
@@ -120,22 +130,6 @@ export const EditGroup = () => {
     };
   }, []);
 
-  // compare permissions to update the update stack
-  // and display permissions when ready
-  useEffect(() => {
-    if (canUpdatePermissions && group.data && permissions.data) {
-      setIsPermissionEditorAvailable(true);
-
-      const newPermissionStack = comparePermissions(
-        permissions.data,
-        group.data?.permissions ?? [],
-        groupPermissions
-      );
-
-      setUpdatedPermissionsStack(newPermissionStack);
-    }
-  }, [canUpdatePermissions, group.data, permissions.data, groupPermissions]);
-
   const handleFormReset = () => {
     resetForm();
     setGroupPermissions(group.data?.permissions ?? []);
@@ -165,7 +159,10 @@ export const EditGroup = () => {
 
   return (
     <>
-      {group.isLoading || group.status === "IDLE" || permissions.isLoading ? (
+      {group.isLoading ||
+      group.status === "IDLE" ||
+      permissions.status === "IDLE" ||
+      permissions.isLoading ? (
         <CircularProgress style={{ marginLeft: "50%", position: "relative" }} />
       ) : (
         <div className="newGroupForm">
