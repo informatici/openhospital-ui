@@ -90,20 +90,18 @@ const EditPatientActivity = () => {
 
   useEffect(() => {
     if (isEmpty(patient.data) && patient.status === "IDLE") {
-      getPatient(id!);
+      dispatch(getPatient(id!));
     }
-  }, [patient, id]);
+  }, [dispatch, patient, id]);
 
   useEffect(() => {
     if (activityTransitionState === "TO_PATIENT") {
-      getPatient(id!);
-      updatePatientReset();
       setShouldResetForm(true);
     } else if (activityTransitionState === "TO_KEEP_EDITING") {
       setOpenConfirmationMessage(false);
       setActivityTransitionState("IDLE");
     }
-  }, [activityTransitionState, id]);
+  }, [dispatch, activityTransitionState, id]);
 
   useEffect(() => {
     setOpenConfirmationMessage(hasSucceeded);
@@ -128,12 +126,7 @@ const EditPatientActivity = () => {
     case "TO_DASHBOARD":
       return <Navigate to={`${PATHS.patients}`} replace />;
     case "TO_PATIENT":
-      return (
-        <Navigate
-          to={`${PATHS.patients_details}/${patient.data?.code}`}
-          replace
-        />
-      );
+      return <Navigate to={`${PATHS.patients_details}/${id}`} replace />;
     default:
       return (
         <div data-cy="edit-patient" className="editPatient">
