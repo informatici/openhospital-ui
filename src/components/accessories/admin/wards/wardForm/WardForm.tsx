@@ -255,7 +255,7 @@ const WardForm: FC<IWardProps> = ({
             <CheckboxField
               fieldName={"pharmacy"}
               checked={formik.values.pharmacy === "true"}
-              label={t("ward.pharmacy")}
+              label={t("ward.hasPharmacy")}
               onChange={handleCheckboxChange("pharmacy")}
             />
           </div>

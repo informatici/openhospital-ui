@@ -1128,6 +1128,7 @@
     "nurs": "Nurses",
     "docs": "Doctors",
     "pharmacy": "Pharmacy",
+    "hasPharmacy": "Has Pharmacy",
     "male": "Male",
     "female": "Female",
     "telephone": "Telephone",
