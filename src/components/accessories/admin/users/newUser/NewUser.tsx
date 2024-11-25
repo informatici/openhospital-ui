@@ -131,7 +131,10 @@ export const NewUser = () => {
             <FormControl variant="outlined" className="autocomplete">
               <Autocomplete
                 id="userGroupName"
-                options={userGroupsTypeState.data ?? []}
+                options={
+                  userGroupsTypeState.data?.filter((group) => !group.deleted) ??
+                  []
+                }
                 value={values.userGroupName}
                 disabled={userGroupsTypeState.isLoading || create.isLoading}
                 onBlur={() => setFieldTouched("userGroupName")}
