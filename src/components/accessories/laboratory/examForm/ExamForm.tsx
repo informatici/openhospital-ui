@@ -278,6 +278,16 @@ const ExamForm: FC<ExamProps> = ({
     [setFieldValue, handleBlur]
   );
 
+  const handleExamChange = useCallback(
+    (value: string) => {
+      setFieldValue("exam", value);
+      formik.setFieldTouched("exam");
+      setCurrentExamCode(value);
+      setFieldValue("result", "");
+    },
+    [setFieldValue, handleBlur]
+  );
+
   const onBlurCallbackForTableRow = useCallback(
     (value: string, checked: boolean) => {
       if (checked && !rowsData.includes(value)) {
@@ -381,6 +391,7 @@ const ExamForm: FC<ExamProps> = ({
                 isValid={isValid("exam")}
                 errorText={getErrorText("exam")}
                 onBlur={onBlurCallback("exam")}
+                onChange={handleExamChange}
                 options={examOptions}
                 isLoading={examsLoading}
                 disabled={isLoading}
