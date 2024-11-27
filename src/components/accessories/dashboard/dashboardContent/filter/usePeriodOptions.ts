@@ -22,30 +22,30 @@ export const usePeriodOptions = () => {
     if (view !== "range") {
       switch (selection) {
         case "current":
-          value = [moment().utc().startOf(view), moment().utc().endOf(view)];
+          value = [moment().startOf(view), moment().endOf(view)];
           break;
         case "previous":
           value = [
-            moment().add(-1, view).utc().startOf(view),
-            moment().add(-1, view).utc().endOf(view),
+            moment().add(-1, view).startOf(view),
+            moment().add(-1, view).endOf(view),
           ];
           break;
         case "last2":
           value = [
-            moment().add(-2, view).utc().startOf(view),
-            moment().add(-1, view).utc().endOf(view),
+            moment().add(-2, view).startOf(view),
+            moment().add(-1, view).endOf(view),
           ];
           break;
         case "last3":
           value = [
-            moment().add(-3, view).utc().startOf(view),
-            moment().add(-1, view).utc().endOf(view),
+            moment().add(-3, view).startOf(view),
+            moment().add(-1, view).endOf(view),
           ];
           break;
         default:
           value = [
-            moment(dateRange[0]?.toISOString()).utc().startOf("day"),
-            moment(dateRange[1]?.toISOString()).utc().endOf("day"),
+            moment(dateRange[0]?.toISOString()).startOf("day"),
+            moment(dateRange[1]?.toISOString()).endOf("day"),
           ];
       }
       if (view === "week") {
@@ -53,8 +53,8 @@ export const usePeriodOptions = () => {
       }
     } else {
       value = [
-        moment(dateRange[0]?.toISOString()).utc().startOf("day"),
-        moment(dateRange[1]?.toISOString()).utc().endOf("day"),
+        moment(dateRange[0]?.toISOString()).startOf("day"),
+        moment(dateRange[1]?.toISOString()).endOf("day"),
       ];
     }
     return [value[0].toISOString(), value[1].toISOString()];
