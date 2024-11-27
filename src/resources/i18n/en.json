@@ -898,6 +898,9 @@
     "sql": {
       "theselecteditemisstillusedsomewhere": {
         "msg": "The selected item is still used somewhere."
+      },
+      "problemsoccurredwithserverconnection": {
+        "msg": "Problems occurred with server connection."
       }
     },
     "userbrowser": {
