@@ -6,7 +6,7 @@ import {
 } from "@mui/material";
 import { useFormik } from "formik";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-import React, { ReactNode, useCallback, useEffect } from "react";
+import React, { ReactNode, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import checkIcon from "../../../../../assets/check-icon.png";
@@ -40,6 +40,8 @@ export const NewUser = () => {
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const navigate = useNavigate();
+
+  const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
   const create = useAppSelector((state) => state.users.create);
 
@@ -77,6 +79,11 @@ export const NewUser = () => {
       dispatch(createUserReset());
     };
   }, [create.hasSucceeded, dispatch, navigate]);
+
+  const handleResetConfirmation = () => {
+    setOpenResetConfirmation(false);
+    navigate(-1);
+  };
 
   const handleCheckboxChange = useCallback(
     (fieldName: string) => (value: boolean) => {
@@ -197,12 +204,11 @@ export const NewUser = () => {
           </div>
           <div className="reset_button">
             <Button
+              dataCy="cancel-form"
               type="reset"
               variant="text"
-              disabled={!!create.isLoading}
-              onClick={() => {
-                navigate(PATHS.admin_users);
-              }}
+              disabled={create.isLoading}
+              onClick={() => setOpenResetConfirmation(true)}
             >
               {t("common.cancel")}
             </Button>
@@ -218,6 +224,16 @@ export const NewUser = () => {
             navigate(PATHS.admin_users);
           }}
           handleSecondaryButtonClick={() => ({})}
+        />
+        <ConfirmationDialog
+          isOpen={openResetConfirmation}
+          title={t("common.cancel")}
+          info={t("common.resetform")}
+          icon={warningIcon}
+          primaryButtonLabel={t("common.ok")}
+          secondaryButtonLabel={t("common.discard")}
+          handlePrimaryButtonClick={handleResetConfirmation}
+          handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
         />
         <ConfirmationDialog
           isOpen={create.hasFailed}

@@ -6,6 +6,7 @@ import { useParams } from "react-router";
 import { useNavigate } from "react-router-dom";
 
 import checkIcon from "../../../../../assets/check-icon.png";
+import warningIcon from "../../../../../assets/warning-icon.png";
 import Button from "../../../button/Button";
 import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
 import InfoBox from "../../../infoBox/InfoBox";
@@ -41,6 +42,8 @@ export const EditGroup = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const canUpdatePermissions = usePermission("grouppermission.update");
+
+  const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
   const update = useAppSelector((state) => state.usergroups.update);
   const permissions = useAppSelector((state) => state.permissions.getAll);
@@ -130,9 +133,9 @@ export const EditGroup = () => {
     };
   }, []);
 
-  const handleFormReset = () => {
-    resetForm();
-    setGroupPermissions(group.data?.permissions ?? []);
+  const handleResetConfirmation = () => {
+    setOpenResetConfirmation(false);
+    navigate(-1);
   };
 
   const handleCheckboxChange = useCallback(
@@ -262,16 +265,27 @@ export const EditGroup = () => {
               </div>
               <div className="reset_button">
                 <Button
+                  dataCy="cancel-form"
                   type="reset"
                   variant="text"
-                  disabled={!!update.isLoading || !(dirty || dirtyPermissions)}
-                  onClick={handleFormReset}
+                  disabled={update.isLoading}
+                  onClick={() => setOpenResetConfirmation(true)}
                 >
-                  {t("common.reset")}
+                  {t("common.cancel")}
                 </Button>
               </div>
             </div>
           </form>
+          <ConfirmationDialog
+            isOpen={openResetConfirmation}
+            title={t("common.cancel")}
+            info={t("common.resetform")}
+            icon={warningIcon}
+            primaryButtonLabel={t("common.ok")}
+            secondaryButtonLabel={t("common.discard")}
+            handlePrimaryButtonClick={handleResetConfirmation}
+            handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
+          />
           <ConfirmationDialog
             isOpen={update.hasSucceeded}
             title={t("user.groupUpdated")}

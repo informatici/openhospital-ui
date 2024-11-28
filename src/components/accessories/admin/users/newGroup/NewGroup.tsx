@@ -1,10 +1,11 @@
 import { useFormik } from "formik";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
 import checkIcon from "../../../../../assets/check-icon.png";
+import warningIcon from "../../../../../assets/warning-icon.png";
 import Button from "../../../button/Button";
 import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
 import InfoBox from "../../../infoBox/InfoBox";
@@ -32,6 +33,8 @@ export const NewGroup = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
+  const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
+
   const create = useAppSelector((state) => state.usergroups.create);
 
   const {
@@ -40,7 +43,6 @@ export const NewGroup = () => {
     getFieldProps,
     isValid,
     dirty,
-    resetForm,
     errors,
     touched,
     values,
@@ -58,6 +60,11 @@ export const NewGroup = () => {
       dispatch(createUserGroupReset());
     };
   }, [dispatch]);
+
+  const handleResetConfirmation = () => {
+    setOpenResetConfirmation(false);
+    navigate(-1);
+  };
 
   const handleCheckboxChange = useCallback(
     (fieldName: string) => (value: boolean) => {
@@ -123,18 +130,27 @@ export const NewGroup = () => {
           </div>
           <div className="reset_button">
             <Button
+              dataCy="cancel-form"
               type="reset"
               variant="text"
-              disabled={!!create.isLoading || !dirty}
-              onClick={async () => {
-                resetForm();
-              }}
+              disabled={create.isLoading}
+              onClick={() => setOpenResetConfirmation(true)}
             >
-              {t("common.reset")}
+              {t("common.cancel")}
             </Button>
           </div>
         </div>
       </form>
+      <ConfirmationDialog
+        isOpen={openResetConfirmation}
+        title={t("common.cancel")}
+        info={t("common.resetform")}
+        icon={warningIcon}
+        primaryButtonLabel={t("common.ok")}
+        secondaryButtonLabel={t("common.discard")}
+        handlePrimaryButtonClick={handleResetConfirmation}
+        handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
+      />
       <ConfirmationDialog
         isOpen={create.hasSucceeded}
         title={t("user.groupCreated")}

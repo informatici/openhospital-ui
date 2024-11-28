@@ -5,13 +5,14 @@ import {
   TextField as MuiTextField,
 } from "@mui/material";
 import { useFormik } from "formik";
-import React, { ReactNode, useCallback } from "react";
+import React, { ReactNode, useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
 import { UserDTO, UserGroupDTO } from "../../../../../generated";
 
 import checkIcon from "../../../../../assets/check-icon.png";
+import warningIcon from "../../../../../assets/warning-icon.png";
 import Button from "../../../button/Button";
 import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
 import InfoBox from "../../../infoBox/InfoBox";
@@ -44,6 +45,8 @@ export const EditUserForm = ({
   const { t } = useTranslation();
   const navigate = useNavigate();
 
+  const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
+
   const handleFormSubmit = (values: UserDTO & { passwd2: string }) => {
     const { passwd2, ...userDTO } = values;
     if (userDTO.passwd === undefined) {
@@ -59,7 +62,6 @@ export const EditUserForm = ({
     getFieldProps,
     isValid,
     dirty,
-    resetForm,
     errors,
     touched,
     values,
@@ -70,6 +72,11 @@ export const EditUserForm = ({
     validationSchema: userSchema(t),
     onSubmit: handleFormSubmit,
   });
+
+  const handleResetConfirmation = () => {
+    setOpenResetConfirmation(false);
+    navigate(-1);
+  };
 
   const handleCheckboxChange = useCallback(
     (fieldName: string) => (value: boolean) => {
@@ -192,18 +199,27 @@ export const EditUserForm = ({
           </div>
           <div className="reset_button">
             <Button
+              dataCy="cancel-form"
               type="reset"
               variant="text"
-              disabled={!!isLoading || !dirty}
-              onClick={async () => {
-                resetForm();
-              }}
+              disabled={isLoading}
+              onClick={() => setOpenResetConfirmation(true)}
             >
-              {t("common.reset")}
+              {t("common.cancel")}
             </Button>
           </div>
         </div>
       </form>
+      <ConfirmationDialog
+        isOpen={openResetConfirmation}
+        title={t("common.cancel")}
+        info={t("common.resetform")}
+        icon={warningIcon}
+        primaryButtonLabel={t("common.ok")}
+        secondaryButtonLabel={t("common.discard")}
+        handlePrimaryButtonClick={handleResetConfirmation}
+        handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
+      />
       <ConfirmationDialog
         isOpen={hasSucceeded}
         title={t("user.updatedSuccessTitle")}
