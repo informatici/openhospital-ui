@@ -1,7 +1,15 @@
+import { Cancel } from "@mui/icons-material";
 import { useFormik } from "formik";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { get, has } from "lodash";
-import React, { FC, useEffect, useMemo, useRef, useState } from "react";
+import React, {
+  FC,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { object, string } from "yup";
@@ -31,7 +39,10 @@ const HospitalForm: FC<IHospitalFormProps> = ({
   const { t } = useTranslation();
   const navigate = useNavigate();
   const infoBoxRef = useRef<HTMLDivElement>(null);
-  const [openDiscardConfirmation, setOpenDiscardConfirmation] = useState(false);
+
+  const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
+
+  const [openCancelConfirmation, setOpenCancelConfirmation] = useState(false);
 
   const hospitalStore = useAppSelector((state) => state.hospital);
 
@@ -73,10 +84,29 @@ const HospitalForm: FC<IHospitalFormProps> = ({
       : "";
   };
 
-  const handleDiscardConfirmation = () => {
-    setOpenDiscardConfirmation(false);
+  const handleResetConfirmationDialog = useCallback(
+    (value: boolean) => () => {
+      setOpenResetConfirmation(value);
+    },
+    [setOpenResetConfirmation]
+  );
+
+  const handleCancelConfirmationDialog = useCallback(
+    (value: boolean) => () => {
+      setOpenCancelConfirmation(value);
+    },
+    [setOpenCancelConfirmation]
+  );
+
+  const handleResetConfirmation = useCallback(() => {
+    setOpenResetConfirmation(false);
+    formik.resetForm();
+  }, [navigate, formik.resetForm, setOpenResetConfirmation]);
+
+  const handleCancelConfirmation = useCallback(() => {
+    setOpenCancelConfirmation(false);
     navigate(-1);
-  };
+  }, [navigate, setOpenCancelConfirmation]);
 
   useEffect(() => {
     return () => {
@@ -86,6 +116,20 @@ const HospitalForm: FC<IHospitalFormProps> = ({
 
   return (
     <div className="hospitalForm">
+      <div className="hospitalForm__header">
+        <div className="hospitalForm__actions">
+          <Button
+            dataCy="cancel-form"
+            onClick={handleCancelConfirmationDialog(true)}
+            type="button"
+            variant="contained"
+            color="primary"
+          >
+            <Cancel fontSize="small" />
+            {t("common.discard")}
+          </Button>
+        </div>
+      </div>
       <form className="hospitalForm__form" onSubmit={formik.handleSubmit}>
         <div className="row start-sm center-xs">
           <div className="hospitalForm__item halfWidth">
@@ -186,27 +230,37 @@ const HospitalForm: FC<IHospitalFormProps> = ({
               {submitButtonLabel}
             </Button>
           </div>
-          <div className="discard_button">
+          <div className="reset_button">
             <Button
-              type="button"
+              dataCy="reset-form"
+              type="reset"
               variant="text"
-              dataCy="cancel-form"
-              disabled={isLoading}
-              onClick={() => setOpenDiscardConfirmation(true)}
+              disabled={isLoading || !formik.dirty}
+              onClick={handleResetConfirmationDialog(true)}
             >
-              {t("common.discard")}
+              {resetButtonLabel}
             </Button>
           </div>
         </div>
         <ConfirmationDialog
-          isOpen={openDiscardConfirmation}
-          title={t("common.discard")}
-          info={t("hospital.discardChanges")}
+          isOpen={openCancelConfirmation}
+          title={t("common.cancel")}
+          info={t("common.cancelMessage")}
           icon={warningIcon}
           primaryButtonLabel={t("common.ok")}
           secondaryButtonLabel={t("common.discard")}
-          handlePrimaryButtonClick={handleDiscardConfirmation}
-          handleSecondaryButtonClick={() => setOpenDiscardConfirmation(false)}
+          handlePrimaryButtonClick={handleCancelConfirmation}
+          handleSecondaryButtonClick={handleCancelConfirmationDialog(false)}
+        />
+        <ConfirmationDialog
+          isOpen={openResetConfirmation}
+          title={t("common.reset")}
+          info={t("common.resetform")}
+          icon={warningIcon}
+          primaryButtonLabel={t("common.ok")}
+          secondaryButtonLabel={t("common.back")}
+          handlePrimaryButtonClick={handleResetConfirmation}
+          handleSecondaryButtonClick={handleResetConfirmationDialog(false)}
         />
         {hospitalStore.updateHospital.status === "FAIL" && (
           <div ref={infoBoxRef} className="info-box-container">

@@ -42,7 +42,10 @@ const DeliveryResultTypeForm: FC<IDeliveryResultTypeFormProps> = ({
   const { t } = useTranslation();
   const navigate = useNavigate();
   const infoBoxRef = useRef<HTMLDivElement>(null);
+
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
+
+  const [openCancelConfirmation, setOpenCancelConfirmation] = useState(false);
 
   const deliveryResultTypesStore = useAppSelector(
     (state) => state.types.deliveryResult
@@ -89,10 +92,29 @@ const DeliveryResultTypeForm: FC<IDeliveryResultTypeFormProps> = ({
       : "";
   };
 
-  const handleResetConfirmation = () => {
+  const handleResetConfirmationDialog = useCallback(
+    (value: boolean) => () => {
+      setOpenResetConfirmation(value);
+    },
+    [setOpenResetConfirmation]
+  );
+
+  const handleCancelConfirmationDialog = useCallback(
+    (value: boolean) => () => {
+      setOpenCancelConfirmation(value);
+    },
+    [setOpenCancelConfirmation]
+  );
+
+  const handleResetConfirmation = useCallback(() => {
     setOpenResetConfirmation(false);
+    formik.resetForm();
+  }, [navigate, formik.resetForm, setOpenResetConfirmation]);
+
+  const handleCancelConfirmation = useCallback(() => {
+    setOpenCancelConfirmation(false);
     navigate(-1);
-  };
+  }, [navigate, setOpenCancelConfirmation]);
 
   const cleanUp = useCallback(() => {
     if (creationMode) {
@@ -152,29 +174,35 @@ const DeliveryResultTypeForm: FC<IDeliveryResultTypeFormProps> = ({
           </div>
           <div className="reset_button">
             <Button
+              dataCy="reset-form"
               type="reset"
               variant="text"
-              dataCy="cancel-form"
-              disabled={isLoading}
-              onClick={() => setOpenResetConfirmation(true)}
+              disabled={isLoading || !formik.dirty}
+              onClick={handleResetConfirmationDialog(true)}
             >
               {resetButtonLabel}
             </Button>
           </div>
         </div>
         <ConfirmationDialog
-          isOpen={openResetConfirmation}
-          title={resetButtonLabel.toUpperCase()}
-          info={
-            creationMode
-              ? t("deliveryResultType.cancelCreation")
-              : t("deliveryResultType.cancelUpdate")
-          }
+          isOpen={openCancelConfirmation}
+          title={t("common.cancel")}
+          info={t("common.cancelMessage")}
           icon={warningIcon}
           primaryButtonLabel={t("common.ok")}
           secondaryButtonLabel={t("common.discard")}
+          handlePrimaryButtonClick={handleCancelConfirmation}
+          handleSecondaryButtonClick={handleCancelConfirmationDialog(false)}
+        />
+        <ConfirmationDialog
+          isOpen={openResetConfirmation}
+          title={t("common.reset")}
+          info={t("common.resetform")}
+          icon={warningIcon}
+          primaryButtonLabel={t("common.ok")}
+          secondaryButtonLabel={t("common.back")}
           handlePrimaryButtonClick={handleResetConfirmation}
-          handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
+          handleSecondaryButtonClick={handleResetConfirmationDialog(false)}
         />
         {(creationMode
           ? deliveryResultTypesStore.create.status === "FAIL"

@@ -1,8 +1,16 @@
+import { Cancel } from "@mui/icons-material";
 import { useFormik } from "formik";
 import { AgeTypeDTO } from "generated";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { get, has } from "lodash";
-import React, { FC, useEffect, useMemo, useRef, useState } from "react";
+import React, {
+  FC,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { updateAgeTypeReset } from "state/types/ageTypes";
@@ -33,7 +41,11 @@ const AgeTypesForm: FC<IAgeTypesFormProps> = ({
   const { t } = useTranslation();
   const navigate = useNavigate();
   const infoBoxRef = useRef<HTMLDivElement>(null);
+
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
+
+  const [openCancelConfirmation, setOpenCancelConfirmation] = useState(false);
+
   const [validationErrors, setValidationErrors] = useState<string[]>([]);
 
   const updateAgeTypes = useAppSelector((state) => state.types.ageTypes.update);
@@ -92,10 +104,29 @@ const AgeTypesForm: FC<IAgeTypesFormProps> = ({
       : "";
   };
 
-  const handleResetConfirmation = () => {
+  const handleResetConfirmationDialog = useCallback(
+    (value: boolean) => () => {
+      setOpenResetConfirmation(value);
+    },
+    [setOpenResetConfirmation]
+  );
+
+  const handleCancelConfirmationDialog = useCallback(
+    (value: boolean) => () => {
+      setOpenCancelConfirmation(value);
+    },
+    [setOpenCancelConfirmation]
+  );
+
+  const handleResetConfirmation = useCallback(() => {
     setOpenResetConfirmation(false);
+    formik.resetForm();
+  }, [navigate, formik.resetForm, setOpenResetConfirmation]);
+
+  const handleCancelConfirmation = useCallback(() => {
+    setOpenCancelConfirmation(false);
     navigate(-1);
-  };
+  }, [navigate, setOpenCancelConfirmation]);
 
   useEffect(() => {
     return () => {
@@ -105,6 +136,20 @@ const AgeTypesForm: FC<IAgeTypesFormProps> = ({
 
   return (
     <div className="ageTypesForm">
+      <div className="form__header">
+        <div className="form__actions">
+          <Button
+            dataCy="cancel-form"
+            onClick={handleCancelConfirmationDialog(true)}
+            type="button"
+            variant="contained"
+            color="primary"
+          >
+            <Cancel fontSize="small" />
+            {t("common.discard")}
+          </Button>
+        </div>
+      </div>
       <form className="ageTypesForm__form" onSubmit={formik.handleSubmit}>
         <div className="row">
           <table className="ageTypesFormTable">
@@ -143,25 +188,35 @@ const AgeTypesForm: FC<IAgeTypesFormProps> = ({
           </div>
           <div className="reset_button">
             <Button
+              dataCy="reset-form"
               type="reset"
               variant="text"
-              dataCy="cancel-form"
-              disabled={isLoading}
-              onClick={() => setOpenResetConfirmation(true)}
+              disabled={isLoading || !formik.dirty}
+              onClick={handleResetConfirmationDialog(true)}
             >
               {resetButtonLabel}
             </Button>
           </div>
         </div>
         <ConfirmationDialog
-          isOpen={openResetConfirmation}
-          title={resetButtonLabel.toUpperCase()}
-          info={t("ageTypes.cancelUpdate")}
+          isOpen={openCancelConfirmation}
+          title={t("common.cancel")}
+          info={t("common.cancelMessage")}
           icon={warningIcon}
           primaryButtonLabel={t("common.ok")}
           secondaryButtonLabel={t("common.discard")}
+          handlePrimaryButtonClick={handleCancelConfirmation}
+          handleSecondaryButtonClick={handleCancelConfirmationDialog(false)}
+        />
+        <ConfirmationDialog
+          isOpen={openResetConfirmation}
+          title={t("common.reset")}
+          info={t("common.resetform")}
+          icon={warningIcon}
+          primaryButtonLabel={t("common.ok")}
+          secondaryButtonLabel={t("common.back")}
           handlePrimaryButtonClick={handleResetConfirmation}
-          handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
+          handleSecondaryButtonClick={handleResetConfirmationDialog(false)}
         />
         {updateAgeTypes.status === "FAIL" && (
           <div ref={infoBoxRef} className="info-box-container">

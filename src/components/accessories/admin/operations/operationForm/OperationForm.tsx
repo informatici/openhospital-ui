@@ -1,3 +1,4 @@
+import { Cancel } from "@mui/icons-material";
 import { useFormik } from "formik";
 import { OperationDTOOpeForEnum } from "generated/models/OperationDTO";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
@@ -47,7 +48,10 @@ const OperationForm: FC<IOperationProps> = ({
   const { t } = useTranslation();
   const navigate = useNavigate();
   const infoBoxRef = useRef<HTMLDivElement>(null);
+
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
+
+  const [openCancelConfirmation, setOpenCancelConfirmation] = useState(false);
 
   const operationStore = useAppSelector((state) => state.operations);
 
@@ -119,10 +123,29 @@ const OperationForm: FC<IOperationProps> = ({
       : "";
   };
 
-  const handleResetConfirmation = () => {
+  const handleResetConfirmationDialog = useCallback(
+    (value: boolean) => () => {
+      setOpenResetConfirmation(value);
+    },
+    [setOpenResetConfirmation]
+  );
+
+  const handleCancelConfirmationDialog = useCallback(
+    (value: boolean) => () => {
+      setOpenCancelConfirmation(value);
+    },
+    [setOpenCancelConfirmation]
+  );
+
+  const handleResetConfirmation = useCallback(() => {
     setOpenResetConfirmation(false);
+    formik.resetForm();
+  }, [navigate, formik.resetForm, setOpenResetConfirmation]);
+
+  const handleCancelConfirmation = useCallback(() => {
+    setOpenCancelConfirmation(false);
     navigate(-1);
-  };
+  }, [navigate, setOpenCancelConfirmation]);
 
   const handleCheckboxChange = useCallback(
     (fieldName: string) => (value: boolean) => {
@@ -158,6 +181,20 @@ const OperationForm: FC<IOperationProps> = ({
 
   return (
     <div className="operationForm">
+      <div className="operationForm__header">
+        <div className="operationForm__actions">
+          <Button
+            dataCy="cancel-form"
+            onClick={handleCancelConfirmationDialog(true)}
+            type="button"
+            variant="contained"
+            color="primary"
+          >
+            <Cancel fontSize="small" />
+            {t("common.discard")}
+          </Button>
+        </div>
+      </div>
       <form className="operationForm__form" onSubmit={formik.handleSubmit}>
         <div className="row start-sm center-xs">
           <div className="operationForm__item halfWidth">
@@ -247,14 +284,24 @@ const OperationForm: FC<IOperationProps> = ({
           </div>
         </div>
         <ConfirmationDialog
-          isOpen={openResetConfirmation}
-          title={resetButtonLabel.toUpperCase()}
-          info={t("common.resetform")}
+          isOpen={openCancelConfirmation}
+          title={t("common.cancel")}
+          info={t("common.cancelMessage")}
           icon={warningIcon}
           primaryButtonLabel={t("common.ok")}
           secondaryButtonLabel={t("common.discard")}
+          handlePrimaryButtonClick={handleCancelConfirmation}
+          handleSecondaryButtonClick={handleCancelConfirmationDialog(false)}
+        />
+        <ConfirmationDialog
+          isOpen={openResetConfirmation}
+          title={t("common.reset")}
+          info={t("common.resetform")}
+          icon={warningIcon}
+          primaryButtonLabel={t("common.ok")}
+          secondaryButtonLabel={t("common.back")}
           handlePrimaryButtonClick={handleResetConfirmation}
-          handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
+          handleSecondaryButtonClick={handleResetConfirmationDialog(false)}
         />
         {(creationMode
           ? operationStore.create.status === "FAIL"

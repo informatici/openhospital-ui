@@ -1,3 +1,4 @@
+import { Cancel } from "@mui/icons-material";
 import { useFormik } from "formik";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { get, has } from "lodash";
@@ -42,7 +43,10 @@ const SupplierForm: FC<ISupplierFormProps> = ({
   const { t } = useTranslation();
   const navigate = useNavigate();
   const infoBoxRef = useRef<HTMLDivElement>(null);
+
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
+
+  const [openCancelConfirmation, setOpenCancelConfirmation] = useState(false);
 
   const supplierStore = useAppSelector((state) => state.suppliers);
 
@@ -97,10 +101,29 @@ const SupplierForm: FC<ISupplierFormProps> = ({
       : "";
   };
 
-  const handleResetConfirmation = () => {
+  const handleResetConfirmationDialog = useCallback(
+    (value: boolean) => () => {
+      setOpenResetConfirmation(value);
+    },
+    [setOpenResetConfirmation]
+  );
+
+  const handleCancelConfirmationDialog = useCallback(
+    (value: boolean) => () => {
+      setOpenCancelConfirmation(value);
+    },
+    [setOpenCancelConfirmation]
+  );
+
+  const handleResetConfirmation = useCallback(() => {
     setOpenResetConfirmation(false);
+    formik.resetForm();
+  }, [navigate, formik.resetForm, setOpenResetConfirmation]);
+
+  const handleCancelConfirmation = useCallback(() => {
+    setOpenCancelConfirmation(false);
     navigate(-1);
-  };
+  }, [navigate, setOpenCancelConfirmation]);
 
   const cleanUp = useCallback(() => {
     if (creationMode) {
@@ -116,6 +139,20 @@ const SupplierForm: FC<ISupplierFormProps> = ({
 
   return (
     <div className="supplierForm">
+      <div className="supplierForm__header">
+        <div className="supplierForm__actions">
+          <Button
+            dataCy="cancel-form"
+            onClick={handleCancelConfirmationDialog(true)}
+            type="button"
+            variant="contained"
+            color="primary"
+          >
+            <Cancel fontSize="small" />
+            {t("common.discard")}
+          </Button>
+        </div>
+      </div>
       <form className="supplierForm__form" onSubmit={formik.handleSubmit}>
         <div className="row start-sm center-xs">
           {!creationMode && (
@@ -243,14 +280,24 @@ const SupplierForm: FC<ISupplierFormProps> = ({
           </div>
         </div>
         <ConfirmationDialog
-          isOpen={openResetConfirmation}
-          title={resetButtonLabel.toUpperCase()}
-          info={t("common.resetform")}
+          isOpen={openCancelConfirmation}
+          title={t("common.cancel")}
+          info={t("common.cancelMessage")}
           icon={warningIcon}
           primaryButtonLabel={t("common.ok")}
           secondaryButtonLabel={t("common.discard")}
+          handlePrimaryButtonClick={handleCancelConfirmation}
+          handleSecondaryButtonClick={handleCancelConfirmationDialog(false)}
+        />
+        <ConfirmationDialog
+          isOpen={openResetConfirmation}
+          title={t("common.reset")}
+          info={t("common.resetform")}
+          icon={warningIcon}
+          primaryButtonLabel={t("common.ok")}
+          secondaryButtonLabel={t("common.back")}
           handlePrimaryButtonClick={handleResetConfirmation}
-          handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
+          handleSecondaryButtonClick={handleResetConfirmationDialog(false)}
         />
         {(creationMode
           ? supplierStore.create.status === "FAIL"

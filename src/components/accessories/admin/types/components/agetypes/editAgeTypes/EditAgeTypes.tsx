@@ -57,7 +57,7 @@ export const EditAgeTypes = () => {
         <AgeTypesForm
           onSubmit={handleSubmit}
           isLoading={!!update.isLoading}
-          resetButtonLabel={t("common.cancel")}
+          resetButtonLabel={t("common.reset")}
           submitButtonLabel={t("ageTypes.updateAgeType")}
           rows={getInitialFields(ageTypesState.data ?? [])}
         />

@@ -1,3 +1,4 @@
+import { Cancel } from "@mui/icons-material";
 import { useFormik } from "formik";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { get, has } from "lodash";
@@ -42,7 +43,10 @@ const AdmissionTypeForm: FC<IAdmissionTypeFormProps> = ({
   const { t } = useTranslation();
   const navigate = useNavigate();
   const infoBoxRef = useRef<HTMLDivElement>(null);
+
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
+
+  const [openCancelConfirmation, setOpenCancelConfirmation] = useState(false);
 
   const admissionTypesStore = useAppSelector((state) => state.types.admissions);
 
@@ -87,10 +91,29 @@ const AdmissionTypeForm: FC<IAdmissionTypeFormProps> = ({
       : "";
   };
 
-  const handleResetConfirmation = () => {
+  const handleResetConfirmationDialog = useCallback(
+    (value: boolean) => () => {
+      setOpenResetConfirmation(value);
+    },
+    [setOpenResetConfirmation]
+  );
+
+  const handleCancelConfirmationDialog = useCallback(
+    (value: boolean) => () => {
+      setOpenCancelConfirmation(value);
+    },
+    [setOpenCancelConfirmation]
+  );
+
+  const handleResetConfirmation = useCallback(() => {
     setOpenResetConfirmation(false);
+    formik.resetForm();
+  }, [navigate, formik.resetForm, setOpenResetConfirmation]);
+
+  const handleCancelConfirmation = useCallback(() => {
+    setOpenCancelConfirmation(false);
     navigate(-1);
-  };
+  }, [navigate, setOpenCancelConfirmation]);
 
   const cleanUp = useCallback(() => {
     if (creationMode) {
@@ -106,6 +129,20 @@ const AdmissionTypeForm: FC<IAdmissionTypeFormProps> = ({
 
   return (
     <div className="admissionTypesForm">
+      <div className="form__header">
+        <div className="form__actions">
+          <Button
+            dataCy="cancel-form"
+            onClick={handleCancelConfirmationDialog(true)}
+            type="button"
+            variant="contained"
+            color="primary"
+          >
+            <Cancel fontSize="small" />
+            {t("common.discard")}
+          </Button>
+        </div>
+      </div>
       <form className="admissionTypesForm__form" onSubmit={formik.handleSubmit}>
         <div className="row start-sm center-xs">
           <div className="admissionTypesForm__item halfWidth">
@@ -147,29 +184,35 @@ const AdmissionTypeForm: FC<IAdmissionTypeFormProps> = ({
           </div>
           <div className="reset_button">
             <Button
+              dataCy="reset-form"
               type="reset"
               variant="text"
-              dataCy="cancel-form"
-              disabled={isLoading}
-              onClick={() => setOpenResetConfirmation(true)}
+              disabled={isLoading || !formik.dirty}
+              onClick={handleResetConfirmationDialog(true)}
             >
               {resetButtonLabel}
             </Button>
           </div>
         </div>
         <ConfirmationDialog
-          isOpen={openResetConfirmation}
-          title={resetButtonLabel.toUpperCase()}
-          info={
-            creationMode
-              ? t("admissionTypes.cancelCreation")
-              : t("admissionTypes.cancelUpdate")
-          }
+          isOpen={openCancelConfirmation}
+          title={t("common.cancel")}
+          info={t("common.cancelMessage")}
           icon={warningIcon}
           primaryButtonLabel={t("common.ok")}
           secondaryButtonLabel={t("common.discard")}
+          handlePrimaryButtonClick={handleCancelConfirmation}
+          handleSecondaryButtonClick={handleCancelConfirmationDialog(false)}
+        />
+        <ConfirmationDialog
+          isOpen={openResetConfirmation}
+          title={t("common.reset")}
+          info={t("common.resetform")}
+          icon={warningIcon}
+          primaryButtonLabel={t("common.ok")}
+          secondaryButtonLabel={t("common.back")}
           handlePrimaryButtonClick={handleResetConfirmation}
-          handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
+          handleSecondaryButtonClick={handleResetConfirmationDialog(false)}
         />
         {(creationMode
           ? admissionTypesStore.create.status === "FAIL"

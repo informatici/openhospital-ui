@@ -31,7 +31,7 @@ import TextField from "../../../textField/TextField";
 import "./styles.scss";
 import { IExamProps } from "./types";
 
-import { AddCircle, Delete } from "@mui/icons-material";
+import { AddCircle, Cancel, Delete } from "@mui/icons-material";
 import { IconButton, Radio, RadioGroup } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import AutocompleteField from "../../../autocompleteField/AutocompleteField";
@@ -49,7 +49,10 @@ const ExamForm: FC<IExamProps> = ({
   const { t } = useTranslation();
   const navigate = useNavigate();
   const infoBoxRef = useRef<HTMLDivElement>(null);
+
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
+
+  const [openCancelConfirmation, setOpenCancelConfirmation] = useState(false);
 
   const examStore = useAppSelector((state) => state.exams);
 
@@ -142,10 +145,29 @@ const ExamForm: FC<IExamProps> = ({
       : "";
   };
 
-  const handleResetConfirmation = () => {
+  const handleResetConfirmationDialog = useCallback(
+    (value: boolean) => () => {
+      setOpenResetConfirmation(value);
+    },
+    [setOpenResetConfirmation]
+  );
+
+  const handleCancelConfirmationDialog = useCallback(
+    (value: boolean) => () => {
+      setOpenCancelConfirmation(value);
+    },
+    [setOpenCancelConfirmation]
+  );
+
+  const handleResetConfirmation = useCallback(() => {
     setOpenResetConfirmation(false);
+    formik.resetForm();
+  }, [navigate, formik.resetForm, setOpenResetConfirmation]);
+
+  const handleCancelConfirmation = useCallback(() => {
+    setOpenCancelConfirmation(false);
     navigate(-1);
-  };
+  }, [navigate, setOpenCancelConfirmation]);
 
   const addExamRow = useCallback(() => {
     formik.setFieldValue("rows", [...formik.values.rows, ""]);
@@ -210,6 +232,20 @@ const ExamForm: FC<IExamProps> = ({
 
   return (
     <div className="examForm">
+      <div className="examForm__header">
+        <div className="examForm__actions">
+          <Button
+            dataCy="cancel-form"
+            onClick={handleCancelConfirmationDialog(true)}
+            type="button"
+            variant="contained"
+            color="primary"
+          >
+            <Cancel fontSize="small" />
+            {t("common.discard")}
+          </Button>
+        </div>
+      </div>
       <form className="examForm__form" onSubmit={formik.handleSubmit}>
         <div className="row start-sm center-xs">
           <div className="examForm__item fullWidth">
@@ -347,25 +383,35 @@ const ExamForm: FC<IExamProps> = ({
           </div>
           <div className="reset_button">
             <Button
+              dataCy="reset-form"
               type="reset"
               variant="text"
-              dataCy="cancel-form"
-              disabled={isLoading}
-              onClick={() => setOpenResetConfirmation(true)}
+              disabled={isLoading || !formik.dirty}
+              onClick={handleResetConfirmationDialog(true)}
             >
               {resetButtonLabel}
             </Button>
           </div>
         </div>
         <ConfirmationDialog
-          isOpen={openResetConfirmation}
-          title={resetButtonLabel.toUpperCase()}
-          info={t("common.resetform")}
+          isOpen={openCancelConfirmation}
+          title={t("common.cancel")}
+          info={t("common.cancelMessage")}
           icon={warningIcon}
           primaryButtonLabel={t("common.ok")}
           secondaryButtonLabel={t("common.discard")}
+          handlePrimaryButtonClick={handleCancelConfirmation}
+          handleSecondaryButtonClick={handleCancelConfirmationDialog(false)}
+        />
+        <ConfirmationDialog
+          isOpen={openResetConfirmation}
+          title={t("common.reset")}
+          info={t("common.resetform")}
+          icon={warningIcon}
+          primaryButtonLabel={t("common.ok")}
+          secondaryButtonLabel={t("common.back")}
           handlePrimaryButtonClick={handleResetConfirmation}
-          handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
+          handleSecondaryButtonClick={handleResetConfirmationDialog(false)}
         />
         {(creationMode
           ? examStore.examCreate.status === "FAIL"

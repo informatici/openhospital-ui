@@ -6,8 +6,8 @@ import { PATHS } from "../../../../../../../consts";
 import { PregnantTreatmentTypeDTO } from "../../../../../../../generated";
 import { setTypeMode } from "../../../../../../../state/types/config";
 import { updatePregnantTreatmentType } from "../../../../../../../state/types/pregnantTreatment";
-import { getInitialFields } from "../pregnantTreatmentTypeForm/consts";
 import PregnantTreatmentTypeForm from "../pregnantTreatmentTypeForm/PregnantTreatmentTypeForm";
+import { getInitialFields } from "../pregnantTreatmentTypeForm/consts";
 import "./styles.scss";
 
 export const EditPregnantTreatmentType = () => {
@@ -49,7 +49,7 @@ export const EditPregnantTreatmentType = () => {
         creationMode={false}
         onSubmit={handleSubmit}
         isLoading={!!update.isLoading}
-        resetButtonLabel={t("common.cancel")}
+        resetButtonLabel={t("common.reset")}
         submitButtonLabel={t(
           "pregnantTreatmentTypes.updatePregnantTreatmentType"
         )}
