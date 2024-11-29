@@ -573,7 +573,9 @@
     "restore": "Restore",
     "restoreConfirmation": "Are you sure to restore this item ?",
     "softDelete": "Mark as deleted",
-    "softDeleteConfirmation": "Are you sure to mark this item as deleted ?"
+    "softDeleteConfirmation": "Are you sure to mark this item as deleted ?",
+    "cancelMessage": "Are you sure to cancel this operation ? All unsaved data will be lost.",
+    "back": "Back"
   },
   "permission": {
     "denied": "Permission denied",

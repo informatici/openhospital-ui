@@ -17,6 +17,7 @@ import TextField from "../../../textField/TextField";
 
 import { IState } from "../../../../../types";
 
+import { Cancel } from "@mui/icons-material";
 import CheckboxField from "components/accessories/checkboxField/CheckboxField";
 import { UserDTO } from "generated/models/UserDTO";
 import { UserGroupDTO } from "generated/models/UserGroupDTO";
@@ -43,6 +44,8 @@ export const NewUser = () => {
 
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
+  const [openCancelConfirmation, setOpenCancelConfirmation] = useState(false);
+
   const create = useAppSelector((state) => state.users.create);
 
   const userGroupsTypeState = useAppSelector(
@@ -60,6 +63,7 @@ export const NewUser = () => {
     errors,
     touched,
     values,
+    resetForm,
   } = useFormik<FormProps>({
     initialValues,
     validationSchema: userSchema(t),
@@ -80,10 +84,29 @@ export const NewUser = () => {
     };
   }, [create.hasSucceeded, dispatch, navigate]);
 
-  const handleResetConfirmation = () => {
+  const handleResetConfirmationDialog = useCallback(
+    (value: boolean) => () => {
+      setOpenResetConfirmation(value);
+    },
+    [setOpenResetConfirmation]
+  );
+
+  const handleCancelConfirmationDialog = useCallback(
+    (value: boolean) => () => {
+      setOpenCancelConfirmation(value);
+    },
+    [setOpenCancelConfirmation]
+  );
+
+  const handleResetConfirmation = useCallback(() => {
     setOpenResetConfirmation(false);
+    resetForm();
+  }, [navigate, resetForm, setOpenResetConfirmation]);
+
+  const handleCancelConfirmation = useCallback(() => {
+    setOpenCancelConfirmation(false);
     navigate(-1);
-  };
+  }, [navigate, setOpenCancelConfirmation]);
 
   const handleCheckboxChange = useCallback(
     (fieldName: string) => (value: boolean) => {
@@ -94,6 +117,20 @@ export const NewUser = () => {
 
   return (
     <div className="newUserForm">
+      <div className="newUserForm__header">
+        <div className="newUserForm__actions">
+          <Button
+            dataCy="cancel-form"
+            onClick={handleCancelConfirmationDialog(true)}
+            type="button"
+            variant="contained"
+            color="primary"
+          >
+            <Cancel fontSize="small" />
+            {t("common.discard")}
+          </Button>
+        </div>
+      </div>
       <form className="newUserForm__form" onSubmit={handleSubmit}>
         <div className="row start-sm center-xs">
           <div className="newUserForm__item fullWidth">
@@ -207,13 +244,13 @@ export const NewUser = () => {
           </div>
           <div className="reset_button">
             <Button
-              dataCy="cancel-form"
+              dataCy="reset-form"
               type="reset"
               variant="text"
-              disabled={create.isLoading}
-              onClick={() => setOpenResetConfirmation(true)}
+              disabled={create.isLoading || !dirty}
+              onClick={handleResetConfirmationDialog(true)}
             >
-              {t("common.cancel")}
+              {t("common.reset")}
             </Button>
           </div>
         </div>
@@ -229,14 +266,24 @@ export const NewUser = () => {
           handleSecondaryButtonClick={() => ({})}
         />
         <ConfirmationDialog
-          isOpen={openResetConfirmation}
+          isOpen={openCancelConfirmation}
           title={t("common.cancel")}
-          info={t("common.resetform")}
+          info={t("common.cancelMessage")}
           icon={warningIcon}
           primaryButtonLabel={t("common.ok")}
           secondaryButtonLabel={t("common.discard")}
+          handlePrimaryButtonClick={handleCancelConfirmation}
+          handleSecondaryButtonClick={handleCancelConfirmationDialog(false)}
+        />
+        <ConfirmationDialog
+          isOpen={openResetConfirmation}
+          title={t("common.reset")}
+          info={t("common.resetform")}
+          icon={warningIcon}
+          primaryButtonLabel={t("common.ok")}
+          secondaryButtonLabel={t("common.back")}
           handlePrimaryButtonClick={handleResetConfirmation}
-          handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
+          handleSecondaryButtonClick={handleResetConfirmationDialog(false)}
         />
         <ConfirmationDialog
           isOpen={create.hasFailed}

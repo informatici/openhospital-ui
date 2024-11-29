@@ -15,6 +15,7 @@ import TextField from "../../../textField/TextField";
 import { PATHS } from "../../../../../consts";
 import { usePermission } from "../../../../../libraries/permissionUtils/usePermission";
 
+import { Cancel } from "@mui/icons-material";
 import { CircularProgress } from "@mui/material";
 import CheckboxField from "components/accessories/checkboxField/CheckboxField";
 import { PermissionDTO } from "generated/models/PermissionDTO";
@@ -44,6 +45,8 @@ export const EditGroup = () => {
   const canUpdatePermissions = usePermission("grouppermission.update");
 
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
+
+  const [openCancelConfirmation, setOpenCancelConfirmation] = useState(false);
 
   const update = useAppSelector((state) => state.usergroups.update);
   const permissions = useAppSelector((state) => state.permissions.getAll);
@@ -133,10 +136,29 @@ export const EditGroup = () => {
     };
   }, []);
 
-  const handleResetConfirmation = () => {
+  const handleResetConfirmationDialog = useCallback(
+    (value: boolean) => () => {
+      setOpenResetConfirmation(value);
+    },
+    [setOpenResetConfirmation]
+  );
+
+  const handleCancelConfirmationDialog = useCallback(
+    (value: boolean) => () => {
+      setOpenCancelConfirmation(value);
+    },
+    [setOpenCancelConfirmation]
+  );
+
+  const handleResetConfirmation = useCallback(() => {
     setOpenResetConfirmation(false);
+    resetForm();
+  }, [navigate, resetForm, setOpenResetConfirmation]);
+
+  const handleCancelConfirmation = useCallback(() => {
+    setOpenCancelConfirmation(false);
     navigate(-1);
-  };
+  }, [navigate, setOpenCancelConfirmation]);
 
   const handleCheckboxChange = useCallback(
     (fieldName: string) => (value: boolean) => {
@@ -168,10 +190,24 @@ export const EditGroup = () => {
       permissions.isLoading ? (
         <CircularProgress style={{ marginLeft: "50%", position: "relative" }} />
       ) : (
-        <div className="newGroupForm">
-          <form className="newGroupForm__form" onSubmit={handleSubmit}>
+        <div className="editGroupForm">
+          <div className="editGroupForm__header">
+            <div className="editGroupForm__actions">
+              <Button
+                dataCy="cancel-form"
+                onClick={handleCancelConfirmationDialog(true)}
+                type="button"
+                variant="contained"
+                color="primary"
+              >
+                <Cancel fontSize="small" />
+                {t("common.discard")}
+              </Button>
+            </div>
+          </div>
+          <form className="editGroupForm__form" onSubmit={handleSubmit}>
             <div className="row start-sm center-xs">
-              <div className="newGroupForm__item fullWidth">
+              <div className="editGroupForm__item fullWidth">
                 <TextField
                   field={getFieldProps("code")}
                   theme="regular"
@@ -183,7 +219,7 @@ export const EditGroup = () => {
                   disabled
                 />
               </div>
-              <div className="newGroupForm__item fullWidth">
+              <div className="editGroupForm__item fullWidth">
                 <TextField
                   field={getFieldProps("desc")}
                   theme="regular"
@@ -194,7 +230,7 @@ export const EditGroup = () => {
                 />
               </div>
             </div>
-            <div className="newGroupForm__item fullWidth">
+            <div className="editGroupForm__item fullWidth">
               <CheckboxField
                 fieldName={"deleted"}
                 checked={!!values.deleted}
@@ -212,7 +248,7 @@ export const EditGroup = () => {
               />
             )}
 
-            <div className="newGroupForm__item fullWidth">
+            <div className="editGroupForm__item fullWidth">
               {isPermissionEditorAvailable &&
                 updatedPermissionsStack.length > 0 && (
                   <p>
@@ -249,7 +285,7 @@ export const EditGroup = () => {
               )}
             </div>
 
-            <div className="newGroupForm__buttonSet">
+            <div className="editGroupForm__buttonSet">
               <div className="submit_button">
                 <Button
                   type="submit"
@@ -265,26 +301,36 @@ export const EditGroup = () => {
               </div>
               <div className="reset_button">
                 <Button
-                  dataCy="cancel-form"
+                  dataCy="reset-form"
                   type="reset"
                   variant="text"
-                  disabled={update.isLoading}
-                  onClick={() => setOpenResetConfirmation(true)}
+                  disabled={update.isLoading || !dirty}
+                  onClick={handleResetConfirmationDialog(true)}
                 >
-                  {t("common.cancel")}
+                  {t("common.reset")}
                 </Button>
               </div>
             </div>
           </form>
           <ConfirmationDialog
-            isOpen={openResetConfirmation}
+            isOpen={openCancelConfirmation}
             title={t("common.cancel")}
-            info={t("common.resetform")}
+            info={t("common.cancelMessage")}
             icon={warningIcon}
             primaryButtonLabel={t("common.ok")}
             secondaryButtonLabel={t("common.discard")}
+            handlePrimaryButtonClick={handleCancelConfirmation}
+            handleSecondaryButtonClick={handleCancelConfirmationDialog(false)}
+          />
+          <ConfirmationDialog
+            isOpen={openResetConfirmation}
+            title={t("common.reset")}
+            info={t("common.resetform")}
+            icon={warningIcon}
+            primaryButtonLabel={t("common.ok")}
+            secondaryButtonLabel={t("common.back")}
             handlePrimaryButtonClick={handleResetConfirmation}
-            handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
+            handleSecondaryButtonClick={handleResetConfirmationDialog(false)}
           />
           <ConfirmationDialog
             isOpen={update.hasSucceeded}

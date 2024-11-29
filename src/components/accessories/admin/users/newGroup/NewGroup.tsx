@@ -14,6 +14,7 @@ import TextField from "../../../textField/TextField";
 import { PATHS } from "../../../../../consts";
 import { UserGroupDTO } from "../../../../../generated";
 
+import { Cancel } from "@mui/icons-material";
 import CheckboxField from "components/accessories/checkboxField/CheckboxField";
 import {
   createUserGroup,
@@ -35,6 +36,8 @@ export const NewGroup = () => {
 
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
+  const [openCancelConfirmation, setOpenCancelConfirmation] = useState(false);
+
   const create = useAppSelector((state) => state.usergroups.create);
 
   const {
@@ -46,6 +49,7 @@ export const NewGroup = () => {
     errors,
     touched,
     values,
+    resetForm,
     setFieldValue,
   } = useFormik({
     initialValues,
@@ -61,10 +65,29 @@ export const NewGroup = () => {
     };
   }, [dispatch]);
 
-  const handleResetConfirmation = () => {
+  const handleResetConfirmationDialog = useCallback(
+    (value: boolean) => () => {
+      setOpenResetConfirmation(value);
+    },
+    [setOpenResetConfirmation]
+  );
+
+  const handleCancelConfirmationDialog = useCallback(
+    (value: boolean) => () => {
+      setOpenCancelConfirmation(value);
+    },
+    [setOpenCancelConfirmation]
+  );
+
+  const handleResetConfirmation = useCallback(() => {
     setOpenResetConfirmation(false);
+    resetForm();
+  }, [navigate, resetForm, setOpenResetConfirmation]);
+
+  const handleCancelConfirmation = useCallback(() => {
+    setOpenCancelConfirmation(false);
     navigate(-1);
-  };
+  }, [navigate, setOpenCancelConfirmation]);
 
   const handleCheckboxChange = useCallback(
     (fieldName: string) => (value: boolean) => {
@@ -75,6 +98,20 @@ export const NewGroup = () => {
 
   return (
     <div className="newGroupForm">
+      <div className="newGroupForm__header">
+        <div className="newGroupForm__actions">
+          <Button
+            dataCy="cancel-form"
+            onClick={handleCancelConfirmationDialog(true)}
+            type="button"
+            variant="contained"
+            color="primary"
+          >
+            <Cancel fontSize="small" />
+            {t("common.discard")}
+          </Button>
+        </div>
+      </div>
       <form className="newGroupForm__form" onSubmit={handleSubmit}>
         <div className="row start-sm center-xs">
           <div className="newGroupForm__item fullWidth">
@@ -130,26 +167,36 @@ export const NewGroup = () => {
           </div>
           <div className="reset_button">
             <Button
-              dataCy="cancel-form"
+              dataCy="reset-form"
               type="reset"
               variant="text"
-              disabled={create.isLoading}
-              onClick={() => setOpenResetConfirmation(true)}
+              disabled={create.isLoading || !dirty}
+              onClick={handleResetConfirmationDialog(true)}
             >
-              {t("common.cancel")}
+              {t("common.reset")}
             </Button>
           </div>
         </div>
       </form>
       <ConfirmationDialog
-        isOpen={openResetConfirmation}
+        isOpen={openCancelConfirmation}
         title={t("common.cancel")}
-        info={t("common.resetform")}
+        info={t("common.cancelMessage")}
         icon={warningIcon}
         primaryButtonLabel={t("common.ok")}
         secondaryButtonLabel={t("common.discard")}
+        handlePrimaryButtonClick={handleCancelConfirmation}
+        handleSecondaryButtonClick={handleCancelConfirmationDialog(false)}
+      />
+      <ConfirmationDialog
+        isOpen={openResetConfirmation}
+        title={t("common.reset")}
+        info={t("common.resetform")}
+        icon={warningIcon}
+        primaryButtonLabel={t("common.ok")}
+        secondaryButtonLabel={t("common.back")}
         handlePrimaryButtonClick={handleResetConfirmation}
-        handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
+        handleSecondaryButtonClick={handleResetConfirmationDialog(false)}
       />
       <ConfirmationDialog
         isOpen={create.hasSucceeded}

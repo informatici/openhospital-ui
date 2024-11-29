@@ -18,6 +18,7 @@ import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
 import InfoBox from "../../../infoBox/InfoBox";
 import TextField from "../../../textField/TextField";
 
+import { Cancel } from "@mui/icons-material";
 import CheckboxField from "components/accessories/checkboxField/CheckboxField";
 import { PATHS } from "../../../../../consts";
 import "./styles.scss";
@@ -47,6 +48,8 @@ export const EditUserForm = ({
 
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
+  const [openCancelConfirmation, setOpenCancelConfirmation] = useState(false);
+
   const handleFormSubmit = (values: UserDTO & { passwd2: string }) => {
     const { passwd2, ...userDTO } = values;
     if (userDTO.passwd === undefined) {
@@ -65,6 +68,7 @@ export const EditUserForm = ({
     errors,
     touched,
     values,
+    resetForm,
     setFieldTouched,
     setFieldValue,
   } = useFormik<UserDTO & { passwd2: string }>({
@@ -73,10 +77,29 @@ export const EditUserForm = ({
     onSubmit: handleFormSubmit,
   });
 
-  const handleResetConfirmation = () => {
+  const handleResetConfirmationDialog = useCallback(
+    (value: boolean) => () => {
+      setOpenResetConfirmation(value);
+    },
+    [setOpenResetConfirmation]
+  );
+
+  const handleCancelConfirmationDialog = useCallback(
+    (value: boolean) => () => {
+      setOpenCancelConfirmation(value);
+    },
+    [setOpenCancelConfirmation]
+  );
+
+  const handleResetConfirmation = useCallback(() => {
     setOpenResetConfirmation(false);
+    resetForm();
+  }, [navigate, resetForm, setOpenResetConfirmation]);
+
+  const handleCancelConfirmation = useCallback(() => {
+    setOpenCancelConfirmation(false);
     navigate(-1);
-  };
+  }, [navigate, setOpenCancelConfirmation]);
 
   const handleCheckboxChange = useCallback(
     (fieldName: string) => (value: boolean) => {
@@ -87,6 +110,20 @@ export const EditUserForm = ({
 
   return (
     <div className="editUserForm">
+      <div className="editUserForm__header">
+        <div className="editUserForm__actions">
+          <Button
+            dataCy="cancel-form"
+            onClick={handleCancelConfirmationDialog(true)}
+            type="button"
+            variant="contained"
+            color="primary"
+          >
+            <Cancel fontSize="small" />
+            {t("common.discard")}
+          </Button>
+        </div>
+      </div>
       <form className="editUserForm__form" onSubmit={handleSubmit}>
         <div className="row start-sm center-xs">
           <div className="editUserForm__item fullWidth">
@@ -199,26 +236,36 @@ export const EditUserForm = ({
           </div>
           <div className="reset_button">
             <Button
-              dataCy="cancel-form"
+              dataCy="reset-form"
               type="reset"
               variant="text"
-              disabled={isLoading}
-              onClick={() => setOpenResetConfirmation(true)}
+              disabled={isLoading || !dirty}
+              onClick={handleResetConfirmationDialog(true)}
             >
-              {t("common.cancel")}
+              {t("common.reset")}
             </Button>
           </div>
         </div>
       </form>
       <ConfirmationDialog
-        isOpen={openResetConfirmation}
+        isOpen={openCancelConfirmation}
         title={t("common.cancel")}
-        info={t("common.resetform")}
+        info={t("common.cancelMessage")}
         icon={warningIcon}
         primaryButtonLabel={t("common.ok")}
         secondaryButtonLabel={t("common.discard")}
+        handlePrimaryButtonClick={handleCancelConfirmation}
+        handleSecondaryButtonClick={handleCancelConfirmationDialog(false)}
+      />
+      <ConfirmationDialog
+        isOpen={openResetConfirmation}
+        title={t("common.reset")}
+        info={t("common.resetform")}
+        icon={warningIcon}
+        primaryButtonLabel={t("common.ok")}
+        secondaryButtonLabel={t("common.back")}
         handlePrimaryButtonClick={handleResetConfirmation}
-        handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
+        handleSecondaryButtonClick={handleResetConfirmationDialog(false)}
       />
       <ConfirmationDialog
         isOpen={hasSucceeded}
