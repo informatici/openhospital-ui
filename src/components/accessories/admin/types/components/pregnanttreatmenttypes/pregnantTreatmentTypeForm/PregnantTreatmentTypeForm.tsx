@@ -1,3 +1,4 @@
+import { Cancel } from "@mui/icons-material";
 import { useFormik } from "formik";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { get, has } from "lodash";
@@ -130,6 +131,20 @@ const PregnantTreatmentTypeForm: FC<IPregnantTreatmentTypeFormProps> = ({
 
   return (
     <div className="pregnantTreatmentTypesForm">
+      <div className="form__header">
+        <div className="form__actions">
+          <Button
+            dataCy="cancel-form"
+            onClick={handleCancelConfirmationDialog(true)}
+            type="button"
+            variant="contained"
+            color="primary"
+          >
+            <Cancel fontSize="small" />
+            {t("common.discard")}
+          </Button>
+        </div>
+      </div>
       <form
         className="pregnantTreatmentTypesForm__form"
         onSubmit={formik.handleSubmit}
