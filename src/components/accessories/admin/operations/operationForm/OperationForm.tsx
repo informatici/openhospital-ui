@@ -273,13 +273,13 @@ const OperationForm: FC<IOperationProps> = ({
           </div>
           <div className="reset_button">
             <Button
-              dataCy="cancel-form"
+              dataCy="reset-form"
               type="reset"
               variant="text"
-              disabled={isLoading}
-              onClick={() => setOpenResetConfirmation(true)}
+              disabled={isLoading || !formik.dirty}
+              onClick={handleResetConfirmationDialog(true)}
             >
-              {resetButtonLabel}
+              {t("common.reset")}
             </Button>
           </div>
         </div>
