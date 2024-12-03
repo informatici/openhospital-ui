@@ -1,6 +1,6 @@
 import { Skeleton } from "@mui/material";
 import { useAppDispatch } from "libraries/hooks/redux";
-import React, { FC, useEffect, useRef, useState } from "react";
+import React, { FC, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { useOpdByAgeTypeData } from "../../../../../libraries/dashboardUtils/opds/useOpdByAgeTypeData";
 import { searchOpds } from "../../../../../state/opds";
@@ -14,6 +14,7 @@ import { IOwnProps } from "../types";
 
 import { getAgeTypes } from "state/types/ageTypes";
 import "../../card/styles.scss";
+import { useDisplaySize } from "../../hooks";
 
 export const OpdByAgeTypes: FC<TDashboardComponentProps & IOwnProps> = ({
   onRemove,
@@ -32,14 +33,7 @@ export const OpdByAgeTypes: FC<TDashboardComponentProps & IOwnProps> = ({
   const { status, ageTypeStatus, data, success, total, csvData } =
     useOpdByAgeTypeData();
 
-  const [displaySize, setDisplaySize] = useState<{
-    width: number;
-    height: number;
-  }>();
-
-  const onSizeChange = (width: number, height: number) => {
-    setDisplaySize({ width: width - 1, height: height - 73 });
-  };
+  const { displaySize, onSizeChange } = useDisplaySize();
 
   const downloadOptions = (
     <DataDownloadButton
@@ -71,11 +65,7 @@ export const OpdByAgeTypes: FC<TDashboardComponentProps & IOwnProps> = ({
           actions={actions}
           sizeChangeHandler={onSizeChange}
         >
-          <Barchart
-            data={data}
-            width={displaySize?.width ? `${displaySize.width}px` : "320px"}
-            height={displaySize?.height ? `${displaySize.height}px` : "320px"}
-          />
+          <Barchart data={data} width={"100%"} height={"calc(100% - 75px)"} />
           <DataSummary
             label={t("opd.opdregistered")}
             value={total.toString()}
