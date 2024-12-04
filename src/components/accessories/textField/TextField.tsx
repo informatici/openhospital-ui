@@ -1,4 +1,12 @@
-import { TextField as MaterialComponent } from "@mui/material";
+import { Help } from "@mui/icons-material";
+import {
+  IconButton,
+  InputAdornment,
+  TextField as MaterialComponent,
+  Popover,
+  Tooltip,
+  Typography,
+} from "@mui/material";
 import React, { FunctionComponent } from "react";
 import { useTranslation } from "react-i18next";
 import { FIELD_VALIDATION } from "../../../types";
@@ -19,10 +27,22 @@ const TextField: FunctionComponent<IProps> = ({
   rows = 10,
   required = FIELD_VALIDATION.IDLE,
   maxLength,
+  helpText,
+  helpTooltipText,
 }) => {
   const { t } = useTranslation();
+  const [helpAnchorEl, setHelpAnchorEl] =
+    React.useState<HTMLButtonElement | null>(null);
 
   const actualClassName = theme === "light" ? "textField__light" : "textField";
+
+  const handleOpenHelp = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setHelpAnchorEl(event.currentTarget);
+  };
+
+  const handleCloseHelp = () => {
+    setHelpAnchorEl(null);
+  };
 
   return (
     <div style={{ position: "relative" }}>
@@ -42,7 +62,42 @@ const TextField: FunctionComponent<IProps> = ({
         rows={rows}
         margin="dense"
         disabled={disabled}
-        InputProps={InputProps}
+        InputProps={{
+          ...InputProps,
+          endAdornment: helpText ? (
+            <InputAdornment position="end">
+              <Tooltip title={helpTooltipText ?? t("common.help")}>
+                <IconButton
+                  aria-label="Show help"
+                  onClick={handleOpenHelp}
+                  edge="end"
+                  size="small"
+                >
+                  <Help />
+                </IconButton>
+              </Tooltip>
+              <Popover
+                open={Boolean(helpAnchorEl)}
+                anchorEl={helpAnchorEl}
+                onClose={handleCloseHelp}
+                slotProps={{
+                  paper: {
+                    style: {
+                      maxWidth: "200px",
+                      padding: "16px",
+                      textAlign: "justify",
+                    },
+                  },
+                }}
+              >
+                <Help fontSize="small" color="primary" />
+                <Typography fontSize={14}>{helpText}</Typography>
+              </Popover>
+            </InputAdornment>
+          ) : (
+            InputProps?.endAdornment
+          ),
+        }}
         inputProps={{ maxLength }}
         InputLabelProps={{ shrink: !!field.value }}
         required={required === FIELD_VALIDATION.REQUIRED}

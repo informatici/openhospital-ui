@@ -1,9 +1,9 @@
-import { FieldInputProps } from "formik";
 import {
-  InputProps,
   FilledInputProps,
+  InputProps,
   OutlinedInputProps,
 } from "@mui/material";
+import { FieldInputProps } from "formik";
 import { FIELD_VALIDATION } from "../../../types";
 
 export interface IProps {
@@ -24,4 +24,6 @@ export interface IProps {
   rows?: number;
   required?: FIELD_VALIDATION;
   maxLength?: number;
+  helpText?: string;
+  helpTooltipText?: string;
 }

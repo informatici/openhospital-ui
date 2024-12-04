@@ -137,6 +137,7 @@ const WardForm: FC<IWardProps> = ({
               type="text"
               disabled={isLoading || !creationMode}
               required={FIELD_VALIDATION.REQUIRED}
+              helpText="The ward code should be a string and should be unique. Otherwise, you'll get a feedback error."
             />
           </div>
           <div className="wardForm__item halfWidth">

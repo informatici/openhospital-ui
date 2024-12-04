@@ -16,7 +16,12 @@
     padding-bottom: 15px;
   }
 
-  .MuiFormHelperText-root.Mui-error{
+  .MuiInputAdornment-root .MuiSvgIcon-root {
+    width: 20px;
+    height: 20px;
+  }
+
+  .MuiFormHelperText-root.Mui-error {
     position: absolute;
     bottom: -20px;
     margin: 0px;
