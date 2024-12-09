@@ -14,7 +14,9 @@
   max-height: 100%;
 
   canvas.pie {
+    height: unset !important;
     width: calc(100% - 100px) !important;
+    aspect-ratio: 1 !important;
   }
 
   .DashboardCard-item-header {
