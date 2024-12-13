@@ -5,3 +5,10 @@
 //   max-width: 300px;
 //   max-height: 300px;
 // }
+
+canvas {
+  height: 100% !important;
+  width: unset !important;
+  max-height: calc(100% - 100px) !important;
+  aspect-ratio: 1 !important;
+}

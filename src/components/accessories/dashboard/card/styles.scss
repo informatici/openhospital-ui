@@ -13,10 +13,13 @@
   flex-direction: column;
   max-height: 100%;
 
-  canvas.pie {
-    height: unset !important;
-    width: calc(100% - 100px) !important;
-    aspect-ratio: 1 !important;
+  .MuiCardContent-root {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    canvas {
+      justify-self: center;
+    }
   }
 
   .DashboardCard-item-header {
