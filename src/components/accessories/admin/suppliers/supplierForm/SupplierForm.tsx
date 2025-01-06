@@ -285,7 +285,7 @@ const SupplierForm: FC<ISupplierFormProps> = ({
           info={t("common.cancelMessage")}
           icon={warningIcon}
           primaryButtonLabel={t("common.ok")}
-          secondaryButtonLabel={t("common.discard")}
+          secondaryButtonLabel={t("common.back-to-edit")}
           handlePrimaryButtonClick={handleCancelConfirmation}
           handleSecondaryButtonClick={handleCancelConfirmationDialog(false)}
         />

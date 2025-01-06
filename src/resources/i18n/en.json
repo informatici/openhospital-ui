@@ -575,7 +575,8 @@
     "softDelete": "Mark as deleted",
     "softDeleteConfirmation": "Are you sure to mark this item as deleted ?",
     "cancelMessage": "Are you sure to cancel this operation ? All unsaved data will be lost.",
-    "back": "Back"
+    "back": "Back",
+    "back-to-edit": "Back to edit"
   },
   "permission": {
     "denied": "Permission denied",
