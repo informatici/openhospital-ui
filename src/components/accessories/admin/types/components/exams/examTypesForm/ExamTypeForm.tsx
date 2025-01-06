@@ -195,11 +195,11 @@ const ExamTypeForm: FC<IExamTypeFormProps> = ({
         </div>
         <ConfirmationDialog
           isOpen={openCancelConfirmation}
-          title={t("common.cancel")}
-          info={t("common.cancelMessage")}
+          title={t("common.discard")}
+          info={t("common.discardMessage")}
           icon={warningIcon}
-          primaryButtonLabel={t("common.ok")}
-          secondaryButtonLabel={t("common.back-to-edit")}
+          primaryButtonLabel={t("common.discard")}
+          secondaryButtonLabel={t("common.backToEdit")}
           handlePrimaryButtonClick={handleCancelConfirmation}
           handleSecondaryButtonClick={handleCancelConfirmationDialog(false)}
         />
@@ -208,8 +208,8 @@ const ExamTypeForm: FC<IExamTypeFormProps> = ({
           title={t("common.reset")}
           info={t("common.resetform")}
           icon={warningIcon}
-          primaryButtonLabel={t("common.ok")}
-          secondaryButtonLabel={t("common.back")}
+          primaryButtonLabel={t("common.reset")}
+          secondaryButtonLabel={t("common.backToEdit")}
           handlePrimaryButtonClick={handleResetConfirmation}
           handleSecondaryButtonClick={handleResetConfirmationDialog(false)}
         />
