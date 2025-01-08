@@ -149,5 +149,8 @@
   },
   "_moduleAliases": {
     "@": "./dist"
+  },
+  "volta": {
+    "node": "18.20.5"
   }
 }

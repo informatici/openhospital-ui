@@ -9,8 +9,7 @@ export const Piechart: FC<IOwnProps> = ({ data, title, height, width }) => {
 
   const options = {
     responsive: true,
-    maintainAspectRatio: true,
-    aspectRatio: 1,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         position: "bottom" as const,

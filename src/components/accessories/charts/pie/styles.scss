@@ -7,7 +7,6 @@
 // }
 
 canvas {
-  height: 100% !important;
+  height: unset !important;
   width: unset !important;
-  max-height: calc(100% - 100px) !important;
 }
