@@ -231,7 +231,7 @@ const MedicalTypeForm: FC<IMedicalTypeFormProps> = ({
           }
           primaryButtonLabel="Ok"
           handlePrimaryButtonClick={() => {
-            navigate(PATHS.admin_medicals_types);
+            navigate(PATHS.admin_medicals_types, { replace: true });
           }}
           handleSecondaryButtonClick={() => ({})}
         />

@@ -314,7 +314,7 @@ const SupplierForm: FC<ISupplierFormProps> = ({
           }
           primaryButtonLabel="Ok"
           handlePrimaryButtonClick={() => {
-            navigate(PATHS.admin_suppliers);
+            navigate(PATHS.admin_suppliers, { replace: true });
           }}
           handleSecondaryButtonClick={() => ({})}
         />

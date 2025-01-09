@@ -233,7 +233,7 @@ const DischargeTypeForm: FC<IDischargeTypeFormProps> = ({
           }
           primaryButtonLabel="Ok"
           handlePrimaryButtonClick={() => {
-            navigate(PATHS.admin_discharges_types);
+            navigate(PATHS.admin_discharges_types, { replace: true });
           }}
           handleSecondaryButtonClick={() => ({})}
         />

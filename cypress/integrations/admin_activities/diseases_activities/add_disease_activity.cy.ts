@@ -46,7 +46,7 @@ describe("Add Disease Activity specs", () => {
 
   it("should cancel the disease creation", () => {
     cy.dataCy("cancel-form").click();
-    cy.dataCy("approve-dialog").click();
+    cy.dataCy("approve-dialog").click().click();
     cy.dataCy("dialog-info").should("not.exist");
     cy.dataCy("activity-title").contains("Diseases");
   });

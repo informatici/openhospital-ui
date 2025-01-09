@@ -276,7 +276,7 @@ const VaccineForm: FC<IVaccineFormProps> = ({
           }
           primaryButtonLabel="Ok"
           handlePrimaryButtonClick={() => {
-            navigate(PATHS.admin_vaccines);
+            navigate(PATHS.admin_vaccines, { replace: true });
           }}
           handleSecondaryButtonClick={() => ({})}
         />

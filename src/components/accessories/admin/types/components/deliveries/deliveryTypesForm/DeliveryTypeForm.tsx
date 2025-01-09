@@ -233,7 +233,7 @@ const DeliveryTypeForm: FC<IDeliveryTypeFormProps> = ({
           }
           primaryButtonLabel="Ok"
           handlePrimaryButtonClick={() => {
-            navigate(PATHS.admin_deliveries_types);
+            navigate(PATHS.admin_deliveries_types, { replace: true });
           }}
           handleSecondaryButtonClick={() => ({})}
         />

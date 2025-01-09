@@ -233,7 +233,7 @@ const AdmissionTypeForm: FC<IAdmissionTypeFormProps> = ({
           }
           primaryButtonLabel="Ok"
           handlePrimaryButtonClick={() => {
-            navigate(PATHS.admin_admissions_types);
+            navigate(PATHS.admin_admissions_types, { replace: true });
           }}
           handleSecondaryButtonClick={() => ({})}
         />

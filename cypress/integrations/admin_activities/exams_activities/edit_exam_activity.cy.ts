@@ -42,7 +42,7 @@ describe("Exams edit activity specs", () => {
 
   it("should cancel the exam update", () => {
     cy.dataCy("cancel-form").click();
-    cy.dataCy("approve-dialog").click();
+    cy.dataCy("approve-dialog").click().click();
     cy.dataCy("dialog-info").should("not.exist");
     cy.dataCy("activity-title").contains("Exams");
   });

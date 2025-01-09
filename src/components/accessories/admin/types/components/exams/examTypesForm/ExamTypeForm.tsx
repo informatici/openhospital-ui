@@ -228,7 +228,7 @@ const ExamTypeForm: FC<IExamTypeFormProps> = ({
           }
           primaryButtonLabel="Ok"
           handlePrimaryButtonClick={() => {
-            navigate(PATHS.admin_exams_types);
+            navigate(PATHS.admin_exams_types, { replace: true });
           }}
           handleSecondaryButtonClick={() => ({})}
         />

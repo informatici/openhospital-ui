@@ -41,7 +41,7 @@ describe("Add delivery type Activity specs", () => {
 
   it("should cancel the delivery type creation", () => {
     cy.dataCy("cancel-form").click();
-    cy.dataCy("approve-dialog").click();
+    cy.dataCy("approve-dialog").click().click();
     cy.dataCy("dialog-info").should("not.exist");
     cy.dataCy("sub-delivery-title").contains("Manage delivery types");
   });

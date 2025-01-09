@@ -42,7 +42,7 @@ describe("Edit Hospital Activity specs", () => {
   it("should cancel the update of the hospital infos", () => {
     cy.dataCy("cancel-form").click();
     cy.dataCy("dialog-info").contains("lost");
-    cy.dataCy("approve-dialog").click();
+    cy.dataCy("approve-dialog").click().click();
     cy.dataCy("activity-title").contains("Wards");
   });
 });

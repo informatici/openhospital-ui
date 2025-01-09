@@ -372,7 +372,7 @@ const WardForm: FC<IWardProps> = ({
           }
           primaryButtonLabel="Ok"
           handlePrimaryButtonClick={() => {
-            navigate(PATHS.admin_wards);
+            navigate(PATHS.admin_wards, { replace: true });
           }}
           handleSecondaryButtonClick={() => ({})}
         />

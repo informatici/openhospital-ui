@@ -41,7 +41,7 @@ describe("Operation types Edit Activity specs", () => {
 
   it("should cancel the operation type update", () => {
     cy.dataCy("cancel-form").click();
-    cy.dataCy("approve-dialog").click();
+    cy.dataCy("approve-dialog").click().click();
     cy.dataCy("dialog-info").should("not.exist");
     cy.dataCy("sub-operation-title").contains("Manage operation types");
   });

@@ -240,7 +240,7 @@ const PregnantTreatmentTypeForm: FC<IPregnantTreatmentTypeFormProps> = ({
           }
           primaryButtonLabel="Ok"
           handlePrimaryButtonClick={() => {
-            navigate(PATHS.admin_pregnant_treatment_types);
+            navigate(PATHS.admin_pregnant_treatment_types, { replace: true });
           }}
           handleSecondaryButtonClick={() => ({})}
         />

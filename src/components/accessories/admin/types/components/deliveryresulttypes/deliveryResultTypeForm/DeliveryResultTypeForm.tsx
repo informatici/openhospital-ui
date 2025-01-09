@@ -240,7 +240,7 @@ const DeliveryResultTypeForm: FC<IDeliveryResultTypeFormProps> = ({
           }
           primaryButtonLabel="Ok"
           handlePrimaryButtonClick={() => {
-            navigate(PATHS.admin_delivery_result_types);
+            navigate(PATHS.admin_delivery_result_types, { replace: true });
           }}
           handleSecondaryButtonClick={() => ({})}
         />

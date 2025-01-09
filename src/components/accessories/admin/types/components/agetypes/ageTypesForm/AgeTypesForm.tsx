@@ -228,7 +228,7 @@ const AgeTypesForm: FC<IAgeTypesFormProps> = ({
           info={t("ageTypes.updateSuccess")}
           primaryButtonLabel="Ok"
           handlePrimaryButtonClick={() => {
-            navigate(PATHS.admin_age_types);
+            navigate(PATHS.admin_age_types, { replace: true });
           }}
           handleSecondaryButtonClick={() => ({})}
         />

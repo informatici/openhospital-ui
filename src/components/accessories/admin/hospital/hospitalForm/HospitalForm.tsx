@@ -267,7 +267,7 @@ const HospitalForm: FC<IHospitalFormProps> = ({
           info={t("hospital.updateSuccess")}
           primaryButtonLabel="Ok"
           handlePrimaryButtonClick={() => {
-            navigate(PATHS.admin);
+            navigate(PATHS.admin, { replace: true });
           }}
           handleSecondaryButtonClick={() => ({})}
         />

@@ -233,7 +233,7 @@ const OperationTypeForm: FC<IOperationTypeFormProps> = ({
           }
           primaryButtonLabel="Ok"
           handlePrimaryButtonClick={() => {
-            navigate(PATHS.admin_operations_types);
+            navigate(PATHS.admin_operations_types, { replace: true });
           }}
           handleSecondaryButtonClick={() => ({})}
         />

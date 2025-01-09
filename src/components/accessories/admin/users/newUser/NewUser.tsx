@@ -254,7 +254,7 @@ export const NewUser = () => {
           info={t("user.createdSuccessMessage")}
           primaryButtonLabel="Ok"
           handlePrimaryButtonClick={() => {
-            navigate(PATHS.admin_users);
+            navigate(PATHS.admin_users, { replace: true });
           }}
           handleSecondaryButtonClick={() => ({})}
         />
@@ -285,7 +285,7 @@ export const NewUser = () => {
           info={create.error?.message.toString()}
           primaryButtonLabel="Ok"
           handlePrimaryButtonClick={() => {
-            dispatch(createUserReset());
+            dispatch(createUserReset(), { replace: true });
           }}
           handleSecondaryButtonClick={() => ({})}
         />

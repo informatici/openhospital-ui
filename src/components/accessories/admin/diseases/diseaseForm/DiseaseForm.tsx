@@ -311,7 +311,7 @@ const DiseaseForm: FC<IDiseaseProps> = ({
           }
           primaryButtonLabel="Ok"
           handlePrimaryButtonClick={() => {
-            navigate(PATHS.admin_diseases);
+            navigate(PATHS.admin_diseases, { replace: true });
           }}
           handleSecondaryButtonClick={() => ({})}
         />

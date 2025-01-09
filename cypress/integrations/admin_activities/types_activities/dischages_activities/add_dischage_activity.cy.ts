@@ -43,7 +43,7 @@ describe("Add discharge type Activity specs", () => {
 
   it("should cancel the discharge type creation", () => {
     cy.dataCy("cancel-form").click();
-    cy.dataCy("approve-dialog").click();
+    cy.dataCy("approve-dialog").click().click();
     cy.dataCy("dialog-info").should("not.exist");
     cy.dataCy("sub-discharge-title").contains("Manage discharge types");
   });
