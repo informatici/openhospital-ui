@@ -1,6 +1,6 @@
 import { Skeleton } from "@mui/material";
 import { useAppDispatch } from "libraries/hooks/redux";
-import React, { FC, useEffect, useRef, useState } from "react";
+import React, { FC, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { useDisByDisTypeData } from "../../../../../libraries/dashboardUtils/discharges/useDisByDisTypeData";
 import { getDischarges } from "../../../../../state/admissions";
@@ -14,6 +14,7 @@ import { IOwnProps } from "../types";
 
 import { getDischargeTypes } from "../../../../../state/types/discharges";
 import "../../card/styles.scss";
+import { useDisplaySize } from "../../hooks";
 
 export const DischargesByTypes: FC<TDashboardComponentProps & IOwnProps> = ({
   onRemove,
@@ -35,14 +36,7 @@ export const DischargesByTypes: FC<TDashboardComponentProps & IOwnProps> = ({
   const { total, success, status, dischargeTypeStatus, data, csvData } =
     useDisByDisTypeData();
 
-  const [displaySize, setDisplaySize] = useState<{
-    width: number;
-    height: number;
-  }>();
-
-  const onSizeChange = (width: number, height: number) => {
-    setDisplaySize({ width: width - 1, height: height - 73 });
-  };
+  const { displaySize, onSizeChange } = useDisplaySize();
 
   const downloadOptions = (
     <DataDownloadButton
@@ -73,11 +67,7 @@ export const DischargesByTypes: FC<TDashboardComponentProps & IOwnProps> = ({
           actions={actions}
           sizeChangeHandler={onSizeChange}
         >
-          <Piechart
-            data={data}
-            width={displaySize?.width ? `${displaySize.width}px` : "320px"}
-            height={displaySize?.height ? `${displaySize.height}px` : "320px"}
-          />
+          <Piechart data={data} width={"100%"} height={"calc(100% - 75px)"} />
           <DataSummary
             label={t("admission.disregistered")}
             value={total.toString()}

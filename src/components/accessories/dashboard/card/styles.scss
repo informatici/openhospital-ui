@@ -2,16 +2,25 @@
   .MuiListItemIcon-root {
     min-width: 30px !important;
   }
-  
+
   display: flex;
   align-items: center;
   text-decoration: none;
 }
 
-.DashboardCard-item{
+.DashboardCard-item {
   display: flex;
   flex-direction: column;
   max-height: 100%;
+
+  .MuiCardContent-root {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    canvas {
+      justify-self: center;
+    }
+  }
 
   .DashboardCard-item-header {
     padding: 1px 16px 8px 16px;
@@ -24,7 +33,7 @@
     flex: 1 1 auto;
     max-height: calc(100% - 40px);
   }
-  
+
   .MuiCardHeader-action {
     margin-top: 0;
 
