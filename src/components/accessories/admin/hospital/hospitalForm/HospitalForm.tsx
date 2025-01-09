@@ -1,6 +1,7 @@
-import { Cancel } from "@mui/icons-material";
+import { ChevronLeft } from "@mui/icons-material";
 import { useFormik } from "formik";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
+import { useDiscardHelpers } from "libraries/hooks/ui";
 import { get, has } from "lodash";
 import React, {
   FC,
@@ -42,9 +43,13 @@ const HospitalForm: FC<IHospitalFormProps> = ({
 
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
-  const [openCancelConfirmation, setOpenCancelConfirmation] = useState(false);
-
   const hospitalStore = useAppSelector((state) => state.hospital);
+
+  const {
+    openCancelConfirmation,
+    handleCancelConfirmation,
+    handleCancelConfirmationDialog,
+  } = useDiscardHelpers();
 
   const errorMessage = useMemo(
     () =>
@@ -91,22 +96,10 @@ const HospitalForm: FC<IHospitalFormProps> = ({
     [setOpenResetConfirmation]
   );
 
-  const handleCancelConfirmationDialog = useCallback(
-    (value: boolean) => () => {
-      setOpenCancelConfirmation(value);
-    },
-    [setOpenCancelConfirmation]
-  );
-
   const handleResetConfirmation = useCallback(() => {
     setOpenResetConfirmation(false);
     formik.resetForm();
   }, [navigate, formik.resetForm, setOpenResetConfirmation]);
-
-  const handleCancelConfirmation = useCallback(() => {
-    setOpenCancelConfirmation(false);
-    navigate(-1);
-  }, [navigate, setOpenCancelConfirmation]);
 
   useEffect(() => {
     return () => {
@@ -122,10 +115,10 @@ const HospitalForm: FC<IHospitalFormProps> = ({
             dataCy="cancel-form"
             onClick={handleCancelConfirmationDialog(true)}
             type="button"
-            variant="contained"
+            variant="text"
             color="primary"
           >
-            <Cancel fontSize="small" />
+            <ChevronLeft fontSize="small" />
             {t("common.discard")}
           </Button>
         </div>

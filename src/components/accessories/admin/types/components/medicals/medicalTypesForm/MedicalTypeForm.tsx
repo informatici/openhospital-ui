@@ -1,6 +1,7 @@
-import { Cancel } from "@mui/icons-material";
+import { ChevronLeft } from "@mui/icons-material";
 import { useFormik } from "formik";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
+import { useDiscardHelpers } from "libraries/hooks/ui";
 import { get, has } from "lodash";
 import React, {
   FC,
@@ -46,9 +47,13 @@ const MedicalTypeForm: FC<IMedicalTypeFormProps> = ({
 
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
-  const [openCancelConfirmation, setOpenCancelConfirmation] = useState(false);
-
   const medicalTypesStore = useAppSelector((state) => state.types.medicals);
+
+  const {
+    openCancelConfirmation,
+    handleCancelConfirmation,
+    handleCancelConfirmationDialog,
+  } = useDiscardHelpers();
 
   const errorMessage = useMemo(
     () =>
@@ -98,22 +103,10 @@ const MedicalTypeForm: FC<IMedicalTypeFormProps> = ({
     [setOpenResetConfirmation]
   );
 
-  const handleCancelConfirmationDialog = useCallback(
-    (value: boolean) => () => {
-      setOpenCancelConfirmation(value);
-    },
-    [setOpenCancelConfirmation]
-  );
-
   const handleResetConfirmation = useCallback(() => {
     setOpenResetConfirmation(false);
     formik.resetForm();
   }, [navigate, formik.resetForm, setOpenResetConfirmation]);
-
-  const handleCancelConfirmation = useCallback(() => {
-    setOpenCancelConfirmation(false);
-    navigate(-1);
-  }, [navigate, setOpenCancelConfirmation]);
 
   const cleanUp = useCallback(() => {
     if (creationMode) {
@@ -135,10 +128,10 @@ const MedicalTypeForm: FC<IMedicalTypeFormProps> = ({
             dataCy="cancel-form"
             onClick={handleCancelConfirmationDialog(true)}
             type="button"
-            variant="contained"
+            variant="text"
             color="primary"
           >
-            <Cancel fontSize="small" />
+            <ChevronLeft fontSize="small" />
             {t("common.discard")}
           </Button>
         </div>

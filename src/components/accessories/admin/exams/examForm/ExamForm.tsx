@@ -31,9 +31,10 @@ import TextField from "../../../textField/TextField";
 import "./styles.scss";
 import { IExamProps } from "./types";
 
-import { AddCircle, Cancel, Delete } from "@mui/icons-material";
+import { AddCircle, ChevronLeft, Delete } from "@mui/icons-material";
 import { IconButton, Radio, RadioGroup } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
+import { useDiscardHelpers } from "libraries/hooks/ui";
 import AutocompleteField from "../../../autocompleteField/AutocompleteField";
 import InfoBox from "../../../infoBox/InfoBox";
 
@@ -51,8 +52,6 @@ const ExamForm: FC<IExamProps> = ({
   const infoBoxRef = useRef<HTMLDivElement>(null);
 
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
-
-  const [openCancelConfirmation, setOpenCancelConfirmation] = useState(false);
 
   const examStore = useAppSelector((state) => state.exams);
 
@@ -76,6 +75,12 @@ const ExamForm: FC<IExamProps> = ({
     ],
     [t]
   );
+
+  const {
+    openCancelConfirmation,
+    handleCancelConfirmation,
+    handleCancelConfirmationDialog,
+  } = useDiscardHelpers();
 
   const errorMessage = useMemo(
     () =>
@@ -152,22 +157,10 @@ const ExamForm: FC<IExamProps> = ({
     [setOpenResetConfirmation]
   );
 
-  const handleCancelConfirmationDialog = useCallback(
-    (value: boolean) => () => {
-      setOpenCancelConfirmation(value);
-    },
-    [setOpenCancelConfirmation]
-  );
-
   const handleResetConfirmation = useCallback(() => {
     setOpenResetConfirmation(false);
     formik.resetForm();
   }, [navigate, formik.resetForm, setOpenResetConfirmation]);
-
-  const handleCancelConfirmation = useCallback(() => {
-    setOpenCancelConfirmation(false);
-    navigate(-1);
-  }, [navigate, setOpenCancelConfirmation]);
 
   const addExamRow = useCallback(() => {
     formik.setFieldValue("rows", [...formik.values.rows, ""]);
@@ -238,10 +231,10 @@ const ExamForm: FC<IExamProps> = ({
             dataCy="cancel-form"
             onClick={handleCancelConfirmationDialog(true)}
             type="button"
-            variant="contained"
+            variant="text"
             color="primary"
           >
-            <Cancel fontSize="small" />
+            <ChevronLeft fontSize="small" />
             {t("common.discard")}
           </Button>
         </div>

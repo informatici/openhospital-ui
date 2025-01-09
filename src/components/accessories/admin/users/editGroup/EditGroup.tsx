@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 
 import checkIcon from "../../../../../assets/check-icon.png";
 import warningIcon from "../../../../../assets/warning-icon.png";
-import Button from "../../../button/Button";
 import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
 import InfoBox from "../../../infoBox/InfoBox";
 import TextField from "../../../textField/TextField";
@@ -15,11 +14,12 @@ import TextField from "../../../textField/TextField";
 import { PATHS } from "../../../../../consts";
 import { usePermission } from "../../../../../libraries/permissionUtils/usePermission";
 
-import { Cancel } from "@mui/icons-material";
+import { ChevronLeft } from "@mui/icons-material";
 import { CircularProgress } from "@mui/material";
 import CheckboxField from "components/accessories/checkboxField/CheckboxField";
 import { PermissionDTO } from "generated/models/PermissionDTO";
 import { UserGroupDTO } from "generated/models/UserGroupDTO";
+import { useDiscardHelpers } from "libraries/hooks/ui";
 import { getAllPermissions } from "../../../../../state/permissions";
 import {
   getUserGroup,
@@ -27,6 +27,7 @@ import {
   updateUserGroup,
   updateUserGroupReset,
 } from "../../../../../state/usergroups";
+import Button from "../../../button/Button";
 import { TabOptions } from "../Users";
 import { GroupPermissionsEditor } from "../editPermissions/GroupPermissionsEditor";
 import {
@@ -45,8 +46,6 @@ export const EditGroup = () => {
   const canUpdatePermissions = usePermission("grouppermission.update");
 
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
-
-  const [openCancelConfirmation, setOpenCancelConfirmation] = useState(false);
 
   const update = useAppSelector((state) => state.usergroups.update);
   const permissions = useAppSelector((state) => state.permissions.getAll);
@@ -90,6 +89,12 @@ export const EditGroup = () => {
       setGroupPermissions([...otherPermissions, ...perms]);
     }
   };
+
+  const {
+    openCancelConfirmation,
+    handleCancelConfirmation,
+    handleCancelConfirmationDialog,
+  } = useDiscardHelpers();
 
   const {
     handleSubmit,
@@ -143,22 +148,10 @@ export const EditGroup = () => {
     [setOpenResetConfirmation]
   );
 
-  const handleCancelConfirmationDialog = useCallback(
-    (value: boolean) => () => {
-      setOpenCancelConfirmation(value);
-    },
-    [setOpenCancelConfirmation]
-  );
-
   const handleResetConfirmation = useCallback(() => {
     setOpenResetConfirmation(false);
     resetForm();
   }, [navigate, resetForm, setOpenResetConfirmation]);
-
-  const handleCancelConfirmation = useCallback(() => {
-    setOpenCancelConfirmation(false);
-    navigate(-1);
-  }, [navigate, setOpenCancelConfirmation]);
 
   const handleCheckboxChange = useCallback(
     (fieldName: string) => (value: boolean) => {
@@ -197,10 +190,10 @@ export const EditGroup = () => {
                 dataCy="cancel-form"
                 onClick={handleCancelConfirmationDialog(true)}
                 type="button"
-                variant="contained"
+                variant="text"
                 color="primary"
               >
-                <Cancel fontSize="small" />
+                <ChevronLeft fontSize="small" />
                 {t("common.discard")}
               </Button>
             </div>

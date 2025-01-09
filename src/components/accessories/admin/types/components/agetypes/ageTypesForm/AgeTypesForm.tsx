@@ -1,7 +1,8 @@
-import { Cancel } from "@mui/icons-material";
+import { ChevronLeft } from "@mui/icons-material";
 import { useFormik } from "formik";
 import { AgeTypeDTO } from "generated";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
+import { useDiscardHelpers } from "libraries/hooks/ui";
 import { get, has } from "lodash";
 import React, {
   FC,
@@ -44,11 +45,15 @@ const AgeTypesForm: FC<IAgeTypesFormProps> = ({
 
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
-  const [openCancelConfirmation, setOpenCancelConfirmation] = useState(false);
-
   const [validationErrors, setValidationErrors] = useState<string[]>([]);
 
   const updateAgeTypes = useAppSelector((state) => state.types.ageTypes.update);
+
+  const {
+    openCancelConfirmation,
+    handleCancelConfirmation,
+    handleCancelConfirmationDialog,
+  } = useDiscardHelpers();
 
   const errorMessage = useMemo(
     () => updateAgeTypes.error?.message ?? t("common.somethingwrong"),
@@ -111,22 +116,10 @@ const AgeTypesForm: FC<IAgeTypesFormProps> = ({
     [setOpenResetConfirmation]
   );
 
-  const handleCancelConfirmationDialog = useCallback(
-    (value: boolean) => () => {
-      setOpenCancelConfirmation(value);
-    },
-    [setOpenCancelConfirmation]
-  );
-
   const handleResetConfirmation = useCallback(() => {
     setOpenResetConfirmation(false);
     formik.resetForm();
   }, [navigate, formik.resetForm, setOpenResetConfirmation]);
-
-  const handleCancelConfirmation = useCallback(() => {
-    setOpenCancelConfirmation(false);
-    navigate(-1);
-  }, [navigate, setOpenCancelConfirmation]);
 
   useEffect(() => {
     return () => {
@@ -142,10 +135,10 @@ const AgeTypesForm: FC<IAgeTypesFormProps> = ({
             dataCy="cancel-form"
             onClick={handleCancelConfirmationDialog(true)}
             type="button"
-            variant="contained"
+            variant="text"
             color="primary"
           >
-            <Cancel fontSize="small" />
+            <ChevronLeft fontSize="small" />
             {t("common.discard")}
           </Button>
         </div>

@@ -1,7 +1,8 @@
-import { Cancel } from "@mui/icons-material";
+import { ChevronLeft } from "@mui/icons-material";
 import { useFormik } from "formik";
 import { OperationDTOOpeForEnum } from "generated/models/OperationDTO";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
+import { useDiscardHelpers } from "libraries/hooks/ui";
 import { get, has } from "lodash";
 import React, {
   FC,
@@ -51,8 +52,6 @@ const OperationForm: FC<IOperationProps> = ({
 
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
-  const [openCancelConfirmation, setOpenCancelConfirmation] = useState(false);
-
   const operationStore = useAppSelector((state) => state.operations);
 
   const operationsTypeState = useAppSelector(
@@ -76,6 +75,12 @@ const OperationForm: FC<IOperationProps> = ({
       };
     });
   };
+
+  const {
+    openCancelConfirmation,
+    handleCancelConfirmation,
+    handleCancelConfirmationDialog,
+  } = useDiscardHelpers();
 
   const errorMessage = useMemo(
     () =>
@@ -130,22 +135,10 @@ const OperationForm: FC<IOperationProps> = ({
     [setOpenResetConfirmation]
   );
 
-  const handleCancelConfirmationDialog = useCallback(
-    (value: boolean) => () => {
-      setOpenCancelConfirmation(value);
-    },
-    [setOpenCancelConfirmation]
-  );
-
   const handleResetConfirmation = useCallback(() => {
     setOpenResetConfirmation(false);
     formik.resetForm();
   }, [navigate, formik.resetForm, setOpenResetConfirmation]);
-
-  const handleCancelConfirmation = useCallback(() => {
-    setOpenCancelConfirmation(false);
-    navigate(-1);
-  }, [navigate, setOpenCancelConfirmation]);
 
   const handleCheckboxChange = useCallback(
     (fieldName: string) => (value: boolean) => {
@@ -187,10 +180,10 @@ const OperationForm: FC<IOperationProps> = ({
             dataCy="cancel-form"
             onClick={handleCancelConfirmationDialog(true)}
             type="button"
-            variant="contained"
+            variant="text"
             color="primary"
           >
-            <Cancel fontSize="small" />
+            <ChevronLeft fontSize="small" />
             {t("common.discard")}
           </Button>
         </div>

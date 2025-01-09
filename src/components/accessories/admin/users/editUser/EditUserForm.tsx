@@ -18,8 +18,9 @@ import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
 import InfoBox from "../../../infoBox/InfoBox";
 import TextField from "../../../textField/TextField";
 
-import { Cancel } from "@mui/icons-material";
+import { ChevronLeft } from "@mui/icons-material";
 import CheckboxField from "components/accessories/checkboxField/CheckboxField";
+import { useDiscardHelpers } from "libraries/hooks/ui";
 import { PATHS } from "../../../../../consts";
 import "./styles.scss";
 import { userSchema } from "./validation";
@@ -48,8 +49,6 @@ export const EditUserForm = ({
 
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
-  const [openCancelConfirmation, setOpenCancelConfirmation] = useState(false);
-
   const handleFormSubmit = (values: UserDTO & { passwd2: string }) => {
     const { passwd2, ...userDTO } = values;
     if (userDTO.passwd === undefined) {
@@ -58,6 +57,12 @@ export const EditUserForm = ({
 
     onSubmit(userDTO);
   };
+
+  const {
+    openCancelConfirmation,
+    handleCancelConfirmation,
+    handleCancelConfirmationDialog,
+  } = useDiscardHelpers();
 
   const {
     handleSubmit,
@@ -84,22 +89,10 @@ export const EditUserForm = ({
     [setOpenResetConfirmation]
   );
 
-  const handleCancelConfirmationDialog = useCallback(
-    (value: boolean) => () => {
-      setOpenCancelConfirmation(value);
-    },
-    [setOpenCancelConfirmation]
-  );
-
   const handleResetConfirmation = useCallback(() => {
     setOpenResetConfirmation(false);
     resetForm();
   }, [navigate, resetForm, setOpenResetConfirmation]);
-
-  const handleCancelConfirmation = useCallback(() => {
-    setOpenCancelConfirmation(false);
-    navigate(-1);
-  }, [navigate, setOpenCancelConfirmation]);
 
   const handleCheckboxChange = useCallback(
     (fieldName: string) => (value: boolean) => {
@@ -116,10 +109,10 @@ export const EditUserForm = ({
             dataCy="cancel-form"
             onClick={handleCancelConfirmationDialog(true)}
             type="button"
-            variant="contained"
+            variant="text"
             color="primary"
           >
-            <Cancel fontSize="small" />
+            <ChevronLeft fontSize="small" />
             {t("common.discard")}
           </Button>
         </div>

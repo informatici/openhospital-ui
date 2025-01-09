@@ -14,8 +14,9 @@ import TextField from "../../../textField/TextField";
 import { PATHS } from "../../../../../consts";
 import { UserGroupDTO } from "../../../../../generated";
 
-import { Cancel } from "@mui/icons-material";
+import { ChevronLeft } from "@mui/icons-material";
 import CheckboxField from "components/accessories/checkboxField/CheckboxField";
+import { useDiscardHelpers } from "libraries/hooks/ui";
 import {
   createUserGroup,
   createUserGroupReset,
@@ -36,9 +37,13 @@ export const NewGroup = () => {
 
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
-  const [openCancelConfirmation, setOpenCancelConfirmation] = useState(false);
-
   const create = useAppSelector((state) => state.usergroups.create);
+
+  const {
+    openCancelConfirmation,
+    handleCancelConfirmation,
+    handleCancelConfirmationDialog,
+  } = useDiscardHelpers();
 
   const {
     handleSubmit,
@@ -72,22 +77,10 @@ export const NewGroup = () => {
     [setOpenResetConfirmation]
   );
 
-  const handleCancelConfirmationDialog = useCallback(
-    (value: boolean) => () => {
-      setOpenCancelConfirmation(value);
-    },
-    [setOpenCancelConfirmation]
-  );
-
   const handleResetConfirmation = useCallback(() => {
     setOpenResetConfirmation(false);
     resetForm();
   }, [navigate, resetForm, setOpenResetConfirmation]);
-
-  const handleCancelConfirmation = useCallback(() => {
-    setOpenCancelConfirmation(false);
-    navigate(-1);
-  }, [navigate, setOpenCancelConfirmation]);
 
   const handleCheckboxChange = useCallback(
     (fieldName: string) => (value: boolean) => {
@@ -104,10 +97,10 @@ export const NewGroup = () => {
             dataCy="cancel-form"
             onClick={handleCancelConfirmationDialog(true)}
             type="button"
-            variant="contained"
+            variant="text"
             color="primary"
           >
-            <Cancel fontSize="small" />
+            <ChevronLeft fontSize="small" />
             {t("common.discard")}
           </Button>
         </div>

@@ -11,16 +11,17 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import checkIcon from "../../../../../assets/check-icon.png";
 import warningIcon from "../../../../../assets/warning-icon.png";
-import Button from "../../../button/Button";
 import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
 import TextField from "../../../textField/TextField";
 
 import { IState } from "../../../../../types";
 
-import { Cancel } from "@mui/icons-material";
+import { ChevronLeft } from "@mui/icons-material";
+import Button from "components/accessories/button/Button";
 import CheckboxField from "components/accessories/checkboxField/CheckboxField";
 import { UserDTO } from "generated/models/UserDTO";
 import { UserGroupDTO } from "generated/models/UserGroupDTO";
+import { useDiscardHelpers } from "libraries/hooks/ui";
 import { PATHS } from "../../../../../consts";
 import { getUserGroups } from "../../../../../state/usergroups";
 import { createUser, createUserReset } from "../../../../../state/users";
@@ -44,13 +45,17 @@ export const NewUser = () => {
 
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
-  const [openCancelConfirmation, setOpenCancelConfirmation] = useState(false);
-
   const create = useAppSelector((state) => state.users.create);
 
   const userGroupsTypeState = useAppSelector(
     (state: IState) => state.usergroups.groupList
   );
+
+  const {
+    openCancelConfirmation,
+    handleCancelConfirmation,
+    handleCancelConfirmationDialog,
+  } = useDiscardHelpers();
 
   const {
     handleSubmit,
@@ -91,22 +96,10 @@ export const NewUser = () => {
     [setOpenResetConfirmation]
   );
 
-  const handleCancelConfirmationDialog = useCallback(
-    (value: boolean) => () => {
-      setOpenCancelConfirmation(value);
-    },
-    [setOpenCancelConfirmation]
-  );
-
   const handleResetConfirmation = useCallback(() => {
     setOpenResetConfirmation(false);
     resetForm();
   }, [navigate, resetForm, setOpenResetConfirmation]);
-
-  const handleCancelConfirmation = useCallback(() => {
-    setOpenCancelConfirmation(false);
-    navigate(-1);
-  }, [navigate, setOpenCancelConfirmation]);
 
   const handleCheckboxChange = useCallback(
     (fieldName: string) => (value: boolean) => {
@@ -123,10 +116,10 @@ export const NewUser = () => {
             dataCy="cancel-form"
             onClick={handleCancelConfirmationDialog(true)}
             type="button"
-            variant="contained"
+            variant="text"
             color="primary"
           >
-            <Cancel fontSize="small" />
+            <ChevronLeft fontSize="small" />
             {t("common.discard")}
           </Button>
         </div>
