@@ -574,7 +574,7 @@
     "restoreConfirmation": "Are you sure to restore this item ?",
     "softDelete": "Mark as deleted",
     "softDeleteConfirmation": "Are you sure to mark this item as deleted ?",
-    "help": "Help"
+    "help": "Click to show help"
   },
   "permission": {
     "denied": "Permission denied",
