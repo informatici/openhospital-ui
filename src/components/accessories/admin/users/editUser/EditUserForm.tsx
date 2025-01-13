@@ -5,7 +5,7 @@ import {
   TextField as MuiTextField,
 } from "@mui/material";
 import { useFormik } from "formik";
-import React, { ReactNode, useCallback, useState } from "react";
+import React, { ReactNode, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
@@ -20,7 +20,7 @@ import TextField from "../../../textField/TextField";
 
 import { ChevronLeft } from "@mui/icons-material";
 import CheckboxField from "components/accessories/checkboxField/CheckboxField";
-import { useDiscardHelpers } from "libraries/hooks/ui";
+import { useDiscardHelpers, useResetFormHelpers } from "libraries/hooks/ui";
 import { PATHS } from "../../../../../consts";
 import "./styles.scss";
 import { userSchema } from "./validation";
@@ -47,8 +47,6 @@ export const EditUserForm = ({
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
-
   const handleFormSubmit = (values: UserDTO & { passwd2: string }) => {
     const { passwd2, ...userDTO } = values;
     if (userDTO.passwd === undefined) {
@@ -64,6 +62,12 @@ export const EditUserForm = ({
     handleCancelConfirmationDialog,
   } = useDiscardHelpers();
 
+  const formik = useFormik<UserDTO & { passwd2: string }>({
+    initialValues: { ...initialValues, passwd: "", passwd2: "" },
+    validationSchema: userSchema(t),
+    onSubmit: handleFormSubmit,
+  });
+
   const {
     handleSubmit,
     handleBlur,
@@ -73,26 +77,15 @@ export const EditUserForm = ({
     errors,
     touched,
     values,
-    resetForm,
     setFieldTouched,
     setFieldValue,
-  } = useFormik<UserDTO & { passwd2: string }>({
-    initialValues: { ...initialValues, passwd: "", passwd2: "" },
-    validationSchema: userSchema(t),
-    onSubmit: handleFormSubmit,
-  });
+  } = formik;
 
-  const handleResetConfirmationDialog = useCallback(
-    (value: boolean) => () => {
-      setOpenResetConfirmation(value);
-    },
-    [setOpenResetConfirmation]
-  );
-
-  const handleResetConfirmation = useCallback(() => {
-    setOpenResetConfirmation(false);
-    resetForm();
-  }, [navigate, resetForm, setOpenResetConfirmation]);
+  const {
+    openResetConfirmation,
+    handleResetConfirmation,
+    handleResetConfirmationDialog,
+  } = useResetFormHelpers(formik as any);
 
   const handleCheckboxChange = useCallback(
     (fieldName: string) => (value: boolean) => {

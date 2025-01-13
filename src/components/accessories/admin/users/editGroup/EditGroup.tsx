@@ -19,7 +19,7 @@ import { CircularProgress } from "@mui/material";
 import CheckboxField from "components/accessories/checkboxField/CheckboxField";
 import { PermissionDTO } from "generated/models/PermissionDTO";
 import { UserGroupDTO } from "generated/models/UserGroupDTO";
-import { useDiscardHelpers } from "libraries/hooks/ui";
+import { useDiscardHelpers, useResetFormHelpers } from "libraries/hooks/ui";
 import { getAllPermissions } from "../../../../../state/permissions";
 import {
   getUserGroup,
@@ -44,8 +44,6 @@ export const EditGroup = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const canUpdatePermissions = usePermission("grouppermission.update");
-
-  const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
   const update = useAppSelector((state) => state.usergroups.update);
   const permissions = useAppSelector((state) => state.permissions.getAll);
@@ -96,19 +94,7 @@ export const EditGroup = () => {
     handleCancelConfirmationDialog,
   } = useDiscardHelpers();
 
-  const {
-    handleSubmit,
-    handleBlur,
-    getFieldProps,
-    isValid,
-    dirty,
-    resetForm,
-    errors,
-    touched,
-    values,
-    setFieldValue,
-    setValues,
-  } = useFormik({
+  const formik = useFormik({
     initialValues: group.data ?? { code: "" },
     validationSchema: userGroupSchema(t),
     onSubmit: (values: UserGroupDTO) => {
@@ -117,6 +103,19 @@ export const EditGroup = () => {
       dispatch(updateUserGroup(dto));
     },
   });
+
+  const {
+    handleSubmit,
+    handleBlur,
+    getFieldProps,
+    isValid,
+    dirty,
+    errors,
+    touched,
+    values,
+    setFieldValue,
+    setValues,
+  } = formik;
 
   // load permissions and group on mount
   useEffect(() => {
@@ -141,17 +140,11 @@ export const EditGroup = () => {
     };
   }, []);
 
-  const handleResetConfirmationDialog = useCallback(
-    (value: boolean) => () => {
-      setOpenResetConfirmation(value);
-    },
-    [setOpenResetConfirmation]
-  );
-
-  const handleResetConfirmation = useCallback(() => {
-    setOpenResetConfirmation(false);
-    resetForm();
-  }, [navigate, resetForm, setOpenResetConfirmation]);
+  const {
+    openResetConfirmation,
+    handleResetConfirmation,
+    handleResetConfirmationDialog,
+  } = useResetFormHelpers(formik as any);
 
   const handleCheckboxChange = useCallback(
     (fieldName: string) => (value: boolean) => {

@@ -6,7 +6,7 @@ import {
 } from "@mui/material";
 import { useFormik } from "formik";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-import React, { ReactNode, useCallback, useEffect, useState } from "react";
+import React, { ReactNode, useCallback, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import checkIcon from "../../../../../assets/check-icon.png";
@@ -21,7 +21,7 @@ import Button from "components/accessories/button/Button";
 import CheckboxField from "components/accessories/checkboxField/CheckboxField";
 import { UserDTO } from "generated/models/UserDTO";
 import { UserGroupDTO } from "generated/models/UserGroupDTO";
-import { useDiscardHelpers } from "libraries/hooks/ui";
+import { useDiscardHelpers, useResetFormHelpers } from "libraries/hooks/ui";
 import { PATHS } from "../../../../../consts";
 import { getUserGroups } from "../../../../../state/usergroups";
 import { createUser, createUserReset } from "../../../../../state/users";
@@ -43,8 +43,6 @@ export const NewUser = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
-
   const create = useAppSelector((state) => state.users.create);
 
   const userGroupsTypeState = useAppSelector(
@@ -57,6 +55,15 @@ export const NewUser = () => {
     handleCancelConfirmationDialog,
   } = useDiscardHelpers();
 
+  const formik = useFormik<FormProps>({
+    initialValues,
+    validationSchema: userSchema(t),
+    onSubmit: (values: FormProps) => {
+      const { passwd2, ...cleaned } = values;
+      dispatch(createUser(cleaned));
+    },
+  });
+
   const {
     handleSubmit,
     handleBlur,
@@ -68,15 +75,7 @@ export const NewUser = () => {
     errors,
     touched,
     values,
-    resetForm,
-  } = useFormik<FormProps>({
-    initialValues,
-    validationSchema: userSchema(t),
-    onSubmit: (values: FormProps) => {
-      const { passwd2, ...cleaned } = values;
-      dispatch(createUser(cleaned));
-    },
-  });
+  } = formik;
 
   useEffect(() => {
     dispatch(getUserGroups());
@@ -89,17 +88,11 @@ export const NewUser = () => {
     };
   }, [create.hasSucceeded, dispatch, navigate]);
 
-  const handleResetConfirmationDialog = useCallback(
-    (value: boolean) => () => {
-      setOpenResetConfirmation(value);
-    },
-    [setOpenResetConfirmation]
-  );
-
-  const handleResetConfirmation = useCallback(() => {
-    setOpenResetConfirmation(false);
-    resetForm();
-  }, [navigate, resetForm, setOpenResetConfirmation]);
+  const {
+    openResetConfirmation,
+    handleResetConfirmation,
+    handleResetConfirmationDialog,
+  } = useResetFormHelpers(formik as any);
 
   const handleCheckboxChange = useCallback(
     (fieldName: string) => (value: boolean) => {

@@ -2,16 +2,9 @@ import { ChevronLeft } from "@mui/icons-material";
 import { useFormik } from "formik";
 import { OperationDTOOpeForEnum } from "generated/models/OperationDTO";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-import { useDiscardHelpers } from "libraries/hooks/ui";
+import { useDiscardHelpers, useResetFormHelpers } from "libraries/hooks/ui";
 import { get, has } from "lodash";
-import React, {
-  FC,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import React, { FC, useCallback, useEffect, useMemo, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { object, string } from "yup";
@@ -49,8 +42,6 @@ const OperationForm: FC<IOperationProps> = ({
   const { t } = useTranslation();
   const navigate = useNavigate();
   const infoBoxRef = useRef<HTMLDivElement>(null);
-
-  const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
   const operationStore = useAppSelector((state) => state.operations);
 
@@ -128,17 +119,11 @@ const OperationForm: FC<IOperationProps> = ({
       : "";
   };
 
-  const handleResetConfirmationDialog = useCallback(
-    (value: boolean) => () => {
-      setOpenResetConfirmation(value);
-    },
-    [setOpenResetConfirmation]
-  );
-
-  const handleResetConfirmation = useCallback(() => {
-    setOpenResetConfirmation(false);
-    formik.resetForm();
-  }, [navigate, formik.resetForm, setOpenResetConfirmation]);
+  const {
+    openResetConfirmation,
+    handleResetConfirmation,
+    handleResetConfirmationDialog,
+  } = useResetFormHelpers(formik as any);
 
   const handleCheckboxChange = useCallback(
     (fieldName: string) => (value: boolean) => {

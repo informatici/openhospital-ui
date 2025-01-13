@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
@@ -16,7 +16,7 @@ import { UserGroupDTO } from "../../../../../generated";
 
 import { ChevronLeft } from "@mui/icons-material";
 import CheckboxField from "components/accessories/checkboxField/CheckboxField";
-import { useDiscardHelpers } from "libraries/hooks/ui";
+import { useDiscardHelpers, useResetFormHelpers } from "libraries/hooks/ui";
 import {
   createUserGroup,
   createUserGroupReset,
@@ -35,8 +35,6 @@ export const NewGroup = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
-
   const create = useAppSelector((state) => state.usergroups.create);
 
   const {
@@ -44,6 +42,14 @@ export const NewGroup = () => {
     handleCancelConfirmation,
     handleCancelConfirmationDialog,
   } = useDiscardHelpers();
+
+  const formik = useFormik({
+    initialValues,
+    validationSchema: userGroupSchema(t),
+    onSubmit: (values: UserGroupDTO) => {
+      dispatch(createUserGroup(values));
+    },
+  });
 
   const {
     handleSubmit,
@@ -54,15 +60,8 @@ export const NewGroup = () => {
     errors,
     touched,
     values,
-    resetForm,
     setFieldValue,
-  } = useFormik({
-    initialValues,
-    validationSchema: userGroupSchema(t),
-    onSubmit: (values: UserGroupDTO) => {
-      dispatch(createUserGroup(values));
-    },
-  });
+  } = formik;
 
   useEffect(() => {
     return () => {
@@ -70,17 +69,11 @@ export const NewGroup = () => {
     };
   }, [dispatch]);
 
-  const handleResetConfirmationDialog = useCallback(
-    (value: boolean) => () => {
-      setOpenResetConfirmation(value);
-    },
-    [setOpenResetConfirmation]
-  );
-
-  const handleResetConfirmation = useCallback(() => {
-    setOpenResetConfirmation(false);
-    resetForm();
-  }, [navigate, resetForm, setOpenResetConfirmation]);
+  const {
+    openResetConfirmation,
+    handleResetConfirmation,
+    handleResetConfirmationDialog,
+  } = useResetFormHelpers(formik as any);
 
   const handleCheckboxChange = useCallback(
     (fieldName: string) => (value: boolean) => {

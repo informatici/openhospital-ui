@@ -2,16 +2,9 @@ import { ChevronLeft } from "@mui/icons-material";
 import { useFormik } from "formik";
 import { AgeTypeDTO } from "generated";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-import { useDiscardHelpers } from "libraries/hooks/ui";
+import { useDiscardHelpers, useResetFormHelpers } from "libraries/hooks/ui";
 import { get, has } from "lodash";
-import React, {
-  FC,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import React, { FC, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { updateAgeTypeReset } from "state/types/ageTypes";
@@ -42,8 +35,6 @@ const AgeTypesForm: FC<IAgeTypesFormProps> = ({
   const { t } = useTranslation();
   const navigate = useNavigate();
   const infoBoxRef = useRef<HTMLDivElement>(null);
-
-  const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
   const [validationErrors, setValidationErrors] = useState<string[]>([]);
 
@@ -109,17 +100,11 @@ const AgeTypesForm: FC<IAgeTypesFormProps> = ({
       : "";
   };
 
-  const handleResetConfirmationDialog = useCallback(
-    (value: boolean) => () => {
-      setOpenResetConfirmation(value);
-    },
-    [setOpenResetConfirmation]
-  );
-
-  const handleResetConfirmation = useCallback(() => {
-    setOpenResetConfirmation(false);
-    formik.resetForm();
-  }, [navigate, formik.resetForm, setOpenResetConfirmation]);
+  const {
+    openResetConfirmation,
+    handleResetConfirmation,
+    handleResetConfirmationDialog,
+  } = useResetFormHelpers(formik as any);
 
   useEffect(() => {
     return () => {
