@@ -14,9 +14,7 @@ import TextField from "../../../textField/TextField";
 import { PATHS } from "../../../../../consts";
 import { UserGroupDTO } from "../../../../../generated";
 
-import { ChevronLeft } from "@mui/icons-material";
 import CheckboxField from "components/accessories/checkboxField/CheckboxField";
-import { useDiscardHelpers, useResetFormHelpers } from "libraries/hooks/ui";
 import {
   createUserGroup,
   createUserGroupReset,
@@ -36,12 +34,6 @@ export const NewGroup = () => {
   const navigate = useNavigate();
 
   const create = useAppSelector((state) => state.usergroups.create);
-
-  const {
-    openCancelConfirmation,
-    handleCancelConfirmation,
-    handleCancelConfirmationDialog,
-  } = useDiscardHelpers();
 
   const formik = useFormik({
     initialValues,
@@ -69,12 +61,6 @@ export const NewGroup = () => {
     };
   }, [dispatch]);
 
-  const {
-    openResetConfirmation,
-    handleResetConfirmation,
-    handleResetConfirmationDialog,
-  } = useResetFormHelpers(formik as any);
-
   const handleCheckboxChange = useCallback(
     (fieldName: string) => (value: boolean) => {
       setFieldValue(fieldName, value);
@@ -86,16 +72,7 @@ export const NewGroup = () => {
     <div className="newGroupForm">
       <div className="newGroupForm__header">
         <div className="newGroupForm__actions">
-          <Button
-            dataCy="cancel-form"
-            onClick={handleCancelConfirmationDialog(true)}
-            type="button"
-            variant="text"
-            color="primary"
-          >
-            <ChevronLeft fontSize="small" />
-            {t("common.discard")}
-          </Button>
+          <DiscardButton />
         </div>
       </div>
       <form className="newGroupForm__form" onSubmit={handleSubmit}>

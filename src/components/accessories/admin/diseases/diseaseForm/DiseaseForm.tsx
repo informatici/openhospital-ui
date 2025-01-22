@@ -1,14 +1,11 @@
-import { ChevronLeft } from "@mui/icons-material";
 import { useFormik } from "formik";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-import { useDiscardHelpers, useResetFormHelpers } from "libraries/hooks/ui";
 import { get, has } from "lodash";
 import React, { FC, useCallback, useEffect, useMemo, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { object, string } from "yup";
 import checkIcon from "../../../../../assets/check-icon.png";
-import warningIcon from "../../../../../assets/warning-icon.png";
 import { PATHS } from "../../../../../consts";
 import {
   formatAllFieldValues,
@@ -57,12 +54,6 @@ const DiseaseForm: FC<IDiseaseProps> = ({
     [diseasesTypeState.data]
   );
 
-  const {
-    openCancelConfirmation,
-    handleCancelConfirmation,
-    handleCancelConfirmationDialog,
-  } = useDiscardHelpers();
-
   const errorMessage = useMemo(
     () =>
       (creationMode
@@ -109,12 +100,6 @@ const DiseaseForm: FC<IDiseaseProps> = ({
       : "";
   };
 
-  const {
-    openResetConfirmation,
-    handleResetConfirmation,
-    handleResetConfirmationDialog,
-  } = useResetFormHelpers(formik as any);
-
   const handleCheckboxChange = useCallback(
     (fieldName: string) => (value: boolean) => {
       setFieldValue(fieldName, value ? "true" : "false");
@@ -151,16 +136,7 @@ const DiseaseForm: FC<IDiseaseProps> = ({
     <div className="diseaseForm">
       <div className="diseaseForm__header">
         <div className="diseaseForm__actions">
-          <Button
-            dataCy="cancel-form"
-            onClick={handleCancelConfirmationDialog(true)}
-            type="button"
-            variant="text"
-            color="primary"
-          >
-            <ChevronLeft fontSize="small" />
-            {t("common.discard")}
-          </Button>
+          <DiscardButton />
         </div>
       </div>
       <form className="diseaseForm__form" onSubmit={formik.handleSubmit}>
@@ -243,37 +219,9 @@ const DiseaseForm: FC<IDiseaseProps> = ({
             </Button>
           </div>
           <div className="reset_button">
-            <Button
-              dataCy="reset-form"
-              type="reset"
-              variant="text"
-              disabled={isLoading || !formik.dirty}
-              onClick={handleResetConfirmationDialog(true)}
-            >
-              {resetButtonLabel}
-            </Button>
+            <ResetButton formik={formik} title={resetButtonLabel} />
           </div>
         </div>
-        <ConfirmationDialog
-          isOpen={openCancelConfirmation}
-          title={t("common.discard")}
-          info={t("common.discardMessage")}
-          icon={warningIcon}
-          primaryButtonLabel={t("common.discard")}
-          secondaryButtonLabel={t("common.backToEdit")}
-          handlePrimaryButtonClick={handleCancelConfirmation}
-          handleSecondaryButtonClick={handleCancelConfirmationDialog(false)}
-        />
-        <ConfirmationDialog
-          isOpen={openResetConfirmation}
-          title={t("common.reset")}
-          info={t("common.resetform")}
-          icon={warningIcon}
-          primaryButtonLabel={t("common.reset")}
-          secondaryButtonLabel={t("common.backToEdit")}
-          handlePrimaryButtonClick={handleResetConfirmation}
-          handleSecondaryButtonClick={handleResetConfirmationDialog(false)}
-        />
         {(creationMode
           ? diseaseStore.create.status === "FAIL"
           : diseaseStore.update.status === "FAIL") && (

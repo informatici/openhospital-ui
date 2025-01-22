@@ -1,14 +1,11 @@
-import { ChevronLeft } from "@mui/icons-material";
 import { useFormik } from "formik";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-import { useDiscardHelpers, useResetFormHelpers } from "libraries/hooks/ui";
 import { get, has } from "lodash";
 import React, { FC, useCallback, useEffect, useMemo, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { object, string } from "yup";
 import checkIcon from "../../../../../../../assets/check-icon.png";
-import warningIcon from "../../../../../../../assets/warning-icon.png";
 import { PATHS } from "../../../../../../../consts";
 import {
   formatAllFieldValues,
@@ -39,12 +36,6 @@ const ExamTypeForm: FC<IExamTypeFormProps> = ({
   const infoBoxRef = useRef<HTMLDivElement>(null);
 
   const examTypesStore = useAppSelector((state) => state.types.exams);
-
-  const {
-    openCancelConfirmation,
-    handleCancelConfirmation,
-    handleCancelConfirmationDialog,
-  } = useDiscardHelpers();
 
   const errorMessage = useMemo(
     () =>
@@ -86,12 +77,6 @@ const ExamTypeForm: FC<IExamTypeFormProps> = ({
       : "";
   };
 
-  const {
-    openResetConfirmation,
-    handleResetConfirmation,
-    handleResetConfirmationDialog,
-  } = useResetFormHelpers(formik as any);
-
   const cleanUp = useCallback(() => {
     if (creationMode) {
       dispatch(createExamTypeReset());
@@ -108,16 +93,7 @@ const ExamTypeForm: FC<IExamTypeFormProps> = ({
     <div className="examTypesForm">
       <div className="form__header">
         <div className="form__actions">
-          <Button
-            dataCy="cancel-form"
-            onClick={handleCancelConfirmationDialog(true)}
-            type="button"
-            variant="text"
-            color="primary"
-          >
-            <ChevronLeft fontSize="small" />
-            {t("common.discard")}
-          </Button>
+          <DiscardButton />
         </div>
       </div>
       <form className="examTypesForm__form" onSubmit={formik.handleSubmit}>
@@ -160,37 +136,9 @@ const ExamTypeForm: FC<IExamTypeFormProps> = ({
             </Button>
           </div>
           <div className="reset_button">
-            <Button
-              dataCy="reset-form"
-              type="reset"
-              variant="text"
-              disabled={isLoading || !formik.dirty}
-              onClick={handleResetConfirmationDialog(true)}
-            >
-              {resetButtonLabel}
-            </Button>
+            <ResetButton formik={formik} title={resetButtonLabel} />
           </div>
         </div>
-        <ConfirmationDialog
-          isOpen={openCancelConfirmation}
-          title={t("common.discard")}
-          info={t("common.discardMessage")}
-          icon={warningIcon}
-          primaryButtonLabel={t("common.discard")}
-          secondaryButtonLabel={t("common.backToEdit")}
-          handlePrimaryButtonClick={handleCancelConfirmation}
-          handleSecondaryButtonClick={handleCancelConfirmationDialog(false)}
-        />
-        <ConfirmationDialog
-          isOpen={openResetConfirmation}
-          title={t("common.reset")}
-          info={t("common.resetform")}
-          icon={warningIcon}
-          primaryButtonLabel={t("common.reset")}
-          secondaryButtonLabel={t("common.backToEdit")}
-          handlePrimaryButtonClick={handleResetConfirmation}
-          handleSecondaryButtonClick={handleResetConfirmationDialog(false)}
-        />
         {(creationMode
           ? examTypesStore.create.status === "FAIL"
           : examTypesStore.update.status === "FAIL") && (

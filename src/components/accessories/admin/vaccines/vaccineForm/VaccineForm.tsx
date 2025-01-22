@@ -1,14 +1,11 @@
-import { ChevronLeft } from "@mui/icons-material";
 import { useFormik } from "formik";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-import { useDiscardHelpers, useResetFormHelpers } from "libraries/hooks/ui";
 import { get, has } from "lodash";
 import React, { FC, useCallback, useEffect, useMemo, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { object, string } from "yup";
 import checkIcon from "../../../../../assets/check-icon.png";
-import warningIcon from "../../../../../assets/warning-icon.png";
 import { PATHS } from "../../../../../consts";
 import {
   formatAllFieldValues,
@@ -56,12 +53,6 @@ const VaccineForm: FC<IVaccineFormProps> = ({
     [vaccinesTypeState.data]
   );
 
-  const {
-    openCancelConfirmation,
-    handleCancelConfirmation,
-    handleCancelConfirmationDialog,
-  } = useDiscardHelpers();
-
   const errorMessage = useMemo(
     () =>
       (creationMode
@@ -108,12 +99,6 @@ const VaccineForm: FC<IVaccineFormProps> = ({
       : "";
   };
 
-  const {
-    openResetConfirmation,
-    handleResetConfirmation,
-    handleResetConfirmationDialog,
-  } = useResetFormHelpers(formik as any);
-
   const onBlurCallback = useCallback(
     (fieldName: string) =>
       (e: React.FocusEvent<HTMLDivElement>, value: string) => {
@@ -143,16 +128,7 @@ const VaccineForm: FC<IVaccineFormProps> = ({
     <div className="vaccineForm">
       <div className="vaccineForm__header">
         <div className="vaccineForm__actions">
-          <Button
-            dataCy="cancel-form"
-            onClick={handleCancelConfirmationDialog(true)}
-            type="button"
-            variant="text"
-            color="primary"
-          >
-            <ChevronLeft fontSize="small" />
-            {t("common.discard")}
-          </Button>
+          <DiscardButton />
         </div>
       </div>
       <form className="vaccineForm__form" onSubmit={formik.handleSubmit}>
@@ -208,37 +184,9 @@ const VaccineForm: FC<IVaccineFormProps> = ({
             </Button>
           </div>
           <div className="reset_button">
-            <Button
-              dataCy="reset-form"
-              type="reset"
-              variant="text"
-              disabled={isLoading || !formik.dirty}
-              onClick={handleResetConfirmationDialog(true)}
-            >
-              {resetButtonLabel}
-            </Button>
+            <ResetButton formik={formik} title={resetButtonLabel} />
           </div>
         </div>
-        <ConfirmationDialog
-          isOpen={openCancelConfirmation}
-          title={t("common.discard")}
-          info={t("common.discardMessage")}
-          icon={warningIcon}
-          primaryButtonLabel={t("common.discard")}
-          secondaryButtonLabel={t("common.backToEdit")}
-          handlePrimaryButtonClick={handleCancelConfirmation}
-          handleSecondaryButtonClick={handleCancelConfirmationDialog(false)}
-        />
-        <ConfirmationDialog
-          isOpen={openResetConfirmation}
-          title={t("common.reset")}
-          info={t("common.resetform")}
-          icon={warningIcon}
-          primaryButtonLabel={t("common.reset")}
-          secondaryButtonLabel={t("common.backToEdit")}
-          handlePrimaryButtonClick={handleResetConfirmation}
-          handleSecondaryButtonClick={handleResetConfirmationDialog(false)}
-        />
         {(creationMode
           ? vaccineStore.create.status === "FAIL"
           : vaccineStore.update.status === "FAIL") && (

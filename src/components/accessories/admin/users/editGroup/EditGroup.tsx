@@ -6,7 +6,6 @@ import { useParams } from "react-router";
 import { useNavigate } from "react-router-dom";
 
 import checkIcon from "../../../../../assets/check-icon.png";
-import warningIcon from "../../../../../assets/warning-icon.png";
 import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
 import InfoBox from "../../../infoBox/InfoBox";
 import TextField from "../../../textField/TextField";
@@ -19,7 +18,6 @@ import { CircularProgress } from "@mui/material";
 import CheckboxField from "components/accessories/checkboxField/CheckboxField";
 import { PermissionDTO } from "generated/models/PermissionDTO";
 import { UserGroupDTO } from "generated/models/UserGroupDTO";
-import { useDiscardHelpers, useResetFormHelpers } from "libraries/hooks/ui";
 import { getAllPermissions } from "../../../../../state/permissions";
 import {
   getUserGroup,
@@ -88,12 +86,6 @@ export const EditGroup = () => {
     }
   };
 
-  const {
-    openCancelConfirmation,
-    handleCancelConfirmation,
-    handleCancelConfirmationDialog,
-  } = useDiscardHelpers();
-
   const formik = useFormik({
     initialValues: group.data ?? { code: "" },
     validationSchema: userGroupSchema(t),
@@ -139,12 +131,6 @@ export const EditGroup = () => {
       dispatch(getUserGroupReset());
     };
   }, []);
-
-  const {
-    openResetConfirmation,
-    handleResetConfirmation,
-    handleResetConfirmationDialog,
-  } = useResetFormHelpers(formik as any);
 
   const handleCheckboxChange = useCallback(
     (fieldName: string) => (value: boolean) => {
@@ -298,26 +284,6 @@ export const EditGroup = () => {
               </div>
             </div>
           </form>
-          <ConfirmationDialog
-            isOpen={openCancelConfirmation}
-            title={t("common.discard")}
-            info={t("common.discardMessage")}
-            icon={warningIcon}
-            primaryButtonLabel={t("common.discard")}
-            secondaryButtonLabel={t("common.backToEdit")}
-            handlePrimaryButtonClick={handleCancelConfirmation}
-            handleSecondaryButtonClick={handleCancelConfirmationDialog(false)}
-          />
-          <ConfirmationDialog
-            isOpen={openResetConfirmation}
-            title={t("common.reset")}
-            info={t("common.resetform")}
-            icon={warningIcon}
-            primaryButtonLabel={t("common.reset")}
-            secondaryButtonLabel={t("common.backToEdit")}
-            handlePrimaryButtonClick={handleResetConfirmation}
-            handleSecondaryButtonClick={handleResetConfirmationDialog(false)}
-          />
           <ConfirmationDialog
             isOpen={update.hasSucceeded}
             title={t("user.groupUpdated")}

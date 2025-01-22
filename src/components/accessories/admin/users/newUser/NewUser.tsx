@@ -16,12 +16,10 @@ import TextField from "../../../textField/TextField";
 
 import { IState } from "../../../../../types";
 
-import { ChevronLeft } from "@mui/icons-material";
 import Button from "components/accessories/button/Button";
 import CheckboxField from "components/accessories/checkboxField/CheckboxField";
 import { UserDTO } from "generated/models/UserDTO";
 import { UserGroupDTO } from "generated/models/UserGroupDTO";
-import { useDiscardHelpers, useResetFormHelpers } from "libraries/hooks/ui";
 import { PATHS } from "../../../../../consts";
 import { getUserGroups } from "../../../../../state/usergroups";
 import { createUser, createUserReset } from "../../../../../state/users";
@@ -48,12 +46,6 @@ export const NewUser = () => {
   const userGroupsTypeState = useAppSelector(
     (state: IState) => state.usergroups.groupList
   );
-
-  const {
-    openCancelConfirmation,
-    handleCancelConfirmation,
-    handleCancelConfirmationDialog,
-  } = useDiscardHelpers();
 
   const formik = useFormik<FormProps>({
     initialValues,
@@ -88,12 +80,6 @@ export const NewUser = () => {
     };
   }, [create.hasSucceeded, dispatch, navigate]);
 
-  const {
-    openResetConfirmation,
-    handleResetConfirmation,
-    handleResetConfirmationDialog,
-  } = useResetFormHelpers(formik as any);
-
   const handleCheckboxChange = useCallback(
     (fieldName: string) => (value: boolean) => {
       setFieldValue(fieldName, value);
@@ -105,16 +91,7 @@ export const NewUser = () => {
     <div className="newUserForm">
       <div className="newUserForm__header">
         <div className="newUserForm__actions">
-          <Button
-            dataCy="cancel-form"
-            onClick={handleCancelConfirmationDialog(true)}
-            type="button"
-            variant="text"
-            color="primary"
-          >
-            <ChevronLeft fontSize="small" />
-            {t("common.discard")}
-          </Button>
+          <DiscardButton />
         </div>
       </div>
       <form className="newUserForm__form" onSubmit={handleSubmit}>
@@ -250,26 +227,6 @@ export const NewUser = () => {
             navigate(PATHS.admin_users, { replace: true });
           }}
           handleSecondaryButtonClick={() => ({})}
-        />
-        <ConfirmationDialog
-          isOpen={openCancelConfirmation}
-          title={t("common.discard")}
-          info={t("common.discardMessage")}
-          icon={warningIcon}
-          primaryButtonLabel={t("common.discard")}
-          secondaryButtonLabel={t("common.backToEdit")}
-          handlePrimaryButtonClick={handleCancelConfirmation}
-          handleSecondaryButtonClick={handleCancelConfirmationDialog(false)}
-        />
-        <ConfirmationDialog
-          isOpen={openResetConfirmation}
-          title={t("common.reset")}
-          info={t("common.resetform")}
-          icon={warningIcon}
-          primaryButtonLabel={t("common.reset")}
-          secondaryButtonLabel={t("common.backToEdit")}
-          handlePrimaryButtonClick={handleResetConfirmation}
-          handleSecondaryButtonClick={handleResetConfirmationDialog(false)}
         />
         <ConfirmationDialog
           isOpen={create.hasFailed}

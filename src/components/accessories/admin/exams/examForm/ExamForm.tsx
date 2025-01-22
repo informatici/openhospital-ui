@@ -14,7 +14,6 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { array, number, object, string } from "yup";
 import checkIcon from "../../../../../assets/check-icon.png";
-import warningIcon from "../../../../../assets/warning-icon.png";
 import { PATHS } from "../../../../../consts";
 import {
   formatAllFieldValues,
@@ -30,10 +29,9 @@ import TextField from "../../../textField/TextField";
 import "./styles.scss";
 import { IExamProps } from "./types";
 
-import { AddCircle, ChevronLeft, Delete } from "@mui/icons-material";
+import { AddCircle, Delete } from "@mui/icons-material";
 import { IconButton, Radio, RadioGroup } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-import { useDiscardHelpers, useResetFormHelpers } from "libraries/hooks/ui";
 import AutocompleteField from "../../../autocompleteField/AutocompleteField";
 import InfoBox from "../../../infoBox/InfoBox";
 
@@ -72,12 +70,6 @@ const ExamForm: FC<IExamProps> = ({
     ],
     [t]
   );
-
-  const {
-    openCancelConfirmation,
-    handleCancelConfirmation,
-    handleCancelConfirmationDialog,
-  } = useDiscardHelpers();
 
   const errorMessage = useMemo(
     () =>
@@ -147,12 +139,6 @@ const ExamForm: FC<IExamProps> = ({
       : "";
   };
 
-  const {
-    openResetConfirmation,
-    handleResetConfirmation,
-    handleResetConfirmationDialog,
-  } = useResetFormHelpers(formik as any);
-
   const addExamRow = useCallback(() => {
     formik.setFieldValue("rows", [...formik.values.rows, ""]);
   }, [formik]);
@@ -218,16 +204,7 @@ const ExamForm: FC<IExamProps> = ({
     <div className="examForm">
       <div className="examForm__header">
         <div className="examForm__actions">
-          <Button
-            dataCy="cancel-form"
-            onClick={handleCancelConfirmationDialog(true)}
-            type="button"
-            variant="text"
-            color="primary"
-          >
-            <ChevronLeft fontSize="small" />
-            {t("common.discard")}
-          </Button>
+          <DiscardButton />
         </div>
       </div>
       <form className="examForm__form" onSubmit={formik.handleSubmit}>
@@ -366,37 +343,9 @@ const ExamForm: FC<IExamProps> = ({
             </Button>
           </div>
           <div className="reset_button">
-            <Button
-              dataCy="reset-form"
-              type="reset"
-              variant="text"
-              disabled={isLoading || !formik.dirty}
-              onClick={handleResetConfirmationDialog(true)}
-            >
-              {resetButtonLabel}
-            </Button>
+            <ResetButton formik={formik} title={resetButtonLabel} />
           </div>
         </div>
-        <ConfirmationDialog
-          isOpen={openCancelConfirmation}
-          title={t("common.discard")}
-          info={t("common.discardMessage")}
-          icon={warningIcon}
-          primaryButtonLabel={t("common.discard")}
-          secondaryButtonLabel={t("common.backToEdit")}
-          handlePrimaryButtonClick={handleCancelConfirmation}
-          handleSecondaryButtonClick={handleCancelConfirmationDialog(false)}
-        />
-        <ConfirmationDialog
-          isOpen={openResetConfirmation}
-          title={t("common.reset")}
-          info={t("common.resetform")}
-          icon={warningIcon}
-          primaryButtonLabel={t("common.reset")}
-          secondaryButtonLabel={t("common.backToEdit")}
-          handlePrimaryButtonClick={handleResetConfirmation}
-          handleSecondaryButtonClick={handleResetConfirmationDialog(false)}
-        />
         {(creationMode
           ? examStore.examCreate.status === "FAIL"
           : examStore.examUpdate.status === "FAIL") && (

@@ -18,9 +18,7 @@ import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
 import InfoBox from "../../../infoBox/InfoBox";
 import TextField from "../../../textField/TextField";
 
-import { ChevronLeft } from "@mui/icons-material";
 import CheckboxField from "components/accessories/checkboxField/CheckboxField";
-import { useDiscardHelpers, useResetFormHelpers } from "libraries/hooks/ui";
 import { PATHS } from "../../../../../consts";
 import "./styles.scss";
 import { userSchema } from "./validation";
@@ -56,12 +54,6 @@ export const EditUserForm = ({
     onSubmit(userDTO);
   };
 
-  const {
-    openCancelConfirmation,
-    handleCancelConfirmation,
-    handleCancelConfirmationDialog,
-  } = useDiscardHelpers();
-
   const formik = useFormik<UserDTO & { passwd2: string }>({
     initialValues: { ...initialValues, passwd: "", passwd2: "" },
     validationSchema: userSchema(t),
@@ -81,12 +73,6 @@ export const EditUserForm = ({
     setFieldValue,
   } = formik;
 
-  const {
-    openResetConfirmation,
-    handleResetConfirmation,
-    handleResetConfirmationDialog,
-  } = useResetFormHelpers(formik as any);
-
   const handleCheckboxChange = useCallback(
     (fieldName: string) => (value: boolean) => {
       setFieldValue(fieldName, value);
@@ -98,16 +84,7 @@ export const EditUserForm = ({
     <div className="editUserForm">
       <div className="editUserForm__header">
         <div className="editUserForm__actions">
-          <Button
-            dataCy="cancel-form"
-            onClick={handleCancelConfirmationDialog(true)}
-            type="button"
-            variant="text"
-            color="primary"
-          >
-            <ChevronLeft fontSize="small" />
-            {t("common.discard")}
-          </Button>
+          <DiscardButton />
         </div>
       </div>
       <form className="editUserForm__form" onSubmit={handleSubmit}>

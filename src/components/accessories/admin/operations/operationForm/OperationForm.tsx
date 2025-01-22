@@ -1,15 +1,12 @@
-import { ChevronLeft } from "@mui/icons-material";
 import { useFormik } from "formik";
 import { OperationDTOOpeForEnum } from "generated/models/OperationDTO";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-import { useDiscardHelpers, useResetFormHelpers } from "libraries/hooks/ui";
 import { get, has } from "lodash";
 import React, { FC, useCallback, useEffect, useMemo, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { object, string } from "yup";
 import checkIcon from "../../../../../assets/check-icon.png";
-import warningIcon from "../../../../../assets/warning-icon.png";
 import { PATHS } from "../../../../../consts";
 import {
   formatAllFieldValues,
@@ -67,12 +64,6 @@ const OperationForm: FC<IOperationProps> = ({
     });
   };
 
-  const {
-    openCancelConfirmation,
-    handleCancelConfirmation,
-    handleCancelConfirmationDialog,
-  } = useDiscardHelpers();
-
   const errorMessage = useMemo(
     () =>
       (creationMode
@@ -119,12 +110,6 @@ const OperationForm: FC<IOperationProps> = ({
       : "";
   };
 
-  const {
-    openResetConfirmation,
-    handleResetConfirmation,
-    handleResetConfirmationDialog,
-  } = useResetFormHelpers(formik as any);
-
   const handleCheckboxChange = useCallback(
     (fieldName: string) => (value: boolean) => {
       setFieldValue(fieldName, value ? "0" : "1");
@@ -161,16 +146,7 @@ const OperationForm: FC<IOperationProps> = ({
     <div className="operationForm">
       <div className="operationForm__header">
         <div className="operationForm__actions">
-          <Button
-            dataCy="cancel-form"
-            onClick={handleCancelConfirmationDialog(true)}
-            type="button"
-            variant="text"
-            color="primary"
-          >
-            <ChevronLeft fontSize="small" />
-            {t("common.discard")}
-          </Button>
+          <DiscardButton />
         </div>
       </div>
       <form className="operationForm__form" onSubmit={formik.handleSubmit}>
@@ -261,26 +237,6 @@ const OperationForm: FC<IOperationProps> = ({
             </Button>
           </div>
         </div>
-        <ConfirmationDialog
-          isOpen={openCancelConfirmation}
-          title={t("common.discard")}
-          info={t("common.discardMessage")}
-          icon={warningIcon}
-          primaryButtonLabel={t("common.discard")}
-          secondaryButtonLabel={t("common.backToEdit")}
-          handlePrimaryButtonClick={handleCancelConfirmation}
-          handleSecondaryButtonClick={handleCancelConfirmationDialog(false)}
-        />
-        <ConfirmationDialog
-          isOpen={openResetConfirmation}
-          title={t("common.reset")}
-          info={t("common.resetform")}
-          icon={warningIcon}
-          primaryButtonLabel={t("common.reset")}
-          secondaryButtonLabel={t("common.backToEdit")}
-          handlePrimaryButtonClick={handleResetConfirmation}
-          handleSecondaryButtonClick={handleResetConfirmationDialog(false)}
-        />
         {(creationMode
           ? operationStore.create.status === "FAIL"
           : operationStore.update.status === "FAIL") && (
