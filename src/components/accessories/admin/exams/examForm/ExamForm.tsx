@@ -1,4 +1,6 @@
 import classnames from "classnames/dedupe";
+import DiscardButton from "components/accessories/discardButton/DiscardButton";
+import ResetButton from "components/accessories/resetButton/resetButton";
 import { useFormik } from "formik";
 import { get, has, isEmpty } from "lodash";
 import React, {
@@ -343,7 +345,7 @@ const ExamForm: FC<IExamProps> = ({
             </Button>
           </div>
           <div className="reset_button">
-            <ResetButton formik={formik} title={resetButtonLabel} />
+            <ResetButton formik={formik as any} title={resetButtonLabel} />
           </div>
         </div>
         {(creationMode

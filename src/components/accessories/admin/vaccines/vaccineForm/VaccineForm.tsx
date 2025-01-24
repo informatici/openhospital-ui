@@ -1,3 +1,5 @@
+import DiscardButton from "components/accessories/discardButton/DiscardButton";
+import ResetButton from "components/accessories/resetButton/resetButton";
 import { useFormik } from "formik";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { get, has } from "lodash";
@@ -184,7 +186,7 @@ const VaccineForm: FC<IVaccineFormProps> = ({
             </Button>
           </div>
           <div className="reset_button">
-            <ResetButton formik={formik} title={resetButtonLabel} />
+            <ResetButton formik={formik as any} title={resetButtonLabel} />
           </div>
         </div>
         {(creationMode

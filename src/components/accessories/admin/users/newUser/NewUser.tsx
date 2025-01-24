@@ -4,6 +4,7 @@ import {
   FormHelperText,
   TextField as MuiTextField,
 } from "@mui/material";
+import DiscardButton from "components/accessories/discardButton/DiscardButton";
 import { useFormik } from "formik";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { ReactNode, useCallback, useEffect } from "react";
@@ -18,6 +19,7 @@ import { IState } from "../../../../../types";
 
 import Button from "components/accessories/button/Button";
 import CheckboxField from "components/accessories/checkboxField/CheckboxField";
+import ResetButton from "components/accessories/resetButton/resetButton";
 import { UserDTO } from "generated/models/UserDTO";
 import { UserGroupDTO } from "generated/models/UserGroupDTO";
 import { PATHS } from "../../../../../consts";
@@ -206,15 +208,7 @@ export const NewUser = () => {
             </Button>
           </div>
           <div className="reset_button">
-            <Button
-              dataCy="reset-form"
-              type="reset"
-              variant="text"
-              disabled={create.isLoading || !dirty}
-              onClick={handleResetConfirmationDialog(true)}
-            >
-              {t("common.reset")}
-            </Button>
+            <ResetButton formik={formik as any} />
           </div>
         </div>
         <ConfirmationDialog

@@ -1,3 +1,5 @@
+import DiscardButton from "components/accessories/discardButton/DiscardButton";
+import ResetButton from "components/accessories/resetButton/resetButton";
 import { useFormik } from "formik";
 import { OperationDTOOpeForEnum } from "generated/models/OperationDTO";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
@@ -226,15 +228,7 @@ const OperationForm: FC<IOperationProps> = ({
             </Button>
           </div>
           <div className="reset_button">
-            <Button
-              dataCy="reset-form"
-              type="reset"
-              variant="text"
-              disabled={isLoading || !formik.dirty}
-              onClick={handleResetConfirmationDialog(true)}
-            >
-              {t("common.reset")}
-            </Button>
+            <ResetButton formik={formik as any} />
           </div>
         </div>
         {(creationMode

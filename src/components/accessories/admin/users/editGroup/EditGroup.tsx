@@ -13,9 +13,10 @@ import TextField from "../../../textField/TextField";
 import { PATHS } from "../../../../../consts";
 import { usePermission } from "../../../../../libraries/permissionUtils/usePermission";
 
-import { ChevronLeft } from "@mui/icons-material";
 import { CircularProgress } from "@mui/material";
 import CheckboxField from "components/accessories/checkboxField/CheckboxField";
+import DiscardButton from "components/accessories/discardButton/DiscardButton";
+import ResetButton from "components/accessories/resetButton/resetButton";
 import { PermissionDTO } from "generated/models/PermissionDTO";
 import { UserGroupDTO } from "generated/models/UserGroupDTO";
 import { getAllPermissions } from "../../../../../state/permissions";
@@ -165,16 +166,7 @@ export const EditGroup = () => {
         <div className="editGroupForm">
           <div className="editGroupForm__header">
             <div className="editGroupForm__actions">
-              <Button
-                dataCy="cancel-form"
-                onClick={handleCancelConfirmationDialog(true)}
-                type="button"
-                variant="text"
-                color="primary"
-              >
-                <ChevronLeft fontSize="small" />
-                {t("common.discard")}
-              </Button>
+              <DiscardButton />
             </div>
           </div>
           <form className="editGroupForm__form" onSubmit={handleSubmit}>
@@ -272,15 +264,7 @@ export const EditGroup = () => {
                 </Button>
               </div>
               <div className="reset_button">
-                <Button
-                  dataCy="reset-form"
-                  type="reset"
-                  variant="text"
-                  disabled={update.isLoading || !dirty}
-                  onClick={handleResetConfirmationDialog(true)}
-                >
-                  {t("common.reset")}
-                </Button>
+                <ResetButton formik={formik as any} />
               </div>
             </div>
           </form>

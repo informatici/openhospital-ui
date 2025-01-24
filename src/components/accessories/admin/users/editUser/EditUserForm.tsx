@@ -4,6 +4,7 @@ import {
   FormHelperText,
   TextField as MuiTextField,
 } from "@mui/material";
+import DiscardButton from "components/accessories/discardButton/DiscardButton";
 import { useFormik } from "formik";
 import React, { ReactNode, useCallback } from "react";
 import { useTranslation } from "react-i18next";
@@ -12,13 +13,13 @@ import { useNavigate } from "react-router-dom";
 import { UserDTO, UserGroupDTO } from "../../../../../generated";
 
 import checkIcon from "../../../../../assets/check-icon.png";
-import warningIcon from "../../../../../assets/warning-icon.png";
 import Button from "../../../button/Button";
 import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
 import InfoBox from "../../../infoBox/InfoBox";
 import TextField from "../../../textField/TextField";
 
 import CheckboxField from "components/accessories/checkboxField/CheckboxField";
+import ResetButton from "components/accessories/resetButton/resetButton";
 import { PATHS } from "../../../../../consts";
 import "./styles.scss";
 import { userSchema } from "./validation";
@@ -198,38 +199,10 @@ export const EditUserForm = ({
             </Button>
           </div>
           <div className="reset_button">
-            <Button
-              dataCy="reset-form"
-              type="reset"
-              variant="text"
-              disabled={isLoading || !dirty}
-              onClick={handleResetConfirmationDialog(true)}
-            >
-              {t("common.reset")}
-            </Button>
+            <ResetButton formik={formik as any} />
           </div>
         </div>
       </form>
-      <ConfirmationDialog
-        isOpen={openCancelConfirmation}
-        title={t("common.discard")}
-        info={t("common.discardMessage")}
-        icon={warningIcon}
-        primaryButtonLabel={t("common.discard")}
-        secondaryButtonLabel={t("common.backToEdit")}
-        handlePrimaryButtonClick={handleCancelConfirmation}
-        handleSecondaryButtonClick={handleCancelConfirmationDialog(false)}
-      />
-      <ConfirmationDialog
-        isOpen={openResetConfirmation}
-        title={t("common.reset")}
-        info={t("common.resetform")}
-        icon={warningIcon}
-        primaryButtonLabel={t("common.reset")}
-        secondaryButtonLabel={t("common.backToEdit")}
-        handlePrimaryButtonClick={handleResetConfirmation}
-        handleSecondaryButtonClick={handleResetConfirmationDialog(false)}
-      />
       <ConfirmationDialog
         isOpen={hasSucceeded}
         title={t("user.updatedSuccessTitle")}

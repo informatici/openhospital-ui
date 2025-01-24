@@ -1,3 +1,4 @@
+import DiscardButton from "components/accessories/discardButton/DiscardButton";
 import { useFormik } from "formik";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { useCallback, useEffect } from "react";
@@ -5,7 +6,6 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
 import checkIcon from "../../../../../assets/check-icon.png";
-import warningIcon from "../../../../../assets/warning-icon.png";
 import Button from "../../../button/Button";
 import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
 import InfoBox from "../../../infoBox/InfoBox";
@@ -15,6 +15,7 @@ import { PATHS } from "../../../../../consts";
 import { UserGroupDTO } from "../../../../../generated";
 
 import CheckboxField from "components/accessories/checkboxField/CheckboxField";
+import ResetButton from "components/accessories/resetButton/resetButton";
 import {
   createUserGroup,
   createUserGroupReset,
@@ -129,38 +130,10 @@ export const NewGroup = () => {
             </Button>
           </div>
           <div className="reset_button">
-            <Button
-              dataCy="reset-form"
-              type="reset"
-              variant="text"
-              disabled={create.isLoading || !dirty}
-              onClick={handleResetConfirmationDialog(true)}
-            >
-              {t("common.reset")}
-            </Button>
+            <ResetButton formik={formik as any} />
           </div>
         </div>
       </form>
-      <ConfirmationDialog
-        isOpen={openCancelConfirmation}
-        title={t("common.discard")}
-        info={t("common.discardMessage")}
-        icon={warningIcon}
-        primaryButtonLabel={t("common.discard")}
-        secondaryButtonLabel={t("common.backToEdit")}
-        handlePrimaryButtonClick={handleCancelConfirmation}
-        handleSecondaryButtonClick={handleCancelConfirmationDialog(false)}
-      />
-      <ConfirmationDialog
-        isOpen={openResetConfirmation}
-        title={t("common.reset")}
-        info={t("common.resetform")}
-        icon={warningIcon}
-        primaryButtonLabel={t("common.reset")}
-        secondaryButtonLabel={t("common.backToEdit")}
-        handlePrimaryButtonClick={handleResetConfirmation}
-        handleSecondaryButtonClick={handleResetConfirmationDialog(false)}
-      />
       <ConfirmationDialog
         isOpen={create.hasSucceeded}
         title={t("user.groupCreated")}

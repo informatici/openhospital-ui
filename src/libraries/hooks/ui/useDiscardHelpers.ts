@@ -41,7 +41,9 @@ export function useDiscardHelpers() {
     } else {
       navigate(-1);
     }
-    setOpenCancelConfirmation(false);
+    setTimeout(() => {
+      setOpenCancelConfirmation(false);
+    }, 500);
   }, [
     navigate,
     setOpenCancelConfirmation,

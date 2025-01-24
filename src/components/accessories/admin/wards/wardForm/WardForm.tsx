@@ -282,7 +282,7 @@ const WardForm: FC<IWardProps> = ({
             </Button>
           </div>
           <div className="reset_button">
-            <ResetButton formik={formik} title={resetButtonLabel} />
+            <ResetButton formik={formik as any} title={resetButtonLabel} />
           </div>
         </div>
         {(creationMode
