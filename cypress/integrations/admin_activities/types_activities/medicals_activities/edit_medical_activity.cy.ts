@@ -41,7 +41,7 @@ describe("Medical types Edit Activity specs", () => {
 
   it("should cancel the medical type update", () => {
     cy.dataCy("cancel-form").click();
-    cy.dataCy("approve-dialog").click().click();
+    cy.dataCy("approve-dialog").click();
     cy.dataCy("dialog-info").should("not.exist");
     cy.dataCy("sub-medical-title").contains("Manage medical types");
   });

@@ -46,7 +46,7 @@ describe("Add Ward Activity specs", () => {
 
   it("should cancel the ward creation", () => {
     cy.dataCy("cancel-form").click();
-    cy.dataCy("approve-dialog").click().click();
+    cy.dataCy("approve-dialog").click();
     cy.dataCy("dialog-info").should("not.exist");
     cy.dataCy("activity-title").contains("Wards");
   });

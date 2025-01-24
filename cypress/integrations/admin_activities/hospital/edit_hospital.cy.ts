@@ -35,14 +35,14 @@ describe("Edit Hospital Activity specs", () => {
     cy.dataCy("edit-hospital").first().click();
     cy.dataCy("cancel-form").click();
     cy.dataCy("dialog-info").contains("lost");
-    cy.dataCy("close-dialog").click().click();
+    cy.dataCy("close-dialog").click();
     cy.dataCy("dialog-info").should("not.be.visible");
   });
 
   it("should cancel the update of the hospital infos", () => {
     cy.dataCy("cancel-form").click();
     cy.dataCy("dialog-info").contains("lost");
-    cy.dataCy("approve-dialog").click().click();
+    cy.dataCy("approve-dialog").click();
     cy.dataCy("activity-title").contains("Wards");
   });
 });

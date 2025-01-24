@@ -26,7 +26,7 @@ describe("Wards Activity specs", () => {
   });
 
   it("should cancel the ward deletion", () => {
-    cy.dataCy("close-dialog").click().click();
+    cy.dataCy("close-dialog").click();
     cy.dataCy("dialog-info").should("not.be.visible");
     cy.dataCy("wards-table")
       .find("table")

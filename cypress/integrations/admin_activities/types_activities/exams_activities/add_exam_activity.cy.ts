@@ -43,7 +43,7 @@ describe("Add exam type Activity specs", () => {
 
   it("should cancel the exam type creation", () => {
     cy.dataCy("cancel-form").click();
-    cy.dataCy("approve-dialog").click().click();
+    cy.dataCy("approve-dialog").click();
     cy.dataCy("dialog-info").should("not.exist");
     cy.dataCy("sub-activity-title").contains("Manage exam types");
   });

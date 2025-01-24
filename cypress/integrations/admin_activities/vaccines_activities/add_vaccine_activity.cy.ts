@@ -43,7 +43,7 @@ describe("Add Vaccine Activity specs", () => {
 
   it("should cancel the vaccine creation", () => {
     cy.dataCy("cancel-form").click();
-    cy.dataCy("approve-dialog").click().click();
+    cy.dataCy("approve-dialog").click();
     cy.dataCy("dialog-info").should("not.exist");
     cy.dataCy("activity-title").contains("Vaccines");
   });
