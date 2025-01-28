@@ -69,11 +69,7 @@ export const AdmissionsBySex: FC<TDashboardComponentProps & IOwnProps> = ({
           actions={actions}
           sizeChangeHandler={onSizeChange}
         >
-          <Piechart
-            data={data}
-            width={displaySize?.width ? `${displaySize.width}px` : "320px"}
-            height={displaySize?.height ? `${displaySize.height}px` : "320px"}
-          />
+          <Piechart data={data} width={"100%"} height={"calc(100% - 75px)"} />
           <DataSummary
             label={t("admission.admregistered")}
             value={total.toString()}
