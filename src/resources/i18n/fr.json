@@ -572,7 +572,7 @@
     "deleted": "Effacé",
     "restore": "Restaurer",
     "restoreConfirmation": "Etes-vous sûr de vouloir restaurer cet article ?",
-    "softDelete": "Mark as deleted",
+    "softDelete": "Marquer comme supprimé",
     "softDeleteConfirmation": "Are you sure to mark this item as deleted ?"
   },
   "permission": {
