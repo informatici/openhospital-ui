@@ -1164,7 +1164,7 @@
     "created": "Patologia creata correttamente",
     "updated": "Patologia aggiornata",
     "createSuccess": "Patologia creata correttamente",
-    "updateSuccess": "Disease {{code}} has been updated successfully!",
+    "updateSuccess": "La patologia {{code}} è stata correttamente aggiornata",
     "enabled": "Enabled",
     "disabled": "Disabled",
     "all": "All diseases"
