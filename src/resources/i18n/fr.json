@@ -587,8 +587,8 @@
     "delete": "Effacer",
     "accessarea": "Zone d'accès",
     "accesscontrollist": "Liste de contrôle d'accès",
-    "toggle-check-all": "Toggle check all",
-    "all": "All"
+    "toggle-check-all": "Activer/désactiver tout vérifier",
+    "all": "Tous"
   },
   "therapy": {
     "newtherapy": "Nouvelle thérapie",
