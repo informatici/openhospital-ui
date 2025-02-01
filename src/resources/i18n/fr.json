@@ -905,7 +905,7 @@
     },
     "userbrowser": {
       "alreadysoftdeleted": {
-        "msg": "The user is already set as deleted."
+        "msg": "L'utilisateur est déjà défini comme supprimé."
       }
     }
   },
