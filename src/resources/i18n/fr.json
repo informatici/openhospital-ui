@@ -283,7 +283,7 @@
     "abovemaxage": "l'âge maximum est 200",
     "ward": "Pavillon",
     "previousentries": "Visites précédentes",
-    "operations": "Patient Operations"
+    "operations": "Opérations pour les patients"
   },
   "visit": {
     "date": "Date",
@@ -463,7 +463,7 @@
     "createSuccess": "Opération créé avec succès !",
     "updateSuccess": "L'opération {{code}} a été mise à jour avec succès !",
     "deleteSuccess": "L'opération {{code}} a été supprimée avec succès !",
-    "opeFor": "Context",
+    "opeFor": "Contexte",
     "contextOptions": {
       "opd_admission": "OPD/Admission",
       "admission": "Admission",
