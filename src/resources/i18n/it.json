@@ -1171,7 +1171,7 @@
   },
   "pregnantTreatmentTypes": {
     "code": "Codice",
-    "description": "Description",
+    "description": "Descrizione",
     "title": "Manage pregnant treatment types",
     "addPregnantTreatmentType": "New pregnant treatment type",
     "deleted": "Deleted",
