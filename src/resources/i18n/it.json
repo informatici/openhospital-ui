@@ -1163,7 +1163,7 @@
     "saveDisease": "Salva patologia",
     "created": "Patologia creata correttamente",
     "updated": "Patologia aggiornata",
-    "createSuccess": "Disease has been created successfully!",
+    "createSuccess": "Patologia creata correttamente",
     "updateSuccess": "Disease {{code}} has been updated successfully!",
     "enabled": "Enabled",
     "disabled": "Disabled",
