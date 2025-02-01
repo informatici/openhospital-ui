@@ -1152,7 +1152,7 @@
   },
   "disease": {
     "code": "Codice",
-    "name": "Name",
+    "name": "Nome",
     "diseaseType": "Type",
     "opdInclude": "OPD",
     "ipdInInclude": "IP In",
