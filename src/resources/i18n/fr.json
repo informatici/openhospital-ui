@@ -930,7 +930,7 @@
     "deleteSuccess": "Examen supprimé avec succès",
     "updateExam": "Mettre à jour l'examen",
     "validateProcedureMinMax": "La valeur ne peut être que 1, 2 ou 3",
-    "possibleValues": "Possible values",
+    "possibleValues": "Valeurs possibles",
     "defaultValue": "Default value",
     "invalidDefaultResult": "Default result should be one of possible values"
   },
