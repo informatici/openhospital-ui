@@ -1089,8 +1089,8 @@
   "ageTypes": {
     "code": "Code",
     "description": "Description",
-    "from": "From",
-    "to": "To",
+    "from": "D'où",
+    "to": "Vers",
     "title": "Manage age types",
     "editAgeTypes": "Edit age types",
     "updateAgeType": "Save changes",
