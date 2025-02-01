@@ -1175,7 +1175,7 @@
     "title": "Gestisci tipologie di gravidanza",
     "addPregnantTreatmentType": "Nuova tipologia di gravidanza",
     "deleted": "Cancellato",
-    "deleteSuccess": "The pregnant treatment type has been deleted successfully!",
+    "deleteSuccess": "La tipologia di gravidanza è stata cancellata con successo",
     "savePregnantTreatmentTypes": "Salva",
     "editPregnantTreatmentType": "Edit pregnant treatment type",
     "updatePregnantTreatmentType": "Salva le modifiche",
