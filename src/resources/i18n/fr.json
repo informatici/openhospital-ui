@@ -1120,7 +1120,7 @@
     "updateSuccess": "Fournisseur mis à jour avec succès !",
     "created": "Fournisseur creé",
     "createSuccess": "Fournisseur creé avec succès !",
-    "deleted": "Supplier deleted",
+    "deleted": "Fournisseur supprimé",
     "deleting": "Deleting supplier...",
     "deleteSuccess": "Supplier has been deleted successfully!"
   },
