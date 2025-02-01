@@ -1217,7 +1217,7 @@
     "createSuccess": "Tipo esame creato correttamente",
     "updated": "Tipo esame aggiornato correttamente",
     "updateSuccess": "Il tipo esame è stato aggiornato con successo",
-    "cancelCreation": "Are you sure to cancel the exam type creation?",
+    "cancelCreation": "Confermi la cancellazione della creazione tipo esame?",
     "cancelUpdate": "Are you sure to cancel the exam type update?"
   }
 }
