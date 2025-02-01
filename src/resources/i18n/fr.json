@@ -69,7 +69,7 @@
     "saveHospital": "Sauver",
     "updated": "Informations sur l'hôpital mises à jour",
     "updateSuccess": "Informations sur l'hôpital mises à jour",
-    "discardChanges": "Changes will be lost. Do you want to discard anyway ?"
+    "discardChanges": "Les modifications seront perdues. Voulez-vous les supprimer quand même ?"
   },
   "login": {
     "username": "Nom d'utilisateur",
