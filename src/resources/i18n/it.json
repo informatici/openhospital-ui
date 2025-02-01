@@ -1206,7 +1206,7 @@
   "examTypes": {
     "code": "Codice",
     "description": "Descrizione",
-    "title": "Manage exam types",
+    "title": "Gestisci i i tipi di esame",
     "addExamType": "New exam type",
     "deleted": "Deleted",
     "deleteSuccess": "The exam type has been deleted successfully!",
