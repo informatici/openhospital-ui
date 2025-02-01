@@ -1167,10 +1167,10 @@
     "updateSuccess": "La patologia {{code}} è stata correttamente aggiornata",
     "enabled": "Abilitato",
     "disabled": "Disabilitato",
-    "all": "All diseases"
+    "all": "Tutte le patologie"
   },
   "pregnantTreatmentTypes": {
-    "code": "Code",
+    "code": "Codice",
     "description": "Description",
     "title": "Manage pregnant treatment types",
     "addPregnantTreatmentType": "New pregnant treatment type",
