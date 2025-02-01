@@ -1093,7 +1093,7 @@
     "to": "Vers",
     "title": "Gérer les types d'âge",
     "editAgeTypes": "Modifier les types d'âge",
-    "updateAgeType": "Save changes",
+    "updateAgeType": "Sauver les modifications",
     "created": "Age type created",
     "updated": "Age types updated",
     "updateSuccess": "The age types have been updated successfully!",
