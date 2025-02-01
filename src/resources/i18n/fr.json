@@ -892,7 +892,7 @@
         "msg": "Le groupe d'utilisateurs est déjà défini comme supprimé."
       },
       "thisgrouphasusersandcannotbedeleted": {
-        "msg": "The group you want to delete has users and cannot be deleted."
+        "msg": "Le groupe que vous souhaitez supprimer contient des utilisateurs et ne peut pas être supprimé."
       }
     },
     "sql": {
