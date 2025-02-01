@@ -1153,7 +1153,7 @@
   "disease": {
     "code": "Codice",
     "name": "Nome",
-    "diseaseType": "Type",
+    "diseaseType": "Tipo",
     "opdInclude": "OPD",
     "ipdInInclude": "IP In",
     "ipdOutInclude": "IP Out",
