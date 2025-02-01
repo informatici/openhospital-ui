@@ -1181,7 +1181,7 @@
     "updatePregnantTreatmentType": "Salva le modifiche",
     "created": "La tipologia di trattamento in gravidanza è stata correttamente creata",
     "createSuccess": "La tipologia di trattamento in gravidanza è stata correttamente creata",
-    "updated": "Pregnant treatment type updated",
+    "updated": "La tipologia di trattamento in gravidanza è stata aggiornata",
     "updateSuccess": "The pregnant treatment type has been updated successfully!",
     "cancelCreation": "Are you sure to cancel the pregnant treatment type creation?",
     "cancelUpdate": "Are you sure to cancel the pregnant treatment type update?"
