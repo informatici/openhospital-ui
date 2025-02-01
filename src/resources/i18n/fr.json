@@ -917,7 +917,7 @@
     "procedures": {
       "1": "1 - Une seule option",
       "2": "2 - Plusieurs options peuvent être sélectionnées",
-      "3": "3 - Custom value"
+      "3": "3 - Valeur personnalisée"
     },
     "defaultResult": "Valeur par défaut",
     "addExam": "Nouvel examen",
