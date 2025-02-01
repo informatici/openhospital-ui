@@ -1218,6 +1218,6 @@
     "updated": "Tipo esame aggiornato correttamente",
     "updateSuccess": "Il tipo esame è stato aggiornato con successo",
     "cancelCreation": "Confermi la cancellazione della creazione tipo esame?",
-    "cancelUpdate": "Are you sure to cancel the exam type update?"
+    "cancelUpdate": "Confermi la cancellazione delle modifiche a tipo esame?"
   }
 }
