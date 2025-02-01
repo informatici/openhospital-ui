@@ -1154,7 +1154,7 @@
     "code": "Codice",
     "name": "Nome",
     "diseaseType": "Tipo",
-    "opdInclude": "OPD",
+    "opdInclude": "Visita ambulatoriale",
     "ipdInInclude": "IP In",
     "ipdOutInclude": "IP Out",
     "addDisease": "Add Disease",
