@@ -1213,7 +1213,7 @@
     "saveExamTypes": "Salva",
     "editExamType": "Aggiorna il tipo esame",
     "updateExamType": "Salva le modifiche",
-    "created": "Exam type created",
+    "created": "Tipo esame creato correttamente",
     "createSuccess": "The exam type has been created successfully!",
     "updated": "Exam type updated",
     "updateSuccess": "The exam type has been updated successfully!",
