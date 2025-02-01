@@ -1211,7 +1211,7 @@
     "deleted": "Cancellato",
     "deleteSuccess": "Il tipo esame è stato cancellato con successo",
     "saveExamTypes": "Salva",
-    "editExamType": "Edit exam type",
+    "editExamType": "Aggiorna il tipo esame",
     "updateExamType": "Salva le modifiche",
     "created": "Exam type created",
     "createSuccess": "The exam type has been created successfully!",
