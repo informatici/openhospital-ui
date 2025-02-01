@@ -1100,7 +1100,7 @@
     "cancelUpdate": "Êtes-vous sûr d'annuler la mise à jour du type d'âge?",
     "shouldbegreaterthanfrom": "Doit être supérieur à FROM",
     "somerangesareoverlapped": "Certaines gammes se chevauchent",
-    "somerangesarenotdefined": "Some ranges are not defined properly"
+    "somerangesarenotdefined": "Certaines plages ne sont pas correctement définies"
   },
   "supplier": {
     "id": "Fournisseurs ID",
