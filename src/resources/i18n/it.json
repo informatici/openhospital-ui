@@ -1194,7 +1194,7 @@
     "deleted": "Cancellato",
     "deleteSuccess": "Il tipo di esito parto è stato rimosso con successo",
     "saveDeliveryResultTypes": "Salva",
-    "editDeliveryResultType": "Edit delivery result type",
+    "editDeliveryResultType": "Modifica tipo di esito parto",
     "updateDeliveryResultType": "Salva le modifiche",
     "created": "Delivery result type created",
     "createSuccess": "The delivery result type has been created successfully!",
