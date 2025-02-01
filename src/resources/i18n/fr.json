@@ -571,7 +571,7 @@
     "option": "Option",
     "deleted": "Effacé",
     "restore": "Restaurer",
-    "restoreConfirmation": "Are you sure to restore this item ?",
+    "restoreConfirmation": "Etes-vous sûr de vouloir restaurer cet article ?",
     "softDelete": "Mark as deleted",
     "softDeleteConfirmation": "Are you sure to mark this item as deleted ?"
   },
