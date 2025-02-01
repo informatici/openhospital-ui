@@ -1091,7 +1091,7 @@
     "description": "Description",
     "from": "D'où",
     "to": "Vers",
-    "title": "Manage age types",
+    "title": "Gérer les types d'âge",
     "editAgeTypes": "Edit age types",
     "updateAgeType": "Save changes",
     "created": "Age type created",
