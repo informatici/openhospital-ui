@@ -1094,7 +1094,7 @@
     "title": "Gérer les types d'âge",
     "editAgeTypes": "Modifier les types d'âge",
     "updateAgeType": "Sauver les modifications",
-    "created": "Type  d'age créé",
+    "created": "Type  d'âge créé",
     "updated": "Type  d'âge modifié",
     "updateSuccess": "The age types have been updated successfully!",
     "cancelUpdate": "Are you sure to cancel the age types update?",
