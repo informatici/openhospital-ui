@@ -1201,10 +1201,10 @@
     "updated": "Tipo di esito parto aggiornato",
     "updateSuccess": "Il tipo di esito parto è stato aggiornato con successo",
     "cancelCreation": "Confermi la cancellazione della creazione tipo esito parto?",
-    "cancelUpdate": "Are you sure to cancel the delivery result type update?"
+    "cancelUpdate": "Confermi l'annullamento dell'aggiornamento tipo di esito parto?"
   },
   "examTypes": {
-    "code": "Code",
+    "code": "Codice",
     "description": "Description",
     "title": "Manage exam types",
     "addExamType": "New exam type",
