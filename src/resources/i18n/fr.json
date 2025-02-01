@@ -573,13 +573,13 @@
     "restore": "Restaurer",
     "restoreConfirmation": "Etes-vous sûr de vouloir restaurer cet article ?",
     "softDelete": "Marquer comme supprimé",
-    "softDeleteConfirmation": "Are you sure to mark this item as deleted ?"
+    "softDeleteConfirmation": "Êtes-vous sûr de marquer cet élément comme supprimé ?"
   },
   "permission": {
     "denied": "Autorisation refusée",
     "unauthorized": "Non autorisé",
     "accessdenied": "Vous n'avez pas l'autorisation requise pour accéder à ce contenu",
-    "name": "Name",
+    "name": "Nom",
     "create": "Create",
     "read": "Read",
     "update": "Update",
