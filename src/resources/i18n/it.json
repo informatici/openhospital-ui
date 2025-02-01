@@ -1166,7 +1166,7 @@
     "createSuccess": "Patologia creata correttamente",
     "updateSuccess": "La patologia {{code}} è stata correttamente aggiornata",
     "enabled": "Abilitato",
-    "disabled": "Disabled",
+    "disabled": "Disabilitato",
     "all": "All diseases"
   },
   "pregnantTreatmentTypes": {
