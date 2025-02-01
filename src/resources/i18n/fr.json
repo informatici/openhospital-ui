@@ -897,7 +897,7 @@
     },
     "sql": {
       "theselecteditemisstillusedsomewhere": {
-        "msg": "The selected item is still used somewhere."
+        "msg": "L'élément sélectionné est toujours utilisé quelque part."
       },
       "problemsoccurredwithserverconnection": {
         "msg": "Problems occurred with server connection."
