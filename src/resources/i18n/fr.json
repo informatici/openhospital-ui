@@ -1097,7 +1097,7 @@
     "created": "Type  d'âge créé",
     "updated": "Type  d'âge mis à jour",
     "updateSuccess": "Type d'âge mis à jour avec succès",
-    "cancelUpdate": "Are you sure to cancel the age types update?",
+    "cancelUpdate": "Êtes-vous sûr d'annuler la mise à jour du type d'âge?",
     "shouldbegreaterthanfrom": "Should be great than from",
     "somerangesareoverlapped": "Some ranges overlap",
     "somerangesarenotdefined": "Some ranges are not defined properly"
