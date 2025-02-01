@@ -900,7 +900,7 @@
         "msg": "L'élément sélectionné est toujours utilisé quelque part."
       },
       "problemsoccurredwithserverconnection": {
-        "msg": "Problems occurred with server connection."
+        "msg": "Des problèmes sont survenus avec la connexion au serveur."
       }
     },
     "userbrowser": {
