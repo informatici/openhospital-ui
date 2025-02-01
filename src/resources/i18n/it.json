@@ -1183,7 +1183,7 @@
     "createSuccess": "La tipologia di trattamento in gravidanza è stata correttamente creata",
     "updated": "La tipologia di trattamento in gravidanza è stata aggiornata",
     "updateSuccess": "La tipologia di trattamento in gravidanza è stata correttamente aggiornata",
-    "cancelCreation": "Are you sure to cancel the pregnant treatment type creation?",
+    "cancelCreation": "Confermi l'annullamento della creazione tipo trattamento in gravidanza?",
     "cancelUpdate": "Are you sure to cancel the pregnant treatment type update?"
   },
   "deliveryResultType": {
