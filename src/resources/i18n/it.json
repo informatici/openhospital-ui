@@ -1205,7 +1205,7 @@
   },
   "examTypes": {
     "code": "Codice",
-    "description": "Description",
+    "description": "Descrizione",
     "title": "Manage exam types",
     "addExamType": "New exam type",
     "deleted": "Deleted",
