@@ -889,7 +889,7 @@
     },
     "groupsbrowser": {
       "alreadysoftdeleted": {
-        "msg": "The user group is already set as deleted."
+        "msg": "Le groupe d'utilisateurs est déjà défini comme supprimé."
       },
       "thisgrouphasusersandcannotbedeleted": {
         "msg": "The group you want to delete has users and cannot be deleted."
