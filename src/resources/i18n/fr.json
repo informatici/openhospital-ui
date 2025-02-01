@@ -1099,7 +1099,7 @@
     "updateSuccess": "Type d'âge mis à jour avec succès",
     "cancelUpdate": "Êtes-vous sûr d'annuler la mise à jour du type d'âge?",
     "shouldbegreaterthanfrom": "Doit être supérieur à FROM",
-    "somerangesareoverlapped": "Some ranges overlap",
+    "somerangesareoverlapped": "Certaines gammes se chevauchent",
     "somerangesarenotdefined": "Some ranges are not defined properly"
   },
   "supplier": {
