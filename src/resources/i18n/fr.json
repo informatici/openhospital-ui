@@ -915,7 +915,7 @@
     "description": "Nom",
     "procedure": "Procédure",
     "procedures": {
-      "1": "1 - Only one option",
+      "1": "1 - Une seule option",
       "2": "2 - Multiple options can be selected",
       "3": "3 - Custom value"
     },
