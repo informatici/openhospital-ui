@@ -1200,7 +1200,7 @@
     "createSuccess": "Il tipo di esito parto è stato creato con successo",
     "updated": "Tipo di esito parto aggiornato",
     "updateSuccess": "Il tipo di esito parto è stato aggiornato con successo",
-    "cancelCreation": "Are you sure to cancel the delivery result type creation?",
+    "cancelCreation": "Confermi la cancellazione della creazione tipo esito parto?",
     "cancelUpdate": "Are you sure to cancel the delivery result type update?"
   },
   "examTypes": {
