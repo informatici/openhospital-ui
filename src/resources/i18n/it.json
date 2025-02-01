@@ -1172,7 +1172,7 @@
   "pregnantTreatmentTypes": {
     "code": "Codice",
     "description": "Descrizione",
-    "title": "Gestisci tipologie di gravidanza",
+    "title": "Gestisci tipologie di trsattamento in gravidanza",
     "addPregnantTreatmentType": "Nuova tipologia di gravidanza",
     "deleted": "Cancellato",
     "deleteSuccess": "La tipologia di gravidanza è stata cancellata con successo",
