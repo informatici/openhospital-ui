@@ -18,24 +18,42 @@
     "number": "la valeur n'est pas un nombre valide"
   },
   "user": {
+    "code": "Code",
+    "desc": "Description",
     "users": "Utilisateurs",
     "username": "Nom d'utilisateur",
     "group": "Groupe",
     "groups": "Groupes",
     "password": "Mot de passe",
-    "passwordRetype": "Retaper le mot de passe",
-    "lastlogin": "Dernière connexion",
-    "description": "Description",
+    "addGroup": "Nouveau groupe",
     "addUser": "Nouvel utilisateur",
+    "editGroup": "Modifier le groupe",
+    "description": "Description",
+    "lastlogin": "Dernière connexion",
+    "deleted": "Utilisateur supprimé",
+    "groupCreated": "Groupe créé",
+    "groupDeleted": "Groupe supprimé",
+    "groupUpdated": "Groupe mis à jour",
+    "groupUpdateSuccess": "Groupe mis à jour avec succès",
+    "groupCreateSuccess": "Groupe créé avec succès",
+    "groupDeleteSuccess": "Groupe supprimé avec succès",
+    "groupPermissionsOnlyOnUpdate": "Vous pouvez modifier l'autorisation d'un groupe une fois que vous l'avez créé.",
+    "passwordRetype": "Retaper le mot de passe",
     "createdSuccessTitle": "Utilisateur créé",
     "createdSuccessMessage": "Utilisateur créé avec succès !",
+    "updatedSuccessTitle": "Utilisateur mis à jour",
+    "deleteSuccess": "Utilisateur supprimé avec succès !",
+    "updatedSuccessMessage": "Utilisateur mis à jour avec succès !",
     "validateUserNeedsGroup": "Chaque utilisateur doit appartenir à un groupe",
     "validatePasswordNeeded": "Aucun mot de psse fourni",
     "validatePasswordTooShort": "Le mot de passe est trop court - il doit comporter au moins 5 caractères",
     "validatePasswordTooWeak": "Veuillez créer un mot de passe plus fort : 1 lettre majuscule, 1 lettre minuscule, 1 chiffre",
+    "validateGroupCode": "Code de groupe invalide",
     "validatePasswordMustMatch": "Les mots de passe doivent correspondre",
     "validateUserName": "Vous devez spécifier un nom d'utilisateur",
-    "validateUserNameRegex": "Caractères autorisés : lettres minuscules (abc), chiffres (123), point (.), tiret (-) et trait de soulignement (_)"
+    "validateUserNameRegex": "Caractères autorisés : lettres minuscules (abc), chiffres (123), point (.), tiret (-) et trait de soulignement (_)",
+    "confirmUserDeletion": "Etes-vous sûr de vouloir supprimer l'utilisateur ?",
+    "confirmUserGroupDeletion": "Etes-vous sûr de vouloir supprimer le groupe d'utilisateurs ?"
   },
   "hospital": {
     "address": "Adresse",
@@ -45,7 +63,13 @@
     "telephone": "Téléphone",
     "fax": "Fax",
     "email": "Adresse e-mail",
-    "currencyCod": "Code de devise"
+    "currencyCod": "Code de devise",
+    "editHospital": "Modifier les informations sur l'hôpital",
+    "updateHospital": "Sauver les modifications",
+    "saveHospital": "Sauver",
+    "updated": "Hospital infos updated",
+    "updateSuccess": "Hospital infos have been updated successfully!",
+    "discardChanges": "Changes will be lost. Do you want to discard anyway ?"
   },
   "login": {
     "username": "Nom d'utilisateur",
@@ -258,7 +282,8 @@
     "belowminage": "L'âge minimum est 0",
     "abovemaxage": "l'âge maximum est 200",
     "ward": "Pavillon",
-    "previousentries": "Visites précédentes"
+    "previousentries": "Visites précédentes",
+    "operations": "Patient Operations"
   },
   "visit": {
     "date": "Date",
@@ -437,7 +462,13 @@
     "saveOperation": "Sauver l'opération",
     "createSuccess": "Opération créé avec succès !",
     "updateSuccess": "L'opération {{code}} a été mise à jour avec succès !",
-    "deleteSuccess": "L'opération {{code}} a été supprimée avec succès !"
+    "deleteSuccess": "L'opération {{code}} a été supprimée avec succès !",
+    "opeFor": "Context",
+    "contextOptions": {
+      "opd_admission": "OPD/Admission",
+      "admission": "Admission",
+      "opd": "OPD"
+    }
   },
   "common": {
     "ok": "OK",
@@ -536,12 +567,28 @@
     "from": "D'où",
     "to": "Vers",
     "datebefore": "Devrait être avant la date de fin",
-    "dateafter": "Doit être supérieur à la date de début"
+    "dateafter": "Doit être supérieur à la date de début",
+    "option": "Option",
+    "deleted": "Deleted",
+    "restore": "Restore",
+    "restoreConfirmation": "Are you sure to restore this item ?",
+    "softDelete": "Mark as deleted",
+    "softDeleteConfirmation": "Are you sure to mark this item as deleted ?"
   },
   "permission": {
     "denied": "Autorisation refusée",
     "unauthorized": "Non autorisé",
-    "accessdenied": "Vous n'avez pas l'autorisation requise pour accéder à ce contenu"
+    "accessdenied": "Vous n'avez pas l'autorisation requise pour accéder à ce contenu",
+    "name": "Name",
+    "create": "Create",
+    "read": "Read",
+    "update": "Update",
+    "deleted": "Deleted",
+    "delete": "Delete",
+    "accessarea": "Access area",
+    "accesscontrollist": "Access control list",
+    "toggle-check-all": "Toggle check all",
+    "all": "All"
   },
   "therapy": {
     "newtherapy": "Nouvelle thérapie",
@@ -839,6 +886,27 @@
       "thecodeistoolongmax1char": {
         "msg": "Le code est trop long. Il doit contenir trois caractères ou moins"
       }
+    },
+    "groupsbrowser": {
+      "alreadysoftdeleted": {
+        "msg": "The user group is already set as deleted."
+      },
+      "thisgrouphasusersandcannotbedeleted": {
+        "msg": "The group you want to delete has users and cannot be deleted."
+      }
+    },
+    "sql": {
+      "theselecteditemisstillusedsomewhere": {
+        "msg": "The selected item is still used somewhere."
+      },
+      "problemsoccurredwithserverconnection": {
+        "msg": "Problems occurred with server connection."
+      }
+    },
+    "userbrowser": {
+      "alreadysoftdeleted": {
+        "msg": "The user is already set as deleted."
+      }
     }
   },
   "exam": {
@@ -846,6 +914,11 @@
     "examtype": "Type d'examen",
     "description": "Nom",
     "procedure": "Procédure",
+    "procedures": {
+      "1": "1 - Only one option",
+      "2": "2 - Multiple options can be selected",
+      "3": "3 - Custom value"
+    },
     "defaultResult": "Valeur par défaut",
     "addExam": "Nouvel examen",
     "editExam": "Modifier l'examen",
@@ -856,7 +929,10 @@
     "createSuccess": "Examen créé avec succès",
     "deleteSuccess": "Examen supprimé avec succès",
     "updateExam": "Mettre à jour l'examen",
-    "validateProcedureMinMax": "La valeur ne peut être que 1, 2 ou 3"
+    "validateProcedureMinMax": "La valeur ne peut être que 1, 2 ou 3",
+    "possibleValues": "Possible values",
+    "defaultValue": "Default value",
+    "invalidDefaultResult": "Default result should be one of possible values"
   },
   "vaccine": {
     "code": "Code",
@@ -881,6 +957,7 @@
     "vaccines": "Type de vaccin",
     "exams": "Type d'examen",
     "admissions": "Types d'admission",
+    "ages": "Types of age",
     "diseases": "Types de maladies",
     "discharges": "Types de décharge",
     "deliveries": "Types de livraison",
@@ -1009,6 +1086,22 @@
     "cancelCreation": "Êtes-vous sûr d'annuler la création du type d'operation?",
     "cancelUpdate": "Êtes-vous sûr d'annuler la mise à jour du type d'opération?"
   },
+  "ageTypes": {
+    "code": "Code",
+    "description": "Description",
+    "from": "From",
+    "to": "To",
+    "title": "Manage age types",
+    "editAgeTypes": "Edit age types",
+    "updateAgeType": "Save changes",
+    "created": "Age type created",
+    "updated": "Age types updated",
+    "updateSuccess": "The age types have been updated successfully!",
+    "cancelUpdate": "Are you sure to cancel the age types update?",
+    "shouldbegreaterthanfrom": "Should be great than from",
+    "somerangesareoverlapped": "Some ranges overlap",
+    "somerangesarenotdefined": "Some ranges are not defined properly"
+  },
   "supplier": {
     "id": "Fournisseurs ID",
     "name": "Nom",
@@ -1026,7 +1119,10 @@
     "updated": "Fournisseur mis à jour",
     "updateSuccess": "Fournisseur mis à jour avec succès !",
     "created": "Fournisseur creé",
-    "createSuccess": "Fournisseur creé avec succès !"
+    "createSuccess": "Fournisseur creé avec succès !",
+    "deleted": "Supplier deleted",
+    "deleting": "Deleting supplier...",
+    "deleteSuccess": "Supplier has been deleted successfully!"
   },
   "ward": {
     "code": "Code",
@@ -1035,6 +1131,7 @@
     "nurs": "Infirmières",
     "docs": "Médecins",
     "pharmacy": "Pharmacie",
+    "hasPharmacy": "Has Pharmacy",
     "male": "Mâle",
     "female": "Femelle",
     "telephone": "Téléphone",
