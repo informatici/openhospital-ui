@@ -1192,7 +1192,7 @@
     "title": "Gestisci i i tipi di esito parto",
     "addDeliveryResultType": "Nuovo tipo di esito parto",
     "deleted": "Cancellato",
-    "deleteSuccess": "The delivery result type has been deleted successfully!",
+    "deleteSuccess": "Il tipo di esito parto è stato rimosso con successo",
     "saveDeliveryResultTypes": "Salva",
     "editDeliveryResultType": "Edit delivery result type",
     "updateDeliveryResultType": "Salva le modifiche",
