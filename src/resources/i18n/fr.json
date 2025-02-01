@@ -570,7 +570,7 @@
     "dateafter": "Doit être supérieur à la date de début",
     "option": "Option",
     "deleted": "Effacé",
-    "restore": "Restore",
+    "restore": "Restaurer",
     "restoreConfirmation": "Are you sure to restore this item ?",
     "softDelete": "Mark as deleted",
     "softDeleteConfirmation": "Are you sure to mark this item as deleted ?"
