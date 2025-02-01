@@ -1198,7 +1198,7 @@
     "updateDeliveryResultType": "Salva le modifiche",
     "created": "Tipo di esito parto creato",
     "createSuccess": "Il tipo di esito parto è stato creato con successo",
-    "updated": "Delivery result type updated",
+    "updated": "Tipo di esito parto aggiornato",
     "updateSuccess": "The delivery result type has been updated successfully!",
     "cancelCreation": "Are you sure to cancel the delivery result type creation?",
     "cancelUpdate": "Are you sure to cancel the delivery result type update?"
