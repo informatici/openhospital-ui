@@ -1188,8 +1188,8 @@
   },
   "deliveryResultType": {
     "code": "Codice",
-    "description": "Description",
-    "title": "Manage delivery result types",
+    "description": "Descrizione",
+    "title": "Gestisci i i tipi di esito parto",
     "addDeliveryResultType": "New delivery result type",
     "deleted": "Cancellato",
     "deleteSuccess": "The delivery result type has been deleted successfully!",
