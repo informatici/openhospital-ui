@@ -1121,7 +1121,7 @@
     "created": "Fournisseur creé",
     "createSuccess": "Fournisseur creé avec succès !",
     "deleted": "Fournisseur supprimé",
-    "deleting": "Deleting supplier...",
+    "deleting": "Suppression du fournisseur...",
     "deleteSuccess": "Supplier has been deleted successfully!"
   },
   "ward": {
