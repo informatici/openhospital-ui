@@ -1184,10 +1184,10 @@
     "updated": "La tipologia di trattamento in gravidanza è stata aggiornata",
     "updateSuccess": "La tipologia di trattamento in gravidanza è stata correttamente aggiornata",
     "cancelCreation": "Confermi l'annullamento della creazione tipo trattamento in gravidanza?",
-    "cancelUpdate": "Are you sure to cancel the pregnant treatment type update?"
+    "cancelUpdate": "Confermi l'annullamento dell'aggiornamento del tipo trattamento in gravidanza?"
   },
   "deliveryResultType": {
-    "code": "Code",
+    "code": "Codice",
     "description": "Description",
     "title": "Manage delivery result types",
     "addDeliveryResultType": "New delivery result type",
