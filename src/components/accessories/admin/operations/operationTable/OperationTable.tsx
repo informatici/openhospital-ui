@@ -5,7 +5,10 @@ import { useTranslation } from "react-i18next";
 import checkIcon from "../../../../../assets/check-icon.png";
 import { OperationDTO, OperationDTOOpeForEnum } from "../../../../../generated";
 import { scrollToElement } from "../../../../../libraries/uiUtils/scrollToElement";
-import { deleteOperationReset } from "../../../../../state/operations";
+import {
+  deleteOperationReset,
+  getOperations,
+} from "../../../../../state/operations";
 import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
 import InfoBox from "../../../infoBox/InfoBox";
 import { TFilterField } from "../../../table/filter/types";
@@ -169,6 +172,7 @@ export const OperationTable: FunctionComponent<IOwnProps> = ({
                   primaryButtonLabel="Ok"
                   handlePrimaryButtonClick={() => {
                     dispatch(deleteOperationReset());
+                    dispatch(getOperations());
                   }}
                   handleSecondaryButtonClick={() => ({})}
                 />
