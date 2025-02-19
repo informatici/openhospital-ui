@@ -9,7 +9,7 @@ export const userRoutes = (server) => {
         userName: "admin",
         permissions: permissionList,
         userGroupName: "ADMIN",
-        userDesc: "John Doe",
+        userDesc: "admin",
       });
     });
     server.get("/settings").intercept((req, res) => {
