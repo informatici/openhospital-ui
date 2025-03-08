@@ -13,6 +13,8 @@ import {
   deleteExaminationReset,
   getDefaultPatientExamination,
   getLastByPatientId,
+  printExamination,
+  printExaminationReset,
   updateExamination,
   updateExaminationReset,
 } from "../../../state/examinations";
@@ -91,6 +93,7 @@ const PatientTriage: FC = () => {
     dispatch(createExaminationReset());
     dispatch(updateExaminationReset());
     dispatch(deleteExaminationReset());
+    dispatch(printExaminationReset());
     setCreationMode(true);
   }, [dispatch]);
 
@@ -99,6 +102,7 @@ const PatientTriage: FC = () => {
       dispatch(createExaminationReset());
       dispatch(updateExaminationReset());
       dispatch(deleteExaminationReset());
+      dispatch(printExaminationReset());
       setShouldResetForm(true);
       setShouldUpdateTable(true);
     }
@@ -150,6 +154,25 @@ const PatientTriage: FC = () => {
     setTriageToEdit(row);
     setCreationMode(false);
     scrollToElement(null);
+  };
+
+  const onPrint = async (row: any) => {
+    console.log("Examination code:", row.pex_ID);
+
+    try {
+      const result = await dispatch(printExamination(row.pex_ID)).unwrap();
+
+      // Créer une URL temporaire pour le blob
+      const blobUrl = URL.createObjectURL(result);
+
+      // Ouvrir le fichier dans un nouvel onglet
+      window.open(blobUrl, "_blank");
+
+      // Optionnel : Nettoyer l'URL Blob après un certain temps
+      setTimeout(() => URL.revokeObjectURL(blobUrl), 5000);
+    } catch (error) {
+      console.error("Erreur lors de l'impression :", error);
+    }
   };
 
   return (
@@ -218,6 +241,7 @@ const PatientTriage: FC = () => {
           handleDelete={onDelete}
           handleEdit={onEdit}
           shouldUpdateTable={shouldUpdateTable}
+          handlePrint={onPrint}
         />
       </Permission>
 

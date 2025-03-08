@@ -3816,6 +3816,27 @@ paths:
                   format: byte
       security:
         - bearerAuth: []
+  /reports/patientexamination:
+    get:
+      tags:
+        - Reports
+      operationId: printExaminationListPdf
+      parameters:
+        - name: examinationId
+          in: query
+          required: true
+          schema:
+            type: number
+      responses:
+        "200":
+          description: OK
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+      security:
+        - bearerAuth: []
   /pricelists/prices:
     get:
       tags:

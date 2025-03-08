@@ -12,15 +12,18 @@ interface IOwnProps {
   shouldUpdateTable: boolean;
   handleDelete: (code: number | undefined) => void;
   handleEdit: (row: PatientExaminationDTO) => void;
+  handlePrint: (examinationCode: number) => void;
 }
 
 const PatientTriageTable: FunctionComponent<IOwnProps> = ({
   shouldUpdateTable,
   handleDelete,
   handleEdit,
+  handlePrint,
 }) => {
   const { t } = useTranslation();
   const canUpdate = usePermission("examinations.update");
+  const canPrint = usePermission("examinations.read");
   const label = {
     pex_ID: t("common.code"),
     pex_date: t("examination.datetriage"),
@@ -120,6 +123,7 @@ const PatientTriageTable: FunctionComponent<IOwnProps> = ({
                 columnsOrder={order}
                 rowsPerPage={5}
                 onEdit={canUpdate ? handleEdit : undefined}
+                onPrint={canPrint ? handlePrint : undefined}
                 isCollapsabile={true}
                 showEmptyCell={false}
               />

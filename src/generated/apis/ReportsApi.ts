@@ -12,7 +12,11 @@
  */
 
 import { Observable } from 'rxjs';
-import { BaseAPI, HttpHeaders, OperationOpts, RawAjaxResponse } from '../runtime';
+import { BaseAPI, HttpHeaders, HttpQuery, throwIfNullOrUndefined, OperationOpts, RawAjaxResponse } from '../runtime';
+
+export interface PrintExaminationListPdfRequest {
+    examinationId: number;
+}
 
 /**
  * no description
@@ -32,6 +36,30 @@ export class ReportsApi extends BaseAPI {
             url: '/reports/diseases-list',
             method: 'GET',
             headers,
+        }, opts?.responseOpts);
+    };
+
+    /**
+     */
+    printExaminationListPdf({ examinationId }: PrintExaminationListPdfRequest): Observable<Blob>
+    printExaminationListPdf({ examinationId }: PrintExaminationListPdfRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Blob>>
+    printExaminationListPdf({ examinationId }: PrintExaminationListPdfRequest, opts?: OperationOpts): Observable<Blob | RawAjaxResponse<Blob>> {
+        throwIfNullOrUndefined(examinationId, 'examinationId', 'printExaminationListPdf');
+
+        const headers: HttpHeaders = {
+            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
+        };
+
+        const query: HttpQuery = { // required parameters are used directly since they are already checked by throwIfNullOrUndefined
+            'examinationId': examinationId,
+        };
+
+        return this.request<Blob>({
+            url: '/reports/patientexamination',
+            method: 'GET',
+            headers,
+            query,
+            responseType: 'blob',
         }, opts?.responseOpts);
     };
 

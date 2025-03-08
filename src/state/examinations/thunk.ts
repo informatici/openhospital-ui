@@ -1,9 +1,15 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { wrapper } from "libraries/apiUtils/wrapper";
-import { ExaminationsApi, PatientExaminationDTO } from "../../generated";
+import {
+  ExaminationsApi,
+  PatientExaminationDTO,
+  ReportsApi,
+} from "../../generated";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 
 const api = new ExaminationsApi(customConfiguration());
+
+const apiReport = new ReportsApi(customConfiguration());
 
 export const examinationsByPatientId = createAsyncThunk(
   "examinations/examinationsByPatientId",
@@ -54,4 +60,15 @@ export const deleteExamination = createAsyncThunk(
   "examinations/deleteExamination",
   async (id: number, thunkApi) =>
     thunkApi.rejectWithValue({ message: "Delete api not yet available !!!" })
+);
+
+export const printExamination = createAsyncThunk(
+  "reports/patientexamination",
+  async (examinationId: number, thunkApi) =>
+    wrapper(() =>
+      apiReport.printExaminationListPdf({ examinationId: examinationId ?? -1 })
+    )
+      .toPromise()
+      .then((response) => response)
+      .catch((error) => thunkApi.rejectWithValue(error.response))
 );
