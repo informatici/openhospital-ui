@@ -43,6 +43,8 @@ const PatientTriage: FC = () => {
 
   const [creationMode, setCreationMode] = useState(true);
 
+  const [createAndPrint, setCreateAndPrint] = useState(false);
+
   const lastExamination = useAppSelector(
     (state) => state.examinations.getLastByPatientId.data
   );
@@ -70,6 +72,7 @@ const PatientTriage: FC = () => {
       state.examinations.createExamination.error?.message ||
       state.examinations.updateExamination.error?.message ||
       state.examinations.deleteExamination.error?.message ||
+      state.examinations.printExamination.error?.message ||
       t("common.somethingwrong")
   ) as string;
 
@@ -115,7 +118,7 @@ const PatientTriage: FC = () => {
     }
   }, [dispatch, patientDataCode]);
 
-  const onSubmit = (triage: PatientExaminationDTO) => {
+  const onSubmit = (triage: PatientExaminationDTO, createAndPrint: boolean) => {
     setShouldResetForm(false);
     triage.patientCode = patientDataCode ?? -1;
     if (triageToEdit.pex_ID) triage.pex_ID = triageToEdit.pex_ID;
@@ -126,8 +129,14 @@ const PatientTriage: FC = () => {
           patientExaminationDTO: triage,
         })
       );
+      if (createAndPrint) {
+        setCreateAndPrint(true);
+      }
     } else {
       dispatch(createExamination(triage));
+      if (createAndPrint) {
+        setCreateAndPrint(true);
+      }
     }
   };
 
@@ -140,6 +149,11 @@ const PatientTriage: FC = () => {
     setCreationMode(true);
     setActivityTransitionState("IDLE");
     scrollToElement(null);
+  };
+
+  const shouldSaveAndPrint = (triage: PatientExaminationDTO) => {
+    setCreateAndPrint(true);
+    onSubmit(triage, true);
   };
 
   const onDelete = (code: number | undefined) => {
@@ -157,22 +171,10 @@ const PatientTriage: FC = () => {
   };
 
   const onPrint = async (row: any) => {
-    console.log("Examination code:", row.pex_ID);
-
-    try {
-      const result = await dispatch(printExamination(row.pex_ID)).unwrap();
-
-      // Créer une URL temporaire pour le blob
-      const blobUrl = URL.createObjectURL(result);
-
-      // Ouvrir le fichier dans un nouvel onglet
-      window.open(blobUrl, "_blank");
-
-      // Optionnel : Nettoyer l'URL Blob après un certain temps
-      setTimeout(() => URL.revokeObjectURL(blobUrl), 5000);
-    } catch (error) {
-      console.error("Erreur lors de l'impression :", error);
-    }
+    const result = await dispatch(printExamination(row.pex_ID)).unwrap();
+    const blobUrl = URL.createObjectURL(result);
+    window.open(blobUrl, "_blank");
+    setTimeout(() => URL.revokeObjectURL(blobUrl), 5000);
   };
 
   return (
@@ -208,6 +210,8 @@ const PatientTriage: FC = () => {
             creationMode ? t("common.savetriage") : t("common.update")
           }
           resetButtonLabel={t("common.reset")}
+          printButtonLabel={t("common.saveandprint")}
+          saveAndPrint={shouldSaveAndPrint}
           shouldResetForm={shouldResetForm}
           resetFormCallback={resetFormCallback}
           isLoading={status === "LOADING"}

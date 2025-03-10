@@ -31,6 +31,8 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
   resetFormCallback,
   submitButtonLabel,
   resetButtonLabel,
+  saveAndPrint,
+  printButtonLabel,
   isLoading,
 }) => {
   const { t } = useTranslation();
@@ -106,18 +108,21 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
     enableReinitialize: true,
     onSubmit: (values) => {
       const formattedValues = formatAllFieldValues(fields, values);
-      onSubmit({
-        ...formattedValues,
-        pex_auscultation: isEmpty(formattedValues.pex_auscultation)
-          ? null
-          : formattedValues.pex_auscultation,
-        pex_diuresis_desc: isEmpty(formattedValues.pex_diuresis_desc)
-          ? null
-          : formattedValues.pex_diuresis_desc,
-        pex_bowel_desc: isEmpty(formattedValues.pex_bowel_desc)
-          ? null
-          : formattedValues.pex_bowel_desc,
-      } as any);
+      onSubmit(
+        {
+          ...formattedValues,
+          pex_auscultation: isEmpty(formattedValues.pex_auscultation)
+            ? null
+            : formattedValues.pex_auscultation,
+          pex_diuresis_desc: isEmpty(formattedValues.pex_diuresis_desc)
+            ? null
+            : formattedValues.pex_diuresis_desc,
+          pex_bowel_desc: isEmpty(formattedValues.pex_bowel_desc)
+            ? null
+            : formattedValues.pex_bowel_desc,
+        } as any,
+        createAndPrint
+      );
     },
   });
 
@@ -174,6 +179,13 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
       resetFormCallback();
     }
   }, [shouldResetForm, resetForm, resetFormCallback]);
+
+  const [createAndPrint, setCreateAndPrint] = useState(false);
+
+  saveAndPrint = () => {
+    setCreateAndPrint(true);
+    console.log("save and print ...");
+  };
 
   return (
     <>
@@ -395,6 +407,16 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
             <div className="submit_button">
               <Button type="submit" variant="contained" disabled={isLoading}>
                 {submitButtonLabel}
+              </Button>
+            </div>
+            <div className="submit_button">
+              <Button
+                type="submit"
+                variant="contained"
+                disabled={isLoading}
+                onClick={() => saveAndPrint}
+              >
+                {printButtonLabel}
               </Button>
             </div>
             <div className="reset_button">

@@ -64,7 +64,7 @@ export const deleteExamination = createAsyncThunk(
 
 export const printExamination = createAsyncThunk(
   "reports/patientexamination",
-  async (examinationId: number, thunkApi) =>
+  async (examinationId: number | undefined, thunkApi) =>
     wrapper(() =>
       apiReport.printExaminationListPdf({ examinationId: examinationId ?? -1 })
     )
