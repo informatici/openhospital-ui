@@ -3785,41 +3785,41 @@ paths:
   /reports/exams-list:
     get:
       tags:
-        - Reports
+      - Reports
       operationId: printExamsListPdf
       responses:
         "200":
           description: OK
           content:
-            application/json:
+            application/octet-stream:
               schema:
                 type: array
                 items:
                   type: string
                   format: byte
       security:
-        - bearerAuth: []
+      - bearerAuth: []
   /reports/diseases-list:
     get:
       tags:
-        - Reports
+      - Reports
       operationId: printDiseasesListPdf
       responses:
         "200":
           description: OK
           content:
-            application/json:
+            application/octet-stream:
               schema:
                 type: array
                 items:
                   type: string
                   format: byte
       security:
-        - bearerAuth: []
+      - bearerAuth: []
   /reports/patientexamination:
     get:
       tags:
-        - Reports
+      - Reports
       operationId: printExaminationListPdf
       parameters:
         - name: examinationId
@@ -3827,16 +3827,18 @@ paths:
           required: true
           schema:
             type: number
-      responses:
+      responses: 
         "200":
           description: OK
           content:
-            application/pdf:
+            application/octect-stream:
               schema:
-                type: string
-                format: binary
-      security:
-        - bearerAuth: []
+                type: array
+                items:
+                  type: string
+                  format: byte
+      secuity:
+      - bearerAuth: []
   /pricelists/prices:
     get:
       tags:
