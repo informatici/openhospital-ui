@@ -3785,7 +3785,7 @@ paths:
   /reports/exams-list:
     get:
       tags:
-      - Reports
+        - Reports
       operationId: printExamsListPdf
       responses:
         "200":
@@ -3798,11 +3798,11 @@ paths:
                   type: string
                   format: byte
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /reports/diseases-list:
     get:
       tags:
-      - Reports
+        - Reports
       operationId: printDiseasesListPdf
       responses:
         "200":
@@ -3815,11 +3815,11 @@ paths:
                   type: string
                   format: byte
       security:
-      - bearerAuth: []
+        - bearerAuth: []
   /reports/patientexamination:
     get:
       tags:
-      - Reports
+        - Reports
       operationId: printExaminationListPdf
       parameters:
         - name: examinationId
@@ -3837,8 +3837,8 @@ paths:
                 items:
                   type: string
                   format: byte
-      secuity:
-      - bearerAuth: []
+      security:
+        - bearerAuth: []
   /pricelists/prices:
     get:
       tags:
