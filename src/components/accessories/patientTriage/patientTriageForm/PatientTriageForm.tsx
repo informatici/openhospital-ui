@@ -30,8 +30,8 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
   shouldResetForm,
   resetFormCallback,
   submitButtonLabel,
-  resetButtonLabel,
   saveAndPrint,
+  resetButtonLabel,
   printButtonLabel,
   isLoading,
 }) => {
@@ -67,6 +67,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
       .min(30, t("common.greaterthan", { value: 30 }))
       .max(600, t("common.lessthan", { value: 600 })),
     pex_diuresis: number()
+      .transform((value) => (value === "" ? null : value))
       .min(1, t("common.greaterthan", { value: 1 }))
       .max(2500, t("common.lessthan", { value: 2500 })),
     pex_rr: number()
@@ -108,26 +109,23 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
     enableReinitialize: true,
     onSubmit: (values) => {
       const formattedValues = formatAllFieldValues(fields, values);
-      onSubmit(
-        {
-          ...formattedValues,
-          pex_auscultation: isEmpty(formattedValues.pex_auscultation)
-            ? null
-            : formattedValues.pex_auscultation,
-          pex_diuresis_desc: isEmpty(formattedValues.pex_diuresis_desc)
-            ? null
-            : formattedValues.pex_diuresis_desc,
-          pex_bowel_desc: isEmpty(formattedValues.pex_bowel_desc)
-            ? null
-            : formattedValues.pex_bowel_desc,
-        } as any,
-        createAndPrint
-      );
+      const finalValues = {
+        ...formattedValues,
+        pex_auscultation: isEmpty(formattedValues.pex_auscultation)
+          ? null
+          : formattedValues.pex_auscultation,
+        pex_diuresis_desc: isEmpty(formattedValues.pex_diuresis_desc)
+          ? null
+          : formattedValues.pex_diuresis_desc,
+        pex_bowel_desc: isEmpty(formattedValues.pex_bowel_desc)
+          ? null
+          : formattedValues.pex_bowel_desc,
+      } as any;
+      onSubmit(finalValues);
     },
   });
 
   const { setFieldValue, resetForm, handleBlur } = formik;
-
   const dateFieldHandleOnChange = useCallback(
     (fieldName: string) => (value: any) => {
       setFieldValue(fieldName, value);
@@ -179,13 +177,6 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
       resetFormCallback();
     }
   }, [shouldResetForm, resetForm, resetFormCallback]);
-
-  const [createAndPrint, setCreateAndPrint] = useState(false);
-
-  saveAndPrint = () => {
-    setCreateAndPrint(true);
-    console.log("save and print ...");
-  };
 
   return (
     <>
@@ -414,7 +405,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
                 type="submit"
                 variant="contained"
                 disabled={isLoading}
-                onClick={() => saveAndPrint}
+                onClick={saveAndPrint}
               >
                 {printButtonLabel}
               </Button>

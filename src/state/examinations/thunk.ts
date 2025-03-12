@@ -40,7 +40,7 @@ export const createExamination = createAsyncThunk(
   async (patientExaminationDTO: PatientExaminationDTO, thunkApi) =>
     wrapper(() => api.newPatientExamination({ patientExaminationDTO }))
       .toPromise()
-      .then(() => patientExaminationDTO)
+      .then((result) => result)
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );
 
@@ -52,7 +52,7 @@ export const updateExamination = createAsyncThunk(
   ) =>
     wrapper(() => api.updateExamination(payload))
       .toPromise()
-      .then(() => ({ ...payload.patientExaminationDTO, id: payload.id }))
+      .then((result) => result)
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );
 

@@ -3,11 +3,11 @@ import { TFields } from "../../../../libraries/formDataHandling/types";
 
 interface IOwnProps {
   fields: TFields<TPatientTriageFormFieldName>;
-  onSubmit: (triage: PatientExaminationDTO, createAndPrint: boolean) => void;
+  onSubmit: (triage: PatientExaminationDTO) => void;
   submitButtonLabel: string;
   resetButtonLabel: string;
   printButtonLabel: string;
-  saveAndPrint: (triage: PatientExaminationDTO) => void;
+  saveAndPrint: () => void;
   isLoading: boolean;
   creationMode: boolean;
   shouldResetForm: boolean;

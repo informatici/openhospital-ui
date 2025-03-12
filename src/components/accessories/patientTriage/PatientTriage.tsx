@@ -45,6 +45,8 @@ const PatientTriage: FC = () => {
 
   const [createAndPrint, setCreateAndPrint] = useState(false);
 
+  const [triage, setTriage] = useState({} as PatientExaminationDTO | undefined);
+
   const lastExamination = useAppSelector(
     (state) => state.examinations.getLastByPatientId.data
   );
@@ -93,6 +95,12 @@ const PatientTriage: FC = () => {
   }, [deleteStatus, dispatch, patientDataCode]);
 
   useEffect(() => {
+    if (deleteStatus === "SUCCESS" && patientDataCode) {
+      dispatch(getLastByPatientId(patientDataCode));
+    }
+  }, [deleteStatus, dispatch, patientDataCode]);
+
+  useEffect(() => {
     dispatch(createExaminationReset());
     dispatch(updateExaminationReset());
     dispatch(deleteExaminationReset());
@@ -118,7 +126,7 @@ const PatientTriage: FC = () => {
     }
   }, [dispatch, patientDataCode]);
 
-  const onSubmit = (triage: PatientExaminationDTO, createAndPrint: boolean) => {
+  const onSubmit = (triage: PatientExaminationDTO) => {
     setShouldResetForm(false);
     triage.patientCode = patientDataCode ?? -1;
     if (triageToEdit.pex_ID) triage.pex_ID = triageToEdit.pex_ID;
@@ -128,16 +136,36 @@ const PatientTriage: FC = () => {
           id: triageToEdit.pex_ID,
           patientExaminationDTO: triage,
         })
-      );
-      if (createAndPrint) {
-        setCreateAndPrint(true);
-      }
+      )
+        .unwrap()
+        .then((result) => {
+          setTriage(result);
+        });
     } else {
-      dispatch(createExamination(triage));
-      if (createAndPrint) {
-        setCreateAndPrint(true);
-      }
+      dispatch(createExamination(triage))
+        .unwrap()
+        .then((result) => {
+          setTriage(result);
+        });
     }
+  };
+
+  const onChangeCreangeAndPrint = () => {
+    setCreateAndPrint(true);
+  };
+
+  const handlePrint = () => {
+    if (createAndPrint) {
+      dispatch(printExamination(triage?.pex_ID))
+        .unwrap()
+        .then((result: Blob | MediaSource) => {
+          const blobUrl = URL.createObjectURL(result);
+          window.open(blobUrl, "_blank");
+          setTimeout(() => URL.revokeObjectURL(blobUrl), 5000);
+          setCreateAndPrint(false);
+        });
+    }
+    setActivityTransitionState("TO_RESET");
   };
 
   const resetFormCallback = () => {
@@ -150,12 +178,6 @@ const PatientTriage: FC = () => {
     setActivityTransitionState("IDLE");
     scrollToElement(null);
   };
-
-  const shouldSaveAndPrint = (triage: PatientExaminationDTO) => {
-    setCreateAndPrint(true);
-    onSubmit(triage, true);
-  };
-
   const onDelete = (code: number | undefined) => {
     if (code) {
       setDeletedObjCode(code.toString());
@@ -163,20 +185,21 @@ const PatientTriage: FC = () => {
     }
   };
 
-  const onEdit = (row: any) => {
-    row.pex_date = row.date;
+  const onEdit = (row: PatientExaminationDTO) => {
     setTriageToEdit(row);
     setCreationMode(false);
     scrollToElement(null);
   };
 
-  const onPrint = async (row: any) => {
-    const result = await dispatch(printExamination(row.pex_ID)).unwrap();
-    const blobUrl = URL.createObjectURL(result);
-    window.open(blobUrl, "_blank");
-    setTimeout(() => URL.revokeObjectURL(blobUrl), 5000);
+  const onPrint = (row: any) => {
+    dispatch(printExamination(row.pex_ID))
+      .unwrap()
+      .then((result: Blob | MediaSource) => {
+        const blobUrl = URL.createObjectURL(result);
+        window.open(blobUrl, "_blank");
+        setTimeout(() => URL.revokeObjectURL(blobUrl), 5000);
+      });
   };
-
   return (
     <div className="patientTriage">
       <Permission
@@ -210,8 +233,10 @@ const PatientTriage: FC = () => {
             creationMode ? t("common.savetriage") : t("common.update")
           }
           resetButtonLabel={t("common.reset")}
-          printButtonLabel={t("common.saveandprint")}
-          saveAndPrint={shouldSaveAndPrint}
+          printButtonLabel={
+            creationMode ? t("common.saveandprint") : t("common.updateandprint")
+          }
+          saveAndPrint={onChangeCreangeAndPrint}
           shouldResetForm={shouldResetForm}
           resetFormCallback={resetFormCallback}
           isLoading={status === "LOADING"}
@@ -233,9 +258,7 @@ const PatientTriage: FC = () => {
               : t("examination.updatesuccess", { code: triageToEdit.pex_ID })
           }
           primaryButtonLabel="Ok"
-          handlePrimaryButtonClick={() =>
-            setActivityTransitionState("TO_RESET")
-          }
+          handlePrimaryButtonClick={handlePrint}
           handleSecondaryButtonClick={() => ({})}
         />
       </Permission>
