@@ -109,7 +109,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
     enableReinitialize: true,
     onSubmit: (values) => {
       const formattedValues = formatAllFieldValues(fields, values);
-      const finalValues = {
+      onSubmit({
         ...formattedValues,
         pex_auscultation: isEmpty(formattedValues.pex_auscultation)
           ? null
@@ -120,8 +120,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
         pex_bowel_desc: isEmpty(formattedValues.pex_bowel_desc)
           ? null
           : formattedValues.pex_bowel_desc,
-      } as any;
-      onSubmit(finalValues);
+      } as any);
     },
   });
 

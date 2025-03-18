@@ -190,7 +190,8 @@ const PatientTriage: FC = () => {
     }
   };
 
-  const onEdit = (row: PatientExaminationDTO) => {
+  const onEdit = (row: any) => {
+    row.pex_date = row.date;
     setTriageToEdit(row);
     setCreationMode(false);
     scrollToElement(null);
