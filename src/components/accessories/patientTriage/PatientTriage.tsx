@@ -158,11 +158,16 @@ const PatientTriage: FC = () => {
     if (createAndPrint) {
       dispatch(printExamination(triage?.pex_ID))
         .unwrap()
-        .then((result: Blob | MediaSource) => {
-          const blobUrl = URL.createObjectURL(result);
-          window.open(blobUrl, "_blank");
-          setTimeout(() => URL.revokeObjectURL(blobUrl), 5000);
-          setCreateAndPrint(false);
+        .then((result) => {
+          if (result instanceof Blob) {
+            result.text().then((text) => {
+              console.error("Erreur possible :", text);
+            });
+            const blobUrl = URL.createObjectURL(result);
+            window.open(blobUrl, "_blank");
+            setTimeout(() => URL.revokeObjectURL(blobUrl), 5000);
+            setCreateAndPrint(false);
+          }
         });
     }
     setActivityTransitionState("TO_RESET");
