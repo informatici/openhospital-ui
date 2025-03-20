@@ -45,7 +45,7 @@ const PatientTriage: FC = () => {
 
   const [createAndPrint, setCreateAndPrint] = useState(false);
 
-  const [triage, setTriage] = useState({} as PatientExaminationDTO | undefined);
+  //const [triage, setTriage] = useState({} as PatientExaminationDTO | undefined);
 
   const lastExamination = useAppSelector(
     (state) => state.examinations.getLastByPatientId.data
@@ -131,6 +131,7 @@ const PatientTriage: FC = () => {
     triage.patientCode = patientDataCode ?? -1;
     if (triageToEdit.pex_ID) triage.pex_ID = triageToEdit.pex_ID;
     if (!creationMode && triageToEdit.pex_ID) {
+      triage.lock = triageToEdit.lock;
       dispatch(
         updateExamination({
           id: triageToEdit.pex_ID,
@@ -139,13 +140,13 @@ const PatientTriage: FC = () => {
       )
         .unwrap()
         .then((result) => {
-          setTriage(result);
+          setTriageToEdit(result);
         });
     } else {
       dispatch(createExamination(triage))
         .unwrap()
         .then((result) => {
-          setTriage(result);
+          setTriageToEdit(result);
         });
     }
   };
@@ -156,13 +157,10 @@ const PatientTriage: FC = () => {
 
   const handlePrint = () => {
     if (createAndPrint) {
-      dispatch(printExamination(triage?.pex_ID))
+      dispatch(printExamination(triageToEdit?.pex_ID))
         .unwrap()
         .then((result) => {
           if (result instanceof Blob) {
-            result.text().then((text) => {
-              console.error("Erreur possible :", text);
-            });
             const blobUrl = URL.createObjectURL(result);
             window.open(blobUrl, "_blank");
             setTimeout(() => URL.revokeObjectURL(blobUrl), 5000);
@@ -190,8 +188,7 @@ const PatientTriage: FC = () => {
     }
   };
 
-  const onEdit = (row: any) => {
-    row.pex_date = row.date;
+  const onEdit = (row: PatientExaminationDTO) => {
     setTriageToEdit(row);
     setCreationMode(false);
     scrollToElement(null);
