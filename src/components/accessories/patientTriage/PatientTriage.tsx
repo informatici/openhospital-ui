@@ -149,6 +149,7 @@ const PatientTriage: FC = () => {
           setTriageToEdit(result);
         });
     }
+    setActivityTransitionState("TO_RESET");
   };
 
   const onChangeCreangeAndPrint = () => {
