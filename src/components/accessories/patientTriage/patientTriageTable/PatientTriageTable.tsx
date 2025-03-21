@@ -57,6 +57,11 @@ const PatientTriageTable: FunctionComponent<IOwnProps> = ({
     dispatch(examinationsByPatientId(patientCode));
   }, [dispatch, patientCode, shouldUpdateTable]);
 
+  const onEdit = (row: PatientExaminationDTO) => {
+    const pex = data.find((item) => item.pex_ID === row.pex_ID);
+    console.log(pex);
+    handleEdit(pex!);
+  };
   const formatDataToDisplay = (data: PatientExaminationDTO[]) => {
     return data.map((item) => {
       return {
@@ -119,7 +124,7 @@ const PatientTriageTable: FunctionComponent<IOwnProps> = ({
                 labelData={label}
                 columnsOrder={order}
                 rowsPerPage={5}
-                onEdit={canUpdate ? handleEdit : undefined}
+                onEdit={canUpdate ? onEdit : undefined}
                 isCollapsabile={true}
                 showEmptyCell={false}
               />
