@@ -59,7 +59,6 @@ const PatientTriageTable: FunctionComponent<IOwnProps> = ({
 
   const onEdit = (row: PatientExaminationDTO) => {
     const pex = data.find((item) => item.pex_ID === row.pex_ID);
-    console.log(pex);
     handleEdit(pex!);
   };
   const formatDataToDisplay = (data: PatientExaminationDTO[]) => {
