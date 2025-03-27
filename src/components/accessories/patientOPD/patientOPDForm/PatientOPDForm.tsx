@@ -656,9 +656,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
       </div>
       <CustomDialog
         title={
-          operationCreationMode
-            ? t("operation.newoperation")
-            : t("operation.editoperation")
+          operationCreationMode ? t("opd.addoperation") : t("opd.editoperation")
         }
         description={t("opd.addoperationdesc")}
         open={showModal}
