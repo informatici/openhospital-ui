@@ -942,7 +942,7 @@
     "addVaccine": "Ajouter un vaccin",
     "editVaccine": "Modifier un vaccin",
     "updateVaccine": "Mis à jour du vaccin",
-    "saveVaccine": "Sauvegarder le vaccin",
+    "saveVaccine": "Enregistrer le vaccin",
     "updated": "Vaccin mis à jour",
     "updateSuccess": "Vaccine {{code}}  a été mise à jour avec succès",
     "created": "Vaccin creé",
