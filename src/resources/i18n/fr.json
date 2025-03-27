@@ -1078,7 +1078,7 @@
     "deleteSuccess": "Le type d'opération a été supprimé avec succès !",
     "saveOperationTypes": "Enregistrer",
     "editOperationType": "Modifier le type d'opération",
-    "updateOperationType": "Sauvegarder les modifications",
+    "updateOperationType": "Enregistrer les modifications",
     "created": "Type d'opération creé",
     "createSuccess": "Le type d'operation a été créé avec succès!",
     "updated": "Type d'opération mise à jour",
