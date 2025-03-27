@@ -245,6 +245,7 @@
     "newattendance": "New Attendance",
     "reattendance": "Re-attendance",
     "addoperation": "Add operation",
+    "editoperation": "Edit operation",
     "addoperationdesc": "Add operation for the visit",
     "filtervisits": "Filter Visits",
     "fromdate": "Date From",
