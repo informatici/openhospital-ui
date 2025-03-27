@@ -549,7 +549,7 @@
       "thisyear": "Cette année",
       "lastyear": "L'année dernière"
     },
-    "continue": "Continuer",
+    "continue": "Continuer ?",
     "collapse_all": "Réduire la visualisation",
     "expand_all": "Agrandir la visualisation",
     "remainingchars": "Restant : {{actuel}} / {{max}}",
