@@ -1214,7 +1214,7 @@
     "editExamType": "Modifier le type d'examen",
     "updateExamType": "Enregistrer les modifications",
     "created": "Type  d'examen créé",
-    "createSuccess": "Le type d'examen a été créé avec succès !",
+    "createSuccess": "Le type d'examen a été créé avec succès!",
     "updated": "Type d'examen mis à jour",
     "updateSuccess": "Le type d'examen a été mis à jour avec succès !",
     "cancelCreation": "Êtes-vous sûr d'annuler la création du type d'examen?",
