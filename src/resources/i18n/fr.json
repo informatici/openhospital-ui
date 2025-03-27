@@ -1144,7 +1144,7 @@
     "updateWard": "Modifier service hospitalier",
     "saveWard": "Enregistrer le pavillon",
     "created": "Pavillon creé",
-    "updated": "Service hospitalier mis à jour",
+    "updated": "Pavillon mis à jour",
     "deleted": "Service hospitalier supprimé",
     "createSuccess": "Service hospitalier a été creé avec succès",
     "updateSuccess": "Service hospitalier {{code}}  a été mise à jour avec succès",
