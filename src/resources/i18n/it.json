@@ -245,6 +245,7 @@
     "newattendance": "Prima visita",
     "reattendance": "Visita di controllo",
     "addoperation": "Aggiungi intervento",
+    "editoperation": "Edit operation",
     "addoperationdesc": "Aggiungi intervento per la visita",
     "filtervisits": "Seleziona visita",
     "fromdate": "Data inizio (gg/mm/aaaa)",
