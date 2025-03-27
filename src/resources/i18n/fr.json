@@ -1197,7 +1197,7 @@
     "editDeliveryResultType": "Modifier le type d'accouchement",
     "updateDeliveryResultType": "Enregistrer les modifications",
     "created": "Résultat d'accouchement creé",
-    "createSuccess": "Le type de résultat de livraison a été créé avec succès!",
+    "createSuccess": "Le type de résultat d'accouchement a été créé avec succès!",
     "updated": "Type de résultat de livraison mis à jour",
     "updateSuccess": "Le type de résultat de livraison a été mis à jour avec succès !",
     "cancelCreation": "Êtes-vous sûr d’annuler la création du type de résultat de livraison ?",
