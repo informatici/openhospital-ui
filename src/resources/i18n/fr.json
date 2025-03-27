@@ -1183,7 +1183,7 @@
     "createSuccess": "Le type de traitement enceinte a été creé avec succès !",
     "updated": "Type de traitement pour enceinte mis à jour",
     "updateSuccess": "Le type de traitement pour enceinte a été mis à jour avec succès !",
-    "cancelCreation": "Êtes-vous sûr d'annuler la création du type du traitement enceinte?",
+    "cancelCreation": "Êtes-vous sûr d'annuler la création du type du traitement pour enceinte?",
     "cancelUpdate": "Êtes-vous sûr d'annuler la mis à jour du type du traitement enceinte?"
   },
   "deliveryResultType": {
