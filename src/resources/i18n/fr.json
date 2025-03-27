@@ -1044,7 +1044,7 @@
     "deleteSuccess": "Le type d'admission a été supprimé avec succès !",
     "saveAdmissionTypes": "Enregistrer",
     "editAdmissionType": "Mise a jour du type d'admission",
-    "updateAdmissionType": "Sauvegarder les modifications",
+    "updateAdmissionType": "Enregistrer les modifications",
     "created": "Type d'admission mis à jour",
     "createSuccess": "Le type d'admission a été créé avec succès!",
     "updated": "Type d'admission mis à jour",
