@@ -991,7 +991,7 @@
     "addMedicalType": "Nouveau type médical",
     "deleted": "Effacé",
     "deleteSuccess": "Le type de médicament a été supprimé avec succès !",
-    "saveMedicalTypes": "Sauver",
+    "saveMedicalTypes": "Sauvegarder",
     "editMedicalType": "Modifier le type de médicament",
     "updateMedicalType": "Sauvegarder les modifications",
     "created": "Médicament creé",
