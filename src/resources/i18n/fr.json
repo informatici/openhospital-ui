@@ -1076,7 +1076,7 @@
     "addOperationType": "Nouveau type d'opération",
     "deleted": "Effacé",
     "deleteSuccess": "Le type d'opération a été supprimé avec succès !",
-    "saveOperationTypes": "Sauvegarder",
+    "saveOperationTypes": "Enregistrer",
     "editOperationType": "Modifier le type d'opération",
     "updateOperationType": "Sauvegarder les modifications",
     "created": "Type d'opération creé",
