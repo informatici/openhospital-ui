@@ -1148,7 +1148,7 @@
     "deleted": "Pavillon supprimé",
     "createSuccess": "Pavillon a été creé avec succès",
     "updateSuccess": "Pavillon {{code}}  a été mise à jour avec succès",
-    "deleteSuccess": "Service hospitalier {{code}}  a été supprimé avec succès"
+    "deleteSuccess": "Pavillon {{code}}  a été supprimé avec succès"
   },
   "disease": {
     "code": "Code",
