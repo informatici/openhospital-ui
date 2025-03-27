@@ -1175,7 +1175,7 @@
     "title": "Gérer les types de traitement pour femme enceinte",
     "addPregnantTreatmentType": "Nouveau type de traitement pour femme enceinte",
     "deleted": "Effacé",
-    "deleteSuccess": "Le type de traitement enceinte a été supprimé avec succès !",
+    "deleteSuccess": "Le type de traitement pour femme enceinte a été supprimé avec succès !",
     "savePregnantTreatmentTypes": "Enregistrer",
     "editPregnantTreatmentType": "Modifier type de traitement pour enceintes",
     "updatePregnantTreatmentType": "Enregistrer les modifications",
