@@ -526,7 +526,7 @@
     "orderbytype": "Regrouper par type",
     "addnewoption": "Ajouter",
     "cancel": "Effacer",
-    "discardconfirmationmessage": "Toutes les modifications non sauvegardées seront perdues. Continuer ?",
+    "discardconfirmationmessage": "Toutes les modifications non enregistrées seront perdues. Continuer ?",
     "emptydataforfilter": "Données vides pour le filtre spécifié",
     "addanotherrow": "Ajouter une opération",
     "hospitalname": "Votre Hôpital",
