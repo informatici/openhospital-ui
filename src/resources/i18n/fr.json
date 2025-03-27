@@ -759,7 +759,7 @@
     "totalpaid": "Total payé",
     "totalnotpaid": "Total impayé",
     "validatetodate": "Doit être supérieur ou égal à la date de début",
-    "billid": "Code du paiement",
+    "billid": "Code de la facture",
     "amount": "Montant",
     "balance": "A payer",
     "status": "Statut",
