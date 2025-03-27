@@ -47,7 +47,7 @@
     "validateUserNeedsGroup": "Chaque utilisateur doit appartenir à un groupe",
     "validatePasswordNeeded": "Aucun mot de psse fourni",
     "validatePasswordTooShort": "Le mot de passe est trop court - il doit comporter au moins 5 caractères",
-    "validatePasswordTooWeak": "Veuillez créer un mot de passe plus fort : 1 lettre majuscule, 1 lettre minuscule, 1 chiffre",
+    "validatePasswordTooWeak": "Veuillez créer un mot de passe plus fort: 1 lettre majuscule, 1 lettre minuscule, 1 chiffre",
     "validateGroupCode": "Code de groupe invalide",
     "validatePasswordMustMatch": "Les mots de passe doivent correspondre",
     "validateUserName": "Vous devez spécifier un nom d'utilisateur",
