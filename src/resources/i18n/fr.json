@@ -1147,7 +1147,7 @@
     "updated": "Pavillon mis à jour",
     "deleted": "Pavillon supprimé",
     "createSuccess": "Pavillon a été creé avec succès",
-    "updateSuccess": "Service hospitalier {{code}}  a été mise à jour avec succès",
+    "updateSuccess": "Pavillon {{code}}  a été mise à jour avec succès",
     "deleteSuccess": "Service hospitalier {{code}}  a été supprimé avec succès"
   },
   "disease": {
