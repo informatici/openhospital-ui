@@ -993,7 +993,7 @@
     "deleteSuccess": "Le type de médicament a été supprimé avec succès !",
     "saveMedicalTypes": "Sauver",
     "editMedicalType": "Modifier le type de médicament",
-    "updateMedicalType": "Sauver les modifications",
+    "updateMedicalType": "Sauvegarder les modifications",
     "created": "Médicament creé",
     "createSuccess": "Le type de médicament a été créé avec succès !",
     "updated": "Type de médicament mis à jour",
