@@ -792,7 +792,7 @@
     "invalidpaymentdate": "Date antérieure à la date de facturation",
     "close": "Fermer la facture",
     "closesuccess": "Facture fermée avec succès !!!",
-    "doyouwanttoclose": "Voulez-vous clôturer la facture avec l'identifiant {{code}} ? Cette opération ne peut pas être annulée.",
+    "doyouwanttoclose": "Voulez-vous clôturer la facture avec l'identifiant {{code}}? Cette opération ne peut pas être annulée.",
     "billdate": "Date de facturation",
     "dashboard": "Tableau de bord",
     "billSection": "Section des facturations",
