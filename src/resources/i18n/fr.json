@@ -1195,7 +1195,7 @@
     "deleteSuccess": "Le type de résultat de livraison a été supprimé avec succès!",
     "saveDeliveryResultTypes": "Enregistrer",
     "editDeliveryResultType": "Modifier le type de livraison",
-    "updateDeliveryResultType": "Sauver les modifications",
+    "updateDeliveryResultType": "Enregistrer les modifications",
     "created": "Résultat de livraison creé",
     "createSuccess": "Le type de résultat de livraison a été créé avec succès!",
     "updated": "Type de résultat de livraison mis à jour",
