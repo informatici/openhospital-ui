@@ -1178,7 +1178,7 @@
     "deleteSuccess": "Le type de traitement enceinte a été supprimé avec succès !",
     "savePregnantTreatmentTypes": "Enregistrer",
     "editPregnantTreatmentType": "Modifier type de traitement pour enceintes",
-    "updatePregnantTreatmentType": "Sauvegarder les modifications",
+    "updatePregnantTreatmentType": "Enregistrer les modifications",
     "created": "Type de traitement enceinte creé",
     "createSuccess": "Le type de traitement enceinte a été creé avec succès !",
     "updated": "Type de traitement enceinte mis à jour",
