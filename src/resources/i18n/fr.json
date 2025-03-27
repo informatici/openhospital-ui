@@ -1184,7 +1184,7 @@
     "updated": "Type de traitement pour enceinte mis à jour",
     "updateSuccess": "Le type de traitement pour enceinte a été mis à jour avec succès !",
     "cancelCreation": "Êtes-vous sûr d'annuler la création du type du traitement pour enceinte?",
-    "cancelUpdate": "Êtes-vous sûr d'annuler la mis à jour du type du traitement enceinte?"
+    "cancelUpdate": "Êtes-vous sûr d'annuler la mis à jour du type du traitement pour enceinte?"
   },
   "deliveryResultType": {
     "code": "Code",
