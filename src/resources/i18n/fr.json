@@ -521,7 +521,7 @@
     "invaliddate": "Date invalide",
     "outofrange": "Hors limites",
     "invalidnumber": "Numéro invalide",
-    "invalidnumberinrange": "Non valide : le nombre doit être >= {{min}} et <= {{max}}",
+    "invalidnumberinrange": "Non valide: le nombre doit être >= {{min}} et <= {{max}}",
     "orderbydate": "Classer par date",
     "orderbytype": "Regrouper par type",
     "addnewoption": "Ajouter",
