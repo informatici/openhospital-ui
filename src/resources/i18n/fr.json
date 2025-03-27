@@ -459,7 +459,7 @@
     "addOperation": "Ajouter une opération",
     "editOperation": "Modifier l'opération",
     "updateOperation": "Mise à jour d'une opération",
-    "saveOperation": "Sauvegarder l'opération",
+    "saveOperation": "Enregistrer l'opération",
     "createSuccess": "Opération créé avec succès !",
     "updateSuccess": "L'opération {{code}} a été mise à jour avec succès !",
     "deleteSuccess": "L'opération {{code}} a été supprimée avec succès !",
