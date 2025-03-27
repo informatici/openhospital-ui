@@ -1190,7 +1190,7 @@
     "code": "Code",
     "description": "Description",
     "title": "Gérer les types de résultat d'accouchement",
-    "addDeliveryResultType": "Nouveau type de résultat de livraison",
+    "addDeliveryResultType": "Nouveau type de résultat d'accouchement",
     "deleted": "Effacé",
     "deleteSuccess": "Le type de résultat de livraison a été supprimé avec succès!",
     "saveDeliveryResultTypes": "Enregistrer",
