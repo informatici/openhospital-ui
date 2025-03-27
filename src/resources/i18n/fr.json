@@ -1201,7 +1201,7 @@
     "updated": "Type de résultat d'accouchement mis à jour",
     "updateSuccess": "Le type de résultat d'accouchement a été mis à jour avec succès !",
     "cancelCreation": "Êtes-vous sûr d’annuler la création du type de résultat d'accouchement ?",
-    "cancelUpdate": "Êtes-vous sûr de vouloir annuler la mise à jour du type de résultat de livraison ?"
+    "cancelUpdate": "Êtes-vous sûr de vouloir annuler la mise à jour du type de résultat d'accouchement ?"
   },
   "examTypes": {
     "code": "Code",
