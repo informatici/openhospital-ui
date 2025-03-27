@@ -1025,7 +1025,7 @@
     "addDeliveryType": "Nouveau type de livraison",
     "deleted": "Effacé",
     "deleteSuccess": "Le type de livraison a été supprimé avec succès !",
-    "saveDeliveryTypes": "Sauver",
+    "saveDeliveryTypes": "Sauvegarder",
     "editDeliveryType": "Modifier le type de livraison",
     "updateDeliveryType": "Sauvegarder les modifications",
     "created": "Type de livraison créé",
