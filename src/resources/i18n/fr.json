@@ -1061,7 +1061,7 @@
     "deleteSuccess": "Le type de maladie a été supprimé avec succès !",
     "saveDiseaseTypes": "Sauver",
     "editDiseaseType": "Modifier le type de maladie",
-    "updateDiseaseType": "Sauver les modifications",
+    "updateDiseaseType": "Sauvegarder les modifications",
     "created": "Type de maladie créé",
     "createSuccess": "Le type de maladie a été creé avec succès !",
     "updated": "Type de maladie mis à jour",
