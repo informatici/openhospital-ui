@@ -804,7 +804,7 @@
     "year": "Filtre par année",
     "totalpending": "Total en attente",
     "totalpayment": "Paiement total",
-    "week": "Semaine de {{commence}} à maintenant",
+    "week": "Semaine de {{start}} à maintenant",
     "totaldebt": "Dettes totale",
     "bestpatients": "Meilleurs patients",
     "mostindebtpatients": "Patients les plus endettés",
