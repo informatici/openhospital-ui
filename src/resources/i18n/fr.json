@@ -1010,7 +1010,7 @@
     "deleteSuccess": "Le type de décharge a été supprimé avec succès !",
     "saveDischargeTypes": "Sauver",
     "editDischargeType": "Modifier le type de décharge",
-    "updateDischargeType": "Sauver les modifications",
+    "updateDischargeType": "Sauvegarder les modifications",
     "created": "Type de décharge créé",
     "createSuccess": "Le type de décharge a été creé avec succès !",
     "updated": "Type de décharge mis à jour",
