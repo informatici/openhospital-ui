@@ -718,7 +718,7 @@
     "discharged": "Patient sorti",
     "nocurrentadmission": "Il n'y a pas d'admission en cours pour le patient. Vous devez d'abord enregister le patient",
     "noteaddedwithsuccess": "Note d'admission ajoutée avec succès",
-    "noteadded": "Remarque enregistrée",
+    "noteadded": "Remarque sauvegardée",
     "note": "Remarque",
     "validatelastdate": "Doit être supérieur ou égal à la date d'admission {{admDate}}",
     "currentadmissionexists": "Le patient a une admission en cours datant du {{date}}. Libérez-le d'abord.",
