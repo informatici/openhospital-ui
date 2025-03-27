@@ -1059,7 +1059,7 @@
     "addDiseaseType": "Nouveau type de maladie",
     "deleted": "Effacé",
     "deleteSuccess": "Le type de maladie a été supprimé avec succès !",
-    "saveDiseaseTypes": "Sauver",
+    "saveDiseaseTypes": "Sauvegarder",
     "editDiseaseType": "Modifier le type de maladie",
     "updateDiseaseType": "Sauvegarder les modifications",
     "created": "Type de maladie créé",
