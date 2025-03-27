@@ -94,7 +94,7 @@
   "dashboard": {
     "welcomename": "Bienvenue",
     "newpatient": "Nouveau patient",
-    "searchpatients": "Recherche de patients",
+    "searchpatients": "Recherche les patients",
     "userange": "Utiliser le sélecteur de plage",
     "csv": "CSV",
     "pdf": "PDF",
