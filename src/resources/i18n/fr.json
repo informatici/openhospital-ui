@@ -145,7 +145,7 @@
     "removedashboard": "Supprimer le composant Tableau de bord",
     "downloaddata": "Téléchargez les données sous-jacentes",
     "cantretrieveconfig": "Impossible de récupérer les personnalisations",
-    "cantsaveconfig": "Impossible de sauvegarder les personnalisations",
+    "cantsaveconfig": "Impossible d'enregistrer les personnalisations",
     "reset": "Réinitialiser",
     "resetcustomization": "Réinitialiser les personnalisations",
     "nowidgets": "Aucun widget",
