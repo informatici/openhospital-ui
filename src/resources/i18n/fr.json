@@ -973,7 +973,7 @@
     "title": "Gérer les types de vaccins",
     "addVaccineType": "Nouveau type de vaccin",
     "deleted": "Effacé",
-    "deleteSuccess": "Le type de vaccin a été supprimé avec succès !",
+    "deleteSuccess": "Le type de vaccin a été supprimé avec succès!",
     "saveVaccineTypes": "Enregistrer",
     "editVaccineType": "Modifier le type de vaccin",
     "updateVaccineType": "Enregistrer les modifications",
