@@ -51,7 +51,7 @@
     "validateGroupCode": "Code de groupe invalide",
     "validatePasswordMustMatch": "Les mots de passe doivent correspondre",
     "validateUserName": "Vous devez spécifier un nom d'utilisateur",
-    "validateUserNameRegex": "Caractères autorisés : lettres minuscules (abc), chiffres (123), point (.), tiret (-) et trait de soulignement (_)",
+    "validateUserNameRegex": "Caractères autorisés: lettres minuscules (abc), chiffres (123), point (.), tiret (-) et trait de soulignement (_)",
     "confirmUserDeletion": "Etes-vous sûr de vouloir supprimer l'utilisateur ?",
     "confirmUserGroupDeletion": "Etes-vous sûr de vouloir supprimer le groupe d'utilisateurs ?"
   },
