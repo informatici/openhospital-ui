@@ -1146,7 +1146,7 @@
     "created": "Pavillon creé",
     "updated": "Pavillon mis à jour",
     "deleted": "Pavillon supprimé",
-    "createSuccess": "Service hospitalier a été creé avec succès",
+    "createSuccess": "Pavillon a été creé avec succès",
     "updateSuccess": "Service hospitalier {{code}}  a été mise à jour avec succès",
     "deleteSuccess": "Service hospitalier {{code}}  a été supprimé avec succès"
   },
