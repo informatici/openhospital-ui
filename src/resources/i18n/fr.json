@@ -645,7 +645,7 @@
     "updated": "Examen patient mise à jour",
     "createsuccess": "Examen patient ajouté avec succès",
     "updatesuccess": "L'examen du patient a été mise à jour avec succès",
-    "cancelsuccess": "Examen du patient {{code}} annulé avec succès !",
+    "cancelsuccess": "Examen du patient {{code}} annulé avec succès!",
     "deleted": "Examen patient supprimé",
     "canceled": "Examen patient supprimé",
     "resultrow": "Ligne de résultat",
