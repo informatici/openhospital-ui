@@ -1075,7 +1075,7 @@
     "description": "Description",
     "title": "Gérer les types d'opération",
     "addOperationType": "Nouveau type d'opération",
-    "deleted": "Effacé",
+    "deleted": "Supprimé",
     "deleteSuccess": "Le type d'opération a été supprimé avec succès !",
     "saveOperationTypes": "Enregistrer",
     "editOperationType": "Modifier le type d'opération",
