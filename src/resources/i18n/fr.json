@@ -1024,7 +1024,7 @@
     "description": "Description",
     "title": "Gérer les types de livraison",
     "addDeliveryType": "Nouveau type de livraison",
-    "deleted": "Effacé",
+    "deleted": "Supprimé",
     "deleteSuccess": "Le type de livraison a été supprimé avec succès !",
     "saveDeliveryTypes": "Enregistrer",
     "editDeliveryType": "Modifier le type de livraison",
