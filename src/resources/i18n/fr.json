@@ -1209,7 +1209,7 @@
     "description": "Description",
     "title": "Gérer les types d'examen",
     "addExamType": "Nouveau type d'examen",
-    "deleted": "Effacé",
+    "deleted": "Supprimé",
     "deleteSuccess": "Le type d'examen a été supprimé avec succès !",
     "saveExamTypes": "Enregistrer",
     "editExamType": "Modifier le type d'examen",
