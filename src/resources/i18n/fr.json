@@ -1041,7 +1041,7 @@
     "description": "Description",
     "title": "Gérer les types d'admission",
     "addAdmissionType": "Nouveau type d'admission",
-    "deleted": "Effacé",
+    "deleted": "Supprimé",
     "deleteSuccess": "Le type d'admission a été supprimé avec succès !",
     "saveAdmissionTypes": "Enregistrer",
     "editAdmissionType": "Mise a jour du type d'admission",
