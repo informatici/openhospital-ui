@@ -1007,7 +1007,7 @@
     "description": "Description",
     "title": "Gérer les types de décharge",
     "addDischargeType": "Nouveau type de décharge",
-    "deleted": "Effacé",
+    "deleted": "Supprimé",
     "deleteSuccess": "Le type de décharge a été supprimé avec succès !",
     "saveDischargeTypes": "Enregistrer",
     "editDischargeType": "Modifier le type de décharge",
