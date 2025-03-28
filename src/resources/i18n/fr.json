@@ -1175,7 +1175,7 @@
     "description": "Description",
     "title": "Gérer les types de traitement pour enceintes",
     "addPregnantTreatmentType": "Nouveau type de traitement pour enceintes",
-    "deleted": "Effacé",
+    "deleted": "Supprimé",
     "deleteSuccess": "Le type de traitement pour enceintes a été supprimé avec succès!",
     "savePregnantTreatmentTypes": "Enregistrer",
     "editPregnantTreatmentType": "Modifier type de traitement pour enceintes",
