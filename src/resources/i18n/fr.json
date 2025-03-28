@@ -1192,7 +1192,7 @@
     "description": "Description",
     "title": "Gérer les types de résultat d'accouchement",
     "addDeliveryResultType": "Nouveau type de résultat d'accouchement",
-    "deleted": "Effacé",
+    "deleted": "Supprimé",
     "deleteSuccess": "Le type de résultat de livraison a été supprimé avec succès!",
     "saveDeliveryResultTypes": "Enregistrer",
     "editDeliveryResultType": "Modifier le type d'accouchement",
