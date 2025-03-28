@@ -990,7 +990,7 @@
     "description": "Description",
     "title": "Gérer les types de médicament",
     "addMedicalType": "Nouveau type médical",
-    "deleted": "Effacé",
+    "deleted": "Supprimé",
     "deleteSuccess": "Le type de médicament a été supprimé avec succès !",
     "saveMedicalTypes": "Enregistrer",
     "editMedicalType": "Modifier le type de médicament",
