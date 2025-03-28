@@ -504,7 +504,7 @@
     "update": "mise à jour",
     "delete": "Effacer",
     "deleteconfirmation": "Voulez-vous vraiment supprimer l'élément avec le code {{code}} ?",
-    "cancelconfirmation": "Voulez-vous vraiment supprimer l'élément avec le code {{code}}?",
+    "cancelconfirmation": "Voulez-vous vraiment annuler l'élément avec le code {{code}}?",
     "deletesuccess": "L'élément avec le code {{code}} a été supprimé avec succès!",
     "incorrectformat": "N'est pas avec le bon format",
     "yes": "Oui",
