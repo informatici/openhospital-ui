@@ -1058,7 +1058,7 @@
     "description": "Description",
     "title": "Gérer les types de maladies",
     "addDiseaseType": "Nouveau type de maladie",
-    "deleted": "Effacé",
+    "deleted": "Supprimé",
     "deleteSuccess": "Le type de maladie a été supprimé avec succès !",
     "saveDiseaseTypes": "Enregistrer",
     "editDiseaseType": "Modifier le type de maladie",
