@@ -51,24 +51,24 @@ export const ExamTable: FC<IExamTableProps> = ({
     (state: IState) => state.laboratories.deleteLab.error?.message
   );
 
-  const header = ["id", "date", "patName", "exam", "result", "status"];
+  const header = ["code", "date", "patName", "exam", "result", "status"];
   const dateFields = ["date"];
   const label = {
-    id: t("lab.code"),
+    code: t("lab.code"),
     date: t("lab.date"),
     patName: t("lab.patient"),
     exam: t("lab.exam"),
     result: t("lab.result"),
     status: t("lab.status"),
   };
-  const order = ["id", "date", "patName", "exam", "result", "status"];
+  const order = ["code", "date", "patName", "exam", "result", "status"];
 
   const formatDataToDisplay = (data: LabWithRowsDTO[]) => {
     let results: any = [];
     if (data && data.length > 0)
       results = data.map((e) => {
         return {
-          id: e.laboratoryDTO?.code ?? "",
+          code: e.laboratoryDTO?.code ?? "",
           date: renderDateTime(e.laboratoryDTO?.labDate ?? ""),
           patName: e.laboratoryDTO?.patName ?? "",
           exam:
