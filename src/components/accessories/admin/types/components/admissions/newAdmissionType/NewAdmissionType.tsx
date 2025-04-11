@@ -30,7 +30,7 @@ export const NewAdmissionType = () => {
         creationMode
         onSubmit={handleSubmit}
         isLoading={!!create.isLoading}
-        resetButtonLabel={t("common.cancel")}
+        resetButtonLabel={t("common.reset")}
         submitButtonLabel={t("admissionTypes.saveAdmissionTypes")}
         fields={getInitialFields(undefined)}
       />

@@ -34,9 +34,7 @@ describe("Admission types Edit Activity specs", () => {
   it("should cancel the cancellation of the age types update", () => {
     cy.dataCy("edit-age-types").click();
     cy.dataCy("cancel-form").click();
-    cy.dataCy("dialog-info").contains(
-      "Are you sure to cancel the age types update?"
-    );
+    cy.dataCy("dialog-info").contains("lost");
     cy.dataCy("close-dialog").click();
     cy.dataCy("dialog-info").should("not.exist");
   });

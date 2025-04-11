@@ -5,8 +5,8 @@ import { Navigate, useLocation, useParams } from "react-router";
 import { PATHS } from "../../../../../consts";
 import { WardDTO } from "../../../../../generated";
 import { updateWard } from "../../../../../state/ward";
-import { getInitialFields } from "../wardForm/consts";
 import WardForm from "../wardForm/WardForm";
+import { getInitialFields } from "../wardForm/consts";
 
 export const EditWard = () => {
   const dispatch = useAppDispatch();
@@ -28,7 +28,7 @@ export const EditWard = () => {
       creationMode={false}
       onSubmit={handleSubmit}
       isLoading={!!update.isLoading}
-      resetButtonLabel={t("common.cancel")}
+      resetButtonLabel={t("common.reset")}
       submitButtonLabel={t("ward.updateWard")}
       fields={getInitialFields(state)}
     />

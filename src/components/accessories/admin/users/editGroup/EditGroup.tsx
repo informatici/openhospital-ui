@@ -6,8 +6,6 @@ import { useParams } from "react-router";
 import { useNavigate } from "react-router-dom";
 
 import checkIcon from "../../../../../assets/check-icon.png";
-import warningIcon from "../../../../../assets/warning-icon.png";
-import Button from "../../../button/Button";
 import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
 import InfoBox from "../../../infoBox/InfoBox";
 import TextField from "../../../textField/TextField";
@@ -17,6 +15,8 @@ import { usePermission } from "../../../../../libraries/permissionUtils/usePermi
 
 import { CircularProgress } from "@mui/material";
 import CheckboxField from "components/accessories/checkboxField/CheckboxField";
+import DiscardButton from "components/accessories/discardButton/DiscardButton";
+import ResetButton from "components/accessories/resetButton/resetButton";
 import { PermissionDTO } from "generated/models/PermissionDTO";
 import { UserGroupDTO } from "generated/models/UserGroupDTO";
 import { getAllPermissions } from "../../../../../state/permissions";
@@ -26,6 +26,7 @@ import {
   updateUserGroup,
   updateUserGroupReset,
 } from "../../../../../state/usergroups";
+import Button from "../../../button/Button";
 import { TabOptions } from "../Users";
 import { GroupPermissionsEditor } from "../editPermissions/GroupPermissionsEditor";
 import {
@@ -42,8 +43,6 @@ export const EditGroup = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const canUpdatePermissions = usePermission("grouppermission.update");
-
-  const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
   const update = useAppSelector((state) => state.usergroups.update);
   const permissions = useAppSelector((state) => state.permissions.getAll);
@@ -88,19 +87,7 @@ export const EditGroup = () => {
     }
   };
 
-  const {
-    handleSubmit,
-    handleBlur,
-    getFieldProps,
-    isValid,
-    dirty,
-    resetForm,
-    errors,
-    touched,
-    values,
-    setFieldValue,
-    setValues,
-  } = useFormik({
+  const formik = useFormik({
     initialValues: group.data ?? { code: "" },
     validationSchema: userGroupSchema(t),
     onSubmit: (values: UserGroupDTO) => {
@@ -109,6 +96,19 @@ export const EditGroup = () => {
       dispatch(updateUserGroup(dto));
     },
   });
+
+  const {
+    handleSubmit,
+    handleBlur,
+    getFieldProps,
+    isValid,
+    dirty,
+    errors,
+    touched,
+    values,
+    setFieldValue,
+    setValues,
+  } = formik;
 
   // load permissions and group on mount
   useEffect(() => {
@@ -132,11 +132,6 @@ export const EditGroup = () => {
       dispatch(getUserGroupReset());
     };
   }, []);
-
-  const handleResetConfirmation = () => {
-    setOpenResetConfirmation(false);
-    navigate(-1);
-  };
 
   const handleCheckboxChange = useCallback(
     (fieldName: string) => (value: boolean) => {
@@ -168,10 +163,15 @@ export const EditGroup = () => {
       permissions.isLoading ? (
         <CircularProgress style={{ marginLeft: "50%", position: "relative" }} />
       ) : (
-        <div className="newGroupForm">
-          <form className="newGroupForm__form" onSubmit={handleSubmit}>
+        <div className="editGroupForm">
+          <div className="editGroupForm__header">
+            <div className="editGroupForm__actions">
+              <DiscardButton />
+            </div>
+          </div>
+          <form className="editGroupForm__form" onSubmit={handleSubmit}>
             <div className="row start-sm center-xs">
-              <div className="newGroupForm__item fullWidth">
+              <div className="editGroupForm__item fullWidth">
                 <TextField
                   field={getFieldProps("code")}
                   theme="regular"
@@ -183,7 +183,7 @@ export const EditGroup = () => {
                   disabled
                 />
               </div>
-              <div className="newGroupForm__item fullWidth">
+              <div className="editGroupForm__item fullWidth">
                 <TextField
                   field={getFieldProps("desc")}
                   theme="regular"
@@ -194,7 +194,7 @@ export const EditGroup = () => {
                 />
               </div>
             </div>
-            <div className="newGroupForm__item fullWidth">
+            <div className="editGroupForm__item fullWidth">
               <CheckboxField
                 fieldName={"deleted"}
                 checked={!!values.deleted}
@@ -212,7 +212,7 @@ export const EditGroup = () => {
               />
             )}
 
-            <div className="newGroupForm__item fullWidth">
+            <div className="editGroupForm__item fullWidth">
               {isPermissionEditorAvailable &&
                 updatedPermissionsStack.length > 0 && (
                   <p>
@@ -249,7 +249,7 @@ export const EditGroup = () => {
               )}
             </div>
 
-            <div className="newGroupForm__buttonSet">
+            <div className="editGroupForm__buttonSet">
               <div className="submit_button">
                 <Button
                   type="submit"
@@ -264,28 +264,10 @@ export const EditGroup = () => {
                 </Button>
               </div>
               <div className="reset_button">
-                <Button
-                  dataCy="cancel-form"
-                  type="reset"
-                  variant="text"
-                  disabled={update.isLoading}
-                  onClick={() => setOpenResetConfirmation(true)}
-                >
-                  {t("common.cancel")}
-                </Button>
+                <ResetButton formik={formik as any} />
               </div>
             </div>
           </form>
-          <ConfirmationDialog
-            isOpen={openResetConfirmation}
-            title={t("common.cancel")}
-            info={t("common.resetform")}
-            icon={warningIcon}
-            primaryButtonLabel={t("common.ok")}
-            secondaryButtonLabel={t("common.discard")}
-            handlePrimaryButtonClick={handleResetConfirmation}
-            handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
-          />
           <ConfirmationDialog
             isOpen={update.hasSucceeded}
             title={t("user.groupUpdated")}
