@@ -33,7 +33,7 @@ const ResetButton: FunctionComponent<IProps> = ({
       </Button>
       <ConfirmationDialog
         isOpen={openResetConfirmation}
-        title={t("common.reset")}
+        title={t("common.yesReset")}
         info={t("common.resetform")}
         icon={warningIcon}
         primaryButtonLabel={t("common.reset")}
