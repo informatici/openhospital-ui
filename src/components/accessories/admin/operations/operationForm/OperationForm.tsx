@@ -114,7 +114,7 @@ const OperationForm: FC<IOperationProps> = ({
 
   const handleCheckboxChange = useCallback(
     (fieldName: string) => (value: boolean) => {
-      setFieldValue(fieldName, value ? "0" : "1");
+      setFieldValue(fieldName, !!value ? 1 : 0);
     },
     [setFieldValue]
   );
