@@ -477,6 +477,7 @@
     "feedback": "Retour d'informations",
     "submit": "Envoyer",
     "reset": "Réinitialiser",
+    "yesReset": "Yes, reset",
     "search": "Recherche",
     "searching": "Recherche en cours",
     "patient": "Patient",
@@ -574,7 +575,11 @@
     "restore": "Restaurer",
     "restoreConfirmation": "Etes-vous sûr de vouloir restaurer cet article ?",
     "softDelete": "Marquer comme supprimé",
-    "softDeleteConfirmation": "Êtes-vous sûr de marquer cet élément comme supprimé ?"
+    "softDeleteConfirmation": "Êtes-vous sûr de marquer cet élément comme supprimé ?",
+    "cancelMessage": "Are you sure to cancel this operation ? All unsaved data will be lost.",
+    "back": "Back",
+    "backToEdit": "No, keep editing",
+    "discardMessage": "Are you sure to discard this operation ? All unsaved data will be lost."
   },
   "permission": {
     "denied": "Autorisation refusée",
