@@ -28,7 +28,7 @@ export const NewMedicalType = () => {
         creationMode
         onSubmit={handleSubmit}
         isLoading={!!create.isLoading}
-        resetButtonLabel={t("common.cancel")}
+        resetButtonLabel={t("common.reset")}
         submitButtonLabel={t("medicalTypes.saveMedicalTypes")}
         fields={getInitialFields(undefined)}
       />

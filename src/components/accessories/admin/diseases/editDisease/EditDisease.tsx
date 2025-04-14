@@ -5,8 +5,8 @@ import { Navigate, useLocation, useParams } from "react-router";
 import { PATHS } from "../../../../../consts";
 import { DiseaseDTO } from "../../../../../generated";
 import { updateDisease } from "../../../../../state/diseases";
-import { getInitialFields } from "../diseaseForm/consts";
 import DiseaseForm from "../diseaseForm/DiseaseForm";
+import { getInitialFields } from "../diseaseForm/consts";
 
 export const EditDisease = () => {
   const dispatch = useAppDispatch();
@@ -28,7 +28,7 @@ export const EditDisease = () => {
       creationMode={false}
       onSubmit={handleSubmit}
       isLoading={!!update.isLoading}
-      resetButtonLabel={t("common.cancel")}
+      resetButtonLabel={t("common.reset")}
       submitButtonLabel={t("disease.updateDisease")}
       fields={getInitialFields(state)}
     />

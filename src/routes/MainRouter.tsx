@@ -1,7 +1,13 @@
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { useEffect } from "react";
-import { Navigate, Route, Routes } from "react-router";
-import { BrowserRouter } from "react-router-dom";
+import {
+  Navigate,
+  Outlet,
+  Route,
+  RouterProvider,
+  createRoutesFromElements,
+} from "react-router";
+import { createBrowserRouter } from "react-router-dom";
 import { Private } from "../components/Private";
 import Dashboard from "../components/accessories/dashboard/Dashboard";
 import PermissionDenied from "../components/activities/PermissionDenied/PermissionDenied";
@@ -31,9 +37,9 @@ export const MainRouter: React.FC = () => {
     PermissionDenied
   )(AdminRoutes);
 
-  return (
-    <BrowserRouter basename={process.env.PUBLIC_URL}>
-      <Routes>
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route element={<Outlet />}>
         {/* TODO: based on user profile, redirect to patient, dashboard or whatever */}
         <Route index element={<Navigate to="/patients" replace />} />
 
@@ -59,7 +65,10 @@ export const MainRouter: React.FC = () => {
         </Route>
 
         <Route path="*" element={<NotFound />} />
-      </Routes>
-    </BrowserRouter>
+      </Route>
+    ),
+    { basename: process.env.PUBLIC_URL }
   );
+
+  return <RouterProvider router={router} />;
 };

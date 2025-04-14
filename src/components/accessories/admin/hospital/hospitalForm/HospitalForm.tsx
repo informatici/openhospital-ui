@@ -1,12 +1,13 @@
+import DiscardButton from "components/accessories/discardButton/DiscardButton";
+import ResetButton from "components/accessories/resetButton/resetButton";
 import { useFormik } from "formik";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { get, has } from "lodash";
-import React, { FC, useEffect, useMemo, useRef, useState } from "react";
+import React, { FC, useEffect, useMemo, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { object, string } from "yup";
 import checkIcon from "../../../../../assets/check-icon.png";
-import warningIcon from "../../../../../assets/warning-icon.png";
 import { PATHS } from "../../../../../consts";
 import {
   formatAllFieldValues,
@@ -31,7 +32,6 @@ const HospitalForm: FC<IHospitalFormProps> = ({
   const { t } = useTranslation();
   const navigate = useNavigate();
   const infoBoxRef = useRef<HTMLDivElement>(null);
-  const [openDiscardConfirmation, setOpenDiscardConfirmation] = useState(false);
 
   const hospitalStore = useAppSelector((state) => state.hospital);
 
@@ -73,11 +73,6 @@ const HospitalForm: FC<IHospitalFormProps> = ({
       : "";
   };
 
-  const handleDiscardConfirmation = () => {
-    setOpenDiscardConfirmation(false);
-    navigate(-1);
-  };
-
   useEffect(() => {
     return () => {
       dispatch(updateHospitalReset());
@@ -86,6 +81,11 @@ const HospitalForm: FC<IHospitalFormProps> = ({
 
   return (
     <div className="hospitalForm">
+      <div className="hospitalForm__header">
+        <div className="hospitalForm__actions">
+          <DiscardButton />
+        </div>
+      </div>
       <form className="hospitalForm__form" onSubmit={formik.handleSubmit}>
         <div className="row start-sm center-xs">
           <div className="hospitalForm__item halfWidth">
@@ -186,28 +186,10 @@ const HospitalForm: FC<IHospitalFormProps> = ({
               {submitButtonLabel}
             </Button>
           </div>
-          <div className="discard_button">
-            <Button
-              type="button"
-              variant="text"
-              dataCy="cancel-form"
-              disabled={isLoading}
-              onClick={() => setOpenDiscardConfirmation(true)}
-            >
-              {t("common.discard")}
-            </Button>
+          <div className="reset_button">
+            <ResetButton formik={formik as any} title={resetButtonLabel} />
           </div>
         </div>
-        <ConfirmationDialog
-          isOpen={openDiscardConfirmation}
-          title={t("common.discard")}
-          info={t("hospital.discardChanges")}
-          icon={warningIcon}
-          primaryButtonLabel={t("common.ok")}
-          secondaryButtonLabel={t("common.discard")}
-          handlePrimaryButtonClick={handleDiscardConfirmation}
-          handleSecondaryButtonClick={() => setOpenDiscardConfirmation(false)}
-        />
         {hospitalStore.updateHospital.status === "FAIL" && (
           <div ref={infoBoxRef} className="info-box-container">
             <InfoBox type="error" message={errorMessage} />
@@ -220,7 +202,7 @@ const HospitalForm: FC<IHospitalFormProps> = ({
           info={t("hospital.updateSuccess")}
           primaryButtonLabel="Ok"
           handlePrimaryButtonClick={() => {
-            navigate(PATHS.admin);
+            navigate(PATHS.admin, { replace: true });
           }}
           handleSecondaryButtonClick={() => ({})}
         />

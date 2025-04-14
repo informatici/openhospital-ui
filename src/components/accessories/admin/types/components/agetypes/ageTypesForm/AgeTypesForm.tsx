@@ -1,3 +1,5 @@
+import DiscardButton from "components/accessories/discardButton/DiscardButton";
+import ResetButton from "components/accessories/resetButton/resetButton";
 import { useFormik } from "formik";
 import { AgeTypeDTO } from "generated";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
@@ -8,7 +10,6 @@ import { useNavigate } from "react-router";
 import { updateAgeTypeReset } from "state/types/ageTypes";
 import { array, number, object, ref, string } from "yup";
 import checkIcon from "../../../../../../../assets/check-icon.png";
-import warningIcon from "../../../../../../../assets/warning-icon.png";
 import { PATHS } from "../../../../../../../consts";
 import {
   formatAllFieldValues,
@@ -33,7 +34,7 @@ const AgeTypesForm: FC<IAgeTypesFormProps> = ({
   const { t } = useTranslation();
   const navigate = useNavigate();
   const infoBoxRef = useRef<HTMLDivElement>(null);
-  const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
+
   const [validationErrors, setValidationErrors] = useState<string[]>([]);
 
   const updateAgeTypes = useAppSelector((state) => state.types.ageTypes.update);
@@ -92,11 +93,6 @@ const AgeTypesForm: FC<IAgeTypesFormProps> = ({
       : "";
   };
 
-  const handleResetConfirmation = () => {
-    setOpenResetConfirmation(false);
-    navigate(-1);
-  };
-
   useEffect(() => {
     return () => {
       dispatch(updateAgeTypeReset());
@@ -105,6 +101,11 @@ const AgeTypesForm: FC<IAgeTypesFormProps> = ({
 
   return (
     <div className="ageTypesForm">
+      <div className="form__header">
+        <div className="form__actions">
+          <DiscardButton />
+        </div>
+      </div>
       <form className="ageTypesForm__form" onSubmit={formik.handleSubmit}>
         <div className="row">
           <table className="ageTypesFormTable">
@@ -142,27 +143,9 @@ const AgeTypesForm: FC<IAgeTypesFormProps> = ({
             </Button>
           </div>
           <div className="reset_button">
-            <Button
-              type="reset"
-              variant="text"
-              dataCy="cancel-form"
-              disabled={isLoading}
-              onClick={() => setOpenResetConfirmation(true)}
-            >
-              {resetButtonLabel}
-            </Button>
+            <ResetButton formik={formik as any} title={resetButtonLabel} />
           </div>
         </div>
-        <ConfirmationDialog
-          isOpen={openResetConfirmation}
-          title={resetButtonLabel.toUpperCase()}
-          info={t("ageTypes.cancelUpdate")}
-          icon={warningIcon}
-          primaryButtonLabel={t("common.ok")}
-          secondaryButtonLabel={t("common.discard")}
-          handlePrimaryButtonClick={handleResetConfirmation}
-          handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
-        />
         {updateAgeTypes.status === "FAIL" && (
           <div ref={infoBoxRef} className="info-box-container">
             <InfoBox type="error" message={errorMessage} />
@@ -180,7 +163,7 @@ const AgeTypesForm: FC<IAgeTypesFormProps> = ({
           info={t("ageTypes.updateSuccess")}
           primaryButtonLabel="Ok"
           handlePrimaryButtonClick={() => {
-            navigate(PATHS.admin_age_types);
+            navigate(PATHS.admin_age_types, { replace: true });
           }}
           handleSecondaryButtonClick={() => ({})}
         />

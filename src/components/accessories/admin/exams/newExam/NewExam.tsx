@@ -23,7 +23,7 @@ export const NewExam = () => {
       creationMode
       onSubmit={handleSubmit}
       isLoading={!!create.isLoading}
-      resetButtonLabel={t("common.cancel")}
+      resetButtonLabel={t("common.reset")}
       submitButtonLabel={t("supplier.saveSupplier")}
       fields={getInitialFields(undefined, undefined)}
     />

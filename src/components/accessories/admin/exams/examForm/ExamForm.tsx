@@ -1,4 +1,6 @@
 import classnames from "classnames/dedupe";
+import DiscardButton from "components/accessories/discardButton/DiscardButton";
+import ResetButton from "components/accessories/resetButton/resetButton";
 import { useFormik } from "formik";
 import { get, has, isEmpty } from "lodash";
 import React, {
@@ -9,13 +11,11 @@ import React, {
   useEffect,
   useMemo,
   useRef,
-  useState,
 } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { array, number, object, string } from "yup";
 import checkIcon from "../../../../../assets/check-icon.png";
-import warningIcon from "../../../../../assets/warning-icon.png";
 import { PATHS } from "../../../../../consts";
 import {
   formatAllFieldValues,
@@ -49,7 +49,6 @@ const ExamForm: FC<IExamProps> = ({
   const { t } = useTranslation();
   const navigate = useNavigate();
   const infoBoxRef = useRef<HTMLDivElement>(null);
-  const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
   const examStore = useAppSelector((state) => state.exams);
 
@@ -142,11 +141,6 @@ const ExamForm: FC<IExamProps> = ({
       : "";
   };
 
-  const handleResetConfirmation = () => {
-    setOpenResetConfirmation(false);
-    navigate(-1);
-  };
-
   const addExamRow = useCallback(() => {
     formik.setFieldValue("rows", [...formik.values.rows, ""]);
   }, [formik]);
@@ -210,6 +204,11 @@ const ExamForm: FC<IExamProps> = ({
 
   return (
     <div className="examForm">
+      <div className="examForm__header">
+        <div className="examForm__actions">
+          <DiscardButton />
+        </div>
+      </div>
       <form className="examForm__form" onSubmit={formik.handleSubmit}>
         <div className="row start-sm center-xs">
           <div className="examForm__item fullWidth">
@@ -346,27 +345,9 @@ const ExamForm: FC<IExamProps> = ({
             </Button>
           </div>
           <div className="reset_button">
-            <Button
-              type="reset"
-              variant="text"
-              dataCy="cancel-form"
-              disabled={isLoading}
-              onClick={() => setOpenResetConfirmation(true)}
-            >
-              {resetButtonLabel}
-            </Button>
+            <ResetButton formik={formik as any} title={resetButtonLabel} />
           </div>
         </div>
-        <ConfirmationDialog
-          isOpen={openResetConfirmation}
-          title={resetButtonLabel.toUpperCase()}
-          info={t("common.resetform")}
-          icon={warningIcon}
-          primaryButtonLabel={t("common.ok")}
-          secondaryButtonLabel={t("common.discard")}
-          handlePrimaryButtonClick={handleResetConfirmation}
-          handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
-        />
         {(creationMode
           ? examStore.examCreate.status === "FAIL"
           : examStore.examUpdate.status === "FAIL") && (
@@ -389,7 +370,7 @@ const ExamForm: FC<IExamProps> = ({
           }
           primaryButtonLabel="Ok"
           handlePrimaryButtonClick={() => {
-            navigate(PATHS.admin_exams);
+            navigate(PATHS.admin_exams, { replace: true });
           }}
           handleSecondaryButtonClick={() => ({})}
         />

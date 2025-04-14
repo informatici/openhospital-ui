@@ -6,8 +6,8 @@ import { PATHS } from "../../../../../../../consts";
 import { DeliveryTypeDTO } from "../../../../../../../generated";
 import { setTypeMode } from "../../../../../../../state/types/config";
 import { updateDeliveryType } from "../../../../../../../state/types/deliveries";
-import { getInitialFields } from "../deliveryTypesForm/consts";
 import DeliveryTypeForm from "../deliveryTypesForm/DeliveryTypeForm";
+import { getInitialFields } from "../deliveryTypesForm/consts";
 import "./styles.scss";
 
 export const EditDeliveryType = () => {
@@ -42,7 +42,7 @@ export const EditDeliveryType = () => {
         creationMode={false}
         onSubmit={handleSubmit}
         isLoading={!!update.isLoading}
-        resetButtonLabel={t("common.cancel")}
+        resetButtonLabel={t("common.reset")}
         submitButtonLabel={t("deliveryTypes.updateDeliveryType")}
         fields={getInitialFields(state)}
       />

@@ -30,7 +30,7 @@ export const NewExamType = () => {
         creationMode
         onSubmit={handleSubmit}
         isLoading={!!create.isLoading}
-        resetButtonLabel={t("common.cancel")}
+        resetButtonLabel={t("common.reset")}
         submitButtonLabel={t("examTypes.saveExamTypes")}
         fields={getInitialFields(undefined)}
       />

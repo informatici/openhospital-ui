@@ -32,7 +32,7 @@ export const NewPregnantTreatmentType = () => {
         creationMode
         onSubmit={handleSubmit}
         isLoading={!!create.isLoading}
-        resetButtonLabel={t("common.cancel")}
+        resetButtonLabel={t("common.reset")}
         submitButtonLabel={t(
           "pregnantTreatmentTypes.savePregnantTreatmentTypes"
         )}

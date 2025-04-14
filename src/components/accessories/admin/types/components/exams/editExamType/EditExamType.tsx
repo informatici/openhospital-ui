@@ -6,8 +6,8 @@ import { PATHS } from "../../../../../../../consts";
 import { ExamTypeDTO } from "../../../../../../../generated";
 import { setTypeMode } from "../../../../../../../state/types/config";
 import { updateExamType } from "../../../../../../../state/types/exams";
-import { getInitialFields } from "../examTypesForm/consts";
 import ExamTypeForm from "../examTypesForm/ExamTypeForm";
+import { getInitialFields } from "../examTypesForm/consts";
 import "./styles.scss";
 
 export const EditExamType = () => {
@@ -40,7 +40,7 @@ export const EditExamType = () => {
         creationMode={false}
         onSubmit={handleSubmit}
         isLoading={!!update.isLoading}
-        resetButtonLabel={t("common.cancel")}
+        resetButtonLabel={t("common.reset")}
         submitButtonLabel={t("examTypes.updateExamType")}
         fields={getInitialFields(state)}
       />
