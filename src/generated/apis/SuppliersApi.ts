@@ -11,9 +11,11 @@
  * Do not edit the class manually.
  */
 
-import { Observable } from 'rxjs';
-import { BaseAPI, HttpHeaders, HttpQuery, throwIfNullOrUndefined, encodeURI, OperationOpts, RawAjaxResponse } from '../runtime';
-import {
+import type { Observable } from 'rxjs';
+import type { AjaxResponse } from 'rxjs/ajax';
+import { BaseAPI, throwIfNullOrUndefined, encodeURI } from '../runtime';
+import type { OperationOpts, HttpHeaders, HttpQuery } from '../runtime';
+import type {
     SupplierDTO,
 } from '../models';
 
@@ -45,12 +47,11 @@ export class SuppliersApi extends BaseAPI {
     /**
      */
     deleteSupplier({ id }: DeleteSupplierRequest): Observable<void>
-    deleteSupplier({ id }: DeleteSupplierRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>>
-    deleteSupplier({ id }: DeleteSupplierRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>> {
+    deleteSupplier({ id }: DeleteSupplierRequest, opts?: OperationOpts): Observable<void | AjaxResponse<void>>
+    deleteSupplier({ id }: DeleteSupplierRequest, opts?: OperationOpts): Observable<void | AjaxResponse<void>> {
         throwIfNullOrUndefined(id, 'id', 'deleteSupplier');
 
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<void>({
@@ -63,11 +64,10 @@ export class SuppliersApi extends BaseAPI {
     /**
      */
     getSuppliers({ excludeDeleted }: GetSuppliersRequest): Observable<Array<SupplierDTO>>
-    getSuppliers({ excludeDeleted }: GetSuppliersRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<SupplierDTO>>>
-    getSuppliers({ excludeDeleted }: GetSuppliersRequest, opts?: OperationOpts): Observable<Array<SupplierDTO> | RawAjaxResponse<Array<SupplierDTO>>> {
+    getSuppliers({ excludeDeleted }: GetSuppliersRequest, opts?: OperationOpts): Observable<AjaxResponse<Array<SupplierDTO>>>
+    getSuppliers({ excludeDeleted }: GetSuppliersRequest, opts?: OperationOpts): Observable<Array<SupplierDTO> | AjaxResponse<Array<SupplierDTO>>> {
 
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         const query: HttpQuery = {};
@@ -85,12 +85,11 @@ export class SuppliersApi extends BaseAPI {
     /**
      */
     getSuppliers1({ id }: GetSuppliers1Request): Observable<SupplierDTO>
-    getSuppliers1({ id }: GetSuppliers1Request, opts?: OperationOpts): Observable<RawAjaxResponse<SupplierDTO>>
-    getSuppliers1({ id }: GetSuppliers1Request, opts?: OperationOpts): Observable<SupplierDTO | RawAjaxResponse<SupplierDTO>> {
+    getSuppliers1({ id }: GetSuppliers1Request, opts?: OperationOpts): Observable<AjaxResponse<SupplierDTO>>
+    getSuppliers1({ id }: GetSuppliers1Request, opts?: OperationOpts): Observable<SupplierDTO | AjaxResponse<SupplierDTO>> {
         throwIfNullOrUndefined(id, 'id', 'getSuppliers1');
 
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<SupplierDTO>({
@@ -103,13 +102,12 @@ export class SuppliersApi extends BaseAPI {
     /**
      */
     saveSupplier({ supplierDTO }: SaveSupplierRequest): Observable<SupplierDTO>
-    saveSupplier({ supplierDTO }: SaveSupplierRequest, opts?: OperationOpts): Observable<RawAjaxResponse<SupplierDTO>>
-    saveSupplier({ supplierDTO }: SaveSupplierRequest, opts?: OperationOpts): Observable<SupplierDTO | RawAjaxResponse<SupplierDTO>> {
+    saveSupplier({ supplierDTO }: SaveSupplierRequest, opts?: OperationOpts): Observable<AjaxResponse<SupplierDTO>>
+    saveSupplier({ supplierDTO }: SaveSupplierRequest, opts?: OperationOpts): Observable<SupplierDTO | AjaxResponse<SupplierDTO>> {
         throwIfNullOrUndefined(supplierDTO, 'supplierDTO', 'saveSupplier');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<SupplierDTO>({
@@ -123,13 +121,12 @@ export class SuppliersApi extends BaseAPI {
     /**
      */
     updateSupplier({ supplierDTO }: UpdateSupplierRequest): Observable<SupplierDTO>
-    updateSupplier({ supplierDTO }: UpdateSupplierRequest, opts?: OperationOpts): Observable<RawAjaxResponse<SupplierDTO>>
-    updateSupplier({ supplierDTO }: UpdateSupplierRequest, opts?: OperationOpts): Observable<SupplierDTO | RawAjaxResponse<SupplierDTO>> {
+    updateSupplier({ supplierDTO }: UpdateSupplierRequest, opts?: OperationOpts): Observable<AjaxResponse<SupplierDTO>>
+    updateSupplier({ supplierDTO }: UpdateSupplierRequest, opts?: OperationOpts): Observable<SupplierDTO | AjaxResponse<SupplierDTO>> {
         throwIfNullOrUndefined(supplierDTO, 'supplierDTO', 'updateSupplier');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<SupplierDTO>({

@@ -11,7 +11,7 @@
  * Do not edit the class manually.
  */
 
-import {
+import type {
     OperationTypeDTO,
 } from './';
 
@@ -33,6 +33,7 @@ export interface OperationDTO {
      */
     description: string;
     /**
+     * The operation type
      * @type {OperationTypeDTO}
      * @memberof OperationDTO
      */

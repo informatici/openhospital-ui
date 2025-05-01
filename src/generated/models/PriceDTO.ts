@@ -11,7 +11,7 @@
  * Do not edit the class manually.
  */
 
-import {
+import type {
     PriceListDTO,
 } from './';
 
@@ -27,6 +27,7 @@ export interface PriceDTO {
      */
     id?: number;
     /**
+     * The price list
      * @type {PriceListDTO}
      * @memberof PriceDTO
      */

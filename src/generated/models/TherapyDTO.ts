@@ -11,7 +11,7 @@
  * Do not edit the class manually.
  */
 
-import {
+import type {
     MedicalDTO,
 } from './';
 
@@ -39,6 +39,7 @@ export interface TherapyDTO {
      */
     dates?: Array<string>;
     /**
+     * The medical associated to the therapy
      * @type {MedicalDTO}
      * @memberof TherapyDTO
      */

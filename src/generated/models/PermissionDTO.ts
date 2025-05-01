@@ -12,7 +12,6 @@
  */
 
 /**
- * List of group\'s permissions
  * @export
  * @interface PermissionDTO
  */
