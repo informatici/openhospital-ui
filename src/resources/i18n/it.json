@@ -577,7 +577,7 @@
     "softDelete": "Marca come cancellato",
     "softDeleteConfirmation": "Confermi la marcatura di questo item come cancellato?",
     "cancelMessage": "Are you sure to cancel this operation ? All unsaved data will be lost.",
-    "back": "Back",
+    "back": "Indietro",
     "backToEdit": "No, continua a modificare",
     "discardMessage": "Vuoi davvero annullare questa operazione? Tutti i dati non salvati andranno persi."
   },
