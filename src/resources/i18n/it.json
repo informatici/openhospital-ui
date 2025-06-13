@@ -576,7 +576,7 @@
     "restoreConfirmation": "Confermi il ritorno al valore precedente per questo item?",
     "softDelete": "Marca come cancellato",
     "softDeleteConfirmation": "Confermi la marcatura di questo item come cancellato?",
-    "cancelMessage": "Are you sure to cancel this operation ? All unsaved data will be lost.",
+    "cancelMessage": "Sei sicuro di voler annullare questa operazione? Tutti i dati non salvati andranno persi.",
     "back": "Indietro",
     "backToEdit": "No, continua a modificare",
     "discardMessage": "Vuoi davvero annullare questa operazione? Tutti i dati non salvati andranno persi."
