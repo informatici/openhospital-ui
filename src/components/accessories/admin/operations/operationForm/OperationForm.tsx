@@ -1,20 +1,14 @@
+import DiscardButton from "components/accessories/discardButton/DiscardButton";
+import ResetButton from "components/accessories/resetButton/resetButton";
 import { useFormik } from "formik";
 import { OperationDTOOpeForEnum } from "generated/models/OperationDTO";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { get, has } from "lodash";
-import React, {
-  FC,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import React, { FC, useCallback, useEffect, useMemo, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { object, string } from "yup";
 import checkIcon from "../../../../../assets/check-icon.png";
-import warningIcon from "../../../../../assets/warning-icon.png";
 import { PATHS } from "../../../../../consts";
 import {
   formatAllFieldValues,
@@ -47,7 +41,6 @@ const OperationForm: FC<IOperationProps> = ({
   const { t } = useTranslation();
   const navigate = useNavigate();
   const infoBoxRef = useRef<HTMLDivElement>(null);
-  const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
   const operationStore = useAppSelector((state) => state.operations);
 
@@ -119,14 +112,9 @@ const OperationForm: FC<IOperationProps> = ({
       : "";
   };
 
-  const handleResetConfirmation = () => {
-    setOpenResetConfirmation(false);
-    navigate(-1);
-  };
-
   const handleCheckboxChange = useCallback(
     (fieldName: string) => (value: boolean) => {
-      setFieldValue(fieldName, value ? "0" : "1");
+      setFieldValue(fieldName, !!value ? 1 : 0);
     },
     [setFieldValue]
   );
@@ -158,6 +146,11 @@ const OperationForm: FC<IOperationProps> = ({
 
   return (
     <div className="operationForm">
+      <div className="operationForm__header">
+        <div className="operationForm__actions">
+          <DiscardButton />
+        </div>
+      </div>
       <form className="operationForm__form" onSubmit={formik.handleSubmit}>
         <div className="row start-sm center-xs">
           <div className="operationForm__item halfWidth">
@@ -235,27 +228,9 @@ const OperationForm: FC<IOperationProps> = ({
             </Button>
           </div>
           <div className="reset_button">
-            <Button
-              dataCy="cancel-form"
-              type="reset"
-              variant="text"
-              disabled={isLoading}
-              onClick={() => setOpenResetConfirmation(true)}
-            >
-              {resetButtonLabel}
-            </Button>
+            <ResetButton formik={formik as any} />
           </div>
         </div>
-        <ConfirmationDialog
-          isOpen={openResetConfirmation}
-          title={resetButtonLabel.toUpperCase()}
-          info={t("common.resetform")}
-          icon={warningIcon}
-          primaryButtonLabel={t("common.ok")}
-          secondaryButtonLabel={t("common.discard")}
-          handlePrimaryButtonClick={handleResetConfirmation}
-          handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
-        />
         {(creationMode
           ? operationStore.create.status === "FAIL"
           : operationStore.update.status === "FAIL") && (
@@ -278,7 +253,7 @@ const OperationForm: FC<IOperationProps> = ({
           }
           primaryButtonLabel="Ok"
           handlePrimaryButtonClick={() => {
-            navigate(PATHS.admin_operations);
+            navigate(PATHS.admin_operations, { replace: true });
           }}
           handleSecondaryButtonClick={() => ({})}
         />

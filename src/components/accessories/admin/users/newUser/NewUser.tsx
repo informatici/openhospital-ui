@@ -4,20 +4,22 @@ import {
   FormHelperText,
   TextField as MuiTextField,
 } from "@mui/material";
+import DiscardButton from "components/accessories/discardButton/DiscardButton";
 import { useFormik } from "formik";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-import React, { ReactNode, useCallback, useEffect, useState } from "react";
+import React, { ReactNode, useCallback, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import checkIcon from "../../../../../assets/check-icon.png";
 import warningIcon from "../../../../../assets/warning-icon.png";
-import Button from "../../../button/Button";
 import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
 import TextField from "../../../textField/TextField";
 
 import { IState } from "../../../../../types";
 
+import Button from "components/accessories/button/Button";
 import CheckboxField from "components/accessories/checkboxField/CheckboxField";
+import ResetButton from "components/accessories/resetButton/resetButton";
 import { UserDTO } from "generated/models/UserDTO";
 import { UserGroupDTO } from "generated/models/UserGroupDTO";
 import { PATHS } from "../../../../../consts";
@@ -41,13 +43,20 @@ export const NewUser = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
-
   const create = useAppSelector((state) => state.users.create);
 
   const userGroupsTypeState = useAppSelector(
     (state: IState) => state.usergroups.groupList
   );
+
+  const formik = useFormik<FormProps>({
+    initialValues,
+    validationSchema: userSchema(t),
+    onSubmit: (values: FormProps) => {
+      const { passwd2, ...cleaned } = values;
+      dispatch(createUser(cleaned));
+    },
+  });
 
   const {
     handleSubmit,
@@ -60,14 +69,7 @@ export const NewUser = () => {
     errors,
     touched,
     values,
-  } = useFormik<FormProps>({
-    initialValues,
-    validationSchema: userSchema(t),
-    onSubmit: (values: FormProps) => {
-      const { passwd2, ...cleaned } = values;
-      dispatch(createUser(cleaned));
-    },
-  });
+  } = formik;
 
   useEffect(() => {
     dispatch(getUserGroups());
@@ -80,11 +82,6 @@ export const NewUser = () => {
     };
   }, [create.hasSucceeded, dispatch, navigate]);
 
-  const handleResetConfirmation = () => {
-    setOpenResetConfirmation(false);
-    navigate(-1);
-  };
-
   const handleCheckboxChange = useCallback(
     (fieldName: string) => (value: boolean) => {
       setFieldValue(fieldName, value);
@@ -94,6 +91,11 @@ export const NewUser = () => {
 
   return (
     <div className="newUserForm">
+      <div className="newUserForm__header">
+        <div className="newUserForm__actions">
+          <DiscardButton />
+        </div>
+      </div>
       <form className="newUserForm__form" onSubmit={handleSubmit}>
         <div className="row start-sm center-xs">
           <div className="newUserForm__item fullWidth">
@@ -206,15 +208,7 @@ export const NewUser = () => {
             </Button>
           </div>
           <div className="reset_button">
-            <Button
-              dataCy="cancel-form"
-              type="reset"
-              variant="text"
-              disabled={create.isLoading}
-              onClick={() => setOpenResetConfirmation(true)}
-            >
-              {t("common.cancel")}
-            </Button>
+            <ResetButton formik={formik as any} />
           </div>
         </div>
         <ConfirmationDialog
@@ -224,19 +218,9 @@ export const NewUser = () => {
           info={t("user.createdSuccessMessage")}
           primaryButtonLabel="Ok"
           handlePrimaryButtonClick={() => {
-            navigate(PATHS.admin_users);
+            navigate(PATHS.admin_users, { replace: true });
           }}
           handleSecondaryButtonClick={() => ({})}
-        />
-        <ConfirmationDialog
-          isOpen={openResetConfirmation}
-          title={t("common.cancel")}
-          info={t("common.resetform")}
-          icon={warningIcon}
-          primaryButtonLabel={t("common.ok")}
-          secondaryButtonLabel={t("common.discard")}
-          handlePrimaryButtonClick={handleResetConfirmation}
-          handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
         />
         <ConfirmationDialog
           isOpen={create.hasFailed}
@@ -245,7 +229,7 @@ export const NewUser = () => {
           info={create.error?.message.toString()}
           primaryButtonLabel="Ok"
           handlePrimaryButtonClick={() => {
-            dispatch(createUserReset());
+            dispatch(createUserReset(), { replace: true });
           }}
           handleSecondaryButtonClick={() => ({})}
         />

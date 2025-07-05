@@ -278,6 +278,7 @@
     "newattendance": "New Attendance",
     "reattendance": "Re-attendance",
     "addoperation": "Add operation",
+    "editoperation": "Edit operation",
     "addoperationdesc": "Add operation for the visit",
     "filtervisits": "Filter Visits",
     "fromdate": "Date From",
@@ -510,6 +511,7 @@
     "feedback": "Feedback",
     "submit": "Submit",
     "reset": "Reset",
+    "yesReset": "Yes, reset",
     "search": "Search",
     "searching": "Searching",
     "patient": "Patient",
@@ -607,7 +609,11 @@
     "restore": "Restore",
     "restoreConfirmation": "Are you sure to restore this item ?",
     "softDelete": "Mark as deleted",
-    "softDeleteConfirmation": "Are you sure to mark this item as deleted ?"
+    "softDeleteConfirmation": "Are you sure to mark this item as deleted ?",
+    "cancelMessage": "Are you sure to cancel this operation ? All unsaved data will be lost.",
+    "back": "Back",
+    "backToEdit": "No, keep editing",
+    "discardMessage": "Are you sure to discard this operation ? All unsaved data will be lost."
   },
   "permission": {
     "denied": "Permission denied",

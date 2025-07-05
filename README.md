@@ -4,6 +4,7 @@
 
 This is the UI component of [Open Hospital][openhospital]: it contains a web user interface that consists of a React SPA (single page application).
 This project depends on the [API component][openhospital-api] that exposes business logic APIs implemented in the [Core component][openhospital-core].  
+This project is based on React. To learn React, check out the [React documentation](https://reactjs.org/).  
 _This project is still in early stages. For a more mature user interface of Open Hospital, check out the [GUI project][openhospital-gui]._
 
 ## App architecture
@@ -12,14 +13,13 @@ _This project is still in early stages. For a more mature user interface of Open
 <img src="./docs/app-architecture.png"  width="70%" height="70%">
 </div>
 
-## How to install
+## How to install dependencies
 
-This project is based on React. To learn React, check out the [React documentation](https://reactjs.org/).  
 To install the project dependencies, issue:
 
     npm i
 
-**It has to be done before any of the following activities**
+**It has to be done before any of the following steps**
 
 ## How to configure
 
@@ -46,11 +46,15 @@ then `npm start`
 
 then `docker-compose up database backend && npm start`
 
-## Run local development environment
+## How to build
+
+    npm run build:prod
+
+## How to run local development environment
 
     npm start
 
-## Run full stack environment locally
+## How to run full stack environment locally
 
 You can run a full OH2 stack locally using [Docker](https://www.docker.com/) (required) using this command:
 
@@ -109,13 +113,9 @@ You can run a development build of the application by issuing:
 
 ## How to run unit tests
 
-To run unit tests, issue:
-
 	npm test
 
 ## How to launch the e2e tests
-
-Run:
 
 	npm run e2e
 

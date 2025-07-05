@@ -5,8 +5,8 @@ import { Navigate, useLocation, useParams } from "react-router";
 import { PATHS } from "../../../../../consts";
 import { VaccineDTO } from "../../../../../generated";
 import { updateVaccine } from "../../../../../state/vaccines";
-import { getInitialFields } from "../vaccineForm/consts";
 import VaccineForm from "../vaccineForm/VaccineForm";
+import { getInitialFields } from "../vaccineForm/consts";
 
 export const EditVaccine = () => {
   const dispatch = useAppDispatch();
@@ -28,7 +28,7 @@ export const EditVaccine = () => {
       creationMode={false}
       onSubmit={handleSubmit}
       isLoading={!!update.isLoading}
-      resetButtonLabel={t("common.cancel")}
+      resetButtonLabel={t("common.reset")}
       submitButtonLabel={t("vaccine.updateVaccine")}
       fields={getInitialFields(state)}
     />

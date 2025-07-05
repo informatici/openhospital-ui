@@ -4,21 +4,22 @@ import {
   FormHelperText,
   TextField as MuiTextField,
 } from "@mui/material";
+import DiscardButton from "components/accessories/discardButton/DiscardButton";
 import { useFormik } from "formik";
-import React, { ReactNode, useCallback, useState } from "react";
+import React, { ReactNode, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
 import { UserDTO, UserGroupDTO } from "../../../../../generated";
 
 import checkIcon from "../../../../../assets/check-icon.png";
-import warningIcon from "../../../../../assets/warning-icon.png";
 import Button from "../../../button/Button";
 import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
 import InfoBox from "../../../infoBox/InfoBox";
 import TextField from "../../../textField/TextField";
 
 import CheckboxField from "components/accessories/checkboxField/CheckboxField";
+import ResetButton from "components/accessories/resetButton/resetButton";
 import { PATHS } from "../../../../../consts";
 import "./styles.scss";
 import { userSchema } from "./validation";
@@ -45,8 +46,6 @@ export const EditUserForm = ({
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
-
   const handleFormSubmit = (values: UserDTO & { passwd2: string }) => {
     const { passwd2, ...userDTO } = values;
     if (userDTO.passwd === undefined) {
@@ -55,6 +54,12 @@ export const EditUserForm = ({
 
     onSubmit(userDTO);
   };
+
+  const formik = useFormik<UserDTO & { passwd2: string }>({
+    initialValues: { ...initialValues, passwd: "", passwd2: "" },
+    validationSchema: userSchema(t),
+    onSubmit: handleFormSubmit,
+  });
 
   const {
     handleSubmit,
@@ -67,16 +72,7 @@ export const EditUserForm = ({
     values,
     setFieldTouched,
     setFieldValue,
-  } = useFormik<UserDTO & { passwd2: string }>({
-    initialValues: { ...initialValues, passwd: "", passwd2: "" },
-    validationSchema: userSchema(t),
-    onSubmit: handleFormSubmit,
-  });
-
-  const handleResetConfirmation = () => {
-    setOpenResetConfirmation(false);
-    navigate(-1);
-  };
+  } = formik;
 
   const handleCheckboxChange = useCallback(
     (fieldName: string) => (value: boolean) => {
@@ -87,6 +83,11 @@ export const EditUserForm = ({
 
   return (
     <div className="editUserForm">
+      <div className="editUserForm__header">
+        <div className="editUserForm__actions">
+          <DiscardButton />
+        </div>
+      </div>
       <form className="editUserForm__form" onSubmit={handleSubmit}>
         <div className="row start-sm center-xs">
           <div className="editUserForm__item fullWidth">
@@ -198,28 +199,10 @@ export const EditUserForm = ({
             </Button>
           </div>
           <div className="reset_button">
-            <Button
-              dataCy="cancel-form"
-              type="reset"
-              variant="text"
-              disabled={isLoading}
-              onClick={() => setOpenResetConfirmation(true)}
-            >
-              {t("common.cancel")}
-            </Button>
+            <ResetButton formik={formik as any} />
           </div>
         </div>
       </form>
-      <ConfirmationDialog
-        isOpen={openResetConfirmation}
-        title={t("common.cancel")}
-        info={t("common.resetform")}
-        icon={warningIcon}
-        primaryButtonLabel={t("common.ok")}
-        secondaryButtonLabel={t("common.discard")}
-        handlePrimaryButtonClick={handleResetConfirmation}
-        handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
-      />
       <ConfirmationDialog
         isOpen={hasSucceeded}
         title={t("user.updatedSuccessTitle")}

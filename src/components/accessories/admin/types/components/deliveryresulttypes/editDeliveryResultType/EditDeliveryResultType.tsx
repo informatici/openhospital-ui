@@ -15,7 +15,7 @@ export const EditDeliveryResultType = () => {
   const { t } = useTranslation();
   const { state }: { state: DeliveryResultTypeDTO | undefined } = useLocation();
   const { code } = useParams();
-  
+
   const update = useAppSelector((state) => state.types.deliveryResult.update);
   const mode = useAppSelector((state) => state.types.config.mode);
 
@@ -42,7 +42,7 @@ export const EditDeliveryResultType = () => {
         creationMode={false}
         onSubmit={handleSubmit}
         isLoading={!!update.isLoading}
-        resetButtonLabel={t("common.cancel")}
+        resetButtonLabel={t("common.reset")}
         submitButtonLabel={t("deliveryResultType.updateDeliveryResultType")}
         fields={getInitialFields(state)}
       />

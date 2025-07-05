@@ -36,7 +36,7 @@ export const EditHospital = () => {
     <HospitalForm
       onSubmit={handleSubmit}
       isLoading={!!update.isLoading}
-      resetButtonLabel={t("common.cancel")}
+      resetButtonLabel={t("common.reset")}
       submitButtonLabel={t("hospital.updateHospital")}
       fields={getInitialFields(hospital)}
     />

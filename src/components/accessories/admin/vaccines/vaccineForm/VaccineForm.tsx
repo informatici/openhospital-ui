@@ -1,19 +1,13 @@
+import DiscardButton from "components/accessories/discardButton/DiscardButton";
+import ResetButton from "components/accessories/resetButton/resetButton";
 import { useFormik } from "formik";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { get, has } from "lodash";
-import React, {
-  FC,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import React, { FC, useCallback, useEffect, useMemo, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { object, string } from "yup";
 import checkIcon from "../../../../../assets/check-icon.png";
-import warningIcon from "../../../../../assets/warning-icon.png";
 import { PATHS } from "../../../../../consts";
 import {
   formatAllFieldValues,
@@ -45,7 +39,6 @@ const VaccineForm: FC<IVaccineFormProps> = ({
   const { t } = useTranslation();
   const navigate = useNavigate();
   const infoBoxRef = useRef<HTMLDivElement>(null);
-  const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
   const vaccineStore = useAppSelector((state) => state.vaccines);
 
@@ -108,11 +101,6 @@ const VaccineForm: FC<IVaccineFormProps> = ({
       : "";
   };
 
-  const handleResetConfirmation = () => {
-    setOpenResetConfirmation(false);
-    navigate(-1);
-  };
-
   const onBlurCallback = useCallback(
     (fieldName: string) =>
       (e: React.FocusEvent<HTMLDivElement>, value: string) => {
@@ -140,6 +128,11 @@ const VaccineForm: FC<IVaccineFormProps> = ({
 
   return (
     <div className="vaccineForm">
+      <div className="vaccineForm__header">
+        <div className="vaccineForm__actions">
+          <DiscardButton />
+        </div>
+      </div>
       <form className="vaccineForm__form" onSubmit={formik.handleSubmit}>
         <div className="row start-sm center-xs">
           <div className="vaccineForm__item">
@@ -193,31 +186,9 @@ const VaccineForm: FC<IVaccineFormProps> = ({
             </Button>
           </div>
           <div className="reset_button">
-            <Button
-              type="reset"
-              variant="text"
-              dataCy="cancel-form"
-              disabled={isLoading}
-              onClick={() => setOpenResetConfirmation(true)}
-            >
-              {resetButtonLabel}
-            </Button>
+            <ResetButton formik={formik as any} title={resetButtonLabel} />
           </div>
         </div>
-        <ConfirmationDialog
-          isOpen={openResetConfirmation}
-          title={resetButtonLabel.toUpperCase()}
-          info={
-            creationMode
-              ? t("vaccine.cancelCreation")
-              : t("vaccine.cancelUpdate")
-          }
-          icon={warningIcon}
-          primaryButtonLabel={t("common.ok")}
-          secondaryButtonLabel={t("common.discard")}
-          handlePrimaryButtonClick={handleResetConfirmation}
-          handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
-        />
         {(creationMode
           ? vaccineStore.create.status === "FAIL"
           : vaccineStore.update.status === "FAIL") && (
@@ -240,7 +211,7 @@ const VaccineForm: FC<IVaccineFormProps> = ({
           }
           primaryButtonLabel="Ok"
           handlePrimaryButtonClick={() => {
-            navigate(PATHS.admin_vaccines);
+            navigate(PATHS.admin_vaccines, { replace: true });
           }}
           handleSecondaryButtonClick={() => ({})}
         />

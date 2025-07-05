@@ -116,6 +116,7 @@ const PatientTriage: FC = () => {
     triage.patientCode = patientDataCode ?? -1;
     if (triageToEdit.pex_ID) triage.pex_ID = triageToEdit.pex_ID;
     if (!creationMode && triageToEdit.pex_ID) {
+      triage.lock = triageToEdit.lock;
       dispatch(
         updateExamination({
           id: triageToEdit.pex_ID,
@@ -145,8 +146,7 @@ const PatientTriage: FC = () => {
     }
   };
 
-  const onEdit = (row: any) => {
-    row.pex_date = row.date;
+  const onEdit = (row: PatientExaminationDTO) => {
     setTriageToEdit(row);
     setCreationMode(false);
     scrollToElement(null);

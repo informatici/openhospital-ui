@@ -118,6 +118,33 @@
     }
   }
 
+  .examForm__header {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 25px;
+    .examForm__actions {
+      @include susy-media($smartphone_small) {
+        display: block;
+      }
+      & {
+        .MuiButton-label {
+          font-size: smaller;
+          letter-spacing: 1px;
+          font-weight: 600;
+        }
+        button {
+          @include susy-media($smartphone_small) {
+            width: 100%;
+            margin-top: 0px;
+          }
+        }
+      }
+    }
+  }
+
   .examForm__buttonSet {
     display: flex;
     margin-top: 25px;

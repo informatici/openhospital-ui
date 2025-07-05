@@ -3,8 +3,8 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { DiseaseDTO } from "../../../../../generated";
 import { createDisease } from "../../../../../state/diseases";
-import { getInitialFields } from "../diseaseForm/consts";
 import DiseaseForm from "../diseaseForm/DiseaseForm";
+import { getInitialFields } from "../diseaseForm/consts";
 
 export const NewDisease = () => {
   const dispatch = useAppDispatch();
@@ -20,7 +20,7 @@ export const NewDisease = () => {
       creationMode
       onSubmit={handleSubmit}
       isLoading={!!create.isLoading}
-      resetButtonLabel={t("common.cancel")}
+      resetButtonLabel={t("common.reset")}
       submitButtonLabel={t("disease.saveDisease")}
       fields={getInitialFields(undefined)}
     />

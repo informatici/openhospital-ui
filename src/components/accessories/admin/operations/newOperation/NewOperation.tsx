@@ -3,8 +3,8 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { OperationDTO } from "../../../../../generated";
 import { createOperation } from "../../../../../state/operations";
-import { getInitialFields } from "../operationForm/consts";
 import OperationForm from "../operationForm/OperationForm";
+import { getInitialFields } from "../operationForm/consts";
 
 export const NewOperation = () => {
   const dispatch = useAppDispatch();
@@ -20,7 +20,7 @@ export const NewOperation = () => {
       creationMode
       onSubmit={handleSubmit}
       isLoading={!!create.isLoading}
-      resetButtonLabel={t("common.cancel")}
+      resetButtonLabel={t("common.reset")}
       submitButtonLabel={t("operation.saveOperation")}
       fields={getInitialFields(undefined)}
     />

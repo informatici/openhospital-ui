@@ -1,19 +1,13 @@
+import DiscardButton from "components/accessories/discardButton/DiscardButton";
+import ResetButton from "components/accessories/resetButton/resetButton";
 import { useFormik } from "formik";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { get, has } from "lodash";
-import React, {
-  FC,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import React, { FC, useCallback, useEffect, useMemo, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { object, string } from "yup";
 import checkIcon from "../../../../../../../assets/check-icon.png";
-import warningIcon from "../../../../../../../assets/warning-icon.png";
 import { PATHS } from "../../../../../../../consts";
 import {
   formatAllFieldValues,
@@ -42,7 +36,6 @@ const PregnantTreatmentTypeForm: FC<IPregnantTreatmentTypeFormProps> = ({
   const { t } = useTranslation();
   const navigate = useNavigate();
   const infoBoxRef = useRef<HTMLDivElement>(null);
-  const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
   const pregnantTreatmentTypeStore = useAppSelector(
     (state) => state.types.pregnantTreatment
@@ -89,11 +82,6 @@ const PregnantTreatmentTypeForm: FC<IPregnantTreatmentTypeFormProps> = ({
       : "";
   };
 
-  const handleResetConfirmation = () => {
-    setOpenResetConfirmation(false);
-    navigate(-1);
-  };
-
   const cleanUp = useCallback(() => {
     if (creationMode) {
       dispatch(createPregnantTreatmentTypeReset());
@@ -108,6 +96,11 @@ const PregnantTreatmentTypeForm: FC<IPregnantTreatmentTypeFormProps> = ({
 
   return (
     <div className="pregnantTreatmentTypesForm">
+      <div className="form__header">
+        <div className="form__actions">
+          <DiscardButton />
+        </div>
+      </div>
       <form
         className="pregnantTreatmentTypesForm__form"
         onSubmit={formik.handleSubmit}
@@ -151,31 +144,9 @@ const PregnantTreatmentTypeForm: FC<IPregnantTreatmentTypeFormProps> = ({
             </Button>
           </div>
           <div className="reset_button">
-            <Button
-              type="reset"
-              variant="text"
-              dataCy="cancel-form"
-              disabled={isLoading}
-              onClick={() => setOpenResetConfirmation(true)}
-            >
-              {resetButtonLabel}
-            </Button>
+            <ResetButton formik={formik as any} title={resetButtonLabel} />
           </div>
         </div>
-        <ConfirmationDialog
-          isOpen={openResetConfirmation}
-          title={resetButtonLabel.toUpperCase()}
-          info={
-            creationMode
-              ? t("pregnantTreatmentTypes.cancelCreation")
-              : t("pregnantTreatmentTypes.cancelUpdate")
-          }
-          icon={warningIcon}
-          primaryButtonLabel={t("common.ok")}
-          secondaryButtonLabel={t("common.discard")}
-          handlePrimaryButtonClick={handleResetConfirmation}
-          handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
-        />
         {(creationMode
           ? pregnantTreatmentTypeStore.create.status === "FAIL"
           : pregnantTreatmentTypeStore.update.status === "FAIL") && (
@@ -204,7 +175,7 @@ const PregnantTreatmentTypeForm: FC<IPregnantTreatmentTypeFormProps> = ({
           }
           primaryButtonLabel="Ok"
           handlePrimaryButtonClick={() => {
-            navigate(PATHS.admin_pregnant_treatment_types);
+            navigate(PATHS.admin_pregnant_treatment_types, { replace: true });
           }}
           handleSecondaryButtonClick={() => ({})}
         />

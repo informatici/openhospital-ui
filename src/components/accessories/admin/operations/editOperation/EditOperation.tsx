@@ -5,8 +5,8 @@ import { Navigate, useLocation, useParams } from "react-router";
 import { PATHS } from "../../../../../consts";
 import { OperationDTO } from "../../../../../generated";
 import { updateOperation } from "../../../../../state/operations";
-import { getInitialFields } from "../operationForm/consts";
 import OperationForm from "../operationForm/OperationForm";
+import { getInitialFields } from "../operationForm/consts";
 
 export const EditOperation = () => {
   const dispatch = useAppDispatch();
@@ -33,7 +33,7 @@ export const EditOperation = () => {
       creationMode={false}
       onSubmit={handleSubmit}
       isLoading={!!update.isLoading}
-      resetButtonLabel={t("common.cancel")}
+      resetButtonLabel={t("common.reset")}
       submitButtonLabel={t("operation.updateOperation")}
       fields={getInitialFields(state)}
     />

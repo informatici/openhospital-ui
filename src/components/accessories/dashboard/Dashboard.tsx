@@ -1,3 +1,4 @@
+import { createSelector } from "@reduxjs/toolkit";
 import { Chart, registerables } from "chart.js";
 import { useAppSelector } from "libraries/hooks/redux";
 import React from "react";
@@ -10,12 +11,15 @@ import "./styles.scss";
 
 Chart.register(...registerables);
 
+const appSelector = createSelector(
+  (state) => state.main.authentication.data,
+  (userCredentials) => ({ userCredentials })
+);
+
 const Dashboard = () => {
   const { t } = useTranslation();
 
-  const { userCredentials } = useAppSelector((state) => ({
-    userCredentials: state.main.authentication.data,
-  }));
+  const { userCredentials } = useAppSelector(appSelector);
 
   const breadcrumbMap = {
     [t("nav.dashboard")]: "",

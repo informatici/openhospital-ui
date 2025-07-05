@@ -42,7 +42,7 @@ export const EditOperationType = () => {
         creationMode={false}
         onSubmit={handleSubmit}
         isLoading={!!update.isLoading}
-        resetButtonLabel={t("common.cancel")}
+        resetButtonLabel={t("common.reset")}
         submitButtonLabel={t("operationTypes.updateOperationType")}
         fields={getInitialFields(state)}
       />

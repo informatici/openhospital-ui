@@ -6,8 +6,8 @@ import { PATHS } from "../../../../../../../consts";
 import { DiseaseTypeDTO } from "../../../../../../../generated";
 import { setTypeMode } from "../../../../../../../state/types/config";
 import { updateDiseaseType } from "../../../../../../../state/types/diseases";
-import { getInitialFields } from "../diseaseTypesForm/consts";
 import DiseaseTypeForm from "../diseaseTypesForm/DiseaseTypeForm";
+import { getInitialFields } from "../diseaseTypesForm/consts";
 import "./styles.scss";
 
 export const EditDiseaseType = () => {
@@ -41,7 +41,7 @@ export const EditDiseaseType = () => {
         creationMode={false}
         onSubmit={handleSubmit}
         isLoading={!!update.isLoading}
-        resetButtonLabel={t("common.cancel")}
+        resetButtonLabel={t("common.reset")}
         submitButtonLabel={t("diseaseTypes.updateDiseaseType")}
         fields={getInitialFields(state)}
       />
