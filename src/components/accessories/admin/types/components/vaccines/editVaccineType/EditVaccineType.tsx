@@ -6,8 +6,8 @@ import { PATHS } from "../../../../../../../consts";
 import { VaccineTypeDTO } from "../../../../../../../generated";
 import { setTypeMode } from "../../../../../../../state/types/config";
 import { updateVaccineType } from "../../../../../../../state/types/vaccines";
-import { getInitialFields } from "../vaccineTypesForm/consts";
 import VaccineTypeForm from "../vaccineTypesForm/VaccineTypeForm";
+import { getInitialFields } from "../vaccineTypesForm/consts";
 import "./styles.scss";
 
 export const EditVaccineType = () => {
@@ -42,7 +42,7 @@ export const EditVaccineType = () => {
         creationMode={false}
         onSubmit={handleSubmit}
         isLoading={!!update.isLoading}
-        resetButtonLabel={t("common.cancel")}
+        resetButtonLabel={t("common.reset")}
         submitButtonLabel={t("vaccineTypes.updateVaccineType")}
         fields={getInitialFields(state)}
       />

@@ -245,6 +245,7 @@
     "newattendance": "Prima visita",
     "reattendance": "Visita di controllo",
     "addoperation": "Aggiungi intervento",
+    "editoperation": "Edit operation",
     "addoperationdesc": "Aggiungi intervento per la visita",
     "filtervisits": "Seleziona visita",
     "fromdate": "Data inizio (gg/mm/aaaa)",
@@ -476,6 +477,7 @@
     "feedback": "Feedback",
     "submit": "Invia",
     "reset": "Resetta",
+    "yesReset": "Yes, reset",
     "search": "Cerca",
     "searching": "Ricerca...",
     "patient": "Paziente",
@@ -573,7 +575,11 @@
     "restore": "Ritorna al valore precedente",
     "restoreConfirmation": "Confermi il ritorno al valore precedente per questo item?",
     "softDelete": "Marca come cancellato",
-    "softDeleteConfirmation": "Confermi la marcatura di questo item come cancellato?"
+    "softDeleteConfirmation": "Confermi la marcatura di questo item come cancellato?",
+    "cancelMessage": "Are you sure to cancel this operation ? All unsaved data will be lost.",
+    "back": "Back",
+    "backToEdit": "No, keep editing",
+    "discardMessage": "Are you sure to discard this operation ? All unsaved data will be lost."
   },
   "permission": {
     "denied": "Autorizzazione negata",

@@ -35,7 +35,7 @@ describe("Edit Hospital Activity specs", () => {
     cy.dataCy("edit-hospital").first().click();
     cy.dataCy("cancel-form").click();
     cy.dataCy("dialog-info").contains("lost");
-    cy.dataCy("close-dialog").click().click();
+    cy.dataCy("close-dialog").click();
     cy.dataCy("dialog-info").should("not.be.visible");
   });
 

@@ -1,19 +1,13 @@
+import DiscardButton from "components/accessories/discardButton/DiscardButton";
+import ResetButton from "components/accessories/resetButton/resetButton";
 import { useFormik } from "formik";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { get, has } from "lodash";
-import React, {
-  FC,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import React, { FC, useCallback, useEffect, useMemo, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { object, string } from "yup";
 import checkIcon from "../../../../../../../assets/check-icon.png";
-import warningIcon from "../../../../../../../assets/warning-icon.png";
 import { PATHS } from "../../../../../../../consts";
 import {
   formatAllFieldValues,
@@ -42,7 +36,6 @@ const DeliveryTypeForm: FC<IDeliveryTypeFormProps> = ({
   const { t } = useTranslation();
   const navigate = useNavigate();
   const infoBoxRef = useRef<HTMLDivElement>(null);
-  const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
   const deliveryTypesStore = useAppSelector((state) => state.types.deliveries);
 
@@ -87,11 +80,6 @@ const DeliveryTypeForm: FC<IDeliveryTypeFormProps> = ({
       : "";
   };
 
-  const handleResetConfirmation = () => {
-    setOpenResetConfirmation(false);
-    navigate(-1);
-  };
-
   const cleanUp = useCallback(() => {
     if (creationMode) {
       dispatch(createDeliveryTypeReset());
@@ -106,6 +94,11 @@ const DeliveryTypeForm: FC<IDeliveryTypeFormProps> = ({
 
   return (
     <div className="deliveryTypesForm">
+      <div className="form__header">
+        <div className="form__actions">
+          <DiscardButton />
+        </div>
+      </div>
       <form className="deliveryTypesForm__form" onSubmit={formik.handleSubmit}>
         <div className="row start-sm center-xs">
           <div className="deliveryTypesForm__item halfWidth">
@@ -146,31 +139,9 @@ const DeliveryTypeForm: FC<IDeliveryTypeFormProps> = ({
             </Button>
           </div>
           <div className="reset_button">
-            <Button
-              type="reset"
-              variant="text"
-              disabled={isLoading}
-              onClick={() => setOpenResetConfirmation(true)}
-              dataCy="cancel-form"
-            >
-              {resetButtonLabel}
-            </Button>
+            <ResetButton formik={formik as any} title={resetButtonLabel} />
           </div>
         </div>
-        <ConfirmationDialog
-          isOpen={openResetConfirmation}
-          title={resetButtonLabel.toUpperCase()}
-          info={
-            creationMode
-              ? t("deliveryTypes.cancelCreation")
-              : t("deliveryTypes.cancelUpdate")
-          }
-          icon={warningIcon}
-          primaryButtonLabel={t("common.ok")}
-          secondaryButtonLabel={t("common.discard")}
-          handlePrimaryButtonClick={handleResetConfirmation}
-          handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
-        />
         {(creationMode
           ? deliveryTypesStore.create.status === "FAIL"
           : deliveryTypesStore.update.status === "FAIL") && (
@@ -197,7 +168,7 @@ const DeliveryTypeForm: FC<IDeliveryTypeFormProps> = ({
           }
           primaryButtonLabel="Ok"
           handlePrimaryButtonClick={() => {
-            navigate(PATHS.admin_deliveries_types);
+            navigate(PATHS.admin_deliveries_types, { replace: true });
           }}
           handleSecondaryButtonClick={() => ({})}
         />

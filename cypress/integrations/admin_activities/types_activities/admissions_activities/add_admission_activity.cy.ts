@@ -36,9 +36,7 @@ describe("Add admission type Activity specs", () => {
   it("should cancel the cancellation of the admission type creation", () => {
     cy.dataCy("add-admission-type").click();
     cy.dataCy("cancel-form").click();
-    cy.dataCy("dialog-info").contains(
-      "Are you sure to cancel the admission type creation?"
-    );
+    cy.dataCy("dialog-info").contains("lost");
     cy.dataCy("close-dialog").click();
     cy.dataCy("dialog-info").should("not.exist");
   });

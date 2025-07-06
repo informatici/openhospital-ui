@@ -6,8 +6,8 @@ import { PATHS } from "../../../../../../../consts";
 import { MedicalTypeDTO } from "../../../../../../../generated";
 import { setTypeMode } from "../../../../../../../state/types/config";
 import { updateMedicalType } from "../../../../../../../state/types/medicals";
-import { getInitialFields } from "../medicalTypesForm/consts";
 import MedicalTypeForm from "../medicalTypesForm/MedicalTypeForm";
+import { getInitialFields } from "../medicalTypesForm/consts";
 import "./styles.scss";
 
 export const EditMedicalType = () => {
@@ -42,7 +42,7 @@ export const EditMedicalType = () => {
         creationMode={false}
         onSubmit={handleSubmit}
         isLoading={!!update.isLoading}
-        resetButtonLabel={t("common.cancel")}
+        resetButtonLabel={t("common.reset")}
         submitButtonLabel={t("medicalTypes.updateMedicalType")}
         fields={getInitialFields(state)}
       />

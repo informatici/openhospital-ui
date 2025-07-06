@@ -3,8 +3,8 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { WardDTO } from "../../../../../generated";
 import { createWard } from "../../../../../state/ward";
-import { getInitialFields } from "../wardForm/consts";
 import WardForm from "../wardForm/WardForm";
+import { getInitialFields } from "../wardForm/consts";
 
 export const NewWard = () => {
   const dispatch = useAppDispatch();
@@ -20,7 +20,7 @@ export const NewWard = () => {
       creationMode
       onSubmit={handleSubmit}
       isLoading={!!create.isLoading}
-      resetButtonLabel={t("common.cancel")}
+      resetButtonLabel={t("common.reset")}
       submitButtonLabel={t("ward.saveWard")}
       fields={getInitialFields(undefined)}
     />

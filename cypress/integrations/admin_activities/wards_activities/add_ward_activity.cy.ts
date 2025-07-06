@@ -39,9 +39,7 @@ describe("Add Ward Activity specs", () => {
   it("should cancel the cancellation of the ward creation", () => {
     cy.dataCy("add-new-ward").click();
     cy.dataCy("cancel-form").click();
-    cy.dataCy("dialog-info").contains(
-      "Are you sure to Reset the Form? All the unsaved data will be lost."
-    );
+    cy.dataCy("dialog-info").contains("lost");
     cy.dataCy("close-dialog").click();
     cy.dataCy("dialog-info").should("not.be.visible");
   });

@@ -28,7 +28,7 @@ export const NewOperationType = () => {
         creationMode
         onSubmit={handleSubmit}
         isLoading={!!create.isLoading}
-        resetButtonLabel={t("common.cancel")}
+        resetButtonLabel={t("common.reset")}
         submitButtonLabel={t("operationTypes.saveOperationTypes")}
         fields={getInitialFields(undefined)}
       />
