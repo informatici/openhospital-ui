@@ -3823,11 +3823,11 @@ paths:
       operationId: printExaminationListPdf
       parameters:
         - name: examinationId
-          in: query
+          in: path
           required: true
           schema:
             type: number
-      responses: 
+      responses:
         "200":
           description: OK
           content:
