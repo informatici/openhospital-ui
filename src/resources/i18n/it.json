@@ -269,7 +269,7 @@
     "disease": "Patologia",
     "patientcode": "ID Paziente",
     "age": "Età",
-    "status": "Stato civile",
+    "status": "Stato",
     "nextvisitdate": "Data prossima visita",
     "validatetodate": "Deve essere maggiore della data inizio",
     "validatefromdate": "Deve essere maggiore della data fine",
