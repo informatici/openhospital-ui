@@ -521,6 +521,8 @@
     "discard": "Discard",
     "dismiss": "Dismiss",
     "savetriage": "Save triage",
+    "saveandprint": "Save And Print",
+    "updateandprint": "Update And Print",
     "404notfound": "404 - Page Not Found",
     "gobackdashboard": "Go back to the dashboard",
     "keepediting": "Keep editing",

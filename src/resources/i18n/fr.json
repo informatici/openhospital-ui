@@ -487,6 +487,8 @@
     "discard": "Annuler",
     "dismiss": "Rejeter",
     "savetriage": "Enregistrer exam spécifique",
+    "saveandprint": "Enregistrer et imprimer",
+    "updateandprint": "Mettre à jour et imprimer",
     "404notfound": "404 - Page introuvable",
     "gobackdashboard": "Retour au Tableau de bord",
     "keepediting": "Continuer à éditer",

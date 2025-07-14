@@ -3791,7 +3791,7 @@ paths:
         "200":
           description: OK
           content:
-            application/json:
+            application/octet-stream:
               schema:
                 type: array
                 items:
@@ -3808,7 +3808,30 @@ paths:
         "200":
           description: OK
           content:
-            application/json:
+            application/octet-stream:
+              schema:
+                type: array
+                items:
+                  type: string
+                  format: byte
+      security:
+        - bearerAuth: []
+  /reports/patientexamination:
+    get:
+      tags:
+        - Reports
+      operationId: printExaminationListPdf
+      parameters:
+        - name: examinationId
+          in: path
+          required: true
+          schema:
+            type: number
+      responses:
+        "200":
+          description: OK
+          content:
+            application/octect-stream:
               schema:
                 type: array
                 items:
