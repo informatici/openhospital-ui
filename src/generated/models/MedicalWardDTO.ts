@@ -37,4 +37,10 @@ export interface MedicalWardDTO {
      * @memberof MedicalWardDTO
      */
     out_quantity?: number;
+    /**
+     * Lock
+     * @type {number}
+     * @memberof MedicalWardDTO
+     */
+    lock?: number;
 }

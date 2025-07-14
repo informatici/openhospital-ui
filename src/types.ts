@@ -230,4 +230,5 @@ export type TPermission =
   | "laboratories.access"
   | "patients.access"
   | "opds.access"
-  | "admin.access";
+  | "admin.access"
+  | "radiology.read";

@@ -1,4 +1,36 @@
 {
+  "radiology": {
+    "studies": {
+      "summary": "{count, plural, =0 {There are <0>not</0> studies for this patient} =1 {There is <0>1</0> study for this patient} other {There are <0>#</0> studies for this patient}}",
+      "last": "Latest study: {value}",
+      "date": "Date",
+      "title": "Title",
+      "series": "Series",
+      "viewSeries": "View series",
+      "institution": "Institution Name",
+      "referrencingPhysician": "Referrencing Physician",
+      "time": "Study Time",
+      "lastUpdate": "Last Update"
+    },
+    "series": {
+      "title": "Title",
+      "instances": "Instances",
+      "expectedInstances": "Expected Instances",
+      "viewSeries": "View series",
+      "operators": "Operators Name",
+      "station": "Station Name",
+      "status": "Status",
+      "lastUpdate": "Last Update",
+      "backToStudies": "Back to studies",
+      "viewInOrthanc": "View in ORTHANC Explorer"
+    },
+    "instances": {
+      "date": "Creation Date",
+      "title": "Instance {number}",
+      "time": "Creation Time",
+      "preview": "Instance Preview"
+    }
+  },
   "errors": {
     "somethingwrong": "Something went wrong, please retry later.",
     "incorrectcredentials": "Invalid username or password",
@@ -219,7 +251,8 @@
     "created": "Patient created",
     "updatesuccessful": "The patient was edit successfully.",
     "createother": "Add Another Patient",
-    "status": "Status"
+    "status": "Status",
+    "radiology": "Radiology"
   },
   "opd": {
     "newopd": "Create new OPD Visit",
@@ -416,7 +449,8 @@
     "users": "Users & Groups",
     "types": "Manage Types",
     "hospitalInfo": "Hospital Info",
-    "hospital": "Hospital"
+    "hospital": "Hospital",
+    "radiology": "Radiology"
   },
   "operation": {
     "newoperation": "New Operation",

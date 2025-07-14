@@ -63,6 +63,10 @@ export interface IProps {
   labels?: Partial<
     Record<TActions, { title?: string; message?: string; tooltip?: string }>
   >;
+  renderCustomActions?: (row: any) => ReactNode;
+  hideHeader?: boolean;
+  hidePaginator?: boolean;
+  customRenderDetails?: (row: any) => ReactNode;
 }
 
 export interface IRowProps {
@@ -80,6 +84,7 @@ export interface IRowProps {
   expanded?: boolean;
   dateFields: Array<string>;
   detailsExcludedFields?: string[];
+  customRenderDetails?: (row: any) => ReactNode;
 }
 
 export type TActions =

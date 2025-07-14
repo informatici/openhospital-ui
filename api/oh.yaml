@@ -3816,6 +3816,92 @@ paths:
                   format: byte
       security:
         - bearerAuth: []
+  /radiology/studies/{id}/series:
+    get:
+      tags:
+        - Radiology
+      operationId: getStudySeriesById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/SeriesResponse"
+      security:
+        - bearerAuth: []
+  /radiology/series/{id}/instances:
+    get:
+      tags:
+        - Radiology
+      operationId: getSeriesInstancesById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/InstanceResponse"
+      security:
+        - bearerAuth: []
+  /radiology/patients/{id}/studies:
+    get:
+      tags:
+        - Radiology
+      operationId: getPatientStudiesById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/StudyResponse"
+      security:
+        - bearerAuth: []
+  /radiology/instances/{id}/preview:
+    get:
+      tags:
+        - Radiology
+      operationId: getInstancePreview
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InstancePreviewDTO"
+      security:
+        - bearerAuth: []
   /pricelists/prices:
     get:
       tags:
@@ -6235,11 +6321,11 @@ components:
           description: lock
           format: int32
           example: 0
+        opd:
+          type: boolean
         female:
           type: boolean
         male:
-          type: boolean
-        opd:
           type: boolean
         pharmacy:
           type: boolean
@@ -8194,6 +8280,157 @@ components:
           type: string
           description: Password of user
           example: admin
+    Series:
+      type: object
+      properties:
+        bodyPartExamined:
+          type: string
+        imageOrientationPatient:
+          type: string
+        manufacturer:
+          type: string
+        modality:
+          type: string
+        operatorsName:
+          type: string
+        protocolName:
+          type: string
+        seriesDescription:
+          type: string
+        instanceUID:
+          type: string
+        number:
+          type: string
+        stationName:
+          type: string
+    SeriesResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        objectType:
+          type: string
+        labels:
+          type: array
+          items:
+            type: string
+        lastUpdate:
+          type: string
+        series:
+          $ref: "#/components/schemas/Series"
+        parentStudyId:
+          type: string
+        instancesIds:
+          type: array
+          items:
+            type: string
+        expectedNumberOfInstances:
+          type: string
+        status:
+          type: string
+        stable:
+          type: boolean
+    Instance:
+      type: object
+      properties:
+        acquisitionNumber:
+          type: string
+        imageOrientationPatient:
+          type: string
+        imagePositionPatient:
+          type: string
+        creationDate:
+          type: string
+        creationTime:
+          type: string
+        instanceNumber:
+          type: string
+        instanceUID:
+          type: string
+    InstanceResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        fileSize:
+          type: integer
+          format: int32
+        fileUuid:
+          type: string
+        indexInSeries:
+          type: integer
+          format: int32
+        labels:
+          type: array
+          items:
+            type: string
+        instance:
+          $ref: "#/components/schemas/Instance"
+        parentSeriesId:
+          type: string
+        objectType:
+          type: string
+    Patient:
+      type: object
+      properties:
+        birthDate:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        sex:
+          type: string
+    Study:
+      type: object
+      properties:
+        accessionNumber:
+          type: string
+        institutionName:
+          type: string
+        referringPhysicianName:
+          type: string
+        date:
+          type: string
+        time:
+          type: string
+        description:
+          type: string
+        id:
+          type: string
+        instanceUID:
+          type: string
+    StudyResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        objectType:
+          type: string
+        labels:
+          type: array
+          items:
+            type: string
+        lastUpdate:
+          type: string
+        study:
+          $ref: "#/components/schemas/Study"
+        parentPatientId:
+          type: string
+        patient:
+          $ref: "#/components/schemas/Patient"
+        seriesIds:
+          type: array
+          items:
+            type: string
+        stable:
+          type: boolean
+    InstancePreviewDTO:
+      type: object
+      properties:
+        data:
+          type: string
+          description: Base64 representation of the instance preview
     PriceDTO:
       required:
         - description
@@ -8292,6 +8529,11 @@ components:
           description: The out-quantity
           format: float
           example: 89
+        lock:
+          type: integer
+          description: Lock
+          format: int32
+          example: 0
     MedicalWardIdDTO:
       required:
         - medical
