@@ -693,7 +693,7 @@
     "patientrequestedexam": "Examens demandés pour le patient",
     "statusmustbedone": "Le statut de l'examen doit être «TERMINÉ» si les résultats sont fournis",
     "changestatus": "Changer le statut de l'examen",
-    "changelabstatusto": "Le statut de l'examen {{code}} sera modifié en {{status}}",
+    "changelabstatusto": "Le statut de l'examen {code} sera modifié en {status}",
     "statuses": {
       "draft": "BROUILLON",
       "all": "TOUS",
