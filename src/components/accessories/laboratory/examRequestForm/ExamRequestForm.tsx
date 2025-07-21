@@ -58,11 +58,7 @@ const ExamRequestForm: FC<ExamRequestProps> = ({
       return exams.map((item) => {
         return {
           value: item.code ?? "",
-          label:
-            (item.description &&
-              item.description?.length > 30 &&
-              item.description.slice(0, 30) + "...") ||
-            (item.description ?? ""),
+          label: item.description ?? "",
         };
       });
     } else return [];
@@ -187,10 +183,7 @@ const ExamRequestForm: FC<ExamRequestProps> = ({
       <div className="patientExamRequestForm">
         <h5 className="">{t("lab.examrequest")}</h5>
 
-        <form
-          className="patientExamRequestForm__form"
-          onSubmit={formik.handleSubmit}
-        >
+        <form className="patientExamRequestForm" onSubmit={formik.handleSubmit}>
           <div className="row start-sm center-xs">
             {!patient && (
               <div className="patientExamRequestForm__item col-5">
