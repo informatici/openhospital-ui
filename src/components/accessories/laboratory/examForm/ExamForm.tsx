@@ -171,11 +171,7 @@ const ExamForm: FC<ExamProps> = ({
     return (state.exams.examList.data ?? []).map((item) => {
       return {
         value: item.code ?? "",
-        label:
-          (item.description &&
-            item.description?.length > 30 &&
-            item.description.slice(0, 30) + "...") ||
-          (item.description ?? ""),
+        label: item.description ?? "",
       };
     });
   });
