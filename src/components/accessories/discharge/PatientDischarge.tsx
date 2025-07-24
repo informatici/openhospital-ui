@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { getPatient } from "state/patients";
 import checkIcon from "../../../assets/check-icon.png";
 import { AdmissionDTO } from "../../../generated";
-import { parseDate } from "../../../libraries/formDataHandling/functions";
+import { parseDateTime } from "../../../libraries/formDataHandling/functions";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import {
   dischargePatient,
@@ -58,7 +58,7 @@ const PatientDischarge: FC = () => {
     if (currentAdmission) {
       const dischargeToSave: AdmissionDTO = {
         ...currentAdmission,
-        disDate: parseDate(adm.disDate ?? ""),
+        disDate: parseDateTime(adm.disDate ?? ""),
         disType: adm.disType,
         diseaseOut1: adm.diseaseOut1,
         diseaseOut2: adm.diseaseOut2,

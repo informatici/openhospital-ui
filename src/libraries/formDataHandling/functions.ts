@@ -60,6 +60,22 @@ export const parseDate = (raw: string, withTimezone: boolean = true) => {
   }
 };
 
+export const parseDateTime = (raw: string, withTimezone: boolean = true) => {
+  if (raw) {
+    var date = isNaN(+raw) ? new Date(raw) : new Date(+raw);
+    if (withTimezone) {
+      const timezonedDate = new Date(
+        date.getTime() - date.getTimezoneOffset() * 60000
+      );
+      //timezonedDate.setUTCHours(0);
+      return timezonedDate.toISOString();
+    }
+    return date.toISOString();
+  } else {
+    return "";
+  }
+};
+
 export const fixFilterDateFrom = (date: string | Date): string => {
   let dateFrom: string;
 
@@ -121,7 +137,7 @@ export const formatAllFieldValues = (
           acc[key] = int < float ? float : int;
           break;
         case "date":
-          acc[key] = parseDate(values[key], withTimezone);
+          acc[key] = parseDateTime(values[key], withTimezone);
           break;
         default:
           acc[key] = values[key];
@@ -240,7 +256,7 @@ export const updateOpdFields = (
           typeof value === "object"
             ? (value as DiseaseDTO)?.code ?? ""
             : moment(value).isValid()
-            ? parseDate(value as string)
+            ? parseDateTime(value as string, false)
             : value);
       }
     });
