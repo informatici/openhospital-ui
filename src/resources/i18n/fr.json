@@ -581,7 +581,8 @@
     "cancelMessage": "Are you sure to cancel this operation ? All unsaved data will be lost.",
     "back": "Back",
     "backToEdit": "No, keep editing",
-    "discardMessage": "Are you sure to discard this operation ? All unsaved data will be lost."
+    "discardMessage": "Are you sure to discard this operation ? All unsaved data will be lost.",
+    "printData": "Imprimer les données"
   },
   "permission": {
     "denied": "Autorisation refusée",
