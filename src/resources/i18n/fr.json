@@ -556,7 +556,7 @@
     "continue": "Continuer ?",
     "collapse_all": "Réduire la visualisation",
     "expand_all": "Agrandir la visualisation",
-    "remainingchars": "Restant : {actuel} / {max}",
+    "remainingchars": "Restant:{current} / {max}",
     "gohome": "Aller à la page d'accueil",
     "gotopatientactivities": "Aller aux activités du patient",
     "permissionDenied": "Permission refusée - Vous n'avez pas les privilèges requis pour accéder à ce contenu",
