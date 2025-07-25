@@ -61,6 +61,7 @@ export const SuppliersTable = ({
   const formatDataToDisplay = (data: SupplierDTO[]) => {
     return data.map((item) => {
       return {
+        code: item.supId ?? "",
         name: item.supName ?? "",
         address: item.supAddress ?? "",
         taxcode: item.supTaxcode ?? "",
