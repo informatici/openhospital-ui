@@ -582,7 +582,7 @@
     "back": "Back",
     "backToEdit": "No, keep editing",
     "discardMessage": "Are you sure to discard this operation ? All unsaved data will be lost.",
-    "print_data": "Imprimer les données"
+    "printData": "Imprimer les données"
   },
   "permission": {
     "denied": "Autorisation refusée",
