@@ -25,7 +25,6 @@ const PatientSummary: FunctionComponent = () => {
   ];
   const handlePrint = () => {
     printSubject.next();
-    console.log("printin ..");
     setTimeout(() => {
       window.print();
     }, 1000);
