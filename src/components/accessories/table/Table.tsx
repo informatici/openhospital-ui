@@ -84,6 +84,7 @@ const Table: FunctionComponent<IProps> = ({
   hideHeader = false,
   hidePaginator = false,
   customRenderDetails,
+  isExpanded = false,
 }) => {
   const { t } = useTranslation();
   const [order, setOrder] = React.useState<TOrder>("desc");
@@ -94,7 +95,7 @@ const Table: FunctionComponent<IProps> = ({
     open: boolean;
   }>({ open: false });
   const [currentRow, setCurrentRow] = useState({} as any);
-  const [expanded, setExpanded] = useState(false);
+  const [expanded, setExpanded] = useState(isExpanded);
   const [filters, setFilters] = useState<Record<string, TFilterValues>>({});
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
@@ -104,6 +105,9 @@ const Table: FunctionComponent<IProps> = ({
       handleRequestSort(event, property);
     };
 
+  useEffect(() => {
+    setExpanded(isExpanded);
+  }, [isExpanded]);
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
     property: any
