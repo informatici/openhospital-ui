@@ -734,7 +734,8 @@
       "open": "OPEN",
       "done": "DONE"
     },
-    "previousentries": "Previous Exams"
+    "previousentries": "Previous Exams",
+    "print_exam_request": "Print exam request"
   },
   "admission": {
     "code": "Admission Code",

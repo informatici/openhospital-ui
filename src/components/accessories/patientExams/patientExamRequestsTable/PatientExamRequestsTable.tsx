@@ -1,14 +1,19 @@
-import { CircularProgress } from "@mui/material";
+import { Print } from "@mui/icons-material";
+import { Button, CircularProgress } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { FunctionComponent, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { LaboratoryDTO } from "../../../../generated";
 import { renderDateTime } from "../../../../libraries/formatUtils/dataFormatting";
 import { usePermission } from "../../../../libraries/permissionUtils/usePermission";
-import { getLabsRequestByPatientId } from "../../../../state/laboratories";
+import {
+  getLabsRequestByPatientId,
+  printExamRequest,
+} from "../../../../state/laboratories";
 import InfoBox from "../../infoBox/InfoBox";
 import { statusLabel } from "../../laboratory/table/ExamTable";
 import Table from "../../table/Table";
+import "./styles.scss";
 
 interface IOwnProps {
   shouldUpdateTable: boolean;
@@ -83,9 +88,33 @@ const PatientExamRequestsTable: FunctionComponent<IOwnProps> = ({
     }
   };
 
+  const handlePrint = () => {
+    dispatch(printExamRequest(patientCode))
+      .unwrap()
+      .then((result) => {
+        if (result instanceof Blob) {
+          const blobUrl = URL.createObjectURL(result);
+          window.open(blobUrl, "_blank");
+          setTimeout(() => URL.revokeObjectURL(blobUrl), 5000);
+        }
+      });
+  };
+
   return (
     <div className="patientExamsTable">
       <h5>{t("lab.patientrequestedexam")}</h5>
+      {data?.length > 0 && (
+        <div className="printButton">
+          <Button
+            startIcon={<Print />}
+            type="button"
+            onClick={handlePrint}
+            variant="contained"
+          >
+            {t("lab.print_exam_request")}
+          </Button>
+        </div>
+      )}
       {labRequestStatus === "SUCCESS" && (
         <Table
           rowData={formatDataToDisplay(data)}

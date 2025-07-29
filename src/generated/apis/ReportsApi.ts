@@ -24,6 +24,10 @@ export interface PrintExaminationListPdfRequest {
   examinationId: number;
 }
 
+export interface PrintExamRequestPdf {
+  patientId: number;
+}
+
 /**
  * no description
  */
@@ -124,6 +128,47 @@ export class ReportsApi extends BaseAPI {
         url: "/reports/exams-list",
         method: "GET",
         headers,
+      },
+      opts?.responseOpts
+    );
+  }
+
+  /**
+   */
+  printPatientExamRequestPdf({
+    patientId,
+  }: PrintExamRequestPdf): Observable<Blob>;
+  printPatientExamRequestPdf(
+    { patientId }: PrintExamRequestPdf,
+    opts?: OperationOpts
+  ): Observable<RawAjaxResponse<Blob>>;
+  printPatientExamRequestPdf(
+    { patientId }: PrintExamRequestPdf,
+    opts?: OperationOpts
+  ): Observable<Blob | RawAjaxResponse<Blob>> {
+    throwIfNullOrUndefined(
+      patientId,
+      "patientId",
+      "printPatientExamRequestPdf"
+    );
+
+    const headers: HttpHeaders = {
+      ...(this.configuration.username != null &&
+      this.configuration.password != null
+        ? {
+            Authorization: `Basic ${btoa(
+              this.configuration.username + ":" + this.configuration.password
+            )}`,
+          }
+        : undefined),
+    };
+
+    return this.request<Blob>(
+      {
+        url: "/reports/patientexamrequest/" + patientId,
+        method: "GET",
+        headers,
+        responseType: "blob",
       },
       opts?.responseOpts
     );
