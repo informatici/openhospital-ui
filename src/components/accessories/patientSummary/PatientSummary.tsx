@@ -24,7 +24,7 @@ const PatientSummary: FunctionComponent = () => {
     { label: t("common.orderbytype"), content: <PatientSummaryByType /> },
   ];
   const handlePrint = () => {
-    printSubject.next();
+    printSubject.next(null);
     setTimeout(() => {
       window.print();
     }, 1000);

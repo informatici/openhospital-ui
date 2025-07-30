@@ -35,23 +35,6 @@ export const loadSummaryData = createAsyncThunk(
           map((res) => convertToSummaryData(res, SummaryField.triage)),
           catchError(() => of([]))
         ),
-<<<<<<< HEAD
-        catchError(() => of([]))
-      ),
-      wrapper(() => laboratoriesApi.getLaboratory1({ patId: code })).pipe(
-        map((res) =>
-          convertToSummaryData(
-            res.map((e) => {
-              if (e.laboratoryDTO?.exam?.procedure === 2) {
-                e.laboratoryDTO.result = e.laboratoryRowList?.join(", ");
-                return e.laboratoryDTO;
-              } else {
-                return e.laboratoryDTO;
-              }
-            }),
-            SummaryField.exam
-          )
-=======
         wrapper(() => opdControllerrApi.getOpdByPatient({ pcode: code })).pipe(
           map((res) =>
             convertToSummaryData(
@@ -60,12 +43,18 @@ export const loadSummaryData = createAsyncThunk(
             )
           ),
           catchError(() => of([]))
->>>>>>> edee4d3c631caa7acc8bd028d8747c56b2e46433
         ),
         wrapper(() => laboratoriesApi.getLaboratory1({ patId: code })).pipe(
           map((res) =>
             convertToSummaryData(
-              res.map((e) => e.laboratoryDTO),
+              res.map((e) => {
+                if (e.laboratoryDTO?.exam?.procedure === 2) {
+                  e.laboratoryDTO.result = e.laboratoryRowList?.join(", ");
+                  return e.laboratoryDTO;
+                } else {
+                  return e.laboratoryDTO;
+                }
+              }),
               SummaryField.exam
             )
           ),
