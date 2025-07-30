@@ -11,7 +11,7 @@
  * Do not edit the class manually.
  */
 
-import {
+import type {
     VaccineTypeDTO,
 } from './';
 
@@ -34,6 +34,7 @@ export interface VaccineDTO {
      */
     description: string;
     /**
+     * Type of the vaccine
      * @type {VaccineTypeDTO}
      * @memberof VaccineDTO
      */

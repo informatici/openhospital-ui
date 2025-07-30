@@ -7,7 +7,7 @@ import {
   tokenHasExpired,
 } from "libraries/authUtils/tokenHasExpired";
 import { SessionStorage } from "libraries/storage/storage";
-import { Observable, from, throwError } from "rxjs";
+import { Observable, firstValueFrom, from, throwError } from "rxjs";
 import { catchError, delay, switchMap, tap } from "rxjs/operators";
 import { customConfiguration } from "./configuration";
 
@@ -25,23 +25,24 @@ export function wrapper<T>(callback: () => Observable<T>): Observable<T> {
             mutex.runExclusive(async () => {
               const token = SessionStorage.read(AUTH_KEY)?.token;
               if (token && !tokenHasExpired(token)) {
-                return callback().toPromise();
+                return firstValueFrom(callback());
               }
-              return loginApi
-                .refreshToken({
-                  tokenRefreshRequest: { refreshToken },
-                })
-                .pipe(
-                  tap(saveAuthenticationDataToSession),
-                  delay(500),
-                  switchMap(() => callback())
-                )
-                .toPromise();
+              return firstValueFrom(
+                loginApi
+                  .refreshToken({
+                    tokenRefreshRequest: { refreshToken },
+                  })
+                  .pipe(
+                    tap(saveAuthenticationDataToSession),
+                    delay(500),
+                    switchMap(() => callback())
+                  )
+              );
             })
           );
         }
       }
-      return throwError(error);
+      return throwError(() => error);
     })
   );
 }

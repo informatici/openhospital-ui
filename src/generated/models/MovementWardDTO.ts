@@ -11,7 +11,7 @@
  * Do not edit the class manually.
  */
 
-import {
+import type {
     MedicalDTO,
     PatientDTO,
     WardDTO,
@@ -29,6 +29,7 @@ export interface MovementWardDTO {
      */
     code?: number;
     /**
+     * The ward
      * @type {WardDTO}
      * @memberof MovementWardDTO
      */
@@ -40,6 +41,7 @@ export interface MovementWardDTO {
      */
     date: string;
     /**
+     * The patient in case the movement is associated to a patient
      * @type {PatientDTO}
      * @memberof MovementWardDTO
      */
@@ -63,6 +65,7 @@ export interface MovementWardDTO {
      */
     description: string;
     /**
+     * The medical concerned by the movement
      * @type {MedicalDTO}
      * @memberof MovementWardDTO
      */
@@ -80,11 +83,13 @@ export interface MovementWardDTO {
      */
     units: string;
     /**
+     * The ward to which the movement is done
      * @type {WardDTO}
      * @memberof MovementWardDTO
      */
     wardTo?: WardDTO;
     /**
+     * The ward from which the movement is done
      * @type {WardDTO}
      * @memberof MovementWardDTO
      */

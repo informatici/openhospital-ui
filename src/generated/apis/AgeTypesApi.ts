@@ -11,9 +11,11 @@
  * Do not edit the class manually.
  */
 
-import { Observable } from 'rxjs';
-import { BaseAPI, HttpHeaders, HttpQuery, throwIfNullOrUndefined, encodeURI, OperationOpts, RawAjaxResponse } from '../runtime';
-import {
+import type { Observable } from 'rxjs';
+import type { AjaxResponse } from 'rxjs/ajax';
+import { BaseAPI, throwIfNullOrUndefined, encodeURI } from '../runtime';
+import type { OperationOpts, HttpHeaders, HttpQuery } from '../runtime';
+import type {
     AgeTypeDTO,
 } from '../models';
 
@@ -37,12 +39,11 @@ export class AgeTypesApi extends BaseAPI {
     /**
      */
     getAgeTypeByIndex({ index }: GetAgeTypeByIndexRequest): Observable<AgeTypeDTO>
-    getAgeTypeByIndex({ index }: GetAgeTypeByIndexRequest, opts?: OperationOpts): Observable<RawAjaxResponse<AgeTypeDTO>>
-    getAgeTypeByIndex({ index }: GetAgeTypeByIndexRequest, opts?: OperationOpts): Observable<AgeTypeDTO | RawAjaxResponse<AgeTypeDTO>> {
+    getAgeTypeByIndex({ index }: GetAgeTypeByIndexRequest, opts?: OperationOpts): Observable<AjaxResponse<AgeTypeDTO>>
+    getAgeTypeByIndex({ index }: GetAgeTypeByIndexRequest, opts?: OperationOpts): Observable<AgeTypeDTO | AjaxResponse<AgeTypeDTO>> {
         throwIfNullOrUndefined(index, 'index', 'getAgeTypeByIndex');
 
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<AgeTypeDTO>({
@@ -55,12 +56,11 @@ export class AgeTypesApi extends BaseAPI {
     /**
      */
     getAgeTypeCodeByAge({ age }: GetAgeTypeCodeByAgeRequest): Observable<{ [key: string]: string; }>
-    getAgeTypeCodeByAge({ age }: GetAgeTypeCodeByAgeRequest, opts?: OperationOpts): Observable<RawAjaxResponse<{ [key: string]: string; }>>
-    getAgeTypeCodeByAge({ age }: GetAgeTypeCodeByAgeRequest, opts?: OperationOpts): Observable<{ [key: string]: string; } | RawAjaxResponse<{ [key: string]: string; }>> {
+    getAgeTypeCodeByAge({ age }: GetAgeTypeCodeByAgeRequest, opts?: OperationOpts): Observable<AjaxResponse<{ [key: string]: string; }>>
+    getAgeTypeCodeByAge({ age }: GetAgeTypeCodeByAgeRequest, opts?: OperationOpts): Observable<{ [key: string]: string; } | AjaxResponse<{ [key: string]: string; }>> {
         throwIfNullOrUndefined(age, 'age', 'getAgeTypeCodeByAge');
 
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         const query: HttpQuery = { // required parameters are used directly since they are already checked by throwIfNullOrUndefined
@@ -78,10 +78,9 @@ export class AgeTypesApi extends BaseAPI {
     /**
      */
     getAllAgeTypes(): Observable<Array<AgeTypeDTO>>
-    getAllAgeTypes(opts?: OperationOpts): Observable<RawAjaxResponse<Array<AgeTypeDTO>>>
-    getAllAgeTypes(opts?: OperationOpts): Observable<Array<AgeTypeDTO> | RawAjaxResponse<Array<AgeTypeDTO>>> {
+    getAllAgeTypes(opts?: OperationOpts): Observable<AjaxResponse<Array<AgeTypeDTO>>>
+    getAllAgeTypes(opts?: OperationOpts): Observable<Array<AgeTypeDTO> | AjaxResponse<Array<AgeTypeDTO>>> {
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<Array<AgeTypeDTO>>({
@@ -94,13 +93,12 @@ export class AgeTypesApi extends BaseAPI {
     /**
      */
     updateAgeType({ ageTypeDTO }: UpdateAgeTypeRequest): Observable<Array<AgeTypeDTO>>
-    updateAgeType({ ageTypeDTO }: UpdateAgeTypeRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<AgeTypeDTO>>>
-    updateAgeType({ ageTypeDTO }: UpdateAgeTypeRequest, opts?: OperationOpts): Observable<Array<AgeTypeDTO> | RawAjaxResponse<Array<AgeTypeDTO>>> {
+    updateAgeType({ ageTypeDTO }: UpdateAgeTypeRequest, opts?: OperationOpts): Observable<AjaxResponse<Array<AgeTypeDTO>>>
+    updateAgeType({ ageTypeDTO }: UpdateAgeTypeRequest, opts?: OperationOpts): Observable<Array<AgeTypeDTO> | AjaxResponse<Array<AgeTypeDTO>>> {
         throwIfNullOrUndefined(ageTypeDTO, 'ageTypeDTO', 'updateAgeType');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<Array<AgeTypeDTO>>({

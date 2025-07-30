@@ -9,7 +9,7 @@ info:
     url: https://github.com/informatici/openhospital-api?tab=GPL-3.0-1-ov-file#readme
   version: 0.1.0
 servers:
-  - url: http://localhost:8080
+  - url: http://API_HOST:API_PORT
 security:
   - bearerAuth: []
 paths:
@@ -2674,6 +2674,31 @@ paths:
                 $ref: "#/components/schemas/PatientDTO"
       security:
         - bearerAuth: []
+  /patients/by-codes:
+    post:
+      tags:
+        - Patients
+      operationId: getPatientByCodes
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: integer
+                format: int32
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PatientDTO"
+      security:
+        - bearerAuth: []
   /operationtypes:
     get:
       tags:
@@ -3782,6 +3807,54 @@ paths:
                 type: boolean
       security:
         - bearerAuth: []
+  /reports/patientexamrequest/{patientId}:
+    get:
+      tags:
+        - Reports
+      operationId: printPatientExamRequestPdf
+      parameters:
+        - name: patientId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        "200":
+          description: OK
+          content:
+            application/octet-stream:
+              schema:
+                type: array
+                items:
+                  type: string
+                  format: byte
+      security:
+        - bearerAuth: []
+  /reports/patientexamination/{examinationId}:
+    get:
+      tags:
+        - Reports
+      operationId: printPatientExaminationPdf
+      parameters:
+        - name: examinationId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        "200":
+          description: OK
+          content:
+            application/octet-stream:
+              schema:
+                type: array
+                items:
+                  type: string
+                  format: byte
+      security:
+        - bearerAuth: []
   /reports/exams-list:
     get:
       tags:
@@ -3809,29 +3882,6 @@ paths:
           description: OK
           content:
             application/octet-stream:
-              schema:
-                type: array
-                items:
-                  type: string
-                  format: byte
-      security:
-        - bearerAuth: []
-  /reports/patientexamination:
-    get:
-      tags:
-        - Reports
-      operationId: printExaminationListPdf
-      parameters:
-        - name: examinationId
-          in: path
-          required: true
-          schema:
-            type: number
-      responses:
-        "200":
-          description: OK
-          content:
-            application/octect-stream:
               schema:
                 type: array
                 items:
@@ -5260,6 +5310,20 @@ paths:
                 type: string
       security:
         - bearerAuth: []
+  /healthcheck:
+    get:
+      tags:
+        - root-controller
+      operationId: healthcheck
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
   /exams/description/{description}:
     get:
       tags:
@@ -6051,6 +6115,20 @@ paths:
                   $ref: "#/components/schemas/AdmittedPatientDTO"
       security:
         - bearerAuth: []
+  /:
+    get:
+      tags:
+        - root-controller
+      operationId: root
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
   /wards/{code}:
     delete:
       tags:
