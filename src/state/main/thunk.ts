@@ -1,5 +1,5 @@
 import { createAsyncThunk, Dispatch } from "@reduxjs/toolkit";
-import { concat } from "rxjs";
+import { concat, firstValueFrom } from "rxjs";
 import { tap, toArray } from "rxjs/operators";
 import { LoginApi, UsersApi, UserSettingsApi } from "../../generated";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
@@ -23,16 +23,16 @@ const userSettingsApi = new UserSettingsApi(customConfiguration());
 export const setAuthentication = createAsyncThunk(
   "main/getLayouts",
   async (payload: { username: string; password: string }, thunkApi) =>
-    concat(
-      loginApi
-        .authenticateUser({ loginRequest: payload })
-        .pipe(tap(saveAuthenticationDataToSession)),
-      usersApi
-        .retrieveProfileByCurrentLoggedInUser()
-        .pipe(tap(savePermissionDataToSession))
+    firstValueFrom(
+      concat(
+        loginApi
+          .authenticateUser({ loginRequest: payload })
+          .pipe(tap(saveAuthenticationDataToSession)),
+        usersApi
+          .retrieveProfileByCurrentLoggedInUser()
+          .pipe(tap(savePermissionDataToSession))
+      ).pipe(toArray())
     )
-      .pipe(toArray())
-      .toPromise()
       .then(([userCredentials, me]) => ({
         ...userCredentials,
         ...me,
@@ -81,16 +81,16 @@ export const getUserSettings = createAsyncThunk(
 export const refreshToken = createAsyncThunk(
   "main/refreshToken",
   async (value: string, thunkApi) =>
-    concat(
-      loginApi
-        .refreshToken({ tokenRefreshRequest: { refreshToken: value } })
-        .pipe(tap(saveAuthenticationDataToSession)),
-      usersApi
-        .retrieveProfileByCurrentLoggedInUser()
-        .pipe(tap(savePermissionDataToSession))
+    firstValueFrom(
+      concat(
+        loginApi
+          .refreshToken({ tokenRefreshRequest: { refreshToken: value } })
+          .pipe(tap(saveAuthenticationDataToSession)),
+        usersApi
+          .retrieveProfileByCurrentLoggedInUser()
+          .pipe(tap(savePermissionDataToSession))
+      ).pipe(toArray())
     )
-      .pipe(toArray())
-      .toPromise()
       .then(([userCredentials, me]) => ({
         ...userCredentials,
         ...me,

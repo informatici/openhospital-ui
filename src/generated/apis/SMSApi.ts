@@ -11,9 +11,11 @@
  * Do not edit the class manually.
  */
 
-import { Observable } from 'rxjs';
-import { BaseAPI, HttpHeaders, HttpQuery, throwIfNullOrUndefined, OperationOpts, RawAjaxResponse } from '../runtime';
-import {
+import type { Observable } from 'rxjs';
+import type { AjaxResponse } from 'rxjs/ajax';
+import { BaseAPI, throwIfNullOrUndefined } from '../runtime';
+import type { OperationOpts, HttpHeaders, HttpQuery } from '../runtime';
+import type {
     SmsDTO,
 } from '../models';
 
@@ -39,13 +41,12 @@ export class SMSApi extends BaseAPI {
     /**
      */
     deleteSms({ smsDTO }: DeleteSmsRequest): Observable<boolean>
-    deleteSms({ smsDTO }: DeleteSmsRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
-    deleteSms({ smsDTO }: DeleteSmsRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+    deleteSms({ smsDTO }: DeleteSmsRequest, opts?: OperationOpts): Observable<AjaxResponse<boolean>>
+    deleteSms({ smsDTO }: DeleteSmsRequest, opts?: OperationOpts): Observable<boolean | AjaxResponse<boolean>> {
         throwIfNullOrUndefined(smsDTO, 'smsDTO', 'deleteSms');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<boolean>({
@@ -59,13 +60,12 @@ export class SMSApi extends BaseAPI {
     /**
      */
     getAll({ dateFrom, dateTo }: GetAllRequest): Observable<Array<SmsDTO>>
-    getAll({ dateFrom, dateTo }: GetAllRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<SmsDTO>>>
-    getAll({ dateFrom, dateTo }: GetAllRequest, opts?: OperationOpts): Observable<Array<SmsDTO> | RawAjaxResponse<Array<SmsDTO>>> {
+    getAll({ dateFrom, dateTo }: GetAllRequest, opts?: OperationOpts): Observable<AjaxResponse<Array<SmsDTO>>>
+    getAll({ dateFrom, dateTo }: GetAllRequest, opts?: OperationOpts): Observable<Array<SmsDTO> | AjaxResponse<Array<SmsDTO>>> {
         throwIfNullOrUndefined(dateFrom, 'dateFrom', 'getAll');
         throwIfNullOrUndefined(dateTo, 'dateTo', 'getAll');
 
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         const query: HttpQuery = { // required parameters are used directly since they are already checked by throwIfNullOrUndefined
@@ -84,13 +84,12 @@ export class SMSApi extends BaseAPI {
     /**
      */
     saveSms({ smsDTO, split }: SaveSmsRequest): Observable<boolean>
-    saveSms({ smsDTO, split }: SaveSmsRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
-    saveSms({ smsDTO, split }: SaveSmsRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+    saveSms({ smsDTO, split }: SaveSmsRequest, opts?: OperationOpts): Observable<AjaxResponse<boolean>>
+    saveSms({ smsDTO, split }: SaveSmsRequest, opts?: OperationOpts): Observable<boolean | AjaxResponse<boolean>> {
         throwIfNullOrUndefined(smsDTO, 'smsDTO', 'saveSms');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         const query: HttpQuery = {};

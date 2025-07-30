@@ -11,7 +11,7 @@
  * Do not edit the class manually.
  */
 
-import {
+import type {
     BillDTO,
     BillItemsDTO,
     BillPaymentsDTO,
@@ -23,6 +23,7 @@ import {
  */
 export interface FullBillDTO {
     /**
+     * Bill element
      * @type {BillDTO}
      * @memberof FullBillDTO
      */

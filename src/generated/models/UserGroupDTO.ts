@@ -11,12 +11,11 @@
  * Do not edit the class manually.
  */
 
-import {
+import type {
     PermissionDTO,
 } from './';
 
 /**
- * The user\'s group
  * @export
  * @interface UserGroupDTO
  */

@@ -19,18 +19,18 @@ import type { OperationOpts, HttpHeaders } from '../runtime';
 /**
  * no description
  */
-export class ReportsApi extends BaseAPI {
+export class RootControllerApi extends BaseAPI {
 
     /**
      */
-    printDiseasesListPdf(): Observable<string>
-    printDiseasesListPdf(opts?: OperationOpts): Observable<AjaxResponse<string>>
-    printDiseasesListPdf(opts?: OperationOpts): Observable<string | AjaxResponse<string>> {
+    healthcheck(): Observable<{ [key: string]: string; }>
+    healthcheck(opts?: OperationOpts): Observable<AjaxResponse<{ [key: string]: string; }>>
+    healthcheck(opts?: OperationOpts): Observable<{ [key: string]: string; } | AjaxResponse<{ [key: string]: string; }>> {
         const headers: HttpHeaders = {
         };
 
-        return this.request<string>({
-            url: '/reports/diseases-list',
+        return this.request<{ [key: string]: string; }>({
+            url: '/healthcheck',
             method: 'GET',
             headers,
         }, opts?.responseOpts);
@@ -38,14 +38,14 @@ export class ReportsApi extends BaseAPI {
 
     /**
      */
-    printExamsListPdf(): Observable<string>
-    printExamsListPdf(opts?: OperationOpts): Observable<AjaxResponse<string>>
-    printExamsListPdf(opts?: OperationOpts): Observable<string | AjaxResponse<string>> {
+    root(): Observable<{ [key: string]: string; }>
+    root(opts?: OperationOpts): Observable<AjaxResponse<{ [key: string]: string; }>>
+    root(opts?: OperationOpts): Observable<{ [key: string]: string; } | AjaxResponse<{ [key: string]: string; }>> {
         const headers: HttpHeaders = {
         };
 
-        return this.request<string>({
-            url: '/reports/exams-list',
+        return this.request<{ [key: string]: string; }>({
+            url: '/',
             method: 'GET',
             headers,
         }, opts?.responseOpts);

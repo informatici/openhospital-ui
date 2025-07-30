@@ -11,7 +11,7 @@
  * Do not edit the class manually.
  */
 
-import {
+import type {
     AdmissionTypeDTO,
     DeliveryResultTypeDTO,
     DeliveryTypeDTO,
@@ -24,7 +24,6 @@ import {
 } from './';
 
 /**
- * The admission
  * @export
  * @interface AdmissionDTO
  */
@@ -48,11 +47,13 @@ export interface AdmissionDTO {
      */
     type: string;
     /**
+     * Ward
      * @type {WardDTO}
      * @memberof AdmissionDTO
      */
     ward?: WardDTO;
     /**
+     * Patient
      * @type {PatientDTO}
      * @memberof AdmissionDTO
      */
@@ -64,31 +65,37 @@ export interface AdmissionDTO {
      */
     admDate: string;
     /**
+     * Admission type
      * @type {AdmissionTypeDTO}
      * @memberof AdmissionDTO
      */
     admType?: AdmissionTypeDTO;
     /**
+     * Disease in 
      * @type {DiseaseDTO}
      * @memberof AdmissionDTO
      */
     diseaseIn?: DiseaseDTO;
     /**
+     * Disease out 
      * @type {DiseaseDTO}
      * @memberof AdmissionDTO
      */
     diseaseOut1?: DiseaseDTO;
     /**
+     * Disease out 
      * @type {DiseaseDTO}
      * @memberof AdmissionDTO
      */
     diseaseOut2?: DiseaseDTO;
     /**
+     * Disease out 
      * @type {DiseaseDTO}
      * @memberof AdmissionDTO
      */
     diseaseOut3?: DiseaseDTO;
     /**
+     * Operation 
      * @type {OperationDTO}
      * @memberof AdmissionDTO
      */
@@ -112,6 +119,7 @@ export interface AdmissionDTO {
      */
     disDate?: string;
     /**
+     * DisChargeType
      * @type {DischargeTypeDTO}
      * @memberof AdmissionDTO
      */
@@ -135,6 +143,7 @@ export interface AdmissionDTO {
      */
     visitDate?: string;
     /**
+     * TreatmentType 
      * @type {PregnantTreatmentTypeDTO}
      * @memberof AdmissionDTO
      */
@@ -146,11 +155,13 @@ export interface AdmissionDTO {
      */
     deliveryDate?: string;
     /**
+     * Delivery type
      * @type {DeliveryTypeDTO}
      * @memberof AdmissionDTO
      */
     deliveryType?: DeliveryTypeDTO;
     /**
+     * Delivery result type
      * @type {DeliveryResultTypeDTO}
      * @memberof AdmissionDTO
      */

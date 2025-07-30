@@ -14,7 +14,7 @@ export const getMedicals = createAsyncThunk(
   async (_, thunkApi) =>
     wrapper(() =>
       api.getMedicals({
-        sortBy: GetMedicalsSortByEnum.NAME,
+        sortBy: GetMedicalsSortByEnum.Name,
       })
     )
       .toPromise()

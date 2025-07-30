@@ -11,9 +11,11 @@
  * Do not edit the class manually.
  */
 
-import { Observable } from 'rxjs';
-import { BaseAPI, HttpHeaders, throwIfNullOrUndefined, encodeURI, OperationOpts, RawAjaxResponse } from '../runtime';
-import {
+import type { Observable } from 'rxjs';
+import type { AjaxResponse } from 'rxjs/ajax';
+import { BaseAPI, throwIfNullOrUndefined, encodeURI } from '../runtime';
+import type { OperationOpts, HttpHeaders } from '../runtime';
+import type {
     PatientConsensusDTO,
 } from '../models';
 
@@ -34,12 +36,11 @@ export class PatientConsensusApi extends BaseAPI {
     /**
      */
     getPatientConsensus({ patientId }: GetPatientConsensusRequest): Observable<PatientConsensusDTO>
-    getPatientConsensus({ patientId }: GetPatientConsensusRequest, opts?: OperationOpts): Observable<RawAjaxResponse<PatientConsensusDTO>>
-    getPatientConsensus({ patientId }: GetPatientConsensusRequest, opts?: OperationOpts): Observable<PatientConsensusDTO | RawAjaxResponse<PatientConsensusDTO>> {
+    getPatientConsensus({ patientId }: GetPatientConsensusRequest, opts?: OperationOpts): Observable<AjaxResponse<PatientConsensusDTO>>
+    getPatientConsensus({ patientId }: GetPatientConsensusRequest, opts?: OperationOpts): Observable<PatientConsensusDTO | AjaxResponse<PatientConsensusDTO>> {
         throwIfNullOrUndefined(patientId, 'patientId', 'getPatientConsensus');
 
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<PatientConsensusDTO>({
@@ -52,14 +53,13 @@ export class PatientConsensusApi extends BaseAPI {
     /**
      */
     updatePatientConsensus({ patientId, patientConsensusDTO }: UpdatePatientConsensusRequest): Observable<PatientConsensusDTO>
-    updatePatientConsensus({ patientId, patientConsensusDTO }: UpdatePatientConsensusRequest, opts?: OperationOpts): Observable<RawAjaxResponse<PatientConsensusDTO>>
-    updatePatientConsensus({ patientId, patientConsensusDTO }: UpdatePatientConsensusRequest, opts?: OperationOpts): Observable<PatientConsensusDTO | RawAjaxResponse<PatientConsensusDTO>> {
+    updatePatientConsensus({ patientId, patientConsensusDTO }: UpdatePatientConsensusRequest, opts?: OperationOpts): Observable<AjaxResponse<PatientConsensusDTO>>
+    updatePatientConsensus({ patientId, patientConsensusDTO }: UpdatePatientConsensusRequest, opts?: OperationOpts): Observable<PatientConsensusDTO | AjaxResponse<PatientConsensusDTO>> {
         throwIfNullOrUndefined(patientId, 'patientId', 'updatePatientConsensus');
         throwIfNullOrUndefined(patientConsensusDTO, 'patientConsensusDTO', 'updatePatientConsensus');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<PatientConsensusDTO>({
