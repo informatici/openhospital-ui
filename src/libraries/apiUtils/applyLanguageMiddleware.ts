@@ -8,7 +8,7 @@ export const applyLanguageMiddleware: Middleware = {
   pre(request: RequestArgs): RequestArgs {
     const lang = LocalStorage.read(LAGUAGE_KEY);
     return produce(request, (draft) => {
-      draft.headers = set(draft.headers || {}, "accept-language", lang);
+      draft.headers = set(draft.headers || {}, "Accept-Language", lang);
     });
   },
 };
