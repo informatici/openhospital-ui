@@ -14,7 +14,7 @@
 import type { Observable } from "rxjs";
 import type { AjaxResponse } from "rxjs/ajax";
 import type { HttpHeaders, OperationOpts } from "../runtime";
-import { BaseAPI } from "../runtime";
+import { BaseAPI, throwIfNullOrUndefined } from "../runtime";
 
 export interface PrintExaminationListPdfRequest {
   examinationId: number;
@@ -85,11 +85,11 @@ export class ReportsApi extends BaseAPI {
   printExaminationListPdf(
     { examinationId }: PrintExaminationListPdfRequest,
     opts?: OperationOpts
-  ): Observable<RawAjaxResponse<Blob>>;
+  ): Observable<AjaxResponse<Blob>>;
   printExaminationListPdf(
     { examinationId }: PrintExaminationListPdfRequest,
     opts?: OperationOpts
-  ): Observable<Blob | RawAjaxResponse<Blob>> {
+  ): Observable<Blob | AjaxResponse<Blob>> {
     throwIfNullOrUndefined(
       examinationId,
       "examinationId",
