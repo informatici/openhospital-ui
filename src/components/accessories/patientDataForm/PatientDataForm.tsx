@@ -539,6 +539,122 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               }
             />
           </div>
+
+          <div className="patientDataForm__item">
+            <TextField
+              field={formik.getFieldProps("commune")}
+              theme="regular"
+              label={t("patient.commune")}
+              isValid={isValid("commune")}
+              errorText={getErrorText("commune")}
+              onBlur={formik.handleBlur}
+              disabled={isLoading}
+              maxLength={50}
+            />
+          </div>
+
+          <div className="patientDataForm__item">
+            <TextField
+              field={formik.getFieldProps("ethnic")}
+              theme="regular"
+              label={t("patient.ethnic")}
+              isValid={isValid("ethnic")}
+              errorText={getErrorText("ethnic")}
+              onBlur={formik.handleBlur}
+              disabled={isLoading}
+              maxLength={50}
+            />
+          </div>
+        </div>
+
+        <div className="row start-sm center-xs">
+          <div className="patientDataForm__item">
+            <TextField
+              field={formik.getFieldProps("fatherOccupation")}
+              theme="regular"
+              label={t("patient.fatheroccupation")}
+              isValid={isValid("fatherOccupation")}
+              errorText={getErrorText("fatherOccupation")}
+              onBlur={formik.handleBlur}
+              disabled={isLoading}
+              maxLength={50}
+            />
+          </div>
+          <div className="patientDataForm__item">
+            <TextField
+              field={formik.getFieldProps("fatherAge")}
+              theme="regular"
+              label={t("patient.fatherage")}
+              isValid={isValid("fatherAge")}
+              errorText={getErrorText("fatherAge")}
+              onBlur={formik.handleBlur}
+              disabled={isLoading}
+              type="number"
+            />
+          </div>
+
+          <div className="patientDataForm__item">
+            <Tooltip title="ex: +237 690000000" placement="bottom">
+              <div>
+                <TextField
+                  field={formik.getFieldProps("fatherPhone")}
+                  theme="regular"
+                  label={t("patient.fatherphone")}
+                  isValid={isValid("fatherPhone")}
+                  errorText={getErrorText("fatherPhone")}
+                  onBlur={formik.handleBlur}
+                  type="tel"
+                  disabled={isLoading}
+                  maxLength={50}
+                />
+              </div>
+            </Tooltip>
+          </div>
+        </div>
+
+        <div className="row start-sm center-xs">
+          <div className="patientDataForm__item">
+            <TextField
+              field={formik.getFieldProps("motherOccupation")}
+              theme="regular"
+              label={t("patient.motheroccupation")}
+              isValid={isValid("motherOccupation")}
+              errorText={getErrorText("motherOccupation")}
+              onBlur={formik.handleBlur}
+              disabled={isLoading}
+              maxLength={50}
+            />
+          </div>
+          <div className="patientDataForm__item">
+            <TextField
+              field={formik.getFieldProps("motherAge")}
+              theme="regular"
+              label={t("patient.motherage")}
+              isValid={isValid("motherAge")}
+              errorText={getErrorText("motherAge")}
+              onBlur={formik.handleBlur}
+              disabled={isLoading}
+              type="number"
+            />
+          </div>
+
+          <div className="patientDataForm__item">
+            <Tooltip title="ex: +237 690000000" placement="bottom">
+              <div>
+                <TextField
+                  field={formik.getFieldProps("motherPhone")}
+                  theme="regular"
+                  label={t("patient.motherphone")}
+                  isValid={isValid("motherPhone")}
+                  errorText={getErrorText("motherPhone")}
+                  onBlur={formik.handleBlur}
+                  type="tel"
+                  disabled={isLoading}
+                  maxLength={50}
+                />
+              </div>
+            </Tooltip>
+          </div>
         </div>
 
         <div className="row start-sm center-xs">

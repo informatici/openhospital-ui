@@ -252,7 +252,15 @@
     "updatesuccessful": "The patient was edit successfully.",
     "createother": "Add Another Patient",
     "status": "Status",
-    "radiology": "Radiology"
+    "radiology": "Radiology",
+    "commune": "Commune",
+    "ethnic": "Ethnicity",
+    "fatheroccupation": "Father's occupation",
+    "fatherphone": "Father's telephone number",
+    "fatherage": "Father's age",
+    "motheroccupation": "Mother's occupation",
+    "motherphone": "Mother's phone number",
+    "motherage": "Mother's age"
   },
   "opd": {
     "newopd": "Create new OPD Visit",
