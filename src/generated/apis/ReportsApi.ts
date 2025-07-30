@@ -11,6 +11,7 @@
  * Do not edit the class manually.
  */
 
+<<<<<<< HEAD
 import { Observable } from "rxjs";
 import {
   BaseAPI,
@@ -27,11 +28,18 @@ export interface PrintExaminationListPdfRequest {
 export interface PrintExamRequestPdf {
   patientId: number;
 }
+=======
+import type { Observable } from 'rxjs';
+import type { AjaxResponse } from 'rxjs/ajax';
+import { BaseAPI } from '../runtime';
+import type { OperationOpts, HttpHeaders } from '../runtime';
+>>>>>>> edee4d3c631caa7acc8bd028d8747c56b2e46433
 
 /**
  * no description
  */
 export class ReportsApi extends BaseAPI {
+<<<<<<< HEAD
   /**
    */
   printDiseasesListPdf(): Observable<Array<string>>;
@@ -90,6 +98,37 @@ export class ReportsApi extends BaseAPI {
             )}`,
           }
         : undefined),
+=======
+
+    /**
+     */
+    printDiseasesListPdf(): Observable<string>
+    printDiseasesListPdf(opts?: OperationOpts): Observable<AjaxResponse<string>>
+    printDiseasesListPdf(opts?: OperationOpts): Observable<string | AjaxResponse<string>> {
+        const headers: HttpHeaders = {
+        };
+
+        return this.request<string>({
+            url: '/reports/diseases-list',
+            method: 'GET',
+            headers,
+        }, opts?.responseOpts);
+    };
+
+    /**
+     */
+    printExamsListPdf(): Observable<string>
+    printExamsListPdf(opts?: OperationOpts): Observable<AjaxResponse<string>>
+    printExamsListPdf(opts?: OperationOpts): Observable<string | AjaxResponse<string>> {
+        const headers: HttpHeaders = {
+        };
+
+        return this.request<string>({
+            url: '/reports/exams-list',
+            method: 'GET',
+            headers,
+        }, opts?.responseOpts);
+>>>>>>> edee4d3c631caa7acc8bd028d8747c56b2e46433
     };
 
     return this.request<Blob>(

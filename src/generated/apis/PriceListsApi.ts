@@ -11,9 +11,11 @@
  * Do not edit the class manually.
  */
 
-import { Observable } from 'rxjs';
-import { BaseAPI, HttpHeaders, HttpQuery, throwIfNullOrUndefined, encodeURI, OperationOpts, RawAjaxResponse } from '../runtime';
-import {
+import type { Observable } from 'rxjs';
+import type { AjaxResponse } from 'rxjs/ajax';
+import { BaseAPI, throwIfNullOrUndefined, encodeURI } from '../runtime';
+import type { OperationOpts, HttpHeaders, HttpQuery } from '../runtime';
+import type {
     PriceDTO,
     PriceListDTO,
 } from '../models';
@@ -49,14 +51,13 @@ export class PriceListsApi extends BaseAPI {
     /**
      */
     copyByFactorAndStep({ id, factor, step }: CopyByFactorAndStepRequest): Observable<boolean>
-    copyByFactorAndStep({ id, factor, step }: CopyByFactorAndStepRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
-    copyByFactorAndStep({ id, factor, step }: CopyByFactorAndStepRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+    copyByFactorAndStep({ id, factor, step }: CopyByFactorAndStepRequest, opts?: OperationOpts): Observable<AjaxResponse<boolean>>
+    copyByFactorAndStep({ id, factor, step }: CopyByFactorAndStepRequest, opts?: OperationOpts): Observable<boolean | AjaxResponse<boolean>> {
         throwIfNullOrUndefined(id, 'id', 'copyByFactorAndStep');
         throwIfNullOrUndefined(factor, 'factor', 'copyByFactorAndStep');
         throwIfNullOrUndefined(step, 'step', 'copyByFactorAndStep');
 
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         const query: HttpQuery = { // required parameters are used directly since they are already checked by throwIfNullOrUndefined
@@ -75,12 +76,11 @@ export class PriceListsApi extends BaseAPI {
     /**
      */
     copyList({ id }: CopyListRequest): Observable<boolean>
-    copyList({ id }: CopyListRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
-    copyList({ id }: CopyListRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+    copyList({ id }: CopyListRequest, opts?: OperationOpts): Observable<AjaxResponse<boolean>>
+    copyList({ id }: CopyListRequest, opts?: OperationOpts): Observable<boolean | AjaxResponse<boolean>> {
         throwIfNullOrUndefined(id, 'id', 'copyList');
 
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<boolean>({
@@ -93,12 +93,11 @@ export class PriceListsApi extends BaseAPI {
     /**
      */
     deletePriceList({ id }: DeletePriceListRequest): Observable<boolean>
-    deletePriceList({ id }: DeletePriceListRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
-    deletePriceList({ id }: DeletePriceListRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+    deletePriceList({ id }: DeletePriceListRequest, opts?: OperationOpts): Observable<AjaxResponse<boolean>>
+    deletePriceList({ id }: DeletePriceListRequest, opts?: OperationOpts): Observable<boolean | AjaxResponse<boolean>> {
         throwIfNullOrUndefined(id, 'id', 'deletePriceList');
 
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<boolean>({
@@ -111,10 +110,9 @@ export class PriceListsApi extends BaseAPI {
     /**
      */
     getPriceLists(): Observable<Array<PriceListDTO>>
-    getPriceLists(opts?: OperationOpts): Observable<RawAjaxResponse<Array<PriceListDTO>>>
-    getPriceLists(opts?: OperationOpts): Observable<Array<PriceListDTO> | RawAjaxResponse<Array<PriceListDTO>>> {
+    getPriceLists(opts?: OperationOpts): Observable<AjaxResponse<Array<PriceListDTO>>>
+    getPriceLists(opts?: OperationOpts): Observable<Array<PriceListDTO> | AjaxResponse<Array<PriceListDTO>>> {
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<Array<PriceListDTO>>({
@@ -127,10 +125,9 @@ export class PriceListsApi extends BaseAPI {
     /**
      */
     getPrices(): Observable<Array<PriceDTO>>
-    getPrices(opts?: OperationOpts): Observable<RawAjaxResponse<Array<PriceDTO>>>
-    getPrices(opts?: OperationOpts): Observable<Array<PriceDTO> | RawAjaxResponse<Array<PriceDTO>>> {
+    getPrices(opts?: OperationOpts): Observable<AjaxResponse<Array<PriceDTO>>>
+    getPrices(opts?: OperationOpts): Observable<Array<PriceDTO> | AjaxResponse<Array<PriceDTO>>> {
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<Array<PriceDTO>>({
@@ -143,13 +140,12 @@ export class PriceListsApi extends BaseAPI {
     /**
      */
     newPriceList({ priceListDTO }: NewPriceListRequest): Observable<PriceListDTO>
-    newPriceList({ priceListDTO }: NewPriceListRequest, opts?: OperationOpts): Observable<RawAjaxResponse<PriceListDTO>>
-    newPriceList({ priceListDTO }: NewPriceListRequest, opts?: OperationOpts): Observable<PriceListDTO | RawAjaxResponse<PriceListDTO>> {
+    newPriceList({ priceListDTO }: NewPriceListRequest, opts?: OperationOpts): Observable<AjaxResponse<PriceListDTO>>
+    newPriceList({ priceListDTO }: NewPriceListRequest, opts?: OperationOpts): Observable<PriceListDTO | AjaxResponse<PriceListDTO>> {
         throwIfNullOrUndefined(priceListDTO, 'priceListDTO', 'newPriceList');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<PriceListDTO>({
@@ -163,14 +159,13 @@ export class PriceListsApi extends BaseAPI {
     /**
      */
     updatePriceLists({ id, priceListDTO }: UpdatePriceListsRequest): Observable<PriceListDTO>
-    updatePriceLists({ id, priceListDTO }: UpdatePriceListsRequest, opts?: OperationOpts): Observable<RawAjaxResponse<PriceListDTO>>
-    updatePriceLists({ id, priceListDTO }: UpdatePriceListsRequest, opts?: OperationOpts): Observable<PriceListDTO | RawAjaxResponse<PriceListDTO>> {
+    updatePriceLists({ id, priceListDTO }: UpdatePriceListsRequest, opts?: OperationOpts): Observable<AjaxResponse<PriceListDTO>>
+    updatePriceLists({ id, priceListDTO }: UpdatePriceListsRequest, opts?: OperationOpts): Observable<PriceListDTO | AjaxResponse<PriceListDTO>> {
         throwIfNullOrUndefined(id, 'id', 'updatePriceLists');
         throwIfNullOrUndefined(priceListDTO, 'priceListDTO', 'updatePriceLists');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<PriceListDTO>({

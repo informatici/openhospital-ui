@@ -12,7 +12,6 @@
  */
 
 /**
- * The lot
  * @export
  * @interface LotDTO
  */

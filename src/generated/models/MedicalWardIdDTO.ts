@@ -11,23 +11,24 @@
  * Do not edit the class manually.
  */
 
-import {
+import type {
     MedicalDTO,
     WardDTO,
 } from './';
 
 /**
- * The medical ward\'s id
  * @export
  * @interface MedicalWardIdDTO
  */
 export interface MedicalWardIdDTO {
     /**
+     * The ward
      * @type {WardDTO}
      * @memberof MedicalWardIdDTO
      */
     ward: WardDTO;
     /**
+     * The medical
      * @type {MedicalDTO}
      * @memberof MedicalWardIdDTO
      */

@@ -31,6 +31,7 @@ export * from './PregnantTreatmentTypesApi';
 export * from './PriceListsApi';
 export * from './RadiologyApi';
 export * from './ReportsApi';
+export * from './RootControllerApi';
 export * from './SMSApi';
 export * from './StockMovementsApi';
 export * from './SuppliersApi';

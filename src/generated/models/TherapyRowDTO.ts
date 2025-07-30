@@ -11,7 +11,7 @@
  * Do not edit the class manually.
  */
 
-import {
+import type {
     PatientDTO,
 } from './';
 
@@ -27,6 +27,7 @@ export interface TherapyRowDTO {
      */
     therapyID?: number;
     /**
+     * The patient
      * @type {PatientDTO}
      * @memberof TherapyRowDTO
      */
