@@ -11,7 +11,7 @@ export const applyLanguageMiddleware: Middleware = {
       lang = "en";
     }
     return produce(request, (draft) => {
-      draft.headers = set(draft.headers || {}, "accept-language", lang);
+      draft.headers = set(draft.headers || {}, "Accept-Language", lang);
     });
   },
 };
