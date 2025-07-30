@@ -11,15 +11,10 @@
  * Do not edit the class manually.
  */
 
-<<<<<<< HEAD
-import { Observable } from "rxjs";
-import {
-  BaseAPI,
-  HttpHeaders,
-  OperationOpts,
-  RawAjaxResponse,
-  throwIfNullOrUndefined,
-} from "../runtime";
+import type { Observable } from "rxjs";
+import type { AjaxResponse } from "rxjs/ajax";
+import type { HttpHeaders, OperationOpts } from "../runtime";
+import { BaseAPI } from "../runtime";
 
 export interface PrintExaminationListPdfRequest {
   examinationId: number;
@@ -28,27 +23,39 @@ export interface PrintExaminationListPdfRequest {
 export interface PrintExamRequestPdf {
   patientId: number;
 }
-=======
-import type { Observable } from 'rxjs';
-import type { AjaxResponse } from 'rxjs/ajax';
-import { BaseAPI } from '../runtime';
-import type { OperationOpts, HttpHeaders } from '../runtime';
->>>>>>> edee4d3c631caa7acc8bd028d8747c56b2e46433
 
 /**
  * no description
  */
 export class ReportsApi extends BaseAPI {
-<<<<<<< HEAD
   /**
    */
-  printDiseasesListPdf(): Observable<Array<string>>;
+  printDiseasesListPdf(): Observable<string>;
+  printDiseasesListPdf(opts?: OperationOpts): Observable<AjaxResponse<string>>;
   printDiseasesListPdf(
     opts?: OperationOpts
-  ): Observable<RawAjaxResponse<Array<string>>>;
-  printDiseasesListPdf(
+  ): Observable<string | AjaxResponse<string>> {
+    const headers: HttpHeaders = {};
+
+    return this.request<string>(
+      {
+        url: "/reports/diseases-list",
+        method: "GET",
+        headers,
+      },
+      opts?.responseOpts
+    );
+  }
+
+  /**
+   */
+  printExamsListPdf(): Observable<Array<string>>;
+  printExamsListPdf(
     opts?: OperationOpts
-  ): Observable<Array<string> | RawAjaxResponse<Array<string>>> {
+  ): Observable<AjaxResponse<Array<string>>>;
+  printExamsListPdf(
+    opts?: OperationOpts
+  ): Observable<Array<string> | AjaxResponse<Array<string>>> {
     const headers: HttpHeaders = {
       ...(this.configuration.username != null &&
       this.configuration.password != null
@@ -62,7 +69,7 @@ export class ReportsApi extends BaseAPI {
 
     return this.request<Array<string>>(
       {
-        url: "/reports/diseases-list",
+        url: "/reports/exams-list",
         method: "GET",
         headers,
       },
@@ -98,37 +105,6 @@ export class ReportsApi extends BaseAPI {
             )}`,
           }
         : undefined),
-=======
-
-    /**
-     */
-    printDiseasesListPdf(): Observable<string>
-    printDiseasesListPdf(opts?: OperationOpts): Observable<AjaxResponse<string>>
-    printDiseasesListPdf(opts?: OperationOpts): Observable<string | AjaxResponse<string>> {
-        const headers: HttpHeaders = {
-        };
-
-        return this.request<string>({
-            url: '/reports/diseases-list',
-            method: 'GET',
-            headers,
-        }, opts?.responseOpts);
-    };
-
-    /**
-     */
-    printExamsListPdf(): Observable<string>
-    printExamsListPdf(opts?: OperationOpts): Observable<AjaxResponse<string>>
-    printExamsListPdf(opts?: OperationOpts): Observable<string | AjaxResponse<string>> {
-        const headers: HttpHeaders = {
-        };
-
-        return this.request<string>({
-            url: '/reports/exams-list',
-            method: 'GET',
-            headers,
-        }, opts?.responseOpts);
->>>>>>> edee4d3c631caa7acc8bd028d8747c56b2e46433
     };
 
     return this.request<Blob>(
@@ -141,37 +117,6 @@ export class ReportsApi extends BaseAPI {
       opts?.responseOpts
     );
   }
-
-  /**
-   */
-  printExamsListPdf(): Observable<Array<string>>;
-  printExamsListPdf(
-    opts?: OperationOpts
-  ): Observable<RawAjaxResponse<Array<string>>>;
-  printExamsListPdf(
-    opts?: OperationOpts
-  ): Observable<Array<string> | RawAjaxResponse<Array<string>>> {
-    const headers: HttpHeaders = {
-      ...(this.configuration.username != null &&
-      this.configuration.password != null
-        ? {
-            Authorization: `Basic ${btoa(
-              this.configuration.username + ":" + this.configuration.password
-            )}`,
-          }
-        : undefined),
-    };
-
-    return this.request<Array<string>>(
-      {
-        url: "/reports/exams-list",
-        method: "GET",
-        headers,
-      },
-      opts?.responseOpts
-    );
-  }
-
   /**
    */
   printPatientExamRequestPdf({
@@ -180,11 +125,11 @@ export class ReportsApi extends BaseAPI {
   printPatientExamRequestPdf(
     { patientId }: PrintExamRequestPdf,
     opts?: OperationOpts
-  ): Observable<RawAjaxResponse<Blob>>;
+  ): Observable<AjaxResponse<Blob>>;
   printPatientExamRequestPdf(
     { patientId }: PrintExamRequestPdf,
     opts?: OperationOpts
-  ): Observable<Blob | RawAjaxResponse<Blob>> {
+  ): Observable<Blob | AjaxResponse<Blob>> {
     throwIfNullOrUndefined(
       patientId,
       "patientId",
