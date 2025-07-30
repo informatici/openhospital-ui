@@ -41,6 +41,26 @@ export class ReportsApi extends BaseAPI {
       opts?.responseOpts
     );
   }
+
+  /**
+   */
+  printExamsListPdf(): Observable<string>;
+  printExamsListPdf(opts?: OperationOpts): Observable<AjaxResponse<string>>;
+  printExamsListPdf(
+    opts?: OperationOpts
+  ): Observable<string | AjaxResponse<string>> {
+    const headers: HttpHeaders = {};
+
+    return this.request<string>(
+      {
+        url: "/reports/exams-list",
+        method: "GET",
+        headers,
+      },
+      opts?.responseOpts
+    );
+  }
+
   /**
    */
   printExaminationListPdf({
@@ -77,25 +97,6 @@ export class ReportsApi extends BaseAPI {
         method: "GET",
         headers,
         responseType: "blob",
-      },
-      opts?.responseOpts
-    );
-  }
-
-  /**
-   */
-  printExamsListPdf(): Observable<string>;
-  printExamsListPdf(opts?: OperationOpts): Observable<AjaxResponse<string>>;
-  printExamsListPdf(
-    opts?: OperationOpts
-  ): Observable<string | AjaxResponse<string>> {
-    const headers: HttpHeaders = {};
-
-    return this.request<string>(
-      {
-        url: "/reports/exams-list",
-        method: "GET",
-        headers,
       },
       opts?.responseOpts
     );
