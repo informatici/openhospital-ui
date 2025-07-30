@@ -7,7 +7,6 @@ import { LocalStorage } from "../storage/storage";
 export const applyLanguageMiddleware: Middleware = {
   pre(request: RequestArgs): RequestArgs {
     const lang = LocalStorage.read(LAGUAGE_KEY);
-    console.log(lang);
     return produce(request, (draft) => {
       draft.headers = set(draft.headers || {}, "accept-language", lang);
     });
