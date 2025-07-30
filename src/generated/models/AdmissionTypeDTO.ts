@@ -12,7 +12,6 @@
  */
 
 /**
- * Admission type
  * @export
  * @interface AdmissionTypeDTO
  */

@@ -11,9 +11,11 @@
  * Do not edit the class manually.
  */
 
-import { Observable } from 'rxjs';
-import { BaseAPI, HttpHeaders, throwIfNullOrUndefined, OperationOpts, RawAjaxResponse } from '../runtime';
-import {
+import type { Observable } from 'rxjs';
+import type { AjaxResponse } from 'rxjs/ajax';
+import { BaseAPI, throwIfNullOrUndefined } from '../runtime';
+import type { OperationOpts, HttpHeaders } from '../runtime';
+import type {
     LoginRequest,
     LoginResponse,
     TokenRefreshRequest,
@@ -35,13 +37,12 @@ export class LoginApi extends BaseAPI {
     /**
      */
     authenticateUser({ loginRequest }: AuthenticateUserRequest): Observable<LoginResponse>
-    authenticateUser({ loginRequest }: AuthenticateUserRequest, opts?: OperationOpts): Observable<RawAjaxResponse<LoginResponse>>
-    authenticateUser({ loginRequest }: AuthenticateUserRequest, opts?: OperationOpts): Observable<LoginResponse | RawAjaxResponse<LoginResponse>> {
+    authenticateUser({ loginRequest }: AuthenticateUserRequest, opts?: OperationOpts): Observable<AjaxResponse<LoginResponse>>
+    authenticateUser({ loginRequest }: AuthenticateUserRequest, opts?: OperationOpts): Observable<LoginResponse | AjaxResponse<LoginResponse>> {
         throwIfNullOrUndefined(loginRequest, 'loginRequest', 'authenticateUser');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<LoginResponse>({
@@ -56,10 +57,9 @@ export class LoginApi extends BaseAPI {
      * Logout the current user.
      */
     logout(): Observable<void>
-    logout(opts?: OperationOpts): Observable<void | RawAjaxResponse<void>>
-    logout(opts?: OperationOpts): Observable<void | RawAjaxResponse<void>> {
+    logout(opts?: OperationOpts): Observable<void | AjaxResponse<void>>
+    logout(opts?: OperationOpts): Observable<void | AjaxResponse<void>> {
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<void>({
@@ -72,13 +72,12 @@ export class LoginApi extends BaseAPI {
     /**
      */
     refreshToken({ tokenRefreshRequest }: RefreshTokenRequest): Observable<LoginResponse>
-    refreshToken({ tokenRefreshRequest }: RefreshTokenRequest, opts?: OperationOpts): Observable<RawAjaxResponse<LoginResponse>>
-    refreshToken({ tokenRefreshRequest }: RefreshTokenRequest, opts?: OperationOpts): Observable<LoginResponse | RawAjaxResponse<LoginResponse>> {
+    refreshToken({ tokenRefreshRequest }: RefreshTokenRequest, opts?: OperationOpts): Observable<AjaxResponse<LoginResponse>>
+    refreshToken({ tokenRefreshRequest }: RefreshTokenRequest, opts?: OperationOpts): Observable<LoginResponse | AjaxResponse<LoginResponse>> {
         throwIfNullOrUndefined(tokenRefreshRequest, 'tokenRefreshRequest', 'refreshToken');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<LoginResponse>({

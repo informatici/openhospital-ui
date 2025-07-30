@@ -11,7 +11,7 @@
  * Do not edit the class manually.
  */
 
-import {
+import type {
     ExamDTO,
 } from './';
 
@@ -33,6 +33,7 @@ export interface LaboratoryDTO {
      */
     material?: string;
     /**
+     * Laboratory Exam
      * @type {ExamDTO}
      * @memberof LaboratoryDTO
      */

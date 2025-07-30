@@ -11,7 +11,7 @@
  * Do not edit the class manually.
  */
 
-import {
+import type {
     ExamDTO,
 } from './';
 
@@ -21,6 +21,7 @@ import {
  */
 export interface ExamWithRowsDTO {
     /**
+     * The exam to be changed
      * @type {ExamDTO}
      * @memberof ExamWithRowsDTO
      */

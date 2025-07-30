@@ -12,7 +12,6 @@
  */
 
 /**
- * Delivery type
  * @export
  * @interface DeliveryTypeDTO
  */

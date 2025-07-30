@@ -11,7 +11,7 @@
  * Do not edit the class manually.
  */
 
-import {
+import type {
     DiseaseTypeDTO,
 } from './';
 
@@ -34,6 +34,7 @@ export interface DiseaseDTO {
      */
     description: string;
     /**
+     * Disease type
      * @type {DiseaseTypeDTO}
      * @memberof DiseaseDTO
      */

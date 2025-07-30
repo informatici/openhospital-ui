@@ -11,9 +11,11 @@
  * Do not edit the class manually.
  */
 
-import { Observable } from 'rxjs';
-import { BaseAPI, HttpHeaders, throwIfNullOrUndefined, encodeURI, OperationOpts, RawAjaxResponse } from '../runtime';
-import {
+import type { Observable } from 'rxjs';
+import type { AjaxResponse } from 'rxjs/ajax';
+import { BaseAPI, throwIfNullOrUndefined, encodeURI } from '../runtime';
+import type { OperationOpts, HttpHeaders } from '../runtime';
+import type {
     ExamDTO,
     ExamWithRowsDTO,
 } from '../models';
@@ -43,12 +45,11 @@ export class ExamsApi extends BaseAPI {
     /**
      */
     deleteExam1({ code }: DeleteExam1Request): Observable<boolean>
-    deleteExam1({ code }: DeleteExam1Request, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
-    deleteExam1({ code }: DeleteExam1Request, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+    deleteExam1({ code }: DeleteExam1Request, opts?: OperationOpts): Observable<AjaxResponse<boolean>>
+    deleteExam1({ code }: DeleteExam1Request, opts?: OperationOpts): Observable<boolean | AjaxResponse<boolean>> {
         throwIfNullOrUndefined(code, 'code', 'deleteExam1');
 
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<boolean>({
@@ -61,10 +62,9 @@ export class ExamsApi extends BaseAPI {
     /**
      */
     getExams(): Observable<Array<ExamDTO>>
-    getExams(opts?: OperationOpts): Observable<RawAjaxResponse<Array<ExamDTO>>>
-    getExams(opts?: OperationOpts): Observable<Array<ExamDTO> | RawAjaxResponse<Array<ExamDTO>>> {
+    getExams(opts?: OperationOpts): Observable<AjaxResponse<Array<ExamDTO>>>
+    getExams(opts?: OperationOpts): Observable<Array<ExamDTO> | AjaxResponse<Array<ExamDTO>>> {
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<Array<ExamDTO>>({
@@ -77,12 +77,11 @@ export class ExamsApi extends BaseAPI {
     /**
      */
     getExams1({ description }: GetExams1Request): Observable<Array<ExamDTO>>
-    getExams1({ description }: GetExams1Request, opts?: OperationOpts): Observable<RawAjaxResponse<Array<ExamDTO>>>
-    getExams1({ description }: GetExams1Request, opts?: OperationOpts): Observable<Array<ExamDTO> | RawAjaxResponse<Array<ExamDTO>>> {
+    getExams1({ description }: GetExams1Request, opts?: OperationOpts): Observable<AjaxResponse<Array<ExamDTO>>>
+    getExams1({ description }: GetExams1Request, opts?: OperationOpts): Observable<Array<ExamDTO> | AjaxResponse<Array<ExamDTO>>> {
         throwIfNullOrUndefined(description, 'description', 'getExams1');
 
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<Array<ExamDTO>>({
@@ -95,13 +94,12 @@ export class ExamsApi extends BaseAPI {
     /**
      */
     newExam({ examWithRowsDTO }: NewExamRequest): Observable<ExamDTO>
-    newExam({ examWithRowsDTO }: NewExamRequest, opts?: OperationOpts): Observable<RawAjaxResponse<ExamDTO>>
-    newExam({ examWithRowsDTO }: NewExamRequest, opts?: OperationOpts): Observable<ExamDTO | RawAjaxResponse<ExamDTO>> {
+    newExam({ examWithRowsDTO }: NewExamRequest, opts?: OperationOpts): Observable<AjaxResponse<ExamDTO>>
+    newExam({ examWithRowsDTO }: NewExamRequest, opts?: OperationOpts): Observable<ExamDTO | AjaxResponse<ExamDTO>> {
         throwIfNullOrUndefined(examWithRowsDTO, 'examWithRowsDTO', 'newExam');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<ExamDTO>({
@@ -115,14 +113,13 @@ export class ExamsApi extends BaseAPI {
     /**
      */
     updateExam({ code, examWithRowsDTO }: UpdateExamRequest): Observable<ExamDTO>
-    updateExam({ code, examWithRowsDTO }: UpdateExamRequest, opts?: OperationOpts): Observable<RawAjaxResponse<ExamDTO>>
-    updateExam({ code, examWithRowsDTO }: UpdateExamRequest, opts?: OperationOpts): Observable<ExamDTO | RawAjaxResponse<ExamDTO>> {
+    updateExam({ code, examWithRowsDTO }: UpdateExamRequest, opts?: OperationOpts): Observable<AjaxResponse<ExamDTO>>
+    updateExam({ code, examWithRowsDTO }: UpdateExamRequest, opts?: OperationOpts): Observable<ExamDTO | AjaxResponse<ExamDTO>> {
         throwIfNullOrUndefined(code, 'code', 'updateExam');
         throwIfNullOrUndefined(examWithRowsDTO, 'examWithRowsDTO', 'updateExam');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<ExamDTO>({

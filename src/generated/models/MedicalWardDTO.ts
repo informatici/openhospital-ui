@@ -11,7 +11,7 @@
  * Do not edit the class manually.
  */
 
-import {
+import type {
     MedicalWardIdDTO,
 } from './';
 
@@ -21,6 +21,7 @@ import {
  */
 export interface MedicalWardDTO {
     /**
+     * The medical ward\'s id
      * @type {MedicalWardIdDTO}
      * @memberof MedicalWardDTO
      */
@@ -37,4 +38,10 @@ export interface MedicalWardDTO {
      * @memberof MedicalWardDTO
      */
     out_quantity?: number;
+    /**
+     * Lock
+     * @type {number}
+     * @memberof MedicalWardDTO
+     */
+    lock?: number;
 }
