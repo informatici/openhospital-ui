@@ -55,6 +55,7 @@ const useSummaryMetaData = () => {
     medicalId: t("therapy.medical"),
     service: t("visit.service"),
     duration: t("visit.duration"),
+    result: t("lab.result"),
   };
   const dateFields = [
     "date",

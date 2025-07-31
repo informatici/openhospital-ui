@@ -47,7 +47,14 @@ export const loadSummaryData = createAsyncThunk(
         wrapper(() => laboratoriesApi.getLaboratory1({ patId: code })).pipe(
           map((res) =>
             convertToSummaryData(
-              res.map((e) => e.laboratoryDTO),
+              res.map((e) => {
+                if (e.laboratoryDTO?.exam?.procedure === 2) {
+                  e.laboratoryDTO.result = e.laboratoryRowList?.join(", ");
+                  return e.laboratoryDTO;
+                } else {
+                  return e.laboratoryDTO;
+                }
+              }),
               SummaryField.exam
             )
           ),
