@@ -11,9 +11,11 @@
  * Do not edit the class manually.
  */
 
-import { Observable } from 'rxjs';
-import { BaseAPI, HttpHeaders, throwIfNullOrUndefined, encodeURI, OperationOpts, RawAjaxResponse } from '../runtime';
-import {
+import type { Observable } from 'rxjs';
+import type { AjaxResponse } from 'rxjs/ajax';
+import { BaseAPI, throwIfNullOrUndefined, encodeURI } from '../runtime';
+import type { OperationOpts, HttpHeaders } from '../runtime';
+import type {
     PermissionDTO,
 } from '../models';
 
@@ -37,10 +39,9 @@ export class PermissionsApi extends BaseAPI {
     /**
      */
     retrieveAllPermissions(): Observable<Array<PermissionDTO>>
-    retrieveAllPermissions(opts?: OperationOpts): Observable<RawAjaxResponse<Array<PermissionDTO>>>
-    retrieveAllPermissions(opts?: OperationOpts): Observable<Array<PermissionDTO> | RawAjaxResponse<Array<PermissionDTO>>> {
+    retrieveAllPermissions(opts?: OperationOpts): Observable<AjaxResponse<Array<PermissionDTO>>>
+    retrieveAllPermissions(opts?: OperationOpts): Observable<Array<PermissionDTO> | AjaxResponse<Array<PermissionDTO>>> {
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<Array<PermissionDTO>>({
@@ -53,12 +54,11 @@ export class PermissionsApi extends BaseAPI {
     /**
      */
     retrievePermissionById({ id }: RetrievePermissionByIdRequest): Observable<PermissionDTO>
-    retrievePermissionById({ id }: RetrievePermissionByIdRequest, opts?: OperationOpts): Observable<RawAjaxResponse<PermissionDTO>>
-    retrievePermissionById({ id }: RetrievePermissionByIdRequest, opts?: OperationOpts): Observable<PermissionDTO | RawAjaxResponse<PermissionDTO>> {
+    retrievePermissionById({ id }: RetrievePermissionByIdRequest, opts?: OperationOpts): Observable<AjaxResponse<PermissionDTO>>
+    retrievePermissionById({ id }: RetrievePermissionByIdRequest, opts?: OperationOpts): Observable<PermissionDTO | AjaxResponse<PermissionDTO>> {
         throwIfNullOrUndefined(id, 'id', 'retrievePermissionById');
 
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<PermissionDTO>({
@@ -71,12 +71,11 @@ export class PermissionsApi extends BaseAPI {
     /**
      */
     retrievePermissionByName({ name }: RetrievePermissionByNameRequest): Observable<PermissionDTO>
-    retrievePermissionByName({ name }: RetrievePermissionByNameRequest, opts?: OperationOpts): Observable<RawAjaxResponse<PermissionDTO>>
-    retrievePermissionByName({ name }: RetrievePermissionByNameRequest, opts?: OperationOpts): Observable<PermissionDTO | RawAjaxResponse<PermissionDTO>> {
+    retrievePermissionByName({ name }: RetrievePermissionByNameRequest, opts?: OperationOpts): Observable<AjaxResponse<PermissionDTO>>
+    retrievePermissionByName({ name }: RetrievePermissionByNameRequest, opts?: OperationOpts): Observable<PermissionDTO | AjaxResponse<PermissionDTO>> {
         throwIfNullOrUndefined(name, 'name', 'retrievePermissionByName');
 
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<PermissionDTO>({
@@ -89,12 +88,11 @@ export class PermissionsApi extends BaseAPI {
     /**
      */
     retrievePermissionsByUserGroupCode({ userGroupCode }: RetrievePermissionsByUserGroupCodeRequest): Observable<Array<PermissionDTO>>
-    retrievePermissionsByUserGroupCode({ userGroupCode }: RetrievePermissionsByUserGroupCodeRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<PermissionDTO>>>
-    retrievePermissionsByUserGroupCode({ userGroupCode }: RetrievePermissionsByUserGroupCodeRequest, opts?: OperationOpts): Observable<Array<PermissionDTO> | RawAjaxResponse<Array<PermissionDTO>>> {
+    retrievePermissionsByUserGroupCode({ userGroupCode }: RetrievePermissionsByUserGroupCodeRequest, opts?: OperationOpts): Observable<AjaxResponse<Array<PermissionDTO>>>
+    retrievePermissionsByUserGroupCode({ userGroupCode }: RetrievePermissionsByUserGroupCodeRequest, opts?: OperationOpts): Observable<Array<PermissionDTO> | AjaxResponse<Array<PermissionDTO>>> {
         throwIfNullOrUndefined(userGroupCode, 'userGroupCode', 'retrievePermissionsByUserGroupCode');
 
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<Array<PermissionDTO>>({

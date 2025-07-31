@@ -11,7 +11,7 @@
  * Do not edit the class manually.
  */
 
-import {
+import type {
     LotDTO,
     MedicalDTO,
     MovementTypeDTO,
@@ -31,21 +31,25 @@ export interface MovementDTO {
      */
     code?: number;
     /**
+     * The related medical
      * @type {MedicalDTO}
      * @memberof MovementDTO
      */
     medical: MedicalDTO;
     /**
+     * The movement type
      * @type {MovementTypeDTO}
      * @memberof MovementDTO
      */
     type: MovementTypeDTO;
     /**
+     * The target ward
      * @type {WardDTO}
      * @memberof MovementDTO
      */
     ward?: WardDTO;
     /**
+     * The lot
      * @type {LotDTO}
      * @memberof MovementDTO
      */
@@ -63,6 +67,7 @@ export interface MovementDTO {
      */
     quantity: number;
     /**
+     * The movement\'s supplier
      * @type {SupplierDTO}
      * @memberof MovementDTO
      */

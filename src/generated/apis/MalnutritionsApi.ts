@@ -11,9 +11,11 @@
  * Do not edit the class manually.
  */
 
-import { Observable } from 'rxjs';
-import { BaseAPI, HttpHeaders, HttpQuery, throwIfNullOrUndefined, encodeURI, OperationOpts, RawAjaxResponse } from '../runtime';
-import {
+import type { Observable } from 'rxjs';
+import type { AjaxResponse } from 'rxjs/ajax';
+import { BaseAPI, throwIfNullOrUndefined, encodeURI } from '../runtime';
+import type { OperationOpts, HttpHeaders, HttpQuery } from '../runtime';
+import type {
     MalnutritionDTO,
 } from '../models';
 
@@ -45,12 +47,11 @@ export class MalnutritionsApi extends BaseAPI {
     /**
      */
     deleteMalnutrition({ code }: DeleteMalnutritionRequest): Observable<boolean>
-    deleteMalnutrition({ code }: DeleteMalnutritionRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
-    deleteMalnutrition({ code }: DeleteMalnutritionRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+    deleteMalnutrition({ code }: DeleteMalnutritionRequest, opts?: OperationOpts): Observable<AjaxResponse<boolean>>
+    deleteMalnutrition({ code }: DeleteMalnutritionRequest, opts?: OperationOpts): Observable<boolean | AjaxResponse<boolean>> {
         throwIfNullOrUndefined(code, 'code', 'deleteMalnutrition');
 
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         const query: HttpQuery = { // required parameters are used directly since they are already checked by throwIfNullOrUndefined
@@ -68,12 +69,11 @@ export class MalnutritionsApi extends BaseAPI {
     /**
      */
     getLastMalnutrition({ idPatient }: GetLastMalnutritionRequest): Observable<MalnutritionDTO>
-    getLastMalnutrition({ idPatient }: GetLastMalnutritionRequest, opts?: OperationOpts): Observable<RawAjaxResponse<MalnutritionDTO>>
-    getLastMalnutrition({ idPatient }: GetLastMalnutritionRequest, opts?: OperationOpts): Observable<MalnutritionDTO | RawAjaxResponse<MalnutritionDTO>> {
+    getLastMalnutrition({ idPatient }: GetLastMalnutritionRequest, opts?: OperationOpts): Observable<AjaxResponse<MalnutritionDTO>>
+    getLastMalnutrition({ idPatient }: GetLastMalnutritionRequest, opts?: OperationOpts): Observable<MalnutritionDTO | AjaxResponse<MalnutritionDTO>> {
         throwIfNullOrUndefined(idPatient, 'idPatient', 'getLastMalnutrition');
 
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<MalnutritionDTO>({
@@ -86,12 +86,11 @@ export class MalnutritionsApi extends BaseAPI {
     /**
      */
     getMalnutrition({ idAdmission }: GetMalnutritionRequest): Observable<Array<MalnutritionDTO>>
-    getMalnutrition({ idAdmission }: GetMalnutritionRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<MalnutritionDTO>>>
-    getMalnutrition({ idAdmission }: GetMalnutritionRequest, opts?: OperationOpts): Observable<Array<MalnutritionDTO> | RawAjaxResponse<Array<MalnutritionDTO>>> {
+    getMalnutrition({ idAdmission }: GetMalnutritionRequest, opts?: OperationOpts): Observable<AjaxResponse<Array<MalnutritionDTO>>>
+    getMalnutrition({ idAdmission }: GetMalnutritionRequest, opts?: OperationOpts): Observable<Array<MalnutritionDTO> | AjaxResponse<Array<MalnutritionDTO>>> {
         throwIfNullOrUndefined(idAdmission, 'idAdmission', 'getMalnutrition');
 
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<Array<MalnutritionDTO>>({
@@ -104,13 +103,12 @@ export class MalnutritionsApi extends BaseAPI {
     /**
      */
     newMalnutrition({ malnutritionDTO }: NewMalnutritionRequest): Observable<MalnutritionDTO>
-    newMalnutrition({ malnutritionDTO }: NewMalnutritionRequest, opts?: OperationOpts): Observable<RawAjaxResponse<MalnutritionDTO>>
-    newMalnutrition({ malnutritionDTO }: NewMalnutritionRequest, opts?: OperationOpts): Observable<MalnutritionDTO | RawAjaxResponse<MalnutritionDTO>> {
+    newMalnutrition({ malnutritionDTO }: NewMalnutritionRequest, opts?: OperationOpts): Observable<AjaxResponse<MalnutritionDTO>>
+    newMalnutrition({ malnutritionDTO }: NewMalnutritionRequest, opts?: OperationOpts): Observable<MalnutritionDTO | AjaxResponse<MalnutritionDTO>> {
         throwIfNullOrUndefined(malnutritionDTO, 'malnutritionDTO', 'newMalnutrition');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<MalnutritionDTO>({
@@ -124,13 +122,12 @@ export class MalnutritionsApi extends BaseAPI {
     /**
      */
     updateMalnutrition({ malnutritionDTO }: UpdateMalnutritionRequest): Observable<MalnutritionDTO>
-    updateMalnutrition({ malnutritionDTO }: UpdateMalnutritionRequest, opts?: OperationOpts): Observable<RawAjaxResponse<MalnutritionDTO>>
-    updateMalnutrition({ malnutritionDTO }: UpdateMalnutritionRequest, opts?: OperationOpts): Observable<MalnutritionDTO | RawAjaxResponse<MalnutritionDTO>> {
+    updateMalnutrition({ malnutritionDTO }: UpdateMalnutritionRequest, opts?: OperationOpts): Observable<AjaxResponse<MalnutritionDTO>>
+    updateMalnutrition({ malnutritionDTO }: UpdateMalnutritionRequest, opts?: OperationOpts): Observable<MalnutritionDTO | AjaxResponse<MalnutritionDTO>> {
         throwIfNullOrUndefined(malnutritionDTO, 'malnutritionDTO', 'updateMalnutrition');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<MalnutritionDTO>({

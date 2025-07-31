@@ -54,7 +54,7 @@
     "redux": "^5.0.1",
     "redux-thunk": "^3.1.0",
     "rifm": "^0.12.0",
-    "rxjs": "^6.6.3",
+    "rxjs": "^7.8.2",
     "sass": "^1.26.5",
     "sass-loader": "^10.0.2",
     "styled-components": "^6.1.12",
@@ -73,7 +73,7 @@
     "build:staging": "env-cmd -f .env.staging npm run build",
     "build:prod": "env-cmd -f .env.prod npm run build",
     "build:gh-pages": "env-cmd -f .env.gh-pages npm run build",
-    "build:api": "openapi-generator generate -i api/oh.yaml -g typescript-rxjs -c openapi-generator.config.json -o src/generated/",
+    "build:api": "openapi-generator-cli generate -i api/oh.yaml -g typescript-rxjs -c openapi-generator.config.json -o src/generated/",
     "clear": "rm -rf ./.cache ./dist ./build",
     "convert": "convert-resources --path-generated src/resources/old",
     "storybook": "storybook dev -p 6006 -s public",
@@ -106,7 +106,7 @@
     ]
   },
   "devDependencies": {
-    "@openapitools/openapi-generator-cli": "^1.0.15-4.3.1",
+    "@openapitools/openapi-generator-cli": "2.18.4",
     "@pollyjs/adapter-xhr": "^5.0.0",
     "@pollyjs/core": "^5.0.0",
     "@storybook/addon-actions": "^7.6.15",

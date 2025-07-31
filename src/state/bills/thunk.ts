@@ -108,7 +108,7 @@ export const searchBills = createAsyncThunk(
   "bills/searchBills",
   async (filter: TFilterValues, thunkApi) =>
     wrapper(() =>
-      api.searchBills1({
+      api.searchBills({
         datefrom: filter.fromDate,
         dateto: filter.toDate,
         patientCode: filter.patientCode,
@@ -177,7 +177,7 @@ export const getBillsByYear = createAsyncThunk(
   "bills/getBillsByYear",
   async (year: number, thunkApi) =>
     wrapper(() =>
-      api.searchBills1({
+      api.searchBills({
         datefrom: new Date(year, 0, 1).toISOString(),
         dateto: new Date(year, 11, 31).toISOString(),
         patientCode: 0,

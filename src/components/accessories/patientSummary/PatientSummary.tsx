@@ -24,7 +24,7 @@ const PatientSummary: FunctionComponent = () => {
     { label: t("common.orderbytype"), content: <PatientSummaryByType /> },
   ];
   const handlePrint = () => {
-    printSubject.next();
+    printSubject.next(null);
     setTimeout(() => {
       window.print();
     }, 1000);
@@ -38,7 +38,7 @@ const PatientSummary: FunctionComponent = () => {
         onClick={handlePrint}
         variant="contained"
       >
-        {t("common.print_data")}
+        {t("common.printData")}
       </Button>
       <PatientExtraData readOnly={true} />
       <Tabs config={patientSummaryTabs} />
