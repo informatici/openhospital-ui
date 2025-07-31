@@ -9,7 +9,7 @@ info:
     url: https://github.com/informatici/openhospital-api?tab=GPL-3.0-1-ov-file#readme
   version: 0.1.0
 servers:
-  - url: http://API_HOST:API_PORT
+  - url: http://localhost:8080
 security:
   - bearerAuth: []
 paths:
