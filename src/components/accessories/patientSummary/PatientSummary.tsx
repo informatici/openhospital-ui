@@ -38,7 +38,7 @@ const PatientSummary: FunctionComponent = () => {
         onClick={handlePrint}
         variant="contained"
       >
-        {t("common.print_data")}
+        {t("common.printData")}
       </Button>
       <PatientExtraData readOnly={true} />
       <Tabs config={patientSummaryTabs} />

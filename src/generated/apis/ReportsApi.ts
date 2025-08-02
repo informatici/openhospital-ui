@@ -49,25 +49,14 @@ export class ReportsApi extends BaseAPI {
 
   /**
    */
-  printExamsListPdf(): Observable<Array<string>>;
+  printExamsListPdf(): Observable<string>;
+  printExamsListPdf(opts?: OperationOpts): Observable<AjaxResponse<string>>;
   printExamsListPdf(
     opts?: OperationOpts
-  ): Observable<AjaxResponse<Array<string>>>;
-  printExamsListPdf(
-    opts?: OperationOpts
-  ): Observable<Array<string> | AjaxResponse<Array<string>>> {
-    const headers: HttpHeaders = {
-      ...(this.configuration.username != null &&
-      this.configuration.password != null
-        ? {
-            Authorization: `Basic ${btoa(
-              this.configuration.username + ":" + this.configuration.password
-            )}`,
-          }
-        : undefined),
-    };
+  ): Observable<string | AjaxResponse<string>> {
+    const headers: HttpHeaders = {};
 
-    return this.request<Array<string>>(
+    return this.request<string>(
       {
         url: "/reports/exams-list",
         method: "GET",
