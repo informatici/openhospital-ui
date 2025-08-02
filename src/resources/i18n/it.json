@@ -369,7 +369,9 @@
     "crackles": "Rantoli",
     "stridor": "Stridor",
     "bronchial": "Soffio bronchiale",
-    "previousentries": "Precedenti esami obiettivi"
+    "previousentries": "Precedenti esami obiettivi",
+    "bodymassindex": "Indice di massa corporea",
+    "branchialperimeter": "Périmètre branchial"
   },
   "nav": {
     "pharmacy": "Farmacia",

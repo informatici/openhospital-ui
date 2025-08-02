@@ -170,6 +170,19 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
     resetFormCallback();
   };
 
+  const handleCalculateBMI = (e: React.FocusEvent<HTMLInputElement>) => {
+    formik.handleBlur(e);
+    const weight = parseInt(formik.values.pex_weight);
+    const height = parseInt(formik.values.pex_height);
+
+    if (!isNaN(weight) && !isNaN(height) && height > 0) {
+      const bmi = parseInt((weight / (height / 100) ** 2).toFixed());
+      formik.setFieldValue("pex_body_mass_index", bmi);
+    } else {
+      formik.setFieldValue("pex_body_mass_index", 0);
+    }
+  };
+
   useEffect(() => {
     if (shouldResetForm) {
       resetForm();
@@ -215,7 +228,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
                 label={t("examination.height")}
                 isValid={isValid("pex_height")}
                 errorText={getErrorText("pex_height")}
-                onBlur={formik.handleBlur}
+                onBlur={handleCalculateBMI}
                 type="number"
                 disabled={isLoading}
               />
@@ -228,6 +241,32 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
                 label={t("examination.weight")}
                 isValid={isValid("pex_weight")}
                 errorText={getErrorText("pex_weight")}
+                onBlur={handleCalculateBMI}
+                type="number"
+                disabled={isLoading}
+              />
+            </div>
+
+            <div className="patientTriageForm__item">
+              <TextField
+                field={formik.getFieldProps("pex_body_mass_index")}
+                theme="regular"
+                label={t("examination.bodymassindex")}
+                isValid={isValid("pex_body_mass_index")}
+                errorText={getErrorText("pex_body_mass_index")}
+                onBlur={formik.handleBlur}
+                type="number"
+                disabled={isLoading}
+              />
+            </div>
+
+            <div className="patientTriageForm__item">
+              <TextField
+                field={formik.getFieldProps("pex_branchial_perimeter")}
+                theme="regular"
+                label={t("examination.branchialperimeter")}
+                isValid={isValid("pex_branchial_perimeter")}
+                errorText={getErrorText("pex_branchial_perimeter")}
                 onBlur={formik.handleBlur}
                 type="number"
                 disabled={isLoading}

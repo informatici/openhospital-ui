@@ -85,4 +85,12 @@ export const initialFields: TFields<TPatientTriageFormFieldName> = {
     value: "",
     type: "text",
   },
+  pex_body_mass_index: {
+    value: "",
+    type: "number",
+  },
+  pex_branchial_perimeter: {
+    value: "",
+    type: "number",
+  },
 };
