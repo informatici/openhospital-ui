@@ -179,7 +179,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
       const bmi = parseInt((weight / (height / 100) ** 2).toFixed());
       formik.setFieldValue("pex_body_mass_index", bmi);
     } else {
-      formik.setFieldValue("pex_body_mass_index", 0);
+      formik.setFieldValue("pex_body_mass_index", "");
     }
   };
 
