@@ -78,7 +78,7 @@ const DischargeForm: FC<DischargeProps> = ({
       .test({
         name: "disDate",
         message: t("admission.validatelastdate", {
-          admDate: moment(admission?.admDate ?? "").format("DD/MM/YYYY HH:MM"),
+          admDate: moment(admission?.admDate ?? "").format("DD/MM/YYYY HH:mm"),
         }),
         test: function (value) {
           return (
