@@ -11,9 +11,11 @@
  * Do not edit the class manually.
  */
 
-import { Observable } from 'rxjs';
-import { BaseAPI, HttpHeaders, HttpQuery, throwIfNullOrUndefined, encodeURI, OperationOpts, RawAjaxResponse } from '../runtime';
-import {
+import type { Observable } from 'rxjs';
+import type { AjaxResponse } from 'rxjs/ajax';
+import { BaseAPI, throwIfNullOrUndefined, encodeURI } from '../runtime';
+import type { OperationOpts, HttpHeaders, HttpQuery } from '../runtime';
+import type {
     MedicalDTO,
 } from '../models';
 
@@ -54,12 +56,11 @@ export class MedicalsApi extends BaseAPI {
     /**
      */
     deleteMedical({ code }: DeleteMedicalRequest): Observable<boolean>
-    deleteMedical({ code }: DeleteMedicalRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
-    deleteMedical({ code }: DeleteMedicalRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+    deleteMedical({ code }: DeleteMedicalRequest, opts?: OperationOpts): Observable<AjaxResponse<boolean>>
+    deleteMedical({ code }: DeleteMedicalRequest, opts?: OperationOpts): Observable<boolean | AjaxResponse<boolean>> {
         throwIfNullOrUndefined(code, 'code', 'deleteMedical');
 
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<boolean>({
@@ -72,11 +73,10 @@ export class MedicalsApi extends BaseAPI {
     /**
      */
     filterMedicals({ desc, type, critical, nameSorted }: FilterMedicalsRequest): Observable<Array<MedicalDTO>>
-    filterMedicals({ desc, type, critical, nameSorted }: FilterMedicalsRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<MedicalDTO>>>
-    filterMedicals({ desc, type, critical, nameSorted }: FilterMedicalsRequest, opts?: OperationOpts): Observable<Array<MedicalDTO> | RawAjaxResponse<Array<MedicalDTO>>> {
+    filterMedicals({ desc, type, critical, nameSorted }: FilterMedicalsRequest, opts?: OperationOpts): Observable<AjaxResponse<Array<MedicalDTO>>>
+    filterMedicals({ desc, type, critical, nameSorted }: FilterMedicalsRequest, opts?: OperationOpts): Observable<Array<MedicalDTO> | AjaxResponse<Array<MedicalDTO>>> {
 
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         const query: HttpQuery = {};
@@ -97,12 +97,11 @@ export class MedicalsApi extends BaseAPI {
     /**
      */
     getMedical({ code }: GetMedicalRequest): Observable<MedicalDTO>
-    getMedical({ code }: GetMedicalRequest, opts?: OperationOpts): Observable<RawAjaxResponse<MedicalDTO>>
-    getMedical({ code }: GetMedicalRequest, opts?: OperationOpts): Observable<MedicalDTO | RawAjaxResponse<MedicalDTO>> {
+    getMedical({ code }: GetMedicalRequest, opts?: OperationOpts): Observable<AjaxResponse<MedicalDTO>>
+    getMedical({ code }: GetMedicalRequest, opts?: OperationOpts): Observable<MedicalDTO | AjaxResponse<MedicalDTO>> {
         throwIfNullOrUndefined(code, 'code', 'getMedical');
 
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<MedicalDTO>({
@@ -115,11 +114,10 @@ export class MedicalsApi extends BaseAPI {
     /**
      */
     getMedicals({ sortBy }: GetMedicalsRequest): Observable<Array<MedicalDTO>>
-    getMedicals({ sortBy }: GetMedicalsRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<MedicalDTO>>>
-    getMedicals({ sortBy }: GetMedicalsRequest, opts?: OperationOpts): Observable<Array<MedicalDTO> | RawAjaxResponse<Array<MedicalDTO>>> {
+    getMedicals({ sortBy }: GetMedicalsRequest, opts?: OperationOpts): Observable<AjaxResponse<Array<MedicalDTO>>>
+    getMedicals({ sortBy }: GetMedicalsRequest, opts?: OperationOpts): Observable<Array<MedicalDTO> | AjaxResponse<Array<MedicalDTO>>> {
 
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         const query: HttpQuery = {};
@@ -137,13 +135,12 @@ export class MedicalsApi extends BaseAPI {
     /**
      */
     newMedical({ medicalDTO, ignoreSimilar }: NewMedicalRequest): Observable<MedicalDTO>
-    newMedical({ medicalDTO, ignoreSimilar }: NewMedicalRequest, opts?: OperationOpts): Observable<RawAjaxResponse<MedicalDTO>>
-    newMedical({ medicalDTO, ignoreSimilar }: NewMedicalRequest, opts?: OperationOpts): Observable<MedicalDTO | RawAjaxResponse<MedicalDTO>> {
+    newMedical({ medicalDTO, ignoreSimilar }: NewMedicalRequest, opts?: OperationOpts): Observable<AjaxResponse<MedicalDTO>>
+    newMedical({ medicalDTO, ignoreSimilar }: NewMedicalRequest, opts?: OperationOpts): Observable<MedicalDTO | AjaxResponse<MedicalDTO>> {
         throwIfNullOrUndefined(medicalDTO, 'medicalDTO', 'newMedical');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         const query: HttpQuery = {};
@@ -162,13 +159,12 @@ export class MedicalsApi extends BaseAPI {
     /**
      */
     updateMedical({ medicalDTO, ignoreSimilar }: UpdateMedicalRequest): Observable<MedicalDTO>
-    updateMedical({ medicalDTO, ignoreSimilar }: UpdateMedicalRequest, opts?: OperationOpts): Observable<RawAjaxResponse<MedicalDTO>>
-    updateMedical({ medicalDTO, ignoreSimilar }: UpdateMedicalRequest, opts?: OperationOpts): Observable<MedicalDTO | RawAjaxResponse<MedicalDTO>> {
+    updateMedical({ medicalDTO, ignoreSimilar }: UpdateMedicalRequest, opts?: OperationOpts): Observable<AjaxResponse<MedicalDTO>>
+    updateMedical({ medicalDTO, ignoreSimilar }: UpdateMedicalRequest, opts?: OperationOpts): Observable<MedicalDTO | AjaxResponse<MedicalDTO>> {
         throwIfNullOrUndefined(medicalDTO, 'medicalDTO', 'updateMedical');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         const query: HttpQuery = {};
@@ -191,7 +187,7 @@ export class MedicalsApi extends BaseAPI {
  * @enum {string}
  */
 export enum GetMedicalsSortByEnum {
-    NONE = 'NONE',
-    CODE = 'CODE',
-    NAME = 'NAME'
+    None = 'NONE',
+    Code = 'CODE',
+    Name = 'NAME'
 }

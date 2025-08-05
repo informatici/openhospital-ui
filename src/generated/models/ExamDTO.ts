@@ -11,12 +11,11 @@
  * Do not edit the class manually.
  */
 
-import {
+import type {
     ExamTypeDTO,
 } from './';
 
 /**
- * Laboratory Exam
  * @export
  * @interface ExamDTO
  */
@@ -46,6 +45,7 @@ export interface ExamDTO {
      */
     defaultResult?: string;
     /**
+     * Exam Type
      * @type {ExamTypeDTO}
      * @memberof ExamDTO
      */

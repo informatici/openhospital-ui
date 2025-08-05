@@ -11,9 +11,11 @@
  * Do not edit the class manually.
  */
 
-import { Observable } from 'rxjs';
-import { BaseAPI, HttpHeaders, HttpQuery, throwIfNullOrUndefined, encodeURI, OperationOpts, RawAjaxResponse } from '../runtime';
-import {
+import type { Observable } from 'rxjs';
+import type { AjaxResponse } from 'rxjs/ajax';
+import { BaseAPI, throwIfNullOrUndefined, encodeURI } from '../runtime';
+import type { OperationOpts, HttpHeaders, HttpQuery } from '../runtime';
+import type {
     PermissionDTO,
     UserDTO,
     UserProfileDTO,
@@ -56,12 +58,11 @@ export class UsersApi extends BaseAPI {
     /**
      */
     deleteUser({ username }: DeleteUserRequest): Observable<void>
-    deleteUser({ username }: DeleteUserRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>>
-    deleteUser({ username }: DeleteUserRequest, opts?: OperationOpts): Observable<void | RawAjaxResponse<void>> {
+    deleteUser({ username }: DeleteUserRequest, opts?: OperationOpts): Observable<void | AjaxResponse<void>>
+    deleteUser({ username }: DeleteUserRequest, opts?: OperationOpts): Observable<void | AjaxResponse<void>> {
         throwIfNullOrUndefined(username, 'username', 'deleteUser');
 
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<void>({
@@ -74,11 +75,10 @@ export class UsersApi extends BaseAPI {
     /**
      */
     getUser({ groupId }: GetUserRequest): Observable<Array<UserDTO>>
-    getUser({ groupId }: GetUserRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<UserDTO>>>
-    getUser({ groupId }: GetUserRequest, opts?: OperationOpts): Observable<Array<UserDTO> | RawAjaxResponse<Array<UserDTO>>> {
+    getUser({ groupId }: GetUserRequest, opts?: OperationOpts): Observable<AjaxResponse<Array<UserDTO>>>
+    getUser({ groupId }: GetUserRequest, opts?: OperationOpts): Observable<Array<UserDTO> | AjaxResponse<Array<UserDTO>>> {
 
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         const query: HttpQuery = {};
@@ -96,12 +96,11 @@ export class UsersApi extends BaseAPI {
     /**
      */
     getUserByName({ username }: GetUserByNameRequest): Observable<UserDTO>
-    getUserByName({ username }: GetUserByNameRequest, opts?: OperationOpts): Observable<RawAjaxResponse<UserDTO>>
-    getUserByName({ username }: GetUserByNameRequest, opts?: OperationOpts): Observable<UserDTO | RawAjaxResponse<UserDTO>> {
+    getUserByName({ username }: GetUserByNameRequest, opts?: OperationOpts): Observable<AjaxResponse<UserDTO>>
+    getUserByName({ username }: GetUserByNameRequest, opts?: OperationOpts): Observable<UserDTO | AjaxResponse<UserDTO>> {
         throwIfNullOrUndefined(username, 'username', 'getUserByName');
 
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<UserDTO>({
@@ -114,13 +113,12 @@ export class UsersApi extends BaseAPI {
     /**
      */
     newUser({ userDTO }: NewUserRequest): Observable<UserDTO>
-    newUser({ userDTO }: NewUserRequest, opts?: OperationOpts): Observable<RawAjaxResponse<UserDTO>>
-    newUser({ userDTO }: NewUserRequest, opts?: OperationOpts): Observable<UserDTO | RawAjaxResponse<UserDTO>> {
+    newUser({ userDTO }: NewUserRequest, opts?: OperationOpts): Observable<AjaxResponse<UserDTO>>
+    newUser({ userDTO }: NewUserRequest, opts?: OperationOpts): Observable<UserDTO | AjaxResponse<UserDTO>> {
         throwIfNullOrUndefined(userDTO, 'userDTO', 'newUser');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<UserDTO>({
@@ -134,12 +132,11 @@ export class UsersApi extends BaseAPI {
     /**
      */
     retrievePermissionsByUsername({ username }: RetrievePermissionsByUsernameRequest): Observable<Array<PermissionDTO>>
-    retrievePermissionsByUsername({ username }: RetrievePermissionsByUsernameRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<PermissionDTO>>>
-    retrievePermissionsByUsername({ username }: RetrievePermissionsByUsernameRequest, opts?: OperationOpts): Observable<Array<PermissionDTO> | RawAjaxResponse<Array<PermissionDTO>>> {
+    retrievePermissionsByUsername({ username }: RetrievePermissionsByUsernameRequest, opts?: OperationOpts): Observable<AjaxResponse<Array<PermissionDTO>>>
+    retrievePermissionsByUsername({ username }: RetrievePermissionsByUsernameRequest, opts?: OperationOpts): Observable<Array<PermissionDTO> | AjaxResponse<Array<PermissionDTO>>> {
         throwIfNullOrUndefined(username, 'username', 'retrievePermissionsByUsername');
 
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<Array<PermissionDTO>>({
@@ -152,10 +149,9 @@ export class UsersApi extends BaseAPI {
     /**
      */
     retrieveProfileByCurrentLoggedInUser(): Observable<UserProfileDTO>
-    retrieveProfileByCurrentLoggedInUser(opts?: OperationOpts): Observable<RawAjaxResponse<UserProfileDTO>>
-    retrieveProfileByCurrentLoggedInUser(opts?: OperationOpts): Observable<UserProfileDTO | RawAjaxResponse<UserProfileDTO>> {
+    retrieveProfileByCurrentLoggedInUser(opts?: OperationOpts): Observable<AjaxResponse<UserProfileDTO>>
+    retrieveProfileByCurrentLoggedInUser(opts?: OperationOpts): Observable<UserProfileDTO | AjaxResponse<UserProfileDTO>> {
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<UserProfileDTO>({
@@ -168,13 +164,12 @@ export class UsersApi extends BaseAPI {
     /**
      */
     updateProfile({ userDTO }: UpdateProfileRequest): Observable<UserProfileDTO>
-    updateProfile({ userDTO }: UpdateProfileRequest, opts?: OperationOpts): Observable<RawAjaxResponse<UserProfileDTO>>
-    updateProfile({ userDTO }: UpdateProfileRequest, opts?: OperationOpts): Observable<UserProfileDTO | RawAjaxResponse<UserProfileDTO>> {
+    updateProfile({ userDTO }: UpdateProfileRequest, opts?: OperationOpts): Observable<AjaxResponse<UserProfileDTO>>
+    updateProfile({ userDTO }: UpdateProfileRequest, opts?: OperationOpts): Observable<UserProfileDTO | AjaxResponse<UserProfileDTO>> {
         throwIfNullOrUndefined(userDTO, 'userDTO', 'updateProfile');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<UserProfileDTO>({
@@ -188,14 +183,13 @@ export class UsersApi extends BaseAPI {
     /**
      */
     updateUser({ username, userDTO }: UpdateUserRequest): Observable<UserDTO>
-    updateUser({ username, userDTO }: UpdateUserRequest, opts?: OperationOpts): Observable<RawAjaxResponse<UserDTO>>
-    updateUser({ username, userDTO }: UpdateUserRequest, opts?: OperationOpts): Observable<UserDTO | RawAjaxResponse<UserDTO>> {
+    updateUser({ username, userDTO }: UpdateUserRequest, opts?: OperationOpts): Observable<AjaxResponse<UserDTO>>
+    updateUser({ username, userDTO }: UpdateUserRequest, opts?: OperationOpts): Observable<UserDTO | AjaxResponse<UserDTO>> {
         throwIfNullOrUndefined(username, 'username', 'updateUser');
         throwIfNullOrUndefined(userDTO, 'userDTO', 'updateUser');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<UserDTO>({

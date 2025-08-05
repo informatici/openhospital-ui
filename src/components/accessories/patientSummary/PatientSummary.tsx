@@ -1,4 +1,7 @@
+import { Print } from "@mui/icons-material";
+import { Button } from "@mui/material";
 import { useAppDispatch } from "libraries/hooks/redux";
+import { printSubject } from "libraries/printUtilis/printUtils";
 import React, { FunctionComponent, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { getMedicals } from "../../../state/medicals";
@@ -20,9 +23,23 @@ const PatientSummary: FunctionComponent = () => {
     { label: t("common.orderbydate"), content: <PatientSummaryByDate /> },
     { label: t("common.orderbytype"), content: <PatientSummaryByType /> },
   ];
+  const handlePrint = () => {
+    printSubject.next(null);
+    setTimeout(() => {
+      window.print();
+    }, 1000);
+  };
 
   return (
     <div className="patientSummary">
+      <Button
+        startIcon={<Print />}
+        type="button"
+        onClick={handlePrint}
+        variant="contained"
+      >
+        {t("common.printData")}
+      </Button>
       <PatientExtraData readOnly={true} />
       <Tabs config={patientSummaryTabs} />
     </div>

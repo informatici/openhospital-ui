@@ -11,9 +11,11 @@
  * Do not edit the class manually.
  */
 
-import { Observable } from 'rxjs';
-import { BaseAPI, HttpHeaders, throwIfNullOrUndefined, encodeURI, OperationOpts, RawAjaxResponse } from '../runtime';
-import {
+import type { Observable } from 'rxjs';
+import type { AjaxResponse } from 'rxjs/ajax';
+import { BaseAPI, throwIfNullOrUndefined, encodeURI } from '../runtime';
+import type { OperationOpts, HttpHeaders } from '../runtime';
+import type {
     PricesOthersDTO,
 } from '../models';
 
@@ -38,12 +40,11 @@ export class OthersPriceApi extends BaseAPI {
     /**
      */
     deletePricesOthers({ id }: DeletePricesOthersRequest): Observable<boolean>
-    deletePricesOthers({ id }: DeletePricesOthersRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
-    deletePricesOthers({ id }: DeletePricesOthersRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+    deletePricesOthers({ id }: DeletePricesOthersRequest, opts?: OperationOpts): Observable<AjaxResponse<boolean>>
+    deletePricesOthers({ id }: DeletePricesOthersRequest, opts?: OperationOpts): Observable<boolean | AjaxResponse<boolean>> {
         throwIfNullOrUndefined(id, 'id', 'deletePricesOthers');
 
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<boolean>({
@@ -56,10 +57,9 @@ export class OthersPriceApi extends BaseAPI {
     /**
      */
     getPricesOthers(): Observable<Array<PricesOthersDTO>>
-    getPricesOthers(opts?: OperationOpts): Observable<RawAjaxResponse<Array<PricesOthersDTO>>>
-    getPricesOthers(opts?: OperationOpts): Observable<Array<PricesOthersDTO> | RawAjaxResponse<Array<PricesOthersDTO>>> {
+    getPricesOthers(opts?: OperationOpts): Observable<AjaxResponse<Array<PricesOthersDTO>>>
+    getPricesOthers(opts?: OperationOpts): Observable<Array<PricesOthersDTO> | AjaxResponse<Array<PricesOthersDTO>>> {
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<Array<PricesOthersDTO>>({
@@ -72,13 +72,12 @@ export class OthersPriceApi extends BaseAPI {
     /**
      */
     newPricesOthers({ pricesOthersDTO }: NewPricesOthersRequest): Observable<PricesOthersDTO>
-    newPricesOthers({ pricesOthersDTO }: NewPricesOthersRequest, opts?: OperationOpts): Observable<RawAjaxResponse<PricesOthersDTO>>
-    newPricesOthers({ pricesOthersDTO }: NewPricesOthersRequest, opts?: OperationOpts): Observable<PricesOthersDTO | RawAjaxResponse<PricesOthersDTO>> {
+    newPricesOthers({ pricesOthersDTO }: NewPricesOthersRequest, opts?: OperationOpts): Observable<AjaxResponse<PricesOthersDTO>>
+    newPricesOthers({ pricesOthersDTO }: NewPricesOthersRequest, opts?: OperationOpts): Observable<PricesOthersDTO | AjaxResponse<PricesOthersDTO>> {
         throwIfNullOrUndefined(pricesOthersDTO, 'pricesOthersDTO', 'newPricesOthers');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<PricesOthersDTO>({
@@ -92,14 +91,13 @@ export class OthersPriceApi extends BaseAPI {
     /**
      */
     updatePricesOthers({ id, pricesOthersDTO }: UpdatePricesOthersRequest): Observable<PricesOthersDTO>
-    updatePricesOthers({ id, pricesOthersDTO }: UpdatePricesOthersRequest, opts?: OperationOpts): Observable<RawAjaxResponse<PricesOthersDTO>>
-    updatePricesOthers({ id, pricesOthersDTO }: UpdatePricesOthersRequest, opts?: OperationOpts): Observable<PricesOthersDTO | RawAjaxResponse<PricesOthersDTO>> {
+    updatePricesOthers({ id, pricesOthersDTO }: UpdatePricesOthersRequest, opts?: OperationOpts): Observable<AjaxResponse<PricesOthersDTO>>
+    updatePricesOthers({ id, pricesOthersDTO }: UpdatePricesOthersRequest, opts?: OperationOpts): Observable<PricesOthersDTO | AjaxResponse<PricesOthersDTO>> {
         throwIfNullOrUndefined(id, 'id', 'updatePricesOthers');
         throwIfNullOrUndefined(pricesOthersDTO, 'pricesOthersDTO', 'updatePricesOthers');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<PricesOthersDTO>({

@@ -8,6 +8,7 @@ import {
   Pageview,
   SettingsApplications,
 } from "@mui/icons-material";
+import { usePermission } from "libraries/permissionUtils/usePermission";
 import React, { FunctionComponent, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
@@ -28,6 +29,8 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
   const { t } = useTranslation();
 
   const navigate = useNavigate();
+
+  const canReadRadiology = usePermission("radiology.read");
 
   const isActive = (value: string) => {
     return value === userSection ? "active" : "default";
@@ -161,6 +164,21 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
         <span>{t("nav.userclinic")}</span>
         <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
       </div>
+      {canReadRadiology && (
+        <div
+          className={
+            "align__element patientDetails__main_menu__item " +
+            isActive("radiology")
+          }
+          onClick={() => {
+            changeUserSection("radiology");
+          }}
+        >
+          <Healing fontSize="small" style={{ color: "white" }} />
+          <span>{t("nav.radiology")}</span>
+          <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
+        </div>
+      )}
     </div>
   );
 };
