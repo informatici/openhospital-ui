@@ -11,7 +11,8 @@ export const useViewInOrthanc = (level: "study" | "series" | "instance") => {
     (row: any) => () => {
       window.open(`${orthancExplorerUrl}#${level}?uuid=${row.id}`, "_blank");
     },
-    [level]
+    [level, orthancExplorerUrl]
+
   );
 
   return handleViewInOrthanc;
