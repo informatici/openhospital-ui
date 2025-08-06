@@ -1,7 +1,7 @@
 import { Print } from "@mui/icons-material";
 import { Button, CircularProgress } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-import React, { FunctionComponent, useEffect, useRef } from "react";
+import React, { FunctionComponent, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { LaboratoryDTO } from "../../../../generated";
 import { renderDateTime } from "../../../../libraries/formatUtils/dataFormatting";
@@ -13,7 +13,6 @@ import {
 import InfoBox from "../../infoBox/InfoBox";
 import { statusLabel } from "../../laboratory/table/ExamTable";
 import Table from "../../table/Table";
-import "./styles.scss";
 
 interface IOwnProps {
   shouldUpdateTable: boolean;
@@ -29,6 +28,7 @@ const PatientExamRequestsTable: FunctionComponent<IOwnProps> = ({
   const { t } = useTranslation();
   const canCancel = usePermission("laboratories.delete");
   const infoBoxRef = useRef<HTMLDivElement>(null);
+  const [isPrinting, setPrinting] = useState(false);
 
   const header = ["date", "exam", "status"];
   const dateFields = ["date"];
@@ -89,13 +89,14 @@ const PatientExamRequestsTable: FunctionComponent<IOwnProps> = ({
   };
 
   const handlePrint = () => {
+    setPrinting(true);
     dispatch(printExamRequest(patientCode))
       .unwrap()
       .then((result) => {
         if (result instanceof Blob) {
           const blobUrl = URL.createObjectURL(result);
           window.open(blobUrl, "_blank");
-          setTimeout(() => URL.revokeObjectURL(blobUrl), 5000);
+          setPrinting(false);
         }
       });
   };
@@ -103,18 +104,6 @@ const PatientExamRequestsTable: FunctionComponent<IOwnProps> = ({
   return (
     <div className="patientExamsTable">
       <h5>{t("lab.patientrequestedexam")}</h5>
-      {data?.length > 0 && (
-        <div className="printButton">
-          <Button
-            startIcon={<Print />}
-            type="button"
-            onClick={handlePrint}
-            variant="contained"
-          >
-            {t("lab.print_exam_request")}
-          </Button>
-        </div>
-      )}
       {labRequestStatus === "SUCCESS" && (
         <Table
           rowData={formatDataToDisplay(data)}
@@ -126,6 +115,24 @@ const PatientExamRequestsTable: FunctionComponent<IOwnProps> = ({
           onCancel={canCancel ? onCancel : undefined}
           //onEdit={canUpdate ? onEdit : undefined}
           isCollapsabile={true}
+          headerActions={
+            <Button
+              startIcon={
+                isPrinting ? (
+                  <CircularProgress
+                    style={{ marginLeft: "50%", position: "relative" }}
+                  />
+                ) : (
+                  <Print />
+                )
+              }
+              type="button"
+              onClick={handlePrint}
+              variant="contained"
+            >
+              {t("lab.print_exam_request")}
+            </Button>
+          }
         />
       )}
       {labRequestStatus === "SUCCESS_EMPTY" && (
