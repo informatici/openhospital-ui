@@ -11,7 +11,7 @@
  * Do not edit the class manually.
  */
 
-import {
+import type {
     MedicalTypeDTO,
 } from './';
 
@@ -33,6 +33,7 @@ export interface MedicalDTO {
      */
     prod_code?: string;
     /**
+     * The medical type
      * @type {MedicalTypeDTO}
      * @memberof MedicalDTO
      */

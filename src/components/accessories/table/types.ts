@@ -67,6 +67,7 @@ export interface IProps {
   hideHeader?: boolean;
   hidePaginator?: boolean;
   customRenderDetails?: (row: any) => ReactNode;
+  isExpanded?: boolean;
 }
 
 export interface IRowProps {

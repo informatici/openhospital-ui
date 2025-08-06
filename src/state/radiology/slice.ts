@@ -86,7 +86,7 @@ export const radiologySlice = createSlice({
         state.preview = ApiResponse.loading();
       })
       .addCase(thunks.getInstancePreview.fulfilled, (state, action) => {
-        state.preview = ApiResponse.value(action.payload.data);
+        state.preview = ApiResponse.value(action.payload?.data);
       })
       .addCase(thunks.getInstancePreview.rejected, (state, action) => {
         state.preview = ApiResponse.error(action.payload);

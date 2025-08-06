@@ -11,9 +11,11 @@
  * Do not edit the class manually.
  */
 
-import { Observable } from 'rxjs';
-import { BaseAPI, HttpHeaders, throwIfNullOrUndefined, encodeURI, OperationOpts, RawAjaxResponse } from '../runtime';
-import {
+import type { Observable } from 'rxjs';
+import type { AjaxResponse } from 'rxjs/ajax';
+import { BaseAPI, throwIfNullOrUndefined, encodeURI } from '../runtime';
+import type { OperationOpts, HttpHeaders } from '../runtime';
+import type {
     VisitDTO,
 } from '../models';
 
@@ -46,12 +48,11 @@ export class VisitApi extends BaseAPI {
     /**
      */
     deleteVisitsRelatedToPatient({ patID }: DeleteVisitsRelatedToPatientRequest): Observable<boolean>
-    deleteVisitsRelatedToPatient({ patID }: DeleteVisitsRelatedToPatientRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
-    deleteVisitsRelatedToPatient({ patID }: DeleteVisitsRelatedToPatientRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+    deleteVisitsRelatedToPatient({ patID }: DeleteVisitsRelatedToPatientRequest, opts?: OperationOpts): Observable<AjaxResponse<boolean>>
+    deleteVisitsRelatedToPatient({ patID }: DeleteVisitsRelatedToPatientRequest, opts?: OperationOpts): Observable<boolean | AjaxResponse<boolean>> {
         throwIfNullOrUndefined(patID, 'patID', 'deleteVisitsRelatedToPatient');
 
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<boolean>({
@@ -64,12 +65,11 @@ export class VisitApi extends BaseAPI {
     /**
      */
     getVisit({ patID }: GetVisitRequest): Observable<Array<VisitDTO>>
-    getVisit({ patID }: GetVisitRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<VisitDTO>>>
-    getVisit({ patID }: GetVisitRequest, opts?: OperationOpts): Observable<Array<VisitDTO> | RawAjaxResponse<Array<VisitDTO>>> {
+    getVisit({ patID }: GetVisitRequest, opts?: OperationOpts): Observable<AjaxResponse<Array<VisitDTO>>>
+    getVisit({ patID }: GetVisitRequest, opts?: OperationOpts): Observable<Array<VisitDTO> | AjaxResponse<Array<VisitDTO>>> {
         throwIfNullOrUndefined(patID, 'patID', 'getVisit');
 
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<Array<VisitDTO>>({
@@ -82,13 +82,12 @@ export class VisitApi extends BaseAPI {
     /**
      */
     newVisit({ visitDTO }: NewVisitRequest): Observable<VisitDTO>
-    newVisit({ visitDTO }: NewVisitRequest, opts?: OperationOpts): Observable<RawAjaxResponse<VisitDTO>>
-    newVisit({ visitDTO }: NewVisitRequest, opts?: OperationOpts): Observable<VisitDTO | RawAjaxResponse<VisitDTO>> {
+    newVisit({ visitDTO }: NewVisitRequest, opts?: OperationOpts): Observable<AjaxResponse<VisitDTO>>
+    newVisit({ visitDTO }: NewVisitRequest, opts?: OperationOpts): Observable<VisitDTO | AjaxResponse<VisitDTO>> {
         throwIfNullOrUndefined(visitDTO, 'visitDTO', 'newVisit');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<VisitDTO>({
@@ -102,13 +101,12 @@ export class VisitApi extends BaseAPI {
     /**
      */
     newVisits({ visitDTO }: NewVisitsRequest): Observable<boolean>
-    newVisits({ visitDTO }: NewVisitsRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
-    newVisits({ visitDTO }: NewVisitsRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+    newVisits({ visitDTO }: NewVisitsRequest, opts?: OperationOpts): Observable<AjaxResponse<boolean>>
+    newVisits({ visitDTO }: NewVisitsRequest, opts?: OperationOpts): Observable<boolean | AjaxResponse<boolean>> {
         throwIfNullOrUndefined(visitDTO, 'visitDTO', 'newVisits');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<boolean>({
@@ -122,14 +120,13 @@ export class VisitApi extends BaseAPI {
     /**
      */
     updateVisit({ visitID, visitDTO }: UpdateVisitRequest): Observable<VisitDTO>
-    updateVisit({ visitID, visitDTO }: UpdateVisitRequest, opts?: OperationOpts): Observable<RawAjaxResponse<VisitDTO>>
-    updateVisit({ visitID, visitDTO }: UpdateVisitRequest, opts?: OperationOpts): Observable<VisitDTO | RawAjaxResponse<VisitDTO>> {
+    updateVisit({ visitID, visitDTO }: UpdateVisitRequest, opts?: OperationOpts): Observable<AjaxResponse<VisitDTO>>
+    updateVisit({ visitID, visitDTO }: UpdateVisitRequest, opts?: OperationOpts): Observable<VisitDTO | AjaxResponse<VisitDTO>> {
         throwIfNullOrUndefined(visitID, 'visitID', 'updateVisit');
         throwIfNullOrUndefined(visitDTO, 'visitDTO', 'updateVisit');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<VisitDTO>({
