@@ -11,7 +11,7 @@
  * Do not edit the class manually.
  */
 
-import {
+import type {
     UserGroupDTO,
 } from './';
 
@@ -27,6 +27,7 @@ export interface UserDTO {
      */
     userName: string;
     /**
+     * The user\'s group
      * @type {UserGroupDTO}
      * @memberof UserDTO
      */

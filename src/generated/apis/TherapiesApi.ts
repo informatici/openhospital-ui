@@ -11,9 +11,11 @@
  * Do not edit the class manually.
  */
 
-import { Observable } from 'rxjs';
-import { BaseAPI, HttpHeaders, throwIfNullOrUndefined, encodeURI, OperationOpts, RawAjaxResponse } from '../runtime';
-import {
+import type { Observable } from 'rxjs';
+import type { AjaxResponse } from 'rxjs/ajax';
+import { BaseAPI, throwIfNullOrUndefined, encodeURI } from '../runtime';
+import type { OperationOpts, HttpHeaders } from '../runtime';
+import type {
     MedicalDTO,
     TherapyDTO,
     TherapyRowDTO,
@@ -55,12 +57,11 @@ export class TherapiesApi extends BaseAPI {
     /**
      */
     deleteAllTherapies({ codePatient }: DeleteAllTherapiesRequest): Observable<boolean>
-    deleteAllTherapies({ codePatient }: DeleteAllTherapiesRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
-    deleteAllTherapies({ codePatient }: DeleteAllTherapiesRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+    deleteAllTherapies({ codePatient }: DeleteAllTherapiesRequest, opts?: OperationOpts): Observable<AjaxResponse<boolean>>
+    deleteAllTherapies({ codePatient }: DeleteAllTherapiesRequest, opts?: OperationOpts): Observable<boolean | AjaxResponse<boolean>> {
         throwIfNullOrUndefined(codePatient, 'codePatient', 'deleteAllTherapies');
 
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<boolean>({
@@ -73,13 +74,12 @@ export class TherapiesApi extends BaseAPI {
     /**
      */
     getMedicalsOutOfStock({ therapyDTO }: GetMedicalsOutOfStockRequest): Observable<Array<MedicalDTO>>
-    getMedicalsOutOfStock({ therapyDTO }: GetMedicalsOutOfStockRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<MedicalDTO>>>
-    getMedicalsOutOfStock({ therapyDTO }: GetMedicalsOutOfStockRequest, opts?: OperationOpts): Observable<Array<MedicalDTO> | RawAjaxResponse<Array<MedicalDTO>>> {
+    getMedicalsOutOfStock({ therapyDTO }: GetMedicalsOutOfStockRequest, opts?: OperationOpts): Observable<AjaxResponse<Array<MedicalDTO>>>
+    getMedicalsOutOfStock({ therapyDTO }: GetMedicalsOutOfStockRequest, opts?: OperationOpts): Observable<Array<MedicalDTO> | AjaxResponse<Array<MedicalDTO>>> {
         throwIfNullOrUndefined(therapyDTO, 'therapyDTO', 'getMedicalsOutOfStock');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<Array<MedicalDTO>>({
@@ -93,13 +93,12 @@ export class TherapiesApi extends BaseAPI {
     /**
      */
     getTherapies({ therapyRowDTO }: GetTherapiesRequest): Observable<Array<TherapyDTO>>
-    getTherapies({ therapyRowDTO }: GetTherapiesRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<TherapyDTO>>>
-    getTherapies({ therapyRowDTO }: GetTherapiesRequest, opts?: OperationOpts): Observable<Array<TherapyDTO> | RawAjaxResponse<Array<TherapyDTO>>> {
+    getTherapies({ therapyRowDTO }: GetTherapiesRequest, opts?: OperationOpts): Observable<AjaxResponse<Array<TherapyDTO>>>
+    getTherapies({ therapyRowDTO }: GetTherapiesRequest, opts?: OperationOpts): Observable<Array<TherapyDTO> | AjaxResponse<Array<TherapyDTO>>> {
         throwIfNullOrUndefined(therapyRowDTO, 'therapyRowDTO', 'getTherapies');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<Array<TherapyDTO>>({
@@ -113,13 +112,12 @@ export class TherapiesApi extends BaseAPI {
     /**
      */
     getTherapy({ therapyRowDTO }: GetTherapyRequest): Observable<TherapyDTO>
-    getTherapy({ therapyRowDTO }: GetTherapyRequest, opts?: OperationOpts): Observable<RawAjaxResponse<TherapyDTO>>
-    getTherapy({ therapyRowDTO }: GetTherapyRequest, opts?: OperationOpts): Observable<TherapyDTO | RawAjaxResponse<TherapyDTO>> {
+    getTherapy({ therapyRowDTO }: GetTherapyRequest, opts?: OperationOpts): Observable<AjaxResponse<TherapyDTO>>
+    getTherapy({ therapyRowDTO }: GetTherapyRequest, opts?: OperationOpts): Observable<TherapyDTO | AjaxResponse<TherapyDTO>> {
         throwIfNullOrUndefined(therapyRowDTO, 'therapyRowDTO', 'getTherapy');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<TherapyDTO>({
@@ -133,12 +131,11 @@ export class TherapiesApi extends BaseAPI {
     /**
      */
     getTherapyRows({ codePatient }: GetTherapyRowsRequest): Observable<Array<TherapyRowDTO>>
-    getTherapyRows({ codePatient }: GetTherapyRowsRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<TherapyRowDTO>>>
-    getTherapyRows({ codePatient }: GetTherapyRowsRequest, opts?: OperationOpts): Observable<Array<TherapyRowDTO> | RawAjaxResponse<Array<TherapyRowDTO>>> {
+    getTherapyRows({ codePatient }: GetTherapyRowsRequest, opts?: OperationOpts): Observable<AjaxResponse<Array<TherapyRowDTO>>>
+    getTherapyRows({ codePatient }: GetTherapyRowsRequest, opts?: OperationOpts): Observable<Array<TherapyRowDTO> | AjaxResponse<Array<TherapyRowDTO>>> {
         throwIfNullOrUndefined(codePatient, 'codePatient', 'getTherapyRows');
 
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<Array<TherapyRowDTO>>({
@@ -151,13 +148,12 @@ export class TherapiesApi extends BaseAPI {
     /**
      */
     newTherapy({ therapyRowDTO }: NewTherapyRequest): Observable<TherapyRowDTO>
-    newTherapy({ therapyRowDTO }: NewTherapyRequest, opts?: OperationOpts): Observable<RawAjaxResponse<TherapyRowDTO>>
-    newTherapy({ therapyRowDTO }: NewTherapyRequest, opts?: OperationOpts): Observable<TherapyRowDTO | RawAjaxResponse<TherapyRowDTO>> {
+    newTherapy({ therapyRowDTO }: NewTherapyRequest, opts?: OperationOpts): Observable<AjaxResponse<TherapyRowDTO>>
+    newTherapy({ therapyRowDTO }: NewTherapyRequest, opts?: OperationOpts): Observable<TherapyRowDTO | AjaxResponse<TherapyRowDTO>> {
         throwIfNullOrUndefined(therapyRowDTO, 'therapyRowDTO', 'newTherapy');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<TherapyRowDTO>({
@@ -171,13 +167,12 @@ export class TherapiesApi extends BaseAPI {
     /**
      */
     replaceTherapies({ therapyRowDTO }: ReplaceTherapiesRequest): Observable<TherapyRowDTO>
-    replaceTherapies({ therapyRowDTO }: ReplaceTherapiesRequest, opts?: OperationOpts): Observable<RawAjaxResponse<TherapyRowDTO>>
-    replaceTherapies({ therapyRowDTO }: ReplaceTherapiesRequest, opts?: OperationOpts): Observable<TherapyRowDTO | RawAjaxResponse<TherapyRowDTO>> {
+    replaceTherapies({ therapyRowDTO }: ReplaceTherapiesRequest, opts?: OperationOpts): Observable<AjaxResponse<TherapyRowDTO>>
+    replaceTherapies({ therapyRowDTO }: ReplaceTherapiesRequest, opts?: OperationOpts): Observable<TherapyRowDTO | AjaxResponse<TherapyRowDTO>> {
         throwIfNullOrUndefined(therapyRowDTO, 'therapyRowDTO', 'replaceTherapies');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<TherapyRowDTO>({

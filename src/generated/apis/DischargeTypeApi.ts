@@ -11,9 +11,11 @@
  * Do not edit the class manually.
  */
 
-import { Observable } from 'rxjs';
-import { BaseAPI, HttpHeaders, throwIfNullOrUndefined, encodeURI, OperationOpts, RawAjaxResponse } from '../runtime';
-import {
+import type { Observable } from 'rxjs';
+import type { AjaxResponse } from 'rxjs/ajax';
+import { BaseAPI, throwIfNullOrUndefined, encodeURI } from '../runtime';
+import type { OperationOpts, HttpHeaders } from '../runtime';
+import type {
     DischargeTypeDTO,
 } from '../models';
 
@@ -37,12 +39,11 @@ export class DischargeTypeApi extends BaseAPI {
     /**
      */
     deleteDischargeType({ code }: DeleteDischargeTypeRequest): Observable<boolean>
-    deleteDischargeType({ code }: DeleteDischargeTypeRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
-    deleteDischargeType({ code }: DeleteDischargeTypeRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+    deleteDischargeType({ code }: DeleteDischargeTypeRequest, opts?: OperationOpts): Observable<AjaxResponse<boolean>>
+    deleteDischargeType({ code }: DeleteDischargeTypeRequest, opts?: OperationOpts): Observable<boolean | AjaxResponse<boolean>> {
         throwIfNullOrUndefined(code, 'code', 'deleteDischargeType');
 
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<boolean>({
@@ -55,10 +56,9 @@ export class DischargeTypeApi extends BaseAPI {
     /**
      */
     getDischargeTypes(): Observable<Array<DischargeTypeDTO>>
-    getDischargeTypes(opts?: OperationOpts): Observable<RawAjaxResponse<Array<DischargeTypeDTO>>>
-    getDischargeTypes(opts?: OperationOpts): Observable<Array<DischargeTypeDTO> | RawAjaxResponse<Array<DischargeTypeDTO>>> {
+    getDischargeTypes(opts?: OperationOpts): Observable<AjaxResponse<Array<DischargeTypeDTO>>>
+    getDischargeTypes(opts?: OperationOpts): Observable<Array<DischargeTypeDTO> | AjaxResponse<Array<DischargeTypeDTO>>> {
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<Array<DischargeTypeDTO>>({
@@ -71,13 +71,12 @@ export class DischargeTypeApi extends BaseAPI {
     /**
      */
     newDischargeType({ dischargeTypeDTO }: NewDischargeTypeRequest): Observable<DischargeTypeDTO>
-    newDischargeType({ dischargeTypeDTO }: NewDischargeTypeRequest, opts?: OperationOpts): Observable<RawAjaxResponse<DischargeTypeDTO>>
-    newDischargeType({ dischargeTypeDTO }: NewDischargeTypeRequest, opts?: OperationOpts): Observable<DischargeTypeDTO | RawAjaxResponse<DischargeTypeDTO>> {
+    newDischargeType({ dischargeTypeDTO }: NewDischargeTypeRequest, opts?: OperationOpts): Observable<AjaxResponse<DischargeTypeDTO>>
+    newDischargeType({ dischargeTypeDTO }: NewDischargeTypeRequest, opts?: OperationOpts): Observable<DischargeTypeDTO | AjaxResponse<DischargeTypeDTO>> {
         throwIfNullOrUndefined(dischargeTypeDTO, 'dischargeTypeDTO', 'newDischargeType');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<DischargeTypeDTO>({
@@ -91,13 +90,12 @@ export class DischargeTypeApi extends BaseAPI {
     /**
      */
     updateDischargeType({ dischargeTypeDTO }: UpdateDischargeTypeRequest): Observable<DischargeTypeDTO>
-    updateDischargeType({ dischargeTypeDTO }: UpdateDischargeTypeRequest, opts?: OperationOpts): Observable<RawAjaxResponse<DischargeTypeDTO>>
-    updateDischargeType({ dischargeTypeDTO }: UpdateDischargeTypeRequest, opts?: OperationOpts): Observable<DischargeTypeDTO | RawAjaxResponse<DischargeTypeDTO>> {
+    updateDischargeType({ dischargeTypeDTO }: UpdateDischargeTypeRequest, opts?: OperationOpts): Observable<AjaxResponse<DischargeTypeDTO>>
+    updateDischargeType({ dischargeTypeDTO }: UpdateDischargeTypeRequest, opts?: OperationOpts): Observable<DischargeTypeDTO | AjaxResponse<DischargeTypeDTO>> {
         throwIfNullOrUndefined(dischargeTypeDTO, 'dischargeTypeDTO', 'updateDischargeType');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<DischargeTypeDTO>({

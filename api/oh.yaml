@@ -3858,6 +3858,7 @@ paths:
           description: OK
           content:
             application/octet-stream:
+            application/octet-stream:
               schema:
                 type: array
                 items:

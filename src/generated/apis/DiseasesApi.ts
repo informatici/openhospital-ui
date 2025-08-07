@@ -11,9 +11,11 @@
  * Do not edit the class manually.
  */
 
-import { Observable } from 'rxjs';
-import { BaseAPI, HttpHeaders, throwIfNullOrUndefined, encodeURI, OperationOpts, RawAjaxResponse } from '../runtime';
-import {
+import type { Observable } from 'rxjs';
+import type { AjaxResponse } from 'rxjs/ajax';
+import { BaseAPI, throwIfNullOrUndefined, encodeURI } from '../runtime';
+import type { OperationOpts, HttpHeaders } from '../runtime';
+import type {
     DiseaseDTO,
 } from '../models';
 
@@ -57,12 +59,11 @@ export class DiseasesApi extends BaseAPI {
     /**
      */
     deleteDisease({ code }: DeleteDiseaseRequest): Observable<boolean>
-    deleteDisease({ code }: DeleteDiseaseRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
-    deleteDisease({ code }: DeleteDiseaseRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+    deleteDisease({ code }: DeleteDiseaseRequest, opts?: OperationOpts): Observable<AjaxResponse<boolean>>
+    deleteDisease({ code }: DeleteDiseaseRequest, opts?: OperationOpts): Observable<boolean | AjaxResponse<boolean>> {
         throwIfNullOrUndefined(code, 'code', 'deleteDisease');
 
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<boolean>({
@@ -75,10 +76,9 @@ export class DiseasesApi extends BaseAPI {
     /**
      */
     getAllDiseases(): Observable<Array<DiseaseDTO>>
-    getAllDiseases(opts?: OperationOpts): Observable<RawAjaxResponse<Array<DiseaseDTO>>>
-    getAllDiseases(opts?: OperationOpts): Observable<Array<DiseaseDTO> | RawAjaxResponse<Array<DiseaseDTO>>> {
+    getAllDiseases(opts?: OperationOpts): Observable<AjaxResponse<Array<DiseaseDTO>>>
+    getAllDiseases(opts?: OperationOpts): Observable<Array<DiseaseDTO> | AjaxResponse<Array<DiseaseDTO>>> {
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<Array<DiseaseDTO>>({
@@ -91,12 +91,11 @@ export class DiseasesApi extends BaseAPI {
     /**
      */
     getDiseaseByCode({ code }: GetDiseaseByCodeRequest): Observable<DiseaseDTO>
-    getDiseaseByCode({ code }: GetDiseaseByCodeRequest, opts?: OperationOpts): Observable<RawAjaxResponse<DiseaseDTO>>
-    getDiseaseByCode({ code }: GetDiseaseByCodeRequest, opts?: OperationOpts): Observable<DiseaseDTO | RawAjaxResponse<DiseaseDTO>> {
+    getDiseaseByCode({ code }: GetDiseaseByCodeRequest, opts?: OperationOpts): Observable<AjaxResponse<DiseaseDTO>>
+    getDiseaseByCode({ code }: GetDiseaseByCodeRequest, opts?: OperationOpts): Observable<DiseaseDTO | AjaxResponse<DiseaseDTO>> {
         throwIfNullOrUndefined(code, 'code', 'getDiseaseByCode');
 
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<DiseaseDTO>({
@@ -109,10 +108,9 @@ export class DiseasesApi extends BaseAPI {
     /**
      */
     getDiseases(): Observable<Array<DiseaseDTO>>
-    getDiseases(opts?: OperationOpts): Observable<RawAjaxResponse<Array<DiseaseDTO>>>
-    getDiseases(opts?: OperationOpts): Observable<Array<DiseaseDTO> | RawAjaxResponse<Array<DiseaseDTO>>> {
+    getDiseases(opts?: OperationOpts): Observable<AjaxResponse<Array<DiseaseDTO>>>
+    getDiseases(opts?: OperationOpts): Observable<Array<DiseaseDTO> | AjaxResponse<Array<DiseaseDTO>>> {
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<Array<DiseaseDTO>>({
@@ -125,12 +123,11 @@ export class DiseasesApi extends BaseAPI {
     /**
      */
     getDiseases1({ typecode }: GetDiseases1Request): Observable<Array<DiseaseDTO>>
-    getDiseases1({ typecode }: GetDiseases1Request, opts?: OperationOpts): Observable<RawAjaxResponse<Array<DiseaseDTO>>>
-    getDiseases1({ typecode }: GetDiseases1Request, opts?: OperationOpts): Observable<Array<DiseaseDTO> | RawAjaxResponse<Array<DiseaseDTO>>> {
+    getDiseases1({ typecode }: GetDiseases1Request, opts?: OperationOpts): Observable<AjaxResponse<Array<DiseaseDTO>>>
+    getDiseases1({ typecode }: GetDiseases1Request, opts?: OperationOpts): Observable<Array<DiseaseDTO> | AjaxResponse<Array<DiseaseDTO>>> {
         throwIfNullOrUndefined(typecode, 'typecode', 'getDiseases1');
 
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<Array<DiseaseDTO>>({
@@ -143,10 +140,9 @@ export class DiseasesApi extends BaseAPI {
     /**
      */
     getDiseasesIpdIn(): Observable<Array<DiseaseDTO>>
-    getDiseasesIpdIn(opts?: OperationOpts): Observable<RawAjaxResponse<Array<DiseaseDTO>>>
-    getDiseasesIpdIn(opts?: OperationOpts): Observable<Array<DiseaseDTO> | RawAjaxResponse<Array<DiseaseDTO>>> {
+    getDiseasesIpdIn(opts?: OperationOpts): Observable<AjaxResponse<Array<DiseaseDTO>>>
+    getDiseasesIpdIn(opts?: OperationOpts): Observable<Array<DiseaseDTO> | AjaxResponse<Array<DiseaseDTO>>> {
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<Array<DiseaseDTO>>({
@@ -159,12 +155,11 @@ export class DiseasesApi extends BaseAPI {
     /**
      */
     getDiseasesIpdInByCode({ typecode }: GetDiseasesIpdInByCodeRequest): Observable<Array<DiseaseDTO>>
-    getDiseasesIpdInByCode({ typecode }: GetDiseasesIpdInByCodeRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<DiseaseDTO>>>
-    getDiseasesIpdInByCode({ typecode }: GetDiseasesIpdInByCodeRequest, opts?: OperationOpts): Observable<Array<DiseaseDTO> | RawAjaxResponse<Array<DiseaseDTO>>> {
+    getDiseasesIpdInByCode({ typecode }: GetDiseasesIpdInByCodeRequest, opts?: OperationOpts): Observable<AjaxResponse<Array<DiseaseDTO>>>
+    getDiseasesIpdInByCode({ typecode }: GetDiseasesIpdInByCodeRequest, opts?: OperationOpts): Observable<Array<DiseaseDTO> | AjaxResponse<Array<DiseaseDTO>>> {
         throwIfNullOrUndefined(typecode, 'typecode', 'getDiseasesIpdInByCode');
 
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<Array<DiseaseDTO>>({
@@ -177,10 +172,9 @@ export class DiseasesApi extends BaseAPI {
     /**
      */
     getDiseasesIpdOut(): Observable<Array<DiseaseDTO>>
-    getDiseasesIpdOut(opts?: OperationOpts): Observable<RawAjaxResponse<Array<DiseaseDTO>>>
-    getDiseasesIpdOut(opts?: OperationOpts): Observable<Array<DiseaseDTO> | RawAjaxResponse<Array<DiseaseDTO>>> {
+    getDiseasesIpdOut(opts?: OperationOpts): Observable<AjaxResponse<Array<DiseaseDTO>>>
+    getDiseasesIpdOut(opts?: OperationOpts): Observable<Array<DiseaseDTO> | AjaxResponse<Array<DiseaseDTO>>> {
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<Array<DiseaseDTO>>({
@@ -193,12 +187,11 @@ export class DiseasesApi extends BaseAPI {
     /**
      */
     getDiseasesIpdOutByCode({ typecode }: GetDiseasesIpdOutByCodeRequest): Observable<Array<DiseaseDTO>>
-    getDiseasesIpdOutByCode({ typecode }: GetDiseasesIpdOutByCodeRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<DiseaseDTO>>>
-    getDiseasesIpdOutByCode({ typecode }: GetDiseasesIpdOutByCodeRequest, opts?: OperationOpts): Observable<Array<DiseaseDTO> | RawAjaxResponse<Array<DiseaseDTO>>> {
+    getDiseasesIpdOutByCode({ typecode }: GetDiseasesIpdOutByCodeRequest, opts?: OperationOpts): Observable<AjaxResponse<Array<DiseaseDTO>>>
+    getDiseasesIpdOutByCode({ typecode }: GetDiseasesIpdOutByCodeRequest, opts?: OperationOpts): Observable<Array<DiseaseDTO> | AjaxResponse<Array<DiseaseDTO>>> {
         throwIfNullOrUndefined(typecode, 'typecode', 'getDiseasesIpdOutByCode');
 
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<Array<DiseaseDTO>>({
@@ -211,10 +204,9 @@ export class DiseasesApi extends BaseAPI {
     /**
      */
     getDiseasesOpd(): Observable<Array<DiseaseDTO>>
-    getDiseasesOpd(opts?: OperationOpts): Observable<RawAjaxResponse<Array<DiseaseDTO>>>
-    getDiseasesOpd(opts?: OperationOpts): Observable<Array<DiseaseDTO> | RawAjaxResponse<Array<DiseaseDTO>>> {
+    getDiseasesOpd(opts?: OperationOpts): Observable<AjaxResponse<Array<DiseaseDTO>>>
+    getDiseasesOpd(opts?: OperationOpts): Observable<Array<DiseaseDTO> | AjaxResponse<Array<DiseaseDTO>>> {
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<Array<DiseaseDTO>>({
@@ -227,12 +219,11 @@ export class DiseasesApi extends BaseAPI {
     /**
      */
     getDiseasesOpdByCode({ typecode }: GetDiseasesOpdByCodeRequest): Observable<Array<DiseaseDTO>>
-    getDiseasesOpdByCode({ typecode }: GetDiseasesOpdByCodeRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<DiseaseDTO>>>
-    getDiseasesOpdByCode({ typecode }: GetDiseasesOpdByCodeRequest, opts?: OperationOpts): Observable<Array<DiseaseDTO> | RawAjaxResponse<Array<DiseaseDTO>>> {
+    getDiseasesOpdByCode({ typecode }: GetDiseasesOpdByCodeRequest, opts?: OperationOpts): Observable<AjaxResponse<Array<DiseaseDTO>>>
+    getDiseasesOpdByCode({ typecode }: GetDiseasesOpdByCodeRequest, opts?: OperationOpts): Observable<Array<DiseaseDTO> | AjaxResponse<Array<DiseaseDTO>>> {
         throwIfNullOrUndefined(typecode, 'typecode', 'getDiseasesOpdByCode');
 
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<Array<DiseaseDTO>>({
@@ -245,13 +236,12 @@ export class DiseasesApi extends BaseAPI {
     /**
      */
     newDisease({ diseaseDTO }: NewDiseaseRequest): Observable<DiseaseDTO>
-    newDisease({ diseaseDTO }: NewDiseaseRequest, opts?: OperationOpts): Observable<RawAjaxResponse<DiseaseDTO>>
-    newDisease({ diseaseDTO }: NewDiseaseRequest, opts?: OperationOpts): Observable<DiseaseDTO | RawAjaxResponse<DiseaseDTO>> {
+    newDisease({ diseaseDTO }: NewDiseaseRequest, opts?: OperationOpts): Observable<AjaxResponse<DiseaseDTO>>
+    newDisease({ diseaseDTO }: NewDiseaseRequest, opts?: OperationOpts): Observable<DiseaseDTO | AjaxResponse<DiseaseDTO>> {
         throwIfNullOrUndefined(diseaseDTO, 'diseaseDTO', 'newDisease');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<DiseaseDTO>({
@@ -265,13 +255,12 @@ export class DiseasesApi extends BaseAPI {
     /**
      */
     updateDisease({ diseaseDTO }: UpdateDiseaseRequest): Observable<DiseaseDTO>
-    updateDisease({ diseaseDTO }: UpdateDiseaseRequest, opts?: OperationOpts): Observable<RawAjaxResponse<DiseaseDTO>>
-    updateDisease({ diseaseDTO }: UpdateDiseaseRequest, opts?: OperationOpts): Observable<DiseaseDTO | RawAjaxResponse<DiseaseDTO>> {
+    updateDisease({ diseaseDTO }: UpdateDiseaseRequest, opts?: OperationOpts): Observable<AjaxResponse<DiseaseDTO>>
+    updateDisease({ diseaseDTO }: UpdateDiseaseRequest, opts?: OperationOpts): Observable<DiseaseDTO | AjaxResponse<DiseaseDTO>> {
         throwIfNullOrUndefined(diseaseDTO, 'diseaseDTO', 'updateDisease');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<DiseaseDTO>({

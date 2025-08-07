@@ -11,9 +11,11 @@
  * Do not edit the class manually.
  */
 
-import { Observable } from 'rxjs';
-import { BaseAPI, HttpHeaders, throwIfNullOrUndefined, encodeURI, OperationOpts, RawAjaxResponse } from '../runtime';
-import {
+import type { Observable } from 'rxjs';
+import type { AjaxResponse } from 'rxjs/ajax';
+import { BaseAPI, throwIfNullOrUndefined, encodeURI } from '../runtime';
+import type { OperationOpts, HttpHeaders } from '../runtime';
+import type {
     PregnantTreatmentTypeDTO,
 } from '../models';
 
@@ -38,12 +40,11 @@ export class PregnantTreatmentTypesApi extends BaseAPI {
     /**
      */
     deletePregnantTreatmentType({ code }: DeletePregnantTreatmentTypeRequest): Observable<boolean>
-    deletePregnantTreatmentType({ code }: DeletePregnantTreatmentTypeRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
-    deletePregnantTreatmentType({ code }: DeletePregnantTreatmentTypeRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+    deletePregnantTreatmentType({ code }: DeletePregnantTreatmentTypeRequest, opts?: OperationOpts): Observable<AjaxResponse<boolean>>
+    deletePregnantTreatmentType({ code }: DeletePregnantTreatmentTypeRequest, opts?: OperationOpts): Observable<boolean | AjaxResponse<boolean>> {
         throwIfNullOrUndefined(code, 'code', 'deletePregnantTreatmentType');
 
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<boolean>({
@@ -56,10 +57,9 @@ export class PregnantTreatmentTypesApi extends BaseAPI {
     /**
      */
     getPregnantTreatmentTypes(): Observable<Array<PregnantTreatmentTypeDTO>>
-    getPregnantTreatmentTypes(opts?: OperationOpts): Observable<RawAjaxResponse<Array<PregnantTreatmentTypeDTO>>>
-    getPregnantTreatmentTypes(opts?: OperationOpts): Observable<Array<PregnantTreatmentTypeDTO> | RawAjaxResponse<Array<PregnantTreatmentTypeDTO>>> {
+    getPregnantTreatmentTypes(opts?: OperationOpts): Observable<AjaxResponse<Array<PregnantTreatmentTypeDTO>>>
+    getPregnantTreatmentTypes(opts?: OperationOpts): Observable<Array<PregnantTreatmentTypeDTO> | AjaxResponse<Array<PregnantTreatmentTypeDTO>>> {
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<Array<PregnantTreatmentTypeDTO>>({
@@ -72,13 +72,12 @@ export class PregnantTreatmentTypesApi extends BaseAPI {
     /**
      */
     newPregnantTreatmentType({ pregnantTreatmentTypeDTO }: NewPregnantTreatmentTypeRequest): Observable<PregnantTreatmentTypeDTO>
-    newPregnantTreatmentType({ pregnantTreatmentTypeDTO }: NewPregnantTreatmentTypeRequest, opts?: OperationOpts): Observable<RawAjaxResponse<PregnantTreatmentTypeDTO>>
-    newPregnantTreatmentType({ pregnantTreatmentTypeDTO }: NewPregnantTreatmentTypeRequest, opts?: OperationOpts): Observable<PregnantTreatmentTypeDTO | RawAjaxResponse<PregnantTreatmentTypeDTO>> {
+    newPregnantTreatmentType({ pregnantTreatmentTypeDTO }: NewPregnantTreatmentTypeRequest, opts?: OperationOpts): Observable<AjaxResponse<PregnantTreatmentTypeDTO>>
+    newPregnantTreatmentType({ pregnantTreatmentTypeDTO }: NewPregnantTreatmentTypeRequest, opts?: OperationOpts): Observable<PregnantTreatmentTypeDTO | AjaxResponse<PregnantTreatmentTypeDTO>> {
         throwIfNullOrUndefined(pregnantTreatmentTypeDTO, 'pregnantTreatmentTypeDTO', 'newPregnantTreatmentType');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<PregnantTreatmentTypeDTO>({
@@ -92,14 +91,13 @@ export class PregnantTreatmentTypesApi extends BaseAPI {
     /**
      */
     updatePregnantTreatmentTypes({ code, pregnantTreatmentTypeDTO }: UpdatePregnantTreatmentTypesRequest): Observable<PregnantTreatmentTypeDTO>
-    updatePregnantTreatmentTypes({ code, pregnantTreatmentTypeDTO }: UpdatePregnantTreatmentTypesRequest, opts?: OperationOpts): Observable<RawAjaxResponse<PregnantTreatmentTypeDTO>>
-    updatePregnantTreatmentTypes({ code, pregnantTreatmentTypeDTO }: UpdatePregnantTreatmentTypesRequest, opts?: OperationOpts): Observable<PregnantTreatmentTypeDTO | RawAjaxResponse<PregnantTreatmentTypeDTO>> {
+    updatePregnantTreatmentTypes({ code, pregnantTreatmentTypeDTO }: UpdatePregnantTreatmentTypesRequest, opts?: OperationOpts): Observable<AjaxResponse<PregnantTreatmentTypeDTO>>
+    updatePregnantTreatmentTypes({ code, pregnantTreatmentTypeDTO }: UpdatePregnantTreatmentTypesRequest, opts?: OperationOpts): Observable<PregnantTreatmentTypeDTO | AjaxResponse<PregnantTreatmentTypeDTO>> {
         throwIfNullOrUndefined(code, 'code', 'updatePregnantTreatmentTypes');
         throwIfNullOrUndefined(pregnantTreatmentTypeDTO, 'pregnantTreatmentTypeDTO', 'updatePregnantTreatmentTypes');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<PregnantTreatmentTypeDTO>({

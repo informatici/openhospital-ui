@@ -140,12 +140,14 @@ const PatientTriage: FC = () => {
       )
         .unwrap()
         .then((result) => {
+          if (!result) return;
           setTriageToEdit(result);
         });
     } else {
       dispatch(createExamination(triage))
         .unwrap()
         .then((result) => {
+          if (!result) return;
           setTriageToEdit(result);
         });
     }
@@ -197,7 +199,8 @@ const PatientTriage: FC = () => {
   const onPrint = (row: any) => {
     dispatch(printExamination(row.pex_ID))
       .unwrap()
-      .then((result: Blob | MediaSource) => {
+      .then((result: Blob | undefined) => {
+        if (!result) return;
         const blobUrl = URL.createObjectURL(result);
         window.open(blobUrl, "_blank");
         setTimeout(() => URL.revokeObjectURL(blobUrl), 5000);

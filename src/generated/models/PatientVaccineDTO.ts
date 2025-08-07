@@ -11,7 +11,7 @@
  * Do not edit the class manually.
  */
 
-import {
+import type {
     PatientDTO,
     VaccineDTO,
 } from './';
@@ -39,11 +39,13 @@ export interface PatientVaccineDTO {
      */
     vaccineDate: string;
     /**
+     * The patient to be vaccine
      * @type {PatientDTO}
      * @memberof PatientVaccineDTO
      */
     patient: PatientDTO;
     /**
+     * The vaccine
      * @type {VaccineDTO}
      * @memberof PatientVaccineDTO
      */
