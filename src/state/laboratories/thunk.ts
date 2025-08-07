@@ -130,7 +130,7 @@ export const cancelLab = createAsyncThunk(
 );
 
 export const printExamRequest = createAsyncThunk(
-  "reports/patientexamination",
+  "reports/patientexamrequest",
   async (patientId: number | undefined, thunkApi) =>
     wrapper(() =>
       apiReport.printPatientExamRequestPdf({ patientId: patientId ?? -1 })
