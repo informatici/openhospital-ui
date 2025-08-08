@@ -1,3 +1,4 @@
+import { downloadBlob } from "libraries/downloadUtils/downloadUtils";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { FC, default as React, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -43,7 +44,7 @@ const PatientTriage: FC = () => {
 
   const [creationMode, setCreationMode] = useState(true);
 
-  const [createAndPrint, setCreateAndPrint] = useState(false);
+  const [isPrinting, setPrinting] = useState(false);
 
   //const [triage, setTriage] = useState({} as PatientExaminationDTO | undefined);
 
@@ -126,6 +127,21 @@ const PatientTriage: FC = () => {
     }
   }, [dispatch, patientDataCode]);
 
+  useEffect(() => {
+    if (isPrinting) {
+      dispatch(printExamination(triageToEdit?.pex_ID)).then((result) => {
+        if (result instanceof Blob) {
+          downloadBlob(
+            result,
+            `patient-examination-${triageToEdit?.pex_ID}-${new Date()}.pdf`
+          );
+        }
+      });
+    }
+    setPrinting(false);
+    setActivityTransitionState("TO_RESET");
+  }, [dispatch, isPrinting, triageToEdit?.pex_ID]);
+
   const onSubmit = (triage: PatientExaminationDTO) => {
     setShouldResetForm(false);
     triage.patientCode = patientDataCode ?? -1;
@@ -153,24 +169,8 @@ const PatientTriage: FC = () => {
     }
   };
 
-  const onChangeCreangeAndPrint = () => {
-    setCreateAndPrint(true);
-  };
-
   const handlePrint = () => {
-    if (createAndPrint) {
-      dispatch(printExamination(triageToEdit?.pex_ID))
-        .unwrap()
-        .then((result) => {
-          if (result instanceof Blob) {
-            const blobUrl = URL.createObjectURL(result);
-            window.open(blobUrl, "_blank");
-            setTimeout(() => URL.revokeObjectURL(blobUrl), 5000);
-            setCreateAndPrint(false);
-          }
-        });
-    }
-    setActivityTransitionState("TO_RESET");
+    setPrinting(true);
   };
 
   const resetFormCallback = () => {
@@ -196,10 +196,20 @@ const PatientTriage: FC = () => {
     scrollToElement(null);
   };
 
+  const printExaminationStatus = useAppSelector(
+    (state) => state.examinations.printExamination.status
+  );
+
+  const printExaminationErrorMessage = useAppSelector(
+    (state) =>
+      state.examinations.printExamination.error?.message ||
+      t("common.failedtodownloadthereport")
+  ) as string;
+
   const onPrint = (row: any) => {
     dispatch(printExamination(row.pex_ID))
       .unwrap()
-      .then((result: Blob | undefined) => {
+      .then((result) => {
         if (!result) return;
         const blobUrl = URL.createObjectURL(result);
         window.open(blobUrl, "_blank");
@@ -242,7 +252,7 @@ const PatientTriage: FC = () => {
           printButtonLabel={
             creationMode ? t("common.saveandprint") : t("common.updateandprint")
           }
-          saveAndPrint={onChangeCreangeAndPrint}
+          saveAndPrint={handlePrint}
           shouldResetForm={shouldResetForm}
           resetFormCallback={resetFormCallback}
           isLoading={status === "LOADING"}
@@ -250,6 +260,11 @@ const PatientTriage: FC = () => {
         {(status === "FAIL" || deleteStatus === "FAIL") && (
           <div ref={infoBoxRef}>
             <InfoBox type="error" message={errorMessage} />
+          </div>
+        )}
+        {printExaminationStatus === "FAIL" && (
+          <div ref={infoBoxRef}>
+            <InfoBox type="error" message={printExaminationErrorMessage} />
           </div>
         )}
         <ConfirmationDialog

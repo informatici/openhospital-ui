@@ -1,5 +1,6 @@
-import { Print } from "@mui/icons-material";
+import { Print, PrintDisabled } from "@mui/icons-material";
 import { Button, CircularProgress } from "@mui/material";
+import { downloadBlob } from "libraries/downloadUtils/downloadUtils";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { FunctionComponent, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -8,7 +9,7 @@ import { renderDateTime } from "../../../../libraries/formatUtils/dataFormatting
 import { usePermission } from "../../../../libraries/permissionUtils/usePermission";
 import {
   getLabsRequestByPatientId,
-  printExamRequest,
+  printExamRequests,
 } from "../../../../state/laboratories";
 import InfoBox from "../../infoBox/InfoBox";
 import { statusLabel } from "../../laboratory/table/ExamTable";
@@ -59,6 +60,20 @@ const PatientExamRequestsTable: FunctionComponent<IOwnProps> = ({
       dispatch(getLabsRequestByPatientId(patientCode));
   }, [dispatch, patientCode, shouldUpdateTable]);
 
+  useEffect(() => {
+    if (isPrinting) {
+      dispatch(printExamRequests(patientCode)).then((result) => {
+        if (result instanceof Blob) {
+          downloadBlob(
+            result,
+            `patient-exam-request-${patientCode}-${new Date()}.pdf`
+          );
+        }
+        setPrinting(false);
+      });
+    }
+  }, [dispatch, isPrinting, patientCode]);
+
   const formatDataToDisplay = (data: LaboratoryDTO[]) => {
     return data.map((item) => {
       return {
@@ -82,6 +97,16 @@ const PatientExamRequestsTable: FunctionComponent<IOwnProps> = ({
       t("common.somethingwrong")
   ) as string;
 
+  const printExamRequestStatus = useAppSelector(
+    (state) => state.laboratories.printExamRequest.status
+  );
+
+  const printExamRequestErrorMessage = useAppSelector(
+    (state) =>
+      state.laboratories.printExamRequest.error?.message ||
+      t("common.failedtodownloadthereport")
+  ) as string;
+
   const onCancel = (row: any) => {
     if (handleCancel) {
       handleCancel(row.code);
@@ -90,15 +115,6 @@ const PatientExamRequestsTable: FunctionComponent<IOwnProps> = ({
 
   const handlePrint = () => {
     setPrinting(true);
-    dispatch(printExamRequest(patientCode))
-      .unwrap()
-      .then((result) => {
-        if (result instanceof Blob) {
-          const blobUrl = URL.createObjectURL(result);
-          window.open(blobUrl, "_blank");
-          setPrinting(false);
-        }
-      });
   };
 
   return (
@@ -117,15 +133,7 @@ const PatientExamRequestsTable: FunctionComponent<IOwnProps> = ({
           isCollapsabile={true}
           headerActions={
             <Button
-              startIcon={
-                isPrinting ? (
-                  <CircularProgress
-                    style={{ marginLeft: "50%", position: "relative" }}
-                  />
-                ) : (
-                  <Print />
-                )
-              }
+              startIcon={isPrinting ? <PrintDisabled /> : <Print />}
               type="button"
               onClick={handlePrint}
               variant="contained"
@@ -146,6 +154,11 @@ const PatientExamRequestsTable: FunctionComponent<IOwnProps> = ({
       {labRequestStatus === "FAIL" && (
         <div ref={infoBoxRef}>
           <InfoBox type="error" message={errorMessage} />
+        </div>
+      )}
+      {printExamRequestStatus === "FAIL" && (
+        <div ref={infoBoxRef}>
+          <InfoBox type="error" message={printExamRequestErrorMessage} />
         </div>
       )}
     </div>

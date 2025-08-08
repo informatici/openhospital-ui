@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { wrapper } from "libraries/apiUtils/wrapper";
 import moment from "moment";
+import { firstValueFrom } from "rxjs";
 import {
   LaboratoriesApi,
   LaboratoryDTO,
@@ -129,13 +130,16 @@ export const cancelLab = createAsyncThunk(
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );
 
-export const printExamRequest = createAsyncThunk(
+export const printExamRequests = createAsyncThunk(
   "reports/patientexamrequest",
   async (patientId: number | undefined, thunkApi) =>
-    wrapper(() =>
-      apiReport.printPatientExamRequestPdf({ patientId: patientId ?? -1 })
+    firstValueFrom(
+      wrapper(() =>
+        apiReport.printPatientExamRequestPdf({ patientId: patientId ?? -1 })
+      )
     )
-      .toPromise()
       .then((response) => response)
-      .catch((error) => thunkApi.rejectWithValue(error.response))
+      .catch((error) => {
+        thunkApi.rejectWithValue(error.response);
+      })
 );

@@ -30,6 +30,7 @@ apis/PatientsApi.ts
 apis/PermissionsApi.ts
 apis/PregnantTreatmentTypesApi.ts
 apis/PriceListsApi.ts
+apis/RadiologyApi.ts
 apis/ReportsApi.ts
 apis/RootControllerApi.ts
 apis/SMSApi.ts
@@ -64,6 +65,9 @@ models/ExamWithRowsDTO.ts
 models/FullBillDTO.ts
 models/GroupPermissionsDTO.ts
 models/HospitalDTO.ts
+models/Instance.ts
+models/InstancePreviewDTO.ts
+models/InstanceResponse.ts
 models/LabWithRowsDTO.ts
 models/LaboratoryDTO.ts
 models/LoginRequest.ts
@@ -88,6 +92,7 @@ models/PageLabWithRowsDTO.ts
 models/PageOpdDTO.ts
 models/PagePatientDTO.ts
 models/PagePatientExaminationDTO.ts
+models/Patient.ts
 models/PatientConsensusDTO.ts
 models/PatientDTO.ts
 models/PatientExaminationDTO.ts
@@ -97,7 +102,11 @@ models/PregnantTreatmentTypeDTO.ts
 models/PriceDTO.ts
 models/PriceListDTO.ts
 models/PricesOthersDTO.ts
+models/Series.ts
+models/SeriesResponse.ts
 models/SmsDTO.ts
+models/Study.ts
+models/StudyResponse.ts
 models/SupplierDTO.ts
 models/TherapyDTO.ts
 models/TherapyRowDTO.ts
