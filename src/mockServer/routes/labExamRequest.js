@@ -22,11 +22,9 @@ export const labExamRequestRoutes = (server) => {
       res.status(400).json({ message: "Fail to generate exam request PDF" });
     } else {
       const blob = new Blob(["fake pdf content"], { type: "application/pdf" });
-      blob.arrayBuffer().then((buffer) => {
-        res.send({
-          status: 200,
-          body: new Uint8Array(buffer),
-        });
+      res.send({
+        status: 200,
+        body: blob,
       });
     }
   });
