@@ -1,4 +1,4 @@
-import { downloadBlob } from "libraries/doawloadUtils/downloadUtils";
+import { downloadBlob } from "libraries/downloadUtils/downloadUtils";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { FC, default as React, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";

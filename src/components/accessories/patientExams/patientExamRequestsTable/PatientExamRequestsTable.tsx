@@ -1,6 +1,6 @@
 import { Print, PrintDisabled } from "@mui/icons-material";
 import { Button, CircularProgress } from "@mui/material";
-import { downloadBlob } from "libraries/doawloadUtils/downloadUtils";
+import { downloadBlob } from "libraries/downloadUtils/downloadUtils";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { FunctionComponent, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
