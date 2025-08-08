@@ -62,15 +62,17 @@ const PatientExamRequestsTable: FunctionComponent<IOwnProps> = ({
 
   useEffect(() => {
     if (isPrinting) {
-      dispatch(printExamRequests(patientCode)).then((result) => {
-        if (result instanceof Blob) {
-          downloadBlob(
-            result,
-            `patient-exam-request-${patientCode}-${new Date()}.pdf`
-          );
-        }
-        setPrinting(false);
-      });
+      dispatch(printExamRequests(patientCode))
+        .unwrap()
+        .then((result) => {
+          if (result instanceof Blob) {
+            downloadBlob(
+              result,
+              `patient-exam-request-${patientCode}-${new Date()}.pdf`
+            );
+          }
+        })
+        .finally(() => setPrinting(false));
     }
   }, [dispatch, isPrinting, patientCode]);
 

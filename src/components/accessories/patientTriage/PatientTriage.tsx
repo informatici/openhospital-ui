@@ -129,16 +129,18 @@ const PatientTriage: FC = () => {
 
   useEffect(() => {
     if (isPrinting) {
-      dispatch(printExamination(triageToEdit?.pex_ID)).then((result) => {
-        if (result instanceof Blob) {
-          downloadBlob(
-            result,
-            `patient-examination-${triageToEdit?.pex_ID}-${new Date()}.pdf`
-          );
-        }
-      });
+      dispatch(printExamination(triageToEdit?.pex_ID))
+        .unwrap()
+        .then((result) => {
+          if (result instanceof Blob) {
+            downloadBlob(
+              result,
+              `patient-examination-${triageToEdit?.pex_ID}-${new Date()}.pdf`
+            );
+          }
+        })
+        .finally(() => setPrinting(false));
     }
-    setPrinting(false);
     setActivityTransitionState("TO_RESET");
   }, [dispatch, isPrinting, triageToEdit?.pex_ID]);
 
@@ -211,9 +213,7 @@ const PatientTriage: FC = () => {
       .unwrap()
       .then((result) => {
         if (!result) return;
-        const blobUrl = URL.createObjectURL(result);
-        window.open(blobUrl, "_blank");
-        setTimeout(() => URL.revokeObjectURL(blobUrl), 5000);
+        downloadBlob(result, `patient-examexamination-${new Date()}.pdf`);
       });
   };
   return (
