@@ -16,17 +16,18 @@ export const labExamRequestRoutes = (server) => {
       }
     });
   });
-  server.get("/reports/patientexamrequest/:patientId", (req, res, ctx) => {
+  server.get("/reports/patientexamrequest/:patientId").intercept((req, res) => {
     const { patientId } = req.params;
     if (patientId === "FAIL") {
-      return res(
-        ctx.status(400),
-        ctx.json({ message: "Fail to generate exam request PDF" })
-      );
+      res.status(400).json({ message: "Fail to generate exam request PDF" });
+    } else {
+      const blob = new Blob(["fake pdf content"], { type: "application/pdf" });
+      blob.arrayBuffer().then((buffer) => {
+        res.send({
+          status: 200,
+          body: new Uint8Array(buffer),
+        });
+      });
     }
-    return res(
-      ctx.status(200),
-      ctx.body(new Blob(["fake pdf content"], { type: "application/pdf" }))
-    );
   });
 };

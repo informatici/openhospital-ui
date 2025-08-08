@@ -1,6 +1,6 @@
 import { Print, PrintDisabled } from "@mui/icons-material";
 import { Button, CircularProgress } from "@mui/material";
-import { downloadBlob } from "libraries/downloadUtils/downloadUtils";
+import { downloadBlob } from "libraries/doawloadUtils/downloadUtils";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { FunctionComponent, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -68,7 +68,7 @@ const PatientExamRequestsTable: FunctionComponent<IOwnProps> = ({
           if (result instanceof Blob) {
             downloadBlob(
               result,
-              `patient-exam-request-${patientCode}-${new Date()}.pdf`
+              `patient-exam-request-${patientCode}-${new Date().getTime()}.pdf`
             );
           }
         })
@@ -140,6 +140,7 @@ const PatientExamRequestsTable: FunctionComponent<IOwnProps> = ({
               type="button"
               onClick={handlePrint}
               variant="contained"
+              disabled={isPrinting}
             >
               {t("lab.print_exam_request")}
             </Button>
