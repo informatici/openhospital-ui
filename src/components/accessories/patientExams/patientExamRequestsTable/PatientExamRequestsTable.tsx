@@ -72,6 +72,7 @@ const PatientExamRequestsTable: FunctionComponent<IOwnProps> = ({
             );
           }
         })
+        .catch((error) => {})
         .finally(() => setPrinting(false));
     }
   }, [dispatch, isPrinting, patientCode]);

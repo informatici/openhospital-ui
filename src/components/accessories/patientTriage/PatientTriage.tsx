@@ -139,6 +139,7 @@ const PatientTriage: FC = () => {
             );
           }
         })
+        .catch((error) => {})
         .finally(() => setPrinting(false));
     }
     setActivityTransitionState("TO_RESET");
@@ -212,8 +213,8 @@ const PatientTriage: FC = () => {
     dispatch(printExamination(row.pex_ID))
       .unwrap()
       .then((result) => {
-        if (!result) return;
-        downloadBlob(result, `patient-examexamination-${new Date()}.pdf`);
+        if (result instanceof Blob)
+          downloadBlob(result, `patient-examexamination-${new Date()}.pdf`);
       });
   };
   return (

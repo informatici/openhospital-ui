@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { isEmpty } from "lodash";
+import { ApiResponse } from "state/types";
 import { initial } from "./initial";
 import * as thunks from "./thunk";
-import { ApiResponse } from "state/types";
-import { isEmpty } from "lodash";
 
 export const examinationSlice = createSlice({
   name: "examinations",
@@ -99,8 +99,11 @@ export const examinationSlice = createSlice({
         state.printExamination = ApiResponse.loading();
       })
       .addCase(thunks.printExamination.fulfilled, (state, action) => {
-        state.printExamination.status = "SUCCESS";
-        state.printExamination.data = action.payload as any;
+        if (action.payload instanceof Blob) {
+          state.printExamination = ApiResponse.value(action.payload);
+        } else {
+          state.printExamination = ApiResponse.error(action.payload);
+        }
       })
       .addCase(thunks.printExamination.rejected, (state, action) => {
         state.printExamination = ApiResponse.error(action.payload);
