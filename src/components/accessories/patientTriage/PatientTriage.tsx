@@ -135,7 +135,9 @@ const PatientTriage: FC = () => {
           if (result instanceof Blob) {
             downloadBlob(
               result,
-              `patient-examination-${triageToEdit?.pex_ID}-${new Date()}.pdf`
+              `patient-examination-${
+                triageToEdit?.pex_ID
+              }-${new Date().getTime()}.pdf`
             );
           }
         })
