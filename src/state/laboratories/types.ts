@@ -17,4 +17,5 @@ export type ILaboratoriesState = {
   getLabByCode: ApiResponse<LaboratoryDTO | null>;
   getLabWithRowsByCode: ApiResponse<LabWithRowsDTO | null>;
   searchLabs: ApiResponse<PageLabWithRowsDTO | null>;
+  printExamRequest: ApiResponse<Blob>;
 };

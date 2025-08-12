@@ -66,7 +66,9 @@ export const printExamination = createAsyncThunk(
   "reports/patientexamination",
   async (examinationId: number | undefined, thunkApi) =>
     wrapper(() =>
-      apiReport.printExaminationListPdf({ examinationId: examinationId ?? -1 })
+      apiReport.printPatientExaminationPdf({
+        examinationId: examinationId ?? -1,
+      })
     )
       .toPromise()
       .then((response) => response)

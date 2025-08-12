@@ -615,7 +615,8 @@
     "back": "Back",
     "backToEdit": "No, keep editing",
     "discardMessage": "Are you sure to discard this operation ? All unsaved data will be lost.",
-    "printData": "Print Data"
+    "printData": "Print Data",
+    "failedtodownloadthereport": "Failed to download report."
   },
   "permission": {
     "denied": "Permission denied",
@@ -734,7 +735,8 @@
       "open": "OPEN",
       "done": "DONE"
     },
-    "previousentries": "Previous Exams"
+    "previousentries": "Previous Exams",
+    "print_exam_request": "Print exam requests"
   },
   "admission": {
     "code": "Admission Code",
