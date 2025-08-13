@@ -1292,7 +1292,8 @@
       "pharmacy": "Pharmacy",
       "accounting": "Accounting",
       "imaging": "Imaging",
-      "reports": "Reports"
+      "reports": "Reports",
+      "integration": "Integration"
     }
   }
 }
