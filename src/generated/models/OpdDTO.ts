@@ -11,13 +11,12 @@
  * Do not edit the class manually.
  */
 
-import {
+import type {
     DiseaseDTO,
     WardDTO,
 } from './';
 
 /**
- * The opd
  * @export
  * @interface OpdDTO
  */
@@ -83,16 +82,19 @@ export interface OpdDTO {
      */
     prog_year?: number;
     /**
+     * Disease
      * @type {DiseaseDTO}
      * @memberof OpdDTO
      */
     disease?: DiseaseDTO;
     /**
+     * Disease 2
      * @type {DiseaseDTO}
      * @memberof OpdDTO
      */
     disease2?: DiseaseDTO;
     /**
+     * Disease 3
      * @type {DiseaseDTO}
      * @memberof OpdDTO
      */
@@ -162,6 +164,7 @@ export interface OpdDTO {
      */
     prescription?: string;
     /**
+     * Ward
      * @type {WardDTO}
      * @memberof OpdDTO
      */

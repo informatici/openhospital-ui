@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { isEmpty } from "lodash";
+import { ApiResponse } from "state/types";
 import { initial } from "./initial";
 import * as thunks from "./thunk";
-import { ApiResponse } from "state/types";
-import { isEmpty } from "lodash";
 
 export const examinationSlice = createSlice({
   name: "examinations",
@@ -17,6 +17,9 @@ export const examinationSlice = createSlice({
     deleteExaminationReset: (state) => {
       state.deleteExamination = initial.deleteExamination;
     },
+    printExaminationReset: (state) => {
+      state.printExamination = initial.printExamination;
+    },
   },
   extraReducers: (builder) =>
     builder
@@ -26,7 +29,8 @@ export const examinationSlice = createSlice({
       })
       .addCase(thunks.examinationsByPatientId.fulfilled, (state, action) => {
         state.examinationsByPatientId = isEmpty(action.payload)
-          ? ApiResponse.empty() : ApiResponse.value(action.payload);
+          ? ApiResponse.empty()
+          : ApiResponse.value(action.payload);
       })
       .addCase(thunks.examinationsByPatientId.rejected, (state, action) => {
         state.examinationsByPatientId = ApiResponse.error(action.payload);
@@ -79,7 +83,7 @@ export const examinationSlice = createSlice({
       .addCase(thunks.updateExamination.rejected, (state, action) => {
         state.updateExamination = ApiResponse.error(action.payload);
       })
-      // Update Examination
+      // Delete Examination
       .addCase(thunks.deleteExamination.pending, (state) => {
         state.deleteExamination = ApiResponse.loading();
       })
@@ -89,6 +93,20 @@ export const examinationSlice = createSlice({
       })
       .addCase(thunks.deleteExamination.rejected, (state, action) => {
         state.deleteExamination = ApiResponse.error(action.payload);
+      })
+      // Print Examination
+      .addCase(thunks.printExamination.pending, (state) => {
+        state.printExamination = ApiResponse.loading();
+      })
+      .addCase(thunks.printExamination.fulfilled, (state, action) => {
+        if (action.payload instanceof Blob) {
+          state.printExamination = ApiResponse.value(action.payload);
+        } else {
+          state.printExamination = ApiResponse.error(action.payload);
+        }
+      })
+      .addCase(thunks.printExamination.rejected, (state, action) => {
+        state.printExamination = ApiResponse.error(action.payload);
       }),
 });
 
@@ -96,4 +114,5 @@ export const {
   createExaminationReset,
   updateExaminationReset,
   deleteExaminationReset,
+  printExaminationReset,
 } = examinationSlice.actions;

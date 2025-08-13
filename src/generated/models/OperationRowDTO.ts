@@ -11,7 +11,7 @@
  * Do not edit the class manually.
  */
 
-import {
+import type {
     AdmissionDTO,
     BillDTO,
     OpdDTO,
@@ -29,6 +29,7 @@ export interface OperationRowDTO {
      */
     id?: number;
     /**
+     * The operation
      * @type {OperationDTO}
      * @memberof OperationRowDTO
      */
@@ -58,16 +59,19 @@ export interface OperationRowDTO {
      */
     remarks?: string;
     /**
+     * The admission
      * @type {AdmissionDTO}
      * @memberof OperationRowDTO
      */
     admission?: AdmissionDTO;
     /**
+     * The opd
      * @type {OpdDTO}
      * @memberof OperationRowDTO
      */
     opd?: OpdDTO;
     /**
+     * The bill
      * @type {BillDTO}
      * @memberof OperationRowDTO
      */

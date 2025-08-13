@@ -65,7 +65,7 @@ export const EditUser = () => {
 
   return (
     <EditUserForm
-      groups={groups.data}
+      groups={groups.data?.filter((group) => !group.deleted)}
       initialValues={user}
       onSubmit={handleUpdate}
       isLoading={isLoading}

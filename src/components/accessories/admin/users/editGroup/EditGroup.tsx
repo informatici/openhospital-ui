@@ -1,12 +1,11 @@
 import { useFormik } from "formik";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router";
 import { useNavigate } from "react-router-dom";
 
 import checkIcon from "../../../../../assets/check-icon.png";
-import Button from "../../../button/Button";
 import ConfirmationDialog from "../../../confirmationDialog/ConfirmationDialog";
 import InfoBox from "../../../infoBox/InfoBox";
 import TextField from "../../../textField/TextField";
@@ -16,6 +15,8 @@ import { usePermission } from "../../../../../libraries/permissionUtils/usePermi
 
 import { CircularProgress } from "@mui/material";
 import CheckboxField from "components/accessories/checkboxField/CheckboxField";
+import DiscardButton from "components/accessories/discardButton/DiscardButton";
+import ResetButton from "components/accessories/resetButton/resetButton";
 import { PermissionDTO } from "generated/models/PermissionDTO";
 import { UserGroupDTO } from "generated/models/UserGroupDTO";
 import { getAllPermissions } from "../../../../../state/permissions";
@@ -25,6 +26,7 @@ import {
   updateUserGroup,
   updateUserGroupReset,
 } from "../../../../../state/usergroups";
+import Button from "../../../button/Button";
 import { TabOptions } from "../Users";
 import { GroupPermissionsEditor } from "../editPermissions/GroupPermissionsEditor";
 import {
@@ -51,13 +53,23 @@ export const EditGroup = () => {
   const [dirtyPermissions, setDirtyPermissions] = useState<boolean>(false);
 
   // make sure everything is loaded before displaying the editor
-  const [isPermissionEditorAvailable, setIsPermissionEditorAvailable] =
-    useState<boolean>(false);
+  const isPermissionEditorAvailable = useMemo(
+    () => canUpdatePermissions && group.data && permissions.data,
+    [canUpdatePermissions, group.data, permissions.data]
+  );
 
-  // keep track of which permissions have been updated and how
-  const [updatedPermissionsStack, setUpdatedPermissionsStack] = useState<
-    Array<PermissionActionType>
-  >([]);
+  // compare permissions to update the update stack
+  // and display permissions when ready
+  const updatedPermissionsStack = useMemo(() => {
+    if (canUpdatePermissions && group.data && permissions.data) {
+      return comparePermissions(
+        permissions.data,
+        group.data?.permissions ?? [],
+        groupPermissions
+      );
+    }
+    return [];
+  }, [canUpdatePermissions, group.data, permissions.data, groupPermissions]);
 
   const handleUpdatePermissions = ({
     permissions: perms,
@@ -75,19 +87,7 @@ export const EditGroup = () => {
     }
   };
 
-  const {
-    handleSubmit,
-    handleBlur,
-    getFieldProps,
-    isValid,
-    dirty,
-    resetForm,
-    errors,
-    touched,
-    values,
-    setFieldValue,
-    setValues,
-  } = useFormik({
+  const formik = useFormik({
     initialValues: group.data ?? { code: "" },
     validationSchema: userGroupSchema(t),
     onSubmit: (values: UserGroupDTO) => {
@@ -96,6 +96,19 @@ export const EditGroup = () => {
       dispatch(updateUserGroup(dto));
     },
   });
+
+  const {
+    handleSubmit,
+    handleBlur,
+    getFieldProps,
+    isValid,
+    dirty,
+    errors,
+    touched,
+    values,
+    setFieldValue,
+    setValues,
+  } = formik;
 
   // load permissions and group on mount
   useEffect(() => {
@@ -119,27 +132,6 @@ export const EditGroup = () => {
       dispatch(getUserGroupReset());
     };
   }, []);
-
-  // compare permissions to update the update stack
-  // and display permissions when ready
-  useEffect(() => {
-    if (canUpdatePermissions && group.data && permissions.data) {
-      setIsPermissionEditorAvailable(true);
-
-      const newPermissionStack = comparePermissions(
-        permissions.data,
-        group.data?.permissions ?? [],
-        groupPermissions
-      );
-
-      setUpdatedPermissionsStack(newPermissionStack);
-    }
-  }, [canUpdatePermissions, group.data, permissions.data, groupPermissions]);
-
-  const handleFormReset = () => {
-    resetForm();
-    setGroupPermissions(group.data?.permissions ?? []);
-  };
 
   const handleCheckboxChange = useCallback(
     (fieldName: string) => (value: boolean) => {
@@ -165,13 +157,21 @@ export const EditGroup = () => {
 
   return (
     <>
-      {group.isLoading || group.status === "IDLE" || permissions.isLoading ? (
+      {group.isLoading ||
+      group.status === "IDLE" ||
+      permissions.status === "IDLE" ||
+      permissions.isLoading ? (
         <CircularProgress style={{ marginLeft: "50%", position: "relative" }} />
       ) : (
-        <div className="newGroupForm">
-          <form className="newGroupForm__form" onSubmit={handleSubmit}>
+        <div className="editGroupForm">
+          <div className="editGroupForm__header">
+            <div className="editGroupForm__actions">
+              <DiscardButton />
+            </div>
+          </div>
+          <form className="editGroupForm__form" onSubmit={handleSubmit}>
             <div className="row start-sm center-xs">
-              <div className="newGroupForm__item fullWidth">
+              <div className="editGroupForm__item fullWidth">
                 <TextField
                   field={getFieldProps("code")}
                   theme="regular"
@@ -183,7 +183,7 @@ export const EditGroup = () => {
                   disabled
                 />
               </div>
-              <div className="newGroupForm__item fullWidth">
+              <div className="editGroupForm__item fullWidth">
                 <TextField
                   field={getFieldProps("desc")}
                   theme="regular"
@@ -194,7 +194,7 @@ export const EditGroup = () => {
                 />
               </div>
             </div>
-            <div className="newGroupForm__item fullWidth">
+            <div className="editGroupForm__item fullWidth">
               <CheckboxField
                 fieldName={"deleted"}
                 checked={!!values.deleted}
@@ -212,7 +212,7 @@ export const EditGroup = () => {
               />
             )}
 
-            <div className="newGroupForm__item fullWidth">
+            <div className="editGroupForm__item fullWidth">
               {isPermissionEditorAvailable &&
                 updatedPermissionsStack.length > 0 && (
                   <p>
@@ -249,7 +249,7 @@ export const EditGroup = () => {
               )}
             </div>
 
-            <div className="newGroupForm__buttonSet">
+            <div className="editGroupForm__buttonSet">
               <div className="submit_button">
                 <Button
                   type="submit"
@@ -264,14 +264,7 @@ export const EditGroup = () => {
                 </Button>
               </div>
               <div className="reset_button">
-                <Button
-                  type="reset"
-                  variant="text"
-                  disabled={!!update.isLoading || !(dirty || dirtyPermissions)}
-                  onClick={handleFormReset}
-                >
-                  {t("common.reset")}
-                </Button>
+                <ResetButton formik={formik as any} />
               </div>
             </div>
           </form>

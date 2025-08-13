@@ -11,7 +11,7 @@
  * Do not edit the class manually.
  */
 
-import {
+import type {
     AdmissionDTO,
 } from './';
 
@@ -39,6 +39,7 @@ export interface MalnutritionDTO {
      */
     dateConf?: string;
     /**
+     * The admission requesting the control
      * @type {AdmissionDTO}
      * @memberof MalnutritionDTO
      */

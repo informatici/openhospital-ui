@@ -11,7 +11,7 @@
  * Do not edit the class manually.
  */
 
-import {
+import type {
     PatientDTO,
     WardDTO,
 } from './';
@@ -29,6 +29,7 @@ export interface VisitDTO {
      */
     visitID?: number;
     /**
+     * Patient related to visitor
      * @type {PatientDTO}
      * @memberof VisitDTO
      */
@@ -52,6 +53,7 @@ export interface VisitDTO {
      */
     sms?: boolean;
     /**
+     * Ward of the visit
      * @type {WardDTO}
      * @memberof VisitDTO
      */

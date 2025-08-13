@@ -1,4 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { wrapper } from "libraries/apiUtils/wrapper";
 import { AdmissionDTO, AdmissionsApi } from "../../generated";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 
@@ -7,8 +8,7 @@ const api = new AdmissionsApi(customConfiguration());
 export const createAdmission = createAsyncThunk(
   "admissions/CREATE_ADMISSION",
   async (admissionDTO: AdmissionDTO, thunkApi) =>
-    api
-      .newAdmissions({ admissionDTO })
+    wrapper(() => api.newAdmissions({ admissionDTO }))
       .toPromise()
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );
@@ -16,8 +16,7 @@ export const createAdmission = createAsyncThunk(
 export const updateAdmission = createAsyncThunk(
   "admissions/UPDATE_ADMISSION",
   async (admissionDTO: AdmissionDTO, thunkApi) =>
-    api
-      .updateAdmissions({ admissionDTO })
+    wrapper(() => api.updateAdmissions({ admissionDTO }))
       .toPromise()
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );
@@ -28,8 +27,7 @@ export const dischargePatient = createAsyncThunk(
     payload: { patientCode: number; admissionDTO: AdmissionDTO },
     thunkApi
   ) =>
-    api
-      .dischargePatient(payload)
+    wrapper(() => api.dischargePatient(payload))
       .toPromise()
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );
@@ -40,12 +38,13 @@ export const getDischarges = createAsyncThunk(
     payload: { dischargerange: string[]; page?: number; size?: number },
     thunkApi
   ) =>
-    api
-      .getDischarges({
+    wrapper(() =>
+      api.getDischarges({
         ...payload,
         page: payload.page ?? 0,
         size: payload.size ?? 80,
       })
+    )
       .toPromise()
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );
@@ -56,12 +55,13 @@ export const getAdmissions = createAsyncThunk(
     payload: { admissionrange: string[]; page?: number; size?: number },
     thunkApi
   ) =>
-    api
-      .getAdmissions({
+    wrapper(() =>
+      api.getAdmissions({
         ...payload,
         page: payload.page ?? 0,
         size: payload.size ?? 80,
       })
+    )
       .toPromise()
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );
@@ -69,8 +69,7 @@ export const getAdmissions = createAsyncThunk(
 export const getPatientAdmissions = createAsyncThunk(
   "admissions/GET_PATIENT_ADMISSIONS",
   async (payload: { patientCode: number }, thunkApi) =>
-    api
-      .getAdmissions1(payload)
+    wrapper(() => api.getAdmissions1(payload))
       .toPromise()
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );
@@ -85,8 +84,7 @@ export const getAdmittedPatients = createAsyncThunk(
     },
     thunkApi
   ) =>
-    api
-      .getAdmittedPatients(payload)
+    wrapper(() => api.getAdmittedPatients(payload))
       .toPromise()
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );
@@ -94,8 +92,7 @@ export const getAdmittedPatients = createAsyncThunk(
 export const getCurrentAdmission = createAsyncThunk(
   "admissions/getCurrentAdmission",
   async (patientCode: number | undefined, thunkApi) =>
-    api
-      .getCurrentAdmission({ patientCode: patientCode ?? -1 })
+    wrapper(() => api.getCurrentAdmission({ patientCode: patientCode ?? -1 }))
       .toPromise()
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );

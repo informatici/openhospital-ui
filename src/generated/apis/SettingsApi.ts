@@ -11,9 +11,11 @@
  * Do not edit the class manually.
  */
 
-import { Observable } from 'rxjs';
-import { BaseAPI, HttpHeaders, throwIfNullOrUndefined, encodeURI, OperationOpts, RawAjaxResponse } from '../runtime';
-import {
+import type { Observable } from 'rxjs';
+import type { AjaxResponse } from 'rxjs/ajax';
+import { BaseAPI, throwIfNullOrUndefined, encodeURI } from '../runtime';
+import type { OperationOpts, HttpHeaders } from '../runtime';
+import type {
     SettingDTO,
     UpdateSettingDTO,
 } from '../models';
@@ -39,10 +41,9 @@ export class SettingsApi extends BaseAPI {
     /**
      */
     getAllSettings(): Observable<Array<SettingDTO>>
-    getAllSettings(opts?: OperationOpts): Observable<RawAjaxResponse<Array<SettingDTO>>>
-    getAllSettings(opts?: OperationOpts): Observable<Array<SettingDTO> | RawAjaxResponse<Array<SettingDTO>>> {
+    getAllSettings(opts?: OperationOpts): Observable<AjaxResponse<Array<SettingDTO>>>
+    getAllSettings(opts?: OperationOpts): Observable<Array<SettingDTO> | AjaxResponse<Array<SettingDTO>>> {
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<Array<SettingDTO>>({
@@ -55,12 +56,11 @@ export class SettingsApi extends BaseAPI {
     /**
      */
     getSettingByCode({ code }: GetSettingByCodeRequest): Observable<SettingDTO>
-    getSettingByCode({ code }: GetSettingByCodeRequest, opts?: OperationOpts): Observable<RawAjaxResponse<SettingDTO>>
-    getSettingByCode({ code }: GetSettingByCodeRequest, opts?: OperationOpts): Observable<SettingDTO | RawAjaxResponse<SettingDTO>> {
+    getSettingByCode({ code }: GetSettingByCodeRequest, opts?: OperationOpts): Observable<AjaxResponse<SettingDTO>>
+    getSettingByCode({ code }: GetSettingByCodeRequest, opts?: OperationOpts): Observable<SettingDTO | AjaxResponse<SettingDTO>> {
         throwIfNullOrUndefined(code, 'code', 'getSettingByCode');
 
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<SettingDTO>({
@@ -73,12 +73,11 @@ export class SettingsApi extends BaseAPI {
     /**
      */
     getSettingById({ id }: GetSettingByIdRequest): Observable<SettingDTO>
-    getSettingById({ id }: GetSettingByIdRequest, opts?: OperationOpts): Observable<RawAjaxResponse<SettingDTO>>
-    getSettingById({ id }: GetSettingByIdRequest, opts?: OperationOpts): Observable<SettingDTO | RawAjaxResponse<SettingDTO>> {
+    getSettingById({ id }: GetSettingByIdRequest, opts?: OperationOpts): Observable<AjaxResponse<SettingDTO>>
+    getSettingById({ id }: GetSettingByIdRequest, opts?: OperationOpts): Observable<SettingDTO | AjaxResponse<SettingDTO>> {
         throwIfNullOrUndefined(id, 'id', 'getSettingById');
 
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<SettingDTO>({
@@ -91,10 +90,9 @@ export class SettingsApi extends BaseAPI {
     /**
      */
     resetAllSettings(): Observable<boolean>
-    resetAllSettings(opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
-    resetAllSettings(opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+    resetAllSettings(opts?: OperationOpts): Observable<AjaxResponse<boolean>>
+    resetAllSettings(opts?: OperationOpts): Observable<boolean | AjaxResponse<boolean>> {
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<boolean>({
@@ -107,14 +105,13 @@ export class SettingsApi extends BaseAPI {
     /**
      */
     updateSetting({ code, updateSettingDTO }: UpdateSettingRequest): Observable<SettingDTO>
-    updateSetting({ code, updateSettingDTO }: UpdateSettingRequest, opts?: OperationOpts): Observable<RawAjaxResponse<SettingDTO>>
-    updateSetting({ code, updateSettingDTO }: UpdateSettingRequest, opts?: OperationOpts): Observable<SettingDTO | RawAjaxResponse<SettingDTO>> {
+    updateSetting({ code, updateSettingDTO }: UpdateSettingRequest, opts?: OperationOpts): Observable<AjaxResponse<SettingDTO>>
+    updateSetting({ code, updateSettingDTO }: UpdateSettingRequest, opts?: OperationOpts): Observable<SettingDTO | AjaxResponse<SettingDTO>> {
         throwIfNullOrUndefined(code, 'code', 'updateSetting');
         throwIfNullOrUndefined(updateSettingDTO, 'updateSettingDTO', 'updateSetting');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<SettingDTO>({

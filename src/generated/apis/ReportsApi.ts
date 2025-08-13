@@ -11,8 +11,18 @@
  * Do not edit the class manually.
  */
 
-import { Observable } from 'rxjs';
-import { BaseAPI, HttpHeaders, OperationOpts, RawAjaxResponse } from '../runtime';
+import type { Observable } from 'rxjs';
+import type { AjaxResponse } from 'rxjs/ajax';
+import { BaseAPI, throwIfNullOrUndefined, encodeURI } from '../runtime';
+import type { OperationOpts, HttpHeaders } from '../runtime';
+
+export interface PrintPatientExamRequestPdfRequest {
+    patientId: number;
+}
+
+export interface PrintPatientExaminationPdfRequest {
+    examinationId: number;
+}
 
 /**
  * no description
@@ -21,33 +31,69 @@ export class ReportsApi extends BaseAPI {
 
     /**
      */
-    printDiseasesListPdf(): Observable<Array<string>>
-    printDiseasesListPdf(opts?: OperationOpts): Observable<RawAjaxResponse<Array<string>>>
-    printDiseasesListPdf(opts?: OperationOpts): Observable<Array<string> | RawAjaxResponse<Array<string>>> {
+    printDiseasesListPdf(): Observable<Blob>
+    printDiseasesListPdf(opts?: OperationOpts): Observable<AjaxResponse<Blob>>
+    printDiseasesListPdf(opts?: OperationOpts): Observable<Blob | AjaxResponse<Blob>> {
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
-        return this.request<Array<string>>({
+        return this.request<Blob>({
             url: '/reports/diseases-list',
             method: 'GET',
             headers,
+            responseType: 'blob',
         }, opts?.responseOpts);
     };
 
     /**
      */
-    printExamsListPdf(): Observable<Array<string>>
-    printExamsListPdf(opts?: OperationOpts): Observable<RawAjaxResponse<Array<string>>>
-    printExamsListPdf(opts?: OperationOpts): Observable<Array<string> | RawAjaxResponse<Array<string>>> {
+    printExamsListPdf(): Observable<Blob>
+    printExamsListPdf(opts?: OperationOpts): Observable<AjaxResponse<Blob>>
+    printExamsListPdf(opts?: OperationOpts): Observable<Blob | AjaxResponse<Blob>> {
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
-        return this.request<Array<string>>({
+        return this.request<Blob>({
             url: '/reports/exams-list',
             method: 'GET',
             headers,
+            responseType: 'blob',
+        }, opts?.responseOpts);
+    };
+
+    /**
+     */
+    printPatientExamRequestPdf({ patientId }: PrintPatientExamRequestPdfRequest): Observable<Blob>
+    printPatientExamRequestPdf({ patientId }: PrintPatientExamRequestPdfRequest, opts?: OperationOpts): Observable<AjaxResponse<Blob>>
+    printPatientExamRequestPdf({ patientId }: PrintPatientExamRequestPdfRequest, opts?: OperationOpts): Observable<Blob | AjaxResponse<Blob>> {
+        throwIfNullOrUndefined(patientId, 'patientId', 'printPatientExamRequestPdf');
+
+        const headers: HttpHeaders = {
+        };
+
+        return this.request<Blob>({
+            url: '/reports/patientexamrequest/{patientId}'.replace('{patientId}', encodeURI(patientId)),
+            method: 'GET',
+            headers,
+            responseType: 'blob',
+        }, opts?.responseOpts);
+    };
+
+    /**
+     */
+    printPatientExaminationPdf({ examinationId }: PrintPatientExaminationPdfRequest): Observable<Blob>
+    printPatientExaminationPdf({ examinationId }: PrintPatientExaminationPdfRequest, opts?: OperationOpts): Observable<AjaxResponse<Blob>>
+    printPatientExaminationPdf({ examinationId }: PrintPatientExaminationPdfRequest, opts?: OperationOpts): Observable<Blob | AjaxResponse<Blob>> {
+        throwIfNullOrUndefined(examinationId, 'examinationId', 'printPatientExaminationPdf');
+
+        const headers: HttpHeaders = {
+        };
+
+        return this.request<Blob>({
+            url: '/reports/patientexamination/{examinationId}'.replace('{examinationId}', encodeURI(examinationId)),
+            method: 'GET',
+            headers,
+            responseType: 'blob',
         }, opts?.responseOpts);
     };
 

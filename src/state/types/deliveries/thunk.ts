@@ -1,4 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { wrapper } from "libraries/apiUtils/wrapper";
 import { DeliveryTypeApi, DeliveryTypeDTO } from "../../../generated";
 import { customConfiguration } from "../../../libraries/apiUtils/configuration";
 
@@ -7,8 +8,7 @@ const api = new DeliveryTypeApi(customConfiguration());
 export const getDeliveryTypes = createAsyncThunk(
   "deliveryTypes/getDeliveryTypes",
   async (_, thunkApi) =>
-    api
-      .getDeliveryTypes()
+    wrapper(() => api.getDeliveryTypes())
       .toPromise()
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );
@@ -16,8 +16,7 @@ export const getDeliveryTypes = createAsyncThunk(
 export const createDeliveryType = createAsyncThunk(
   "deliveryTypes/createDeliveryType",
   async (deliveryTypeDTO: DeliveryTypeDTO, thunkApi) =>
-    api
-      .newDeliveryType({ deliveryTypeDTO })
+    wrapper(() => api.newDeliveryType({ deliveryTypeDTO }))
       .toPromise()
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );
@@ -25,8 +24,7 @@ export const createDeliveryType = createAsyncThunk(
 export const updateDeliveryType = createAsyncThunk(
   "deliveryTypes/updateDeliveryType",
   async (deliveryTypeDTO: DeliveryTypeDTO, thunkApi) =>
-    api
-      .updateDeliveryTypes({ deliveryTypeDTO })
+    wrapper(() => api.updateDeliveryTypes({ deliveryTypeDTO }))
       .toPromise()
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );
@@ -34,8 +32,7 @@ export const updateDeliveryType = createAsyncThunk(
 export const deleteDeliveryType = createAsyncThunk(
   "deliveryTypes/deleteDeliveryType",
   async (code: string, thunkApi) =>
-    api
-      .deleteDeliveryType({ code })
+    wrapper(() => api.deleteDeliveryType({ code }))
       .toPromise()
       .then(() => ({ code }))
       .catch((error) => thunkApi.rejectWithValue(error.response))

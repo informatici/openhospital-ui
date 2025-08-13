@@ -12,7 +12,6 @@
  */
 
 /**
- * DisChargeType
  * @export
  * @interface DischargeTypeDTO
  */

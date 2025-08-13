@@ -22,7 +22,12 @@ import {
   getFromFields,
   isFieldSuggested,
 } from "../../../libraries/formDataHandling/functions";
-import { getCities } from "../../../state/patients";
+import {
+  createPatientReset,
+  getCities,
+  getPatientReset,
+  updatePatientReset,
+} from "../../../state/patients";
 import { FIELD_VALIDATION, IState } from "../../../types";
 import AutocompleteField from "../autocompleteField/AutocompleteField";
 import Button from "../button/Button";
@@ -193,6 +198,18 @@ const PatientDataForm: FunctionComponent<TProps> = ({
   useEffect(() => {
     dispatch(getCities());
   }, [dispatch, shouldResetForm]);
+
+  useEffect(() => {
+    return () => {
+      if (mode === "create") {
+        dispatch(createPatientReset());
+      } else {
+        dispatch(updatePatientReset());
+      }
+      dispatch(getPatientReset());
+    };
+  }, [dispatch]);
+
   const navigate = useNavigate();
 
   const handleCancelEdit = () => {

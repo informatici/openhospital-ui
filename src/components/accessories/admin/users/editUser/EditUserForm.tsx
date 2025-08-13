@@ -4,6 +4,7 @@ import {
   FormHelperText,
   TextField as MuiTextField,
 } from "@mui/material";
+import DiscardButton from "components/accessories/discardButton/DiscardButton";
 import { useFormik } from "formik";
 import React, { ReactNode, useCallback } from "react";
 import { useTranslation } from "react-i18next";
@@ -18,6 +19,7 @@ import InfoBox from "../../../infoBox/InfoBox";
 import TextField from "../../../textField/TextField";
 
 import CheckboxField from "components/accessories/checkboxField/CheckboxField";
+import ResetButton from "components/accessories/resetButton/resetButton";
 import { PATHS } from "../../../../../consts";
 import "./styles.scss";
 import { userSchema } from "./validation";
@@ -53,23 +55,24 @@ export const EditUserForm = ({
     onSubmit(userDTO);
   };
 
+  const formik = useFormik<UserDTO & { passwd2: string }>({
+    initialValues: { ...initialValues, passwd: "", passwd2: "" },
+    validationSchema: userSchema(t),
+    onSubmit: handleFormSubmit,
+  });
+
   const {
     handleSubmit,
     handleBlur,
     getFieldProps,
     isValid,
     dirty,
-    resetForm,
     errors,
     touched,
     values,
     setFieldTouched,
     setFieldValue,
-  } = useFormik<UserDTO & { passwd2: string }>({
-    initialValues: { ...initialValues, passwd: "", passwd2: "" },
-    validationSchema: userSchema(t),
-    onSubmit: handleFormSubmit,
-  });
+  } = formik;
 
   const handleCheckboxChange = useCallback(
     (fieldName: string) => (value: boolean) => {
@@ -80,6 +83,11 @@ export const EditUserForm = ({
 
   return (
     <div className="editUserForm">
+      <div className="editUserForm__header">
+        <div className="editUserForm__actions">
+          <DiscardButton />
+        </div>
+      </div>
       <form className="editUserForm__form" onSubmit={handleSubmit}>
         <div className="row start-sm center-xs">
           <div className="editUserForm__item fullWidth">
@@ -191,16 +199,7 @@ export const EditUserForm = ({
             </Button>
           </div>
           <div className="reset_button">
-            <Button
-              type="reset"
-              variant="text"
-              disabled={!!isLoading || !dirty}
-              onClick={async () => {
-                resetForm();
-              }}
-            >
-              {t("common.reset")}
-            </Button>
+            <ResetButton formik={formik as any} />
           </div>
         </div>
       </form>

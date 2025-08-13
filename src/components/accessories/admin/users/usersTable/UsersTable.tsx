@@ -79,7 +79,7 @@ export const UsersTable = ({ headerActions, onEdit, onDelete }: IOwnProps) => {
   const header = ["userName", "userGroupName", "desc", "deleted"];
   const label = {
     userName: t("user.username"),
-    userGroupName: t("user.groups"),
+    userGroupName: t("user.group"),
     desc: t("user.description"),
     deleted: t("common.deleted"),
   };
@@ -88,14 +88,14 @@ export const UsersTable = ({ headerActions, onEdit, onDelete }: IOwnProps) => {
     (state) =>
       state.usergroups.groupList.data?.map((item) => ({
         value: item.code ?? "",
-        label: item.desc ?? item.code ?? "",
+        label: item.code ?? "",
       })) ?? []
   );
 
   const filters: TFilterField[] = [
     {
       key: "userGroupName",
-      label: t("user.groups"),
+      label: t("user.group"),
       type: "select",
       options: userGroupOptions,
     },
@@ -115,8 +115,7 @@ export const UsersTable = ({ headerActions, onEdit, onDelete }: IOwnProps) => {
     return data.map((item) => {
       return {
         userName: item.userName ?? "",
-        userGroupName:
-          item.userGroupName?.desc ?? item.userGroupName?.code ?? "",
+        userGroupName: item.userGroupName?.code ?? "",
         desc: item.desc ?? "",
         passwd: item.passwd ?? "",
         deleted: item.deleted ? <CheckOutlined fontSize="small" /> : "",

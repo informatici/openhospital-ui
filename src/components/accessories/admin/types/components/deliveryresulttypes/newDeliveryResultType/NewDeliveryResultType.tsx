@@ -30,7 +30,7 @@ export const NewDeliveryResultType = () => {
         creationMode
         onSubmit={handleSubmit}
         isLoading={!!create.isLoading}
-        resetButtonLabel={t("common.cancel")}
+        resetButtonLabel={t("common.reset")}
         submitButtonLabel={t("deliveryResultType.saveDeliveryResultTypes")}
         fields={getInitialFields(undefined)}
       />

@@ -30,7 +30,7 @@ export const NewVaccineType = () => {
         creationMode
         onSubmit={handleSubmit}
         isLoading={!!create.isLoading}
-        resetButtonLabel={t("common.cancel")}
+        resetButtonLabel={t("common.reset")}
         submitButtonLabel={t("vaccineTypes.saveVaccineTypes")}
         fields={getInitialFields(undefined)}
       />

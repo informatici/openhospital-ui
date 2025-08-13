@@ -1,4 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { wrapper } from "libraries/apiUtils/wrapper";
+import { concat, firstValueFrom, of } from "rxjs";
+import { catchError, map, toArray } from "rxjs/operators";
 import {
   AdmissionsApi,
   ExaminationsApi,
@@ -9,8 +12,6 @@ import {
   VisitApi,
 } from "../../generated";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
-import { of, concat } from "rxjs";
-import { catchError, map, toArray } from "rxjs/operators";
 import { convertToSummaryData } from "../../libraries/reduxUtils/convert";
 import { SummaryField } from "./consts";
 
@@ -28,48 +29,57 @@ const laboratoriesApi = new LaboratoriesApi(customConfiguration());
 export const loadSummaryData = createAsyncThunk(
   "summary/loadSummaryData",
   async (code: number, thunkApi) =>
-    concat(
-      examinationsApi.getByPatientId({ patId: code }).pipe(
-        map((res) => convertToSummaryData(res, SummaryField.triage)),
-        catchError(() => of([]))
-      ),
-      opdControllerrApi.getOpdByPatient({ pcode: code }).pipe(
-        map((res) =>
-          convertToSummaryData(
-            res.map((e) => e.opdDTO),
-            SummaryField.opd
-          )
+    firstValueFrom(
+      concat(
+        wrapper(() => examinationsApi.getByPatientId({ patId: code })).pipe(
+          map((res) => convertToSummaryData(res, SummaryField.triage)),
+          catchError(() => of([]))
         ),
-        catchError(() => of([]))
-      ),
-      laboratoriesApi.getLaboratory1({ patId: code }).pipe(
-        map((res) =>
-          convertToSummaryData(
-            res.map((e) => e.laboratoryDTO),
-            SummaryField.exam
-          )
+        wrapper(() => opdControllerrApi.getOpdByPatient({ pcode: code })).pipe(
+          map((res) =>
+            convertToSummaryData(
+              res.map((e) => e.opdDTO),
+              SummaryField.opd
+            )
+          ),
+          catchError(() => of([]))
         ),
-        catchError(() => of([]))
-      ),
-      admissionsApi.getAdmissions1({ patientCode: code }).pipe(
-        map((res) => convertToSummaryData(res, SummaryField.admission)),
-        catchError(() => of([]))
-      ),
-      visitControllerrApi.getVisit({ patID: code }).pipe(
-        map((res) => convertToSummaryData(res, SummaryField.visit)),
-        catchError(() => of([]))
-      ),
-      operationsApi.getOperationRowsByPatient({ patientCode: code }).pipe(
-        map((res) => convertToSummaryData(res, SummaryField.operation)),
-        catchError(() => of([]))
-      ),
-      therapiesApi.getTherapyRows({ codePatient: code }).pipe(
-        map((res) => convertToSummaryData(res, SummaryField.therapy)),
-        catchError(() => of([]))
-      )
+        wrapper(() => laboratoriesApi.getLaboratory1({ patId: code })).pipe(
+          map((res) =>
+            convertToSummaryData(
+              res.map((e) => {
+                if (e.laboratoryDTO?.exam?.procedure === 2) {
+                  e.laboratoryDTO.result = e.laboratoryRowList?.join(", ");
+                  return e.laboratoryDTO;
+                } else {
+                  return e.laboratoryDTO;
+                }
+              }),
+              SummaryField.exam
+            )
+          ),
+          catchError(() => of([]))
+        ),
+        wrapper(() => admissionsApi.getAdmissions1({ patientCode: code })).pipe(
+          map((res) => convertToSummaryData(res, SummaryField.admission)),
+          catchError(() => of([]))
+        ),
+        wrapper(() => visitControllerrApi.getVisit({ patID: code })).pipe(
+          map((res) => convertToSummaryData(res, SummaryField.visit)),
+          catchError(() => of([]))
+        ),
+        wrapper(() =>
+          operationsApi.getOperationRowsByPatient({ patientCode: code })
+        ).pipe(
+          map((res) => convertToSummaryData(res, SummaryField.operation)),
+          catchError(() => of([]))
+        ),
+        wrapper(() => therapiesApi.getTherapyRows({ codePatient: code })).pipe(
+          map((res) => convertToSummaryData(res, SummaryField.therapy)),
+          catchError(() => of([]))
+        )
+      ).pipe(toArray())
     )
-      .pipe(toArray())
-      .toPromise()
       .then(
         ([triages, opds, exams, admissions, visits, operations, therapies]) => [
           ...triages,

@@ -1,3 +1,6 @@
+import { Radiology, Series, Studies } from "components/accessories/radiology";
+import PermissionDenied from "components/activities/PermissionDenied/PermissionDenied";
+import { withPermission } from "libraries/permissionUtils/withPermission";
 import React, { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { Navigate, Route, Routes } from "react-router";
@@ -15,6 +18,38 @@ import VisitDetailsContent from "../../components/activities/patientDetailsActiv
 
 export const PatientDetailsRoutes: FC = () => {
   const { t } = useTranslation();
+  const RadiologyRoutes = withPermission(
+    "radiology.read",
+    PermissionDenied
+  )(() => (
+    <Routes>
+      <Route
+        element={
+          <PatientDetailsContent
+            title={t("patient.radiology")}
+            content={Radiology}
+          />
+        }
+      >
+        <Route path="" element={<Navigate to="studies" />} />
+        <Route path="studies" element={<Studies />} />
+        <Route path="studies/:id/series" element={<Series />} />
+        <Route
+          path="studies/:id/series/:serie_id/instances"
+          element={<h1>Serie Instances</h1>}
+        />
+        <Route
+          path="*"
+          element={
+            <div>
+              <h1>Page not found !</h1>
+            </div>
+          }
+        />
+      </Route>
+    </Routes>
+  ));
+
   return (
     <Routes>
       <Route element={<PatientDetailsActivity />}>
@@ -77,6 +112,7 @@ export const PatientDetailsRoutes: FC = () => {
             />
           }
         />
+        <Route path="radiology/*" element={<RadiologyRoutes />}></Route>
       </Route>
       <Route path="*" element={<NotFound />} />
     </Routes>

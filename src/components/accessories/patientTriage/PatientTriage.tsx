@@ -1,3 +1,4 @@
+import { downloadBlob } from "libraries/downloadUtils/downloadUtils";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { FC, default as React, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -13,6 +14,8 @@ import {
   deleteExaminationReset,
   getDefaultPatientExamination,
   getLastByPatientId,
+  printExamination,
+  printExaminationReset,
   updateExamination,
   updateExaminationReset,
 } from "../../../state/examinations";
@@ -41,6 +44,10 @@ const PatientTriage: FC = () => {
 
   const [creationMode, setCreationMode] = useState(true);
 
+  const [isPrinting, setPrinting] = useState(false);
+
+  //const [triage, setTriage] = useState({} as PatientExaminationDTO | undefined);
+
   const lastExamination = useAppSelector(
     (state) => state.examinations.getLastByPatientId.data
   );
@@ -68,6 +75,7 @@ const PatientTriage: FC = () => {
       state.examinations.createExamination.error?.message ||
       state.examinations.updateExamination.error?.message ||
       state.examinations.deleteExamination.error?.message ||
+      state.examinations.printExamination.error?.message ||
       t("common.somethingwrong")
   ) as string;
 
@@ -88,9 +96,16 @@ const PatientTriage: FC = () => {
   }, [deleteStatus, dispatch, patientDataCode]);
 
   useEffect(() => {
+    if (deleteStatus === "SUCCESS" && patientDataCode) {
+      dispatch(getLastByPatientId(patientDataCode));
+    }
+  }, [deleteStatus, dispatch, patientDataCode]);
+
+  useEffect(() => {
     dispatch(createExaminationReset());
     dispatch(updateExaminationReset());
     dispatch(deleteExaminationReset());
+    dispatch(printExaminationReset());
     setCreationMode(true);
   }, [dispatch]);
 
@@ -99,6 +114,7 @@ const PatientTriage: FC = () => {
       dispatch(createExaminationReset());
       dispatch(updateExaminationReset());
       dispatch(deleteExaminationReset());
+      dispatch(printExaminationReset());
       setShouldResetForm(true);
       setShouldUpdateTable(true);
     }
@@ -111,20 +127,55 @@ const PatientTriage: FC = () => {
     }
   }, [dispatch, patientDataCode]);
 
+  useEffect(() => {
+    if (isPrinting) {
+      dispatch(printExamination(triageToEdit?.pex_ID))
+        .unwrap()
+        .then((result) => {
+          if (result instanceof Blob) {
+            downloadBlob(
+              result,
+              `patient-examination-${
+                triageToEdit?.pex_ID
+              }-${new Date().getTime()}.pdf`
+            );
+          }
+        })
+        .catch((error) => {})
+        .finally(() => setPrinting(false));
+    }
+    setActivityTransitionState("TO_RESET");
+  }, [dispatch, isPrinting, triageToEdit?.pex_ID]);
+
   const onSubmit = (triage: PatientExaminationDTO) => {
     setShouldResetForm(false);
     triage.patientCode = patientDataCode ?? -1;
     if (triageToEdit.pex_ID) triage.pex_ID = triageToEdit.pex_ID;
     if (!creationMode && triageToEdit.pex_ID) {
+      triage.lock = triageToEdit.lock;
       dispatch(
         updateExamination({
           id: triageToEdit.pex_ID,
           patientExaminationDTO: triage,
         })
-      );
+      )
+        .unwrap()
+        .then((result) => {
+          if (!result) return;
+          setTriageToEdit(result);
+        });
     } else {
-      dispatch(createExamination(triage));
+      dispatch(createExamination(triage))
+        .unwrap()
+        .then((result) => {
+          if (!result) return;
+          setTriageToEdit(result);
+        });
     }
+  };
+
+  const handlePrint = () => {
+    setPrinting(true);
   };
 
   const resetFormCallback = () => {
@@ -137,7 +188,6 @@ const PatientTriage: FC = () => {
     setActivityTransitionState("IDLE");
     scrollToElement(null);
   };
-
   const onDelete = (code: number | undefined) => {
     if (code) {
       setDeletedObjCode(code.toString());
@@ -145,13 +195,30 @@ const PatientTriage: FC = () => {
     }
   };
 
-  const onEdit = (row: any) => {
-    row.pex_date = row.date;
+  const onEdit = (row: PatientExaminationDTO) => {
     setTriageToEdit(row);
     setCreationMode(false);
     scrollToElement(null);
   };
 
+  const printExaminationStatus = useAppSelector(
+    (state) => state.examinations.printExamination.status
+  );
+
+  const printExaminationErrorMessage = useAppSelector(
+    (state) =>
+      state.examinations.printExamination.error?.message ||
+      t("common.failedtodownloadthereport")
+  ) as string;
+
+  const onPrint = (row: any) => {
+    dispatch(printExamination(row.pex_ID))
+      .unwrap()
+      .then((result) => {
+        if (result instanceof Blob)
+          downloadBlob(result, `patient-examexamination-${new Date()}.pdf`);
+      });
+  };
   return (
     <div className="patientTriage">
       <Permission
@@ -185,6 +252,10 @@ const PatientTriage: FC = () => {
             creationMode ? t("common.savetriage") : t("common.update")
           }
           resetButtonLabel={t("common.reset")}
+          printButtonLabel={
+            creationMode ? t("common.saveandprint") : t("common.updateandprint")
+          }
+          saveAndPrint={handlePrint}
           shouldResetForm={shouldResetForm}
           resetFormCallback={resetFormCallback}
           isLoading={status === "LOADING"}
@@ -192,6 +263,11 @@ const PatientTriage: FC = () => {
         {(status === "FAIL" || deleteStatus === "FAIL") && (
           <div ref={infoBoxRef}>
             <InfoBox type="error" message={errorMessage} />
+          </div>
+        )}
+        {printExaminationStatus === "FAIL" && (
+          <div ref={infoBoxRef}>
+            <InfoBox type="error" message={printExaminationErrorMessage} />
           </div>
         )}
         <ConfirmationDialog
@@ -206,9 +282,7 @@ const PatientTriage: FC = () => {
               : t("examination.updatesuccess", { code: triageToEdit.pex_ID })
           }
           primaryButtonLabel="Ok"
-          handlePrimaryButtonClick={() =>
-            setActivityTransitionState("TO_RESET")
-          }
+          handlePrimaryButtonClick={handlePrint}
           handleSecondaryButtonClick={() => ({})}
         />
       </Permission>
@@ -218,6 +292,7 @@ const PatientTriage: FC = () => {
           handleDelete={onDelete}
           handleEdit={onEdit}
           shouldUpdateTable={shouldUpdateTable}
+          handlePrint={onPrint}
         />
       </Permission>
 

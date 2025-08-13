@@ -36,11 +36,11 @@ import { object, string } from "yup";
 import checkIcon from "../../../../assets/check-icon.png";
 import warningIcon from "../../../../assets/warning-icon.png";
 import { OpdWithOperationRowDTO, OperationRowDTO } from "../../../../generated";
-import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 import {
   formatAllFieldValues,
   getFromFields,
 } from "../../../../libraries/formDataHandling/functions";
+import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 import {
   createOperationRowReset,
   deleteOperationRow,
@@ -58,8 +58,8 @@ import { CustomDialog } from "../../customDialog/CustomDialog";
 import DateField from "../../dateField/DateField";
 import ContentCutIcon from "../../icons/content-cut";
 import InfoBox from "../../infoBox/InfoBox";
-import OperationRowForm from "../../patientOperation/operationForm/OperationRowForm";
 import { opRowFields } from "../../patientOperation/opRowFields";
+import OperationRowForm from "../../patientOperation/operationForm/OperationRowForm";
 import TextField from "../../textField/TextField";
 import "./styles.scss";
 import { TProps } from "./types";
@@ -655,13 +655,16 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
         </Accordion>
       </div>
       <CustomDialog
-        title={t("opd.addoperation")}
+        title={
+          operationCreationMode ? t("opd.addoperation") : t("opd.editoperation")
+        }
         description={t("opd.addoperationdesc")}
         open={showModal}
         onClose={onOperationCreated}
         content={
           <>
             <OperationRowForm
+              opd={true}
               fields={operationsRowFields}
               onSubmit={handleAddOperationRow}
               creationMode={operationCreationMode}

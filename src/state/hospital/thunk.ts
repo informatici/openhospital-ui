@@ -1,4 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { wrapper } from "libraries/apiUtils/wrapper";
 import { HospitalDTO, HospitalsApi } from "../../generated";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 
@@ -18,8 +19,7 @@ export const getHospital = createAsyncThunk(
 export const updateHospital = createAsyncThunk(
   "hospitals/updateHospital",
   async (payload: { code: string; hospitalDTO: HospitalDTO }, thunkApi) =>
-    securedApi
-      .updateHospital(payload)
+    wrapper(() => securedApi.updateHospital(payload))
       .toPromise()
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );

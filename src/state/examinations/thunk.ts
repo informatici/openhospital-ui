@@ -1,14 +1,20 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { ExaminationsApi, PatientExaminationDTO } from "../../generated";
+import { wrapper } from "libraries/apiUtils/wrapper";
+import {
+  ExaminationsApi,
+  PatientExaminationDTO,
+  ReportsApi,
+} from "../../generated";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 
 const api = new ExaminationsApi(customConfiguration());
 
+const apiReport = new ReportsApi(customConfiguration());
+
 export const examinationsByPatientId = createAsyncThunk(
   "examinations/examinationsByPatientId",
   async (patId: number | undefined, thunkApi) =>
-    api
-      .getByPatientId({ patId: patId ?? -1 })
+    wrapper(() => api.getByPatientId({ patId: patId ?? -1 }))
       .toPromise()
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );
@@ -16,8 +22,7 @@ export const examinationsByPatientId = createAsyncThunk(
 export const getDefaultPatientExamination = createAsyncThunk(
   "examinations/getDefaultPatientExamination",
   async (patId: number, thunkApi) =>
-    api
-      .getDefaultPatientExamination({ patId })
+    wrapper(() => api.getDefaultPatientExamination({ patId }))
       .toPromise()
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );
@@ -25,8 +30,7 @@ export const getDefaultPatientExamination = createAsyncThunk(
 export const getLastByPatientId = createAsyncThunk(
   "examinations/getLastByPatientId",
   async (patId: number, thunkApi) =>
-    api
-      .getLastByPatientId({ patId })
+    wrapper(() => api.getLastByPatientId({ patId }))
       .toPromise()
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );
@@ -34,10 +38,9 @@ export const getLastByPatientId = createAsyncThunk(
 export const createExamination = createAsyncThunk(
   "examinations/createExamination",
   async (patientExaminationDTO: PatientExaminationDTO, thunkApi) =>
-    api
-      .newPatientExamination({ patientExaminationDTO })
+    wrapper(() => api.newPatientExamination({ patientExaminationDTO }))
       .toPromise()
-      .then(() => patientExaminationDTO)
+      .then((result) => result)
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );
 
@@ -47,10 +50,9 @@ export const updateExamination = createAsyncThunk(
     payload: { id: number; patientExaminationDTO: PatientExaminationDTO },
     thunkApi
   ) =>
-    api
-      .updateExamination(payload)
+    wrapper(() => api.updateExamination(payload))
       .toPromise()
-      .then(() => ({ ...payload.patientExaminationDTO, id: payload.id }))
+      .then((result) => result)
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );
 
@@ -58,4 +60,17 @@ export const deleteExamination = createAsyncThunk(
   "examinations/deleteExamination",
   async (id: number, thunkApi) =>
     thunkApi.rejectWithValue({ message: "Delete api not yet available !!!" })
+);
+
+export const printExamination = createAsyncThunk(
+  "reports/patientexamination",
+  async (examinationId: number | undefined, thunkApi) =>
+    wrapper(() =>
+      apiReport.printPatientExaminationPdf({
+        examinationId: examinationId ?? -1,
+      })
+    )
+      .toPromise()
+      .then((response) => response)
+      .catch((error) => thunkApi.rejectWithValue(error.response))
 );

@@ -59,6 +59,7 @@ export interface SettingDTO {
      */
     value?: string;
     /**
+     * Description
      * @type {string}
      * @memberof SettingDTO
      */

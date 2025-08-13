@@ -171,11 +171,7 @@ const ExamForm: FC<ExamProps> = ({
     return (state.exams.examList.data ?? []).map((item) => {
       return {
         value: item.code ?? "",
-        label:
-          (item.description &&
-            item.description?.length > 30 &&
-            item.description.slice(0, 30) + "...") ||
-          (item.description ?? ""),
+        label: item.description ?? "",
       };
     });
   });
@@ -275,6 +271,16 @@ const ExamForm: FC<ExamProps> = ({
           setPatientData(value as PatientDTO);
         }
       },
+    [setFieldValue, handleBlur]
+  );
+
+  const handleExamChange = useCallback(
+    (value: string) => {
+      setFieldValue("exam", value);
+      formik.setFieldTouched("exam");
+      setCurrentExamCode(value);
+      setFieldValue("result", "");
+    },
     [setFieldValue, handleBlur]
   );
 
@@ -381,6 +387,7 @@ const ExamForm: FC<ExamProps> = ({
                 isValid={isValid("exam")}
                 errorText={getErrorText("exam")}
                 onBlur={onBlurCallback("exam")}
+                onChange={handleExamChange}
                 options={examOptions}
                 isLoading={examsLoading}
                 disabled={isLoading}

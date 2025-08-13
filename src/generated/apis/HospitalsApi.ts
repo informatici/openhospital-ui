@@ -11,9 +11,11 @@
  * Do not edit the class manually.
  */
 
-import { Observable } from 'rxjs';
-import { BaseAPI, HttpHeaders, throwIfNullOrUndefined, encodeURI, OperationOpts, RawAjaxResponse } from '../runtime';
-import {
+import type { Observable } from 'rxjs';
+import type { AjaxResponse } from 'rxjs/ajax';
+import { BaseAPI, throwIfNullOrUndefined, encodeURI } from '../runtime';
+import type { OperationOpts, HttpHeaders } from '../runtime';
+import type {
     HospitalDTO,
 } from '../models';
 
@@ -30,10 +32,9 @@ export class HospitalsApi extends BaseAPI {
     /**
      */
     getHospital(): Observable<HospitalDTO>
-    getHospital(opts?: OperationOpts): Observable<RawAjaxResponse<HospitalDTO>>
-    getHospital(opts?: OperationOpts): Observable<HospitalDTO | RawAjaxResponse<HospitalDTO>> {
+    getHospital(opts?: OperationOpts): Observable<AjaxResponse<HospitalDTO>>
+    getHospital(opts?: OperationOpts): Observable<HospitalDTO | AjaxResponse<HospitalDTO>> {
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<HospitalDTO>({
@@ -46,10 +47,9 @@ export class HospitalsApi extends BaseAPI {
     /**
      */
     getHospitalCurrencyCode(): Observable<string>
-    getHospitalCurrencyCode(opts?: OperationOpts): Observable<RawAjaxResponse<string>>
-    getHospitalCurrencyCode(opts?: OperationOpts): Observable<string | RawAjaxResponse<string>> {
+    getHospitalCurrencyCode(opts?: OperationOpts): Observable<AjaxResponse<string>>
+    getHospitalCurrencyCode(opts?: OperationOpts): Observable<string | AjaxResponse<string>> {
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<string>({
@@ -62,14 +62,13 @@ export class HospitalsApi extends BaseAPI {
     /**
      */
     updateHospital({ code, hospitalDTO }: UpdateHospitalRequest): Observable<HospitalDTO>
-    updateHospital({ code, hospitalDTO }: UpdateHospitalRequest, opts?: OperationOpts): Observable<RawAjaxResponse<HospitalDTO>>
-    updateHospital({ code, hospitalDTO }: UpdateHospitalRequest, opts?: OperationOpts): Observable<HospitalDTO | RawAjaxResponse<HospitalDTO>> {
+    updateHospital({ code, hospitalDTO }: UpdateHospitalRequest, opts?: OperationOpts): Observable<AjaxResponse<HospitalDTO>>
+    updateHospital({ code, hospitalDTO }: UpdateHospitalRequest, opts?: OperationOpts): Observable<HospitalDTO | AjaxResponse<HospitalDTO>> {
         throwIfNullOrUndefined(code, 'code', 'updateHospital');
         throwIfNullOrUndefined(hospitalDTO, 'hospitalDTO', 'updateHospital');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<HospitalDTO>({

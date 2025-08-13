@@ -11,9 +11,11 @@
  * Do not edit the class manually.
  */
 
-import { Observable } from 'rxjs';
-import { BaseAPI, HttpHeaders, throwIfNullOrUndefined, encodeURI, OperationOpts, RawAjaxResponse } from '../runtime';
-import {
+import type { Observable } from 'rxjs';
+import type { AjaxResponse } from 'rxjs/ajax';
+import { BaseAPI, throwIfNullOrUndefined, encodeURI } from '../runtime';
+import type { OperationOpts, HttpHeaders } from '../runtime';
+import type {
     DeliveryResultTypeDTO,
 } from '../models';
 
@@ -37,12 +39,11 @@ export class DeliveryResultTypeApi extends BaseAPI {
     /**
      */
     deleteDeliveryResultType({ code }: DeleteDeliveryResultTypeRequest): Observable<boolean>
-    deleteDeliveryResultType({ code }: DeleteDeliveryResultTypeRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
-    deleteDeliveryResultType({ code }: DeleteDeliveryResultTypeRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+    deleteDeliveryResultType({ code }: DeleteDeliveryResultTypeRequest, opts?: OperationOpts): Observable<AjaxResponse<boolean>>
+    deleteDeliveryResultType({ code }: DeleteDeliveryResultTypeRequest, opts?: OperationOpts): Observable<boolean | AjaxResponse<boolean>> {
         throwIfNullOrUndefined(code, 'code', 'deleteDeliveryResultType');
 
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<boolean>({
@@ -55,10 +56,9 @@ export class DeliveryResultTypeApi extends BaseAPI {
     /**
      */
     getDeliveryResultTypes(): Observable<Array<DeliveryResultTypeDTO>>
-    getDeliveryResultTypes(opts?: OperationOpts): Observable<RawAjaxResponse<Array<DeliveryResultTypeDTO>>>
-    getDeliveryResultTypes(opts?: OperationOpts): Observable<Array<DeliveryResultTypeDTO> | RawAjaxResponse<Array<DeliveryResultTypeDTO>>> {
+    getDeliveryResultTypes(opts?: OperationOpts): Observable<AjaxResponse<Array<DeliveryResultTypeDTO>>>
+    getDeliveryResultTypes(opts?: OperationOpts): Observable<Array<DeliveryResultTypeDTO> | AjaxResponse<Array<DeliveryResultTypeDTO>>> {
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<Array<DeliveryResultTypeDTO>>({
@@ -71,13 +71,12 @@ export class DeliveryResultTypeApi extends BaseAPI {
     /**
      */
     newDeliveryResultType({ deliveryResultTypeDTO }: NewDeliveryResultTypeRequest): Observable<DeliveryResultTypeDTO>
-    newDeliveryResultType({ deliveryResultTypeDTO }: NewDeliveryResultTypeRequest, opts?: OperationOpts): Observable<RawAjaxResponse<DeliveryResultTypeDTO>>
-    newDeliveryResultType({ deliveryResultTypeDTO }: NewDeliveryResultTypeRequest, opts?: OperationOpts): Observable<DeliveryResultTypeDTO | RawAjaxResponse<DeliveryResultTypeDTO>> {
+    newDeliveryResultType({ deliveryResultTypeDTO }: NewDeliveryResultTypeRequest, opts?: OperationOpts): Observable<AjaxResponse<DeliveryResultTypeDTO>>
+    newDeliveryResultType({ deliveryResultTypeDTO }: NewDeliveryResultTypeRequest, opts?: OperationOpts): Observable<DeliveryResultTypeDTO | AjaxResponse<DeliveryResultTypeDTO>> {
         throwIfNullOrUndefined(deliveryResultTypeDTO, 'deliveryResultTypeDTO', 'newDeliveryResultType');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<DeliveryResultTypeDTO>({
@@ -91,13 +90,12 @@ export class DeliveryResultTypeApi extends BaseAPI {
     /**
      */
     updateDeliveryResultTypes({ deliveryResultTypeDTO }: UpdateDeliveryResultTypesRequest): Observable<DeliveryResultTypeDTO>
-    updateDeliveryResultTypes({ deliveryResultTypeDTO }: UpdateDeliveryResultTypesRequest, opts?: OperationOpts): Observable<RawAjaxResponse<DeliveryResultTypeDTO>>
-    updateDeliveryResultTypes({ deliveryResultTypeDTO }: UpdateDeliveryResultTypesRequest, opts?: OperationOpts): Observable<DeliveryResultTypeDTO | RawAjaxResponse<DeliveryResultTypeDTO>> {
+    updateDeliveryResultTypes({ deliveryResultTypeDTO }: UpdateDeliveryResultTypesRequest, opts?: OperationOpts): Observable<AjaxResponse<DeliveryResultTypeDTO>>
+    updateDeliveryResultTypes({ deliveryResultTypeDTO }: UpdateDeliveryResultTypesRequest, opts?: OperationOpts): Observable<DeliveryResultTypeDTO | AjaxResponse<DeliveryResultTypeDTO>> {
         throwIfNullOrUndefined(deliveryResultTypeDTO, 'deliveryResultTypeDTO', 'updateDeliveryResultTypes');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<DeliveryResultTypeDTO>({

@@ -30,7 +30,7 @@ export const NewDischargeType = () => {
         creationMode
         onSubmit={handleSubmit}
         isLoading={!!create.isLoading}
-        resetButtonLabel={t("common.cancel")}
+        resetButtonLabel={t("common.reset")}
         submitButtonLabel={t("dischargeTypes.saveDischargeTypes")}
         fields={getInitialFields(undefined)}
       />

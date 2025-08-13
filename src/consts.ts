@@ -1,7 +1,9 @@
 export const AUTH_KEY = "auth";
+export const LAGUAGE_KEY = "i18nextLng";
 export const PERMISSION_KEY = "permission";
 export const MOBILE_BREAKPOINT = 768;
 export const TOKEN_EXPIRATION_TIMEOUT = 60000;
+export const REFRESH_TOKEN_EXPIRATION_TIMEOUT = 0;
 
 export const PATHS = {
   home: "/",

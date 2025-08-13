@@ -28,6 +28,10 @@ export const getFromFields = (
   fieldAddress: TFieldAddress
 ): Record<string, any> => {
   return Object.keys(fields).reduce((acc: Record<string, any>, key) => {
+    if (fields[key].type === "number" && fields[key][fieldAddress] === null) {
+      acc[key] = "";
+      return acc;
+    }
     if (fieldAddress === "value") {
       acc[key] = fields[key].isArray
         ? JSON.parse(fields[key][fieldAddress])
@@ -54,6 +58,18 @@ export const parseDate = (raw: string, withTimezone: boolean = true) => {
   } else {
     return "";
   }
+};
+
+export const parseDateTime = (
+  raw: string,
+  withTimezone: boolean = true
+): string => {
+  if (!raw) return "";
+  const date = isNaN(+raw) ? new Date(raw) : new Date(+raw);
+  const adjustedDate = withTimezone
+    ? new Date(date.getTime() - date.getTimezoneOffset() * 60000)
+    : date;
+  return adjustedDate.toISOString();
 };
 
 export const fixFilterDateFrom = (date: string | Date): string => {

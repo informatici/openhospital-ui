@@ -44,6 +44,7 @@ const TextField: FunctionComponent<IProps> = ({
         disabled={disabled}
         InputProps={InputProps}
         inputProps={{ maxLength }}
+        InputLabelProps={{ shrink: !!field.value }}
         required={required === FIELD_VALIDATION.REQUIRED}
       />
       {maxLength && maxLength > 0 && (

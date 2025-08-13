@@ -52,6 +52,7 @@
     display: flex;
     margin-top: 25px;
     padding: 0px 15px;
+    justify-content: space-between;
     flex-direction: row-reverse;
     @include susy-media($smartphone_small) {
       display: block;
@@ -59,6 +60,9 @@
 
     .submit_button,
     .reset_button {
+      margin-left: 5px;
+      display: flex;
+      justify-content: flex-start;
       .MuiButton-label {
         font-size: smaller;
         letter-spacing: 1px;

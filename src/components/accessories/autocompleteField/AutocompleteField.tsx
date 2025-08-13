@@ -51,8 +51,7 @@ const AutocompleteField: FC<IProps> = ({
   const { t } = useTranslation();
 
   const getFullObject = (val: string | number) => {
-    const res =
-      options?.find((el) => optionsComparator(el, val)) || val || null;
+    const res = options?.find((el) => optionsComparator(el, val)) || val || "";
     return res;
   };
 

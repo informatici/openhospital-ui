@@ -11,9 +11,11 @@
  * Do not edit the class manually.
  */
 
-import { Observable } from 'rxjs';
-import { BaseAPI, HttpHeaders, HttpQuery, throwIfNullOrUndefined, encodeURI, OperationOpts, RawAjaxResponse } from '../runtime';
-import {
+import type { Observable } from 'rxjs';
+import type { AjaxResponse } from 'rxjs/ajax';
+import { BaseAPI, throwIfNullOrUndefined, encodeURI } from '../runtime';
+import type { OperationOpts, HttpHeaders, HttpQuery } from '../runtime';
+import type {
     MedicalWardDTO,
     MovementWardDTO,
 } from '../models';
@@ -51,13 +53,12 @@ export class MedicalStockWardApi extends BaseAPI {
     /**
      */
     getCurrentQuantityInWard({ wardCode, medId }: GetCurrentQuantityInWardRequest): Observable<number>
-    getCurrentQuantityInWard({ wardCode, medId }: GetCurrentQuantityInWardRequest, opts?: OperationOpts): Observable<RawAjaxResponse<number>>
-    getCurrentQuantityInWard({ wardCode, medId }: GetCurrentQuantityInWardRequest, opts?: OperationOpts): Observable<number | RawAjaxResponse<number>> {
+    getCurrentQuantityInWard({ wardCode, medId }: GetCurrentQuantityInWardRequest, opts?: OperationOpts): Observable<AjaxResponse<number>>
+    getCurrentQuantityInWard({ wardCode, medId }: GetCurrentQuantityInWardRequest, opts?: OperationOpts): Observable<number | AjaxResponse<number>> {
         throwIfNullOrUndefined(wardCode, 'wardCode', 'getCurrentQuantityInWard');
         throwIfNullOrUndefined(medId, 'medId', 'getCurrentQuantityInWard');
 
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         const query: HttpQuery = { // required parameters are used directly since they are already checked by throwIfNullOrUndefined
@@ -75,12 +76,11 @@ export class MedicalStockWardApi extends BaseAPI {
     /**
      */
     getMedicalsWard({ wardCode }: GetMedicalsWardRequest): Observable<Array<MedicalWardDTO>>
-    getMedicalsWard({ wardCode }: GetMedicalsWardRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<MedicalWardDTO>>>
-    getMedicalsWard({ wardCode }: GetMedicalsWardRequest, opts?: OperationOpts): Observable<Array<MedicalWardDTO> | RawAjaxResponse<Array<MedicalWardDTO>>> {
+    getMedicalsWard({ wardCode }: GetMedicalsWardRequest, opts?: OperationOpts): Observable<AjaxResponse<Array<MedicalWardDTO>>>
+    getMedicalsWard({ wardCode }: GetMedicalsWardRequest, opts?: OperationOpts): Observable<Array<MedicalWardDTO> | AjaxResponse<Array<MedicalWardDTO>>> {
         throwIfNullOrUndefined(wardCode, 'wardCode', 'getMedicalsWard');
 
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<Array<MedicalWardDTO>>({
@@ -93,14 +93,13 @@ export class MedicalStockWardApi extends BaseAPI {
     /**
      */
     getMovementWard({ wardCode, from, to }: GetMovementWardRequest): Observable<Array<MovementWardDTO>>
-    getMovementWard({ wardCode, from, to }: GetMovementWardRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<MovementWardDTO>>>
-    getMovementWard({ wardCode, from, to }: GetMovementWardRequest, opts?: OperationOpts): Observable<Array<MovementWardDTO> | RawAjaxResponse<Array<MovementWardDTO>>> {
+    getMovementWard({ wardCode, from, to }: GetMovementWardRequest, opts?: OperationOpts): Observable<AjaxResponse<Array<MovementWardDTO>>>
+    getMovementWard({ wardCode, from, to }: GetMovementWardRequest, opts?: OperationOpts): Observable<Array<MovementWardDTO> | AjaxResponse<Array<MovementWardDTO>>> {
         throwIfNullOrUndefined(wardCode, 'wardCode', 'getMovementWard');
         throwIfNullOrUndefined(from, 'from', 'getMovementWard');
         throwIfNullOrUndefined(to, 'to', 'getMovementWard');
 
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         const query: HttpQuery = { // required parameters are used directly since they are already checked by throwIfNullOrUndefined
@@ -119,14 +118,13 @@ export class MedicalStockWardApi extends BaseAPI {
     /**
      */
     getWardMovementsToWard({ targetWardCode, from, to }: GetWardMovementsToWardRequest): Observable<Array<MovementWardDTO>>
-    getWardMovementsToWard({ targetWardCode, from, to }: GetWardMovementsToWardRequest, opts?: OperationOpts): Observable<RawAjaxResponse<Array<MovementWardDTO>>>
-    getWardMovementsToWard({ targetWardCode, from, to }: GetWardMovementsToWardRequest, opts?: OperationOpts): Observable<Array<MovementWardDTO> | RawAjaxResponse<Array<MovementWardDTO>>> {
+    getWardMovementsToWard({ targetWardCode, from, to }: GetWardMovementsToWardRequest, opts?: OperationOpts): Observable<AjaxResponse<Array<MovementWardDTO>>>
+    getWardMovementsToWard({ targetWardCode, from, to }: GetWardMovementsToWardRequest, opts?: OperationOpts): Observable<Array<MovementWardDTO> | AjaxResponse<Array<MovementWardDTO>>> {
         throwIfNullOrUndefined(targetWardCode, 'targetWardCode', 'getWardMovementsToWard');
         throwIfNullOrUndefined(from, 'from', 'getWardMovementsToWard');
         throwIfNullOrUndefined(to, 'to', 'getWardMovementsToWard');
 
         const headers: HttpHeaders = {
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         const query: HttpQuery = { // required parameters are used directly since they are already checked by throwIfNullOrUndefined
@@ -145,13 +143,12 @@ export class MedicalStockWardApi extends BaseAPI {
     /**
      */
     newMovementWard({ movementWardDTO }: NewMovementWardRequest): Observable<boolean>
-    newMovementWard({ movementWardDTO }: NewMovementWardRequest, opts?: OperationOpts): Observable<RawAjaxResponse<boolean>>
-    newMovementWard({ movementWardDTO }: NewMovementWardRequest, opts?: OperationOpts): Observable<boolean | RawAjaxResponse<boolean>> {
+    newMovementWard({ movementWardDTO }: NewMovementWardRequest, opts?: OperationOpts): Observable<AjaxResponse<boolean>>
+    newMovementWard({ movementWardDTO }: NewMovementWardRequest, opts?: OperationOpts): Observable<boolean | AjaxResponse<boolean>> {
         throwIfNullOrUndefined(movementWardDTO, 'movementWardDTO', 'newMovementWard');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
-            ...(this.configuration.username != null && this.configuration.password != null ? { Authorization: `Basic ${btoa(this.configuration.username + ':' + this.configuration.password)}` } : undefined),
         };
 
         return this.request<boolean>({

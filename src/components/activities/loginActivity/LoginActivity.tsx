@@ -56,7 +56,7 @@ const LoginActivity: FC = () => {
     const error = state.main.authentication.error;
     return error?.status === 401
       ? t("errors.incorrectcredentials")
-      : error?.message ?? t("errors.somethingwrong");
+      : t(error?.message ?? "errors.somethingwrong");
   });
 
   const status = useAppSelector(

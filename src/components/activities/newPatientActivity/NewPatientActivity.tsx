@@ -53,10 +53,7 @@ const NewPatientActivity: FunctionComponent<IOwnProps> = ({
       state.patients.createPatient.error?.message || t("common.somethingwrong")
   );
 
-  const patient = useAppSelector(
-    (state) =>
-      state.patients.createPatient.data || state.patients.updatePatient.data
-  );
+  const patient = useAppSelector((state) => state.patients.createPatient.data);
 
   useEffect(() => {
     dispatch(getPatientReset());

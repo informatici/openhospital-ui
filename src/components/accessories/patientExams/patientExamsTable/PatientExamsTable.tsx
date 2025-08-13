@@ -66,7 +66,10 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
           item.laboratoryDTO?.exam?.procedure === 1
             ? item.laboratoryDTO?.result
             : item.laboratoryRowList?.join(", "),
-        note: item.laboratoryDTO?.note,
+        note:
+          item.laboratoryDTO?.note?.length === 0
+            ? "/"
+            : item.laboratoryDTO?.note,
         status: item.laboratoryDTO?.status
           ? statusLabel(item.laboratoryDTO.status)
           : "",

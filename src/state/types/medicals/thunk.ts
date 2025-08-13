@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { MedicalTypesApi, MedicalTypeDTO } from "../../../generated";
+import { wrapper } from "libraries/apiUtils/wrapper";
+import { MedicalTypeDTO, MedicalTypesApi } from "../../../generated";
 import { customConfiguration } from "../../../libraries/apiUtils/configuration";
 
 const api = new MedicalTypesApi(customConfiguration());
@@ -7,8 +8,7 @@ const api = new MedicalTypesApi(customConfiguration());
 export const getMedicalTypes = createAsyncThunk(
   "medicalTypes/getMedicalTypes",
   async (_, thunkApi) =>
-    api
-      .getMedicalTypes()
+    wrapper(() => api.getMedicalTypes())
       .toPromise()
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );
@@ -16,8 +16,7 @@ export const getMedicalTypes = createAsyncThunk(
 export const createMedicalType = createAsyncThunk(
   "medicalTypes/createMedicalType",
   async (medicalTypeDTO: MedicalTypeDTO, thunkApi) =>
-    api
-      .createMedicalType({ medicalTypeDTO })
+    wrapper(() => api.createMedicalType({ medicalTypeDTO }))
       .toPromise()
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );
@@ -25,8 +24,7 @@ export const createMedicalType = createAsyncThunk(
 export const updateMedicalType = createAsyncThunk(
   "medicalTypes/updateMedicalType",
   async (medicalTypeDTO: MedicalTypeDTO, thunkApi) =>
-    api
-      .updateMedicalType({ medicalTypeDTO })
+    wrapper(() => api.updateMedicalType({ medicalTypeDTO }))
       .toPromise()
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );
@@ -34,8 +32,7 @@ export const updateMedicalType = createAsyncThunk(
 export const deleteMedicalType = createAsyncThunk(
   "medicalTypes/deleteMedicalType",
   async (code: string, thunkApi) =>
-    api
-      .deleteMedicalType({ code })
+    wrapper(() => api.deleteMedicalType({ code }))
       .toPromise()
       .then(() => ({ code }))
       .catch((error) => thunkApi.rejectWithValue(error.response))

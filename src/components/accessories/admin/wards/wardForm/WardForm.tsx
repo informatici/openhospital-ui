@@ -1,20 +1,14 @@
+import DiscardButton from "components/accessories/discardButton/DiscardButton";
+import ResetButton from "components/accessories/resetButton/resetButton";
 import { useFormik } from "formik";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { get, has } from "lodash";
-import React, {
-  FC,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import React, { FC, useCallback, useEffect, useMemo, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { FIELD_VALIDATION } from "types";
 import { number, object, string } from "yup";
 import checkIcon from "../../../../../assets/check-icon.png";
-import warningIcon from "../../../../../assets/warning-icon.png";
 import { PATHS } from "../../../../../consts";
 import {
   formatAllFieldValues,
@@ -43,7 +37,6 @@ const WardForm: FC<IWardProps> = ({
   const { t } = useTranslation();
   const navigate = useNavigate();
   const infoBoxRef = useRef<HTMLDivElement>(null);
-  const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
   const wardStore = useAppSelector((state) => state.wards);
 
@@ -98,11 +91,6 @@ const WardForm: FC<IWardProps> = ({
       : "";
   };
 
-  const handleResetConfirmation = () => {
-    setOpenResetConfirmation(false);
-    navigate(-1);
-  };
-
   const handleCheckboxChange = useCallback(
     (fieldName: string) => (value: boolean) => {
       setFieldValue(fieldName, value ? "true" : "false");
@@ -124,6 +112,11 @@ const WardForm: FC<IWardProps> = ({
 
   return (
     <div className="wardForm">
+      <div className="wardForm__header">
+        <div className="wardForm__actions">
+          <DiscardButton />
+        </div>
+      </div>
       <form className="wardForm__form" onSubmit={formik.handleSubmit}>
         <div className="row start-sm center-xs">
           <div className="wardForm__item halfWidth">
@@ -255,7 +248,7 @@ const WardForm: FC<IWardProps> = ({
             <CheckboxField
               fieldName={"pharmacy"}
               checked={formik.values.pharmacy === "true"}
-              label={t("ward.pharmacy")}
+              label={t("ward.hasPharmacy")}
               onChange={handleCheckboxChange("pharmacy")}
             />
           </div>
@@ -289,27 +282,9 @@ const WardForm: FC<IWardProps> = ({
             </Button>
           </div>
           <div className="reset_button">
-            <Button
-              dataCy="cancel-form"
-              type="reset"
-              variant="text"
-              disabled={isLoading}
-              onClick={() => setOpenResetConfirmation(true)}
-            >
-              {resetButtonLabel}
-            </Button>
+            <ResetButton formik={formik as any} title={resetButtonLabel} />
           </div>
         </div>
-        <ConfirmationDialog
-          isOpen={openResetConfirmation}
-          title={resetButtonLabel.toUpperCase()}
-          info={t("common.resetform")}
-          icon={warningIcon}
-          primaryButtonLabel={t("common.ok")}
-          secondaryButtonLabel={t("common.discard")}
-          handlePrimaryButtonClick={handleResetConfirmation}
-          handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
-        />
         {(creationMode
           ? wardStore.create.status === "FAIL"
           : wardStore.update.status === "FAIL") && (
@@ -332,7 +307,7 @@ const WardForm: FC<IWardProps> = ({
           }
           primaryButtonLabel="Ok"
           handlePrimaryButtonClick={() => {
-            navigate(PATHS.admin_wards);
+            navigate(PATHS.admin_wards, { replace: true });
           }}
           handleSecondaryButtonClick={() => ({})}
         />

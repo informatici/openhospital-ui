@@ -31,7 +31,7 @@ export const EditSupplier = () => {
       creationMode={false}
       onSubmit={handleSubmit}
       isLoading={!!update.isLoading}
-      resetButtonLabel={t("common.cancel")}
+      resetButtonLabel={t("common.reset")}
       submitButtonLabel={t("supplier.updateSupplier")}
       fields={getInitialFields(state)}
     />

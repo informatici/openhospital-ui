@@ -6,8 +6,8 @@ import { PATHS } from "../../../../../../../consts";
 import { DischargeTypeDTO } from "../../../../../../../generated";
 import { setTypeMode } from "../../../../../../../state/types/config";
 import { updateDischargeType } from "../../../../../../../state/types/discharges";
-import { getInitialFields } from "../dischargeTypesForm/consts";
 import DischargeTypeForm from "../dischargeTypesForm/DischargeTypeForm";
+import { getInitialFields } from "../dischargeTypesForm/consts";
 import "./styles.scss";
 
 export const EditDischargeType = () => {
@@ -41,7 +41,7 @@ export const EditDischargeType = () => {
         creationMode={false}
         onSubmit={handleSubmit}
         isLoading={!!update.isLoading}
-        resetButtonLabel={t("common.cancel")}
+        resetButtonLabel={t("common.reset")}
         submitButtonLabel={t("dischargeTypes.updateDischargeType")}
         fields={getInitialFields(state)}
       />
