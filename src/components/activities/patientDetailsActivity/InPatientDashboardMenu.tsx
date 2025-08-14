@@ -17,15 +17,13 @@ import { useNavigate } from "react-router";
 import Arrow from "../../../assets/arrow-w.svg";
 import { Permission } from "../../../libraries/permissionUtils/Permission";
 import "./styles.scss";
-import { IUserSection } from "./types";
+import { TUserSection } from "./types";
 
 interface IOwnProps {
-  setUserSection: React.Dispatch<React.SetStateAction<IUserSection>>;
-  userSection: IUserSection;
+  userSection: TUserSection;
 }
 
 const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
-  setUserSection,
   userSection,
 }) => {
   const { t } = useTranslation();
@@ -36,16 +34,16 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
 
   const encountersEnabled = useEncountersEnabled();
 
-  const isActive = (value: string) => {
-    return value === userSection ? "active" : "default";
-  };
+  const isActive = useCallback(
+    (value: string) => (value === userSection ? "active" : "default"),
+    [userSection]
+  );
 
   const changeUserSection = useCallback(
-    (section: IUserSection) => {
-      setUserSection(section);
+    (section: TUserSection) => {
       navigate(`${section}`, { replace: true });
     },
-    [navigate, setUserSection]
+    [navigate]
   );
 
   return (
@@ -54,6 +52,21 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
       className="patientDetails__main_menu"
     >
       <h6>{t("patient.usersections")}</h6>
+      <div
+        className={"patientDetails__main_menu__item " + isActive("admissions")}
+        onClick={() => {
+          changeUserSection("admissions");
+        }}
+      >
+        <LocalHotel
+          fontSize="small"
+          style={{
+            color: "white",
+          }}
+        />
+        <span>{t("nav.admissions")}:</span>
+        <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
+      </div>
 
       {encountersEnabled && (
         <div
@@ -74,21 +87,6 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
           <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
         </div>
       )}
-      <div
-        className={"patientDetails__main_menu__item " + isActive("admissions")}
-        onClick={() => {
-          changeUserSection("admissions");
-        }}
-      >
-        <LocalHotel
-          fontSize="small"
-          style={{
-            color: "white",
-          }}
-        />
-        <span>{t("nav.admissions")}:</span>
-        <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
-      </div>
 
       <div
         className={
