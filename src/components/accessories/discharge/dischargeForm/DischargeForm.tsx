@@ -202,6 +202,13 @@ const DischargeForm: FC<DischargeProps> = ({
     (state: IState) => state.types.discharges.getAll.status
   );
 
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setFieldValue("disDate", new Date());
+    }, 1000);
+    return () => clearInterval(timer);
+  }, [setFieldValue]);
+
   return (
     <>
       <div className="patientAdmissionForm">
