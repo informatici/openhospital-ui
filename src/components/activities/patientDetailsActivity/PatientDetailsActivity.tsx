@@ -1,5 +1,6 @@
 import { EditRounded, Notes, Person } from "@mui/icons-material";
 import classNames from "classnames";
+import { useEncountersEnabled } from "libraries/hooks";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { isEmpty } from "lodash";
 import React, { useEffect, useState } from "react";
@@ -73,11 +74,18 @@ const PatientDetailsActivity = () => {
     useState<TActivityTransitionState>("IDLE");
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const encountersEnabled = useEncountersEnabled();
+
   const section =
     location.pathname.split("/")[location.pathname.split("/").length - 1];
   const [expanded, setExpanded] = useState<string | false>(false);
   const [userSection, setUserSection] = useState<IUserSection>(
-    (isNaN(parseInt(section)) ? section : "admissions") as IUserSection
+    () =>
+      (isNaN(parseInt(section))
+        ? section
+        : encountersEnabled
+        ? "encounters"
+        : "admissions") as IUserSection
   );
 
   const handleOnExpanded = (section: string) => {

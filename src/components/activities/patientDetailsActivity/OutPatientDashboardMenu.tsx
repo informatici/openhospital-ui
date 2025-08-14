@@ -1,4 +1,5 @@
 import {
+  AcUnit,
   ArtTrack,
   Colorize,
   Healing,
@@ -6,6 +7,7 @@ import {
   LocalHotel,
   Pageview,
 } from "@mui/icons-material";
+import { useEncountersEnabled } from "libraries/hooks";
 import { usePermission } from "libraries/permissionUtils/usePermission";
 import React, { FunctionComponent, useCallback } from "react";
 import { useTranslation } from "react-i18next";
@@ -24,6 +26,8 @@ const OutPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
   userSection,
 }) => {
   const { t } = useTranslation();
+
+  const encountersEnabled = useEncountersEnabled();
 
   const isActive = (value: string) => {
     return value === userSection ? "active" : "default";
@@ -47,6 +51,26 @@ const OutPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
       className="patientDetails__main_menu"
     >
       <h6>{t("patient.usersections")}</h6>
+
+      {encountersEnabled && (
+        <div
+          className={
+            "patientDetails__main_menu__item " + isActive("encounters")
+          }
+          onClick={() => {
+            changeUserSection("encounters");
+          }}
+        >
+          <AcUnit
+            fontSize="small"
+            style={{
+              color: "white",
+            }}
+          />
+          <span>{t("nav.encounters")}:</span>
+          <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
+        </div>
+      )}
 
       <div
         className={"patientDetails__main_menu__item " + isActive("admissions")}

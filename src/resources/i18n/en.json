@@ -252,7 +252,8 @@
     "updatesuccessful": "The patient was edit successfully.",
     "createother": "Add Another Patient",
     "status": "Status",
-    "radiology": "Radiology"
+    "radiology": "Radiology",
+    "encounters": "Encounters"
   },
   "opd": {
     "newopd": "Create new OPD Visit",
@@ -451,7 +452,8 @@
     "hospitalInfo": "Hospital Info",
     "hospital": "Hospital",
     "settings": "Settings",
-    "radiology": "Radiology"
+    "radiology": "Radiology",
+    "encounters": "Encounters"
   },
   "operation": {
     "newoperation": "New Operation",

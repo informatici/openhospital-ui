@@ -4,9 +4,11 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import i18n from "i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 import ICU from "i18next-icu";
+import { useAppDispatch } from "libraries/hooks";
 import "moment/min/locales";
-import React, { FunctionComponent, useState } from "react";
+import React, { FunctionComponent, useEffect, useState } from "react";
 import { initReactI18next } from "react-i18next";
+import { getAllSettings } from "state/settings";
 import "./App.scss";
 import { LangContext } from "./libraries/langContext/langContext";
 import resources from "./resources";
@@ -28,6 +30,8 @@ i18n
 
 const App: FunctionComponent = () => {
   const [, setLang] = useState(i18n.language);
+  const dispatch = useAppDispatch();
+
   const changeLang = (l: string) => {
     i18n.changeLanguage(l).then(() => {
       setLang(l);
@@ -47,6 +51,10 @@ const App: FunctionComponent = () => {
       },
     },
   });
+
+  useEffect(() => {
+    dispatch(getAllSettings());
+  }, [dispatch]);
 
   return (
     <div className="App">
