@@ -16,4 +16,16 @@ export const labExamRequestRoutes = (server) => {
       }
     });
   });
+  server.get("/reports/patientexamrequest/:patientId").intercept((req, res) => {
+    const { patientId } = req.params;
+    if (patientId === "FAIL") {
+      res.status(400).json({ message: "Fail to generate exam request PDF" });
+    } else {
+      const blob = new Blob(["fake pdf content"], { type: "application/pdf" });
+      res.send({
+        status: 200,
+        body: blob,
+      });
+    }
+  });
 };

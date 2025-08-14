@@ -1,58 +1,66 @@
-@import "../../../../styles/variables";
-@import "../../../../../node_modules/susy/sass/susy";
+@import "../../../../../styles/variables";
+@import "../../../../../../node_modules/susy/sass/susy";
 
-.patientTriageForm {
+.editSettingForm {
   display: inline-block;
   flex-direction: column;
   align-items: center;
   width: 100%;
 
-  .formInsertMode{
+  .formInsertMode {
     margin: 0px 0px 20px;
   }
 
-  .patientTriageForm__item {
+  .row {
+    justify-content: space-between;
+  }
+
+  .editSettingForm__item {
     margin: 7px 0px;
     padding: 0px 15px;
-    width: 33%;
+    width: 50%;
     @include susy-media($narrow) {
       padding: 0px 10px;
     }
     @include susy-media($tablet_land) {
       padding: 0px 10px;
     }
-    @include susy-media($tablet_land) {
+    @include susy-media($medium-up) {
+      width: 25%;
+    }
+    @include susy-media($tablet_port) {
       width: 50%;
     }
     @include susy-media($smartphone) {
       width: 100%;
     }
-    .dateField,
     .textField,
     .selectField {
       width: 100%;
     }
 
-    &.fullWidth{
+    &.fullWidth {
       width: 100%;
     }
 
-    &.compressed{
-      .textField {
-        float: left;
-        width: 50%;
-        &:nth-of-type(1){
-          padding-right: 10px;
-        }
+    &.halfWidth {
+      width: 50%;
+      @include susy-media($smartphone) {
+        width: 100%;
+      }
+    }
+    &.thirdWidth {
+      width: 33%;
+      @include susy-media($smartphone) {
+        width: 100%;
       }
     }
   }
 
-  .patientTriageForm__buttonSet {
+  .editSettingForm__buttonSet {
     display: flex;
     margin-top: 25px;
     padding: 0px 15px;
-    justify-content: space-between;
     flex-direction: row-reverse;
     @include susy-media($smartphone_small) {
       display: block;
@@ -60,9 +68,6 @@
 
     .submit_button,
     .reset_button {
-      margin-left: 5px;
-      display: flex;
-      justify-content: flex-start;
       .MuiButton-label {
         font-size: smaller;
         letter-spacing: 1px;
