@@ -34,6 +34,7 @@ apis/RadiologyApi.ts
 apis/ReportsApi.ts
 apis/RootControllerApi.ts
 apis/SMSApi.ts
+apis/SettingsApi.ts
 apis/StockMovementsApi.ts
 apis/SuppliersApi.ts
 apis/TherapiesApi.ts
@@ -104,6 +105,7 @@ models/PriceListDTO.ts
 models/PricesOthersDTO.ts
 models/Series.ts
 models/SeriesResponse.ts
+models/SettingDTO.ts
 models/SmsDTO.ts
 models/Study.ts
 models/StudyResponse.ts
@@ -111,6 +113,7 @@ models/SupplierDTO.ts
 models/TherapyDTO.ts
 models/TherapyRowDTO.ts
 models/TokenRefreshRequest.ts
+models/UpdateSettingDTO.ts
 models/UserDTO.ts
 models/UserGroupDTO.ts
 models/UserProfileDTO.ts

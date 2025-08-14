@@ -25,9 +25,7 @@ export const CustomDialog: FC<ICustomDialog> = ({
       aria-describedby={description}
       open={open}
       onClose={onClose}
-      BackdropProps={{
-        timeout: 200,
-      }}
+      slotProps={{ backdrop: { timeout: 200 } }}
       scroll={scroll}
     >
       <DialogTitle>
