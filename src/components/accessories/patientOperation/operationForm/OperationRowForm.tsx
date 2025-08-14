@@ -155,6 +155,13 @@ const OperationRowForm: FC<OperationRowProps> = ({
     },
   ];
 
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setFieldValue("opDate", new Date());
+    }, 1000);
+    return () => clearInterval(timer);
+  }, [setFieldValue]);
+
   return (
     <>
       <div className="patientOperationForm">
@@ -176,7 +183,7 @@ const OperationRowForm: FC<OperationRowProps> = ({
                 fieldValue={formik.values.opDate}
                 disableFuture={true}
                 theme="regular"
-                format="dd/MM/yyyy"
+                format="dd/MM/yyyy HH:mm"
                 isValid={isValid("opDate")}
                 errorText={getErrorText("opDate")}
                 label={t("operation.opDate")}

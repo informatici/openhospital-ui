@@ -60,6 +60,7 @@ export const parseDate = (raw: string, withTimezone: boolean = true) => {
   }
 };
 
+
 export const parseDateTime = (
   raw: string,
   withTimezone: boolean = true
@@ -133,7 +134,7 @@ export const formatAllFieldValues = (
           acc[key] = int < float ? float : int;
           break;
         case "date":
-          acc[key] = parseDate(values[key], withTimezone);
+          acc[key] = parseDateTime(values[key], withTimezone);
           break;
         default:
           acc[key] = values[key];
@@ -252,7 +253,7 @@ export const updateOpdFields = (
           typeof value === "object"
             ? (value as DiseaseDTO)?.code ?? ""
             : moment(value).isValid()
-            ? parseDate(value as string)
+            ? parseDateTime(value as string, false)
             : value);
       }
     });

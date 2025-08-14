@@ -291,6 +291,12 @@ const AdmissionForm: FC<AdmissionProps> = ({
   const disTypeStatus = useAppSelector(
     (state: IState) => state.types.discharges.getAll.status
   );
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setFieldValue("admDate", new Date());
+    }, 1000);
+    return () => clearInterval(timer);
+  }, [setFieldValue]);
 
   return (
     <>
@@ -342,7 +348,7 @@ const AdmissionForm: FC<AdmissionProps> = ({
                 fieldValue={formik.values.admDate}
                 disableFuture={true}
                 theme="regular"
-                format="dd/MM/yyyy"
+                format="dd/MM/yyyy HH:mm"
                 isValid={isValid("admDate")}
                 errorText={getErrorText("admDate")}
                 label={t("admission.admDate")}
@@ -388,7 +394,7 @@ const AdmissionForm: FC<AdmissionProps> = ({
                     fieldValue={formik.values.disDate}
                     disableFuture={true}
                     theme="regular"
-                    format="dd/MM/yyyy"
+                    format="dd/MM/yyyy HH:mm"
                     isValid={isValid("disDate")}
                     errorText={getErrorText("disDate")}
                     label={t("admission.disDate")}
