@@ -1,10 +1,10 @@
 import { Edit } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
+import { renderDateTime } from "libraries/formatUtils/dataFormatting";
 import { isEmpty } from "lodash";
 import React, { FunctionComponent } from "react";
 import { useTranslation } from "react-i18next";
 import { AdmissionDTO } from "../../../../generated";
-import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 import "../styles.scss";
 
 interface IOwnProps {
@@ -31,7 +31,7 @@ export const CurrentAdmissionData: FunctionComponent<IOwnProps> = ({
         {!isEmpty(admission?.admDate) && (
           <div className="currentAdmissionData__item">
             <span className="item_label">{t("admission.admDate")}</span>
-            <p className="item_content">{renderDate(admission?.admDate)}</p>
+            <p className="item_content">{renderDateTime(admission?.admDate)}</p>
           </div>
         )}
         {!isEmpty(admission?.ward?.description) && (

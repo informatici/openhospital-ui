@@ -1,4 +1,4 @@
-openapi: 3.0.1
+openapi: 3.1.0
 info:
   title: Open Hospital API Documentation
   description: Open Hospital API Documentation
@@ -512,6 +512,32 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/SupplierDTO"
+      security:
+      - bearerAuth: []
+  /settings/{code}:
+    put:
+      tags:
+      - Settings
+      operationId: updateSetting
+      parameters:
+      - name: code
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateSettingDTO"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SettingDTO"
       security:
       - bearerAuth: []
   /pricesothers/{id}:
@@ -2501,6 +2527,20 @@ paths:
                 type: boolean
       security:
       - bearerAuth: []
+  /settings/reset:
+    post:
+      tags:
+      - Settings
+      operationId: resetAllSettings
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: boolean
+      security:
+      - bearerAuth: []
   /pricesothers:
     get:
       tags:
@@ -3144,7 +3184,7 @@ paths:
     get:
       tags:
       - Bills
-      operationId: searchBills_1
+      operationId: searchBills
       parameters:
       - name: datefrom
         in: query
@@ -3220,7 +3260,7 @@ paths:
     post:
       tags:
       - Bills
-      operationId: searchBills
+      operationId: searchBills_1
       parameters:
       - name: datefrom
         in: query
@@ -3807,6 +3847,85 @@ paths:
                 type: boolean
       security:
       - bearerAuth: []
+  /settings:
+    get:
+      tags:
+      - Settings
+      operationId: getAllSettings
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/SettingDTO"
+      security:
+      - bearerAuth: []
+  /settings/{id}:
+    get:
+      tags:
+      - Settings
+      operationId: getSettingById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SettingDTO"
+      security:
+      - bearerAuth: []
+  /settings/code/{code}:
+    get:
+      tags:
+      - Settings
+      operationId: getSettingByCode
+      parameters:
+      - name: code
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SettingDTO"
+      security:
+      - bearerAuth: []
+  /reports/patientexamrequest/{patientId}:
+    get:
+      tags:
+      - Reports
+      operationId: printPatientExamRequestPdf
+      parameters:
+      - name: patientId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: OK
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+      security:
+      - bearerAuth: []
   /reports/patientexamination/{examinationId}:
     get:
       tags:
@@ -3825,10 +3944,8 @@ paths:
           content:
             application/octet-stream:
               schema:
-                type: array
-                items:
-                  type: string
-                  format: byte
+                type: string
+                format: binary
       security:
       - bearerAuth: []
   /reports/exams-list:
@@ -3842,10 +3959,8 @@ paths:
           content:
             application/octet-stream:
               schema:
-                type: array
-                items:
-                  type: string
-                  format: byte
+                type: string
+                format: binary
       security:
       - bearerAuth: []
   /reports/diseases-list:
@@ -3859,10 +3974,8 @@ paths:
           content:
             application/octet-stream:
               schema:
-                type: array
-                items:
-                  type: string
-                  format: byte
+                type: string
+                format: binary
       security:
       - bearerAuth: []
   /radiology/studies/{id}/series:
@@ -5284,6 +5397,9 @@ paths:
             text/plain:
               schema:
                 type: string
+            application/json:
+              schema:
+                type: string
       security:
       - bearerAuth: []
   /healthcheck:
@@ -6353,34 +6469,28 @@ paths:
 components:
   schemas:
     WardDTO:
-      required:
-      - beds
-      - description
-      - docs
-      - nurs
-      - visitDuration
       type: object
       properties:
         code:
-          maxLength: 3
           type: string
           description: The ward code
+          maxLength: 3
         description:
-          maxLength: 50
           type: string
           description: The name of the ward
-        telephone:
           maxLength: 50
+        telephone:
           type: string
           description: The phone number of the ward
-        fax:
           maxLength: 50
+        fax:
           type: string
           description: The fax number of the ward
-        email:
           maxLength: 50
+        email:
           type: string
           description: The email of the ward
+          maxLength: 50
         beds:
           type: integer
           format: int32
@@ -6395,43 +6505,41 @@ components:
           format: int32
         lock:
           type: integer
-          description: lock
           format: int32
+          description: lock
           example: 0
-        female:
-          type: boolean
         male:
+          type: boolean
+        female:
           type: boolean
         pharmacy:
           type: boolean
         opd:
           type: boolean
-    PatientDTO:
       required:
-      - age
-      - bloodType
-      - city
-      - fatherName
-      - firstName
-      - motherName
-      - secondName
-      - sex
+      - beds
+      - description
+      - docs
+      - nurs
+      - visitDuration
+    PatientDTO:
       type: object
+      description: Class representing a patient
       properties:
         code:
           type: integer
           format: int32
           readOnly: true
         firstName:
-          maxLength: 50
           type: string
           description: First name of the patient
           example: Mario
-        secondName:
           maxLength: 50
+        secondName:
           type: string
           description: Last name of the patient
           example: Rossi
+          maxLength: 50
         name:
           type: string
           readOnly: true
@@ -6441,71 +6549,70 @@ components:
           example: 1979-05-01
         age:
           type: integer
-          description: Age
           format: int32
+          description: Age
           example: 40
         agetype:
           type: string
           description: Age type
-          example: "null"
+          example: null
         sex:
           type: string
           description: Sex
-          example: M
           enum:
           - M
           - F
+          example: M
         address:
-          maxLength: 50
           type: string
           description: Address
           example: "Via Roma, 12"
-        city:
           maxLength: 50
+        city:
           type: string
           description: City
           example: Verona
+          maxLength: 50
         nextKin:
           type: string
           readOnly: true
         telephone:
-          maxLength: 50
           type: string
           description: Telephone
           example: "+393456789012"
+          maxLength: 50
         note:
-          maxLength: 65535
           type: string
           description: Note
           example: Test insert new patient
+          maxLength: 65535
         motherName:
-          maxLength: 50
           type: string
           description: Mother's name
           example: Roberta
+          maxLength: 50
         mother:
           type: string
           description: "Mother's status (D=dead, A=alive)"
-          example: A
           enum:
           - D
           - A
+          example: A
         fatherName:
-          maxLength: 50
           type: string
           description: Father's name
           example: Giuseppe
+          maxLength: 50
         father:
           type: string
           description: "Father's status (D=dead, A=alive)"
-          example: D
           enum:
           - D
           - A
+          example: D
         bloodType:
           type: string
           description: "Blood type (0-/+, A-/+ , B-/+, AB-/+)"
-          example: A+
           enum:
           - 0-
           - 0+
@@ -6515,56 +6622,54 @@ components:
           - B+
           - AB-
           - AB+
+          example: A+
         hasInsurance:
           type: string
           description: "HasInsurance (Y=Yes, N=no)"
-          example: "N"
           enum:
           - "Y"
           - "N"
+          example: "N"
         parentTogether:
           type: string
           description: "Parent together (Y=Yes, N=no)"
-          example: "N"
           enum:
           - "Y"
           - "N"
+          example: "N"
         taxCode:
-          maxLength: 30
           type: string
           description: Tax code
           example: RSSMRA79E01L781N
+          maxLength: 30
         lock:
           type: integer
-          description: Lock
           format: int32
+          description: Lock
           example: 0
         blobPhoto:
-          type: array
+          type: string
+          format: byte
           description: BlobPhoto
-          items:
-            type: string
-            description: BlobPhoto
-            format: byte
         hashCode:
           type: integer
           format: int32
           readOnly: true
         allergies:
-          maxLength: 255
           type: string
           description: Allergies of patient
-        anamnesis:
           maxLength: 255
+        anamnesis:
           type: string
           description: Current anamnesis
+          maxLength: 255
         status:
           type: string
           description: Status
-          example: I
           enum:
           - I
           - O
+          example: I
         consensusFlag:
           type: boolean
           description: Consensus flag
@@ -6573,179 +6678,188 @@ components:
           type: boolean
           description: Consensus service flag
           example: true
-      description: Class representing a patient
-    VisitDTO:
       required:
-      - date
-      - patient
+      - age
+      - bloodType
+      - city
+      - fatherName
+      - firstName
+      - motherName
+      - secondName
+      - sex
+    VisitDTO:
       type: object
+      description: Class representing a vaccine type
       properties:
         visitID:
           type: integer
-          description: The visit's ID
           format: int32
+          description: The visit's ID
         patient:
           $ref: "#/components/schemas/PatientDTO"
+          description: Patient related to visitor
         date:
           type: string
           description: Date of the visit
           example: 2020-03-19T14:58:00
         note:
-          maxLength: 65535
           type: string
           description: Note of the visit
+          maxLength: 65535
         sms:
           type: boolean
           description: Sms of the visit
         ward:
           $ref: "#/components/schemas/WardDTO"
+          description: Ward of the visit
         duration:
           type: integer
-          description: Duration of the visit
           format: int32
+          description: Duration of the visit
         service:
-          maxLength: 45
           type: string
           description: Service done during the visit
+          maxLength: 45
         lock:
           type: integer
-          description: Lock
           format: int32
+          description: Lock
           example: 0
-      description: Class representing a vaccine type
-    VaccineTypeDTO:
       required:
-      - code
-      - description
+      - date
+      - patient
+    VaccineTypeDTO:
       type: object
+      description: Class representing a vaccine type
       properties:
         code:
-          maxLength: 1
           type: string
           description: Code of the vaccine type
           example: C
+          maxLength: 1
         description:
-          maxLength: 50
           type: string
           description: Description of the vaccine type
           example: Child
-      description: Class representing a vaccine type
+          maxLength: 50
+      required:
+      - code
+      - description
     VaccineDTO:
+      type: object
+      description: Class representing a vaccine
+      properties:
+        code:
+          type: string
+          description: Code of the vaccine
+          example: 1
+          maxLength: 10
+        description:
+          type: string
+          description: Description of the vaccine
+          example: BCG
+          maxLength: 50
+        vaccineType:
+          $ref: "#/components/schemas/VaccineTypeDTO"
+          description: Type of the vaccine
+        lock:
+          type: integer
+          format: int32
+          description: Lock
+          example: 0
       required:
       - code
       - description
       - vaccineType
-      type: object
-      properties:
-        code:
-          maxLength: 10
-          type: string
-          description: Code of the vaccine
-          example: "1"
-        description:
-          maxLength: 50
-          type: string
-          description: Description of the vaccine
-          example: BCG
-        vaccineType:
-          $ref: "#/components/schemas/VaccineTypeDTO"
-        lock:
-          type: integer
-          description: Lock
-          format: int32
-          example: 0
-      description: Class representing a vaccine
     UserSettingDTO:
-      required:
-      - configName
-      - configValue
-      - id
-      - user
       type: object
       properties:
         id:
           type: integer
-          description: The id of the setting (must be unique)
           format: int32
+          description: The id of the setting (must be unique)
           example: 1
         configName:
-          maxLength: 50
           type: string
           description: The name of the setting
           example: dashboard
+          maxLength: 50
         user:
           type: string
           description: The name of the user
           example: admin
         configValue:
-          maxLength: 65535
           type: string
           description: The value of the user
+          maxLength: 65535
         lock:
           type: integer
-          description: Lock
           format: int32
+          description: Lock
           example: 0
-    PermissionDTO:
       required:
-      - description
+      - configName
+      - configValue
       - id
+      - user
+    PermissionDTO:
       type: object
       properties:
         name:
           type: string
         id:
           type: integer
-          description: The permission id
           format: int32
+          description: The permission id
         description:
-          maxLength: 255
           type: string
           description: The permission description
-      description: List of group's permissions
-    UserDTO:
+          maxLength: 255
       required:
-      - passwd
-      - userGroupName
-      - userName
+      - description
+      - id
+    UserDTO:
       type: object
       properties:
         userName:
-          maxLength: 50
           type: string
           description: The username (must be unique)
           example: John Doe
+          maxLength: 50
         userGroupName:
           $ref: "#/components/schemas/UserGroupDTO"
+          description: The user's group
         passwd:
-          maxLength: 50
           type: string
           description: The user's password
           example: 21@U2g423
+          maxLength: 50
         desc:
-          maxLength: 128
           type: string
           description: The user's description
           example: Lab chief technician
+          maxLength: 128
         deleted:
           type: boolean
           description: Whether the user has been soft deleted or not
           example: false
-    UserGroupDTO:
       required:
-      - code
+      - passwd
+      - userGroupName
+      - userName
+    UserGroupDTO:
       type: object
       properties:
         code:
-          maxLength: 50
           type: string
           description: Name of the group (must be unique)
           example: labo
+          maxLength: 50
         desc:
-          maxLength: 128
           type: string
           description: The description of the group
           example: Staff members working in the laboratory
+          maxLength: 128
         deleted:
           type: boolean
           description: Whether the group has been soft deleted or not
@@ -6755,7 +6869,8 @@ components:
           description: List of group's permissions
           items:
             $ref: "#/components/schemas/PermissionDTO"
-      description: The user's group
+      required:
+      - code
     UserProfileDTO:
       type: object
       properties:
@@ -6778,81 +6893,145 @@ components:
           - 24
           items:
             type: integer
-            description: List of permissions' ids
             format: int32
     SupplierDTO:
-      required:
-      - supId
-      - supName
       type: object
       properties:
         supId:
           type: integer
           format: int32
         supName:
-          maxLength: 100
           type: string
           description: The supplier's name
           example: Cogefar
+          maxLength: 100
         supAddress:
-          maxLength: 150
           type: string
           description: The supplier's address
-          example: "25 Rue Ministre, Dschang"
+          example: 25
+          maxLength: 150
         supTaxcode:
-          maxLength: 50
           type: string
           description: The supplier's tax code
-          example: "5221"
+          example: 5221
+          maxLength: 50
         supPhone:
-          maxLength: 20
           type: string
           description: The supplier's phone
           example: "+237654120145"
-        supFax:
           maxLength: 20
+        supFax:
           type: string
           description: The supplier's fax number
           example: "+237654120145"
+          maxLength: 20
         supEmail:
-          maxLength: 100
           type: string
           description: The supplier's e-mail address
           example: suplier@sample.com
+          maxLength: 100
         supNote:
-          maxLength: 200
           type: string
           description: The supplier's notes
+          maxLength: 200
         lock:
           type: integer
-          description: Lock
           format: int32
+          description: Lock
           example: 0
-    PricesOthersDTO:
       required:
-      - code
-      - daily
-      - description
-      - ipdInclude
-      - opdInclude
+      - supId
+      - supName
+    UpdateSettingDTO:
+      type: object
+      properties:
+        value:
+          type: string
+          description: The value of the setting
+          example: "FALSE"
+    SettingDTO:
       type: object
       properties:
         id:
           type: integer
           format: int32
+          description: Setting ID
+          example: 1
         code:
-          maxLength: 10
+          type: string
+          description: Setting code
+          example: AUTOMATICLOT_IN
+          maxLength: 50
+        category:
+          type: string
+          description: Setting category
+          enum:
+          - general
+          - telemetry
+          - security
+          - imaging
+          - accounting
+          - reports
+          - pharmacy
+          - gui
+          - application
+          - integration
+          example: application
+        type:
+          type: string
+          description: value type
+          enum:
+          - bool
+          - number
+          - text
+          - select
+          example: bool
+        valueOptions:
+          type: string
+          description: Comma-separated list of possible values
+          maxLength: 500
+        defaultValue:
+          type: string
+          description: Default value
+          example: "TRUE"
+        value:
+          type: string
+          description: The value of the setting
+          example: "FALSE"
+        description:
+          type: string
+          description: Description
+          maxLength: 500
+        needRestart:
+          type: boolean
+          description: Whether the app needs restart after the setting has been modified
+          example: true
+      required:
+      - category
+      - code
+      - defaultValue
+      - id
+      - type
+    PricesOthersDTO:
+      type: object
+      description: Class representing a price others
+      properties:
+        id:
+          type: integer
+          format: int32
+        code:
           type: string
           description: The prices code
           example: PRICES001
+          maxLength: 10
         description:
-          maxLength: 100
           type: string
           description: The description
+          maxLength: 100
         lock:
           type: integer
-          description: Lock
           format: int32
+          description: Lock
           example: 0
         opdInclude:
           type: boolean
@@ -6868,68 +7047,68 @@ components:
           type: integer
           format: int32
           readOnly: true
-      description: Class representing a price others
+      required:
+      - code
+      - daily
+      - description
+      - ipdInclude
+      - opdInclude
     PriceListDTO:
       type: object
+      description: Class representing a price list
       properties:
         id:
           type: integer
           format: int32
         code:
-          maxLength: 7
           type: string
           description: The price list code
           example: LISTE1
+          maxLength: 7
         name:
-          maxLength: 50
           type: string
           description: The name of the price list
           example: default price list
+          maxLength: 50
         description:
-          maxLength: 100
           type: string
           description: The price list description
           example: default price list
+          maxLength: 100
         currency:
-          maxLength: 10
           type: string
           description: The currency
           example: FCFA
+          maxLength: 10
         lock:
           type: integer
-          description: Lock
           format: int32
+          description: Lock
           example: 0
         hashCode:
           type: integer
           format: int32
           readOnly: true
-      description: Class representing a price list
     PregnantTreatmentTypeDTO:
-      required:
-      - code
-      - description
       type: object
+      description: Class representing a pregnant treatment type
       properties:
         code:
-          maxLength: 10
           type: string
           description: The code
+          maxLength: 10
         description:
-          maxLength: 50
           type: string
           description: The description
+          maxLength: 50
         hashCode:
           type: integer
           format: int32
           readOnly: true
-      description: Class representing a pregnant treatment type
-    PatientVaccineDTO:
       required:
-      - patient
-      - progr
-      - vaccine
-      - vaccineDate
+      - code
+      - description
+    PatientVaccineDTO:
       type: object
       properties:
         code:
@@ -6937,29 +7116,35 @@ components:
           format: int32
         progr:
           type: integer
-          description: A progr. in year
           format: int32
+          description: A progr. in year
           example: 1
         vaccineDate:
           type: string
           description: The vaccine date
         patient:
           $ref: "#/components/schemas/PatientDTO"
+          description: The patient to be vaccine
         vaccine:
           $ref: "#/components/schemas/VaccineDTO"
+          description: The vaccine
         lock:
           type: integer
-          description: Lock
           format: int32
+          description: Lock
           example: 0
         hashCode:
           type: integer
           format: int32
           readOnly: true
-    PatientConsensusDTO:
       required:
-      - patientId
+      - patient
+      - progr
+      - vaccine
+      - vaccineDate
+    PatientConsensusDTO:
       type: object
+      description: Class representing a patient consensus
       properties:
         consensusFlag:
           type: boolean
@@ -6969,76 +7154,73 @@ components:
           description: Service flag
         patientId:
           type: integer
-          description: Patient id
           format: int32
-      description: Class representing a patient consensus
-    OperationTypeDTO:
+          description: Patient id
       required:
-      - code
-      - description
+      - patientId
+    OperationTypeDTO:
       type: object
       properties:
         code:
-          maxLength: 2
           type: string
           description: The operation code
+          maxLength: 2
         description:
-          maxLength: 50
           type: string
           description: The operation type
+          maxLength: 50
+      required:
+      - code
+      - description
     OperationDTO:
+      type: object
+      properties:
+        code:
+          type: string
+          description: The code of operation
+          maxLength: 10
+        description:
+          type: string
+          description: The operation description
+          maxLength: 50
+        type:
+          $ref: "#/components/schemas/OperationTypeDTO"
+          description: The operation type
+        opeFor:
+          type: string
+          description: The operation context
+          enum:
+          - opd_admission
+          - admission
+          - opd
+          example: opd_admission
+        major:
+          type: integer
+          format: int32
+          description: The operation major
+        lock:
+          type: integer
+          format: int32
+          description: Lock
+          example: 0
       required:
       - code
       - description
       - major
       - opeFor
       - type
-      type: object
-      properties:
-        code:
-          maxLength: 10
-          type: string
-          description: The code of operation
-        description:
-          maxLength: 50
-          type: string
-          description: The operation description
-        type:
-          $ref: "#/components/schemas/OperationTypeDTO"
-        opeFor:
-          type: string
-          description: The operation context
-          example: opd_admission
-          enum:
-          - opd_admission
-          - admission
-          - opd
-        major:
-          type: integer
-          description: The operation major
-          format: int32
-        lock:
-          type: integer
-          description: Lock
-          format: int32
-          example: 0
     AdmissionDTO:
-      required:
-      - admDate
-      - admitted
-      - deleted
-      - type
       type: object
       properties:
         id:
           type: integer
-          description: Admission key
           format: int32
+          description: Admission key
           example: 12
         admitted:
           type: integer
-          description: If admitted or not
           format: int32
+          description: If admitted or not
           example: 0
         type:
           type: string
@@ -7046,23 +7228,31 @@ components:
           example: "N"
         ward:
           $ref: "#/components/schemas/WardDTO"
+          description: Ward
         patient:
           $ref: "#/components/schemas/PatientDTO"
+          description: Patient
         admDate:
           type: string
           description: Admission date
         admType:
           $ref: "#/components/schemas/AdmissionTypeDTO"
+          description: Admission type
         diseaseIn:
           $ref: "#/components/schemas/DiseaseDTO"
+          description: 'Disease in '
         diseaseOut1:
           $ref: "#/components/schemas/DiseaseDTO"
+          description: 'Disease out '
         diseaseOut2:
           $ref: "#/components/schemas/DiseaseDTO"
+          description: 'Disease out '
         diseaseOut3:
           $ref: "#/components/schemas/DiseaseDTO"
+          description: 'Disease out '
         operation:
           $ref: "#/components/schemas/OperationDTO"
+          description: 'Operation '
         opDate:
           type: string
           description: Operation date
@@ -7075,30 +7265,34 @@ components:
           description: Discharge date
         disType:
           $ref: "#/components/schemas/DischargeTypeDTO"
+          description: DisChargeType
         note:
-          maxLength: 65535
           type: string
           description: Free note
+          maxLength: 65535
         transUnit:
           type: number
-          description: Transfusional unit
           format: float
+          description: Transfusional unit
         visitDate:
           type: string
           description: Visit date
         pregTreatmentType:
           $ref: "#/components/schemas/PregnantTreatmentTypeDTO"
+          description: 'TreatmentType '
         deliveryDate:
           type: string
           description: Delivery date
         deliveryType:
           $ref: "#/components/schemas/DeliveryTypeDTO"
+          description: Delivery type
         deliveryResult:
           $ref: "#/components/schemas/DeliveryResultTypeDTO"
+          description: Delivery result type
         weight:
           type: number
-          description: Weight
           format: float
+          description: Weight
         ctrlDate1:
           type: string
           format: date-time
@@ -7117,8 +7311,8 @@ components:
           readOnly: true
         lock:
           type: integer
-          description: Lock
           format: int32
+          description: Lock
           example: 0
         deleted:
           type: string
@@ -7129,11 +7323,12 @@ components:
           format: int32
         fhu:
           type: string
-      description: The admission
-    AdmissionTypeDTO:
       required:
-      - code
-      - description
+      - admDate
+      - admitted
+      - deleted
+      - type
+    AdmissionTypeDTO:
       type: object
       properties:
         code:
@@ -7141,23 +7336,16 @@ components:
           description: Code of the admission type
           example: A
         description:
-          maxLength: 50
           type: string
           description: Description of the admission type
           example: AMBULANCE
-      description: Admission type
-    BillDTO:
+          maxLength: 50
       required:
-      - amount
-      - balance
-      - date
-      - listName
-      - patName
-      - patientTrue
-      - status
-      - update
-      - user
+      - code
+      - description
+    BillDTO:
       type: object
+      description: Class representing a bill
       properties:
         id:
           type: integer
@@ -7176,32 +7364,32 @@ components:
           description: Date of bill updated
           example: 2020-03-19T14:58:00.000Z
         listName:
-          maxLength: 50
           type: string
           description: Price list name
           example: Basic
+          maxLength: 50
         patientTrue:
           type: boolean
           description: Is bill belongs to a patient?
           example: true
         patName:
-          maxLength: 100
           type: string
           description: Patient name
           example: Mario Rossi
+          maxLength: 100
         status:
           type: string
           description: Bill status
           example: O
         amount:
           type: number
-          description: Bill Amount
           format: double
+          description: Bill Amount
           example: 1000
         balance:
           type: number
-          description: Bill balance
           format: double
+          description: Bill balance
           example: 1500
         user:
           type: string
@@ -7209,16 +7397,22 @@ components:
           example: admin
         lock:
           type: integer
-          description: Lock
           format: int32
+          description: Lock
           example: 0
         list:
           type: boolean
-      description: Class representing a bill
-    DeliveryResultTypeDTO:
       required:
-      - code
-      - description
+      - amount
+      - balance
+      - date
+      - listName
+      - patName
+      - patientTrue
+      - status
+      - update
+      - user
+    DeliveryResultTypeDTO:
       type: object
       properties:
         code:
@@ -7226,15 +7420,14 @@ components:
           description: Code of the delivery result type
           example: M
         description:
-          maxLength: 50
           type: string
           description: Description of the delivery result type
           example: MORTALITÉ MATERNELLE
-      description: Delivery result type
-    DeliveryTypeDTO:
+          maxLength: 50
       required:
       - code
       - description
+    DeliveryTypeDTO:
       type: object
       properties:
         code:
@@ -7242,15 +7435,14 @@ components:
           description: Code of the delivery type
           example: "N"
         description:
-          maxLength: 50
           type: string
           description: Description of the delivery type
           example: ACCOUCHEMENT NORMAL
-      description: Delivery type
-    DischargeTypeDTO:
+          maxLength: 50
       required:
       - code
       - description
+    DischargeTypeDTO:
       type: object
       properties:
         code:
@@ -7258,32 +7450,29 @@ components:
           description: Code of the discharge type
           example: SN
         description:
-          maxLength: 50
           type: string
           description: Description of the discharge type
           example: SORTIE NORMALE
-      description: DisChargeType
-    DiseaseDTO:
+          maxLength: 50
       required:
       - code
       - description
-      - diseaseType
-      - ipdInInclude
-      - ipdOutInclude
-      - opdInclude
+    DiseaseDTO:
       type: object
+      description: Class representing a disease
       properties:
         code:
-          maxLength: 10
           type: string
           description: Disease code
-          example: "99"
+          example: 99
+          maxLength: 10
         description:
-          maxLength: 50
           type: string
           description: Disease description
+          maxLength: 50
         diseaseType:
           $ref: "#/components/schemas/DiseaseTypeDTO"
+          description: Disease type
         opdInclude:
           type: boolean
           description: Indicates whether the disease is an OPD disease
@@ -7302,38 +7491,38 @@ components:
           readOnly: true
         lock:
           type: integer
-          description: Lock
           format: int32
+          description: Lock
           example: 0
-      description: Class representing a disease
-    DiseaseTypeDTO:
       required:
       - code
       - description
+      - diseaseType
+      - ipdInInclude
+      - ipdOutInclude
+      - opdInclude
+    DiseaseTypeDTO:
       type: object
+      description: Class representing a disease type
       properties:
         code:
-          maxLength: 2
           type: string
           description: Disease type code
+          maxLength: 2
         description:
-          maxLength: 110
           type: string
           description: Disease type description
-      description: Class representing a disease type
-    OpdDTO:
+          maxLength: 110
       required:
-      - age
-      - newPatient
-      - note
-      - sex
-      - ward
+      - code
+      - description
+    OpdDTO:
       type: object
       properties:
         code:
           type: integer
-          description: The code of the opd
           format: int32
+          description: The code of the opd
           example: 3
         date:
           type: string
@@ -7343,12 +7532,12 @@ components:
           description: The next visit date
         patientCode:
           type: integer
-          description: The admitted patient code
           format: int32
+          description: The admitted patient code
         age:
           type: integer
-          description: The patient age
           format: int32
+          description: The patient age
           example: 18
         sex:
           type: string
@@ -7361,23 +7550,26 @@ components:
         ageType:
           type: string
           description: Age type
-          example: "null"
+          example: null
         note:
-          maxLength: 65535
           type: string
           description: The admission note
           example: this is out patient
+          maxLength: 65535
         prog_year:
           type: integer
-          description: A progr. in year for each ward
           format: int32
+          description: A progr. in year for each ward
           example: 18
         disease:
           $ref: "#/components/schemas/DiseaseDTO"
+          description: Disease
         disease2:
           $ref: "#/components/schemas/DiseaseDTO"
+          description: Disease 2
         disease3:
           $ref: "#/components/schemas/DiseaseDTO"
+          description: Disease 3
         newPatient:
           type: string
           description: New(N) or Reattendance(R) patient
@@ -7414,18 +7606,19 @@ components:
           type: string
           description: Current therapies
         prescription:
-          maxLength: 255
           type: string
           description: Prescription
+          maxLength: 255
         ward:
           $ref: "#/components/schemas/WardDTO"
-      description: The opd
-    OperationRowDTO:
+          description: Ward
       required:
-      - opDate
-      - opResult
-      - operation
-      - prescriber
+      - age
+      - newPatient
+      - note
+      - sex
+      - ward
+    OperationRowDTO:
       type: object
       properties:
         id:
@@ -7433,35 +7626,44 @@ components:
           format: int32
         operation:
           $ref: "#/components/schemas/OperationDTO"
+          description: The operation
         prescriber:
-          maxLength: 150
           type: string
           description: The presciber of the operation
+          maxLength: 150
         opResult:
-          maxLength: 250
           type: string
           description: The result of the operation
+          maxLength: 250
         opDate:
           type: string
           description: Operation registration date
         remarks:
-          maxLength: 250
           type: string
           description: The remark of the operation
+          maxLength: 250
         admission:
           $ref: "#/components/schemas/AdmissionDTO"
+          description: The admission
         opd:
           $ref: "#/components/schemas/OpdDTO"
+          description: The opd
         bill:
           $ref: "#/components/schemas/BillDTO"
+          description: The bill
         transUnit:
           type: number
-          description: The transunit
           format: float
+          description: The transunit
         hashCode:
           type: integer
           format: int32
           readOnly: true
+      required:
+      - opDate
+      - opResult
+      - operation
+      - prescriber
     OpdWithOperationRowDTO:
       type: object
       properties:
@@ -7472,104 +7674,100 @@ components:
           items:
             $ref: "#/components/schemas/OperationRowDTO"
     MovementTypeDTO:
-      required:
-      - code
-      - description
-      - type
       type: object
       properties:
         code:
-          maxLength: 10
           type: string
           description: Code of the movement type
           example: D
+          maxLength: 10
         description:
-          maxLength: 50
           type: string
           description: Description of the movement type
           example: Damage
+          maxLength: 50
         type:
           type: string
           description: Type of the movement type
           example: "-"
-    MedicalTypeDTO:
       required:
       - code
       - description
+      - type
+    MedicalTypeDTO:
       type: object
       properties:
         code:
-          maxLength: 1
           type: string
           description: Code of the medical type
           example: M
+          maxLength: 1
         description:
-          maxLength: 30
           type: string
           description: Description of the medical type
           example: Medical material
+          maxLength: 30
+      required:
+      - code
+      - description
     MedicalDTO:
       type: object
       properties:
         code:
-          maxLength: 5
           type: integer
-          description: The id of the medical
           format: int32
+          description: The id of the medical
           example: 1
+          maxLength: 5
         prod_code:
           type: string
           description: The product code
           example: PARA
         type:
           $ref: "#/components/schemas/MedicalTypeDTO"
+          description: The medical type
         description:
-          maxLength: 100
           type: string
           description: The description of the medical
           example: Paracétamol
+          maxLength: 100
         initialqty:
           type: number
-          description: The initial quantity of the medical
           format: double
+          description: The initial quantity of the medical
           example: 21
         pcsperpck:
           type: integer
-          description: The number of pieces per packet
           format: int32
+          description: The number of pieces per packet
           example: 100
         inqty:
           type: number
-          description: The input quantity of the medical
           format: double
+          description: The input quantity of the medical
           example: 340
         outqty:
           type: number
-          description: The out quantity of the medical
           format: double
+          description: The out quantity of the medical
           example: 8
         minqty:
           type: number
-          description: The min quantity of the medical
           format: double
+          description: The min quantity of the medical
           example: 15
         lock:
           type: integer
-          description: Lock
           format: int32
+          description: Lock
           example: 0
     MalnutritionDTO:
-      required:
-      - admission
-      - dateSupp
-      - height
-      - weight
       type: object
       properties:
         code:
           type: integer
-          description: The code malnutrition control
           format: int32
+          description: The code malnutrition control
           example: 1
         dateSupp:
           type: string
@@ -7581,52 +7779,58 @@ components:
           example: 1979-05-01T11:20:33
         admission:
           $ref: "#/components/schemas/AdmissionDTO"
+          description: The admission requesting the control
         height:
           type: number
-          description: The height of the patient
           format: float
+          description: The height of the patient
           example: 165
         weight:
           type: number
-          description: The weight of the patient
           format: float
+          description: The weight of the patient
           example: 65
         lock:
           type: integer
-          description: Lock
           format: int32
+          description: Lock
           example: 0
+      required:
+      - admission
+      - dateSupp
+      - height
+      - weight
     ExamDTO:
       type: object
       properties:
         code:
-          maxLength: 10
           type: string
           description: Exam Code
           example: "01.01"
+          maxLength: 10
         description:
-          maxLength: 100
           type: string
           description: Exam Description
-          example: 1.1 HB
+          example: 1.1
+          maxLength: 100
         procedure:
           type: integer
-          description: Exam Procedure
           format: int32
+          description: Exam Procedure
           example: 1
         defaultResult:
-          maxLength: 50
           type: string
           description: Exam Default Result
           example: '>=12 (NORMAL)'
+          maxLength: 50
         examtype:
           $ref: "#/components/schemas/ExamTypeDTO"
+          description: Exam Type
         lock:
           type: integer
-          description: Lock
           format: int32
+          description: Lock
           example: 0
-      description: Laboratory Exam
     ExamTypeDTO:
       type: object
       properties:
@@ -7635,11 +7839,10 @@ components:
           description: Exam Type Code
           example: HB
         description:
-          maxLength: 50
           type: string
           description: Exam Type Description
           example: 1.Haematology
-      description: Exam Type
+          maxLength: 50
     LabWithRowsDTO:
       type: object
       properties:
@@ -7654,14 +7857,15 @@ components:
       properties:
         code:
           type: integer
-          description: Laboratory Code
           format: int32
+          description: Laboratory Code
         material:
           type: string
           description: Laboratory Material
           example: Blood
         exam:
           $ref: "#/components/schemas/ExamDTO"
+          description: Laboratory Exam
         registrationDate:
           type: string
           description: Laboratory Registration Date
@@ -7673,32 +7877,32 @@ components:
           description: Laboratory Result
         lock:
           type: integer
-          description: Lock
           format: int32
+          description: Lock
           example: 0
         note:
-          maxLength: 255
           type: string
           description: Laboratory Note
           example: Note by laboratorist
+          maxLength: 255
         patientCode:
           type: integer
-          description: Laboratory Patient Code
           format: int32
+          description: Laboratory Patient Code
         patName:
           type: string
           description: Laboratory Patient Name
         inOutPatient:
           type: string
           description: Laboratory Patient InOut
-          example: "0"
           enum:
           - I
           - O
+          example: 0
         age:
           type: integer
-          description: Laboratory Patient Age
           format: int32
+          description: Laboratory Patient Age
         sex:
           type: string
           description: Laboratory Patient Sex
@@ -7706,68 +7910,67 @@ components:
         status:
           type: string
           description: Laboratory status
-          example: DRAFT
           enum:
           - draft
           - open
           - done
           - invalid
           - deleted
+          example: DRAFT
     HospitalDTO:
       type: object
       properties:
         code:
-          maxLength: 10
           type: string
           description: Hospital Code
           example: STLUKE
+          maxLength: 10
         description:
-          maxLength: 255
           type: string
           description: Hospital Description
           example: St. Luke HOSPITAL - Angal
-        address:
           maxLength: 255
+        address:
           type: string
           description: Hospital Address
           example: Hospital Address
-        city:
           maxLength: 255
+        city:
           type: string
           description: Hospital City
           example: Hospital City
+          maxLength: 255
         telephone:
-          maxLength: 50
           type: string
           description: Hospital Telephone
           example: +123 0123456789
-        fax:
           maxLength: 50
+        fax:
           type: string
           description: Hospital Fax
           example: +123 0123456789
-        email:
           maxLength: 50
+        email:
           type: string
           description: Hospital Email
           example: hospital@isf.email.xx
+          maxLength: 50
         currencyCod:
-          maxLength: 3
           type: string
           description: Hospital Currency Cod
           example: EUR
+          maxLength: 3
         lock:
           type: integer
-          description: Lock
           format: int32
+          description: Lock
           example: 0
     ExamWithRowsDTO:
-      required:
-      - exam
       type: object
       properties:
         exam:
           $ref: "#/components/schemas/ExamDTO"
+          description: The exam to be changed
         rows:
           type: array
           description: Possible result for the exam(only for exams with procedure
@@ -7775,19 +7978,15 @@ components:
           example: "['>=12 (NORMAL)', 'IRREGULAR']"
           items:
             type: string
-            description: Possible result for the exam(only for exams with procedure
-              1 and 2)
-            example: "['>=12 (NORMAL)', 'IRREGULAR']"
-    PatientExaminationDTO:
       required:
-      - patientCode
-      - pex_date
+      - exam
+    PatientExaminationDTO:
       type: object
       properties:
         pex_ID:
           type: integer
-          description: Patient Examination Id
           format: int32
+          description: Patient Examination Id
           example: 1
         pex_date:
           type: string
@@ -7795,44 +7994,43 @@ components:
           example: 2020-03-19T14:58:00.000Z
         patientCode:
           type: integer
-          description: Patient Examination Code
           format: int32
+          description: Patient Examination Code
         pex_height:
           type: integer
-          description: Patient Height in cm
           format: int32
+          description: Patient Height in cm
         pex_weight:
           type: number
-          description: Patient Weight in Kg
           format: double
+          description: Patient Weight in Kg
         pex_ap_min:
           type: integer
-          description: Blood Pressure MIN in mmHg
           format: int32
+          description: Blood Pressure MIN in mmHg
         pex_ap_max:
           type: integer
-          description: Blood Pressure MAX in mmHg
           format: int32
+          description: Blood Pressure MAX in mmHg
         pex_rr:
           type: integer
-          description: Respiratory Rate in bpm
           format: int32
+          description: Respiratory Rate in bpm
         pex_temp:
           type: number
-          description: Patient Temperature in °C
           format: double
+          description: Patient Temperature in °C
         pex_sat:
           type: number
-          description: Patient Saturation in %
           format: double
+          description: Patient Saturation in %
         pex_hr:
           type: integer
-          description: Heart Rate in Apm
           format: int32
+          description: Heart Rate in Apm
         pex_auscultation:
           type: string
           description: Patient ausculation
-          example: normal
           enum:
           - normal
           - wheezes
@@ -7840,18 +8038,18 @@ components:
           - crackles
           - stridor
           - bronchial
+          example: normal
         pex_hgt:
           type: integer
-          description: Hemo Glucose Test
           format: int32
+          description: Hemo Glucose Test
         pex_diuresis:
           type: integer
-          description: Daily urine Volume in ml
           format: int32
+          description: Daily urine Volume in ml
         pex_diuresis_desc:
           type: string
           description: Diuresis description
-          example: physiological
           enum:
           - physiological
           - oliguria
@@ -7861,68 +8059,66 @@ components:
           - stranguria
           - hematuria
           - pyuria
+          example: physiological
         pex_note:
-          maxLength: 2000
           type: string
           description: Examination Note
+          maxLength: 2000
         pex_bowel_desc:
           type: string
           description: Bowel Function
-          example: regular
           enum:
           - constipation
           - regular
           - diarrheal
           - irregular
+          example: regular
         lock:
           type: integer
-          description: Lock
           format: int32
+          description: Lock
           example: 0
         pex_body_mass_index:
           type: integer
-          description: Body mass index
           format: int32
+          description: Body mass index
           example: 0
         pex_branchial_perimeter:
           type: integer
-          description: Branchial perimeter
           format: int32
+          description: Branchial perimeter
           example: 0
-    BillItemsDTO:
       required:
-      - itemAmount
-      - itemDescription
-      - itemDisplayCode
-      - itemId
-      - itemQuantity
-      - priceId
+      - patientCode
+      - pex_date
+    BillItemsDTO:
       type: object
+      description: Class representing a billItem
       properties:
         id:
           type: integer
           format: int32
         billId:
           type: integer
-          description: Bill id
           format: int32
+          description: Bill id
         priceId:
           type: string
           description: The price Id
-          example: "104"
+          example: 104
         itemDescription:
           type: string
           description: Item description
           example: Acetone 99 % 1ltr
         itemAmount:
           type: number
-          description: Item amount
           format: double
+          description: Item amount
           example: 1000
         itemQuantity:
           type: integer
-          description: Item quantity
           format: int32
+          description: Item quantity
           example: 1
         itemDisplayCode:
           type: string
@@ -7931,38 +8127,40 @@ components:
         itemId:
           type: string
           description: Item id
-          example: "3"
+          example: 3
         hashCode:
           type: integer
           format: int32
           readOnly: true
         price:
           type: boolean
-      description: Class representing a billItem
-    BillPaymentsDTO:
       required:
-      - amount
-      - billId
-      - date
-      - user
+      - itemAmount
+      - itemDescription
+      - itemDisplayCode
+      - itemId
+      - itemQuantity
+      - priceId
+    BillPaymentsDTO:
       type: object
+      description: Class representing a billPayment
       properties:
         id:
           type: integer
           format: int32
         billId:
           type: integer
-          description: Bill id
           format: int32
+          description: Bill id
         date:
           type: string
-          description: Date of payment
           format: date-time
-          example: 2020-03-19T14:58:00Z
+          description: Date of payment
+          example: 2020-03-19T14:58:00.000Z
         amount:
           type: number
-          description: The payment amount
           format: double
+          description: The payment amount
           example: 500
         user:
           type: string
@@ -7972,15 +8170,17 @@ components:
           type: integer
           format: int32
           readOnly: true
-      description: Class representing a billPayment
-    FullBillDTO:
       required:
-      - bill
-      - billItems
+      - amount
+      - billId
+      - date
+      - user
+    FullBillDTO:
       type: object
       properties:
         bill:
           $ref: "#/components/schemas/BillDTO"
+          description: Bill element
         billItems:
           type: array
           description: List of bill items elements
@@ -7991,37 +8191,101 @@ components:
           description: List of bill payments elements
           items:
             $ref: "#/components/schemas/BillPaymentsDTO"
-    AgeTypeDTO:
       required:
-      - description
-      - from
-      - to
+      - bill
+      - billItems
+    AgeTypeDTO:
       type: object
+      description: Class representing an age type which is typically a range
       properties:
         code:
           type: string
           description: Age type code
         description:
-          maxLength: 100
           type: string
           description: Age type description
+          maxLength: 100
         from:
           type: integer
-          description: The minimum value of the range
           format: int32
+          description: The minimum value of the range
           example: 0
         lock:
           type: integer
-          description: Lock
           format: int32
+          description: Lock
           example: 0
         to:
           type: integer
-          description: The maximum value of the range
           format: int32
+          description: The maximum value of the range
           example: 0
-      description: Class representing an age type which is typically a range
+      required:
+      - description
+      - from
+      - to
     TherapyRowDTO:
+      type: object
+      properties:
+        therapyID:
+          type: integer
+          format: int32
+          description: The therapy's ID
+          example: 1
+        patID:
+          $ref: "#/components/schemas/PatientDTO"
+          description: The patient
+        startDate:
+          type: string
+          format: LocalDateTime
+          description: The start date of therapy
+          example: 2020-07-16T00:00:00
+        endDate:
+          type: string
+          format: LocalDateTime
+          description: The end date of the therapy
+          example: 2020-07-30T00:00:00
+        medicalId:
+          type: integer
+          format: int32
+          description: The ID of the medical concerned by the therapy
+          example: 1
+        qty:
+          type: number
+          format: double
+          description: The quantity of medicals
+          example: 48
+        unitID:
+          type: integer
+          format: int32
+          description: The unit's ID
+          example: 1
+        freqInDay:
+          type: integer
+          format: int32
+          description: The frequency in day
+          example: 2
+        freqInPeriod:
+          type: integer
+          format: int32
+          description: The frequency in period
+          example: 1
+        note:
+          type: string
+          description: A note for the therapy
+          example: Sample note
+          maxLength: 65535
+        notifyInt:
+          type: integer
+          format: int32
+          description: "the notify flag: 1 if the notification need to be activated,\
+            \ 0 otherwise"
+          example: 0
+        smsInt:
+          type: integer
+          format: int32
+          description: "The sms flag: 1 if sms need to be sent to patient, 0 otherwise"
+          example: 0
       required:
       - endDate
       - freqInDay
@@ -8033,76 +8297,18 @@ components:
       - smsInt
       - startDate
       - unitID
-      type: object
-      properties:
-        therapyID:
-          type: integer
-          description: The therapy's ID
-          format: int32
-          example: 1
-        patID:
-          $ref: "#/components/schemas/PatientDTO"
-        startDate:
-          type: string
-          description: The start date of therapy
-          format: date-time
-        endDate:
-          type: string
-          description: The end date of the therapy
-          format: date-time
-        medicalId:
-          type: integer
-          description: The ID of the medical concerned by the therapy
-          format: int32
-          example: 1
-        qty:
-          type: number
-          description: The quantity of medicals
-          format: double
-          example: 48
-        unitID:
-          type: integer
-          description: The unit's ID
-          format: int32
-          example: 1
-        freqInDay:
-          type: integer
-          description: The frequency in day
-          format: int32
-          example: 2
-        freqInPeriod:
-          type: integer
-          description: The frequency in period
-          format: int32
-          example: 1
-        note:
-          maxLength: 65535
-          type: string
-          description: A note for the therapy
-          example: Sample note
-        notifyInt:
-          type: integer
-          description: "the notify flag: 1 if the notification need to be activated,\
-            \ 0 otherwise"
-          format: int32
-          example: 0
-        smsInt:
-          type: integer
-          description: "The sms flag: 1 if sms need to be sent to patient, 0 otherwise"
-          format: int32
-          example: 0
     TherapyDTO:
       type: object
       properties:
         therapyID:
           type: integer
-          description: The therapy's ID
           format: int32
+          description: The therapy's ID
           example: 1
         patID:
           type: integer
-          description: The patient's ID
           format: int32
+          description: The patient's ID
           example: 1
         dates:
           type: array
@@ -8112,28 +8318,29 @@ components:
           - 2022-01-02T15:30:00
           items:
             type: string
-            description: The dates of the therapy
             format: date-time
+            description: The dates of the therapy
         medical:
           $ref: "#/components/schemas/MedicalDTO"
+          description: The medical associated to the therapy
         qty:
           type: number
-          description: The quantity of the medical
           format: double
+          description: The quantity of the medical
           example: 48
         units:
           type: string
           description: The units
         freqInDay:
           type: integer
-          description: The frequency in day
           format: int32
+          description: The frequency in day
           example: 2
         note:
-          maxLength: 65535
           type: string
           description: A note for the therapy
           example: Sample note
+          maxLength: 65535
         notify:
           type: boolean
           description: "The notify flag: true if the notification need to be activated,\
@@ -8145,17 +8352,13 @@ components:
             \ otherwise"
           example: false
     LotDTO:
-      required:
-      - code
-      - dueDate
-      - preparationDate
       type: object
       properties:
         code:
-          maxLength: 50
           type: string
           description: The lot's code
           example: LT001
+          maxLength: 50
         preparationDate:
           type: string
           description: The preparation date
@@ -8168,45 +8371,97 @@ components:
           type: number
           description: The lot's code
           example: 750
-      description: The lot
-    MovementDTO:
       required:
-      - date
-      - medical
-      - quantity
-      - refNo
-      - type
+      - code
+      - dueDate
+      - preparationDate
+    MovementDTO:
       type: object
       properties:
         code:
           type: integer
-          description: The movement code
           format: int32
+          description: The movement code
           example: 1
         medical:
           $ref: "#/components/schemas/MedicalDTO"
+          description: The related medical
         type:
           $ref: "#/components/schemas/MovementTypeDTO"
+          description: The movement type
         ward:
           $ref: "#/components/schemas/WardDTO"
+          description: The target ward
         lot:
           $ref: "#/components/schemas/LotDTO"
+          description: The lot
         date:
           type: string
           description: The movement date
           example: 2020-06-24
         quantity:
           type: integer
-          description: The movement's medical quantity
           format: int32
+          description: The movement's medical quantity
           example: 50
         supplier:
           $ref: "#/components/schemas/SupplierDTO"
+          description: The movement's supplier
         refNo:
           type: string
           description: The movement reference
           example: MVN152445
+      required:
+      - date
+      - medical
+      - quantity
+      - refNo
+      - type
     SmsDTO:
+      type: object
+      properties:
+        smsId:
+          type: integer
+          format: int32
+          description: SMS Id
+          example: 1
+        smsDate:
+          type: string
+          format: LocalDateTime
+          description: SMS Date
+          example: 2020-07-16T00:00:00
+        smsDateSched:
+          type: string
+          description: SMS scheduled date
+          example: 2020-07-28T00:00:00
+        smsNumber:
+          type: string
+          description: SMS target phone number
+          example: "+237671302313"
+          maxLength: 45
+        smsText:
+          type: string
+          description: SMS content text
+          example: Hi Mario.
+          maxLength: 160
+        smsDateSent:
+          type: string
+          description: SMS sent date
+          example: 2020-07-28T00:00:00
+        smsUser:
+          type: string
+          description: SMS user
+          example: Rosi
+          maxLength: 50
+        module:
+          type: string
+          description: SMS module name
+          example: OPD
+          maxLength: 45
+        moduleID:
+          type: string
+          description: SMS module Id
+          maxLength: 45
       required:
       - module
       - smsDate
@@ -8214,82 +8469,35 @@ components:
       - smsNumber
       - smsText
       - smsUser
-      type: object
-      properties:
-        smsId:
-          type: integer
-          description: SMS Id
-          format: int32
-          example: 1
-        smsDate:
-          type: string
-          description: SMS Date
-          format: date-time
-        smsDateSched:
-          type: string
-          description: SMS scheduled date
-          example: 2020-07-28T00:00:00
-        smsNumber:
-          maxLength: 45
-          type: string
-          description: SMS target phone number
-          example: "+237671302313"
-        smsText:
-          maxLength: 160
-          type: string
-          description: SMS content text
-          example: Hi Mario.
-        smsDateSent:
-          type: string
-          description: SMS sent date
-          example: 2020-07-28T00:00:00
-        smsUser:
-          maxLength: 50
-          type: string
-          description: SMS user
-          example: Rosi
-        module:
-          maxLength: 45
-          type: string
-          description: SMS module name
-          example: OPD
-        moduleID:
-          maxLength: 45
-          type: string
-          description: SMS module Id
     MovementWardDTO:
-      required:
-      - date
-      - description
-      - quantity
-      - units
-      - ward
       type: object
       properties:
         code:
           type: integer
-          description: The movement ward's code
           format: int32
+          description: The movement ward's code
           example: 1
         ward:
           $ref: "#/components/schemas/WardDTO"
+          description: The ward
         date:
           type: string
+          format: LocalDate
           description: The movement ward's date
-          format: date
           example: 2020-06-07
         patient:
           $ref: "#/components/schemas/PatientDTO"
+          description: The patient in case the movement is associated to a patient
         age:
           type: integer
-          description: The patient's age in case the movement is associated to a patient
           format: int32
+          description: The patient's age in case the movement is associated to a patient
           example: 21
         weight:
           type: number
+          format: float
           description: The patient's weight in case the movement is associated to
             a patient
-          format: float
           example: 75
         description:
           type: string
@@ -8297,10 +8505,11 @@ components:
           example: stock transfer from pharmacy to laboratory
         medical:
           $ref: "#/components/schemas/MedicalDTO"
+          description: The medical concerned by the movement
         quantity:
           type: number
-          description: The quantity of the medical concerned by the movement
           format: double
+          description: The quantity of the medical concerned by the movement
           example: 145
         units:
           type: string
@@ -8308,15 +8517,23 @@ components:
           example: pct
         wardTo:
           $ref: "#/components/schemas/WardDTO"
+          description: The ward to which the movement is done
         wardFrom:
           $ref: "#/components/schemas/WardDTO"
+          description: The ward from which the movement is done
+      required:
+      - date
+      - description
+      - quantity
+      - units
+      - ward
     ExamRowDTO:
       type: object
       properties:
         code:
           type: integer
-          description: Exam Row Code
           format: int32
+          description: Exam Row Code
           example: 999
         description:
           type: string
@@ -8331,6 +8548,7 @@ components:
           type: string
     LoginResponse:
       type: object
+      description: Class representing a Login response
       properties:
         token:
           type: string
@@ -8346,11 +8564,7 @@ components:
           type: string
           description: User name
           example: admin
-      description: Class representing a Login response
     LoginRequest:
-      required:
-      - password
-      - username
       type: object
       properties:
         username:
@@ -8361,6 +8575,9 @@ components:
           type: string
           description: Password of user
           example: admin
+      required:
+      - password
+      - username
     Series:
       type: object
       properties:
@@ -8513,39 +8730,35 @@ components:
           type: string
           description: Base64 representation of the instance preview
     PriceDTO:
-      required:
-      - description
-      - group
-      - item
-      - list
-      - price
       type: object
+      description: Class representing a prices
       properties:
         id:
           type: integer
           format: int32
         list:
           $ref: "#/components/schemas/PriceListDTO"
+          description: The price list
         group:
           type: string
           description: The group
         item:
-          maxLength: 10
           type: string
           description: The item name
+          maxLength: 10
         description:
-          maxLength: 100
           type: string
           description: The description
+          maxLength: 100
         price:
           type: number
-          description: Price
           format: double
+          description: Price
           example: 1500
         lock:
           type: integer
-          description: Lock
           format: int32
+          description: Lock
           example: 0
         editable:
           type: boolean
@@ -8554,7 +8767,12 @@ components:
           type: integer
           format: int32
           readOnly: true
-      description: Class representing a prices
+      required:
+      - description
+      - group
+      - item
+      - list
+      - price
     PageInfoDTO:
       type: object
       properties:
@@ -8600,33 +8818,35 @@ components:
       properties:
         id:
           $ref: "#/components/schemas/MedicalWardIdDTO"
+          description: The medical ward's id
+          example: 1
         in_quantity:
           type: number
-          description: The in-quantity
           format: float
+          description: The in-quantity
           example: 150
         out_quantity:
           type: number
-          description: The out-quantity
           format: float
+          description: The out-quantity
           example: 89
         lock:
           type: integer
-          description: Lock
           format: int32
+          description: Lock
           example: 0
     MedicalWardIdDTO:
-      required:
-      - medical
-      - ward
       type: object
       properties:
         ward:
           $ref: "#/components/schemas/WardDTO"
+          description: The ward
         medical:
           $ref: "#/components/schemas/MedicalDTO"
-      description: The medical ward's id
-      example: 1
+          description: The medical
+      required:
+      - medical
+      - ward
     PageLabWithRowsDTO:
       type: object
       properties:

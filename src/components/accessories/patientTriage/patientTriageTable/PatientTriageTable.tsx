@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { FunctionComponent, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { PatientExaminationDTO } from "../../../../generated";
-import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
+import { renderDateTime } from "../../../../libraries/formatUtils/dataFormatting";
 import { usePermission } from "../../../../libraries/permissionUtils/usePermission";
 import { examinationsByPatientId } from "../../../../state/examinations";
 import InfoBox from "../../infoBox/InfoBox";
@@ -88,7 +88,7 @@ const PatientTriageTable: FunctionComponent<IOwnProps> = ({
         pex_auscultation: item.pex_auscultation
           ? t("examination." + item.pex_auscultation)
           : "",
-        pex_date: item.pex_date ? renderDate(item.pex_date) : "",
+        pex_date: item.pex_date ? renderDateTime(item.pex_date) : "",
         date: item.pex_date,
         pex_note: item.pex_note,
       };
