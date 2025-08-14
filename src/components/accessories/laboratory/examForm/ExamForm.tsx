@@ -19,7 +19,7 @@ import {
 import {
   formatAllFieldValues,
   getFromFields,
-  parseDate,
+  parseDateTime,
 } from "../../../../libraries/formDataHandling/functions";
 import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 import { getExamRows, getExams } from "../../../../state/exams";
@@ -104,8 +104,8 @@ const ExamForm: FC<ExamProps> = ({
     lab.patName = patientData?.firstName + " " + patientData?.secondName;
     lab.sex = patientData?.sex;
     lab.age = patientData?.age;
-    lab.labDate = parseDate(lab.labDate ?? "");
-    lab.registrationDate = parseDate(lab.registrationDate ?? "");
+    lab.labDate = parseDateTime(lab.labDate ?? "");
+    lab.registrationDate = parseDateTime(lab.registrationDate ?? "");
     lab.inOutPatient = patientData?.status
       ? patientData.status === "O"
         ? LaboratoryDTOInOutPatientEnum.O
@@ -330,6 +330,13 @@ const ExamForm: FC<ExamProps> = ({
     labStore.createLab.status === "SUCCESS" ||
     labStore.updateLab.status === "SUCCESS";
 
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setFieldValue("labDate", new Date());
+    }, 1000);
+    return () => clearInterval(timer);
+  }, [setFieldValue]);
+
   return (
     <>
       <div className="patientExamForm">
@@ -358,7 +365,7 @@ const ExamForm: FC<ExamProps> = ({
                 fieldValue={formik.values.labDate}
                 disableFuture={false}
                 theme="regular"
-                format="dd/MM/yyyy"
+                format="dd/MM/yyyy HH:mm"
                 isValid={isValid("labDate")}
                 errorText={getErrorText("labDate")}
                 label={t("lab.date")}

@@ -1,10 +1,10 @@
-import { parseDate } from "../../../libraries/formDataHandling/functions";
+import { parseDateTime } from "libraries/formDataHandling/functions";
 import { TFields } from "../../../libraries/formDataHandling/types";
 import { DischargeFormFieldName } from "./dischargeForm/types";
 
 export const initialFields: TFields<DischargeFormFieldName> = {
   disDate: {
-    value: parseDate(Date.now().toString()),
+    value: parseDateTime(Date.now().toString(), false),
     type: "date",
   },
   disType: {

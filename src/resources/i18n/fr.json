@@ -586,11 +586,12 @@
     "restoreConfirmation": "Etes-vous sûr de vouloir restaurer cet article ?",
     "softDelete": "Marquer comme supprimé",
     "softDeleteConfirmation": "Êtes-vous sûr de marquer cet élément comme supprimé ?",
-    "cancelMessage": "Are you sure to cancel this operation ? All unsaved data will be lost.",
-    "back": "Back",
-    "backToEdit": "No, keep editing",
-    "discardMessage": "Are you sure to discard this operation ? All unsaved data will be lost.",
-    "printData": "Imprimer les données"
+    "cancelMessage": "Êtes-vous sûr de vouloir annuler cette opération ? Toutes les données non enregistrées seront perdues.",
+    "back": "Retour",
+    "backToEdit": "Non, continuez à modifier.",
+    "discardMessage": "Êtes-vous sûr de vouloir rejeter cette opération ? Toutes les données non enregistrées seront perdues.",
+    "printData": "Imprimer les données",
+    "failedtodownloadthereport": "Échec de téléchargement du rapport"
   },
   "permission": {
     "denied": "Autorisation refusée",
@@ -709,7 +710,8 @@
       "open": "EN COURS",
       "done": "TERMINÉ"
     },
-    "previousentries": "Examen précédentes"
+    "previousentries": "Examen précédentes",
+    "print_exam_request": "Imprimer les examens demandés"
   },
   "admission": {
     "code": "Code d'admission",
@@ -1236,5 +1238,36 @@
     "updateSuccess": "Le type d'examen a été mis à jour avec succès !",
     "cancelCreation": "Êtes-vous sûr d'annuler la création du type d'examen?",
     "cancelUpdate": "Êtes-vous sûr d'annuler la mise à jour du type d'examen?"
+  },
+  "settings": {
+    "code": "Code",
+    "category": "Catégorie",
+    "value": "Valeur",
+    "defaultValue": "Valeur par défaut",
+    "type": "Type",
+    "description": "Description",
+    "needRestart": "Redémarrage requis ?",
+    "valueOptions": "Valeurs possibles",
+    "resetAll": "Tout réinitialiser",
+    "confirmresetall": "Tous les paramètres seront réinitialisés à leurs valeurs par défaut. Êtes-vous sûr de vouloir continuer ?",
+    "resetAllSettings": "Réinitialiser tous les paramètres à leurs valeurs par défaut",
+    "reset": "Réinitialisation des paramètres",
+    "updated": "Paramètre mis à jour",
+    "successfullyReset": "Les paramètres ont été réinitialisés avec succès",
+    "editdialogtitle": "Editer le Paramètre {{name}}",
+    "successfullyUpdated": "Le paramètre a été mis à jour avec succès",
+    "categories": {
+      "all": "Tout",
+      "general": "Général",
+      "gui": "GUI",
+      "application": "Application",
+      "telemetry": "Télémetrie",
+      "security": "Sécurité",
+      "pharmacy": "Pharmacie",
+      "accounting": "Comptabilité",
+      "imaging": "Imagerie",
+      "reports": "Rapports",
+      "integration": "Intégration"
+    }
   }
 }

@@ -458,6 +458,7 @@
     "types": "Manage Types",
     "hospitalInfo": "Hospital Info",
     "hospital": "Hospital",
+    "settings": "Settings",
     "radiology": "Radiology"
   },
   "operation": {
@@ -623,7 +624,8 @@
     "back": "Back",
     "backToEdit": "No, keep editing",
     "discardMessage": "Are you sure to discard this operation ? All unsaved data will be lost.",
-    "printData": "Print Data"
+    "printData": "Print Data",
+    "failedtodownloadthereport": "Failed to download report."
   },
   "permission": {
     "denied": "Permission denied",
@@ -742,7 +744,8 @@
       "open": "OPEN",
       "done": "DONE"
     },
-    "previousentries": "Previous Exams"
+    "previousentries": "Previous Exams",
+    "print_exam_request": "Print exam requests"
   },
   "admission": {
     "code": "Admission Code",
@@ -1269,5 +1272,36 @@
     "updateSuccess": "The exam type has been updated successfully!",
     "cancelCreation": "Are you sure to cancel the exam type creation?",
     "cancelUpdate": "Are you sure to cancel the exam type update?"
+  },
+  "settings": {
+    "code": "Code",
+    "category": "Category",
+    "value": "Value",
+    "defaultValue": "Default value",
+    "type": "Type",
+    "description": "Description",
+    "needRestart": "Need restart?",
+    "valueOptions": "Possible values",
+    "resetAll": "Reset all",
+    "confirmresetall": "All settings are going to be reset to default values. Do you want to continue?",
+    "resetAllSettings": "Reset all settings to default",
+    "reset": "Settings reset",
+    "updated": "Setting updated",
+    "successfullyReset": "Settings have been successfully reset",
+    "editdialogtitle": "Edit setting {{name}}",
+    "successfullyUpdated": "Setting successfully updated",
+    "categories": {
+      "all": "All",
+      "general": "General",
+      "gui": "GUI",
+      "application": "Application",
+      "telemetry": "Telemetry",
+      "security": "Security",
+      "pharmacy": "Pharmacy",
+      "accounting": "Accounting",
+      "imaging": "Imaging",
+      "reports": "Reports",
+      "integration": "Integration"
+    }
   }
 }

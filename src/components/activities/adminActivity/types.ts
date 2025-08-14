@@ -10,5 +10,6 @@ export type IAdminSection =
   | "suppliers"
   | "telemetry"
   | "users"
+  | "settings"
   | "types"
   | "hospitalInfo";

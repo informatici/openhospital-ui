@@ -40,7 +40,10 @@ import {
   formatAllFieldValues,
   getFromFields,
 } from "../../../../libraries/formDataHandling/functions";
-import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
+import {
+  renderDate,
+  renderDateTime,
+} from "../../../../libraries/formatUtils/dataFormatting";
 import {
   createOperationRowReset,
   deleteOperationRow,
@@ -358,6 +361,13 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
     }
   }, [changeStatus, deletedObjCode, operationRows]);
 
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setFieldValue("date", new Date());
+    }, 1000);
+    return () => clearInterval(timer);
+  }, [setFieldValue]);
+
   return (
     <>
       <div className="patientOpdForm">
@@ -371,7 +381,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
             ) : (
               <>
                 <Edit fontSize="small" />
-                {t("opd.editopd") + ": " + renderDate(formik.values.date)}
+                {t("opd.editopd") + ": " + renderDateTime(formik.values.date)}
               </>
             )}
           </AccordionSummary>
@@ -435,7 +445,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
                     fieldValue={formik.values.date}
                     disableFuture={true}
                     theme="regular"
-                    format="dd/MM/yyyy"
+                    format="dd/MM/yyyy HH:mm"
                     isValid={isValid("date")}
                     errorText={getErrorText("date")}
                     label={t("opd.dateopd")}
