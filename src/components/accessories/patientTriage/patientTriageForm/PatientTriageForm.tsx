@@ -109,6 +109,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
     enableReinitialize: true,
     onSubmit: (values) => {
       const formattedValues = formatAllFieldValues(fields, values);
+      console.log(formattedValues);
       onSubmit({
         ...formattedValues,
         pex_auscultation: isEmpty(formattedValues.pex_auscultation)
@@ -177,6 +178,13 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
     }
   }, [shouldResetForm, resetForm, resetFormCallback]);
 
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setFieldValue("pex_date", new Date());
+    }, 1000);
+    return () => clearInterval(timer);
+  }, [setFieldValue]);
+
   return (
     <>
       <div className="patientTriageForm">
@@ -198,7 +206,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
                 fieldValue={formik.values.pex_date}
                 disableFuture={true}
                 theme="regular"
-                format="dd/MM/yyyy"
+                format="dd/MM/yyyy HH:mm"
                 isValid={isValid("pex_date")}
                 errorText={getErrorText("pex_date")}
                 label={t("examination.datetriage")}

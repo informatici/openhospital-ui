@@ -219,7 +219,16 @@
     "created": "Patient créé",
     "updatesuccessful": "Le patient a été modifié avec succès.",
     "createother": "Ajouter un autre patient",
-    "status": "État de santé"
+    "status": "État de santé",
+    "commune": "Commune",
+    "ethnic": "Ethnie",
+    "fatheroccupation": "Occupation du père",
+    "fatherphone": "Téléphone du père",
+    "fatherage": "Age du père",
+    "motheroccupation": "Occupation de la mère",
+    "motherphone": "Téléphone de la mère",
+    "motherage": "Age de la mère",
+    "encounters": "Rencontres"
   },
   "opd": {
     "newopd": "Créer une nouvelle visite OPD",
@@ -416,7 +425,8 @@
     "users": "Utilisateurs & Groupes",
     "types": "Gérer les types",
     "hospitalInfo": "Informations sur l'hôpital",
-    "hospital": "Hôpital"
+    "hospital": "Hôpital",
+    "encounters": "Rencontres"
   },
   "operation": {
     "newoperation": "Nouvelle opération",
