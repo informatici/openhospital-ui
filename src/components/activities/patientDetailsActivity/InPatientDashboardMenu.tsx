@@ -1,4 +1,5 @@
 import {
+  AcUnit,
   ArtTrack,
   Colorize,
   ExitToApp,
@@ -8,6 +9,7 @@ import {
   Pageview,
   SettingsApplications,
 } from "@mui/icons-material";
+import { useEncountersEnabled } from "libraries/hooks";
 import { usePermission } from "libraries/permissionUtils/usePermission";
 import React, { FunctionComponent, useCallback } from "react";
 import { useTranslation } from "react-i18next";
@@ -15,15 +17,13 @@ import { useNavigate } from "react-router";
 import Arrow from "../../../assets/arrow-w.svg";
 import { Permission } from "../../../libraries/permissionUtils/Permission";
 import "./styles.scss";
-import { IUserSection } from "./types";
+import { TUserSection } from "./types";
 
 interface IOwnProps {
-  setUserSection: React.Dispatch<React.SetStateAction<IUserSection>>;
-  userSection: IUserSection;
+  userSection: TUserSection;
 }
 
 const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
-  setUserSection,
   userSection,
 }) => {
   const { t } = useTranslation();
@@ -32,16 +32,18 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
 
   const canReadRadiology = usePermission("radiology.read");
 
-  const isActive = (value: string) => {
-    return value === userSection ? "active" : "default";
-  };
+  const encountersEnabled = useEncountersEnabled();
+
+  const isActive = useCallback(
+    (value: string) => (value === userSection ? "active" : "default"),
+    [userSection]
+  );
 
   const changeUserSection = useCallback(
-    (section: IUserSection) => {
-      setUserSection(section);
+    (section: TUserSection) => {
       navigate(`${section}`, { replace: true });
     },
-    [navigate, setUserSection]
+    [navigate]
   );
 
   return (
@@ -50,7 +52,6 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
       className="patientDetails__main_menu"
     >
       <h6>{t("patient.usersections")}</h6>
-
       <div
         className={"patientDetails__main_menu__item " + isActive("admissions")}
         onClick={() => {
@@ -66,6 +67,26 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
         <span>{t("nav.admissions")}:</span>
         <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
       </div>
+
+      {encountersEnabled && (
+        <div
+          className={
+            "patientDetails__main_menu__item " + isActive("encounters")
+          }
+          onClick={() => {
+            changeUserSection("encounters");
+          }}
+        >
+          <AcUnit
+            fontSize="small"
+            style={{
+              color: "white",
+            }}
+          />
+          <span>{t("nav.encounters")}:</span>
+          <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
+        </div>
+      )}
 
       <div
         className={

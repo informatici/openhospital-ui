@@ -1,4 +1,4 @@
-import { SettingDTO } from "generated";
+import { SettingDTO } from "generated/models";
 
 export const organizeByCategory = (
   settings: SettingDTO[]

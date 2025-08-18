@@ -28,6 +28,7 @@ i18n
 
 const App: FunctionComponent = () => {
   const [, setLang] = useState(i18n.language);
+
   const changeLang = (l: string) => {
     i18n.changeLanguage(l).then(() => {
       setLang(l);

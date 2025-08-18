@@ -260,7 +260,8 @@
     "fatherage": "Father's age",
     "motheroccupation": "Mother's occupation",
     "motherphone": "Mother's phone number",
-    "motherage": "Mother's age"
+    "motherage": "Mother's age",
+    "encounters": "Encounters"
   },
   "opd": {
     "newopd": "Create new OPD Visit",
@@ -459,7 +460,8 @@
     "hospitalInfo": "Hospital Info",
     "hospital": "Hospital",
     "settings": "Settings",
-    "radiology": "Radiology"
+    "radiology": "Radiology",
+    "encounters": "Encounters"
   },
   "operation": {
     "newoperation": "New Operation",
