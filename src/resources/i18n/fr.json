@@ -1254,7 +1254,7 @@
     "reset": "Réinitialisation des paramètres",
     "updated": "Paramètre mis à jour",
     "successfullyReset": "Les paramètres ont été réinitialisés avec succès",
-    "editdialogtitle": "Editer le Paramètre {{name}}",
+    "editdialogtitle": "Editer le Paramètre {name}",
     "successfullyUpdated": "Le paramètre a été mis à jour avec succès",
     "categories": {
       "all": "Tout",
