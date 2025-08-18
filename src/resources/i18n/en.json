@@ -1290,7 +1290,7 @@
     "reset": "Settings reset",
     "updated": "Setting updated",
     "successfullyReset": "Settings have been successfully reset",
-    "editdialogtitle": "Edit setting {{name}}",
+    "editdialogtitle": "Edit setting {name}",
     "successfullyUpdated": "Setting successfully updated",
     "categories": {
       "all": "All",
