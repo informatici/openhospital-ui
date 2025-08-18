@@ -459,7 +459,8 @@
     "hospitalInfo": "Hospital Info",
     "hospital": "Hospital",
     "settings": "Settings",
-    "radiology": "Radiology"
+    "radiology": "Radiology",
+    "conditioning": "Conditioning"
   },
   "operation": {
     "newoperation": "New Operation",

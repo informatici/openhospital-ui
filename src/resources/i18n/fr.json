@@ -424,7 +424,8 @@
     "users": "Utilisateurs & Groupes",
     "types": "Gérer les types",
     "hospitalInfo": "Informations sur l'hôpital",
-    "hospital": "Hôpital"
+    "hospital": "Hôpital",
+    "conditioning": "Conditionnement"
   },
   "operation": {
     "newoperation": "Nouvelle opération",

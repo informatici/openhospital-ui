@@ -2,6 +2,7 @@ import {
   ArtTrack,
   Colorize,
   ExitToApp,
+  FitnessCenter,
   Healing,
   LocalHospital,
   LocalHotel,
@@ -77,6 +78,20 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
       >
         <Pageview fontSize="small" style={{ color: "white" }} />
         <span>{t("nav.consultancy")}:</span>
+        <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
+      </div>
+
+      <div
+        className={
+          "align__element patientDetails__main_menu__item " +
+          isActive("conditioning")
+        }
+        onClick={() => {
+          changeUserSection("conditioning");
+        }}
+      >
+        <FitnessCenter fontSize="small" style={{ color: "white" }} />
+        <span>{t("nav.conditioning")}:</span>
         <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
       </div>
 

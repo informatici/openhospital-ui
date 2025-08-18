@@ -10,4 +10,5 @@ export type IUserSection =
   | "admission"
   | "discharge"
   | "clinic"
+  | "conditioning"
   | "radiology";
