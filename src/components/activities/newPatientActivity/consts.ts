@@ -159,4 +159,36 @@ export const initialFields: TFields<TPatientDataFormFieldName> = {
     value: "",
     type: "text",
   },
+  commune: {
+    value: "",
+    type: "text",
+  },
+  ethnic: {
+    value: "",
+    type: "text",
+  },
+  fatherOccupation: {
+    value: "",
+    type: "text",
+  },
+  fatherPhone: {
+    value: "",
+    type: "text",
+  },
+  fatherAge: {
+    value: "28",
+    type: "number",
+  },
+  motherOccupation: {
+    value: "",
+    type: "text",
+  },
+  motherPhone: {
+    value: "",
+    type: "text",
+  },
+  motherAge: {
+    value: "28",
+    type: "number",
+  },
 };
