@@ -424,8 +424,7 @@
     "users": "Utenti e Gruppi",
     "types": "Gestisci i Tipi",
     "hospitalInfo": "Informazioni dell'Ospedale",
-    "hospital": "Ospedale",
-    "conditioning": "Condizionamento"
+    "hospital": "Ospedale"
   },
   "operation": {
     "newoperation": "Nuovo intervento chirurgico",
