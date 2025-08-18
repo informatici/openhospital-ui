@@ -252,7 +252,16 @@
     "updatesuccessful": "The patient was edit successfully.",
     "createother": "Add Another Patient",
     "status": "Status",
-    "radiology": "Radiology"
+    "radiology": "Radiology",
+    "commune": "Commune",
+    "ethnic": "Ethnicity",
+    "fatheroccupation": "Father's occupation",
+    "fatherphone": "Father's telephone number",
+    "fatherage": "Father's age",
+    "motheroccupation": "Mother's occupation",
+    "motherphone": "Mother's phone number",
+    "motherage": "Mother's age",
+    "encounters": "Encounters"
   },
   "opd": {
     "newopd": "Create new OPD Visit",
@@ -453,7 +462,8 @@
     "hospitalInfo": "Hospital Info",
     "hospital": "Hospital",
     "settings": "Settings",
-    "radiology": "Radiology"
+    "radiology": "Radiology",
+    "encounters": "Encounters"
   },
   "operation": {
     "newoperation": "New Operation",
@@ -1282,7 +1292,7 @@
     "reset": "Settings reset",
     "updated": "Setting updated",
     "successfullyReset": "Settings have been successfully reset",
-    "editdialogtitle": "Edit setting {{name}}",
+    "editdialogtitle": "Edit setting {name}",
     "successfullyUpdated": "Setting successfully updated",
     "categories": {
       "all": "All",

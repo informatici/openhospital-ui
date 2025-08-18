@@ -2,7 +2,7 @@ import { EditRounded, Notes, Person } from "@mui/icons-material";
 import classNames from "classnames";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { isEmpty } from "lodash";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   Navigate,
@@ -31,7 +31,7 @@ import { ProfilePicture } from "../../accessories/profilePicture/ProfilePicture"
 import InPatientDashboardMenu from "./InPatientDashboardMenu";
 import OutPatientDashboardMenu from "./OutPatientDashboardMenu";
 import "./styles.scss";
-import { IUserSection, TActivityTransitionState } from "./types";
+import { TActivityTransitionState, TUserSection } from "./types";
 
 type ContextType = { status: string | null };
 
@@ -43,25 +43,9 @@ const PatientDetailsActivity = () => {
     patient: state.patients.selectedPatient,
   }));
 
-  useEffect(() => {
-    scrollToElement(null);
-  }, []);
-
   const { t } = useTranslation();
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (isEmpty(patient.data) && patient.status === "IDLE") {
-      dispatch(getPatient(id!));
-    }
-  }, [patient, id, dispatch]);
-
-  useEffect(() => {
-    return () => {
-      dispatch(getPatientReset());
-    };
-  }, [dispatch]);
 
   const breadcrumbMap = {
     [t("nav.patients")]: PATHS.patients,
@@ -73,16 +57,41 @@ const PatientDetailsActivity = () => {
     useState<TActivityTransitionState>("IDLE");
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
-  const section =
-    location.pathname.split("/")[location.pathname.split("/").length - 1];
-  const [expanded, setExpanded] = useState<string | false>(false);
-  const [userSection, setUserSection] = useState<IUserSection>(
-    (isNaN(parseInt(section)) ? section : "admissions") as IUserSection
-  );
 
+  const section = useMemo(() => {
+    const value =
+      location.pathname.split("/")[location.pathname.split("/").length - 1];
+    return (value ? value : "admissions") as TUserSection;
+  }, [location]);
+
+  const [expanded, setExpanded] = useState<string | false>(false);
   const handleOnExpanded = (section: string) => {
     setExpanded(section === expanded ? false : section);
   };
+
+  useEffect(() => {
+    if (isEmpty(patient.data) && patient.status === "IDLE") {
+      dispatch(getPatient(id!));
+    }
+  }, [patient, id, dispatch]);
+
+  useEffect(() => {
+    if (section && !location.pathname.includes(section)) {
+      navigate(section, {
+        replace: true,
+      });
+    }
+  }, [location, section, navigate]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(getPatientReset());
+    };
+  }, [dispatch]);
+
+  useEffect(() => {
+    scrollToElement(null);
+  }, []);
 
   const personalData = (
     <>
@@ -268,7 +277,6 @@ const PatientDetailsActivity = () => {
                             <div
                               className="patientDetails_status_button"
                               onClick={() => {
-                                setUserSection("discharge");
                                 navigate("discharge", {
                                   replace: true,
                                 });
@@ -286,7 +294,6 @@ const PatientDetailsActivity = () => {
                             <div
                               className="patientDetails_status_button"
                               onClick={() => {
-                                setUserSection("admissions");
                                 navigate("admissions", {
                                   replace: true,
                                 });
@@ -300,15 +307,9 @@ const PatientDetailsActivity = () => {
                     </div>
 
                     {patient?.data?.status === PatientDTOStatusEnum.I ? (
-                      <InPatientDashboardMenu
-                        setUserSection={setUserSection}
-                        userSection={userSection}
-                      />
+                      <InPatientDashboardMenu userSection={section} />
                     ) : (
-                      <OutPatientDashboardMenu
-                        setUserSection={setUserSection}
-                        userSection={userSection}
-                      />
+                      <OutPatientDashboardMenu userSection={section} />
                     )}
 
                     <div className="patientDetails__user_info">

@@ -219,7 +219,16 @@
     "created": "Patient créé",
     "updatesuccessful": "Le patient a été modifié avec succès.",
     "createother": "Ajouter un autre patient",
-    "status": "État de santé"
+    "status": "État de santé",
+    "commune": "Commune",
+    "ethnic": "Ethnie",
+    "fatheroccupation": "Occupation du père",
+    "fatherphone": "Téléphone du père",
+    "fatherage": "Age du père",
+    "motheroccupation": "Occupation de la mère",
+    "motherphone": "Téléphone de la mère",
+    "motherage": "Age de la mère",
+    "encounters": "Rencontres"
   },
   "opd": {
     "newopd": "Créer une nouvelle visite OPD",
@@ -418,7 +427,8 @@
     "users": "Utilisateurs & Groupes",
     "types": "Gérer les types",
     "hospitalInfo": "Informations sur l'hôpital",
-    "hospital": "Hôpital"
+    "hospital": "Hôpital",
+    "encounters": "Rencontres"
   },
   "operation": {
     "newoperation": "Nouvelle opération",
@@ -1248,7 +1258,7 @@
     "reset": "Réinitialisation des paramètres",
     "updated": "Paramètre mis à jour",
     "successfullyReset": "Les paramètres ont été réinitialisés avec succès",
-    "editdialogtitle": "Editer le Paramètre {{name}}",
+    "editdialogtitle": "Editer le Paramètre {name}",
     "successfullyUpdated": "Le paramètre a été mis à jour avec succès",
     "categories": {
       "all": "Tout",

@@ -181,7 +181,15 @@
     "created": "Patient erstellt",
     "updatesuccessful": "Der Patient wurde erfolgreich bearbeitet.",
     "createother": "Weiteren Patienten hinzufügen",
-    "status": "Status"
+    "status": "Status",
+    "commune": "Gemeinde",
+    "ethnic": "Ethnie",
+    "fatheroccupation": "Beruf des Vaters",
+    "fatherphone": "Telefonnummer des Vaters",
+    "fatherage": "Alter des Vaters",
+    "motheroccupation": "Beruf der Mutter",
+    "motherphone": "Telefonnummer der Mutter",
+    "motherage": "Alter der Mutter"
   },
   "opd": {
     "newopd": "Erstellen Sie einen neuen OPD-Besuch",

@@ -63,7 +63,15 @@
     "dataupdated": "Patient data updated",
     "dataupdatedsuccessfully": "Patient data have been updated successfully",
     "noallergies": "There are no registered allergies for this patient",
-    "noanamnesis": "There are no registered anamnesis for this patient"
+    "noanamnesis": "There are no registered anamnesis for this patient",
+    "commune": "Municipio",
+    "ethnic": "Etnia",
+    "fatheroccupation": "Ocupación del padre",
+    "fatherphone": "Teléfono del padre",
+    "fatherage": "Edad del padre",
+    "motheroccupation": "Ocupación de la madre",
+    "motherphone": "Teléfono de la madre",
+    "motherage": "Edad de la madre"
   },
   "opd": {
     "newopd": "Create new OPD Visit",

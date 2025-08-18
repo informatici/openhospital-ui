@@ -219,7 +219,15 @@
     "created": "Paziente creato",
     "updatesuccessful": "Il paziente è stato aggiornato correttamente.",
     "createother": "Aggiungere un altro paziente",
-    "status": "Stato"
+    "status": "Stato",
+    "commune": "Comune",
+    "ethnic": "Etnia",
+    "fatheroccupation": "Occupazione del padre",
+    "fatherphone": "Telefono del padre",
+    "fatherage": "Età del padre",
+    "motheroccupation": "Occupazione della madre",
+    "motherphone": "Telefono della madre",
+    "motherage": "Età della madre"
   },
   "opd": {
     "newopd": "Inserisci una nuova visita ambulatoriale",

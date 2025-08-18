@@ -6678,6 +6678,38 @@ components:
           type: boolean
           description: Consensus service flag
           example: true
+        commune:
+          type: string
+          description: Commune
+        ethnic:
+          type: string
+          description: Ethnic
+        fatherOccupation:
+          type: string
+          description: Father occupation
+          example: Doctor
+        fatherAge:
+          type: integer
+          format: int32
+          description: Father age
+          example: 45
+        fatherPhone:
+          type: string
+          description: Father phone
+          example: "+393456789012"
+        motherOccupation:
+          type: string
+          description: Mother occupation
+          example: Analyst
+        motherAge:
+          type: integer
+          format: int32
+          description: Mother age
+          example: 35
+        motherPhone:
+          type: string
+          description: Mother phone
+          example: "+393456789012"
       required:
       - age
       - bloodType
