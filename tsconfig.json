@@ -17,5 +17,5 @@
     "jsx": "react"
   },
   "include": ["src"],
-  "exclude": ["cypress.config.ts", "cypress", "node_modules"]
+  "exclude": ["cypress.config.ts", "cypress", "node_modules", "src/generated"]
 }
