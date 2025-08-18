@@ -416,7 +416,8 @@
     "users": "Users & Groups",
     "types": "Manage Types",
     "hospitalInfo": "Hospital Info",
-    "hospital": "Hospital"
+    "hospital": "Hospital",
+    "admissionState": "Admission State"
   },
   "operation": {
     "newoperation": "New Operation",

@@ -416,7 +416,8 @@
     "users": "Utilisateurs & Groupes",
     "types": "Gérer les types",
     "hospitalInfo": "Informations sur l'hôpital",
-    "hospital": "Hôpital"
+    "hospital": "Hôpital",
+    "admissionState": "État d'admission"
   },
   "operation": {
     "newoperation": "Nouvelle opération",
