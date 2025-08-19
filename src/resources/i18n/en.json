@@ -260,7 +260,8 @@
     "fatherage": "Father's age",
     "motheroccupation": "Mother's occupation",
     "motherphone": "Mother's phone number",
-    "motherage": "Mother's age"
+    "motherage": "Mother's age",
+    "encounters": "Encounters"
   },
   "opd": {
     "newopd": "Create new OPD Visit",
@@ -460,6 +461,7 @@
     "hospital": "Hospital",
     "settings": "Settings",
     "radiology": "Radiology",
+    "encounters": "Encounters",
     "conditioning": "Conditioning"
   },
   "operation": {
@@ -1289,7 +1291,7 @@
     "reset": "Settings reset",
     "updated": "Setting updated",
     "successfullyReset": "Settings have been successfully reset",
-    "editdialogtitle": "Edit setting {{name}}",
+    "editdialogtitle": "Edit setting {name}",
     "successfullyUpdated": "Setting successfully updated",
     "categories": {
       "all": "All",

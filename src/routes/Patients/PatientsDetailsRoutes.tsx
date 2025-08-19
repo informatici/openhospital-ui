@@ -1,9 +1,12 @@
+import { Encounters } from "components/accessories/encounters";
 import { Radiology, Series, Studies } from "components/accessories/radiology";
 import PermissionDenied from "components/activities/PermissionDenied/PermissionDenied";
+import { useAppDispatch, useEncountersEnabled } from "libraries/hooks";
 import { withPermission } from "libraries/permissionUtils/withPermission";
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Navigate, Route, Routes } from "react-router";
+import { getAllSettings } from "state/settings";
 import PatientAdmission from "../../components/accessories/admission/PatientAdmission";
 import PatientExams from "../../components/accessories/patientExams/PatientExams";
 import PatientOperation from "../../components/accessories/patientOperation/PatientOperation";
@@ -18,6 +21,13 @@ import VisitDetailsContent from "../../components/activities/patientDetailsActiv
 
 export const PatientDetailsRoutes: FC = () => {
   const { t } = useTranslation();
+  const dispatch = useAppDispatch();
+  const encountersEnabled = useEncountersEnabled();
+
+  useEffect(() => {
+    dispatch(getAllSettings());
+  }, [dispatch]);
+
   const RadiologyRoutes = withPermission(
     "radiology.read",
     PermissionDenied
@@ -53,7 +63,26 @@ export const PatientDetailsRoutes: FC = () => {
   return (
     <Routes>
       <Route element={<PatientDetailsActivity />}>
-        <Route index element={<Navigate to="admissions" replace />} />
+        <Route
+          index
+          element={
+            <Navigate
+              to={encountersEnabled ? "encounters" : "admissions"}
+              replace
+            />
+          }
+        />
+        {encountersEnabled && (
+          <Route
+            path="encounters"
+            element={
+              <PatientDetailsContent
+                title={t("patient.encounters")}
+                content={Encounters}
+              />
+            }
+          />
+        )}
         <Route
           path="admissions"
           element={

@@ -227,7 +227,8 @@
     "fatherage": "Age du père",
     "motheroccupation": "Occupation de la mère",
     "motherphone": "Téléphone de la mère",
-    "motherage": "Age de la mère"
+    "motherage": "Age de la mère",
+    "encounters": "Rencontres"
   },
   "opd": {
     "newopd": "Créer une nouvelle visite OPD",
@@ -425,6 +426,7 @@
     "types": "Gérer les types",
     "hospitalInfo": "Informations sur l'hôpital",
     "hospital": "Hôpital",
+    "encounters": "Rencontres",
     "conditioning": "Conditionnement"
   },
   "operation": {
@@ -1255,7 +1257,7 @@
     "reset": "Réinitialisation des paramètres",
     "updated": "Paramètre mis à jour",
     "successfullyReset": "Les paramètres ont été réinitialisés avec succès",
-    "editdialogtitle": "Editer le Paramètre {{name}}",
+    "editdialogtitle": "Editer le Paramètre {name}",
     "successfullyUpdated": "Le paramètre a été mis à jour avec succès",
     "categories": {
       "all": "Tout",
