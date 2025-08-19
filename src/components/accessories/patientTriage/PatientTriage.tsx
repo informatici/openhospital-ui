@@ -196,7 +196,15 @@ const PatientTriage: FC = () => {
   };
 
   const onEdit = (row: PatientExaminationDTO) => {
-    setTriageToEdit(row);
+    if (row.pex_height && row.pex_weight) {
+      const updatedrow = {
+        ...row,
+        pex_body_mass_index: row.pex_weight / (row.pex_height / 100) ** 2,
+      };
+      setTriageToEdit(updatedrow);
+    } else {
+      setTriageToEdit({ ...row });
+    }
     setCreationMode(false);
     scrollToElement(null);
   };

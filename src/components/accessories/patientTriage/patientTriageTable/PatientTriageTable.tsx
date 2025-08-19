@@ -41,6 +41,8 @@ const PatientTriageTable: FunctionComponent<IOwnProps> = ({
     pex_bowel_desc: t("examination.bowel"),
     pex_auscultation: t("examination.auscultation"),
     pex_note: t("examination.note"),
+    pex_body_mass_index: t("examination.bodymassindex"),
+    pex_branchial_perimeter: t("examination.branchialperimeter"),
   };
   const header = ["pex_date"];
   const order = ["pex_date"];
@@ -91,6 +93,8 @@ const PatientTriageTable: FunctionComponent<IOwnProps> = ({
         pex_date: item.pex_date ? renderDateTime(item.pex_date) : "",
         date: item.pex_date,
         pex_note: item.pex_note,
+        pex_pex_body_mass_index: item.pex_body_mass_index,
+        pex_pex_branchial_perimeter: item.pex_branchial_perimeter,
       };
     });
   };
