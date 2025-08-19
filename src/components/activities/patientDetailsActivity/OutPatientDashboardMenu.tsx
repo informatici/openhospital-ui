@@ -86,6 +86,19 @@ const OutPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
         </div>
       )}
 
+      {encountersEnabled && (
+        <div
+          className={
+            "patientDetails__main_menu__item " + isActive("conditioning")
+          }
+          onClick={() => changeUserSection("conditioning")}
+        >
+          <Healing fontSize="small" style={{ color: "white" }} />
+          <span>{t("nav.conditioning")}:</span>
+          <img src={Arrow} className="icon_toggle" alt="Accordion toggle" />
+        </div>
+      )}
+
       <div
         className={
           "align__element patientDetails__main_menu__item " + isActive("visits")

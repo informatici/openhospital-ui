@@ -261,7 +261,8 @@
     "motheroccupation": "Mother's occupation",
     "motherphone": "Mother's phone number",
     "motherage": "Mother's age",
-    "encounters": "Encounters"
+    "encounters": "Encounters",
+    "conditioning": "Conditioning"
   },
   "opd": {
     "newopd": "Create new OPD Visit",

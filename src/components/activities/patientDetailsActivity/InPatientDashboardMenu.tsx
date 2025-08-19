@@ -3,7 +3,6 @@ import {
   ArtTrack,
   Colorize,
   ExitToApp,
-  FitnessCenter,
   Healing,
   LocalHospital,
   LocalHotel,
@@ -68,7 +67,6 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
         <span>{t("nav.admissions")}:</span>
         <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
       </div>
-
       {encountersEnabled && (
         <div
           className={
@@ -89,6 +87,19 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
         </div>
       )}
 
+      {encountersEnabled && (
+        <div
+          className={
+            "patientDetails__main_menu__item " + isActive("conditioning")
+          }
+          onClick={() => changeUserSection("conditioning")}
+        >
+          <Healing fontSize="small" style={{ color: "white" }} />
+          <span>{t("nav.conditioning")}:</span>
+          <img src={Arrow} className="icon_toggle" alt="Accordion toggle" />
+        </div>
+      )}
+
       <div
         className={
           "align__element patientDetails__main_menu__item " + isActive("visits")
@@ -101,21 +112,6 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
         <span>{t("nav.consultancy")}:</span>
         <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
       </div>
-
-      <div
-        className={
-          "align__element patientDetails__main_menu__item " +
-          isActive("conditioning")
-        }
-        onClick={() => {
-          changeUserSection("conditioning");
-        }}
-      >
-        <FitnessCenter fontSize="small" style={{ color: "white" }} />
-        <span>{t("nav.conditioning")}:</span>
-        <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
-      </div>
-
       <div
         className={
           "align__element patientDetails__main_menu__item " + isActive("triage")
@@ -128,7 +124,6 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
         <span>{t("nav.triage")}:</span>
         <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
       </div>
-
       <div
         className={
           "align__element patientDetails__main_menu__item " +
@@ -142,7 +137,6 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
         <span>{t("nav.laboratory")}:</span>
         <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
       </div>
-
       {false && (
         <div
           className={
@@ -158,7 +152,6 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
           <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
         </div>
       )}
-
       <div
         className={
           "align__element patientDetails__main_menu__item " +
@@ -172,7 +165,6 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
         <span>{t("nav.operation")}:</span>
         <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
       </div>
-
       <Permission require="admissions.update">
         <div
           className={
