@@ -237,6 +237,36 @@ export const CurrentAdmissionForm: FunctionComponent<IOwnProps> = ({
           </div>
           <div className="fullWidth currentAdmissionForm__item">
             <TextField
+              field={formik.getFieldProps("preTreatment")}
+              theme="regular"
+              label={t("admission.preTreatment")}
+              multiline={true}
+              type="text"
+              isValid={isValid("preTreatment")}
+              errorText={getErrorText("preTreatment")}
+              onBlur={formik.handleBlur}
+              rows={3}
+              disabled={isLoading}
+              maxLength={2000}
+            />
+          </div>
+          <div className="fullWidth currentAdmissionForm__item">
+            <TextField
+              field={formik.getFieldProps("preAssessment")}
+              theme="regular"
+              label={t("admission.preAssessment")}
+              multiline={true}
+              type="text"
+              isValid={isValid("preAssessment")}
+              errorText={getErrorText("preAssessment")}
+              onBlur={formik.handleBlur}
+              rows={3}
+              disabled={isLoading}
+              maxLength={2000}
+            />
+          </div>
+          <div className="fullWidth currentAdmissionForm__item">
+            <TextField
               field={formik.getFieldProps("note")}
               theme="regular"
               label={t("admission.note")}
@@ -247,6 +277,7 @@ export const CurrentAdmissionForm: FunctionComponent<IOwnProps> = ({
               onBlur={formik.handleBlur}
               rows={5}
               disabled={isLoading}
+              maxLength={2000}
             />
           </div>
         </div>

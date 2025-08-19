@@ -30,4 +30,6 @@ export type AdmissionFormFieldName =
   | "diseaseOut2"
   | "diseaseOut3"
   | "cliDiaryCharge"
-  | "imageryCharge";
+  | "imageryCharge"
+  | "preTreatment"
+  | "preAssessment";

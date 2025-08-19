@@ -793,7 +793,9 @@
     "admregistered": "Admissions in the current period",
     "disregistered": "Discharges in the current period",
     "previousentries": "Previous Admissions",
-    "no_beds": "There is not beds in the selected ward"
+    "no_beds": "There is not beds in the selected ward",
+    "preTreatment": "Pre-admission treatment",
+    "preAssessment": "Pre-admission assessment"
   },
   "bill": {
     "title": "Welcome to Billing",

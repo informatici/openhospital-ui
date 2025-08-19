@@ -759,7 +759,9 @@
     "admregistered": "Admissions pour la période en cours",
     "disregistered": "Sortie pour la période en cours",
     "previousentries": "Admissions précédentes",
-    "no_beds": "Il n'y a aucun lit dans le pavillon sélectionné"
+    "no_beds": "Il n'y a aucun lit dans le pavillon sélectionné",
+    "preTreatment": "Traitement avant admission",
+    "preAssessment": "Bilan avant admission"
   },
   "bill": {
     "title": "Bienvenue dans la facturation",
