@@ -6508,13 +6508,13 @@ components:
           format: int32
           description: lock
           example: 0
-        pharmacy:
-          type: boolean
-        opd:
-          type: boolean
         male:
           type: boolean
         female:
+          type: boolean
+        pharmacy:
+          type: boolean
+        opd:
           type: boolean
       required:
       - beds
@@ -8111,15 +8111,15 @@ components:
           description: Lock
           example: 0
         pex_body_mass_index:
-          type: integer
-          format: int32
+          type: number
+          format: double
           description: Body mass index
-          example: 0
+          example: 39.6
         pex_branchial_perimeter:
-          type: integer
-          format: int32
+          type: number
+          format: double
           description: Branchial perimeter
-          example: 0
+          example: 3.5
       required:
       - patientCode
       - pex_date

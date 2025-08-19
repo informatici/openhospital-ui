@@ -173,11 +173,11 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
 
   const handleCalculateBMI = (e: React.FocusEvent<HTMLInputElement>) => {
     formik.handleBlur(e);
-    const weight = parseInt(formik.values.pex_weight);
+    const weight = parseFloat(formik.values.pex_weight);
     const height = parseInt(formik.values.pex_height);
 
     if (!isNaN(weight) && !isNaN(height) && height > 0) {
-      const bmi = parseInt((weight / (height / 100) ** 2).toFixed());
+      const bmi = parseFloat((weight / (height / 100) ** 2).toFixed(2));
       formik.setFieldValue("pex_body_mass_index", bmi);
     } else {
       formik.setFieldValue("pex_body_mass_index", "");

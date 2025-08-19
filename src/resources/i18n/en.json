@@ -412,8 +412,8 @@
     "stridor": "Stridor",
     "bronchial": "Bronchial",
     "previousentries": "Previous Triages",
-    "bodymassindex": "Body mass index",
-    "branchialperimeter": "Branchial perimeter"
+    "bodymassindex": "Body mass index (kg/m²)",
+    "branchialperimeter": "Branchial perimeter (cm)"
   },
   "nav": {
     "pharmacy": "Pharmacy",
