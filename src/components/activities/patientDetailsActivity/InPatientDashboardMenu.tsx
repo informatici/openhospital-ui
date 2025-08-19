@@ -67,6 +67,7 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
         <span>{t("nav.admissions")}:</span>
         <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
       </div>
+
       {encountersEnabled && (
         <div
           className={
@@ -112,6 +113,7 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
         <span>{t("nav.consultancy")}:</span>
         <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
       </div>
+
       <div
         className={
           "align__element patientDetails__main_menu__item " + isActive("triage")
@@ -152,6 +154,7 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
           <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
         </div>
       )}
+
       <div
         className={
           "align__element patientDetails__main_menu__item " +
