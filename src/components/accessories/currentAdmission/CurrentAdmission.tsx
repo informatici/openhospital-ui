@@ -41,6 +41,8 @@ export const CurrentAdmission: FunctionComponent<IOwnProps> = ({
       diseaseIn: adm.diseaseIn,
       note: adm.note,
       ward: adm.ward,
+      preTreatment: adm.preTreatment,
+      preAssessment: adm.preAssessment,
     };
     dispatch(updateAdmission(admissionToSave));
   };

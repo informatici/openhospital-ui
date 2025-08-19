@@ -77,6 +77,14 @@ export const useFields = (
             ).toString(),
       type: "number",
     },
+    preTreatment: {
+      value: admission?.preTreatment ?? "",
+      type: "text",
+    },
+    preAssessment: {
+      value: admission?.preAssessment ?? "",
+      type: "text",
+    },
   };
 
   return fields;

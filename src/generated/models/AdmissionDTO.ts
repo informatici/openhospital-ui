@@ -188,6 +188,18 @@ export interface AdmissionDTO {
      */
     abortDate?: string;
     /**
+     * Treatment received by the patient before admission. Example: medication, outpatient care, prior therapy.
+     * @type {string}
+     * @memberof AdmissionDTO
+     */
+    preTreatment?: string;
+    /**
+     * Assessment performed before the patient\'s admission. Example: preliminary examinations, lab results, medical observations.
+     * @type {string}
+     * @memberof AdmissionDTO
+     */
+    preAssessment?: string;
+    /**
      * User id
      * @type {string}
      * @memberof AdmissionDTO
@@ -211,13 +223,13 @@ export interface AdmissionDTO {
      */
     deleted: string;
     /**
-     * @type {string}
-     * @memberof AdmissionDTO
-     */
-    fhu?: string;
-    /**
      * @type {number}
      * @memberof AdmissionDTO
      */
     yprog?: number;
+    /**
+     * @type {string}
+     * @memberof AdmissionDTO
+     */
+    fhu?: string;
 }

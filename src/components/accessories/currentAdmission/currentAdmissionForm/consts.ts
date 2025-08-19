@@ -38,5 +38,13 @@ export const initialFields = (
       value: "",
       type: "text",
     },
+    preTreatment: {
+      value: "",
+      type: "text",
+    },
+    preAssessment: {
+      value: "",
+      type: "text",
+    },
   };
 };

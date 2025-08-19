@@ -69,4 +69,12 @@ export const initialFields: TFields<AdmissionFormFieldName> = {
     value: "",
     type: "text",
   },
+  preTreatment: {
+    value: "",
+    type: "text",
+  },
+  preAssessment: {
+    value: "",
+    type: "text",
+  },
 };

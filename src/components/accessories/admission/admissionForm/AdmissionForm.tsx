@@ -13,12 +13,12 @@ import {
   PatientDTOSexEnum,
   WardDTO,
 } from "../../../../generated";
-import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 import {
   differenceInDays,
   formatAllFieldValues,
   getFromFields,
 } from "../../../../libraries/formDataHandling/functions";
+import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 import {
   getDiseasesIpdIn,
   getDiseasesIpdOut,
@@ -173,6 +173,8 @@ const AdmissionForm: FC<AdmissionProps> = ({
           },
         })
       : string(),
+    preTreatment: string(),
+    preAssessment: string(),
   });
 
   const formik = useFormik({
@@ -502,6 +504,36 @@ const AdmissionForm: FC<AdmissionProps> = ({
           <div className="row start-sm center-xs">
             <div className="fullWidth patientAdmissionForm__item">
               <TextField
+                field={formik.getFieldProps("preTreatment")}
+                theme="regular"
+                label={t("admission.preTreatment")}
+                multiline={true}
+                type="text"
+                isValid={isValid("preTreatment")}
+                errorText={getErrorText("preTreatment")}
+                onBlur={formik.handleBlur}
+                rows={3}
+                disabled={isLoading}
+                maxLength={2000}
+              />
+            </div>
+            <div className="fullWidth patientAdmissionForm__item">
+              <TextField
+                field={formik.getFieldProps("preAssessment")}
+                theme="regular"
+                label={t("admission.preAssessment")}
+                multiline={true}
+                type="text"
+                isValid={isValid("preAssessment")}
+                errorText={getErrorText("preAssessment")}
+                onBlur={formik.handleBlur}
+                rows={3}
+                disabled={isLoading}
+                maxLength={2000}
+              />
+            </div>
+            <div className="fullWidth patientAdmissionForm__item">
+              <TextField
                 field={formik.getFieldProps("note")}
                 theme="regular"
                 label={t("admission.note")}
@@ -512,7 +544,7 @@ const AdmissionForm: FC<AdmissionProps> = ({
                 onBlur={formik.handleBlur}
                 rows={5}
                 disabled={isLoading}
-                maxLength={65535}
+                maxLength={2000}
               />
             </div>
           </div>

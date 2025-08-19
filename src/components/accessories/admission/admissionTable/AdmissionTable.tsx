@@ -81,6 +81,8 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
         diseaseOut1: item.diseaseOut1?.description ?? "",
         diseaseOut2: item.diseaseOut2?.description ?? "",
         diseaseOut3: item.diseaseOut3?.description ?? "",
+        preTreatment: item.preTreatment ?? "",
+        preAssessment: item.preAssessment ?? "",
       };
     });
   };
