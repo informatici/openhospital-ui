@@ -143,8 +143,8 @@ const PatientTriage: FC = () => {
         })
         .catch((error) => {})
         .finally(() => setPrinting(false));
+      setActivityTransitionState("TO_RESET");
     }
-    setActivityTransitionState("TO_RESET");
   }, [dispatch, isPrinting, triageToEdit?.pex_ID]);
 
   const onSubmit = (triage: PatientExaminationDTO) => {
