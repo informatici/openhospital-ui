@@ -77,4 +77,8 @@ export const initialFields: TFields<AdmissionFormFieldName> = {
     value: "",
     type: "text",
   },
+  conditionAtAdmission: {
+    value: [],
+    type: "array",
+  },
 };

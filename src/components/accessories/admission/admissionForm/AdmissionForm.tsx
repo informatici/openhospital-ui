@@ -1,4 +1,6 @@
+import { Autocomplete } from "components/accessories/autocomplete";
 import { useFormik } from "formik";
+import { useConditionsAtAmission } from "libraries/hooks";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { get, has } from "lodash";
 import moment from "moment";
@@ -300,6 +302,8 @@ const AdmissionForm: FC<AdmissionProps> = ({
     return () => clearInterval(timer);
   }, [setFieldValue]);
 
+  const { options: conditionAtAdmissionOptions } = useConditionsAtAmission();
+
   return (
     <>
       <div className="patientAdmissionForm">
@@ -502,6 +506,21 @@ const AdmissionForm: FC<AdmissionProps> = ({
             </div>
           )}
           <div className="row start-sm center-xs">
+            <div className="fullWidth currentAdmissionForm__item">
+              <Autocomplete
+                id="conditionAtAdmission"
+                multiple
+                freeSolo
+                value={formik.values.conditionAtAdmission}
+                options={conditionAtAdmissionOptions}
+                onChange={(_, value) => {
+                  formik.setFieldValue("conditionAtAdmission", value);
+                  console.log(value);
+                }}
+                label={t("admission.conditionAtAdmission.label")}
+                placeholder={t("admission.conditionAtAdmission.label")}
+              />
+            </div>
             <div className="fullWidth patientAdmissionForm__item">
               <TextField
                 field={formik.getFieldProps("preTreatment")}

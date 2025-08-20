@@ -761,7 +761,17 @@
     "previousentries": "Admissions précédentes",
     "no_beds": "Il n'y a aucun lit dans le pavillon sélectionné",
     "preTreatment": "Traitement avant admission",
-    "preAssessment": "Bilan avant admission"
+    "preAssessment": "Bilan avant admission",
+    "conditionAtAdmission": {
+      "label": "État à l'admission",
+      "airway_obstruction": "Obstruction voies aériennes",
+      "respiratory_distress": "Détresse respiratoire",
+      "shock": "État de choc",
+      "convulsion": "Convulsion",
+      "coma": "Coma",
+      "dehydration": "Déshydratation",
+      "hypoglycemia": "Hypoglycémie"
+    }
   },
   "bill": {
     "title": "Bienvenue dans la facturation",
