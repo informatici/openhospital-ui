@@ -1,4 +1,4 @@
-import { Encounters } from "components/accessories/encounters";
+import { Encounters } from "components/accessories/encounters/Encounters";
 import { Radiology, Series, Studies } from "components/accessories/radiology";
 import PermissionDenied from "components/activities/PermissionDenied/PermissionDenied";
 import { useAppDispatch, useEncountersEnabled } from "libraries/hooks";
