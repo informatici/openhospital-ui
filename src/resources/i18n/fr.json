@@ -427,6 +427,7 @@
     "types": "Gérer les types",
     "hospitalInfo": "Informations sur l'hôpital",
     "hospital": "Hôpital",
+    "admissionState": "État d'admission",
     "encounters": "Rencontres",
     "medicalHistory": "Historique médical"
   },

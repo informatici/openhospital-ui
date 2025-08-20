@@ -1,6 +1,7 @@
 import {
   AcUnit,
   ArtTrack,
+  AssignmentTurnedIn,
   Colorize,
   ExitToApp,
   Healing,
@@ -105,6 +106,20 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
           <img src={Arrow} className="icon_toggle" alt="Accordion toggle" />
         </div>
       )}
+
+      <div
+        className={
+          "align__element patientDetails__main_menu__item " +
+          isActive("admissionState")
+        }
+        onClick={() => {
+          changeUserSection("admissionState");
+        }}
+      >
+        <AssignmentTurnedIn fontSize="small" style={{ color: "white" }} />
+        <span>{t("nav.admissionState")}:</span>
+        <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
+      </div>
 
       <div
         className={

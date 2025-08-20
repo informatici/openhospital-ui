@@ -460,6 +460,7 @@
     "types": "Manage Types",
     "hospitalInfo": "Hospital Info",
     "hospital": "Hospital",
+    "admissionState": "Admission State",
     "settings": "Settings",
     "radiology": "Radiology",
     "encounters": "Encounters",
