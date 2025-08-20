@@ -241,8 +241,10 @@ const PatientTriage: FC = () => {
                     ...initialFields.pex_body_mass_index,
                     value: (lastExamination?.pex_weight &&
                     lastExamination?.pex_height
-                      ? lastExamination.pex_weight /
-                        (lastExamination.pex_height / 100) ** 2
+                      ? (
+                          lastExamination.pex_weight /
+                          (lastExamination.pex_height / 100) ** 2
+                        ).toFixed(2)
                       : ""
                     ).toString(),
                   },
@@ -255,12 +257,20 @@ const PatientTriage: FC = () => {
                     triageToEdit.pex_weight ?? lastExamination?.pex_weight,
                   pex_body_mass_index:
                     (triageToEdit?.pex_weight && triageToEdit?.pex_height
-                      ? triageToEdit.pex_weight /
-                        (triageToEdit.pex_height / 100) ** 2
+                      ? Number(
+                          (
+                            triageToEdit.pex_weight /
+                            (triageToEdit.pex_height / 100) ** 2
+                          ).toFixed(2)
+                        )
                       : null) ??
                     (lastExamination?.pex_weight && lastExamination?.pex_height
-                      ? lastExamination.pex_weight /
-                        (lastExamination.pex_height / 100) ** 2
+                      ? Number(
+                          (
+                            lastExamination.pex_weight /
+                            (lastExamination.pex_height / 100) ** 2
+                          ).toFixed(2)
+                        )
                       : 0),
                 })
           }
