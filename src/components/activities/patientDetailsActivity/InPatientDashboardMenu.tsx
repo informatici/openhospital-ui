@@ -4,6 +4,7 @@ import {
   Colorize,
   ExitToApp,
   Healing,
+  HistoryEdu,
   LocalHospital,
   LocalHotel,
   Pageview,
@@ -88,6 +89,22 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
         <span>{t("nav.admissions")}:</span>
         <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
       </div>
+
+      {encountersEnabled && (
+        <div
+          className={
+            "align__element patientDetails__main_menu__item " +
+            isActive("medical-history")
+          }
+          onClick={() => {
+            changeUserSection("medical-history");
+          }}
+        >
+          <HistoryEdu fontSize="small" style={{ color: "white" }} />
+          <span>{t("nav.medicalHistory")}:</span>
+          <img src={Arrow} className="icon_toggle" alt="Accordion toggle" />
+        </div>
+      )}
 
       <div
         className={
