@@ -261,7 +261,8 @@
     "motheroccupation": "Mother's occupation",
     "motherphone": "Mother's phone number",
     "motherage": "Mother's age",
-    "encounters": "Encounters"
+    "encounters": "Encounters",
+    "conditioning": "Conditioning"
   },
   "opd": {
     "newopd": "Create new OPD Visit",
@@ -461,7 +462,8 @@
     "hospital": "Hospital",
     "settings": "Settings",
     "radiology": "Radiology",
-    "encounters": "Encounters"
+    "encounters": "Encounters",
+    "conditioning": "Conditioning"
   },
   "operation": {
     "newoperation": "New Operation",

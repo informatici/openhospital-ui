@@ -228,7 +228,8 @@
     "motheroccupation": "Occupation de la mère",
     "motherphone": "Téléphone de la mère",
     "motherage": "Age de la mère",
-    "encounters": "Rencontres"
+    "encounters": "Rencontres",
+    "conditioning": "Mise en condition"
   },
   "opd": {
     "newopd": "Créer une nouvelle visite OPD",
@@ -426,7 +427,8 @@
     "types": "Gérer les types",
     "hospitalInfo": "Informations sur l'hôpital",
     "hospital": "Hôpital",
-    "encounters": "Rencontres"
+    "encounters": "Rencontres",
+    "conditioning": "Mise en condition"
   },
   "operation": {
     "newoperation": "Nouvelle opération",

@@ -8,6 +8,7 @@ import { useTranslation } from "react-i18next";
 import { Navigate, Route, Routes } from "react-router";
 import { getAllSettings } from "state/settings";
 import PatientAdmission from "../../components/accessories/admission/PatientAdmission";
+import { Conditioning } from "../../components/accessories/conditioning";
 import PatientExams from "../../components/accessories/patientExams/PatientExams";
 import PatientOperation from "../../components/accessories/patientOperation/PatientOperation";
 import PatientSummary from "../../components/accessories/patientSummary/PatientSummary";
@@ -83,6 +84,18 @@ export const PatientDetailsRoutes: FC = () => {
             }
           />
         )}
+        {encountersEnabled && (
+          <Route
+            path="conditioning"
+            element={
+              <PatientDetailsContent
+                title={t("patient.conditioning")}
+                content={Conditioning}
+              />
+            }
+          />
+        )}
+
         <Route
           path="admissions"
           element={
