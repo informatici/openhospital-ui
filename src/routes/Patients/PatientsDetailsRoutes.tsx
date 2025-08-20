@@ -1,3 +1,4 @@
+import { Encounters } from "components/accessories/encounters/Encounters";
 import { Radiology, Series, Studies } from "components/accessories/radiology";
 import PermissionDenied from "components/activities/PermissionDenied/PermissionDenied";
 import { useAppDispatch, useEncountersEnabled } from "libraries/hooks";
@@ -8,7 +9,6 @@ import { Navigate, Route, Routes } from "react-router";
 import { getAllSettings } from "state/settings";
 import PatientAdmission from "../../components/accessories/admission/PatientAdmission";
 import { Conditioning } from "../../components/accessories/conditioning";
-import { Encounters } from "../../components/accessories/encounters/Encounters";
 import PatientExams from "../../components/accessories/patientExams/PatientExams";
 import PatientOperation from "../../components/accessories/patientOperation/PatientOperation";
 import PatientSummary from "../../components/accessories/patientSummary/PatientSummary";
