@@ -506,7 +506,7 @@ const AdmissionForm: FC<AdmissionProps> = ({
             </div>
           )}
           <div className="row start-sm center-xs">
-            <div className="fullWidth currentAdmissionForm__item">
+            <div className="fullWidth patientAdmissionForm__item">
               <Autocomplete
                 id="conditionAtAdmission"
                 multiple
