@@ -196,15 +196,7 @@ const PatientTriage: FC = () => {
   };
 
   const onEdit = (row: PatientExaminationDTO) => {
-    if (row.pex_height && row.pex_weight) {
-      const updatedrow = {
-        ...row,
-        pex_body_mass_index: row.pex_weight / (row.pex_height / 100) ** 2,
-      };
-      setTriageToEdit(updatedrow);
-    } else {
-      setTriageToEdit({ ...row });
-    }
+    setTriageToEdit(row);
     setCreationMode(false);
     scrollToElement(null);
   };
@@ -290,7 +282,9 @@ const PatientTriage: FC = () => {
               : t("examination.updatesuccess", { code: triageToEdit.pex_ID })
           }
           primaryButtonLabel="Ok"
-          handlePrimaryButtonClick={handlePrint}
+          handlePrimaryButtonClick={() =>
+            setActivityTransitionState("TO_RESET")
+          }
           handleSecondaryButtonClick={() => ({})}
         />
       </Permission>
