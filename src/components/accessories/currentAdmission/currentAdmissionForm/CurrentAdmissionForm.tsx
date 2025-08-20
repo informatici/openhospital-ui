@@ -1,4 +1,6 @@
+import { Autocomplete } from "components/accessories/autocomplete";
 import { useFormik } from "formik";
+import { useConditionsAtAmission } from "libraries/hooks";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { get, has } from "lodash";
 import React, {
@@ -166,6 +168,8 @@ export const CurrentAdmissionForm: FunctionComponent<IOwnProps> = ({
 
   const isLoading = status === "LOADING";
 
+  const { options: conditionAtAdmissionOptions } = useConditionsAtAmission();
+
   return (
     <>
       <form className="currentAdmissionForm" onSubmit={formik.handleSubmit}>
@@ -233,6 +237,21 @@ export const CurrentAdmissionForm: FunctionComponent<IOwnProps> = ({
               options={renderOptions(diagnosisInList)}
               loading={diagnosisInStatus === "LOADING"}
               disabled={isLoading}
+            />
+          </div>
+          <div className="fullWidth currentAdmissionForm__item">
+            <Autocomplete
+              id="conditionAtAdmission"
+              multiple
+              freeSolo
+              value={formik.values.conditionAtAdmission}
+              options={conditionAtAdmissionOptions}
+              onChange={(_, value) => {
+                formik.setFieldValue("conditionAtAdmission", value);
+                console.log(value);
+              }}
+              label={t("admission.conditionAtAdmission.label")}
+              placeholder={t("admission.conditionAtAdmission.label")}
             />
           </div>
           <div className="fullWidth currentAdmissionForm__item">
