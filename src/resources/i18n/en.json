@@ -262,6 +262,7 @@
     "motherphone": "Mother's phone number",
     "motherage": "Mother's age",
     "encounters": "Encounters",
+    "conditioning": "Conditioning",
     "medicalHistory": "Medical History"
   },
   "opd": {
@@ -463,8 +464,7 @@
     "admissionState": "Admission State",
     "settings": "Settings",
     "radiology": "Radiology",
-    "encounters": "Encounters",
-    "medicalHistory": "Medical History"
+    "encounters": "Encounters"
   },
   "operation": {
     "newoperation": "New Operation",
@@ -798,7 +798,17 @@
     "previousentries": "Previous Admissions",
     "no_beds": "There is not beds in the selected ward",
     "preTreatment": "Pre-admission treatment",
-    "preAssessment": "Pre-admission assessment"
+    "preAssessment": "Pre-admission assessment",
+    "conditionAtAdmission": {
+      "label": "Condition at admission",
+      "airway_obstruction": "Airway obstruction",
+      "respiratory_distress": "Respiratory distress",
+      "shock": "Shock",
+      "convulsion": "Convulsion",
+      "coma": "Coma",
+      "dehydration": "Dehydration",
+      "hypoglycemia": "Hypoglycemia"
+    }
   },
   "bill": {
     "title": "Welcome to Billing",

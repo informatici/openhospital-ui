@@ -12,7 +12,8 @@ export type TCurrentAdmissionFieldName =
   | "fhu"
   | "note"
   | "preTreatment"
-  | "preAssessment";
+  | "preAssessment"
+  | "conditionAtAdmission";
 
 export type TActivityTransitionState = "IDLE" | "TO_RESET" | "FAIL";
 

@@ -46,5 +46,11 @@ export const initialFields = (
       value: "",
       type: "text",
     },
+    conditionAtAdmission: {
+      value: "",
+      type: "text",
+      options: [],
+      isArray: true,
+    },
   };
 };

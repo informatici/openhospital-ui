@@ -200,6 +200,12 @@ export interface AdmissionDTO {
      */
     preAssessment?: string;
     /**
+     * Patient\'s condition at the time of admission. Stored as a list of descriptors (e.g., stable, critical, unconscious).
+     * @type {Array<string>}
+     * @memberof AdmissionDTO
+     */
+    conditionAtAdmission?: Array<string>;
+    /**
      * User id
      * @type {string}
      * @memberof AdmissionDTO
@@ -223,13 +229,13 @@ export interface AdmissionDTO {
      */
     deleted: string;
     /**
-     * @type {number}
-     * @memberof AdmissionDTO
-     */
-    yprog?: number;
-    /**
      * @type {string}
      * @memberof AdmissionDTO
      */
     fhu?: string;
+    /**
+     * @type {number}
+     * @memberof AdmissionDTO
+     */
+    yprog?: number;
 }

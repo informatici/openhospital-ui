@@ -32,4 +32,5 @@ export type AdmissionFormFieldName =
   | "cliDiaryCharge"
   | "imageryCharge"
   | "preTreatment"
-  | "preAssessment";
+  | "preAssessment"
+  | "conditionAtAdmission";

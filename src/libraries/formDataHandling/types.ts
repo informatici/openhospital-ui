@@ -11,7 +11,8 @@ export type TFieldType =
   | "date"
   | "select"
   | "decimal"
-  | "boolean";
+  | "boolean"
+  | "array";
 
 export type TFieldFormattedValue = string | number | any;
 
@@ -24,7 +25,7 @@ export interface IForm<T extends string, U> {
 }
 
 export interface IFieldContent {
-  value: string;
+  value: string | string[];
   type: TFieldType;
   isEnabled?: boolean;
   isVisible?: boolean;

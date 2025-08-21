@@ -85,6 +85,10 @@ export const useFields = (
       value: admission?.preAssessment ?? "",
       type: "text",
     },
+    conditionAtAdmission: {
+      value: admission?.conditionAtAdmission ?? [],
+      type: "array",
+    },
   };
 
   return fields;
