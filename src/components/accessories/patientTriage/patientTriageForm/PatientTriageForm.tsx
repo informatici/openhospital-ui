@@ -100,7 +100,9 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
         },
       }),
     pex_pex_body_mass_index: number(),
-    pex_pex_branchial_perimeter: number(),
+    pex_pex_branchial_perimeter: number()
+      .min(5, t("common.greaterthan", { value: 5 }))
+      .max(60, t("common.lessthan", { value: 60 })),
   });
   const initialValues = getFromFields(fields, "value");
   const options = getFromFields(fields, "options");

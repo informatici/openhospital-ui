@@ -34,7 +34,7 @@ export const getFromFields = (
     }
     if (fieldAddress === "value") {
       acc[key] = fields[key].isArray
-        ? JSON.parse(fields[key][fieldAddress])
+        ? JSON.parse(fields[key][fieldAddress]?.toString())
         : fields[key][fieldAddress];
     } else {
       acc[key] = fields[key][fieldAddress];
@@ -59,7 +59,6 @@ export const parseDate = (raw: string, withTimezone: boolean = true) => {
     return "";
   }
 };
-
 
 export const parseDateTime = (
   raw: string,

@@ -50,22 +50,6 @@ const OutPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
     >
       <h6>{t("patient.usersections")}</h6>
 
-      <div
-        className={"patientDetails__main_menu__item " + isActive("admissions")}
-        onClick={() => {
-          changeUserSection("admissions");
-        }}
-      >
-        <LocalHotel
-          fontSize="small"
-          style={{
-            color: "white",
-          }}
-        />
-        <span>{t("nav.admissions")}:</span>
-        <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
-      </div>
-
       {encountersEnabled && (
         <div
           className={
@@ -85,6 +69,35 @@ const OutPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
           <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
         </div>
       )}
+
+      {encountersEnabled && (
+        <div
+          className={
+            "patientDetails__main_menu__item " + isActive("conditioning")
+          }
+          onClick={() => changeUserSection("conditioning")}
+        >
+          <Healing fontSize="small" style={{ color: "white" }} />
+          <span>{t("nav.conditioning")}:</span>
+          <img src={Arrow} className="icon_toggle" alt="Accordion toggle" />
+        </div>
+      )}
+
+      <div
+        className={"patientDetails__main_menu__item " + isActive("admissions")}
+        onClick={() => {
+          changeUserSection("admissions");
+        }}
+      >
+        <LocalHotel
+          fontSize="small"
+          style={{
+            color: "white",
+          }}
+        />
+        <span>{t("nav.admissions")}:</span>
+        <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
+      </div>
 
       <div
         className={

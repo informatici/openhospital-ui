@@ -1,4 +1,6 @@
+import { Autocomplete } from "components/accessories/autocomplete";
 import { useFormik } from "formik";
+import { useConditionsAtAmission } from "libraries/hooks";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { get, has } from "lodash";
 import moment from "moment";
@@ -13,12 +15,12 @@ import {
   PatientDTOSexEnum,
   WardDTO,
 } from "../../../../generated";
-import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 import {
   differenceInDays,
   formatAllFieldValues,
   getFromFields,
 } from "../../../../libraries/formDataHandling/functions";
+import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 import {
   getDiseasesIpdIn,
   getDiseasesIpdOut,
@@ -173,6 +175,8 @@ const AdmissionForm: FC<AdmissionProps> = ({
           },
         })
       : string(),
+    preTreatment: string(),
+    preAssessment: string(),
   });
 
   const formik = useFormik({
@@ -297,6 +301,8 @@ const AdmissionForm: FC<AdmissionProps> = ({
     }, 1000);
     return () => clearInterval(timer);
   }, [setFieldValue]);
+
+  const { options: conditionAtAdmissionOptions } = useConditionsAtAmission();
 
   return (
     <>
@@ -501,6 +507,51 @@ const AdmissionForm: FC<AdmissionProps> = ({
           )}
           <div className="row start-sm center-xs">
             <div className="fullWidth patientAdmissionForm__item">
+              <Autocomplete
+                id="conditionAtAdmission"
+                multiple
+                freeSolo
+                value={formik.values.conditionAtAdmission}
+                options={conditionAtAdmissionOptions}
+                onChange={(_, value) => {
+                  formik.setFieldValue("conditionAtAdmission", value);
+                  console.log(value);
+                }}
+                label={t("admission.conditionAtAdmission.label")}
+                placeholder={t("admission.conditionAtAdmission.label")}
+              />
+            </div>
+            <div className="fullWidth patientAdmissionForm__item">
+              <TextField
+                field={formik.getFieldProps("preTreatment")}
+                theme="regular"
+                label={t("admission.preTreatment")}
+                multiline={true}
+                type="text"
+                isValid={isValid("preTreatment")}
+                errorText={getErrorText("preTreatment")}
+                onBlur={formik.handleBlur}
+                rows={3}
+                disabled={isLoading}
+                maxLength={2000}
+              />
+            </div>
+            <div className="fullWidth patientAdmissionForm__item">
+              <TextField
+                field={formik.getFieldProps("preAssessment")}
+                theme="regular"
+                label={t("admission.preAssessment")}
+                multiline={true}
+                type="text"
+                isValid={isValid("preAssessment")}
+                errorText={getErrorText("preAssessment")}
+                onBlur={formik.handleBlur}
+                rows={3}
+                disabled={isLoading}
+                maxLength={2000}
+              />
+            </div>
+            <div className="fullWidth patientAdmissionForm__item">
               <TextField
                 field={formik.getFieldProps("note")}
                 theme="regular"
@@ -512,7 +563,7 @@ const AdmissionForm: FC<AdmissionProps> = ({
                 onBlur={formik.handleBlur}
                 rows={5}
                 disabled={isLoading}
-                maxLength={65535}
+                maxLength={2000}
               />
             </div>
           </div>

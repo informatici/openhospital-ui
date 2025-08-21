@@ -10,7 +10,10 @@ export type TCurrentAdmissionFieldName =
   | "admType"
   | "diseaseIn"
   | "fhu"
-  | "note";
+  | "note"
+  | "preTreatment"
+  | "preAssessment"
+  | "conditionAtAdmission";
 
 export type TActivityTransitionState = "IDLE" | "TO_RESET" | "FAIL";
 
