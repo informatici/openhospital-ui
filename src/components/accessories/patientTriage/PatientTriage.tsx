@@ -143,8 +143,8 @@ const PatientTriage: FC = () => {
         })
         .catch((error) => {})
         .finally(() => setPrinting(false));
+      setActivityTransitionState("TO_RESET");
     }
-    setActivityTransitionState("TO_RESET");
   }, [dispatch, isPrinting, triageToEdit?.pex_ID]);
 
   const onSubmit = (triage: PatientExaminationDTO) => {
@@ -237,6 +237,17 @@ const PatientTriage: FC = () => {
                     ...initialFields.pex_weight,
                     value: lastExamination?.pex_weight?.toString() ?? "",
                   },
+                  pex_body_mass_index: {
+                    ...initialFields.pex_body_mass_index,
+                    value: (lastExamination?.pex_weight &&
+                    lastExamination?.pex_height
+                      ? (
+                          lastExamination.pex_weight /
+                          (lastExamination.pex_height / 100) ** 2
+                        ).toFixed(2)
+                      : ""
+                    ).toString(),
+                  },
                 }
               : updateTriageFields(initialFields, {
                   ...triageToEdit,
@@ -244,6 +255,23 @@ const PatientTriage: FC = () => {
                     triageToEdit.pex_height ?? lastExamination?.pex_height,
                   pex_weight:
                     triageToEdit.pex_weight ?? lastExamination?.pex_weight,
+                  pex_body_mass_index:
+                    (triageToEdit?.pex_weight && triageToEdit?.pex_height
+                      ? Number(
+                          (
+                            triageToEdit.pex_weight /
+                            (triageToEdit.pex_height / 100) ** 2
+                          ).toFixed(2)
+                        )
+                      : null) ??
+                    (lastExamination?.pex_weight && lastExamination?.pex_height
+                      ? Number(
+                          (
+                            lastExamination.pex_weight /
+                            (lastExamination.pex_height / 100) ** 2
+                          ).toFixed(2)
+                        )
+                      : 0),
                 })
           }
           creationMode={creationMode}
@@ -282,7 +310,9 @@ const PatientTriage: FC = () => {
               : t("examination.updatesuccess", { code: triageToEdit.pex_ID })
           }
           primaryButtonLabel="Ok"
-          handlePrimaryButtonClick={handlePrint}
+          handlePrimaryButtonClick={() =>
+            setActivityTransitionState("TO_RESET")
+          }
           handleSecondaryButtonClick={() => ({})}
         />
       </Permission>

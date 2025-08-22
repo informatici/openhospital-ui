@@ -412,7 +412,9 @@
     "crackles": "Crackles",
     "stridor": "Stridor",
     "bronchial": "Bronchial",
-    "previousentries": "Previous Triages"
+    "previousentries": "Previous Triages",
+    "bodymassindex": "Body mass index (kg/m²)",
+    "branchialperimeter": "Branchial perimeter (cm)"
   },
   "nav": {
     "pharmacy": "Pharmacy",

@@ -8133,6 +8133,16 @@ components:
           format: int32
           description: Lock
           example: 0
+        pex_body_mass_index:
+          type: number
+          format: double
+          description: Body mass index
+          example: 39.6
+        pex_branchial_perimeter:
+          type: number
+          format: double
+          description: Branchial perimeter
+          example: 3.5
       required:
         - patientCode
         - pex_date
