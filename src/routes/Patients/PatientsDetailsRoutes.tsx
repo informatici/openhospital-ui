@@ -68,10 +68,11 @@ export const PatientDetailsRoutes: FC = () => {
         <Route
           index
           element={
-            <Navigate
-              to={encountersEnabled ? "encounters" : "admissions"}
-              replace
-            />
+            encountersEnabled ? (
+              <Navigate to={"encounters"} replace={true} />
+            ) : (
+              <Navigate to={"admissions"} replace={true} />
+            )
           }
         />
         {encountersEnabled && (

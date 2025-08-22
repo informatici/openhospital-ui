@@ -11,6 +11,7 @@ import {
   Pageview,
   SettingsApplications,
 } from "@mui/icons-material";
+import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import { useEncountersEnabled } from "libraries/hooks";
 import { usePermission } from "libraries/permissionUtils/usePermission";
 import React, { FunctionComponent, useCallback } from "react";
@@ -82,7 +83,7 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
           }
           onClick={() => changeUserSection("conditioning")}
         >
-          <Healing fontSize="small" style={{ color: "white" }} />
+          <FormatListBulletedIcon fontSize="small" style={{ color: "white" }} />
           <span>{t("nav.conditioning")}:</span>
           <img src={Arrow} className="icon_toggle" alt="Accordion toggle" />
         </div>
