@@ -229,7 +229,8 @@
     "motherphone": "Téléphone de la mère",
     "motherage": "Age de la mère",
     "encounters": "Rencontres",
-    "conditioning": "Mise en condition"
+    "conditioning": "Mise en condition",
+    "medicalHistory": "Antécédent médical"
   },
   "opd": {
     "newopd": "Créer une nouvelle visite OPD",
@@ -430,7 +431,8 @@
     "hospitalInfo": "Informations sur l'hôpital",
     "hospital": "Hôpital",
     "encounters": "Rencontres",
-    "conditioning": "Mise en condition"
+    "conditioning": "Mise en condition",
+    "medicalHistory": "Antécédent médical"
   },
   "operation": {
     "newoperation": "Nouvelle opération",

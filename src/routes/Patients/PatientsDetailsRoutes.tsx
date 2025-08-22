@@ -1,4 +1,5 @@
 import { Encounters } from "components/accessories/encounters/Encounters";
+import { MedicalHistory } from "components/accessories/medicalhistory/MedicalHistory";
 import { Radiology, Series, Studies } from "components/accessories/radiology";
 import PermissionDenied from "components/activities/PermissionDenied/PermissionDenied";
 import { useAppDispatch, useEncountersEnabled } from "libraries/hooks";
@@ -92,6 +93,18 @@ export const PatientDetailsRoutes: FC = () => {
               <PatientDetailsContent
                 title={t("patient.conditioning")}
                 content={Conditioning}
+              />
+            }
+          />
+        )}
+
+        {encountersEnabled && (
+          <Route
+            path="medical-history"
+            element={
+              <PatientDetailsContent
+                title={t("patient.medicalHistory")}
+                content={MedicalHistory}
               />
             }
           />

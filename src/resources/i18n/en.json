@@ -262,7 +262,8 @@
     "motherphone": "Mother's phone number",
     "motherage": "Mother's age",
     "encounters": "Encounters",
-    "conditioning": "Conditioning"
+    "conditioning": "Conditioning",
+    "medicalHistory": "Medical History"
   },
   "opd": {
     "newopd": "Create new OPD Visit",
@@ -462,10 +463,12 @@
     "types": "Manage Types",
     "hospitalInfo": "Hospital Info",
     "hospital": "Hospital",
+    "admissionState": "Admission State",
     "settings": "Settings",
     "radiology": "Radiology",
     "encounters": "Encounters",
-    "conditioning": "Conditioning"
+    "conditioning": "Conditioning",
+    "medicalHistory": "Medical History"
   },
   "operation": {
     "newoperation": "New Operation",

@@ -3,6 +3,7 @@ import {
   ArtTrack,
   Colorize,
   Healing,
+  HistoryEdu,
   LocalHospital,
   LocalHotel,
   Pageview,
@@ -80,6 +81,22 @@ const OutPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
         >
           <FormatListBulletedIcon fontSize="small" style={{ color: "white" }} />
           <span>{t("nav.conditioning")}:</span>
+          <img src={Arrow} className="icon_toggle" alt="Accordion toggle" />
+        </div>
+      )}
+
+      {encountersEnabled && (
+        <div
+          className={
+            "align__element patientDetails__main_menu__item " +
+            isActive("medical-history")
+          }
+          onClick={() => {
+            changeUserSection("medical-history");
+          }}
+        >
+          <HistoryEdu fontSize="small" style={{ color: "white" }} />
+          <span>{t("nav.medicalHistory")}:</span>
           <img src={Arrow} className="icon_toggle" alt="Accordion toggle" />
         </div>
       )}
