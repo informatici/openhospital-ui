@@ -7,6 +7,7 @@ export * from './DeliveryTypeApi';
 export * from './DischargeTypeApi';
 export * from './DiseaseTypesApi';
 export * from './DiseasesApi';
+export * from './EncounterApi';
 export * from './ExamRowsApi';
 export * from './ExamTypesApi';
 export * from './ExaminationsApi';

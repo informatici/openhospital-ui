@@ -380,6 +380,18 @@
     "bronchial": "Bronchial",
     "previousentries": "Triages précédentes"
   },
+  "encounter": {
+    "code": "Code de la rencontre",
+    "newencounter": "Nouvelle rencontre",
+    "editencounter": "Modifier la rencontre",
+    "previousentries": "Rencontres précédentes",
+    "status": "Statut de la rencontre",
+    "patientalreadyhaveencuonter": "Le patient a déjà une rencontre.",
+    "createsuccess": "Rencontre créée avec succès",
+    "updatesuccess": "Rencontre mis à jour avec succès",
+    "created": "Rencontre créée",
+    "updated": "Rencontre mis à jour"
+  },
   "nav": {
     "pharmacy": "Pharmacie",
     "ward": "Pavillon",

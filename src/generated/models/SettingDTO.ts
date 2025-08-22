@@ -85,7 +85,8 @@ export enum SettingDTOCategoryEnum {
     Reports = 'reports',
     Pharmacy = 'pharmacy',
     Gui = 'gui',
-    Application = 'application'
+    Application = 'application',
+    Integration = 'integration'
 }
 /**
  * @export

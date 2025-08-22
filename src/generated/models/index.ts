@@ -10,6 +10,7 @@ export * from './DeliveryTypeDTO';
 export * from './DischargeTypeDTO';
 export * from './DiseaseDTO';
 export * from './DiseaseTypeDTO';
+export * from './EncounterDTO';
 export * from './ExamDTO';
 export * from './ExamRowDTO';
 export * from './ExamTypeDTO';
