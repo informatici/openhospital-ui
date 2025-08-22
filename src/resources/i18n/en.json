@@ -466,7 +466,9 @@
     "admissionState": "Admission State",
     "settings": "Settings",
     "radiology": "Radiology",
-    "encounters": "Encounters"
+    "encounters": "Encounters",
+    "conditioning": "Conditioning",
+    "medicalHistory": "Medical History"
   },
   "operation": {
     "newoperation": "New Operation",

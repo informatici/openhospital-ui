@@ -430,7 +430,9 @@
     "types": "Gérer les types",
     "hospitalInfo": "Informations sur l'hôpital",
     "hospital": "Hôpital",
-    "encounters": "Rencontres"
+    "encounters": "Rencontres",
+    "conditioning": "Mise en condition",
+    "medicalHistory": "Historique médical"
   },
   "operation": {
     "newoperation": "Nouvelle opération",
