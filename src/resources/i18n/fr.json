@@ -230,7 +230,7 @@
     "motherage": "Age de la mère",
     "encounters": "Rencontres",
     "conditioning": "Mise en condition",
-    "medicalHistory": "Historique médical"
+    "medicalHistory": "Antécédent médical"
   },
   "opd": {
     "newopd": "Créer une nouvelle visite OPD",
@@ -432,7 +432,7 @@
     "hospital": "Hôpital",
     "encounters": "Rencontres",
     "conditioning": "Mise en condition",
-    "medicalHistory": "Historique médical"
+    "medicalHistory": "Antécédent médical"
   },
   "operation": {
     "newoperation": "Nouvelle opération",
