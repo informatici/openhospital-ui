@@ -16,10 +16,8 @@ export const CurrentEncounter: FunctionComponent<IOwnProps> = ({
   const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const currentEncounter = useAppSelector((state: IState) =>
-    state.encounters.getEncountersByPatient.data
-      ? state.encounters.getEncountersByPatient.data[0]
-      : undefined
+  const currentEncounter = useAppSelector(
+    (state: IState) => state.encounters.getCurrentEncounterByPatient.data
   );
 
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);

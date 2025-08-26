@@ -17,12 +17,6 @@
  */
 export interface EncounterDTO {
     /**
-     * Id of the encounter
-     * @type {number}
-     * @memberof EncounterDTO
-     */
-    id?: number;
-    /**
      * Code of the encounter
      * @type {string}
      * @memberof EncounterDTO

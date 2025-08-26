@@ -32,7 +32,7 @@ export interface GetEncountersByPatientRequest {
 }
 
 export interface UpdateEncounterCodeRequest {
-    id: number;
+    code: string;
     body: string;
 }
 
@@ -100,10 +100,10 @@ export class EncounterApi extends BaseAPI {
 
     /**
      */
-    updateEncounterCode({ id, body }: UpdateEncounterCodeRequest): Observable<EncounterDTO>
-    updateEncounterCode({ id, body }: UpdateEncounterCodeRequest, opts?: OperationOpts): Observable<AjaxResponse<EncounterDTO>>
-    updateEncounterCode({ id, body }: UpdateEncounterCodeRequest, opts?: OperationOpts): Observable<EncounterDTO | AjaxResponse<EncounterDTO>> {
-        throwIfNullOrUndefined(id, 'id', 'updateEncounterCode');
+    updateEncounterCode({ code, body }: UpdateEncounterCodeRequest): Observable<EncounterDTO>
+    updateEncounterCode({ code, body }: UpdateEncounterCodeRequest, opts?: OperationOpts): Observable<AjaxResponse<EncounterDTO>>
+    updateEncounterCode({ code, body }: UpdateEncounterCodeRequest, opts?: OperationOpts): Observable<EncounterDTO | AjaxResponse<EncounterDTO>> {
+        throwIfNullOrUndefined(code, 'code', 'updateEncounterCode');
         throwIfNullOrUndefined(body, 'body', 'updateEncounterCode');
 
         const headers: HttpHeaders = {
@@ -111,7 +111,7 @@ export class EncounterApi extends BaseAPI {
         };
 
         return this.request<EncounterDTO>({
-            url: '/encounters/{id}'.replace('{id}', encodeURI(id)),
+            url: '/encounters/{code}'.replace('{code}', encodeURI(code)),
             method: 'PATCH',
             headers,
             body: body as any,

@@ -3387,18 +3387,17 @@ paths:
                 type: boolean
       security:
       - bearerAuth: []
-  /encounters/{id}:
+  /encounters/{code}:
     patch:
       tags:
       - Encounter
       operationId: updateEncounterCode
       parameters:
-      - name: id
+      - name: code
         in: path
         required: true
         schema:
-          type: integer
-          format: int32
+          type: string
       requestBody:
         content:
           application/json:
@@ -6621,11 +6620,11 @@ components:
           example: 0
         opd:
           type: boolean
-        pharmacy:
-          type: boolean
         female:
           type: boolean
         male:
+          type: boolean
+        pharmacy:
           type: boolean
       required:
       - beds
@@ -7429,11 +7428,11 @@ components:
           type: string
           description: "Flag record deleted, values are 'Y' OR 'N' "
           example: "N"
+        fhu:
+          type: string
         yprog:
           type: integer
           format: int32
-        fhu:
-          type: string
       required:
       - admDate
       - admitted
@@ -8645,11 +8644,6 @@ components:
     EncounterDTO:
       type: object
       properties:
-        id:
-          type: integer
-          format: int32
-          description: Id of the encounter
-          example: 1
         code:
           type: string
           description: Code of the encounter

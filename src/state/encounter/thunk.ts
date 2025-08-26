@@ -24,8 +24,8 @@ export const updateEncounterStatus = createAsyncThunk(
 
 export const updateEncounterCode = createAsyncThunk(
   "encounter/UPDATE_ENCOUNTER_CODE",
-  async ({ id, body }: Param, thunkApi) =>
-    wrapper(() => api.updateEncounterCode({ id: id, body: body }))
+  async ({ code, body }: Param, thunkApi) =>
+    wrapper(() => api.updateEncounterCode({ code: code, body: body }))
       .toPromise()
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );

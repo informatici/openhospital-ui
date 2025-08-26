@@ -1,4 +1,4 @@
 export type Param = {
-  id: number;
+  code: string;
   body: string;
 };

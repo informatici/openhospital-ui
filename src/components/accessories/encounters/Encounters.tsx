@@ -89,7 +89,7 @@ export const Encounters = () => {
       dispatch(createEncounter(enc));
     } else {
       const param: Param = {
-        id: encounterToEdit?.id!,
+        code: encounterToEdit?.code!,
         body: enc.code.toString(),
       };
       dispatch(updateEncounterCode(param));
