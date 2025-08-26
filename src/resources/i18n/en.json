@@ -636,6 +636,42 @@
     "printData": "Print Data",
     "failedtodownloadthereport": "Failed to download report."
   },
+
+  "medicalHistory": {
+    "physiological": {
+      "title": "Physiological History",
+      "siblingRank": "Sibling Rank",
+      "pregnancyTerm": "Pregnancy Term",
+      "deliveryMode": "Delivery Mode",
+      "apgarScore": "Apgar Score",
+      "birthWeight": "Birth Weight",
+      "vaccinationStatus": "Vaccination Status",
+      "malariaProphylaxis": "Anti-malaria Prophylaxis",
+      "diet": "Diet",
+      "deworming": "Deworming",
+      "psychomotorDevelopment": "Psychomotor Development",
+      "somaticGrowth": "Somatic Growth",
+      "ironSupplement": "Iron Supplementation",
+      "folicAcidSupplement": "Folic Acid Supplementation",
+      "vitASupplement": "Vitamin A Supplementation",
+      "otherSupplements": "Other Supplements"
+    },
+    "personalPathological": {
+      "title": "Personal Pathological History",
+      "transfusion": "Transfusion",
+      "lastTransfusionDate": "Date of Last Transfusion",
+      "sickleCell": "Sickle Cell Disease",
+      "drugAllergy": "Drug Allergy",
+      "allergyDetails": "Allergy Details",
+      "hemolysis": "Hemolysis",
+      "otherPathologies": "Other Personal Pathologies"
+    },
+    "familyPathological": {
+      "title": "Family Pathological History",
+      "otherFamilyPathologies": "Other Family Pathologies"
+    }
+  },
+
   "permission": {
     "denied": "Permission denied",
     "unauthorized": "Unauthorized",
