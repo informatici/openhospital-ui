@@ -1,4 +1,4 @@
-import { EncounterDTO, EncounterDTOStatusEnum } from "generated";
+import { EncounterDTO } from "generated";
 import { useAppDispatch, useAppSelector } from "libraries/hooks";
 import { usePermission } from "libraries/permissionUtils/usePermission";
 import { scrollToElement } from "libraries/uiUtils/scrollToElement";
@@ -84,13 +84,13 @@ export const Encounters = () => {
   const onSubmit = (enc: EncounterDTO) => {
     setShouldResetForm(false);
     if (creationMode) {
-      enc.status = EncounterDTOStatusEnum.Open;
       enc.patientCode = patient?.code!;
       dispatch(createEncounter(enc));
     } else {
+      enc.patientCode = patient?.code!;
       const param: Param = {
         code: encounterToEdit?.code!,
-        body: enc.code.toString(),
+        body: enc,
       };
       dispatch(updateEncounterCode(param));
     }
@@ -159,7 +159,10 @@ export const Encounters = () => {
           />
         )}
         {!showForm && currentEncounter && (
-          <CurrentEncounter onEditChange={onCurrentEncounterChange} />
+          <CurrentEncounter
+            onEditChange={onCurrentEncounterChange}
+            onEditCode={onEdit}
+          />
         )}
         {showForm && (creationMode ? canCreate : canUpdate) && (
           <EncounterForm

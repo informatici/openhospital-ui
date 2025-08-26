@@ -27,7 +27,7 @@ export interface EncounterDTO {
      * @type {string}
      * @memberof EncounterDTO
      */
-    status: EncounterDTOStatusEnum;
+    status?: EncounterDTOStatusEnum;
     /**
      * Patient id
      * @type {number}

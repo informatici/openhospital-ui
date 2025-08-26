@@ -1,4 +1,4 @@
-import { Edit } from "@mui/icons-material";
+import { Close, Edit } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 import { isEmpty } from "lodash";
 import React, { FunctionComponent } from "react";
@@ -8,11 +8,13 @@ import "../styles.scss";
 
 interface IOwnProps {
   onEdit?: () => void;
+  onEditCode?: (row: any) => void;
   encounter: EncounterDTO;
 }
 
 export const CurrentEncounterData: FunctionComponent<IOwnProps> = ({
   onEdit,
+  onEditCode,
   encounter,
 }) => {
   const { t } = useTranslation();
@@ -20,8 +22,11 @@ export const CurrentEncounterData: FunctionComponent<IOwnProps> = ({
   return (
     <div className="currentEncounterData">
       <div className="currentEncounter_leading">
-        <IconButton onClick={onEdit}>
+        <IconButton onClick={() => onEditCode && onEditCode(encounter)}>
           <Edit />
+        </IconButton>
+        <IconButton onClick={onEdit}>
+          <Close />
         </IconButton>
       </div>
       <div className="currentEncounterData__content">

@@ -3402,7 +3402,7 @@ paths:
         content:
           application/json:
             schema:
-              type: string
+              $ref: "#/components/schemas/EncounterDTO"
         required: true
       responses:
         "200":
@@ -6618,11 +6618,11 @@ components:
           format: int32
           description: lock
           example: 0
-        opd:
-          type: boolean
         male:
           type: boolean
         female:
+          type: boolean
+        opd:
           type: boolean
         pharmacy:
           type: boolean
@@ -8724,7 +8724,6 @@ components:
       required:
       - code
       - patientCode
-      - status
     TokenRefreshRequest:
       type: object
       properties:

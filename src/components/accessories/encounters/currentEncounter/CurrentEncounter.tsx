@@ -12,6 +12,7 @@ import { IOwnProps } from "./types";
 
 export const CurrentEncounter: FunctionComponent<IOwnProps> = ({
   onEditChange,
+  onEditCode,
 }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -36,6 +37,7 @@ export const CurrentEncounter: FunctionComponent<IOwnProps> = ({
       {currentEncounter && (
         <CurrentEncounterData
           onEdit={onEditChange ? handleEdit : undefined}
+          onEditCode={onEditCode}
           encounter={currentEncounter}
         />
       )}

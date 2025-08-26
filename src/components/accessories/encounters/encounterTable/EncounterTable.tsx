@@ -4,7 +4,6 @@ import React, { FunctionComponent, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { getEncountersByPatient } from "state/encounter";
 import { EncounterDTO, EncounterDTOStatusEnum } from "../../../../generated";
-import { usePermission } from "../../../../libraries/permissionUtils/usePermission";
 import InfoBox from "../../infoBox/InfoBox";
 import Table from "../../table/Table";
 
@@ -18,7 +17,6 @@ const EncounterTable: FunctionComponent<IOwnProps> = ({
   handleEdit,
 }) => {
   const { t } = useTranslation();
-  const canUpdate = usePermission("encounters.update");
 
   const header = ["code", "status"];
   const dateFields = ["code", "status"];
@@ -41,10 +39,6 @@ const EncounterTable: FunctionComponent<IOwnProps> = ({
   const patientCode = useAppSelector(
     (state) => state.patients.selectedPatient.data?.code
   );
-
-  const onEdit = (row: EncounterDTO) => {
-    handleEdit(data.find((item) => item.code === row?.code));
-  };
 
   useEffect(() => {
     if (shouldUpdateTable || patientCode) {
@@ -101,7 +95,7 @@ const EncounterTable: FunctionComponent<IOwnProps> = ({
                 columnsOrder={order}
                 rowsPerPage={5}
                 isCollapsabile={true}
-                onEdit={canUpdate ? onEdit : undefined}
+                onEdit={undefined}
                 initialOrderBy="disDate"
                 showEmptyCell={false}
               />

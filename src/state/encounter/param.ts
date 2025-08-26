@@ -1,4 +1,6 @@
+import { EncounterDTO } from "generated";
+
 export type Param = {
   code: string;
-  body: string;
+  body: EncounterDTO;
 };
