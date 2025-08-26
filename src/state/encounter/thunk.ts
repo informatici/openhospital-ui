@@ -2,6 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { wrapper } from "libraries/apiUtils/wrapper";
 import { EncounterApi, EncounterDTO } from "../../generated";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
+import { Param } from "./param";
 
 const api = new EncounterApi(customConfiguration());
 
@@ -17,6 +18,14 @@ export const updateEncounterStatus = createAsyncThunk(
   "encounter/UPDATE_ENCOUNTER",
   async (code: string, thunkApi) =>
     wrapper(() => api.updateEncounterStatus({ code }))
+      .toPromise()
+      .catch((error) => thunkApi.rejectWithValue(error.response))
+);
+
+export const updateEncounterCode = createAsyncThunk(
+  "encounter/UPDATE_ENCOUNTER_CODE",
+  async ({ id, body }: Param, thunkApi) =>
+    wrapper(() => api.updateEncounterCode({ id: id, body: body }))
       .toPromise()
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );

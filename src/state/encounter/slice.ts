@@ -17,6 +17,9 @@ export const encounterSlice = createSlice({
     getCurrentEncounterByPatientReset: (state) => {
       state.getCurrentEncounterByPatient = initial.getCurrentEncounterByPatient;
     },
+    updateEncounterCodeReset: (state) => {
+      state.updateEncounterCode = initial.updateEncounterCode;
+    },
     getEncountersByPatientReset: (state) => {
       state.getEncountersByPatient = initial.getEncountersByPatient;
     },
@@ -63,6 +66,16 @@ export const encounterSlice = createSlice({
           );
         }
       )
+      //Update Encounter code
+      .addCase(thunks.updateEncounterCode.pending, (state) => {
+        state.updateEncounterCode = ApiResponse.loading();
+      })
+      .addCase(thunks.updateEncounterCode.fulfilled, (state, action) => {
+        state.updateEncounterCode = ApiResponse.value(action.payload);
+      })
+      .addCase(thunks.updateEncounterCode.rejected, (state, action) => {
+        state.updateEncounterCode = ApiResponse.error(action.payload);
+      })
       // Get Encounters
       .addCase(thunks.getEncountersByPatient.pending, (state) => {
         state.getEncountersByPatient = ApiResponse.loading();
@@ -77,5 +90,8 @@ export const encounterSlice = createSlice({
       }),
 });
 
-export const { createEncounterReset, updateEncounterReset } =
-  encounterSlice.actions;
+export const {
+  createEncounterReset,
+  updateEncounterReset,
+  updateEncounterCodeReset,
+} = encounterSlice.actions;

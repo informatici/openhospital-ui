@@ -17,6 +17,12 @@
  */
 export interface EncounterDTO {
     /**
+     * Id of the encounter
+     * @type {number}
+     * @memberof EncounterDTO
+     */
+    id?: number;
+    /**
      * Code of the encounter
      * @type {string}
      * @memberof EncounterDTO
@@ -27,9 +33,9 @@ export interface EncounterDTO {
      * @type {string}
      * @memberof EncounterDTO
      */
-    status?: EncounterDTOStatusEnum;
+    status: EncounterDTOStatusEnum;
     /**
-     * Patient
+     * Patient id
      * @type {number}
      * @memberof EncounterDTO
      */

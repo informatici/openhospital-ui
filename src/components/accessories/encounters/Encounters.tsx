@@ -12,9 +12,11 @@ import {
   createEncounterReset,
   getCurrentEncounterByPatient,
   getEncountersByPatient,
+  updateEncounterCode,
+  updateEncounterCodeReset,
   updateEncounterReset,
-  updateEncounterStatus,
 } from "state/encounter";
+import { Param } from "state/encounter/param";
 import { getPatient } from "state/patients";
 import { IState } from "types";
 import checkIcon from "../../../assets/check-icon.png";
@@ -57,13 +59,13 @@ export const Encounters = () => {
   );
 
   const updateStatus = useAppSelector(
-    (state) => state.encounters.updateEncounterStatus.status
+    (state) => state.encounters.updateEncounterCode.status
   );
 
   const errorMessage = useAppSelector(
     (state) =>
       state.encounters.createEncounter.error?.message ||
-      state.encounters.updateEncounterStatus.error?.message ||
+      state.encounters.updateEncounterCode.error?.message ||
       t("common.somethingwrong")
   ) as string;
 
@@ -86,7 +88,11 @@ export const Encounters = () => {
       enc.patientCode = patient?.code!;
       dispatch(createEncounter(enc));
     } else {
-      dispatch(updateEncounterStatus(enc.code));
+      const param: Param = {
+        id: encounterToEdit?.id!,
+        body: enc.code.toString(),
+      };
+      dispatch(updateEncounterCode(param));
     }
   };
 
@@ -103,7 +109,6 @@ export const Encounters = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    console.log(currentEncounter);
     if (creationMode && !!currentEncounter) {
       setShowForm(false);
     } else setShowForm(true);
@@ -112,7 +117,7 @@ export const Encounters = () => {
   useEffect(() => {
     if (activityTransitionState === "TO_RESET") {
       dispatch(createEncounterReset());
-      dispatch(updateEncounterReset());
+      dispatch(updateEncounterCodeReset());
       setShouldUpdateTable(true);
       setShouldResetForm(true);
     }

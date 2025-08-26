@@ -423,7 +423,10 @@
     "createsuccess": "Encounter created successfully",
     "updatesuccess": "Encounter updated successfully",
     "created": "Encounter created",
-    "updated": "Encounter updated"
+    "updated": "Encounter updated",
+    "updatestatus": "Change status",
+    "updatestatusmessage": "Are you sure you want to change the status of the encounter?",
+    "change": "Change"
   },
   "nav": {
     "pharmacy": "Pharmacy",

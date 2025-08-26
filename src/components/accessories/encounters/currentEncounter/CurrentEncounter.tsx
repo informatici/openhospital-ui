@@ -1,6 +1,10 @@
+import ConfirmationDialog from "components/accessories/confirmationDialog/ConfirmationDialog";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router";
 import { updateEncounterStatus } from "state/encounter";
+import warningIcon from "../../../../assets/warning-icon.png";
 import { IState } from "../../../../types";
 import { CurrentEncounterData } from "./currentEncounterData/CurrentEncounterData";
 import "./styles.scss";
@@ -9,6 +13,8 @@ import { IOwnProps } from "./types";
 export const CurrentEncounter: FunctionComponent<IOwnProps> = ({
   onEditChange,
 }) => {
+  const { t } = useTranslation();
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const currentEncounter = useAppSelector((state: IState) =>
     state.encounters.getEncountersByPatient.data
@@ -16,8 +22,15 @@ export const CurrentEncounter: FunctionComponent<IOwnProps> = ({
       : undefined
   );
 
-  const handleEdit = () => {
+  const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
+  const updateStatusCallback = () => {
     dispatch(updateEncounterStatus(currentEncounter?.code!!));
+    setOpenResetConfirmation(false);
+    navigate(0);
+  };
+
+  const handleEdit = () => {
+    setOpenResetConfirmation(true);
   };
 
   return (
@@ -28,6 +41,16 @@ export const CurrentEncounter: FunctionComponent<IOwnProps> = ({
           encounter={currentEncounter}
         />
       )}
+      <ConfirmationDialog
+        isOpen={openResetConfirmation}
+        title={t("encounter.updatestatus").toUpperCase()}
+        info={t("encounter.updatestatusmessage")}
+        icon={warningIcon}
+        primaryButtonLabel={t("encounter.change")}
+        secondaryButtonLabel={t("common.discard")}
+        handlePrimaryButtonClick={updateStatusCallback}
+        handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
+      />
     </div>
   );
 };
