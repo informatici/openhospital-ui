@@ -207,7 +207,9 @@
     "rhonchi": "Rhonchi",
     "crackles": "Crackles",
     "stridor": "Stridor",
-    "bronchial": "Bronchial"
+    "bronchial": "Bronchial",
+    "bodymassindex": "Indice de masa corporal",
+    "branchialperimeter": "Périmètre branchial"
   },
   "nav": {
     "pharmacy": "Farmacia",

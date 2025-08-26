@@ -1,14 +1,17 @@
 import {
   AcUnit,
   ArtTrack,
+  AssignmentTurnedIn,
   Colorize,
   ExitToApp,
   Healing,
+  HistoryEdu,
   LocalHospital,
   LocalHotel,
   Pageview,
   SettingsApplications,
 } from "@mui/icons-material";
+import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import { useEncountersEnabled } from "libraries/hooks";
 import { usePermission } from "libraries/permissionUtils/usePermission";
 import React, { FunctionComponent, useCallback } from "react";
@@ -52,21 +55,6 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
       className="patientDetails__main_menu"
     >
       <h6>{t("patient.usersections")}</h6>
-      <div
-        className={"patientDetails__main_menu__item " + isActive("admissions")}
-        onClick={() => {
-          changeUserSection("admissions");
-        }}
-      >
-        <LocalHotel
-          fontSize="small"
-          style={{
-            color: "white",
-          }}
-        />
-        <span>{t("nav.admissions")}:</span>
-        <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
-      </div>
 
       {encountersEnabled && (
         <div
@@ -87,6 +75,65 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
           <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
         </div>
       )}
+
+      {encountersEnabled && (
+        <div
+          className={
+            "patientDetails__main_menu__item " + isActive("conditioning")
+          }
+          onClick={() => changeUserSection("conditioning")}
+        >
+          <FormatListBulletedIcon fontSize="small" style={{ color: "white" }} />
+          <span>{t("nav.conditioning")}:</span>
+          <img src={Arrow} className="icon_toggle" alt="Accordion toggle" />
+        </div>
+      )}
+
+      <div
+        className={"patientDetails__main_menu__item " + isActive("admissions")}
+        onClick={() => {
+          changeUserSection("admissions");
+        }}
+      >
+        <LocalHotel
+          fontSize="small"
+          style={{
+            color: "white",
+          }}
+        />
+        <span>{t("nav.admissions")}:</span>
+        <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
+      </div>
+
+      {encountersEnabled && (
+        <div
+          className={
+            "align__element patientDetails__main_menu__item " +
+            isActive("medical-history")
+          }
+          onClick={() => {
+            changeUserSection("medical-history");
+          }}
+        >
+          <HistoryEdu fontSize="small" style={{ color: "white" }} />
+          <span>{t("nav.medicalHistory")}:</span>
+          <img src={Arrow} className="icon_toggle" alt="Accordion toggle" />
+        </div>
+      )}
+
+      <div
+        className={
+          "align__element patientDetails__main_menu__item " +
+          isActive("admissionState")
+        }
+        onClick={() => {
+          changeUserSection("admissionState");
+        }}
+      >
+        <AssignmentTurnedIn fontSize="small" style={{ color: "white" }} />
+        <span>{t("nav.admissionState")}:</span>
+        <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
+      </div>
 
       <div
         className={
@@ -113,7 +160,6 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
         <span>{t("nav.triage")}:</span>
         <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
       </div>
-
       <div
         className={
           "align__element patientDetails__main_menu__item " +
@@ -127,7 +173,6 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
         <span>{t("nav.laboratory")}:</span>
         <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
       </div>
-
       {false && (
         <div
           className={
@@ -157,7 +202,6 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
         <span>{t("nav.operation")}:</span>
         <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
       </div>
-
       <Permission require="admissions.update">
         <div
           className={

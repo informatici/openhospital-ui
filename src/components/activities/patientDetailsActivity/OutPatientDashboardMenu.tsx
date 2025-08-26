@@ -3,10 +3,12 @@ import {
   ArtTrack,
   Colorize,
   Healing,
+  HistoryEdu,
   LocalHospital,
   LocalHotel,
   Pageview,
 } from "@mui/icons-material";
+import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import { useEncountersEnabled } from "libraries/hooks";
 import { usePermission } from "libraries/permissionUtils/usePermission";
 import React, { FunctionComponent, useCallback } from "react";
@@ -50,22 +52,6 @@ const OutPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
     >
       <h6>{t("patient.usersections")}</h6>
 
-      <div
-        className={"patientDetails__main_menu__item " + isActive("admissions")}
-        onClick={() => {
-          changeUserSection("admissions");
-        }}
-      >
-        <LocalHotel
-          fontSize="small"
-          style={{
-            color: "white",
-          }}
-        />
-        <span>{t("nav.admissions")}:</span>
-        <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
-      </div>
-
       {encountersEnabled && (
         <div
           className={
@@ -85,6 +71,51 @@ const OutPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
           <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
         </div>
       )}
+
+      {encountersEnabled && (
+        <div
+          className={
+            "patientDetails__main_menu__item " + isActive("conditioning")
+          }
+          onClick={() => changeUserSection("conditioning")}
+        >
+          <FormatListBulletedIcon fontSize="small" style={{ color: "white" }} />
+          <span>{t("nav.conditioning")}:</span>
+          <img src={Arrow} className="icon_toggle" alt="Accordion toggle" />
+        </div>
+      )}
+
+      {encountersEnabled && (
+        <div
+          className={
+            "align__element patientDetails__main_menu__item " +
+            isActive("medical-history")
+          }
+          onClick={() => {
+            changeUserSection("medical-history");
+          }}
+        >
+          <HistoryEdu fontSize="small" style={{ color: "white" }} />
+          <span>{t("nav.medicalHistory")}:</span>
+          <img src={Arrow} className="icon_toggle" alt="Accordion toggle" />
+        </div>
+      )}
+
+      <div
+        className={"patientDetails__main_menu__item " + isActive("admissions")}
+        onClick={() => {
+          changeUserSection("admissions");
+        }}
+      >
+        <LocalHotel
+          fontSize="small"
+          style={{
+            color: "white",
+          }}
+        />
+        <span>{t("nav.admissions")}:</span>
+        <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
+      </div>
 
       <div
         className={

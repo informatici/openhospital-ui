@@ -124,6 +124,18 @@ export interface PatientExaminationDTO {
      * @memberof PatientExaminationDTO
      */
     lock?: number;
+    /**
+     * Body mass index
+     * @type {number}
+     * @memberof PatientExaminationDTO
+     */
+    pex_body_mass_index?: number;
+    /**
+     * Branchial perimeter
+     * @type {number}
+     * @memberof PatientExaminationDTO
+     */
+    pex_branchial_perimeter?: number;
 }
 
 /**

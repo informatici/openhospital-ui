@@ -1,4 +1,5 @@
-import { Encounters } from "components/accessories/encounters";
+import { Encounters } from "components/accessories/encounters/Encounters";
+import { MedicalHistory } from "components/accessories/medicalhistory/MedicalHistory";
 import { Radiology, Series, Studies } from "components/accessories/radiology";
 import PermissionDenied from "components/activities/PermissionDenied/PermissionDenied";
 import { useAppDispatch, useEncountersEnabled } from "libraries/hooks";
@@ -8,6 +9,7 @@ import { useTranslation } from "react-i18next";
 import { Navigate, Route, Routes } from "react-router";
 import { getAllSettings } from "state/settings";
 import PatientAdmission from "../../components/accessories/admission/PatientAdmission";
+import { Conditioning } from "../../components/accessories/conditioning";
 import PatientExams from "../../components/accessories/patientExams/PatientExams";
 import PatientOperation from "../../components/accessories/patientOperation/PatientOperation";
 import PatientSummary from "../../components/accessories/patientSummary/PatientSummary";
@@ -66,10 +68,11 @@ export const PatientDetailsRoutes: FC = () => {
         <Route
           index
           element={
-            <Navigate
-              to={encountersEnabled ? "encounters" : "admissions"}
-              replace
-            />
+            encountersEnabled ? (
+              <Navigate to={"encounters"} replace={true} />
+            ) : (
+              <Navigate to={"admissions"} replace={true} />
+            )
           }
         />
         {encountersEnabled && (
@@ -83,6 +86,30 @@ export const PatientDetailsRoutes: FC = () => {
             }
           />
         )}
+        {encountersEnabled && (
+          <Route
+            path="conditioning"
+            element={
+              <PatientDetailsContent
+                title={t("patient.conditioning")}
+                content={Conditioning}
+              />
+            }
+          />
+        )}
+
+        {encountersEnabled && (
+          <Route
+            path="medical-history"
+            element={
+              <PatientDetailsContent
+                title={t("patient.medicalHistory")}
+                content={MedicalHistory}
+              />
+            }
+          />
+        )}
+
         <Route
           path="admissions"
           element={
