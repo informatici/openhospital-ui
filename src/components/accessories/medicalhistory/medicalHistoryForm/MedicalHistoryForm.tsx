@@ -334,18 +334,18 @@ const MedicalHistoryForm: FC<MedicalHistoryProps> = ({
 
           <div className="medicalHistoryForm__buttonSet">
             <div className="submit_button">
+              <div className="reset_button">
+                <Button
+                  type="reset"
+                  variant="text"
+                  disabled={false}
+                  onClick={() => setOpenResetConfirmation(true)}
+                >
+                  {resetButtonLabel}
+                </Button>
+              </div>
               <Button type="submit" variant="contained" disabled={false}>
                 {submitButtonLabel}
-              </Button>
-            </div>
-            <div className="reset_button">
-              <Button
-                type="reset"
-                variant="text"
-                disabled={false}
-                onClick={() => setOpenResetConfirmation(true)}
-              >
-                {resetButtonLabel}
               </Button>
             </div>
           </div>

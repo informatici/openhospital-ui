@@ -56,10 +56,13 @@
   }
 
   .medicalHistoryForm__buttonSet {
-    display: flex;
+    display: flex !important;
+    justify-content: flex-end !important;
+    flex-direction: row !important;
+    gap: 10px;
     margin-top: 25px;
-    padding: 0px 15px;
-    flex-direction: row-reverse;
+    padding: 0 15px;
+
     @include susy-media($smartphone_small) {
       display: block;
     }
