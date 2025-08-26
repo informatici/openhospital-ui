@@ -67,6 +67,10 @@
       display: block;
     }
 
+    .reset_button {
+      margin-right: 15px; /* Espace à droite du bouton reset */
+    }
+
     .submit_button,
     .reset_button {
       .MuiButton-label {
