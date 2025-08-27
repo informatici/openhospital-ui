@@ -1,5 +1,6 @@
 import { Close, Edit } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
+import { renderDateTime } from "libraries/formatUtils/dataFormatting";
 import { isEmpty } from "lodash";
 import React, { FunctionComponent } from "react";
 import { useTranslation } from "react-i18next";
@@ -40,6 +41,14 @@ export const CurrentEncounterData: FunctionComponent<IOwnProps> = ({
           <div className="currentEncounterData__item">
             <span className="item_label">{t("encounter.status")}</span>
             <p className="item_content">{encounter?.status}</p>
+          </div>
+        )}
+        {!isEmpty(encounter?.createdDate) && (
+          <div className="currentEncounterData__item">
+            <span className="item_label">{t("encounter.createddate")}</span>
+            <p className="item_content">
+              {renderDateTime(encounter?.createdDate!)}
+            </p>
           </div>
         )}
       </div>

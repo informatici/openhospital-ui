@@ -397,7 +397,8 @@
     "updated": "Rencontre mis à jour",
     "updatestatus": "Changer le status",
     "updatestatusmessage": "Êtes-vous sûr de vouloir modifier le statut de la rencontre ?",
-    "change": "Changer"
+    "change": "Changer",
+    "createddate": "Date de création"
   },
   "nav": {
     "pharmacy": "Pharmacie",

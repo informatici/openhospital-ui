@@ -2,7 +2,6 @@ import ConfirmationDialog from "components/accessories/confirmationDialog/Confir
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { FunctionComponent, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router";
 import { updateEncounterStatus } from "state/encounter";
 import warningIcon from "../../../../assets/warning-icon.png";
 import { IState } from "../../../../types";
@@ -13,9 +12,9 @@ import { IOwnProps } from "./types";
 export const CurrentEncounter: FunctionComponent<IOwnProps> = ({
   onEditChange,
   onEditCode,
+  onUpdateStatusCode,
 }) => {
   const { t } = useTranslation();
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const currentEncounter = useAppSelector(
     (state: IState) => state.encounters.getCurrentEncounterByPatient.data
@@ -25,7 +24,7 @@ export const CurrentEncounter: FunctionComponent<IOwnProps> = ({
   const updateStatusCallback = () => {
     dispatch(updateEncounterStatus(currentEncounter?.code!!));
     setOpenResetConfirmation(false);
-    navigate(0);
+    onUpdateStatusCode && onUpdateStatusCode();
   };
 
   const handleEdit = () => {

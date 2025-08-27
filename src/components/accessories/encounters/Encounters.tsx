@@ -84,15 +84,17 @@ export const Encounters = () => {
   const onSubmit = (enc: EncounterDTO) => {
     setShouldResetForm(false);
     if (creationMode) {
-      enc.patientCode = patient?.code!;
+      enc.patient = patient!;
       dispatch(createEncounter(enc));
     } else {
-      enc.patientCode = patient?.code!;
-      const param: Param = {
-        code: encounterToEdit?.code!,
-        body: enc,
-      };
-      dispatch(updateEncounterCode(param));
+      if (enc.code !== encounterToEdit?.code) {
+        enc.patient = patient!;
+        const param: Param = {
+          code: encounterToEdit?.code!,
+          body: enc,
+        };
+        dispatch(updateEncounterCode(param));
+      }
     }
   };
 
@@ -145,6 +147,16 @@ export const Encounters = () => {
     scrollToElement(null);
   };
 
+  const onUpdateStatusCode = () => {
+    setCreationMode(true);
+    setShowForm(true);
+    setShouldResetForm(false);
+    setShouldUpdateTable(false);
+    setActivityTransitionState("IDLE");
+    setEncounterToEdit(undefined);
+    scrollToElement(null);
+  };
+
   const onCurrentEncounterChange = (value: boolean) => {
     setIsEditingCurrent(value);
   };
@@ -152,7 +164,7 @@ export const Encounters = () => {
   return (
     <div className="encounters">
       <div className="patientAdmission">
-        {currentEncounter && (
+        {!showForm && currentEncounter && (
           <InfoBox
             type="info"
             message={t("encounter.patientalreadyhaveencuonter")}
@@ -162,6 +174,7 @@ export const Encounters = () => {
           <CurrentEncounter
             onEditChange={onCurrentEncounterChange}
             onEditCode={onEdit}
+            onUpdateStatusCode={onUpdateStatusCode}
           />
         )}
         {showForm && (creationMode ? canCreate : canUpdate) && (

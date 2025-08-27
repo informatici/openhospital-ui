@@ -11,6 +11,10 @@
  * Do not edit the class manually.
  */
 
+import type {
+    PatientDTO,
+} from './';
+
 /**
  * @export
  * @interface EncounterDTO
@@ -29,11 +33,17 @@ export interface EncounterDTO {
      */
     status?: EncounterDTOStatusEnum;
     /**
-     * Patient id
-     * @type {number}
+     * Patient
+     * @type {PatientDTO}
      * @memberof EncounterDTO
      */
-    patientCode: number;
+    patient: PatientDTO;
+    /**
+     * Created date
+     * @type {string}
+     * @memberof EncounterDTO
+     */
+    createdDate?: string;
 }
 
 /**

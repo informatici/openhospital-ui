@@ -17,6 +17,7 @@ const EncounterForm: FC<EncounterProps> = ({
   onSubmit,
   creationMode,
   submitButtonLabel,
+  resetButtonLabel,
   isLoading,
   shouldResetForm,
   resetFormCallback,
@@ -91,6 +92,18 @@ const EncounterForm: FC<EncounterProps> = ({
                   {submitButtonLabel}
                 </Button>
               </div>
+              {!creationMode && (
+                <div className="reset_button">
+                  <Button
+                    type="reset"
+                    variant="text"
+                    disabled={isLoading}
+                    onClick={() => resetFormCallback()}
+                  >
+                    {resetButtonLabel}
+                  </Button>
+                </div>
+              )}
             </div>
           </div>
         </form>

@@ -6618,13 +6618,13 @@ components:
           format: int32
           description: lock
           example: 0
-        male:
-          type: boolean
-        female:
+        pharmacy:
           type: boolean
         opd:
           type: boolean
-        pharmacy:
+        female:
+          type: boolean
+        male:
           type: boolean
       required:
       - beds
@@ -8716,14 +8716,17 @@ components:
           - OPEN
           - CLOSE
           example: OPEN
-        patientCode:
-          type: integer
-          format: int32
-          description: Patient id
-          example: 45
+        patient:
+          $ref: "#/components/schemas/PatientDTO"
+          description: Patient
+        createdDate:
+          type: string
+          format: date-time
+          description: Created date
+          example: 2025-08-26 16:15:58
       required:
       - code
-      - patientCode
+      - patient
     TokenRefreshRequest:
       type: object
       properties:
