@@ -70,7 +70,6 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
 
   return (
     <div className="conditioningForm">
-      <h3 className="formInsertMode">{t("conditioning.title")}</h3>
       <form className="conditioningForm__form" onSubmit={formik.handleSubmit}>
         <div className="row start-sm center-xs bottom-sm">
           <div className="conditioningForm__item">
@@ -87,7 +86,7 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
             <CheckboxField
               fieldName="performBy"
               label={t("conditioning.performBy")}
-              checked={formik.values.aspiration === "true"}
+              checked={formik.values.performBy === "true"}
               onChange={(checked: boolean) =>
                 setFieldValue("performBy", checked ? "true" : "false")
               }
