@@ -604,35 +604,36 @@
 
   "medicalHistory": {
     "physiological": {
-      "title": "Antécédents Physiologiques",
-      "siblingRank": "Rang de fratrie",
-      "pregnancyTerm": "Terme de grossesse",
-      "deliveryMode": "Mode d’accouchement",
-      "apgarScore": "Score d’Apgar",
-      "birthWeight": "Poids de naissance",
+      "title": "Antécédents physiologiques",
+      "pregnancyAndDelivery": "Grossesse et Accouchement",
+      "siblingRank": "Rang de la fratrie",
+      "pregnancyTerm": "Terme",
+      "deliveryMode": "Mode",
+      "apgarScore": "APGAR",
+      "birthWeight": "Poids",
       "vaccinationStatus": "État vaccinal",
       "malariaProphylaxis": "Prophylaxie anti-palustre",
       "diet": "Régime alimentaire",
       "deworming": "Déparasitage",
       "psychomotorDevelopment": "Développement psychomoteur",
       "somaticGrowth": "Croissance somatique",
-      "ironSupplement": "Supplémentation en fer",
-      "folicAcidSupplement": "Supplémentation en acide folique",
-      "vitASupplement": "Supplémentation en vitamine A",
-      "otherSupplements": "Autres supplémentations"
+      "Supplement": "supplémentation ",
+      "ironSupplement": "fer",
+      "folicAcidSupplement": "acide folique ",
+      "vitASupplement": " Vitamine A ",
+      "otherSupplements": "Autre supplémentation"
     },
     "personalPathological": {
-      "title": "Antécédents pathologiques personnels",
-      "transfusion": "Transfusion",
-      "lastTransfusionDate": "Date de la dernière transfusion",
+      "title": "Antécédents pathologiques (Personnel)",
+      "transfusion": "Transfusion ",
+      "lastTransfusionDate": "Date dernière transfusion",
       "sickleCell": "Drépanocytose",
-      "drugAllergy": "Allergie médicamenteuse",
-      "allergyDetails": "Précision sur l’allergie",
+      "drugAllergy": "Allergie médicamenteuse: Préciser",
       "hemolysis": "Hémolyse",
-      "otherPathologies": "Autres pathologies personnelles"
+      "otherPathologies": "Autres"
     },
     "familyPathological": {
-      "title": "Antécédents pathologiques familiaux",
+      "title": "Antécédents pathologiques (Familiaux)",
       "otherFamilyPathologies": "Autres pathologies familiales"
     }
   },

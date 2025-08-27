@@ -28,7 +28,6 @@ export type MedicalHistoryFormFieldName =
   | "lastTransfusionDate"
   | "sickleCell"
   | "drugAllergy"
-  | "allergyDetails"
   | "hemolysis"
   | "otherPathologies"
   | "otherFamilyPathologies";

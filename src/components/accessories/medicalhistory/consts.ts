@@ -1,10 +1,15 @@
+import { parseDateTime } from "libraries/formDataHandling/functions";
 import { TFields } from "../../../libraries/formDataHandling/types";
 import { MedicalHistoryFormFieldName } from "./types";
 
 export const initialFields: TFields<MedicalHistoryFormFieldName> = {
+  lastTransfusionDate: {
+    value: parseDateTime(new Date().toISOString(), false),
+    type: "date",
+  },
   siblingRank: {
     value: "",
-    type: "text",
+    type: "number",
   },
   pregnancyTerm: {
     value: "",
@@ -20,7 +25,7 @@ export const initialFields: TFields<MedicalHistoryFormFieldName> = {
   },
   birthWeight: {
     value: "",
-    type: "text",
+    type: "number",
   },
   vaccinationStatus: {
     value: "",
@@ -48,39 +53,32 @@ export const initialFields: TFields<MedicalHistoryFormFieldName> = {
   },
   ironSupplement: {
     value: "",
-    type: "text",
+    type: "boolean",
   },
   folicAcidSupplement: {
     value: "",
-    type: "text",
+    type: "boolean",
   },
   vitASupplement: {
     value: "",
-    type: "text",
+    type: "boolean",
   },
   otherSupplements: {
     value: "",
     type: "text",
   },
+
   transfusion: {
     value: "",
-    type: "text",
-  },
-  lastTransfusionDate: {
-    value: "",
-    type: "text",
+    type: "boolean",
   },
   sickleCell: {
     value: "",
-    type: "text",
+    type: "boolean",
   },
   drugAllergy: {
     value: "",
-    type: "text",
-  },
-  allergyDetails: {
-    value: "",
-    type: "text",
+    type: "boolean",
   },
   hemolysis: {
     value: "",
@@ -90,6 +88,7 @@ export const initialFields: TFields<MedicalHistoryFormFieldName> = {
     value: "",
     type: "text",
   },
+
   otherFamilyPathologies: {
     value: "",
     type: "text",

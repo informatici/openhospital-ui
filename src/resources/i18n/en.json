@@ -640,10 +640,11 @@
   "medicalHistory": {
     "physiological": {
       "title": "Physiological History",
+      "pregnancyAndDelivery": "Pregnancy and Delivery",
       "siblingRank": "Sibling Rank",
       "pregnancyTerm": "Pregnancy Term",
-      "deliveryMode": "Delivery Mode",
-      "apgarScore": "Apgar Score",
+      "deliveryMode": "Mode",
+      "apgarScore": "APGAR",
       "birthWeight": "Birth Weight",
       "vaccinationStatus": "Vaccination Status",
       "malariaProphylaxis": "Anti-malaria Prophylaxis",
@@ -651,23 +652,23 @@
       "deworming": "Deworming",
       "psychomotorDevelopment": "Psychomotor Development",
       "somaticGrowth": "Somatic Growth",
-      "ironSupplement": "Iron Supplementation",
-      "folicAcidSupplement": "Folic Acid Supplementation",
-      "vitASupplement": "Vitamin A Supplementation",
-      "otherSupplements": "Other Supplements"
+      "Supplement": "Supplementation ",
+      "ironSupplement": "Iron ",
+      "folicAcidSupplement": "Folic Acid ",
+      "vitASupplement": "Vitamin A ",
+      "otherSupplements": "Other Supplementation"
     },
     "personalPathological": {
-      "title": "Personal Pathological History",
+      "title": "Pathological History (Personal)",
       "transfusion": "Transfusion",
       "lastTransfusionDate": "Date of Last Transfusion",
       "sickleCell": "Sickle Cell Disease",
-      "drugAllergy": "Drug Allergy",
-      "allergyDetails": "Allergy Details",
+      "drugAllergy": "Drug Allergy:Specify ",
       "hemolysis": "Hemolysis",
-      "otherPathologies": "Other Personal Pathologies"
+      "otherPathologies": "Others"
     },
     "familyPathological": {
-      "title": "Family Pathological History",
+      "title": "Pathological History (Family)",
       "otherFamilyPathologies": "Other Family Pathologies"
     }
   },
