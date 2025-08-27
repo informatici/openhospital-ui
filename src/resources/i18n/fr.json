@@ -601,6 +601,43 @@
     "printData": "Imprimer les données",
     "failedtodownloadthereport": "Échec de téléchargement du rapport"
   },
+
+  "medicalHistory": {
+    "physiological": {
+      "title": "Antécédents physiologiques",
+      "pregnancyAndDelivery": "Grossesse et Accouchement",
+      "siblingRank": "Rang de la fratrie",
+      "pregnancyTerm": "Terme",
+      "deliveryMode": "Mode",
+      "apgarScore": "APGAR",
+      "birthWeight": "Poids",
+      "vaccinationStatus": "État vaccinal",
+      "malariaProphylaxis": "Prophylaxie anti-palustre",
+      "diet": "Régime alimentaire",
+      "deworming": "Déparasitage",
+      "psychomotorDevelopment": "Développement psychomoteur",
+      "somaticGrowth": "Croissance somatique",
+      "Supplement": "supplémentation ",
+      "ironSupplement": "fer",
+      "folicAcidSupplement": "acide folique ",
+      "vitASupplement": " Vitamine A ",
+      "otherSupplements": "Autre supplémentation"
+    },
+    "personalPathological": {
+      "title": "Antécédents pathologiques (Personnel)",
+      "transfusion": "Transfusion ",
+      "lastTransfusionDate": "Date dernière transfusion",
+      "sickleCell": "Drépanocytose",
+      "drugAllergy": "Allergie médicamenteuse: Préciser",
+      "hemolysis": "Hémolyse",
+      "otherPathologies": "Autres"
+    },
+    "familyPathological": {
+      "title": "Antécédents pathologiques (Familiaux)",
+      "otherFamilyPathologies": "Autres pathologies familiales"
+    }
+  },
+
   "permission": {
     "denied": "Autorisation refusée",
     "unauthorized": "Non autorisé",
