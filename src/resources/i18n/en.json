@@ -429,7 +429,7 @@
     "created": "Encounter created",
     "updated": "Encounter updated",
     "updatestatus": "Change status",
-    "updatestatusmessage": "Are you sure you want to change the status of the encounter?",
+    "updatestatusmessage": "Are you sure you want to close the encounter?",
     "change": "Change",
     "createddate": "Created date"
   },
