@@ -116,6 +116,7 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
               isValid={isValid("mceDuree")}
               errorText={getErrorText("mceDuree")}
               onBlur={formik.handleBlur}
+              disabled={false}
             />
           </div>
 
@@ -127,6 +128,7 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
               isValid={isValid("ventilationDuree")}
               errorText={getErrorText("ventilationDuree")}
               onBlur={formik.handleBlur}
+              disabled={false}
             />
           </div>
 
@@ -138,6 +140,7 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
               isValid={isValid("oxygeneDebit")}
               errorText={getErrorText("oxygeneDebit")}
               onBlur={formik.handleBlur}
+              disabled={false}
             />
           </div>
 
@@ -149,6 +152,7 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
               isValid={isValid("sgVolume")}
               errorText={getErrorText("sgVolume")}
               onBlur={formik.handleBlur}
+              disabled={false}
             />
           </div>
 
@@ -160,6 +164,7 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
               isValid={isValid("diazepamDose")}
               errorText={getErrorText("diazepamDose")}
               onBlur={formik.handleBlur}
+              disabled={false}
             />
           </div>
 
@@ -171,6 +176,7 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
               isValid={isValid("bolusSsVolume")}
               errorText={getErrorText("bolusSsVolume")}
               onBlur={formik.handleBlur}
+              disabled={false}
             />
           </div>
 
@@ -182,6 +188,7 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
               isValid={isValid("sngNumero")}
               errorText={getErrorText("sngNumero")}
               onBlur={formik.handleBlur}
+              disabled={false}
             />
           </div>
 
