@@ -1324,5 +1324,19 @@
       "reports": "Reports",
       "integration": "Integration"
     }
+  },
+  "conditioning": {
+    "title": "Conditioning",
+    "aspiration": "Aspiration",
+    "mceDuree": "MCE (mn)",
+    "ventilationDuree": "Ventilation  (mn)",
+    "oxygeneDebit": "Oxygen  (mn)",
+    "sgVolume": "SG 10% or 30% (cc) ",
+    "diazepamDose": "Diazepam (mg)",
+    "bolusSsVolume": "Bolus SS (CC)",
+    "performBy": "CPAP",
+    "sngNumero": "SNG Number",
+    "performAt": "Performed At",
+    "others": "Others"
   }
 }
