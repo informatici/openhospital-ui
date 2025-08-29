@@ -28,6 +28,7 @@ export * from './LoginResponse';
 export * from './LotDTO';
 export * from './MalnutritionDTO';
 export * from './MedicalDTO';
+export * from './MedicalHistoryDTO';
 export * from './MedicalTypeDTO';
 export * from './MedicalWardDTO';
 export * from './MedicalWardIdDTO';

@@ -1249,6 +1249,53 @@ paths:
                 $ref: "#/components/schemas/MedicalDTO"
       security:
       - bearerAuth: []
+  /medicalhistories/{id}:
+    get:
+      tags:
+      - MedicalHistory
+      operationId: getMedicalHistoryById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MedicalHistoryDTO"
+      security:
+      - bearerAuth: []
+    put:
+      tags:
+      - MedicalHistory
+      operationId: updateMedicalHistory
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MedicalHistoryDTO"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MedicalHistoryDTO"
+      security:
+      - bearerAuth: []
   /malnutritions:
     put:
       tags:
@@ -2945,6 +2992,26 @@ paths:
             application/json:
               schema:
                 type: boolean
+      security:
+      - bearerAuth: []
+  /medicalhistories:
+    post:
+      tags:
+      - MedicalHistory
+      operationId: createMedicalHistory
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MedicalHistoryDTO"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MedicalHistoryDTO"
       security:
       - bearerAuth: []
   /laboratories:
@@ -5247,6 +5314,29 @@ paths:
                   $ref: "#/components/schemas/MedicalDTO"
       security:
       - bearerAuth: []
+  /medicalhistories/patient/{patientCode}:
+    get:
+      tags:
+      - MedicalHistory
+      operationId: getMedicalHistoryByPatientCode
+      parameters:
+      - name: patientCode
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/MedicalHistoryDTO"
+      security:
+      - bearerAuth: []
   /malnutritions/{id_admission}:
     get:
       tags:
@@ -6618,13 +6708,13 @@ components:
           format: int32
           description: lock
           example: 0
-        pharmacy:
-          type: boolean
-        opd:
-          type: boolean
         female:
           type: boolean
         male:
+          type: boolean
+        pharmacy:
+          type: boolean
+        opd:
           type: boolean
       required:
       - beds
@@ -7922,6 +8012,67 @@ components:
           format: int32
           description: Lock
           example: 0
+    MedicalHistoryDTO:
+      type: object
+      description: Class representing the medical history of a patient
+      properties:
+        id:
+          type: integer
+          format: int32
+        patient:
+          $ref: "#/components/schemas/PatientDTO"
+          description: The patient identifier linked to this medical history
+        siblingRank:
+          type: integer
+          format: int32
+        termPregnancy:
+          type: string
+        deliveryMode:
+          type: string
+        apgarScore:
+          type: string
+        birthWeight:
+          type: number
+          format: double
+        vaccinationState:
+          type: string
+        antiMalarialProphylaxis:
+          type: string
+        diet:
+          type: string
+        deParasitization:
+          type: string
+        psychomotorDev:
+          type: string
+        somaticGrowth:
+          type: string
+        ironSupplement:
+          type: boolean
+        folicAcidSupplement:
+          type: boolean
+        vitASupplement:
+          type: boolean
+        otherSupplements:
+          type: string
+        transfusion:
+          type: boolean
+        lastTransfusionDate:
+          type: string
+          format: date-time
+        sickleCell:
+          type: boolean
+        drugAllergy:
+          type: boolean
+        allergyPrecision:
+          type: string
+        hemylosis:
+          type: string
+        otherPersonalPathologies:
+          type: string
+        otherFamilyPathologies:
+          type: string
+      required:
+      - patient
     MalnutritionDTO:
       type: object
       properties:
