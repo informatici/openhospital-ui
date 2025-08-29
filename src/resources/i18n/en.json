@@ -479,7 +479,6 @@
     "types": "Manage Types",
     "hospitalInfo": "Hospital Info",
     "hospital": "Hospital",
-    "admissionState": "Admission State",
     "settings": "Settings",
     "radiology": "Radiology",
     "encounters": "Encounters",
@@ -652,6 +651,43 @@
     "printData": "Print Data",
     "failedtodownloadthereport": "Failed to download report."
   },
+
+  "medicalHistory": {
+    "physiological": {
+      "title": "Physiological History",
+      "pregnancyAndDelivery": "Pregnancy and Delivery",
+      "siblingRank": "Sibling Rank",
+      "pregnancyTerm": "Pregnancy Term",
+      "deliveryMode": "Mode",
+      "apgarScore": "APGAR",
+      "birthWeight": "Birth Weight",
+      "vaccinationStatus": "Vaccination Status",
+      "malariaProphylaxis": "Anti-malaria Prophylaxis",
+      "diet": "Diet",
+      "deworming": "Deworming",
+      "psychomotorDevelopment": "Psychomotor Development",
+      "somaticGrowth": "Somatic Growth",
+      "Supplement": "Supplementation ",
+      "ironSupplement": "Iron ",
+      "folicAcidSupplement": "Folic Acid ",
+      "vitASupplement": "Vitamin A ",
+      "otherSupplements": "Other Supplementation"
+    },
+    "personalPathological": {
+      "title": "Pathological History (Personal)",
+      "transfusion": "Transfusion",
+      "lastTransfusionDate": "Date of Last Transfusion",
+      "sickleCell": "Sickle Cell Disease",
+      "drugAllergy": "Drug Allergy:Specify ",
+      "hemolysis": "Hemolysis",
+      "otherPathologies": "Others"
+    },
+    "familyPathological": {
+      "title": "Pathological History (Family)",
+      "otherFamilyPathologies": "Other Family Pathologies"
+    }
+  },
+
   "permission": {
     "denied": "Permission denied",
     "unauthorized": "Unauthorized",
@@ -1340,5 +1376,19 @@
       "reports": "Reports",
       "integration": "Integration"
     }
+  },
+  "conditioning": {
+    "title": "Conditioning",
+    "aspiration": "Aspiration",
+    "mceDuree": "MCE (mn)",
+    "ventilationDuree": "Ventilation  (mn)",
+    "oxygeneDebit": "Oxygen  (mn)",
+    "sgVolume": "SG 10% or 30% (cc) ",
+    "diazepamDose": "Diazepam (mg)",
+    "bolusSsVolume": "Bolus SS (CC)",
+    "performBy": "CPAP",
+    "sngNumero": "SNG Number",
+    "performAt": "Performed At",
+    "others": "Others"
   }
 }
