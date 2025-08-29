@@ -3,6 +3,7 @@ import { admissionSlice } from "./admissions";
 import { billSlice } from "./bills";
 import { dashboardSlice } from "./dashboard";
 import { diseaseSlice } from "./diseases";
+import { encounterSlice } from "./encounter";
 import { examinationSlice } from "./examinations";
 import { examSlice } from "./exams";
 import { hospitalSlice } from "./hospital";
@@ -59,6 +60,7 @@ const reducer = combineReducers({
   suppliers: supplierSlice.reducer,
   settings: settingsSlice.reducer,
   radiology: radiologySlice.reducer,
+  encounters: encounterSlice.reducer,
 });
 
 export const store = configureStore({

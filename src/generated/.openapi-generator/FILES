@@ -8,6 +8,7 @@ apis/DeliveryTypeApi.ts
 apis/DischargeTypeApi.ts
 apis/DiseaseTypesApi.ts
 apis/DiseasesApi.ts
+apis/EncounterApi.ts
 apis/ExamRowsApi.ts
 apis/ExamTypesApi.ts
 apis/ExaminationsApi.ts
@@ -16,6 +17,7 @@ apis/HospitalsApi.ts
 apis/LaboratoriesApi.ts
 apis/LoginApi.ts
 apis/MalnutritionsApi.ts
+apis/MedicalHistoryApi.ts
 apis/MedicalStockMovementTypeApi.ts
 apis/MedicalStockWardApi.ts
 apis/MedicalTypesApi.ts
@@ -59,6 +61,7 @@ models/DeliveryTypeDTO.ts
 models/DischargeTypeDTO.ts
 models/DiseaseDTO.ts
 models/DiseaseTypeDTO.ts
+models/EncounterDTO.ts
 models/ExamDTO.ts
 models/ExamRowDTO.ts
 models/ExamTypeDTO.ts
@@ -76,6 +79,7 @@ models/LoginResponse.ts
 models/LotDTO.ts
 models/MalnutritionDTO.ts
 models/MedicalDTO.ts
+models/MedicalHistoryDTO.ts
 models/MedicalTypeDTO.ts
 models/MedicalWardDTO.ts
 models/MedicalWardIdDTO.ts
