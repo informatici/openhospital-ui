@@ -13,6 +13,10 @@ export const useFields = (
       value: encounter?.code ?? "",
       type: "text",
     },
+    createdDate: {
+      value: encounter?.createdDate ? new Date(encounter.createdDate).toISOString() : new Date().toISOString(),
+      type: "date",
+    },
   };
 
   return fields;

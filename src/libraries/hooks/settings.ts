@@ -28,7 +28,7 @@ export const useEncountersEnabled = () => {
       settings.some(
         (setting) =>
           setting.code === "ENCOUNTERS_ENABLED" &&
-          setting.value?.toLowerCase() === "true"
+          setting.value?.toLowerCase() === "false"
       ),
     [settings]
   );

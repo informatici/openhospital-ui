@@ -45,8 +45,8 @@ export const CurrentEncounter: FunctionComponent<IOwnProps> = ({
         title={t("encounter.updatestatus").toUpperCase()}
         info={t("encounter.updatestatusmessage")}
         icon={warningIcon}
-        primaryButtonLabel={t("encounter.change")}
-        secondaryButtonLabel={t("common.discard")}
+        primaryButtonLabel={t("common.yes")}
+        secondaryButtonLabel={t("common.no")}
         handlePrimaryButtonClick={updateStatusCallback}
         handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
       />

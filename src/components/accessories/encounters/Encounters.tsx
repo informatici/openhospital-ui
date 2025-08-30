@@ -201,6 +201,7 @@ export const Encounters = () => {
         <EncounterTable
           handleEdit={onEdit}
           shouldUpdateTable={shouldUpdateTable}
+          activityTransitionState={activityTransitionState}
         />
 
         <ConfirmationDialog

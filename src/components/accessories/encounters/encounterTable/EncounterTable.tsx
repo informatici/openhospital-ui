@@ -10,11 +10,13 @@ import Table from "../../table/Table";
 interface IOwnProps {
   shouldUpdateTable: boolean;
   handleEdit: (row: any) => void;
+  activityTransitionState: string;
 }
 
 const EncounterTable: FunctionComponent<IOwnProps> = ({
   shouldUpdateTable,
   handleEdit,
+  activityTransitionState,
 }) => {
   const { t } = useTranslation();
 
@@ -44,7 +46,7 @@ const EncounterTable: FunctionComponent<IOwnProps> = ({
     if (shouldUpdateTable || patientCode) {
       dispatch(getEncountersByPatient(patientCode!!));
     }
-  }, [shouldUpdateTable, dispatch, patientCode]);
+  }, [shouldUpdateTable, dispatch, patientCode, activityTransitionState]);
 
   const formatDataToDisplay = (data: EncounterDTO[]) => {
     return data.map((item) => {
