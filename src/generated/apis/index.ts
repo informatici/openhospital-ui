@@ -2,6 +2,7 @@ export * from './AdmissionTypesApi';
 export * from './AdmissionsApi';
 export * from './AgeTypesApi';
 export * from './BillsApi';
+export * from './ConditioningsApi';
 export * from './DeliveryResultTypeApi';
 export * from './DeliveryTypeApi';
 export * from './DischargeTypeApi';

@@ -1886,6 +1886,33 @@ paths:
                 $ref: "#/components/schemas/DeliveryResultTypeDTO"
       security:
       - bearerAuth: []
+  /conditionings/{id}:
+    put:
+      tags:
+      - Conditionings
+      operationId: updateConditioning
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ConditioningDTO"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConditioningDTO"
+      security:
+      - bearerAuth: []
   /bills/{id}:
     get:
       tags:
@@ -3265,6 +3292,26 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/EncounterDTO"
+      security:
+      - bearerAuth: []
+  /conditionings:
+    post:
+      tags:
+      - Conditionings
+      operationId: newConditioning
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ConditioningDTO"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConditioningDTO"
       security:
       - bearerAuth: []
   /bills:
@@ -6051,6 +6098,29 @@ paths:
                   $ref: "#/components/schemas/DiseaseDTO"
       security:
       - bearerAuth: []
+  /conditionings/{patientCode}:
+    get:
+      tags:
+      - Conditionings
+      operationId: getConditioningByPatientCode
+      parameters:
+      - name: patientCode
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ConditioningDTO"
+      security:
+      - bearerAuth: []
   /bills/pending:
     get:
       tags:
@@ -6708,13 +6778,13 @@ components:
           format: int32
           description: lock
           example: 0
-        female:
-          type: boolean
-        male:
+        opd:
           type: boolean
         pharmacy:
           type: boolean
-        opd:
+        female:
+          type: boolean
+        male:
           type: boolean
       required:
       - beds
@@ -8071,6 +8141,11 @@ components:
           type: string
         otherFamilyPathologies:
           type: string
+        lock:
+          type: integer
+          format: int32
+          description: Lock
+          example: 0
       required:
       - patient
     MalnutritionDTO:
@@ -8403,6 +8478,77 @@ components:
       required:
       - patientCode
       - pex_date
+    ConditioningDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          description: Conditioning key
+          example: 12
+        aspiration:
+          type: boolean
+          description: Aspiration conditioning
+          example: true
+        mceDuree:
+          type: integer
+          format: int32
+          description: Mce duree conditioning
+          example: 4
+        ventilationDuree:
+          type: integer
+          format: int32
+          description: Ventilation duree conditioning
+          example: 2
+        oxygeneDebit:
+          type: number
+          format: double
+          description: Oxygene debit conditioning
+          example: 3
+        sgVolume:
+          type: number
+          format: double
+          description: Sg volume conditioning
+          example: 10
+        diazepamDose:
+          type: number
+          format: double
+          description: Diazepam dose conditioning
+          example: 12
+        bolusSsVolume:
+          type: number
+          format: double
+          description: Bolus volume conditioning
+          example: 3
+        sngNumero:
+          type: string
+          description: Conditioning number sng
+          example: 3434634
+        others:
+          type: string
+          description: Conditioning others
+          example: others
+        performBy:
+          $ref: "#/components/schemas/UserDTO"
+          description: user perform
+          example: 222343
+        patient:
+          $ref: "#/components/schemas/PatientDTO"
+          description: patient
+          example: 22
+        performAt:
+          type: string
+          format: date-time
+          description: Perform date
+          example: String
+        lock:
+          type: integer
+          format: int32
+          description: Lock
+          example: 0
+      required:
+      - patient
+      - performBy
     BillItemsDTO:
       type: object
       description: Class representing a billItem
