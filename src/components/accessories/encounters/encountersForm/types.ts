@@ -1,4 +1,5 @@
-import { EncounterDTO } from "../../../../generated";
+
+import { EncounterDTO } from "generated";
 import { TFields } from "../../../../libraries/formDataHandling/types";
 
 interface IEncounterProps {
@@ -15,4 +16,4 @@ interface IEncounterProps {
 
 export type EncounterProps = IEncounterProps;
 
-export type EncounterFormFieldName = "code" | "createdDate";
+export type EncounterFormFieldName = "code" | "date";

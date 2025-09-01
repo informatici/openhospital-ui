@@ -39,7 +39,7 @@ export interface EncounterDTO {
      */
     patient: PatientDTO;
     /**
-     * Created date
+     * date
      * @type {string}
      * @memberof EncounterDTO
      */

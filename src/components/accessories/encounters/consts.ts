@@ -6,7 +6,7 @@ export const initialFields: TFields<EncounterFormFieldName> = {
     value: "",
     type: "text",
   },
-  createdDate: {
+  date: {
     value: "",
     type: "date",
   },

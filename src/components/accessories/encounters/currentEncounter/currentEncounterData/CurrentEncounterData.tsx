@@ -46,6 +46,9 @@ export const CurrentEncounterData: FunctionComponent<IOwnProps> = ({
         {!isEmpty(encounter?.date) && (
           <div className="currentEncounterData__item">
             <span className="item_label">{t("encounter.createddate")}</span>
+            <p className="item_content">
+              {renderDateTime(encounter?.date!)}
+            </p>
             <p className="item_content">{renderDateTime(encounter?.date!)}</p>
           </div>
         )}
