@@ -87,14 +87,12 @@ export const Encounters = () => {
       enc.patient = patient!;
       dispatch(createEncounter(enc));
     } else {
-      if (enc.code !== encounterToEdit?.code) {
-        enc.patient = patient!;
-        const param: Param = {
-          code: encounterToEdit?.code!,
-          body: enc,
-        };
-        dispatch(updateEncounterCode(param));
-      }
+      enc.patient = patient!;
+      const param: Param = {
+        code: encounterToEdit?.code!,
+        body: enc,
+      };
+      dispatch(updateEncounterCode(param));
     }
   };
 
