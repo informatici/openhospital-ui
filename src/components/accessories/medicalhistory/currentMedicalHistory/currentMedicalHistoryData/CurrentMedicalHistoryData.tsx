@@ -27,6 +27,7 @@ export const CurrentMedicalHistoryData: FunctionComponent<IOwnProps> = ({
           </IconButton>
         )}
       </div>
+      <h4>{t("medicalHistory.physiological.title")}</h4>
       <div className="currentMedicalHistoryData__content">
         {medicalHistory?.siblingRank && (
           <div className="currentMedicalHistoryData__item">
@@ -36,19 +37,13 @@ export const CurrentMedicalHistoryData: FunctionComponent<IOwnProps> = ({
             <p className="item_content">{medicalHistory?.siblingRank}</p>
           </div>
         )}
-        {!isEmpty(medicalHistory?.lastTransfusionDate) && (
-          <div className="currentMedicalHistoryData__item">
-            <span className="item_label">
-              {t("medicalHistory.personalPathological.lastTransfusionDate")}
-            </span>
-            <p className="item_content">
-              {renderDateTime(medicalHistory?.lastTransfusionDate!)}
-            </p>
-          </div>
-        )}
-
+      </div>
+      <h4 className="formInsertMode">
+        {t("medicalHistory.physiological.pregnancyAndDelivery")}
+      </h4>
+      <div className="currentMedicalHistoryData__content">
         {!isEmpty(medicalHistory?.termPregnancy) && (
-          <div className="currentMedicalHistoryData__item">
+          <div className="grid currentMedicalHistoryData__item">
             <span className="item_label">
               {t("medicalHistory.physiological.pregnancyTerm")}
             </span>
@@ -56,19 +51,61 @@ export const CurrentMedicalHistoryData: FunctionComponent<IOwnProps> = ({
           </div>
         )}
         {!isEmpty(medicalHistory?.deliveryMode) && (
-          <div className="currentMedicalHistoryData__item">
+          <div className="grid currentMedicalHistoryData__item">
             <span className="item_label">
               {t("medicalHistory.physiological.deliveryMode")}
             </span>
             <p className="item_content">{medicalHistory?.deliveryMode}</p>
           </div>
         )}
+        {medicalHistory?.birthWeight && (
+          <div className="grid currentMedicalHistoryData__item">
+            <span className="item_label">
+              {t("medicalHistory.physiological.birthWeight")}
+            </span>
+            <p className="item_content">{medicalHistory?.birthWeight}</p>
+          </div>
+        )}
         {!isEmpty(medicalHistory?.apgarScore) && (
-          <div className="currentMedicalHistoryData__item">
+          <div className="grid currentMedicalHistoryData__item">
             <span className="item_label">
               {t("medicalHistory.physiological.apgarScore")}
             </span>
             <p className="item_content">{medicalHistory?.apgarScore}</p>
+          </div>
+        )}
+        {!isEmpty(medicalHistory?.vaccinationState) && (
+          <div className="grid currentMedicalHistoryData__item">
+            <span className="item_label">
+              {t("medicalHistory.physiological.vaccinationStatus")}
+            </span>
+            <p className="item_content">{medicalHistory?.vaccinationState}</p>
+          </div>
+        )}
+        {!isEmpty(medicalHistory?.somaticGrowth) && (
+          <div className="grid currentMedicalHistoryData__item">
+            <span className="item_label">
+              {t("medicalHistory.physiological.somaticGrowth")}
+            </span>
+            <p className="item_content">{medicalHistory?.somaticGrowth}</p>
+          </div>
+        )}
+        {!isEmpty(medicalHistory?.antiMalarialProphylaxis) && (
+          <div className="currentMedicalHistoryData__item">
+            <span className="item_label">
+              {t("medicalHistory.physiological.malariaProphylaxis")}
+            </span>
+            <p className="item_content">
+              {medicalHistory?.antiMalarialProphylaxis}
+            </p>
+          </div>
+        )}
+        {!isEmpty(medicalHistory?.diet) && (
+          <div className="currentMedicalHistoryData__item">
+            <span className="item_label">
+              {t("medicalHistory.physiological.diet")}
+            </span>
+            <p className="item_content">{medicalHistory?.diet}</p>
           </div>
         )}
         {!isEmpty(medicalHistory?.deParasitization) && (
@@ -79,48 +116,20 @@ export const CurrentMedicalHistoryData: FunctionComponent<IOwnProps> = ({
             <p className="item_content">{medicalHistory?.deParasitization}</p>
           </div>
         )}
-        {!isEmpty(medicalHistory?.vaccinationState) && (
-          <div className="fullWidth currentMedicalHistoryData__item">
-            <span className="item_label">
-              {t("medicalHistory.physiological.vaccinationStatus")}
-            </span>
-            <p className="item_content">{medicalHistory?.vaccinationState}</p>
-          </div>
-        )}
-        {!isEmpty(medicalHistory?.birthWeight) && (
-          <div className="fullWidth currentMedicalHistoryData__item">
-            <span className="item_label">
-              {t("medicalHistory.physiological.birthWeight")}
-            </span>
-            <p className="item_content">{medicalHistory?.birthWeight}</p>
-          </div>
-        )}
-        {!isEmpty(medicalHistory?.diet) && (
-          <div className="fullWidth currentMedicalHistoryData__item">
-            <span className="item_label">
-              {t("medicalHistory.physiological.diet")}
-            </span>
-            <p className="item_content">{medicalHistory?.diet}</p>
-          </div>
-        )}
         {!isEmpty(medicalHistory?.psychomotorDev) && (
-          <div className="fullWidth currentMedicalHistoryData__item">
+          <div className="currentMedicalHistoryData__item">
             <span className="item_label">
               {t("medicalHistory.physiological.psychomotorDevelopment")}
             </span>
             <p className="item_content">{medicalHistory.psychomotorDev}</p>
           </div>
         )}
-        {!isEmpty(medicalHistory?.somaticGrowth) && (
-          <div className="fullWidth currentMedicalHistoryData__item">
-            <span className="item_label">
-              {t("medicalHistory.physiological.somaticGrowth")}
-            </span>
-            <p className="item_content">{medicalHistory?.somaticGrowth}</p>
-          </div>
-        )}
-
-        <div className="fullWidth currentMedicalHistoryData__item">
+      </div>
+      <h4 className="formInsertMode">
+        {t("medicalHistory.physiological.Supplement")}
+      </h4>
+      <div className="currentMedicalHistoryData__content">
+        <div className="grid currentMedicalHistoryData__item">
           <span className="item_label">
             {t("medicalHistory.physiological.ironSupplement")}
           </span>
@@ -129,7 +138,7 @@ export const CurrentMedicalHistoryData: FunctionComponent<IOwnProps> = ({
           </p>
         </div>
 
-        <div className="fullWidth currentMedicalHistoryData__item">
+        <div className="grid currentMedicalHistoryData__item">
           <span className="item_label">
             {t("medicalHistory.physiological.folicAcidSupplement")}
           </span>
@@ -137,17 +146,8 @@ export const CurrentMedicalHistoryData: FunctionComponent<IOwnProps> = ({
             {medicalHistory?.folicAcidSupplement ? "true" : "false"}
           </p>
         </div>
-        {!isEmpty(medicalHistory?.antiMalarialProphylaxis) && (
-          <div className="fullWidth currentMedicalHistoryData__item">
-            <span className="item_label">
-              {t("medicalHistory.physiological.malariaProphylaxis")}
-            </span>
-            <p className="item_content">
-              {medicalHistory?.antiMalarialProphylaxis}
-            </p>
-          </div>
-        )}
-        <div className="fullWidth currentMedicalHistoryData__item">
+
+        <div className="grid currentMedicalHistoryData__item">
           <span className="item_label">
             {t("medicalHistory.physiological.vitASupplement")}
           </span>
@@ -164,8 +164,32 @@ export const CurrentMedicalHistoryData: FunctionComponent<IOwnProps> = ({
             <p className="item_content">{medicalHistory?.otherSupplements}</p>
           </div>
         )}
+      </div>
+      <h4 className="formInsertMode">
+        {t("medicalHistory.personalPathological.title")}
+      </h4>
+      <div className="currentMedicalHistoryData__content">
+        {!isEmpty(medicalHistory?.lastTransfusionDate) && (
+          <div className="currentMedicalHistoryData__item">
+            <span className="item_label">
+              {t("medicalHistory.personalPathological.lastTransfusionDate")}
+            </span>
+            <p className="item_content">
+              {renderDateTime(medicalHistory?.lastTransfusionDate!)}
+            </p>
+          </div>
+        )}
 
-        <div className="fullWidth currentMedicalHistoryData__item">
+        {!isEmpty(medicalHistory?.allergyPrecision) && (
+          <div className="currentMedicalHistoryData__item">
+            <span className="item_label">
+              {t("medicalHistory.personalPathological.drugAllergy")}
+            </span>
+            <p className="item_content">{medicalHistory?.allergyPrecision}</p>
+          </div>
+        )}
+
+        <div className="grid currentMedicalHistoryData__item">
           <span className="item_label">
             {t("medicalHistory.personalPathological.transfusion")}
           </span>
@@ -174,7 +198,7 @@ export const CurrentMedicalHistoryData: FunctionComponent<IOwnProps> = ({
           </p>
         </div>
 
-        <div className="fullWidth currentMedicalHistoryData__item">
+        <div className="grid currentMedicalHistoryData__item">
           <span className="item_label">
             {t("medicalHistory.personalPathological.sickleCell")}
           </span>
@@ -183,22 +207,15 @@ export const CurrentMedicalHistoryData: FunctionComponent<IOwnProps> = ({
           </p>
         </div>
 
-        {!isEmpty(medicalHistory?.allergyPrecision) && (
-          <div className="fullWidth currentMedicalHistoryData__item">
-            <span className="item_label">
-              {t("medicalHistory.personalPathological.drugAllergy")}
-            </span>
-            <p className="item_content">{medicalHistory?.allergyPrecision}</p>
-          </div>
-        )}
         {!isEmpty(medicalHistory?.hemylosis) && (
-          <div className="fullWidth currentMedicalHistoryData__item">
+          <div className="grid currentMedicalHistoryData__item">
             <span className="item_label">
               {t("medicalHistory.personalPathological.hemolysis")}
             </span>
             <p className="item_content">{medicalHistory?.hemylosis}</p>
           </div>
         )}
+
         {!isEmpty(medicalHistory?.otherPersonalPathologies) && (
           <div className="fullWidth currentMedicalHistoryData__item">
             <span className="item_label">
@@ -209,6 +226,11 @@ export const CurrentMedicalHistoryData: FunctionComponent<IOwnProps> = ({
             </p>
           </div>
         )}
+      </div>
+      <h4 className="formInsertMode">
+        {t("medicalHistory.familyPathological.title")}
+      </h4>
+      <div className="currentMedicalHistoryData__content">
         {!isEmpty(medicalHistory?.otherFamilyPathologies) && (
           <div className="fullWidth currentMedicalHistoryData__item">
             <span className="item_label">
