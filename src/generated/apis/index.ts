@@ -15,6 +15,7 @@ export * from './HospitalsApi';
 export * from './LaboratoriesApi';
 export * from './LoginApi';
 export * from './MalnutritionsApi';
+export * from './MedicalHistoryApi';
 export * from './MedicalStockMovementTypeApi';
 export * from './MedicalStockWardApi';
 export * from './MedicalTypesApi';

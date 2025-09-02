@@ -1,3 +1,4 @@
+import { IMedicalHistoryState } from "state/medicalhistory";
 import { ISettingsState } from "state/settings";
 import { IAdmissionsState } from "./state/admissions/types";
 import { IBillsState } from "./state/bills/types";
@@ -56,6 +57,7 @@ export interface IState {
   suppliers: ISupplierState;
   permissions: IPermissionsState;
   settings: ISettingsState;
+  medicalhistory: IMedicalHistoryState;
 }
 
 export enum FIELD_VALIDATION {
@@ -233,4 +235,6 @@ export type TPermission =
   | "patients.access"
   | "opds.access"
   | "admin.access"
-  | "radiology.read";
+  | "radiology.read"
+  | "medicalhistory.create"
+  | "medicalhistory.update";

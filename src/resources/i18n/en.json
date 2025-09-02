@@ -670,7 +670,14 @@
     "familyPathological": {
       "title": "Pathological History (Family)",
       "otherFamilyPathologies": "Other Family Pathologies"
-    }
+    },
+    "newmedicalHistory": "New medical history",
+    "editmedicalHistory": "Edit medical history",
+    "patientalreadyhasmedicalhistory": "The patient already has medical history",
+    "created": "Medical history created",
+    "updated": "Medical history updated",
+    "createsuccess": "Medical history created successfully",
+    "updatesuccess": "Medical history updated successfully"
   },
 
   "permission": {

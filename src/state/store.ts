@@ -9,6 +9,7 @@ import { hospitalSlice } from "./hospital";
 import { laboratorySlice } from "./laboratories";
 import { layoutSlice } from "./layouts";
 import { mainSlice } from "./main";
+import { medicalHistorySlice } from "./medicalhistory";
 import { medicalSlice } from "./medicals";
 import { opdSlice } from "./opds";
 import { operationSlice } from "./operations";
@@ -59,6 +60,7 @@ const reducer = combineReducers({
   suppliers: supplierSlice.reducer,
   settings: settingsSlice.reducer,
   radiology: radiologySlice.reducer,
+  medicalhistory: medicalHistorySlice.reducer,
 });
 
 export const store = configureStore({
