@@ -66,7 +66,7 @@ const Conditioning: FC = () => {
       <Permission require="conditioning.new">
         <ConditioningForm
           fields={initialFields}
-          submitButtonLabel={t("conditioning.saveconditioning")}
+          submitButtonLabel={t("common.save")}
           resetButtonLabel={t("common.reset")}
           isLoading={createStatus === "LOADING"}
           onSubmit={onSubmit}

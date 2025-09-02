@@ -37,15 +37,20 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
     bolusSsVolume: number().nullable(),
     sngNumero: string().nullable(),
     others: string().nullable(),
-    performAt: date().required(t("common.required")),
+    cpap: boolean(),
+    date: date().required(t("common.required")),
   });
 
   const initialValues = getFromFields(fields, "value");
 
   const [aspirationChecked, setAspirationChecked] = useState(false);
+  const [cpapIsChecked, setCpapIsChecked] = useState(false);
 
   const handleCheched = () => {
     setAspirationChecked(!aspirationChecked);
+  };
+  const handleCpapCheck = () => {
+    setCpapIsChecked(!cpapIsChecked);
   };
 
   const formik = useFormik({
@@ -54,8 +59,11 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
     enableReinitialize: true,
     onSubmit: (values) => {
       const formattedValues = formatAllFieldValues(fields, values);
-      formattedValues.aspiration = aspirationChecked ? true : false;
+      formattedValues.aspiration = aspirationChecked;
+      formattedValues.cpap = cpapIsChecked;
       onSubmit(formattedValues as any);
+      setAspirationChecked(false);
+      setCpapIsChecked(false);
     },
   });
   const { resetForm, setFieldValue } = formik;
@@ -90,13 +98,6 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
     }
   }, [shouldResetForm, resetForm, resetFormCallback]);
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setFieldValue("performAt", new Date());
-    }, 1000);
-    return () => clearInterval(timer);
-  }, [setFieldValue]);
-
   return (
     <div className="conditioningForm">
       <form className="conditioningForm__form" onSubmit={formik.handleSubmit}>
@@ -109,28 +110,25 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
               onChange={handleCheched}
             />
           </div>
-          {/*
           <div className="conditioningForm__item">
             <CheckboxField
-              fieldName="performBy"
-              label={t("conditioning.performBy")}
-              checked={formik.values.performBy === "true"}
-              onChange={(checked: boolean) =>
-                setFieldValue("performBy", checked ? "true" : "false")
-              }
+              fieldName="cpap"
+              label={t("conditioning.cpap")}
+              checked={cpapIsChecked}
+              onChange={handleCpapCheck}
             />
-          </div>*/}
+          </div>
           <div className="conditioningForm__item">
             <DateField
-              fieldName="performAt"
-              fieldValue={formik.values.performAt}
+              fieldName="date"
+              fieldValue={formik.values.date}
               disableFuture={true}
               theme="regular"
               format="dd/MM/yyyy HH:mm"
-              isValid={isValid("performAt")}
-              errorText={getErrorText("performAt")}
-              label={t("conditioning.performAt")}
-              onChange={dateFieldHandleOnChange("performAt")}
+              isValid={isValid("date")}
+              errorText={getErrorText("date")}
+              label={t("conditioning.date")}
+              onChange={dateFieldHandleOnChange("date")}
               disabled={isLoading}
             />
           </div>

@@ -13,7 +13,6 @@
 
 import type {
     PatientDTO,
-    UserDTO,
 } from './';
 
 /**
@@ -82,12 +81,6 @@ export interface ConditioningDTO {
      */
     others?: string;
     /**
-     * user perform
-     * @type {UserDTO}
-     * @memberof ConditioningDTO
-     */
-    performBy: UserDTO;
-    /**
      * patient
      * @type {PatientDTO}
      * @memberof ConditioningDTO
@@ -98,7 +91,7 @@ export interface ConditioningDTO {
      * @type {string}
      * @memberof ConditioningDTO
      */
-    performAt?: string;
+    date: string;
     /**
      * Lock
      * @type {number}

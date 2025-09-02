@@ -23,5 +23,4 @@ export type ConditioningFormFieldName =
   | "bolusSsVolume"
   | "sngNumero"
   | "others"
-  | "performBy"
-  | "performAt";
+  | "date";

@@ -1386,9 +1386,11 @@
     "sgVolume": "SG 10% or 30% (cc) ",
     "diazepamDose": "Diazepam (mg)",
     "bolusSsVolume": "Bolus SS (CC)",
-    "performBy": "CPAP",
     "sngNumero": "SNG Number",
-    "performAt": "Performed At",
-    "others": "Others"
+    "date": "Date",
+    "others": "Others",
+    "cpap": "CPAP",
+    "created": "Conditioning created",
+    "createsuccess": "Conditioning created successfully"
   }
 }
