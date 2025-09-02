@@ -295,12 +295,6 @@ const AdmissionForm: FC<AdmissionProps> = ({
   const disTypeStatus = useAppSelector(
     (state: IState) => state.types.discharges.getAll.status
   );
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setFieldValue("admDate", new Date());
-    }, 1000);
-    return () => clearInterval(timer);
-  }, [setFieldValue]);
 
   const { options: conditionAtAdmissionOptions } = useConditionsAtAmission();
 

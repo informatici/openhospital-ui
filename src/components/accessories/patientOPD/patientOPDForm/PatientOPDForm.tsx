@@ -361,13 +361,6 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
     }
   }, [changeStatus, deletedObjCode, operationRows]);
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setFieldValue("date", new Date());
-    }, 1000);
-    return () => clearInterval(timer);
-  }, [setFieldValue]);
-
   return (
     <>
       <div className="patientOpdForm">

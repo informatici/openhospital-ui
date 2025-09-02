@@ -195,13 +195,6 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
     }
   }, [shouldResetForm, resetForm, resetFormCallback]);
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setFieldValue("pex_date", new Date());
-    }, 1000);
-    return () => clearInterval(timer);
-  }, [setFieldValue]);
-
   return (
     <>
       <div className="patientTriageForm">
