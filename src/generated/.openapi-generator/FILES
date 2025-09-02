@@ -3,11 +3,13 @@ apis/AdmissionTypesApi.ts
 apis/AdmissionsApi.ts
 apis/AgeTypesApi.ts
 apis/BillsApi.ts
+apis/ConditioningsApi.ts
 apis/DeliveryResultTypeApi.ts
 apis/DeliveryTypeApi.ts
 apis/DischargeTypeApi.ts
 apis/DiseaseTypesApi.ts
 apis/DiseasesApi.ts
+apis/EncounterApi.ts
 apis/ExamRowsApi.ts
 apis/ExamTypesApi.ts
 apis/ExaminationsApi.ts
@@ -55,11 +57,13 @@ models/AgeTypeDTO.ts
 models/BillDTO.ts
 models/BillItemsDTO.ts
 models/BillPaymentsDTO.ts
+models/ConditioningDTO.ts
 models/DeliveryResultTypeDTO.ts
 models/DeliveryTypeDTO.ts
 models/DischargeTypeDTO.ts
 models/DiseaseDTO.ts
 models/DiseaseTypeDTO.ts
+models/EncounterDTO.ts
 models/ExamDTO.ts
 models/ExamRowDTO.ts
 models/ExamTypeDTO.ts

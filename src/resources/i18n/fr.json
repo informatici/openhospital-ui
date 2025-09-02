@@ -384,6 +384,22 @@
     "bodymassindex": "Indice de masse corporel (kg/m²)",
     "branchialperimeter": "Périmètre branchial (cm)"
   },
+  "encounter": {
+    "code": "Code de la rencontre",
+    "newencounter": "Nouvelle rencontre",
+    "editencounter": "Modifier la rencontre",
+    "previousentries": "Rencontres précédentes",
+    "status": "Statut de la rencontre",
+    "patientalreadyhaveencuonter": "Le patient a déjà une rencontre.",
+    "createsuccess": "Rencontre créée avec succès",
+    "updatesuccess": "Rencontre mis à jour avec succès",
+    "created": "Rencontre créée",
+    "updated": "Rencontre mis à jour",
+    "updatestatus": "Changer le status",
+    "updatestatusmessage": "Êtes-vous sûr de vouloir clôturer la rencontre ?",
+    "change": "Changer",
+    "createddate": "Date de création"
+  },
   "nav": {
     "pharmacy": "Pharmacie",
     "ward": "Pavillon",

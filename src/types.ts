@@ -1,3 +1,4 @@
+import { IEncountersState } from "state/encounter";
 import { IMedicalHistoryState } from "state/medicalhistory";
 import { ISettingsState } from "state/settings";
 import { IAdmissionsState } from "./state/admissions/types";
@@ -57,6 +58,7 @@ export interface IState {
   suppliers: ISupplierState;
   permissions: IPermissionsState;
   settings: ISettingsState;
+  encounters: IEncountersState;
   medicalhistory: IMedicalHistoryState;
 }
 
@@ -236,5 +238,7 @@ export type TPermission =
   | "opds.access"
   | "admin.access"
   | "radiology.read"
+  | "encounters.create"
+  | "encounters.update"
   | "medicalhistory.create"
   | "medicalhistory.update";

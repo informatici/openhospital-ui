@@ -417,6 +417,22 @@
     "bodymassindex": "Body mass index (kg/m²)",
     "branchialperimeter": "Branchial perimeter (cm)"
   },
+  "encounter": {
+    "code": "Encounter code",
+    "newencounter": "New encounter",
+    "editencounter": "Edit encounter",
+    "previousentries": "Previous Encounters",
+    "status": "Encounter status",
+    "patientalreadyhaveencuonter": "The patient has already encounter.",
+    "createsuccess": "Encounter created successfully",
+    "updatesuccess": "Encounter updated successfully",
+    "created": "Encounter created",
+    "updated": "Encounter updated",
+    "updatestatus": "Change status",
+    "updatestatusmessage": "Are you sure you want to close the encounter?",
+    "change": "Change",
+    "createddate": "Created date"
+  },
   "nav": {
     "pharmacy": "Pharmacy",
     "ward": "Ward",
@@ -463,7 +479,6 @@
     "types": "Manage Types",
     "hospitalInfo": "Hospital Info",
     "hospital": "Hospital",
-    "admissionState": "Admission State",
     "settings": "Settings",
     "radiology": "Radiology",
     "encounters": "Encounters",

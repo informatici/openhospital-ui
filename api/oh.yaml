@@ -1886,6 +1886,33 @@ paths:
                 $ref: "#/components/schemas/DeliveryResultTypeDTO"
       security:
       - bearerAuth: []
+  /conditionings/{id}:
+    put:
+      tags:
+      - Conditionings
+      operationId: updateConditioning
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ConditioningDTO"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConditioningDTO"
+      security:
+      - bearerAuth: []
   /bills/{id}:
     get:
       tags:
@@ -3247,6 +3274,46 @@ paths:
                 $ref: "#/components/schemas/PatientExaminationDTO"
       security:
       - bearerAuth: []
+  /encounters:
+    post:
+      tags:
+      - Encounter
+      operationId: createEncounter
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EncounterDTO"
+        required: true
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EncounterDTO"
+      security:
+      - bearerAuth: []
+  /conditionings:
+    post:
+      tags:
+      - Conditionings
+      operationId: newConditioning
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ConditioningDTO"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConditioningDTO"
+      security:
+      - bearerAuth: []
   /bills:
     get:
       tags:
@@ -3432,6 +3499,52 @@ paths:
             application/json:
               schema:
                 type: boolean
+      security:
+      - bearerAuth: []
+  /encounters/{code}:
+    patch:
+      tags:
+      - Encounter
+      operationId: updateEncounterCode
+      parameters:
+      - name: code
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EncounterDTO"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EncounterDTO"
+      security:
+      - bearerAuth: []
+  /encounters/{code}/status:
+    patch:
+      tags:
+      - Encounter
+      operationId: updateEncounterStatus
+      parameters:
+      - name: code
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EncounterDTO"
       security:
       - bearerAuth: []
   /wardsNoMaternity:
@@ -5732,6 +5845,50 @@ paths:
                   $ref: "#/components/schemas/PatientExaminationDTO"
       security:
       - bearerAuth: []
+  /encounters/{patientId}:
+    get:
+      tags:
+      - Encounter
+      operationId: getEncountersByPatient
+      parameters:
+      - name: patientId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/EncounterDTO"
+      security:
+      - bearerAuth: []
+  /encounters/current/{patientId}:
+    get:
+      tags:
+      - Encounter
+      operationId: getCurrentEncounterByPatient
+      parameters:
+      - name: patientId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EncounterDTO"
+      security:
+      - bearerAuth: []
   /diseases/{code}:
     get:
       tags:
@@ -5937,6 +6094,29 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/DiseaseDTO"
+      security:
+      - bearerAuth: []
+  /conditionings/{patientCode}:
+    get:
+      tags:
+      - Conditionings
+      operationId: getConditioningByPatientCode
+      parameters:
+      - name: patientCode
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ConditioningDTO"
       security:
       - bearerAuth: []
   /bills/pending:
@@ -7959,6 +8139,11 @@ components:
           type: string
         otherFamilyPathologies:
           type: string
+        lock:
+          type: integer
+          format: int32
+          description: Lock
+          example: 0
       required:
       - patient
     MalnutritionDTO:
@@ -8291,6 +8476,77 @@ components:
       required:
       - patientCode
       - pex_date
+    ConditioningDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          description: Conditioning key
+          example: 12
+        aspiration:
+          type: boolean
+          description: Aspiration conditioning
+          example: true
+        mceDuree:
+          type: integer
+          format: int32
+          description: Mce duree conditioning
+          example: 4
+        ventilationDuree:
+          type: integer
+          format: int32
+          description: Ventilation duree conditioning
+          example: 2
+        oxygeneDebit:
+          type: number
+          format: double
+          description: Oxygene debit conditioning
+          example: 3
+        sgVolume:
+          type: number
+          format: double
+          description: Sg volume conditioning
+          example: 10
+        diazepamDose:
+          type: number
+          format: double
+          description: Diazepam dose conditioning
+          example: 12
+        bolusSsVolume:
+          type: number
+          format: double
+          description: Bolus volume conditioning
+          example: 3
+        sngNumero:
+          type: string
+          description: Conditioning number sng
+          example: 3434634
+        others:
+          type: string
+          description: Conditioning others
+          example: others
+        performBy:
+          $ref: "#/components/schemas/UserDTO"
+          description: user perform
+          example: 222343
+        patient:
+          $ref: "#/components/schemas/PatientDTO"
+          description: patient
+          example: 22
+        performAt:
+          type: string
+          format: date-time
+          description: Perform date
+          example: String
+        lock:
+          type: integer
+          format: int32
+          description: Lock
+          example: 0
+      required:
+      - patient
+      - performBy
     BillItemsDTO:
       type: object
       description: Class representing a billItem
@@ -8741,6 +8997,31 @@ components:
           example: NEGATIVE
         exam:
           $ref: "#/components/schemas/ExamDTO"
+    EncounterDTO:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Code of the encounter
+          example: 123
+        status:
+          type: string
+          description: Status of encounter
+          enum:
+          - OPEN
+          - CLOSE
+          example: OPEN
+        patient:
+          $ref: "#/components/schemas/PatientDTO"
+          description: Patient
+        createdDate:
+          type: string
+          format: date-time
+          description: Created date
+          example: 2025-08-26 16:15:58
+      required:
+      - code
+      - patient
     TokenRefreshRequest:
       type: object
       properties:

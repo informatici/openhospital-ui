@@ -147,4 +147,10 @@ export interface MedicalHistoryDTO {
      * @memberof MedicalHistoryDTO
      */
     otherFamilyPathologies?: string;
+    /**
+     * Lock
+     * @type {number}
+     * @memberof MedicalHistoryDTO
+     */
+    lock?: number;
 }
