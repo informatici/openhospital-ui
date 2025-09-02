@@ -155,13 +155,6 @@ const OperationRowForm: FC<OperationRowProps> = ({
     },
   ];
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setFieldValue("opDate", new Date());
-    }, 1000);
-    return () => clearInterval(timer);
-  }, [setFieldValue]);
-
   return (
     <>
       <div className="patientOperationForm">
