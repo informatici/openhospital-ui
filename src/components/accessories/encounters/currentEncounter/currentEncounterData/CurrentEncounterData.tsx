@@ -1,9 +1,10 @@
-import { Close, Edit } from "@mui/icons-material";
+import { Close, Edit, Visibility } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 import { renderDateTime } from "libraries/formatUtils/dataFormatting";
 import { isEmpty } from "lodash";
 import React, { FunctionComponent } from "react";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router";
 import { EncounterDTO } from "../../../../../generated";
 import "../styles.scss";
 
@@ -20,11 +21,22 @@ export const CurrentEncounterData: FunctionComponent<IOwnProps> = ({
 }) => {
   const { t } = useTranslation();
 
+  const navigate = useNavigate();
+
   return (
     <div className="currentEncounterData">
       <div className="currentEncounter_leading">
         <IconButton onClick={() => onEditCode && onEditCode(encounter)}>
           <Edit />
+        </IconButton>
+        <IconButton
+          onClick={() => {
+            navigate(
+              `/patients/details/${encounter.patient.code}/encounters/${encounter.code}`
+            );
+          }}
+        >
+          <Visibility />
         </IconButton>
         <IconButton onClick={onEdit}>
           <Close />

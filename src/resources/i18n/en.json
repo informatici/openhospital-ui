@@ -265,6 +265,24 @@
     "conditioning": "Conditioning",
     "medicalHistory": "Medical History"
   },
+  "encounters": {
+    "admissions": "Admissions",
+    "medical-history": "Medical History",
+    "visits": "Visits",
+    "triage": "Triage",
+    "therapy": "Therapy",
+    "laboratory": "Laboratory",
+    "operation": "Operation",
+    "admission": "Admission",
+    "discharge": "Discharge",
+    "clinic": "Clinic",
+    "conditioning": "Conditioning",
+    "radiology": "Radiology",
+    "status_open": "Open",
+    "status_closed": "Closed",
+    "encounterId": "Encounter ID",
+    "edit_title": "Edit"
+  },
   "opd": {
     "newopd": "Create new OPD Visit",
     "editopd": "Edit OPD Visit",
@@ -453,6 +471,7 @@
     "editpatient": "Edit Patient",
     "searchpatient": "Search Patient",
     "patientdashboard": "Patient Dashboard",
+    "encounter_dashboard": "Encounter Dashboard",
     "admission": "Admission",
     "discharge": "Discharge",
     "surgicalrecord": "Surgical Record",
