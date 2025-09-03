@@ -44,6 +44,12 @@ export interface EncounterDTO {
      * @memberof EncounterDTO
      */
     performAt?: string;
+    /**
+     * Closed date
+     * @type {string}
+     * @memberof EncounterDTO
+     */
+    closeAt?: string;
 }
 
 /**

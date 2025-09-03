@@ -7641,11 +7641,11 @@ components:
           type: string
           description: "Flag record deleted, values are 'Y' OR 'N' "
           example: "N"
-        fhu:
-          type: string
         yprog:
           type: integer
           format: int32
+        fhu:
+          type: string
       required:
       - admDate
       - admitted
@@ -9018,6 +9018,11 @@ components:
           type: string
           format: date-time
           description: Created date
+          example: 2025-08-26 16:15:58
+        closeAt:
+          type: string
+          format: date-time
+          description: Closed date
           example: 2025-08-26 16:15:58
       required:
       - code
