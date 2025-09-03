@@ -77,6 +77,9 @@ const MedicalHistoryForm: FC<MedicalHistoryProps> = ({
         hemylosis: isHemolysisChecked ? true : false,
         sickleCell: isSickleCellChecked ? true : false,
         transfusion: isTransfusionChecked ? true : false,
+        lastTransfusionDate: isTransfusionChecked
+          ? values.lastTransfusionDate
+          : null,
       };
       onSubmit(medicalHistoryToSave);
     },
@@ -361,24 +364,26 @@ const MedicalHistoryForm: FC<MedicalHistoryProps> = ({
           <h3 className="formInsertMode">
             {t("medicalHistory.personalPathological.title")}
           </h3>
-          <div className="row start-sm center-xs bottom-sm">
-            <div className="medicalHistoryForm__item">
-              <DateField
-                fieldName="lastTransfusionDate"
-                fieldValue={formik.values.lastTransfusionDate}
-                disableFuture={true}
-                theme="regular"
-                format="dd/MM/yyyy HH:mm"
-                isValid={isValid("lastTransfusionDate")}
-                errorText={getErrorText("lastTransfusionDate")}
-                label={t(
-                  "medicalHistory.personalPathological.lastTransfusionDate"
-                )}
-                onChange={dateFieldHandleOnChange("lastTransfusionDate")}
-                disabled={isLoading}
-              />
+          {isTransfusionChecked && (
+            <div className="row start-sm center-xs bottom-sm">
+              <div className="medicalHistoryForm__item">
+                <DateField
+                  fieldName="lastTransfusionDate"
+                  fieldValue={formik.values.lastTransfusionDate}
+                  disableFuture={true}
+                  theme="regular"
+                  format="dd/MM/yyyy HH:mm"
+                  isValid={isValid("lastTransfusionDate")}
+                  errorText={getErrorText("lastTransfusionDate")}
+                  label={t(
+                    "medicalHistory.personalPathological.lastTransfusionDate"
+                  )}
+                  onChange={dateFieldHandleOnChange("lastTransfusionDate")}
+                  disabled={isLoading}
+                />
+              </div>
             </div>
-          </div>
+          )}
 
           <div className="row start-sm center-xs bottom-sm">
             <div className="medicalHistoryForm__item">
