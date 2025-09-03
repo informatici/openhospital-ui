@@ -651,7 +651,14 @@
     "familyPathological": {
       "title": "Antécédents pathologiques (Familiaux)",
       "otherFamilyPathologies": "Autres pathologies familiales"
-    }
+    },
+    "newmedicalHistory": "Nouvel antécédent médical",
+    "editmedicalHistory": "Editer l'antécédent médical",
+    "patientalreadyhasmedicalhistory": "Le patient a déjà un antécédent médical",
+    "created": "Antécédent médical créé",
+    "updated": "Antécédent médical Mise à jour",
+    "createsuccess": "L'antécédent médical a été créé avec succès",
+    "updatesuccess": "Antécédent médical mis à jour avec succès"
   },
 
   "permission": {

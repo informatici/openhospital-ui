@@ -5379,9 +5379,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/MedicalHistoryDTO"
+                $ref: "#/components/schemas/MedicalHistoryDTO"
       security:
       - bearerAuth: []
   /malnutritions/{id_admission}:
@@ -6778,13 +6776,13 @@ components:
           format: int32
           description: lock
           example: 0
-        opd:
-          type: boolean
         female:
+          type: boolean
+        pharmacy:
           type: boolean
         male:
           type: boolean
-        pharmacy:
+        opd:
           type: boolean
       required:
       - beds
@@ -8542,6 +8540,10 @@ components:
           format: int32
           description: Lock
           example: 0
+        cpap:
+          type: boolean
+          description: CPAP
+          example: true
       required:
       - date
       - patient
@@ -9012,7 +9014,7 @@ components:
         patient:
           $ref: "#/components/schemas/PatientDTO"
           description: Patient
-        date:
+        performAt:
           type: string
           format: date-time
           description: Created date

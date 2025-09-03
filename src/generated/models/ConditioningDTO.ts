@@ -98,4 +98,10 @@ export interface ConditioningDTO {
      * @memberof ConditioningDTO
      */
     lock?: number;
+    /**
+     * CPAP
+     * @type {boolean}
+     * @memberof ConditioningDTO
+     */
+    cpap?: boolean;
 }
