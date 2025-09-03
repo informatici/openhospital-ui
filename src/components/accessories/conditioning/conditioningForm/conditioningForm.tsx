@@ -2,9 +2,12 @@ import CheckboxField from "components/accessories/checkboxField/CheckboxField";
 import DateField from "components/accessories/dateField/DateField";
 import TextField from "components/accessories/textField/TextField";
 import { useFormik } from "formik";
-import { getFromFields } from "libraries/formDataHandling/functions";
+import {
+  formatAllFieldValues,
+  getFromFields,
+} from "libraries/formDataHandling/functions";
 import { get, has } from "lodash";
-import React, { FC, useCallback, useState } from "react";
+import React, { FC, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { boolean, date, number, object, string } from "yup";
 import warningIcon from "../../../../assets/warning-icon.png";
@@ -17,6 +20,10 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
   fields,
   submitButtonLabel,
   resetButtonLabel,
+  isLoading,
+  onSubmit,
+  resetFormCallback,
+  shouldResetForm,
 }) => {
   const { t } = useTranslation();
 
@@ -30,22 +37,37 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
     bolusSsVolume: number().nullable(),
     sngNumero: string().nullable(),
     others: string().nullable(),
-    performBy: string().required(t("common.required")),
-    performAt: date().required(t("common.required")),
+    cpap: boolean(),
+    date: date().required(t("common.required")),
   });
 
   const initialValues = getFromFields(fields, "value");
+
+  const [aspirationChecked, setAspirationChecked] = useState(false);
+  const [cpapIsChecked, setCpapIsChecked] = useState(false);
+
+  const handleCheched = () => {
+    setAspirationChecked(!aspirationChecked);
+  };
+  const handleCpapCheck = () => {
+    setCpapIsChecked(!cpapIsChecked);
+  };
 
   const formik = useFormik({
     initialValues,
     validationSchema,
     enableReinitialize: true,
     onSubmit: (values) => {
-      console.log("Conditioning form submitted:", values);
+      const formattedValues = formatAllFieldValues(fields, values);
+      formattedValues.aspiration = aspirationChecked;
+      formattedValues.cpap = cpapIsChecked;
+      onSubmit(formattedValues as any);
+      setAspirationChecked(false);
+      setCpapIsChecked(false);
     },
   });
-
   const { resetForm, setFieldValue } = formik;
+
   const dateFieldHandleOnChange = useCallback(
     (fieldName: string) => (value: any) => {
       setFieldValue(fieldName, value);
@@ -65,8 +87,16 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
 
   const handleResetConfirmation = () => {
     setOpenResetConfirmation(false);
-    resetForm();
+    formik.resetForm();
+    resetFormCallback();
   };
+
+  useEffect(() => {
+    if (shouldResetForm) {
+      resetForm();
+      resetFormCallback();
+    }
+  }, [shouldResetForm, resetForm, resetFormCallback]);
 
   return (
     <div className="conditioningForm">
@@ -76,34 +106,30 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
             <CheckboxField
               fieldName="aspiration"
               label={t("conditioning.aspiration")}
-              checked={formik.values.aspiration === "true"}
-              onChange={(checked: boolean) =>
-                setFieldValue("aspiration", checked ? "true" : "false")
-              }
+              checked={aspirationChecked}
+              onChange={handleCheched}
             />
           </div>
           <div className="conditioningForm__item">
             <CheckboxField
-              fieldName="performBy"
-              label={t("conditioning.performBy")}
-              checked={formik.values.performBy === "true"}
-              onChange={(checked: boolean) =>
-                setFieldValue("performBy", checked ? "true" : "false")
-              }
+              fieldName="cpap"
+              label={t("conditioning.cpap")}
+              checked={cpapIsChecked}
+              onChange={handleCpapCheck}
             />
           </div>
           <div className="conditioningForm__item">
             <DateField
-              fieldName="performAt"
-              fieldValue={formik.values.performAt}
+              fieldName="date"
+              fieldValue={formik.values.date}
               disableFuture={true}
               theme="regular"
               format="dd/MM/yyyy HH:mm"
-              isValid={isValid("performAt")}
-              errorText={getErrorText("performAt")}
-              label={t("conditioning.performAt")}
-              onChange={dateFieldHandleOnChange("performAt")}
-              disabled={false}
+              isValid={isValid("date")}
+              errorText={getErrorText("date")}
+              label={t("conditioning.date")}
+              onChange={dateFieldHandleOnChange("date")}
+              disabled={isLoading}
             />
           </div>
 
@@ -115,7 +141,7 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
               isValid={isValid("mceDuree")}
               errorText={getErrorText("mceDuree")}
               onBlur={formik.handleBlur}
-              disabled={false}
+              disabled={isLoading}
             />
           </div>
 
@@ -127,7 +153,7 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
               isValid={isValid("ventilationDuree")}
               errorText={getErrorText("ventilationDuree")}
               onBlur={formik.handleBlur}
-              disabled={false}
+              disabled={isLoading}
             />
           </div>
 
@@ -139,7 +165,7 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
               isValid={isValid("oxygeneDebit")}
               errorText={getErrorText("oxygeneDebit")}
               onBlur={formik.handleBlur}
-              disabled={false}
+              disabled={isLoading}
             />
           </div>
 
@@ -151,7 +177,7 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
               isValid={isValid("sgVolume")}
               errorText={getErrorText("sgVolume")}
               onBlur={formik.handleBlur}
-              disabled={false}
+              disabled={isLoading}
             />
           </div>
 
@@ -163,7 +189,7 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
               isValid={isValid("diazepamDose")}
               errorText={getErrorText("diazepamDose")}
               onBlur={formik.handleBlur}
-              disabled={false}
+              disabled={isLoading}
             />
           </div>
 
@@ -175,7 +201,7 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
               isValid={isValid("bolusSsVolume")}
               errorText={getErrorText("bolusSsVolume")}
               onBlur={formik.handleBlur}
-              disabled={false}
+              disabled={isLoading}
             />
           </div>
 
@@ -187,7 +213,7 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
               isValid={isValid("sngNumero")}
               errorText={getErrorText("sngNumero")}
               onBlur={formik.handleBlur}
-              disabled={false}
+              disabled={isLoading}
             />
           </div>
 
@@ -202,7 +228,7 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
               errorText={getErrorText("others")}
               onBlur={formik.handleBlur}
               rows={3}
-              disabled={false}
+              disabled={isLoading}
               maxLength={2000}
             />
           </div>
@@ -213,14 +239,14 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
             <Button
               type="reset"
               variant="text"
-              disabled={false}
+              disabled={isLoading}
               onClick={() => setOpenResetConfirmation(true)}
             >
               {resetButtonLabel}
             </Button>
           </div>
           <div className="submit_button">
-            <Button type="submit" variant="contained" disabled={false}>
+            <Button type="submit" variant="contained" disabled={isLoading}>
               {submitButtonLabel}
             </Button>
           </div>

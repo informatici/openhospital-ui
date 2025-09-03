@@ -7,7 +7,6 @@ export const initialFields: TFields<ConditioningFormFieldName> = {
     value: "",
     type: "boolean",
   },
-
   mceDuree: {
     value: "",
     type: "number",
@@ -40,11 +39,7 @@ export const initialFields: TFields<ConditioningFormFieldName> = {
     value: "",
     type: "text",
   },
-  performBy: {
-    value: "",
-    type: "text",
-  },
-  performAt: {
+  date: {
     value: parseDateTime(new Date().toISOString(), false),
     type: "date",
   },

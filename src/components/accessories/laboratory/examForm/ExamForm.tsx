@@ -330,13 +330,6 @@ const ExamForm: FC<ExamProps> = ({
     labStore.createLab.status === "SUCCESS" ||
     labStore.updateLab.status === "SUCCESS";
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setFieldValue("labDate", new Date());
-    }, 1000);
-    return () => clearInterval(timer);
-  }, [setFieldValue]);
-
   return (
     <>
       <div className="patientExamForm">

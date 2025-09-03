@@ -6776,13 +6776,13 @@ components:
           format: int32
           description: lock
           example: 0
-        opd:
-          type: boolean
         female:
+          type: boolean
+        pharmacy:
           type: boolean
         male:
           type: boolean
-        pharmacy:
+        opd:
           type: boolean
       required:
       - beds
@@ -8526,15 +8526,11 @@ components:
           type: string
           description: Conditioning others
           example: others
-        performBy:
-          $ref: "#/components/schemas/UserDTO"
-          description: user perform
-          example: 222343
         patient:
           $ref: "#/components/schemas/PatientDTO"
           description: patient
           example: 22
-        performAt:
+        date:
           type: string
           format: date-time
           description: Perform date
@@ -8544,9 +8540,13 @@ components:
           format: int32
           description: Lock
           example: 0
+        cpap:
+          type: boolean
+          description: CPAP
+          example: true
       required:
+      - date
       - patient
-      - performBy
     BillItemsDTO:
       type: object
       description: Class representing a billItem
@@ -9014,7 +9014,7 @@ components:
         patient:
           $ref: "#/components/schemas/PatientDTO"
           description: Patient
-        createdDate:
+        performAt:
           type: string
           format: date-time
           description: Created date

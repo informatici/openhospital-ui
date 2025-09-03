@@ -1,3 +1,4 @@
+import { IConditioningsState } from "state/conditionings";
 import { IEncountersState } from "state/encounter";
 import { IMedicalHistoryState } from "state/medicalhistory";
 import { ISettingsState } from "state/settings";
@@ -59,6 +60,7 @@ export interface IState {
   permissions: IPermissionsState;
   settings: ISettingsState;
   encounters: IEncountersState;
+  conditioning: IConditioningsState;
   medicalhistory: IMedicalHistoryState;
 }
 
@@ -240,5 +242,7 @@ export type TPermission =
   | "radiology.read"
   | "encounters.create"
   | "encounters.update"
+  | "conditioning.new"
+  | "conditioning.update"
   | "medicalhistory.create"
   | "medicalhistory.update";
