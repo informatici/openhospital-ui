@@ -20,6 +20,7 @@ import type {
  * @interface EncounterDTO
  */
 export interface EncounterDTO {
+    date: string;
     /**
      * Code of the encounter
      * @type {string}
