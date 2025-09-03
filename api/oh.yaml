@@ -6786,6 +6786,8 @@ components:
           type: boolean
         pharmacy:
           type: boolean
+        pharmacy:
+          type: boolean
       required:
       - beds
       - description
@@ -9012,7 +9014,7 @@ components:
         patient:
           $ref: "#/components/schemas/PatientDTO"
           description: Patient
-        date:
+        performAt:
           type: string
           format: date-time
           description: Created date

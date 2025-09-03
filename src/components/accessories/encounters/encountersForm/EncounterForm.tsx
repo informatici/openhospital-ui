@@ -32,7 +32,7 @@ const EncounterForm: FC<EncounterProps> = ({
 
   const validationSchema = object({
     code: string().required(t("common.required")),
-    date: Yup.date().nullable().required(t("common.required")),
+    performAt: Yup.date().nullable().required(t("common.required")),
   });
 
   const formik = useFormik({
@@ -83,16 +83,16 @@ const EncounterForm: FC<EncounterProps> = ({
           <div className="row start-sm center-xs">
             <div className="patientEncounterForm__item">
               <DateField
-                fieldName="date"
-                fieldValue={formik.values.date}
+                fieldName="performAt"
+                fieldValue={formik.values.performAt}
                 disableFuture={true}
                 theme="regular"
                 format="dd/MM/yyyy HH:mm"
-                isValid={isValid("date")}
-                errorText={getErrorText("date")}
+                isValid={isValid("performAt")}
+                errorText={getErrorText("performAt")}
                 label={t("encounter.createddate")}
-                onChange={(date: Date | null) =>
-                  formik.setFieldValue("date", date)
+                onChange={(performAt: Date | null) =>
+                  formik.setFieldValue("performAt", performAt)
                 }
                 disabled={false}
               />
