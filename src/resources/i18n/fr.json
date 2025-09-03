@@ -1355,6 +1355,7 @@
     "sngNumero": "Numéro SNG",
     "date": "Date",
     "others": "Autres",
-    "cpap": "CPAP"
+    "cpap": "CPAP",
+    "previousentries": "Mises en condition précédentes"
   }
 }

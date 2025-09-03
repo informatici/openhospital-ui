@@ -14,6 +14,7 @@ import { ConditioningDTO } from "../../../generated";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import InfoBox from "../infoBox/InfoBox";
 import ConditioningForm from "./conditioningForm/conditioningForm";
+import ConditioningTable from "./conditioningTable/ConditioningTable";
 import { initialFields } from "./consts";
 import "./styles.scss";
 import { ConditioningTransitionState } from "./types";
@@ -23,6 +24,7 @@ const Conditioning: FC = () => {
   const dispatch = useAppDispatch();
   const [shouldResetForm, setShouldResetForm] = useState(false);
   const [creationMode, setCreationMode] = useState(true);
+  const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
   const [activityTransitionState, setActivityTransitionState] =
     useState<ConditioningTransitionState>("IDLE");
   const infoBoxRef = useRef<HTMLDivElement>(null);
@@ -53,11 +55,18 @@ const Conditioning: FC = () => {
       dispatch(newConditioningReset());
       dispatch(updateConditioningReset());
       setShouldResetForm(true);
+      setShouldUpdateTable(true);
     }
   }, [dispatch, patient, activityTransitionState]);
 
   const resetFormCallback = () => {
     setShouldResetForm(true);
+    scrollToElement(null);
+  };
+
+  const onEdit = (row: ConditioningDTO) => {
+    console.log("Edit conditioning row:", row);
+    setCreationMode(false);
     scrollToElement(null);
   };
 
@@ -80,6 +89,11 @@ const Conditioning: FC = () => {
           <InfoBox type="error" message={errorMessage} />
         </div>
       )}
+
+      <ConditioningTable
+        handleEdit={onEdit}
+        shouldUpdateTable={shouldUpdateTable}
+      />
 
       <ConfirmationDialog
         isOpen={createStatus === "SUCCESS"}
