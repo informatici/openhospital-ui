@@ -43,7 +43,7 @@ export interface EncounterDTO {
      * @type {string}
      * @memberof EncounterDTO
      */
-    createdDate?: string;
+    date?: string;
 }
 
 /**

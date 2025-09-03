@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { isEmpty } from "lodash";
+import { ApiResponse } from "state/types";
 import { initial } from "./initial";
 import * as thunks from "./thunk";
-import { ApiResponse } from "state/types";
-import { isEmpty } from "lodash";
 
 export const therapySlice = createSlice({
   name: "therapies",
@@ -20,18 +20,17 @@ export const therapySlice = createSlice({
   },
   extraReducers: (builder) =>
     builder
-      // Get Patient Therapies
       .addCase(thunks.getTherapiesByPatientId.pending, (state) => {
         state.therapiesByPatientId = ApiResponse.loading();
       })
       .addCase(thunks.getTherapiesByPatientId.fulfilled, (state, action) => {
         state.therapiesByPatientId = isEmpty(action.payload)
-          ? ApiResponse.empty() : ApiResponse.value(action.payload);
+          ? ApiResponse.empty()
+          : ApiResponse.value(action.payload);
       })
       .addCase(thunks.getTherapiesByPatientId.rejected, (state, action) => {
         state.therapiesByPatientId = ApiResponse.error(action.payload);
       })
-      // Create Therapy
       .addCase(thunks.createTherapy.pending, (state) => {
         state.createTherapy = ApiResponse.loading();
       })
@@ -41,7 +40,6 @@ export const therapySlice = createSlice({
       .addCase(thunks.createTherapy.rejected, (state, action) => {
         state.createTherapy = ApiResponse.error(action.payload);
       })
-      // Update Therapy
       .addCase(thunks.updateTherapy.pending, (state) => {
         state.updateTherapy = ApiResponse.loading();
       })
@@ -51,7 +49,6 @@ export const therapySlice = createSlice({
       .addCase(thunks.updateTherapy.rejected, (state, action) => {
         state.updateTherapy = ApiResponse.error(action.payload);
       })
-      // Delete Therapy
       .addCase(thunks.deleteTherapy.pending, (state) => {
         state.deleteTherapy = ApiResponse.loading();
       })

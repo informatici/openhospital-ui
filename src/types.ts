@@ -1,3 +1,4 @@
+import { IConditioningsState } from "state/conditionings";
 import { IEncountersState } from "state/encounter";
 import { ISettingsState } from "state/settings";
 import { IAdmissionsState } from "./state/admissions/types";
@@ -58,6 +59,7 @@ export interface IState {
   permissions: IPermissionsState;
   settings: ISettingsState;
   encounters: IEncountersState;
+  conditioning: IConditioningsState;
 }
 
 export enum FIELD_VALIDATION {
@@ -237,4 +239,6 @@ export type TPermission =
   | "admin.access"
   | "radiology.read"
   | "encounters.create"
-  | "encounters.update";
+  | "encounters.update"
+  | "conditioning.new"
+  | "conditioning.update";

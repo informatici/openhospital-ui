@@ -5,6 +5,7 @@ export * from './AgeTypeDTO';
 export * from './BillDTO';
 export * from './BillItemsDTO';
 export * from './BillPaymentsDTO';
+export * from './ConditioningDTO';
 export * from './DeliveryResultTypeDTO';
 export * from './DeliveryTypeDTO';
 export * from './DischargeTypeDTO';
