@@ -9,6 +9,7 @@ import warningIcon from "../../../../assets/warning-icon.png";
 import {
   formatAllFieldValues,
   getFromFields,
+  parseDateTime,
 } from "../../../../libraries/formDataHandling/functions";
 import Button from "../../button/Button";
 import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
@@ -78,7 +79,7 @@ const MedicalHistoryForm: FC<MedicalHistoryProps> = ({
         sickleCell: isSickleCellChecked ? true : false,
         transfusion: isTransfusionChecked ? true : false,
         lastTransfusionDate: isTransfusionChecked
-          ? values.lastTransfusionDate
+          ? parseDateTime(values.lastTransfusionDate)
           : null,
       };
       onSubmit(medicalHistoryToSave);
