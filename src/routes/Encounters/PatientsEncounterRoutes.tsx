@@ -1,8 +1,11 @@
 import Conditioning from "components/accessories/conditioning/Conditioning";
-import { Encounters } from "components/accessories/encounters/Encounters";
 import MedicalHistory from "components/accessories/medicalhistory/MedicalHistory";
 import { Radiology, Series, Studies } from "components/accessories/radiology";
 import PermissionDenied from "components/activities/PermissionDenied/PermissionDenied";
+import DischargeDetailsActivityContent from "components/activities/patientDetailsActivityContent/DischargeDetailsActivityContent";
+import VisitDetailsActivityContent from "components/activities/patientDetailsActivityContent/VisitDetailsActivityContent";
+import { PatientEncounterActivityContent } from "components/activities/patientEncounterActivity";
+import PatientEncounterActivity from "components/activities/patientEncounterActivity/PatientEncounterActivity";
 import { withPermission } from "libraries/permissionUtils/withPermission";
 import React, { FC } from "react";
 import { useTranslation } from "react-i18next";
@@ -14,14 +17,8 @@ import PatientSummary from "../../components/accessories/patientSummary/PatientS
 import PatientTherapy from "../../components/accessories/patientTherapy/PatientTherapy";
 import PatientTriage from "../../components/accessories/patientTriage/PatientTriage";
 import NotFound from "../../components/activities/notFound/NotFound";
-import PatientDetailsActivity from "../../components/activities/patientDetailsActivity/PatientDetailsActivity";
-import DischargeDetailsContent from "../../components/activities/patientDetailsActivityContent/DischargeDetailsActivityContent";
-import PatientDetailsContent from "../../components/activities/patientDetailsActivityContent/PatientDetailsActivityContent";
-import VisitDetailsContent from "../../components/activities/patientDetailsActivityContent/VisitDetailsActivityContent";
 
-export const PatientDetailsRoutes: FC<{
-  encountersEnabled?: boolean;
-}> = ({ encountersEnabled }) => {
+export const PatientsEncounterRoutes: FC = () => {
   const { t } = useTranslation();
 
   const RadiologyRoutes = withPermission(
@@ -31,7 +28,7 @@ export const PatientDetailsRoutes: FC<{
     <Routes>
       <Route
         element={
-          <PatientDetailsContent
+          <PatientEncounterActivityContent
             title={t("patient.radiology")}
             content={Radiology}
           />
@@ -44,80 +41,47 @@ export const PatientDetailsRoutes: FC<{
           path="studies/:id/series/:serie_id/instances"
           element={<h1>Serie Instances</h1>}
         />
-        <Route
-          path="*"
-          element={
-            <div>
-              <h1>Page not found !</h1>
-            </div>
-          }
-        />
+        <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
   ));
 
   return (
     <Routes>
-      <Route element={<PatientDetailsActivity />}>
+      <Route element={<PatientEncounterActivity />}>
+        <Route index element={<Navigate to={"admissions"} replace={true} />} />
         <Route
-          index
+          path="conditioning"
           element={
-            encountersEnabled ? (
-              <Navigate to={"encounters"} replace={true} />
-            ) : (
-              <Navigate to={"admissions"} replace={true} />
-            )
+            <PatientEncounterActivityContent
+              title={t("patient.conditioning")}
+              content={Conditioning}
+            />
           }
         />
-        {encountersEnabled && (
-          <Route
-            path="encounters"
-            element={
-              <PatientDetailsContent
-                title={t("patient.encounters")}
-                content={Encounters}
-              />
-            }
-          />
-        )}
-        {encountersEnabled && (
-          <Route
-            path="conditioning"
-            element={
-              <PatientDetailsContent
-                title={t("patient.conditioning")}
-                content={Conditioning}
-              />
-            }
-          />
-        )}
-
-        {encountersEnabled && (
-          <Route
-            path="medical-history"
-            element={
-              <PatientDetailsContent
-                title={t("patient.medicalHistory")}
-                content={MedicalHistory}
-              />
-            }
-          />
-        )}
-
+        <Route
+          path="medical-history"
+          element={
+            <PatientEncounterActivityContent
+              title={t("patient.medicalHistory")}
+              content={MedicalHistory}
+            />
+          }
+        />
         <Route
           path="admissions"
           element={
-            <PatientDetailsContent
+            <PatientEncounterActivityContent
               title={t("patient.admissions")}
               content={PatientAdmission}
             />
           }
         />
-        <Route path="visits" element={<VisitDetailsContent />} />
+        <Route path="visits" element={<VisitDetailsActivityContent />} />
         <Route
           path="laboratory"
           element={
-            <PatientDetailsContent
+            <PatientEncounterActivityContent
               title={t("patient.laboratory")}
               content={PatientExams}
             />
@@ -127,7 +91,7 @@ export const PatientDetailsRoutes: FC<{
           <Route
             path="therapy"
             element={
-              <PatientDetailsContent
+              <PatientEncounterActivityContent
                 title={t("patient.therapy")}
                 content={PatientTherapy}
               />
@@ -137,17 +101,17 @@ export const PatientDetailsRoutes: FC<{
         <Route
           path="triage"
           element={
-            <PatientDetailsContent
+            <PatientEncounterActivityContent
               title={t("patient.triage")}
               content={PatientTriage}
             />
           }
         />
-        <Route path="discharge" element={<DischargeDetailsContent />} />
+        <Route path="discharge" element={<DischargeDetailsActivityContent />} />
         <Route
           path="clinic"
           element={
-            <PatientDetailsContent
+            <PatientEncounterActivityContent
               title={t("patient.summary")}
               content={PatientSummary}
             />
@@ -156,7 +120,7 @@ export const PatientDetailsRoutes: FC<{
         <Route
           path="operation"
           element={
-            <PatientDetailsContent
+            <PatientEncounterActivityContent
               title={t("patient.operation")}
               content={PatientOperation}
             />
