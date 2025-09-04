@@ -31,13 +31,9 @@ export interface GetEncountersByPatientRequest {
     patientId: number;
 }
 
-export interface UpdateEncounterCodeRequest {
+export interface UpdateEncounterRequest {
     code: string;
     encounterDTO: EncounterDTO;
-}
-
-export interface UpdateEncounterStatusRequest {
-    code: string;
 }
 
 /**
@@ -100,11 +96,11 @@ export class EncounterApi extends BaseAPI {
 
     /**
      */
-    updateEncounterCode({ code, encounterDTO }: UpdateEncounterCodeRequest): Observable<EncounterDTO>
-    updateEncounterCode({ code, encounterDTO }: UpdateEncounterCodeRequest, opts?: OperationOpts): Observable<AjaxResponse<EncounterDTO>>
-    updateEncounterCode({ code, encounterDTO }: UpdateEncounterCodeRequest, opts?: OperationOpts): Observable<EncounterDTO | AjaxResponse<EncounterDTO>> {
-        throwIfNullOrUndefined(code, 'code', 'updateEncounterCode');
-        throwIfNullOrUndefined(encounterDTO, 'encounterDTO', 'updateEncounterCode');
+    updateEncounter({ code, encounterDTO }: UpdateEncounterRequest): Observable<EncounterDTO>
+    updateEncounter({ code, encounterDTO }: UpdateEncounterRequest, opts?: OperationOpts): Observable<AjaxResponse<EncounterDTO>>
+    updateEncounter({ code, encounterDTO }: UpdateEncounterRequest, opts?: OperationOpts): Observable<EncounterDTO | AjaxResponse<EncounterDTO>> {
+        throwIfNullOrUndefined(code, 'code', 'updateEncounter');
+        throwIfNullOrUndefined(encounterDTO, 'encounterDTO', 'updateEncounter');
 
         const headers: HttpHeaders = {
             'Content-Type': 'application/json',
@@ -115,23 +111,6 @@ export class EncounterApi extends BaseAPI {
             method: 'PATCH',
             headers,
             body: encounterDTO,
-        }, opts?.responseOpts);
-    };
-
-    /**
-     */
-    updateEncounterStatus({ code }: UpdateEncounterStatusRequest): Observable<EncounterDTO>
-    updateEncounterStatus({ code }: UpdateEncounterStatusRequest, opts?: OperationOpts): Observable<AjaxResponse<EncounterDTO>>
-    updateEncounterStatus({ code }: UpdateEncounterStatusRequest, opts?: OperationOpts): Observable<EncounterDTO | AjaxResponse<EncounterDTO>> {
-        throwIfNullOrUndefined(code, 'code', 'updateEncounterStatus');
-
-        const headers: HttpHeaders = {
-        };
-
-        return this.request<EncounterDTO>({
-            url: '/encounters/{code}/status'.replace('{code}', encodeURI(code)),
-            method: 'PATCH',
-            headers,
         }, opts?.responseOpts);
     };
 

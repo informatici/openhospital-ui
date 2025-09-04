@@ -1,3 +1,4 @@
+import { parseDateTime } from "libraries/formDataHandling/functions";
 import { DiseaseDTO, EncounterDTO } from "../../../generated";
 import { TFields } from "../../../libraries/formDataHandling/types";
 import { initialFields } from "./consts";
@@ -12,6 +13,10 @@ export const useFields = (
     code: {
       value: encounter?.code ?? "",
       type: "text",
+    },
+    performedAt: {
+      value: encounter?.performedAt ? parseDateTime(encounter.performedAt) : new Date().toISOString(),
+      type: "date",
     },
   };
 
