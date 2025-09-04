@@ -20,7 +20,12 @@ import type {
  * @interface EncounterDTO
  */
 export interface EncounterDTO {
-    date: string;
+    /**
+     * id of the encounter
+     * @type {number}
+     * @memberof EncounterDTO
+     */
+    id?: number;
     /**
      * Code of the encounter
      * @type {string}
@@ -40,17 +45,22 @@ export interface EncounterDTO {
      */
     patient: PatientDTO;
     /**
-     * Created date
+     * Encounter date
      * @type {string}
      * @memberof EncounterDTO
      */
-    performAt?: string;
+    performedAt?: string;
     /**
      * Closed date
      * @type {string}
      * @memberof EncounterDTO
      */
-    closeAt?: string;
+    closedAt?: string;
+    /**
+     * @type {string}
+     * @memberof EncounterDTO
+     */
+    performAt?: string;
 }
 
 /**

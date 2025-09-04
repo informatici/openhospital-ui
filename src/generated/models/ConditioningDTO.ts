@@ -33,47 +33,47 @@ export interface ConditioningDTO {
      */
     aspiration?: boolean;
     /**
-     * Mce duree conditioning
+     * Conditioning mce duration
      * @type {number}
      * @memberof ConditioningDTO
      */
-    mceDuree?: number;
+    mce?: number;
     /**
-     * Ventilation duree conditioning
+     * Conditioning ventilation duration
      * @type {number}
      * @memberof ConditioningDTO
      */
-    ventilationDuree?: number;
+    ventilation?: number;
     /**
-     * Oxygene debit conditioning
+     * Oxygen debit
      * @type {number}
      * @memberof ConditioningDTO
      */
-    oxygeneDebit?: number;
+    oxygenDebit?: number;
     /**
-     * Sg volume conditioning
+     * Sg volume
      * @type {number}
      * @memberof ConditioningDTO
      */
     sgVolume?: number;
     /**
-     * Diazepam dose conditioning
+     * Diazepam dose
      * @type {number}
      * @memberof ConditioningDTO
      */
     diazepamDose?: number;
     /**
-     * Bolus volume conditioning
+     * Bolus volume 
      * @type {number}
      * @memberof ConditioningDTO
      */
     bolusSsVolume?: number;
     /**
-     * Conditioning number sng
+     * Conditioning sng number
      * @type {string}
      * @memberof ConditioningDTO
      */
-    sngNumero?: string;
+    sngNumber?: string;
     /**
      * Conditioning others
      * @type {string}
@@ -87,15 +87,21 @@ export interface ConditioningDTO {
      */
     patient: PatientDTO;
     /**
-     * Perform date
+     * Conditioning date
      * @type {string}
      * @memberof ConditioningDTO
      */
-    date: string;
+    performedAt: string;
     /**
      * Lock
      * @type {number}
      * @memberof ConditioningDTO
      */
     lock?: number;
+    /**
+     * CPAP
+     * @type {boolean}
+     * @memberof ConditioningDTO
+     */
+    cpap?: boolean;
 }

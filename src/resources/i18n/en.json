@@ -431,7 +431,11 @@
     "updatestatus": "Change status",
     "updatestatusmessage": "Are you sure you want to close the encounter?",
     "change": "Change",
-    "createddate": "Created date"
+    "createddate": "Created date",
+    "closeddate": "Enter the closing date",
+    "closedtitle": "CLOSE ENCOUNTER",
+    "closedsuccess": "Encounter closed successfully",
+    "closed": "Encounter closed"
   },
   "nav": {
     "pharmacy": "Pharmacy",
@@ -1380,14 +1384,14 @@
   "conditioning": {
     "title": "Conditioning",
     "aspiration": "Aspiration",
-    "mceDuree": "MCE (mn)",
-    "ventilationDuree": "Ventilation  (mn)",
-    "oxygeneDebit": "Oxygen  (mn)",
+    "mce": "MCE (mn)",
+    "ventilation": "Ventilation  (mn)",
+    "oxygenDebit": "Oxygen  (mn)",
     "sgVolume": "SG 10% or 30% (cc) ",
     "diazepamDose": "Diazepam (mg)",
     "bolusSsVolume": "Bolus SS (CC)",
-    "sngNumero": "SNG Number",
-    "date": "Date",
+    "sngNumber": "SNG Number",
+    "performedAt": "Date",
     "others": "Others",
     "cpap": "CPAP",
     "created": "Conditioning created",
