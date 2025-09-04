@@ -232,6 +232,24 @@
     "conditioning": "Mise en condition",
     "medicalHistory": "Antécédent médical"
   },
+  "encounters": {
+    "admissions": "Admissions",
+    "medical-history": "Antécédents médicaux",
+    "visits": "Visites",
+    "triage": "Triage",
+    "therapy": "Thérapie",
+    "laboratory": "Laboratoire",
+    "operation": "Opération",
+    "admission": "Admission",
+    "discharge": "Sortie",
+    "clinic": "Clinique",
+    "conditioning": "Conditionnement",
+    "radiology": "Radiologie",
+    "status_open": "Ouverte",
+    "status_closed": "Fermée",
+    "encounterId": "ID Rencontre",
+    "edit_title": "Modifier"
+  },
   "opd": {
     "newopd": "Créer une nouvelle visite OPD",
     "editopd": "Modifier la visite OPD",
@@ -424,6 +442,7 @@
     "editpatient": "Modifier le patient",
     "searchpatient": "Rechercher un patient",
     "patientdashboard": "Tableau de bord du patient",
+    "encounter_dashboard": "Tableau de bord de la rencontre",
     "admission": "Admission",
     "discharge": "Décharge",
     "surgicalrecord": "Dossier chirurgical",
@@ -655,7 +674,14 @@
     "familyPathological": {
       "title": "Antécédents pathologiques (Familiaux)",
       "otherFamilyPathologies": "Autres pathologies familiales"
-    }
+    },
+    "newmedicalHistory": "Nouvel antécédent médical",
+    "editmedicalHistory": "Editer l'antécédent médical",
+    "patientalreadyhasmedicalhistory": "Le patient a déjà un antécédent médical",
+    "created": "Antécédent médical créé",
+    "updated": "Antécédent médical Mise à jour",
+    "createsuccess": "L'antécédent médical a été créé avec succès",
+    "updatesuccess": "Antécédent médical mis à jour avec succès"
   },
 
   "permission": {
