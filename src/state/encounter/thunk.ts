@@ -14,18 +14,10 @@ export const createEncounter = createAsyncThunk(
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );
 
-export const updateEncounterStatus = createAsyncThunk(
+export const updateEncounter = createAsyncThunk(
   "encounter/UPDATE_ENCOUNTER",
-  async (code: string, thunkApi) =>
-    wrapper(() => api.updateEncounterStatus({ code }))
-      .toPromise()
-      .catch((error) => thunkApi.rejectWithValue(error.response))
-);
-
-export const updateEncounterCode = createAsyncThunk(
-  "encounter/UPDATE_ENCOUNTER_CODE",
   async ({ code, body }: Param, thunkApi) =>
-    wrapper(() => api.updateEncounterCode({ code: code, encounterDTO: body }))
+    wrapper(() => api.updateEncounter({ code: code, encounterDTO: body }))
       .toPromise()
       .catch((error) => thunkApi.rejectWithValue(error.response))
 );
