@@ -6,7 +6,7 @@ import { isEmpty } from "lodash";
 import "moment/min/locales";
 import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import {
   createEncounter,
   createEncounterReset,
@@ -45,6 +45,7 @@ export const Encounters = () => {
   const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
   const [activityTransitionState, setActivityTransitionState] =
     useState<EncounterTransitionState>("IDLE");
+  const navigate = useNavigate();
 
   const patient = useAppSelector(
     (state: IState) => state.patients.selectedPatient.data
@@ -147,6 +148,12 @@ export const Encounters = () => {
     scrollToElement(null);
   };
 
+  const onView = (encounter: EncounterDTO) => {
+    navigate(
+      `/patients/details/${encounter.patient.code}/encounters/${encounter.code}`
+    );
+  };
+
   const onUpdateStatusCode = () => {
     setCreationMode(true);
     setShowForm(true);
@@ -199,7 +206,7 @@ export const Encounters = () => {
         )}
 
         <EncounterTable
-          handleEdit={onEdit}
+          handelView={onView}
           shouldUpdateTable={shouldUpdateTable}
         />
 

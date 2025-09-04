@@ -9,12 +9,12 @@ import Table from "../../table/Table";
 
 interface IOwnProps {
   shouldUpdateTable: boolean;
-  handleEdit: (row: any) => void;
+  handelView: (row: any) => void;
 }
 
 const EncounterTable: FunctionComponent<IOwnProps> = ({
   shouldUpdateTable,
-  handleEdit,
+  handelView,
 }) => {
   const { t } = useTranslation();
 
@@ -67,6 +67,10 @@ const EncounterTable: FunctionComponent<IOwnProps> = ({
     (state) => state.encounters.createEncounter.status
   );
 
+  const handelViewDetails = (row: EncounterDTO) => {
+    handelView(data.find((item) => item.code === row?.code));
+  };
+
   return (
     <div className="patientAdmissionTable">
       <h5>{t("encounter.previousentries")}</h5>
@@ -95,7 +99,7 @@ const EncounterTable: FunctionComponent<IOwnProps> = ({
                 columnsOrder={order}
                 rowsPerPage={5}
                 isCollapsabile={true}
-                onEdit={undefined}
+                onDetails={handelViewDetails}
                 initialOrderBy="disDate"
                 showEmptyCell={false}
               />
