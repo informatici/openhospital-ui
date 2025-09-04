@@ -14,8 +14,8 @@ export const useFields = (
       value: encounter?.code ?? "",
       type: "text",
     },
-    performAt: {
-      value: encounter?.performAt ? parseDateTime(encounter.performAt) : new Date().toISOString(),
+    performedAt: {
+      value: encounter?.performedAt ? parseDateTime(encounter.performedAt) : new Date().toISOString(),
       type: "date",
     },
   };

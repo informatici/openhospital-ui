@@ -56,11 +56,6 @@ export interface EncounterDTO {
      * @memberof EncounterDTO
      */
     closedAt?: string;
-    /**
-     * @type {string}
-     * @memberof EncounterDTO
-     */
-    performAt?: string;
 }
 
 /**

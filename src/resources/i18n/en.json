@@ -431,7 +431,7 @@
     "updatestatus": "Change status",
     "updatestatusmessage": "Are you sure you want to close the encounter?",
     "change": "Change",
-    "createddate": "Created date",
+    "performedAt": "Encounter date",
     "closeddate": "Enter the closing date",
     "closedtitle": "CLOSE ENCOUNTER",
     "closedsuccess": "Encounter closed successfully",

@@ -16,4 +16,4 @@ interface IEncounterProps {
 
 export type EncounterProps = IEncounterProps;
 
-export type EncounterFormFieldName = "code" | "performAt";
+export type EncounterFormFieldName = "code" | "performedAt";

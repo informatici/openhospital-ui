@@ -45,7 +45,7 @@ export const CurrentEncounterData: FunctionComponent<IOwnProps> = ({
         )}
         {encounter?.performedAt && (
           <div className="currentEncounterData__item">
-            <span className="item_label">{t("encounter.createddate")}</span>
+            <span className="item_label">{t("encounter.performedAt")}</span>
             <p className="item_content">
               {renderDateTime(encounter?.performedAt!)}
             </p>
