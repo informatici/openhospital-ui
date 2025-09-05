@@ -36,16 +36,6 @@ export const encounterSlice = createSlice({
       .addCase(thunks.createEncounter.rejected, (state, action) => {
         state.createEncounter = ApiResponse.error(action.payload);
       })
-      // Update Encounter Status
-      .addCase(thunks.updateEncounterStatus.pending, (state) => {
-        state.updateEncounterStatus = ApiResponse.loading();
-      })
-      .addCase(thunks.updateEncounterStatus.fulfilled, (state, action) => {
-        state.updateEncounterStatus = ApiResponse.value(action.payload);
-      })
-      .addCase(thunks.updateEncounterStatus.rejected, (state, action) => {
-        state.updateEncounterStatus = ApiResponse.error(action.payload);
-      })
       // Get current encounter
       .addCase(thunks.getCurrentEncounterByPatient.pending, (state) => {
         state.getCurrentEncounterByPatient = ApiResponse.loading();
@@ -67,13 +57,13 @@ export const encounterSlice = createSlice({
         }
       )
       //Update Encounter code
-      .addCase(thunks.updateEncounterCode.pending, (state) => {
+      .addCase(thunks.updateEncounter.pending, (state) => {
         state.updateEncounterCode = ApiResponse.loading();
       })
-      .addCase(thunks.updateEncounterCode.fulfilled, (state, action) => {
+      .addCase(thunks.updateEncounter.fulfilled, (state, action) => {
         state.updateEncounterCode = ApiResponse.value(action.payload);
       })
-      .addCase(thunks.updateEncounterCode.rejected, (state, action) => {
+      .addCase(thunks.updateEncounter.rejected, (state, action) => {
         state.updateEncounterCode = ApiResponse.error(action.payload);
       })
       // Get Encounters

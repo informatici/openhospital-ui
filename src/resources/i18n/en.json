@@ -265,6 +265,24 @@
     "conditioning": "Conditioning",
     "medicalHistory": "Medical History"
   },
+  "encounters": {
+    "admissions": "Admissions",
+    "medical-history": "Medical History",
+    "visits": "Visits",
+    "triage": "Triage",
+    "therapy": "Therapy",
+    "laboratory": "Laboratory",
+    "operation": "Operation",
+    "admission": "Admission",
+    "discharge": "Discharge",
+    "clinic": "Clinic",
+    "conditioning": "Conditioning",
+    "radiology": "Radiology",
+    "status_open": "Open",
+    "status_closed": "Closed",
+    "encounterId": "Encounter ID",
+    "edit_title": "Edit"
+  },
   "opd": {
     "newopd": "Create new OPD Visit",
     "editopd": "Edit OPD Visit",
@@ -431,7 +449,11 @@
     "updatestatus": "Change status",
     "updatestatusmessage": "Are you sure you want to close the encounter?",
     "change": "Change",
-    "createddate": "Created date"
+    "performedAt": "Encounter date",
+    "closeddate": "Enter the closing date",
+    "closedtitle": "CLOSE ENCOUNTER",
+    "closedsuccess": "Encounter closed successfully",
+    "closed": "Encounter closed"
   },
   "nav": {
     "pharmacy": "Pharmacy",
@@ -453,6 +475,7 @@
     "editpatient": "Edit Patient",
     "searchpatient": "Search Patient",
     "patientdashboard": "Patient Dashboard",
+    "encounter_dashboard": "Encounter Dashboard",
     "admission": "Admission",
     "discharge": "Discharge",
     "surgicalrecord": "Surgical Record",
@@ -685,7 +708,14 @@
     "familyPathological": {
       "title": "Pathological History (Family)",
       "otherFamilyPathologies": "Other Family Pathologies"
-    }
+    },
+    "newmedicalHistory": "New medical history",
+    "editmedicalHistory": "Edit medical history",
+    "patientalreadyhasmedicalhistory": "The patient already has medical history",
+    "created": "Medical history created",
+    "updated": "Medical history updated",
+    "createsuccess": "Medical history created successfully",
+    "updatesuccess": "Medical history updated successfully"
   },
 
   "permission": {
@@ -1380,18 +1410,21 @@
   "conditioning": {
     "title": "Conditioning",
     "aspiration": "Aspiration",
-    "mceDuree": "MCE (mn)",
-    "ventilationDuree": "Ventilation  (mn)",
-    "oxygeneDebit": "Oxygen  (mn)",
+    "mce": "MCE (mn)",
+    "ventilation": "Ventilation  (mn)",
+    "oxygenDebit": "Oxygen  (mn)",
     "sgVolume": "SG 10% or 30% (cc) ",
     "diazepamDose": "Diazepam (mg)",
     "bolusSsVolume": "Bolus SS (CC)",
-    "sngNumero": "SNG Number",
-    "date": "Date",
+    "sngNumber": "SNG Number",
+    "performedAt": "Date",
     "others": "Others",
     "cpap": "CPAP",
     "created": "Conditioning created",
     "createsuccess": "Conditioning created successfully",
-    "previousentries": "Previous conditionings"
+    "previousentries": "Previous conditionings",
+    "currentexists": "A conditioning record already exists for this patient.",
+    "updated": "Conditioning updated",
+    "updatesuccess": "Conditioning has been updated successfully."
   }
 }

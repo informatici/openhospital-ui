@@ -7,15 +7,19 @@ export const initialFields: TFields<ConditioningFormFieldName> = {
     value: "",
     type: "boolean",
   },
-  mceDuree: {
+  cpap: {
+    value: "",
+    type: "boolean",
+  },
+  mce: {
     value: "",
     type: "number",
   },
-  ventilationDuree: {
+  ventilation: {
     value: "",
     type: "number",
   },
-  oxygeneDebit: {
+  oxygenDebit: {
     value: "",
     type: "number",
   },
@@ -31,7 +35,7 @@ export const initialFields: TFields<ConditioningFormFieldName> = {
     value: "",
     type: "number",
   },
-  sngNumero: {
+  sngNumber: {
     value: "",
     type: "text",
   },
@@ -39,7 +43,7 @@ export const initialFields: TFields<ConditioningFormFieldName> = {
     value: "",
     type: "text",
   },
-  date: {
+  performedAt: {
     value: parseDateTime(new Date().toISOString(), false),
     type: "date",
   },

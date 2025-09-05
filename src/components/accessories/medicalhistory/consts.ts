@@ -1,6 +1,6 @@
 import { parseDateTime } from "libraries/formDataHandling/functions";
 import { TFields } from "../../../libraries/formDataHandling/types";
-import { MedicalHistoryFormFieldName } from "./types";
+import { MedicalHistoryFormFieldName } from "./medicalHistoryForm/types";
 
 export const initialFields: TFields<MedicalHistoryFormFieldName> = {
   lastTransfusionDate: {
@@ -11,7 +11,7 @@ export const initialFields: TFields<MedicalHistoryFormFieldName> = {
     value: "",
     type: "number",
   },
-  pregnancyTerm: {
+  termPregnancy: {
     value: "",
     type: "text",
   },
@@ -27,11 +27,11 @@ export const initialFields: TFields<MedicalHistoryFormFieldName> = {
     value: "",
     type: "number",
   },
-  vaccinationStatus: {
+  vaccinationState: {
     value: "",
     type: "text",
   },
-  malariaProphylaxis: {
+  antiMalarialProphylaxis: {
     value: "",
     type: "text",
   },
@@ -39,11 +39,11 @@ export const initialFields: TFields<MedicalHistoryFormFieldName> = {
     value: "",
     type: "text",
   },
-  deworming: {
+  deParasitization: {
     value: "",
     type: "text",
   },
-  psychomotorDevelopment: {
+  psychomotorDev: {
     value: "",
     type: "text",
   },
@@ -67,7 +67,6 @@ export const initialFields: TFields<MedicalHistoryFormFieldName> = {
     value: "",
     type: "text",
   },
-
   transfusion: {
     value: "",
     type: "boolean",
@@ -76,19 +75,18 @@ export const initialFields: TFields<MedicalHistoryFormFieldName> = {
     value: "",
     type: "boolean",
   },
-  drugAllergy: {
-    value: "",
-    type: "boolean",
-  },
-  hemolysis: {
+  allergyPrecision: {
     value: "",
     type: "text",
   },
-  otherPathologies: {
+  hemylosis: {
     value: "",
     type: "text",
   },
-
+  otherPersonalPathologies: {
+    value: "",
+    type: "text",
+  },
   otherFamilyPathologies: {
     value: "",
     type: "text",

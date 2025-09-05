@@ -1,33 +1,16 @@
-import { TFields } from "libraries/formDataHandling/types";
+import { MedicalHistoryDTO } from "../../../generated";
 
-interface IMedicalHistoryProps {
-  fields: TFields<MedicalHistoryFormFieldName>;
-  submitButtonLabel: string;
-  resetButtonLabel: string;
+export interface IStateProps {
+  isLoading: boolean;
+  hasSucceeded: boolean;
+  hasFailed: boolean;
 }
 
-export type MedicalHistoryProps = IMedicalHistoryProps;
+export interface IDispatchProps {
+  createMedicalHistory: (mh: MedicalHistoryDTO) => any;
+  createMedicalHistoryReset: () => void;
+}
 
-export type MedicalHistoryFormFieldName =
-  | "siblingRank"
-  | "pregnancyTerm"
-  | "deliveryMode"
-  | "apgarScore"
-  | "birthWeight"
-  | "vaccinationStatus"
-  | "malariaProphylaxis"
-  | "diet"
-  | "deworming"
-  | "psychomotorDevelopment"
-  | "somaticGrowth"
-  | "ironSupplement"
-  | "folicAcidSupplement"
-  | "vitASupplement"
-  | "otherSupplements"
-  | "transfusion"
-  | "lastTransfusionDate"
-  | "sickleCell"
-  | "drugAllergy"
-  | "hemolysis"
-  | "otherPathologies"
-  | "otherFamilyPathologies";
+export type TProps = IStateProps & IDispatchProps;
+
+export type MedicalHistoryTransitionState = "IDLE" | "TO_RESET" | "FAIL";

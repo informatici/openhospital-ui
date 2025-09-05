@@ -21,24 +21,24 @@ const ConditioningTable: FunctionComponent<IOwnProps> = ({
   const { t } = useTranslation();
   const canUpdate = usePermission("conditioning.update");
 
-  const header = ["date"];
-  const dateFields = ["date"];
+  const header = ["performedAt"];
+  const dateFields = ["performedAt"];
 
   const label = {
     id: t("conditioning.code"),
-    date: t("conditioning.date"),
+    performedAt: t("conditioning.performedAt"),
     aspiration: t("conditioning.aspiration"),
-    mceDuree: t("conditioning.mceDuree"),
-    ventilationDuree: t("conditioning.ventilationDuree"),
-    oxygeneDebit: t("conditioning.oxygeneDebit"),
+    mce: t("conditioning.mce"),
+    ventilation: t("conditioning.ventilation"),
+    oxygenDebit: t("conditioning.oxygenDebit"),
     sgVolume: t("conditioning.sgVolume"),
     diazepamDose: t("conditioning.diazepamDose"),
     bolusSsVolume: t("conditioning.bolusSsVolume"),
-    sngNumero: t("conditioning.sngNumero"),
+    sngNumber: t("conditioning.sngNumber"),
     others: t("conditioning.others"),
   };
 
-  const order = ["date"];
+  const order = ["performedAt"];
 
   const dispatch = useAppDispatch();
 
@@ -120,7 +120,7 @@ const ConditioningTable: FunctionComponent<IOwnProps> = ({
                 rowsPerPage={5}
                 isCollapsabile={true}
                 onEdit={canUpdate ? onEdit : undefined}
-                initialOrderBy="date"
+                initialOrderBy="performedAt"
                 showEmptyCell={false}
               />
             );

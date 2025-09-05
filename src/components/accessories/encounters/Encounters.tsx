@@ -12,7 +12,7 @@ import {
   createEncounterReset,
   getCurrentEncounterByPatient,
   getEncountersByPatient,
-  updateEncounterCode,
+  updateEncounter,
   updateEncounterCodeReset,
   updateEncounterReset,
 } from "state/encounter";
@@ -42,6 +42,7 @@ export const Encounters = () => {
   const [encounterToEdit, setEncounterToEdit] = useState<
     EncounterDTO | undefined
   >();
+  const [isCloseEncounterDialogOpen, setIsCloseEncounterDialogOpen] = useState(false);  
   const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
   const [activityTransitionState, setActivityTransitionState] =
     useState<EncounterTransitionState>("IDLE");
@@ -87,14 +88,12 @@ export const Encounters = () => {
       enc.patient = patient!;
       dispatch(createEncounter(enc));
     } else {
-      if (enc.code !== encounterToEdit?.code) {
-        enc.patient = patient!;
-        const param: Param = {
-          code: encounterToEdit?.code!,
-          body: enc,
-        };
-        dispatch(updateEncounterCode(param));
-      }
+      enc.patient = patient!;
+      const param: Param = {
+        code: encounterToEdit?.code!,
+        body: enc,
+      };
+      dispatch(updateEncounter(param));
     }
   };
 
@@ -147,8 +146,8 @@ export const Encounters = () => {
     scrollToElement(null);
   };
 
-  const onUpdateStatusCode = () => {
-    setCreationMode(true);
+  const onCloseEncounter = () => {
+    setIsCloseEncounterDialogOpen(true);
     setShowForm(true);
     setShouldResetForm(false);
     setShouldUpdateTable(false);
@@ -158,7 +157,7 @@ export const Encounters = () => {
   };
 
   const onCurrentEncounterChange = (value: boolean) => {
-    setIsEditingCurrent(value);
+    // setIsEditingCurrent(value);
   };
 
   return (
@@ -172,9 +171,9 @@ export const Encounters = () => {
         )}
         {!showForm && currentEncounter && (
           <CurrentEncounter
-            onEditChange={onCurrentEncounterChange}
+            onEditChange={() => {}}
             onEditCode={onEdit}
-            onUpdateStatusCode={onUpdateStatusCode}
+            onCloseEncounter={onCloseEncounter}
           />
         )}
         {showForm && (creationMode ? canCreate : canUpdate) && (
@@ -201,12 +200,13 @@ export const Encounters = () => {
         <EncounterTable
           handleEdit={onEdit}
           shouldUpdateTable={shouldUpdateTable}
+          activityTransitionState={activityTransitionState}
         />
 
         <ConfirmationDialog
           isOpen={
             (createStatus === "SUCCESS" || updateStatus === "SUCCESS") &&
-            !isEditingCurrent
+            !isEditingCurrent && !isCloseEncounterDialogOpen
           }
           title={creationMode ? t("encounter.created") : t("encounter.updated")}
           icon={checkIcon}
@@ -219,6 +219,19 @@ export const Encounters = () => {
           handlePrimaryButtonClick={() =>
             setActivityTransitionState("TO_RESET")
           }
+          handleSecondaryButtonClick={() => ({})}
+        />
+        
+        <ConfirmationDialog
+          isOpen={isCloseEncounterDialogOpen}
+          title={t("encounter.closed")}
+          icon={checkIcon}
+          info={t("encounter.closedsuccess")}
+          primaryButtonLabel="Ok"
+          handlePrimaryButtonClick={() => {
+            setActivityTransitionState("TO_RESET");
+            setIsCloseEncounterDialogOpen(false);
+          }}
           handleSecondaryButtonClick={() => ({})}
         />
       </div>

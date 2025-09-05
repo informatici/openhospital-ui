@@ -1,18 +1,19 @@
-import ConfirmationDialog from "components/accessories/confirmationDialog/ConfirmationDialog";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { FunctionComponent, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { updateEncounterStatus } from "state/encounter";
 import warningIcon from "../../../../assets/warning-icon.png";
 import { IState } from "../../../../types";
 import { CurrentEncounterData } from "./currentEncounterData/CurrentEncounterData";
 import "./styles.scss";
 import { IOwnProps } from "./types";
+import CloseEncounterDialog from "../closeEncounterDialog/CloseEncounterDialog";
+import { EncounterDTOStatusEnum } from "generated";
+import { updateEncounter } from "state/encounter";
 
 export const CurrentEncounter: FunctionComponent<IOwnProps> = ({
   onEditChange,
   onEditCode,
-  onUpdateStatusCode,
+  onCloseEncounter,
 }) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
@@ -21,10 +22,20 @@ export const CurrentEncounter: FunctionComponent<IOwnProps> = ({
   );
 
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
-  const updateStatusCallback = () => {
-    dispatch(updateEncounterStatus(currentEncounter?.code!!));
+
+  const closeEncounter = (closureDate: Date) => {
+    if (!currentEncounter) return;
+
+    dispatch(updateEncounter({
+      code: currentEncounter.code!,
+      body: {
+        ...currentEncounter,
+        status: EncounterDTOStatusEnum.Close,
+        closedAt: closureDate.toISOString(),
+      },
+    }));
     setOpenResetConfirmation(false);
-    onUpdateStatusCode && onUpdateStatusCode();
+    onCloseEncounter && onCloseEncounter();
   };
 
   const handleEdit = () => {
@@ -40,15 +51,16 @@ export const CurrentEncounter: FunctionComponent<IOwnProps> = ({
           encounter={currentEncounter}
         />
       )}
-      <ConfirmationDialog
+      <CloseEncounterDialog
         isOpen={openResetConfirmation}
-        title={t("encounter.updatestatus").toUpperCase()}
-        info={t("encounter.updatestatusmessage")}
+        title={t("encounter.closedtitle").toUpperCase()}
+        info={t("encounter.closeddate")}
         icon={warningIcon}
-        primaryButtonLabel={t("encounter.change")}
-        secondaryButtonLabel={t("common.discard")}
-        handlePrimaryButtonClick={updateStatusCallback}
+        primaryButtonLabel={t("common.yes")}
+        secondaryButtonLabel={t("common.no")}
+        handlePrimaryButtonClick={closeEncounter}
         handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
+        withDateField={true}
       />
     </div>
   );

@@ -232,6 +232,24 @@
     "conditioning": "Mise en condition",
     "medicalHistory": "Antécédent médical"
   },
+  "encounters": {
+    "admissions": "Admissions",
+    "medical-history": "Antécédents médicaux",
+    "visits": "Visites",
+    "triage": "Triage",
+    "therapy": "Thérapie",
+    "laboratory": "Laboratoire",
+    "operation": "Opération",
+    "admission": "Admission",
+    "discharge": "Sortie",
+    "clinic": "Clinique",
+    "conditioning": "Conditionnement",
+    "radiology": "Radiologie",
+    "status_open": "Ouverte",
+    "status_closed": "Fermée",
+    "encounterId": "ID Rencontre",
+    "edit_title": "Modifier"
+  },
   "opd": {
     "newopd": "Créer une nouvelle visite OPD",
     "editopd": "Modifier la visite OPD",
@@ -398,7 +416,11 @@
     "updatestatus": "Changer le status",
     "updatestatusmessage": "Êtes-vous sûr de vouloir clôturer la rencontre ?",
     "change": "Changer",
-    "createddate": "Date de création"
+    "performedAt": "Date de rencontre",
+    "closeddate": "Renseignez la date de cloture",
+    "closedtitle": "CLOTURE DE LA RENCONTRE",
+    "closedsuccess": "Rencontre clôturée avec succès",
+    "closed": "Rencontre clôturée"
   },
   "nav": {
     "pharmacy": "Pharmacie",
@@ -420,6 +442,7 @@
     "editpatient": "Modifier le patient",
     "searchpatient": "Rechercher un patient",
     "patientdashboard": "Tableau de bord du patient",
+    "encounter_dashboard": "Tableau de bord de la rencontre",
     "admission": "Admission",
     "discharge": "Décharge",
     "surgicalrecord": "Dossier chirurgical",
@@ -651,7 +674,14 @@
     "familyPathological": {
       "title": "Antécédents pathologiques (Familiaux)",
       "otherFamilyPathologies": "Autres pathologies familiales"
-    }
+    },
+    "newmedicalHistory": "Nouvel antécédent médical",
+    "editmedicalHistory": "Editer l'antécédent médical",
+    "patientalreadyhasmedicalhistory": "Le patient a déjà un antécédent médical",
+    "created": "Antécédent médical créé",
+    "updated": "Antécédent médical Mise à jour",
+    "createsuccess": "L'antécédent médical a été créé avec succès",
+    "updatesuccess": "Antécédent médical mis à jour avec succès"
   },
 
   "permission": {
@@ -1346,16 +1376,19 @@
   "conditioning": {
     "title": "Mise en condition",
     "aspiration": "Aspiration",
-    "mceDuree": "MCE (mn)",
-    "ventilationDuree": "Ventilation  (mn)",
-    "oxygeneDebit": "Oxygène  (mn)",
+    "mce": "MCE (mn)",
+    "ventilation": "Ventilation  (mn)",
+    "oxygenDebit": "Oxygène  (mn)",
     "sgVolume": "SG 10% or 30% (cc) ",
     "diazepamDose": "Diazépam (mg)",
     "bolusSsVolume": "Bolus SS (CC)",
-    "sngNumero": "Numéro SNG",
-    "date": "Date",
+    "sngNumber": "Numéro SNG",
+    "performedAt": "Date",
     "others": "Autres",
     "cpap": "CPAP",
-    "previousentries": "Mises en condition précédentes"
+    "previousentries": "Mises en condition précédentes",
+    "updated": "Mise en condition mise à jour",
+    "createsuccess": "La mise en condition a été enregistrée avec succès.",
+    "updatesuccess": "La mise en condition a été mise à jour avec succès."
   }
 }

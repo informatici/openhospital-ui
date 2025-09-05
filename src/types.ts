@@ -1,5 +1,6 @@
 import { IConditioningsState } from "state/conditionings";
 import { IEncountersState } from "state/encounter";
+import { IMedicalHistoryState } from "state/medicalhistory";
 import { ISettingsState } from "state/settings";
 import { IAdmissionsState } from "./state/admissions/types";
 import { IBillsState } from "./state/bills/types";
@@ -60,6 +61,7 @@ export interface IState {
   settings: ISettingsState;
   encounters: IEncountersState;
   conditioning: IConditioningsState;
+  medicalhistory: IMedicalHistoryState;
 }
 
 export enum FIELD_VALIDATION {
@@ -241,4 +243,6 @@ export type TPermission =
   | "encounters.create"
   | "encounters.update"
   | "conditioning.new"
-  | "conditioning.update";
+  | "conditioning.update"
+  | "medicalhistory.create"
+  | "medicalhistory.update";

@@ -4,6 +4,7 @@ import { ConditioningDTO } from "../../../../generated";
 interface IConditioningFormProps {
   fields: TFields<ConditioningFormFieldName>;
   onSubmit: (conditioning: ConditioningDTO) => void;
+  creationMode: boolean;
   submitButtonLabel: string;
   resetButtonLabel: string;
   isLoading: boolean;
@@ -15,12 +16,13 @@ export type ConditioningFormProps = IConditioningFormProps;
 
 export type ConditioningFormFieldName =
   | "aspiration"
-  | "mceDuree"
-  | "ventilationDuree"
-  | "oxygeneDebit"
+  | "mce"
+  | "ventilation"
+  | "oxygenDebit"
   | "sgVolume"
   | "diazepamDose"
   | "bolusSsVolume"
-  | "sngNumero"
+  | "sngNumber"
   | "others"
-  | "date";
+  | "performedAt"
+  | "cpap";
