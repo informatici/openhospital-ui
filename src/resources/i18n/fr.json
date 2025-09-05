@@ -1385,6 +1385,10 @@
     "sngNumber": "Numéro SNG",
     "performedAt": "Date",
     "others": "Autres",
-    "cpap": "CPAP"
+    "cpap": "CPAP",
+    "previousentries": "Mises en condition précédentes",
+    "updated": "Mise en condition mise à jour",
+    "createsuccess": "La mise en condition a été enregistrée avec succès.",
+    "updatesuccess": "La mise en condition a été mise à jour avec succès."
   }
 }

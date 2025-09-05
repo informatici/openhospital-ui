@@ -19,6 +19,7 @@ import { ConditioningFormProps } from "./types";
 const ConditioningForm: FC<ConditioningFormProps> = ({
   fields,
   submitButtonLabel,
+  creationMode,
   resetButtonLabel,
   isLoading,
   onSubmit,
@@ -43,15 +44,8 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
 
   const initialValues = getFromFields(fields, "value");
 
-  const [aspirationChecked, setAspirationChecked] = useState(false);
-  const [cpapIsChecked, setCpapIsChecked] = useState(false);
-
-  const handleCheched = () => {
-    setAspirationChecked(!aspirationChecked);
-  };
-  const handleCpapCheck = () => {
-    setCpapIsChecked(!cpapIsChecked);
-  };
+  const [isAspirationChecked, setIsAspirationCheckedChecked] = useState(false);
+  const [isCpapChecked, setIsCpapChecked] = useState(false);
 
   const formik = useFormik({
     initialValues,
@@ -59,13 +53,15 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
     enableReinitialize: true,
     onSubmit: (values) => {
       const formattedValues = formatAllFieldValues(fields, values);
-      formattedValues.aspiration = aspirationChecked;
-      formattedValues.cpap = cpapIsChecked;
-      onSubmit(formattedValues as any);
-      setAspirationChecked(false);
-      setCpapIsChecked(false);
+      const conditioningToSave: any = {
+        ...formattedValues,
+        aspiration: isAspirationChecked ? true : false,
+        cpap: isCpapChecked ? true : false,
+      };
+      onSubmit(conditioningToSave as any);
     },
   });
+
   const { resetForm, setFieldValue } = formik;
 
   const dateFieldHandleOnChange = useCallback(
@@ -75,6 +71,7 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
     },
     [formik, setFieldValue]
   );
+
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
   const isValid = (fieldName: string) =>
@@ -91,6 +88,22 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
     resetFormCallback();
   };
 
+  const handleAspirationChecked = () => {
+    setIsAspirationCheckedChecked(!isAspirationChecked);
+  };
+
+  const handleCpapChecked = () => {
+    setIsCpapChecked(!isCpapChecked);
+  };
+  useEffect(() => {
+    if (!creationMode) {
+      setIsAspirationCheckedChecked(
+        formik.values.aspiration === "true" ? true : false
+      );
+      setIsCpapChecked(formik.values.cpap === "true" ? true : false);
+    }
+  }, [creationMode, formik.values.aspiration, formik.values.cpap]);
+
   useEffect(() => {
     if (shouldResetForm) {
       resetForm();
@@ -106,16 +119,16 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
             <CheckboxField
               fieldName="aspiration"
               label={t("conditioning.aspiration")}
-              checked={aspirationChecked}
-              onChange={handleCheched}
+              checked={isAspirationChecked}
+              onChange={handleAspirationChecked}
             />
           </div>
           <div className="conditioningForm__item">
             <CheckboxField
               fieldName="cpap"
               label={t("conditioning.cpap")}
-              checked={cpapIsChecked}
-              onChange={handleCpapCheck}
+              checked={isCpapChecked}
+              onChange={handleCpapChecked}
             />
           </div>
           <div className="conditioningForm__item">
