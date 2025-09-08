@@ -5359,7 +5359,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/MedicalHistoryDTO"
+                type: array
+                items:
+                  $ref: "#/components/schemas/MedicalHistoryDTO"
       security:
       - bearerAuth: []
   /malnutritions/{id_admission}:
@@ -5846,6 +5848,72 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/EncounterDTO"
+      security:
+      - bearerAuth: []
+  /encounters/{code}/opds:
+    get:
+      tags:
+      - Encounter
+      operationId: getOPDByEncounter
+      parameters:
+      - name: code
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/OpdDTO"
+      security:
+      - bearerAuth: []
+  /encounters/{code}/examinations:
+    get:
+      tags:
+      - Encounter
+      operationId: getPatientExaminationsByEncounter
+      parameters:
+      - name: code
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PatientExaminationDTO"
+      security:
+      - bearerAuth: []
+  /encounters/{code}/admissions:
+    get:
+      tags:
+      - Encounter
+      operationId: getAdmissionsByEncounter
+      parameters:
+      - name: code
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AdmissionDTO"
       security:
       - bearerAuth: []
   /encounters/current/{patientId}:
@@ -6756,13 +6824,13 @@ components:
           format: int32
           description: lock
           example: 0
+        opd:
+          type: boolean
         pharmacy:
           type: boolean
         female:
           type: boolean
         male:
-          type: boolean
-        opd:
           type: boolean
       required:
       - beds

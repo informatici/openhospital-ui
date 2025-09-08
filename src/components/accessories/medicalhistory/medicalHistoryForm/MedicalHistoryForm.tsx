@@ -148,6 +148,13 @@ const MedicalHistoryForm: FC<MedicalHistoryProps> = ({
       setIsSickleCellChecked(
         formik.values.sickleCell === "true" ? true : false
       );
+    } else {
+      setIsIronSupplementChecked(false);
+      setIsFolicAcidSupplementChecked(false);
+      setIsVitASupplementChecked(false);
+      setIsHemolysisChecked(false);
+      setIsTransfusionChecked(false);
+      setIsSickleCellChecked(false);
     }
   }, [
     creationMode,
@@ -464,18 +471,18 @@ const MedicalHistoryForm: FC<MedicalHistoryProps> = ({
 
           <div className="medicalHistoryForm__buttonSet">
             <div className="submit_button">
-              <div className="reset_button">
-                <Button
-                  type="reset"
-                  variant="text"
-                  disabled={isLoading}
-                  onClick={() => setOpenResetConfirmation(true)}
-                >
-                  {resetButtonLabel}
-                </Button>
-              </div>
               <Button type="submit" variant="contained" disabled={isLoading}>
                 {submitButtonLabel}
+              </Button>
+            </div>
+            <div className="reset_button">
+              <Button
+                type="reset"
+                variant="text"
+                disabled={isLoading}
+                onClick={() => setOpenResetConfirmation(true)}
+              >
+                {resetButtonLabel}
               </Button>
             </div>
           </div>

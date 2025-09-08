@@ -715,7 +715,9 @@
     "created": "Medical history created",
     "updated": "Medical history updated",
     "createsuccess": "Medical history created successfully",
-    "updatesuccess": "Medical history updated successfully"
+    "updatesuccess": "Medical history updated successfully",
+    "id": "ID",
+    "previousentries": "Previous Medicals Histories"
   },
 
   "permission": {
