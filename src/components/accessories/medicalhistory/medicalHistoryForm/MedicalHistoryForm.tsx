@@ -83,6 +83,12 @@ const MedicalHistoryForm: FC<MedicalHistoryProps> = ({
           : null,
       };
       onSubmit(medicalHistoryToSave);
+      setIsIronSupplementChecked(false);
+      setIsFolicAcidSupplementChecked(false);
+      setIsVitASupplementChecked(false);
+      setIsHemolysisChecked(false);
+      setIsTransfusionChecked(false);
+      setIsSickleCellChecked(false);
     },
   });
 
@@ -127,6 +133,12 @@ const MedicalHistoryForm: FC<MedicalHistoryProps> = ({
   const handleResetConfirmation = () => {
     setOpenResetConfirmation(false);
     formik.resetForm();
+    setIsIronSupplementChecked(false);
+    setIsFolicAcidSupplementChecked(false);
+    setIsVitASupplementChecked(false);
+    setIsHemolysisChecked(false);
+    setIsTransfusionChecked(false);
+    setIsSickleCellChecked(false);
     resetFormCallback();
   };
 
@@ -148,13 +160,6 @@ const MedicalHistoryForm: FC<MedicalHistoryProps> = ({
       setIsSickleCellChecked(
         formik.values.sickleCell === "true" ? true : false
       );
-    } else {
-      setIsIronSupplementChecked(false);
-      setIsFolicAcidSupplementChecked(false);
-      setIsVitASupplementChecked(false);
-      setIsHemolysisChecked(false);
-      setIsTransfusionChecked(false);
-      setIsSickleCellChecked(false);
     }
   }, [
     creationMode,
