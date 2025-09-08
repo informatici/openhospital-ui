@@ -6824,11 +6824,11 @@ components:
           example: 0
         opd:
           type: boolean
+        pharmacy:
+          type: boolean
         female:
           type: boolean
         male:
-          type: boolean
-        pharmacy:
           type: boolean
       required:
         - beds
@@ -7686,11 +7686,11 @@ components:
           type: string
           description: "Flag record deleted, values are 'Y' OR 'N' "
           example: "N"
-        fhu:
-          type: string
         yprog:
           type: integer
           format: int32
+        fhu:
+          type: string
       required:
         - admDate
         - admitted
