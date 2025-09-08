@@ -5848,6 +5848,72 @@ paths:
                   $ref: "#/components/schemas/EncounterDTO"
       security:
         - bearerAuth: []
+  /encounters/{code}/opds:
+    get:
+      tags:
+        - Encounter
+      operationId: getOPDByEncounter
+      parameters:
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/OpdDTO"
+      security:
+        - bearerAuth: []
+  /encounters/{code}/examinations:
+    get:
+      tags:
+        - Encounter
+      operationId: getPatientExaminationsByEncounter
+      parameters:
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PatientExaminationDTO"
+      security:
+        - bearerAuth: []
+  /encounters/{code}/admissions:
+    get:
+      tags:
+        - Encounter
+      operationId: getAdmissionsByEncounter
+      parameters:
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AdmissionDTO"
+      security:
+        - bearerAuth: []
   /encounters/current/{patientId}:
     get:
       tags:
