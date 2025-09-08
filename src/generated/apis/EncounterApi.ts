@@ -16,11 +16,18 @@ import type { AjaxResponse } from 'rxjs/ajax';
 import { BaseAPI, throwIfNullOrUndefined, encodeURI } from '../runtime';
 import type { OperationOpts, HttpHeaders } from '../runtime';
 import type {
+    AdmissionDTO,
     EncounterDTO,
+    OpdDTO,
+    PatientExaminationDTO,
 } from '../models';
 
 export interface CreateEncounterRequest {
     encounterDTO: EncounterDTO;
+}
+
+export interface GetAdmissionsByEncounterRequest {
+    code: string;
 }
 
 export interface GetCurrentEncounterByPatientRequest {
@@ -29,6 +36,14 @@ export interface GetCurrentEncounterByPatientRequest {
 
 export interface GetEncountersByPatientRequest {
     patientId: number;
+}
+
+export interface GetOPDByEncounterRequest {
+    code: string;
+}
+
+export interface GetPatientExaminationsByEncounterRequest {
+    code: string;
 }
 
 export interface UpdateEncounterRequest {
@@ -62,6 +77,23 @@ export class EncounterApi extends BaseAPI {
 
     /**
      */
+    getAdmissionsByEncounter({ code }: GetAdmissionsByEncounterRequest): Observable<Array<AdmissionDTO>>
+    getAdmissionsByEncounter({ code }: GetAdmissionsByEncounterRequest, opts?: OperationOpts): Observable<AjaxResponse<Array<AdmissionDTO>>>
+    getAdmissionsByEncounter({ code }: GetAdmissionsByEncounterRequest, opts?: OperationOpts): Observable<Array<AdmissionDTO> | AjaxResponse<Array<AdmissionDTO>>> {
+        throwIfNullOrUndefined(code, 'code', 'getAdmissionsByEncounter');
+
+        const headers: HttpHeaders = {
+        };
+
+        return this.request<Array<AdmissionDTO>>({
+            url: '/encounters/{code}/admissions'.replace('{code}', encodeURI(code)),
+            method: 'GET',
+            headers,
+        }, opts?.responseOpts);
+    };
+
+    /**
+     */
     getCurrentEncounterByPatient({ patientId }: GetCurrentEncounterByPatientRequest): Observable<EncounterDTO>
     getCurrentEncounterByPatient({ patientId }: GetCurrentEncounterByPatientRequest, opts?: OperationOpts): Observable<AjaxResponse<EncounterDTO>>
     getCurrentEncounterByPatient({ patientId }: GetCurrentEncounterByPatientRequest, opts?: OperationOpts): Observable<EncounterDTO | AjaxResponse<EncounterDTO>> {
@@ -89,6 +121,40 @@ export class EncounterApi extends BaseAPI {
 
         return this.request<Array<EncounterDTO>>({
             url: '/encounters/{patientId}'.replace('{patientId}', encodeURI(patientId)),
+            method: 'GET',
+            headers,
+        }, opts?.responseOpts);
+    };
+
+    /**
+     */
+    getOPDByEncounter({ code }: GetOPDByEncounterRequest): Observable<Array<OpdDTO>>
+    getOPDByEncounter({ code }: GetOPDByEncounterRequest, opts?: OperationOpts): Observable<AjaxResponse<Array<OpdDTO>>>
+    getOPDByEncounter({ code }: GetOPDByEncounterRequest, opts?: OperationOpts): Observable<Array<OpdDTO> | AjaxResponse<Array<OpdDTO>>> {
+        throwIfNullOrUndefined(code, 'code', 'getOPDByEncounter');
+
+        const headers: HttpHeaders = {
+        };
+
+        return this.request<Array<OpdDTO>>({
+            url: '/encounters/{code}/opds'.replace('{code}', encodeURI(code)),
+            method: 'GET',
+            headers,
+        }, opts?.responseOpts);
+    };
+
+    /**
+     */
+    getPatientExaminationsByEncounter({ code }: GetPatientExaminationsByEncounterRequest): Observable<Array<PatientExaminationDTO>>
+    getPatientExaminationsByEncounter({ code }: GetPatientExaminationsByEncounterRequest, opts?: OperationOpts): Observable<AjaxResponse<Array<PatientExaminationDTO>>>
+    getPatientExaminationsByEncounter({ code }: GetPatientExaminationsByEncounterRequest, opts?: OperationOpts): Observable<Array<PatientExaminationDTO> | AjaxResponse<Array<PatientExaminationDTO>>> {
+        throwIfNullOrUndefined(code, 'code', 'getPatientExaminationsByEncounter');
+
+        const headers: HttpHeaders = {
+        };
+
+        return this.request<Array<PatientExaminationDTO>>({
+            url: '/encounters/{code}/examinations'.replace('{code}', encodeURI(code)),
             method: 'GET',
             headers,
         }, opts?.responseOpts);
