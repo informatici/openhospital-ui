@@ -8,6 +8,8 @@ import { usePermission } from "../../../../libraries/permissionUtils/usePermissi
 import { examinationsByPatientId } from "../../../../state/examinations";
 import InfoBox from "../../infoBox/InfoBox";
 import Table from "../../table/Table";
+import { useParams } from "react-router";
+import { getEncounterExaminations } from "state/encounter";
 interface IOwnProps {
   shouldUpdateTable: boolean;
   handleDelete: (code: number | undefined) => void;
@@ -47,20 +49,27 @@ const PatientTriageTable: FunctionComponent<IOwnProps> = ({
   const header = ["pex_date"];
   const order = ["pex_date"];
   const dateFields = ["pex_date"];
+  const { code } = useParams();
 
   const dispatch = useAppDispatch();
   const data = useAppSelector((state) =>
-    state.examinations.examinationsByPatientId.data
-      ? state.examinations.examinationsByPatientId.data
-      : []
+     (code
+    ? state.encounters.encounterExamninations.data
+    : state.examinations.examinationsByPatientId.data
+  )?.filter((e) => state.examinations.examinationsByPatientId.data) ?? []
   );
+
+  // state.examinations.examinationsByPatientId.data
+  //   ? state.examinations.examinationsByPatientId.data
+  //   : [];
 
   const patientCode = useAppSelector(
     (state) => state.patients.selectedPatient.data?.code
   );
   useEffect(() => {
+    code ? dispatch(getEncounterExaminations({ code })) :
     dispatch(examinationsByPatientId(patientCode));
-  }, [dispatch, patientCode, shouldUpdateTable]);
+  }, [dispatch, patientCode, shouldUpdateTable, code]);
 
   const onEdit = (row: PatientExaminationDTO) => {
     const pex = data.find((item) => item.pex_ID === row.pex_ID);
