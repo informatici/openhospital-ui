@@ -455,7 +455,8 @@
     "closeddate": "Enter the closing date",
     "closedtitle": "CLOSE ENCOUNTER",
     "closedsuccess": "Encounter closed successfully",
-    "closed": "Encounter closed"
+    "closed": "Encounter closed",
+    "closedAt": "Closure Date"
   },
   "nav": {
     "pharmacy": "Pharmacy",

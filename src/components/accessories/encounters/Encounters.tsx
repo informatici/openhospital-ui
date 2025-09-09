@@ -91,6 +91,7 @@ export const Encounters = () => {
     } else {
       enc.patient = patient!;
       enc.id = encounterToEdit?.id;
+      enc.lock = encounterToEdit?.lock;
       const param: Param = {
         code: encounterToEdit?.code!,
         body: enc,
