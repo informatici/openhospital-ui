@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { isEmpty } from "lodash";
 import { ApiResponse } from "state/types";
 import { initial } from "./initial";
@@ -8,6 +8,11 @@ export const encounterSlice = createSlice({
   name: "encounters",
   initialState: initial,
   reducers: {
+    selectPatientEncounter: (state, action: PayloadAction<string>) => {
+      state.selectedPatientEncounter = state.getEncountersByPatient.data?.find(
+        (item) => item.code === action.payload
+      );
+    },
     createEncounterReset: (state) => {
       state.createEncounter = initial.createEncounter;
     },
@@ -22,6 +27,12 @@ export const encounterSlice = createSlice({
     },
     getEncountersByPatientReset: (state) => {
       state.getEncountersByPatient = initial.getEncountersByPatient;
+    },
+    resetEncounterAdmissions: (state) => {
+      state.encounterAdmissions = initial.encounterAdmissions;
+    },
+    resetPatientEncounterSelection: (state) => {
+      state.selectedPatientEncounter = initial.selectedPatientEncounter;
     },
   },
   extraReducers: (builder) =>
@@ -77,11 +88,26 @@ export const encounterSlice = createSlice({
       })
       .addCase(thunks.getEncountersByPatient.rejected, (state, action) => {
         state.getEncountersByPatient = ApiResponse.error(action.payload);
+      })
+      // Get Encounter Admissions
+      .addCase(thunks.getEncounterAdmissions.pending, (state) => {
+        state.encounterAdmissions = ApiResponse.loading();
+      })
+      .addCase(thunks.getEncounterAdmissions.fulfilled, (state, action) => {
+        state.encounterAdmissions = isEmpty(action.payload)
+          ? ApiResponse.empty()
+          : ApiResponse.value(action.payload);
+      })
+      .addCase(thunks.getEncounterAdmissions.rejected, (state, action) => {
+        state.encounterAdmissions = ApiResponse.error(action.payload);
       }),
 });
 
 export const {
+  selectPatientEncounter,
   createEncounterReset,
   updateEncounterReset,
   updateEncounterCodeReset,
+  resetEncounterAdmissions,
+  resetPatientEncounterSelection,
 } = encounterSlice.actions;
