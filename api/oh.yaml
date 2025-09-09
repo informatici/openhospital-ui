@@ -5894,6 +5894,28 @@ paths:
                   $ref: "#/components/schemas/PatientExaminationDTO"
       security:
       - bearerAuth: []
+  /encounters/{code}/conditionings:
+    get:
+      tags:
+      - Encounter
+      operationId: getConditioningByPatientEncounter
+      parameters:
+      - name: code
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ConditioningDTO"
+      security:
+      - bearerAuth: []
   /encounters/{code}/admissions:
     get:
       tags:
@@ -6826,11 +6848,11 @@ components:
           example: 0
         opd:
           type: boolean
-        pharmacy:
+        male:
           type: boolean
         female:
           type: boolean
-        male:
+        pharmacy:
           type: boolean
       required:
       - beds
@@ -9061,9 +9083,9 @@ components:
           type: string
           description: Status of encounter
           enum:
-          - OPEN
-          - CLOSE
-          example: OPEN
+          - ACTIVE
+          - CANCELLED
+          example: ACTIVE
         patient:
           $ref: "#/components/schemas/PatientDTO"
           description: Patient
