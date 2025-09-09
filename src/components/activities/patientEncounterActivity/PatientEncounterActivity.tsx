@@ -392,9 +392,9 @@ const PatientEncounterActivity = () => {
                     </div>
 
                     {patient?.data?.status === PatientDTOStatusEnum.I ? (
-                      <InPatientEncounterDashboardMenu userSection={section} />
+                      <InPatientEncounterDashboardMenu userSection={section} encounter={encounter} />
                     ) : (
-                      <OutPatientEncounterDashboardMenu userSection={section} />
+                      <OutPatientEncounterDashboardMenu userSection={section} encounter={encounter} />
                     )}
 
                     <div className="patientEncounter__user_info">
@@ -404,9 +404,9 @@ const PatientEncounterActivity = () => {
                           onClick={() => handleOnExpanded("panel_1")}
                         >
                           <Person fontSize="small" style={{ color: "white" }} />
-                          <span>{t("patient.personaldata")}</span>
+                          <span>{encounter != null ? t("patient.encounterdata") : t("patient.personaldata")}</span>
                         </AccordionSummary>
-                        <AccordionDetails>{personalData}</AccordionDetails>
+                        <AccordionDetails>{encounter != null ? encounterData : personalData}</AccordionDetails>
                       </Accordion>
                       {patient.data?.note ? (
                         <Accordion expanded={expanded === "panel_2"}>
@@ -457,25 +457,12 @@ const PatientEncounterActivity = () => {
                       </div>
                     </div>
                   </div>
-                  {encounter != null ? (
-                    <>
-                      <div className="patientEncounter__personalData">
-                        {encounterData}
-                      </div>
-                      <div className={"patientEncounter__nested_content"}>
-                        <Outlet context={patient?.data?.status} />
-                      </div>
-                    </>
-                  ) : (
-                    <>
-                      <div className="patientEncounter__personalData">
-                        {personalData}
-                      </div>
-                      <div className={"patientEncounter__nested_content"}>
-                        <Outlet context={patient?.data?.status} />
-                      </div>
-                    </>
-                  )}
+                  <div className="patientEncounter__personalData">
+                    {encounterData}
+                  </div>
+                  <div className={"patientEncounter__nested_content"}>
+                    <Outlet context={patient?.data?.status} />
+                  </div>
                 </div>
               </div>
             </div>
