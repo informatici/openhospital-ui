@@ -15,13 +15,15 @@ import { useNavigate } from "react-router";
 import Arrow from "../../../assets/arrow-w.svg";
 import "./styles.scss";
 import { TUserSection } from "./types";
+import { EncounterDTO } from "generated";
 
 interface IOwnProps {
   userSection: TUserSection;
+  encounter?: EncounterDTO | null;
 }
 
 const OutPatientEncounterDashboardMenu: FunctionComponent<IOwnProps> = ({
-  userSection,
+  userSection, encounter,
 }) => {
   const { t } = useTranslation();
 
@@ -148,20 +150,22 @@ const OutPatientEncounterDashboardMenu: FunctionComponent<IOwnProps> = ({
           <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
         </div>
       )}
-      <div
-        className={
-          "align__element patientEncounter__main_menu__item " +
-          isActive("clinic")
-        }
-        onClick={() => {
-          changeUserSection("clinic");
-        }}
-      >
-        <LocalHospital fontSize="small" style={{ color: "white" }} />
-        <span>{t("nav.userclinic")}</span>
-        <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
-      </div>
-      {canReadRadiology && (
+      {encounter == null && (
+        <div
+          className={
+            "align__element patientEncounter__main_menu__item " +
+            isActive("clinic")
+          }
+          onClick={() => {
+            changeUserSection("clinic");
+          }}
+        >
+          <LocalHospital fontSize="small" style={{ color: "white" }} />
+          <span>{t("nav.userclinic")}</span>
+          <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
+        </div>
+      )}
+      {canReadRadiology && encounter == null && (
         <div
           className={
             "align__element patientEncounter__main_menu__item " +

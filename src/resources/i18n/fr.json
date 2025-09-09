@@ -206,6 +206,8 @@
     "summary": "Résumé",
     "discharge": "Décharge",
     "visits": "Visites",
+    "encounterdata": "Données de la rencontre",
+    "encounterinfo": "Informations sur la rencontre",
     "agetypes": {
       "d0": "Nouveau né",
       "d1": "Petite enfance",
@@ -420,7 +422,8 @@
     "closeddate": "Renseignez la date de cloture",
     "closedtitle": "CLOTURE DE LA RENCONTRE",
     "closedsuccess": "Rencontre clôturée avec succès",
-    "closed": "Rencontre clôturée"
+    "closed": "Rencontre clôturée",
+    "closeAt": "Date de clôture"
   },
   "nav": {
     "pharmacy": "Pharmacie",
