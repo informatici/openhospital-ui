@@ -1,4 +1,4 @@
-import { AcUnit, ArtTrack, Colorize, EditRounded, LocalHotel, Notes, Person, SettingsApplications } from "@mui/icons-material";
+import { AcUnit, EditRounded, Notes, Person, } from "@mui/icons-material";
 import classNames from "classnames";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { isEmpty } from "lodash";
