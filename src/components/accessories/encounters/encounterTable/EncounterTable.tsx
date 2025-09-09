@@ -34,7 +34,7 @@ const EncounterTable: FunctionComponent<IOwnProps> = ({
   const data = useAppSelector(
     (state) =>
       state.encounters.getEncountersByPatient.data?.filter(
-        (item) => item.status !== EncounterDTOStatusEnum.Open
+        (item) => item.status === EncounterDTOStatusEnum.Active
       ) ?? []
   );
 

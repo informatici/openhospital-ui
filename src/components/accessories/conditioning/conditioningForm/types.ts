@@ -4,6 +4,7 @@ import { ConditioningDTO } from "../../../../generated";
 interface IConditioningFormProps {
   fields: TFields<ConditioningFormFieldName>;
   onSubmit: (conditioning: ConditioningDTO) => void;
+  creationMode: boolean;
   submitButtonLabel: string;
   resetButtonLabel: string;
   isLoading: boolean;
@@ -23,4 +24,5 @@ export type ConditioningFormFieldName =
   | "bolusSsVolume"
   | "sngNumber"
   | "others"
-  | "performedAt";
+  | "performedAt"
+  | "cpap";
