@@ -18,7 +18,10 @@ import {
   EncounterDTOStatusEnum,
   PatientDTOStatusEnum,
 } from "../../../generated";
-import { renderDate } from "../../../libraries/formatUtils/dataFormatting";
+import {
+  renderDate,
+  renderDateTime,
+} from "../../../libraries/formatUtils/dataFormatting";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import { getPatient, getPatientReset } from "../../../state/patients";
 import {
@@ -200,6 +203,43 @@ const PatientEncounterActivity = () => {
         </div>
         <div className="patientEncounter__personalData__item__value">
           {patient.data?.fatherName || "-"}
+        </div>
+      </div>
+    </>
+  );
+
+  const encounterData = (
+    <>
+      <div className="patientEncounter__personalData__item">
+        <div className="patientEncounter__personalData__item__label">
+          {t("encounter.code")}:
+        </div>
+        <div className="patientEncounter__personalData__item__value">
+          {encounter?.code}
+        </div>
+      </div>
+      <div className="patientEncounter__personalData__item">
+        <div className="patientEncounter__personalData__item__label">
+          {t("encounter.performedAt")}:
+        </div>
+        <div className="patientEncounter__personalData__item__value">
+          {renderDateTime(encounter?.performedAt || "-")}
+        </div>
+      </div>
+      <div className="patientEncounter__personalData__item">
+        <div className="patientEncounter__personalData__item__label">
+          {t("encounter.status")}:
+        </div>
+        <div className="patientEncounter__personalData__item__value">
+          {encounter?.status}
+        </div>
+      </div>
+      <div className="patientEncounter__personalData__item">
+        <div className="patientEncounter__personalData__item__label">
+          {t("encounter.closeAt")}:
+        </div>
+        <div className="patientEncounter__personalData__item__value">
+          {renderDateTime(encounter?.closedAt || "-")}
         </div>
       </div>
     </>
@@ -417,12 +457,25 @@ const PatientEncounterActivity = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="patientEncounter__personalData">
-                    {personalData}
-                  </div>
-                  <div className={"patientEncounter__nested_content"}>
-                    <Outlet context={patient?.data?.status} />
-                  </div>
+                  {encounter != null ? (
+                    <>
+                      <div className="patientEncounter__personalData">
+                        {encounterData}
+                      </div>
+                      <div className={"patientEncounter__nested_content"}>
+                        <Outlet context={patient?.data?.status} />
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="patientEncounter__personalData">
+                        {personalData}
+                      </div>
+                      <div className={"patientEncounter__nested_content"}>
+                        <Outlet context={patient?.data?.status} />
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
             </div>

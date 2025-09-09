@@ -420,7 +420,8 @@
     "closeddate": "Renseignez la date de cloture",
     "closedtitle": "CLOTURE DE LA RENCONTRE",
     "closedsuccess": "Rencontre clôturée avec succès",
-    "closed": "Rencontre clôturée"
+    "closed": "Rencontre clôturée",
+    "closeAt": "Date de cloture"
   },
   "nav": {
     "pharmacy": "Pharmacie",
