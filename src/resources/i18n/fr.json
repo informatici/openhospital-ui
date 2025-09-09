@@ -207,6 +207,7 @@
     "discharge": "Décharge",
     "visits": "Visites",
     "encounterdata": "Données de la rencontre",
+    "encounterinfo": "Informations sur la rencontre",
     "agetypes": {
       "d0": "Nouveau né",
       "d1": "Petite enfance",

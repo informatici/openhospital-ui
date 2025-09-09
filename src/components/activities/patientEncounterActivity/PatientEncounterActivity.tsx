@@ -1,4 +1,4 @@
-import { EditRounded, Notes, Person } from "@mui/icons-material";
+import { AcUnit, ArtTrack, Colorize, EditRounded, LocalHotel, Notes, Person, SettingsApplications } from "@mui/icons-material";
 import classNames from "classnames";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { isEmpty } from "lodash";
@@ -239,7 +239,7 @@ const PatientEncounterActivity = () => {
           {t("encounter.closeAt")}:
         </div>
         <div className="patientEncounter__personalData__item__value">
-          {renderDateTime(encounter?.closedAt || "-")}
+          {encounter?.closedAt != null ? renderDateTime(encounter?.closedAt) : "-"}
         </div>
       </div>
     </>
@@ -392,21 +392,47 @@ const PatientEncounterActivity = () => {
                     </div>
 
                     {patient?.data?.status === PatientDTOStatusEnum.I ? (
-                      <InPatientEncounterDashboardMenu userSection={section} encounter={encounter} />
+                      <InPatientEncounterDashboardMenu
+                        userSection={section}
+                        encounter={encounter}
+                      />
                     ) : (
-                      <OutPatientEncounterDashboardMenu userSection={section} encounter={encounter} />
+                      <OutPatientEncounterDashboardMenu
+                        userSection={section}
+                        encounter={encounter}
+                      />
                     )}
 
                     <div className="patientEncounter__user_info">
-                      <h6>{t("patient.userinfo")}</h6>
+                      <h6>
+                        {encounter != null
+                          ? t("patient.encounterinfo")
+                          : t("patient.userinfo")}
+                      </h6>
                       <Accordion expanded={expanded === "panel_1"}>
                         <AccordionSummary
                           onClick={() => handleOnExpanded("panel_1")}
                         >
-                          <Person fontSize="small" style={{ color: "white" }} />
-                          <span>{encounter != null ? t("patient.encounterdata") : t("patient.personaldata")}</span>
+                          {
+                            encounter != null ? 
+                            (<AcUnit
+                              fontSize="small"
+                              style={{ color: "white" }} 
+                            />) : 
+                            (<Person
+                              fontSize="small"
+                              style={{ color: "white" }}
+                            />)
+                          }
+                          <span>
+                            {encounter != null
+                              ? t("patient.encounterdata")
+                              : t("patient.personaldata")}
+                          </span>
                         </AccordionSummary>
-                        <AccordionDetails>{encounter != null ? encounterData : personalData}</AccordionDetails>
+                        <AccordionDetails>
+                          {encounter != null ? encounterData : personalData}
+                        </AccordionDetails>
                       </Accordion>
                       {patient.data?.note ? (
                         <Accordion expanded={expanded === "panel_2"}>
