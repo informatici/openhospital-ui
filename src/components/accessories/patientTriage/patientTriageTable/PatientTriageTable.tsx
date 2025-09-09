@@ -59,10 +59,6 @@ const PatientTriageTable: FunctionComponent<IOwnProps> = ({
   )?.filter((e) => state.examinations.examinationsByPatientId.data) ?? []
   );
 
-  // state.examinations.examinationsByPatientId.data
-  //   ? state.examinations.examinationsByPatientId.data
-  //   : [];
-
   const patientCode = useAppSelector(
     (state) => state.patients.selectedPatient.data?.code
   );
