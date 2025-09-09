@@ -19,6 +19,7 @@ import type {
     AdmissionDTO,
     ConditioningDTO,
     EncounterDTO,
+    MedicalHistoryDTO,
     OpdDTO,
     PatientExaminationDTO,
 } from '../models';
@@ -41,6 +42,10 @@ export interface GetCurrentEncounterByPatientRequest {
 
 export interface GetEncountersByPatientRequest {
     patientId: number;
+}
+
+export interface GetMedicalHistoriesEncounterByEncounterRequest {
+    code: string;
 }
 
 export interface GetOPDByEncounterRequest {
@@ -143,6 +148,23 @@ export class EncounterApi extends BaseAPI {
 
         return this.request<Array<EncounterDTO>>({
             url: '/encounters/{patientId}'.replace('{patientId}', encodeURI(patientId)),
+            method: 'GET',
+            headers,
+        }, opts?.responseOpts);
+    };
+
+    /**
+     */
+    getMedicalHistoriesEncounterByEncounter({ code }: GetMedicalHistoriesEncounterByEncounterRequest): Observable<Array<MedicalHistoryDTO>>
+    getMedicalHistoriesEncounterByEncounter({ code }: GetMedicalHistoriesEncounterByEncounterRequest, opts?: OperationOpts): Observable<AjaxResponse<Array<MedicalHistoryDTO>>>
+    getMedicalHistoriesEncounterByEncounter({ code }: GetMedicalHistoriesEncounterByEncounterRequest, opts?: OperationOpts): Observable<Array<MedicalHistoryDTO> | AjaxResponse<Array<MedicalHistoryDTO>>> {
+        throwIfNullOrUndefined(code, 'code', 'getMedicalHistoriesEncounterByEncounter');
+
+        const headers: HttpHeaders = {
+        };
+
+        return this.request<Array<MedicalHistoryDTO>>({
+            url: '/encounters/{code}/medicalhistories'.replace('{code}', encodeURI(code)),
             method: 'GET',
             headers,
         }, opts?.responseOpts);

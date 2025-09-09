@@ -53,6 +53,7 @@ const EncounterForm: FC<EncounterProps> = ({
   const handleResetConfirmation = () => {
     setOpenResetConfirmation(false);
     resetForm();
+    resetFormCallback();
   };
 
   const getErrorText = (fieldName: string): string => {

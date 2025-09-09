@@ -13,7 +13,6 @@ import {
   getCurrentEncounterByPatient,
   getEncountersByPatient,
   updateEncounter,
-  updateEncounterCodeReset,
   updateEncounterReset,
 } from "state/encounter";
 import { Param } from "state/encounter/param";
@@ -62,13 +61,13 @@ export const Encounters = () => {
   );
 
   const updateStatus = useAppSelector(
-    (state) => state.encounters.updateEncounterCode.status
+    (state) => state.encounters.updateEncounter.status
   );
 
   const errorMessage = useAppSelector(
     (state) =>
       state.encounters.createEncounter.error?.message ||
-      state.encounters.updateEncounterCode.error?.message ||
+      state.encounters.updateEncounter.error?.message ||
       t("common.somethingwrong")
   ) as string;
 
@@ -91,6 +90,7 @@ export const Encounters = () => {
       dispatch(createEncounter(enc));
     } else {
       enc.patient = patient!;
+      enc.id = encounterToEdit?.id;
       const param: Param = {
         code: encounterToEdit?.code!,
         body: enc,
@@ -120,7 +120,7 @@ export const Encounters = () => {
   useEffect(() => {
     if (activityTransitionState === "TO_RESET") {
       dispatch(createEncounterReset());
-      dispatch(updateEncounterCodeReset());
+      dispatch(updateEncounterReset());
       setShouldUpdateTable(true);
       setShouldResetForm(true);
     }
@@ -155,17 +155,15 @@ export const Encounters = () => {
   };
 
   const onCloseEncounter = () => {
-    setIsCloseEncounterDialogOpen(true);
-    setShowForm(true);
-    setShouldResetForm(false);
-    setShouldUpdateTable(false);
-    setActivityTransitionState("IDLE");
-    setEncounterToEdit(undefined);
-    scrollToElement(null);
-  };
-
-  const onCurrentEncounterChange = (value: boolean) => {
-    // setIsEditingCurrent(value);
+    if (updateStatus === "SUCCESS") {
+      setIsCloseEncounterDialogOpen(true);
+      setShowForm(true);
+      setShouldResetForm(false);
+      setShouldUpdateTable(false);
+      setActivityTransitionState("IDLE");
+      setEncounterToEdit(undefined);
+      scrollToElement(null);
+    }
   };
 
   return (

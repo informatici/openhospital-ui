@@ -1,15 +1,18 @@
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import React, { FunctionComponent, useState } from "react";
-import "./styles.scss";
-import { IProps } from "./types";
 import Button from "components/accessories/button/Button";
 import DateField from "components/accessories/dateField/DateField";
+import moment from "moment";
+import React, { FunctionComponent, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import "./styles.scss";
+import { IProps } from "./types";
 
-const CloseEncounterDialog: FunctionComponent<IProps & {
+const CloseEncounterDialog: FunctionComponent<
+  IProps & {
     withDateField?: boolean;
-    handlePrimaryButtonClick: (date: Date) => void; // ← accepter la date
+    handlePrimaryButtonClick: (date: string) => void;
   }
 > = ({
   isOpen,
@@ -22,11 +25,30 @@ const CloseEncounterDialog: FunctionComponent<IProps & {
   handleSecondaryButtonClick,
   withDateField = false,
 }) => {
-  const [closureDate, setClosureDate] = useState<Date>(new Date());
+  const { t } = useTranslation();
+  const [closureDate, setClosureDate] = useState<string>();
 
   const handleConfirm = () => {
-    handlePrimaryButtonClick(closureDate || new Date());
+    handlePrimaryButtonClick(closureDate ?? "");
   };
+
+  const handleClotureDate = (date: Date | null) => {
+    if (date) {
+      setClosureDate(
+        moment(date).isValid() ? moment(date).format("YYYY-MM-DDTHH:mm:ss") : ""
+      );
+    }
+  };
+
+  useEffect(() => {
+    if (isOpen) {
+      setClosureDate(
+        closureDate
+          ? closureDate
+          : moment(new Date()).format("YYYY-MM-DDTHH:mm:ss")
+      );
+    }
+  }, [setClosureDate, isOpen, closureDate]);
 
   return (
     <Dialog open={isOpen}>
@@ -46,12 +68,14 @@ const CloseEncounterDialog: FunctionComponent<IProps & {
             <div className="dialog__dateField">
               <DateField
                 fieldName="closureDate"
-                fieldValue={closureDate ? closureDate.toISOString() : ""}
+                fieldValue={closureDate ?? ""}
                 disableFuture={true}
                 theme="regular"
                 format="dd/MM/yyyy HH:mm"
-                label="Date de clôture"
-                onChange={(date: Date | null) => setClosureDate(date || new Date())}
+                label={t("encounter.closedAt")}
+                onChange={(date: Date | null) =>
+                  handleClotureDate(date ? date : null)
+                }
                 disabled={false}
                 isValid={false}
                 errorText=""
