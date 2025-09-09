@@ -328,7 +328,9 @@ const PatientEncounterActivity = () => {
                       {encounter?.status && (
                         <div
                           className={`patientEncounter_status_wrapper ${
-                            encounter.status === EncounterDTOStatusEnum.Open
+                            encounter.status ===
+                              EncounterDTOStatusEnum.Active &&
+                            !encounter.closedAt
                               ? "patientEncounter_status_in"
                               : "patientEncounter_status_out"
                           }`}
@@ -337,7 +339,9 @@ const PatientEncounterActivity = () => {
                             {t("encounter.status")}:{" "}
                             <span>
                               {t(
-                                encounter.status === EncounterDTOStatusEnum.Open
+                                encounter.status ===
+                                  EncounterDTOStatusEnum.Active &&
+                                  !encounter.closedAt
                                   ? "encounters.status_open"
                                   : "encounters.status_closed"
                               )}

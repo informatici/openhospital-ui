@@ -1,10 +1,12 @@
 import { Close, Edit, Visibility } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 import { renderDateTime } from "libraries/formatUtils/dataFormatting";
+import { useAppDispatch } from "libraries/hooks";
 import { isEmpty } from "lodash";
 import React, { FunctionComponent } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
+import { selectPatientEncounter } from "state/encounter";
 import { EncounterDTO } from "../../../../../generated";
 import "../styles.scss";
 
@@ -20,6 +22,7 @@ export const CurrentEncounterData: FunctionComponent<IOwnProps> = ({
   encounter,
 }) => {
   const { t } = useTranslation();
+  const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
 
@@ -31,6 +34,7 @@ export const CurrentEncounterData: FunctionComponent<IOwnProps> = ({
         </IconButton>
         <IconButton
           onClick={() => {
+            dispatch(selectPatientEncounter(encounter.code));
             navigate(
               `/patients/details/${encounter.patient.code}/encounters/${encounter.code}`
             );

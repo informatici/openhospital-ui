@@ -17,6 +17,7 @@ import { BaseAPI, throwIfNullOrUndefined, encodeURI } from '../runtime';
 import type { OperationOpts, HttpHeaders } from '../runtime';
 import type {
     AdmissionDTO,
+    ConditioningDTO,
     EncounterDTO,
     OpdDTO,
     PatientExaminationDTO,
@@ -27,6 +28,10 @@ export interface CreateEncounterRequest {
 }
 
 export interface GetAdmissionsByEncounterRequest {
+    code: string;
+}
+
+export interface GetConditioningByPatientEncounterRequest {
     code: string;
 }
 
@@ -87,6 +92,23 @@ export class EncounterApi extends BaseAPI {
 
         return this.request<Array<AdmissionDTO>>({
             url: '/encounters/{code}/admissions'.replace('{code}', encodeURI(code)),
+            method: 'GET',
+            headers,
+        }, opts?.responseOpts);
+    };
+
+    /**
+     */
+    getConditioningByPatientEncounter({ code }: GetConditioningByPatientEncounterRequest): Observable<Array<ConditioningDTO>>
+    getConditioningByPatientEncounter({ code }: GetConditioningByPatientEncounterRequest, opts?: OperationOpts): Observable<AjaxResponse<Array<ConditioningDTO>>>
+    getConditioningByPatientEncounter({ code }: GetConditioningByPatientEncounterRequest, opts?: OperationOpts): Observable<Array<ConditioningDTO> | AjaxResponse<Array<ConditioningDTO>>> {
+        throwIfNullOrUndefined(code, 'code', 'getConditioningByPatientEncounter');
+
+        const headers: HttpHeaders = {
+        };
+
+        return this.request<Array<ConditioningDTO>>({
+            url: '/encounters/{code}/conditionings'.replace('{code}', encodeURI(code)),
             method: 'GET',
             headers,
         }, opts?.responseOpts);

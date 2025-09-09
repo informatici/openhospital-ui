@@ -1,14 +1,13 @@
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { FunctionComponent, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { updateEncounter } from "state/encounter";
 import warningIcon from "../../../../assets/warning-icon.png";
 import { IState } from "../../../../types";
+import CloseEncounterDialog from "../closeEncounterDialog/CloseEncounterDialog";
 import { CurrentEncounterData } from "./currentEncounterData/CurrentEncounterData";
 import "./styles.scss";
 import { IOwnProps } from "./types";
-import CloseEncounterDialog from "../closeEncounterDialog/CloseEncounterDialog";
-import { EncounterDTOStatusEnum } from "generated";
-import { updateEncounter } from "state/encounter";
 
 export const CurrentEncounter: FunctionComponent<IOwnProps> = ({
   onEditChange,
@@ -26,14 +25,15 @@ export const CurrentEncounter: FunctionComponent<IOwnProps> = ({
   const closeEncounter = (closureDate: Date) => {
     if (!currentEncounter) return;
 
-    dispatch(updateEncounter({
-      code: currentEncounter.code!,
-      body: {
-        ...currentEncounter,
-        status: EncounterDTOStatusEnum.Close,
-        closedAt: closureDate.toISOString(),
-      },
-    }));
+    dispatch(
+      updateEncounter({
+        code: currentEncounter.code!,
+        body: {
+          ...currentEncounter,
+          closedAt: closureDate.toISOString(),
+        },
+      })
+    );
     setOpenResetConfirmation(false);
     onCloseEncounter && onCloseEncounter();
   };

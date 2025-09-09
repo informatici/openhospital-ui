@@ -63,7 +63,7 @@ export interface EncounterDTO {
  * @enum {string}
  */
 export enum EncounterDTOStatusEnum {
-    Open = 'OPEN',
-    Close = 'CLOSE'
+    Active = 'ACTIVE',
+    Cancelled = 'CANCELLED'
 }
 

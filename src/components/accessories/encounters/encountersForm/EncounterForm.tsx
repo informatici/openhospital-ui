@@ -1,20 +1,20 @@
+import ConfirmationDialog from "components/accessories/confirmationDialog/ConfirmationDialog";
+import DateField from "components/accessories/dateField/DateField";
 import TextField from "components/accessories/textField/TextField";
 import { useFormik } from "formik";
-import * as Yup from "yup";
 import { get, has } from "lodash";
 import React, { FC, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import * as Yup from "yup";
 import { object, string } from "yup";
+import warningIcon from "../../../../assets/warning-icon.png";
 import {
   formatAllFieldValues,
   getFromFields,
 } from "../../../../libraries/formDataHandling/functions";
-import warningIcon from "../../../../assets/warning-icon.png";
 import Button from "../../button/Button";
 import "./styles.scss";
 import { EncounterProps } from "./types";
-import DateField from "components/accessories/dateField/DateField";
-import ConfirmationDialog from "components/accessories/confirmationDialog/ConfirmationDialog";
 
 const EncounterForm: FC<EncounterProps> = ({
   fields,
