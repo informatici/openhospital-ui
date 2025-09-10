@@ -104,8 +104,10 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
       };
     });
   };
-  const status = useAppSelector(
-    (state) => state.admissions.getPatientAdmissions.status
+  const status = useAppSelector((state) =>
+    code
+      ? state.encounters.encounterAdmissions.status
+      : state.admissions.getPatientAdmissions.status
   );
 
   const errorMessage = useAppSelector(

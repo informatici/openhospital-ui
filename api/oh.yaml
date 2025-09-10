@@ -6910,13 +6910,13 @@ components:
           format: int32
           description: lock
           example: 0
-        pharmacy:
+        opd:
           type: boolean
-        male:
+        pharmacy:
           type: boolean
         female:
           type: boolean
-        opd:
+        male:
           type: boolean
       required:
       - beds

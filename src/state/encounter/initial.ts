@@ -10,4 +10,5 @@ export const initial: IEncountersState = {
   encounterAdmissions: new ApiResponse({ status: "IDLE", data: [] }),
   encounterLaboratoryExams: new ApiResponse({ status: "IDLE", data: [] }),
   encounterExamRequests: new ApiResponse({ status: "IDLE", data: [] }),
+  encounterExamninations: new ApiResponse({ status: "IDLE", data: [] }),
 };

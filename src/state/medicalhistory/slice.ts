@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { isEmpty } from "lodash";
 import { ApiResponse } from "state/types";
 import { initial } from "./initial";
 import * as thunks from "./thunk";
@@ -57,14 +58,14 @@ export const medicalHistorySlice = createSlice({
       .addCase(thunks.getMedicalHistoryByPatientCode.pending, (state) => {
         state.getMedicalHistoryByPatientCode = ApiResponse.loading();
       })
-      .addCase(
-        thunks.getMedicalHistoryByPatientCode.fulfilled,
-        (state, action) => {
-          state.getMedicalHistoryByPatientCode = ApiResponse.value(
-            action.payload
-          );
-        }
-      )
+      // .addCase(
+      //   thunks.getMedicalHistoryByPatientCode.fulfilled,
+      //   (state, action) => {
+      //     state.getMedicalHistoryByPatientCode = isEmpty(action.payload)
+      //       ? ApiResponse.empty()
+      //       : ApiResponse.value(action.payload);
+      //   }
+      // )
       .addCase(
         thunks.getMedicalHistoryByPatientCode.rejected,
         (state, action) => {
