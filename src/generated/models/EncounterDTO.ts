@@ -56,6 +56,12 @@ export interface EncounterDTO {
      * @memberof EncounterDTO
      */
     closedAt?: string;
+    /**
+     * Lock
+     * @type {number}
+     * @memberof EncounterDTO
+     */
+    lock?: number;
 }
 
 /**
