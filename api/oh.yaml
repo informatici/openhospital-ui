@@ -5872,6 +5872,28 @@ paths:
                   $ref: "#/components/schemas/OpdDTO"
       security:
       - bearerAuth: []
+  /encounters/{code}/medicalhistories:
+    get:
+      tags:
+      - Encounter
+      operationId: getMedicalHistoriesEncounterByEncounter
+      parameters:
+      - name: code
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/MedicalHistoryDTO"
+      security:
+      - bearerAuth: []
   /encounters/{code}/examinations:
     get:
       tags:
@@ -6846,13 +6868,13 @@ components:
           format: int32
           description: lock
           example: 0
-        opd:
+        pharmacy:
           type: boolean
         male:
           type: boolean
         female:
           type: boolean
-        pharmacy:
+        opd:
           type: boolean
       required:
       - beds
@@ -7707,11 +7729,11 @@ components:
           type: string
           description: "Flag record deleted, values are 'Y' OR 'N' "
           example: "N"
+        fhu:
+          type: string
         yprog:
           type: integer
           format: int32
-        fhu:
-          type: string
       required:
       - admDate
       - admitted
