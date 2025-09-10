@@ -18,8 +18,8 @@ import checkIcon from "../../../assets/check-icon.png";
 import { IState } from "../../../types";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import InfoBox from "../infoBox/InfoBox";
-import { CurrentMedicalHistory } from "./currentMedicalHistory/CurrentMedicalHistory";
 import MedicalHistoryForm from "./medicalHistoryForm/MedicalHistoryForm";
+import MedicalHistoryTable from "./medicalHistoryTable/MedicalHistoryTable";
 import "./styles.scss";
 import { MedicalHistoryTransitionState } from "./types";
 import { useFields } from "./useFields";
@@ -34,8 +34,7 @@ const MedicalHistory: FC = () => {
   const [medicalHistoryToEdit, setMedicalHistoryToEdit] = useState<
     MedicalHistoryDTO | undefined
   >();
-  const [showForm, setShowForm] = useState(false);
-  const [isEditingCurrent, setIsEditingCurrent] = useState(false);
+  const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
   const { id } = useParams();
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const canCreate = usePermission("medicalhistory.create");
@@ -43,10 +42,6 @@ const MedicalHistory: FC = () => {
 
   const patient = useAppSelector(
     (state: IState) => state.patients.selectedPatient.data
-  );
-
-  const currentMedicalHistory = useAppSelector(
-    (state: IState) => state.medicalhistory.getMedicalHistoryByPatientCode.data
   );
 
   const createStatus = useAppSelector(
@@ -123,17 +118,8 @@ const MedicalHistory: FC = () => {
     setShouldResetForm(false);
     setActivityTransitionState("IDLE");
     setMedicalHistoryToEdit(undefined);
+    setShouldUpdateTable(false);
     scrollToElement(null);
-  };
-
-  const onEditMedicalHistory = (mh: MedicalHistoryDTO) => {
-    setMedicalHistoryToEdit(mh);
-    setCreationMode(false);
-    scrollToElement(null);
-  };
-
-  const onCurrentMedicalHistoryChange = (value: boolean) => {
-    setIsEditingCurrent(value);
   };
 
   useEffect(() => {
@@ -149,15 +135,10 @@ const MedicalHistory: FC = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (creationMode && !!currentMedicalHistory) {
-      setShowForm(false);
-    } else setShowForm(true);
-  }, [currentMedicalHistory, creationMode]);
-
-  useEffect(() => {
     if (activityTransitionState === "TO_RESET") {
       dispatch(createMedicalHistoryReset());
       dispatch(updateMedicalHistoryReset());
+      setShouldUpdateTable(true);
       setShouldResetForm(true);
     }
   }, [dispatch, patient, activityTransitionState]);
@@ -169,21 +150,15 @@ const MedicalHistory: FC = () => {
     }
   }, [createStatus, dispatch, id, updateStatus]);
 
+  const onEdit = (row: MedicalHistoryDTO) => {
+    setMedicalHistoryToEdit(row);
+    setCreationMode(false);
+    scrollToElement(null);
+  };
+
   return (
     <div className="medicalHistory">
-      {!showForm && currentMedicalHistory && (
-        <InfoBox
-          type="info"
-          message={t("medicalHistory.patientalreadyhasmedicalhistory")}
-        />
-      )}
-      {!showForm && currentMedicalHistory && (
-        <CurrentMedicalHistory
-          onEditChange={onCurrentMedicalHistoryChange}
-          onEditMedicalHistory={onEditMedicalHistory}
-        />
-      )}
-      {showForm && (creationMode ? canCreate : canUpdate) && (
+      {(creationMode ? canCreate : canUpdate) && (
         <Permission
           require={creationMode ? "therapies.create" : "therapies.update"}
         >
@@ -208,6 +183,11 @@ const MedicalHistory: FC = () => {
           <InfoBox type="error" message={errorMessage} />
         </div>
       )}
+
+      <MedicalHistoryTable
+        handleEdit={onEdit}
+        shouldUpdateTable={shouldUpdateTable}
+      />
       <ConfirmationDialog
         isOpen={createStatus === "SUCCESS" || updateStatus === "SUCCESS"}
         title={

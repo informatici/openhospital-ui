@@ -59,6 +59,8 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
         cpap: isCpapChecked ? true : false,
       };
       onSubmit(conditioningToSave as any);
+      setIsAspirationCheckedChecked(false);
+      setIsCpapChecked(false);
     },
   });
 
@@ -85,6 +87,8 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
   const handleResetConfirmation = () => {
     setOpenResetConfirmation(false);
     formik.resetForm();
+    setIsAspirationCheckedChecked(false);
+    setIsCpapChecked(false);
     resetFormCallback();
   };
 
