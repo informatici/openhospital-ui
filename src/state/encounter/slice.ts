@@ -97,6 +97,18 @@ export const encounterSlice = createSlice({
       })
       .addCase(thunks.getEncounterAdmissions.rejected, (state, action) => {
         state.encounterAdmissions = ApiResponse.error(action.payload);
+      })
+      // Get Encounter Examinations
+      .addCase(thunks.getEncounterExaminations.pending, (state) => {
+        state.encounterExamninations = ApiResponse.loading();
+      })
+      .addCase(thunks.getEncounterExaminations.fulfilled, (state, action) => {
+        state.encounterExamninations = isEmpty(action.payload)
+          ? ApiResponse.empty()
+          : ApiResponse.value(action.payload);
+      })
+      .addCase(thunks.getEncounterExaminations.rejected, (state, action) => {
+        state.encounterExamninations = ApiResponse.error(action.payload);
       }),
 });
 

@@ -8,4 +8,5 @@ export const initial: IEncountersState = {
   getCurrentEncounterByPatient: new ApiResponse({ status: "IDLE" }),
   getEncountersByPatient: new ApiResponse({ status: "IDLE", data: [] }),
   encounterAdmissions: new ApiResponse({ status: "IDLE", data: [] }),
+  encounterExamninations: new ApiResponse({ status: "IDLE", data: [] }),
 };
