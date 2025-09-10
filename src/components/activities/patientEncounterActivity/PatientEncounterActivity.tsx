@@ -1,4 +1,4 @@
-import { EditRounded, Notes, Person } from "@mui/icons-material";
+import { AcUnit, EditRounded, Notes, Person, } from "@mui/icons-material";
 import classNames from "classnames";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { isEmpty } from "lodash";
@@ -18,7 +18,10 @@ import {
   EncounterDTOStatusEnum,
   PatientDTOStatusEnum,
 } from "../../../generated";
-import { renderDate } from "../../../libraries/formatUtils/dataFormatting";
+import {
+  renderDate,
+  renderDateTime,
+} from "../../../libraries/formatUtils/dataFormatting";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import { getPatient, getPatientReset } from "../../../state/patients";
 import {
@@ -205,6 +208,43 @@ const PatientEncounterActivity = () => {
     </>
   );
 
+  const encounterData = (
+    <>
+      <div className="patientEncounter__personalData__item">
+        <div className="patientEncounter__personalData__item__label">
+          {t("encounter.code")}:
+        </div>
+        <div className="patientEncounter__personalData__item__value">
+          {encounter?.code}
+        </div>
+      </div>
+      <div className="patientEncounter__personalData__item">
+        <div className="patientEncounter__personalData__item__label">
+          {t("encounter.performedAt")}:
+        </div>
+        <div className="patientEncounter__personalData__item__value">
+          {renderDateTime(encounter?.performedAt || "-")}
+        </div>
+      </div>
+      <div className="patientEncounter__personalData__item">
+        <div className="patientEncounter__personalData__item__label">
+          {t("encounter.status")}:
+        </div>
+        <div className="patientEncounter__personalData__item__value">
+          {encounter?.status}
+        </div>
+      </div>
+      <div className="patientEncounter__personalData__item">
+        <div className="patientEncounter__personalData__item__label">
+          {t("encounter.closeAt")}:
+        </div>
+        <div className="patientEncounter__personalData__item__value">
+          {encounter?.closedAt != null ? renderDateTime(encounter?.closedAt) : "-"}
+        </div>
+      </div>
+    </>
+  );
+
   switch (activityTransitionState) {
     case "TO_PATIENT_ENCOUNTER_EDITING":
       return <Navigate to="edit" />;
@@ -352,21 +392,47 @@ const PatientEncounterActivity = () => {
                     </div>
 
                     {patient?.data?.status === PatientDTOStatusEnum.I ? (
-                      <InPatientEncounterDashboardMenu userSection={section} />
+                      <InPatientEncounterDashboardMenu
+                        userSection={section}
+                        encounter={encounter}
+                      />
                     ) : (
-                      <OutPatientEncounterDashboardMenu userSection={section} />
+                      <OutPatientEncounterDashboardMenu
+                        userSection={section}
+                        encounter={encounter}
+                      />
                     )}
 
                     <div className="patientEncounter__user_info">
-                      <h6>{t("patient.userinfo")}</h6>
+                      <h6>
+                        {encounter != null
+                          ? t("patient.encounterinfo")
+                          : t("patient.userinfo")}
+                      </h6>
                       <Accordion expanded={expanded === "panel_1"}>
                         <AccordionSummary
                           onClick={() => handleOnExpanded("panel_1")}
                         >
-                          <Person fontSize="small" style={{ color: "white" }} />
-                          <span>{t("patient.personaldata")}</span>
+                          {
+                            encounter != null ? 
+                            (<AcUnit
+                              fontSize="small"
+                              style={{ color: "white" }} 
+                            />) : 
+                            (<Person
+                              fontSize="small"
+                              style={{ color: "white" }}
+                            />)
+                          }
+                          <span>
+                            {encounter != null
+                              ? t("patient.encounterdata")
+                              : t("patient.personaldata")}
+                          </span>
                         </AccordionSummary>
-                        <AccordionDetails>{personalData}</AccordionDetails>
+                        <AccordionDetails>
+                          {encounter != null ? encounterData : personalData}
+                        </AccordionDetails>
                       </Accordion>
                       {patient.data?.note ? (
                         <Accordion expanded={expanded === "panel_2"}>
@@ -418,7 +484,7 @@ const PatientEncounterActivity = () => {
                     </div>
                   </div>
                   <div className="patientEncounter__personalData">
-                    {personalData}
+                    {encounterData}
                   </div>
                   <div className={"patientEncounter__nested_content"}>
                     <Outlet context={patient?.data?.status} />

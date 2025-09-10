@@ -1,3 +1,4 @@
+import { EncounterDTO } from "generated";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { FunctionComponent, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -22,16 +23,16 @@ export const CurrentEncounter: FunctionComponent<IOwnProps> = ({
 
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
-  const closeEncounter = (closureDate: Date) => {
+  const closeEncounter = (closureDate: string) => {
     if (!currentEncounter) return;
-
+    const encounterToUpdate = {
+      ...currentEncounter,
+      closedAt: closureDate,
+    } as EncounterDTO;
     dispatch(
       updateEncounter({
         code: currentEncounter.code!,
-        body: {
-          ...currentEncounter,
-          closedAt: closureDate.toISOString(),
-        },
+        body: encounterToUpdate,
       })
     );
     setOpenResetConfirmation(false);

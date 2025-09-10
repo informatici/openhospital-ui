@@ -15,6 +15,7 @@ export interface IProps {
   onDelete?: (row: any) => void;
   onPrint?: (row: any) => void;
   onView?: (row: any) => void;
+  onDetails?: (row: any) => void;
   onAdd?: (row: any) => void;
   onRestore?: (row: any) => void;
   onSoftDelete?: (row: any) => void;
@@ -98,4 +99,5 @@ export type TActions =
   | "cancel"
   | "add"
   | "restore"
-  | "softDelete";
+  | "softDelete"
+  | "details";
