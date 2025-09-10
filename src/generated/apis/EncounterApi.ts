@@ -19,6 +19,8 @@ import type {
     AdmissionDTO,
     ConditioningDTO,
     EncounterDTO,
+    LaboratoryDTO,
+    MedicalHistoryDTO,
     OpdDTO,
     PatientExaminationDTO,
 } from '../models';
@@ -41,6 +43,18 @@ export interface GetCurrentEncounterByPatientRequest {
 
 export interface GetEncountersByPatientRequest {
     patientId: number;
+}
+
+export interface GetLaboratoryByEncounterRequest {
+    code: string;
+}
+
+export interface GetLaboratoryExamRequestByEncounterRequest {
+    code: string;
+}
+
+export interface GetMedicalHistoriesEncounterByEncounterRequest {
+    code: string;
 }
 
 export interface GetOPDByEncounterRequest {
@@ -143,6 +157,57 @@ export class EncounterApi extends BaseAPI {
 
         return this.request<Array<EncounterDTO>>({
             url: '/encounters/{patientId}'.replace('{patientId}', encodeURI(patientId)),
+            method: 'GET',
+            headers,
+        }, opts?.responseOpts);
+    };
+
+    /**
+     */
+    getLaboratoryByEncounter({ code }: GetLaboratoryByEncounterRequest): Observable<Array<LaboratoryDTO>>
+    getLaboratoryByEncounter({ code }: GetLaboratoryByEncounterRequest, opts?: OperationOpts): Observable<AjaxResponse<Array<LaboratoryDTO>>>
+    getLaboratoryByEncounter({ code }: GetLaboratoryByEncounterRequest, opts?: OperationOpts): Observable<Array<LaboratoryDTO> | AjaxResponse<Array<LaboratoryDTO>>> {
+        throwIfNullOrUndefined(code, 'code', 'getLaboratoryByEncounter');
+
+        const headers: HttpHeaders = {
+        };
+
+        return this.request<Array<LaboratoryDTO>>({
+            url: '/encounters/{code}/exams'.replace('{code}', encodeURI(code)),
+            method: 'GET',
+            headers,
+        }, opts?.responseOpts);
+    };
+
+    /**
+     */
+    getLaboratoryExamRequestByEncounter({ code }: GetLaboratoryExamRequestByEncounterRequest): Observable<Array<LaboratoryDTO>>
+    getLaboratoryExamRequestByEncounter({ code }: GetLaboratoryExamRequestByEncounterRequest, opts?: OperationOpts): Observable<AjaxResponse<Array<LaboratoryDTO>>>
+    getLaboratoryExamRequestByEncounter({ code }: GetLaboratoryExamRequestByEncounterRequest, opts?: OperationOpts): Observable<Array<LaboratoryDTO> | AjaxResponse<Array<LaboratoryDTO>>> {
+        throwIfNullOrUndefined(code, 'code', 'getLaboratoryExamRequestByEncounter');
+
+        const headers: HttpHeaders = {
+        };
+
+        return this.request<Array<LaboratoryDTO>>({
+            url: '/encounters/{code}/examRequest'.replace('{code}', encodeURI(code)),
+            method: 'GET',
+            headers,
+        }, opts?.responseOpts);
+    };
+
+    /**
+     */
+    getMedicalHistoriesEncounterByEncounter({ code }: GetMedicalHistoriesEncounterByEncounterRequest): Observable<Array<MedicalHistoryDTO>>
+    getMedicalHistoriesEncounterByEncounter({ code }: GetMedicalHistoriesEncounterByEncounterRequest, opts?: OperationOpts): Observable<AjaxResponse<Array<MedicalHistoryDTO>>>
+    getMedicalHistoriesEncounterByEncounter({ code }: GetMedicalHistoriesEncounterByEncounterRequest, opts?: OperationOpts): Observable<Array<MedicalHistoryDTO> | AjaxResponse<Array<MedicalHistoryDTO>>> {
+        throwIfNullOrUndefined(code, 'code', 'getMedicalHistoriesEncounterByEncounter');
+
+        const headers: HttpHeaders = {
+        };
+
+        return this.request<Array<MedicalHistoryDTO>>({
+            url: '/encounters/{code}/medicalhistories'.replace('{code}', encodeURI(code)),
             method: 'GET',
             headers,
         }, opts?.responseOpts);

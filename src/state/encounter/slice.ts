@@ -31,6 +31,12 @@ export const encounterSlice = createSlice({
     resetEncounterAdmissions: (state) => {
       state.encounterAdmissions = initial.encounterAdmissions;
     },
+    resetEncounterLaboratoryExams: (state) => {
+      state.encounterLaboratoryExams = initial.encounterLaboratoryExams;
+    },
+    resetEncounterExamRequests: (state) => {
+      state.encounterExamRequests = initial.encounterExamRequests;
+    },
     resetPatientEncounterSelection: (state) => {
       state.selectedPatientEncounter = initial.selectedPatientEncounter;
     },
@@ -100,6 +106,30 @@ export const encounterSlice = createSlice({
       })
       .addCase(thunks.getEncounterAdmissions.rejected, (state, action) => {
         state.encounterAdmissions = ApiResponse.error(action.payload);
+      })
+      // Get Encounter Laboratory Exams - AJOUTEZ CES LIGNES
+      .addCase(thunks.getEncounterLaboratoryExams.pending, (state) => {
+        state.encounterLaboratoryExams = ApiResponse.loading();
+      })
+      .addCase(thunks.getEncounterLaboratoryExams.fulfilled, (state, action) => {
+        state.encounterLaboratoryExams = isEmpty(action.payload)
+          ? ApiResponse.empty()
+          : ApiResponse.value(action.payload);
+      })
+      .addCase(thunks.getEncounterLaboratoryExams.rejected, (state, action) => {
+        state.encounterLaboratoryExams = ApiResponse.error(action.payload);
+      })
+      // Get Encounter Exam Requests - AJOUTEZ CES LIGNES
+      .addCase(thunks.getEncounterExamRequests.pending, (state) => {
+        state.encounterExamRequests = ApiResponse.loading();
+      })
+      .addCase(thunks.getEncounterExamRequests.fulfilled, (state, action) => {
+        state.encounterExamRequests = isEmpty(action.payload)
+          ? ApiResponse.empty()
+          : ApiResponse.value(action.payload);
+      })
+      .addCase(thunks.getEncounterExamRequests.rejected, (state, action) => {
+        state.encounterExamRequests = ApiResponse.error(action.payload);
       }),
 });
 
@@ -109,5 +139,7 @@ export const {
   updateEncounterReset,
   updateEncounterCodeReset,
   resetEncounterAdmissions,
+  resetEncounterLaboratoryExams,
+  resetEncounterExamRequests,
   resetPatientEncounterSelection,
 } = encounterSlice.actions;

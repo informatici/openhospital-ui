@@ -2,12 +2,14 @@ import { CircularProgress } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { FunctionComponent, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { LabWithRowsDTO } from "../../../../generated";
+import { LabWithRowsDTO, LaboratoryDTO } from "../../../../generated";
 import { renderDateTime } from "../../../../libraries/formatUtils/dataFormatting";
 import { getLabsByPatientId } from "../../../../state/laboratories";
 import InfoBox from "../../infoBox/InfoBox";
 import { statusLabel } from "../../laboratory/table/ExamTable";
 import Table from "../../table/Table";
+import { useParams } from "react-router";
+import { getEncounterLaboratoryExams } from "state/encounter";
 
 interface IOwnProps {
   shouldUpdateTable: boolean;
@@ -23,6 +25,8 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
   const { t } = useTranslation();
   const infoBoxRef = useRef<HTMLDivElement>(null);
 
+  const { code } = useParams();
+
   const header = ["date", "exam", "status"];
   const dateFields = ["date"];
 
@@ -33,68 +37,115 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
     result: t("lab.result"),
     note: t("lab.note"),
     status: t("lab.status"),
-    //material: t("lab.material"),
   };
   const order = ["date", "exam", "status"];
 
   const dispatch = useAppDispatch();
-  const data = useAppSelector((state) =>
-    state.laboratories.labsByPatientId.data
-      ? state.laboratories.labsByPatientId.data
-      : []
+
+  // SÉLECTEURS SÉPARÉS POUR DEBUG
+  const encounterData = useAppSelector(
+    (state) => state.encounters.encounterLaboratoryExams.data
   );
+  const labsData = useAppSelector(
+    (state) => state.laboratories.labsByPatientId.data
+  );
+
+  const data = code ? encounterData : labsData;
+
+  console.log('encounterData:', encounterData);
+  console.log('labsData:', labsData);
+  console.log('code:', code);
+  console.log('data to display:', data);
 
   const patientCode = useAppSelector(
     (state) => state.patients.selectedPatient.data?.code
   );
 
-  useEffect(() => {
-    if (shouldUpdateTable || patientCode) {
-      dispatch(getLabsByPatientId(patientCode));
-    }
-  }, [dispatch, patientCode, shouldUpdateTable]);
-
-  const formatDataToDisplay = (data: LabWithRowsDTO[]) => {
-    return data.map((item) => {
-      return {
-        code: item.laboratoryDTO?.code,
-        date: item.laboratoryDTO?.labDate
-          ? renderDateTime(item.laboratoryDTO?.labDate)
-          : "",
-        exam: item.laboratoryDTO?.exam?.description ?? "",
-        result:
-          item.laboratoryDTO?.exam?.procedure === 1
-            ? item.laboratoryDTO?.result
-            : item.laboratoryRowList?.join(", "),
-        note:
-          item.laboratoryDTO?.note?.length === 0
-            ? "/"
-            : item.laboratoryDTO?.note,
-        status: item.laboratoryDTO?.status
-          ? statusLabel(item.laboratoryDTO.status)
-          : "",
-        // material: item.laboratoryDTO?.material
-        //   ? t(item.laboratoryDTO.material)
-        //   : "",
-      };
-    });
-    //   .sort(dateComparator("desc", "date"));
-  };
-
-  const labStatus = useAppSelector(
+  // ÉTATS SÉPARÉS POUR DEBUG
+  const encounterStatus = useAppSelector(
+    (state) => state.encounters.encounterLaboratoryExams.status
+  );
+  const labsStatus = useAppSelector(
     (state) => state.laboratories.labsByPatientId.status
   );
 
-  const errorMessage = useAppSelector(
-    (state) =>
-      state.laboratories.labsByPatientId.error?.message ||
-      t("common.somethingwrong")
-  ) as string;
+  console.log('encounterStatus:', encounterStatus);
+  console.log('labsStatus:', labsStatus);
+
+  const isLoading = code 
+    ? encounterStatus === "LOADING"
+    : labsStatus === "LOADING";
+
+  const isSuccess = code 
+    ? encounterStatus === "SUCCESS"
+    : labsStatus === "SUCCESS";
+
+  const isEmpty = code 
+    ? encounterStatus === "SUCCESS_EMPTY"
+    : labsStatus === "SUCCESS_EMPTY";
+
+  const errorMessage = useAppSelector((state) =>
+    code
+      ? state.encounters.encounterLaboratoryExams.error?.message
+      : state.laboratories.labsByPatientId.error?.message
+  ) || t("common.somethingwrong");
+
+  useEffect(() => {
+    console.log("useEffect triggered:", { shouldUpdateTable, patientCode, code });
+    
+    if (shouldUpdateTable || patientCode || code) {
+      console.log("Dispatching action...");
+      
+      if (code) {
+        console.log("Dispatching getEncounterLaboratoryExams with code:", code);
+        dispatch(getEncounterLaboratoryExams({ code }) as any);
+      } else if (patientCode) {
+        console.log("Dispatching getLabsByPatientId with patientCode:", patientCode);
+        dispatch(getLabsByPatientId(patientCode) as any);
+      }
+    }
+  }, [dispatch, patientCode, shouldUpdateTable, code]);
+
+  const isLabWithRowsDTO = (item: any): item is LabWithRowsDTO => {
+    return "laboratoryDTO" in item; 
+  };
+
+  const formatDataToDisplay = (data: (LabWithRowsDTO | LaboratoryDTO)[]) => {
+    if (!data) return [];
+    
+    return data.map((item) => {
+      if (isLabWithRowsDTO(item)) {
+        return {
+          code: item.laboratoryDTO?.code,
+          date: item.laboratoryDTO?.labDate
+            ? renderDateTime(item.laboratoryDTO.labDate)
+            : "",
+          exam: item.laboratoryDTO?.exam?.description ?? "",
+          result: item.laboratoryDTO?.exam?.procedure === 1 ? item.laboratoryDTO?.result : item.laboratoryRowList?.join(", "),
+          note: item.laboratoryDTO?.note ?? "",
+          status: item.laboratoryDTO?.status ? statusLabel(item.laboratoryDTO.status) : "",
+        };  
+      }
+      return {
+        code: item.code,
+        date: item.labDate ? renderDateTime(item.labDate) : "",
+        exam: item.exam?.description ?? "",
+        result: item.exam?.procedure === 1 ? item.result : "",
+        note: item.note?.length === 0 ? "/" : item.note,
+        status: item.status ? statusLabel(item.status) : "",
+      };
+    });
+  };
 
   return (
     <div className="patientExamsTable">
       <h5>{t("lab.previousentries")}</h5>
-      {labStatus === "SUCCESS" && (
+      
+      {isLoading && (
+        <CircularProgress style={{ marginLeft: "50%", position: "relative" }} />
+      )}
+      
+      {isSuccess && data && data.length > 0 && (
         <Table
           rowData={formatDataToDisplay(data)}
           dateFields={dateFields}
@@ -102,20 +153,19 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
           labelData={label}
           columnsOrder={order}
           rowsPerPage={5}
-          //onDelete={canDelete ? onDelete : undefined}
+          onDelete={handleDelete}
           isCollapsabile={true}
-          //onEdit={canUpdate ? onEdit : undefined}
+          onEdit={handleEdit}
         />
       )}
-      {labStatus === "SUCCESS_EMPTY" && (
+      
+      {isEmpty && (
         <div ref={infoBoxRef}>
           <InfoBox type="info" message={t("common.emptydata")} />
         </div>
       )}
-      {labStatus === "IDLE" && (
-        <CircularProgress style={{ marginLeft: "50%", position: "relative" }} />
-      )}
-      {labStatus === "FAIL" && (
+      
+      {!isLoading && errorMessage && (
         <div ref={infoBoxRef}>
           <InfoBox type="error" message={errorMessage} />
         </div>
