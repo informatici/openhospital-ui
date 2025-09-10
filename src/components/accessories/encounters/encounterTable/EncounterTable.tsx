@@ -1,4 +1,5 @@
 import { CircularProgress } from "@mui/material";
+import { renderDate } from "libraries/formatUtils/dataFormatting";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { FunctionComponent, useEffect } from "react";
 import { useTranslation } from "react-i18next";
@@ -36,7 +37,7 @@ const EncounterTable: FunctionComponent<IOwnProps> = ({
   const data = useAppSelector(
     (state) =>
       state.encounters.getEncountersByPatient.data?.filter(
-        (item) => item.status === EncounterDTOStatusEnum.Active
+        (item) => item.status === EncounterDTOStatusEnum.Active && item.closedAt
       ) ?? []
   );
 
@@ -55,8 +56,8 @@ const EncounterTable: FunctionComponent<IOwnProps> = ({
       return {
         code: item.code ?? "",
         status: item.status,
-        performedAt: item.performedAt,
-        closedAt: item.closedAt,
+        performedAt: renderDate(item.performedAt!),
+        closedAt: renderDate(item.closedAt!),
       };
     });
   };
