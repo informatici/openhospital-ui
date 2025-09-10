@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { isEmpty } from "lodash";
 import { ApiResponse } from "state/types";
 import { initial } from "./initial";
 import * as thunks from "./thunk";
@@ -60,9 +61,9 @@ export const medicalHistorySlice = createSlice({
       .addCase(
         thunks.getMedicalHistoryByPatientCode.fulfilled,
         (state, action) => {
-          state.getMedicalHistoryByPatientCode = ApiResponse.value(
-            action.payload
-          );
+          state.getMedicalHistoryByPatientCode = isEmpty(action.payload)
+            ? ApiResponse.empty()
+            : ApiResponse.value(action.payload);
         }
       )
       .addCase(
