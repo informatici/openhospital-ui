@@ -89,16 +89,18 @@ const MedicalHistoryTable: FunctionComponent<IOwnProps> = ({
         deParasitization: item.deParasitization ?? "",
         psychomotorDev: item.psychomotorDev ?? "",
         somaticGrowth: item.siblingRank ?? "",
-        ironSupplement: item.ironSupplement ? "true" : "false",
-        folicAcidSupplement: item.folicAcidSupplement ? "true" : "false",
-        vitASupplement: item.vitASupplement ? "true" : "false",
+        ironSupplement: item.ironSupplement ? t("common.yes") : t("common.no"),
+        folicAcidSupplement: item.folicAcidSupplement
+          ? t("common.yes")
+          : t("common.no"),
+        vitASupplement: item.vitASupplement ? t("common.yes") : t("common.no"),
         otherSupplements: item.otherSupplements ?? "",
-        transfusion: item.transfusion ? "true" : "false",
+        transfusion: item.transfusion ? t("common.yes") : t("common.no"),
         lastTransfusionDate: item.lastTransfusionDate
           ? renderDateTime(item.lastTransfusionDate)
           : "",
-        sickleCell: item.sickleCell ? "true" : "false",
-        drugAllergy: item.drugAllergy ? "true" : "false",
+        sickleCell: item.sickleCell ? t("common.yes") : t("common.no"),
+        drugAllergy: item.drugAllergy ? t("common.yes") : t("common.no"),
         allergyPrecision: item.allergyPrecision ?? "",
         hemylosis: item.hemylosis ?? "",
         otherPersonalPathologies: item.otherPersonalPathologies ?? "",

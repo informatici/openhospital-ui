@@ -238,6 +238,8 @@
     "summary": "Summary",
     "discharge": "Discharge",
     "visits": "Visits",
+    "encounterdata": "Encounter Data",
+    "encounterinfo": "Encounter Information",
     "agetypes": {
       "d0": "New Born",
       "d1": "Early Childhood",
@@ -453,7 +455,8 @@
     "closeddate": "Enter the closing date",
     "closedtitle": "CLOSE ENCOUNTER",
     "closedsuccess": "Encounter closed successfully",
-    "closed": "Encounter closed"
+    "closed": "Encounter closed",
+    "closedAt": "Closure Date"
   },
   "nav": {
     "pharmacy": "Pharmacy",

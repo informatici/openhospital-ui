@@ -1,4 +1,5 @@
 import { CircularProgress } from "@mui/material";
+import { renderDate } from "libraries/formatUtils/dataFormatting";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { FunctionComponent, useEffect } from "react";
 import { useTranslation } from "react-i18next";
@@ -9,13 +10,13 @@ import Table from "../../table/Table";
 
 interface IOwnProps {
   shouldUpdateTable: boolean;
-  handleEdit: (row: any) => void;
+  handelView: (row: any) => void;
   activityTransitionState: string;
 }
 
 const EncounterTable: FunctionComponent<IOwnProps> = ({
   shouldUpdateTable,
-  handleEdit,
+  handelView,
   activityTransitionState,
 }) => {
   const { t } = useTranslation();
@@ -26,6 +27,8 @@ const EncounterTable: FunctionComponent<IOwnProps> = ({
   const label = {
     code: t("encounter.code"),
     status: t("encounter.status"),
+    performedAt: t("encounter.performedAt"),
+    closedAt: t("encounter.closedAt"),
   };
   const order = ["code"];
 
@@ -34,7 +37,7 @@ const EncounterTable: FunctionComponent<IOwnProps> = ({
   const data = useAppSelector(
     (state) =>
       state.encounters.getEncountersByPatient.data?.filter(
-        (item) => item.status === EncounterDTOStatusEnum.Active
+        (item) => item.status === EncounterDTOStatusEnum.Active && item.closedAt
       ) ?? []
   );
 
@@ -53,6 +56,8 @@ const EncounterTable: FunctionComponent<IOwnProps> = ({
       return {
         code: item.code ?? "",
         status: item.status,
+        performedAt: renderDate(item.performedAt!),
+        closedAt: renderDate(item.closedAt!),
       };
     });
   };
@@ -68,6 +73,10 @@ const EncounterTable: FunctionComponent<IOwnProps> = ({
   const createEncounterStatus = useAppSelector(
     (state) => state.encounters.createEncounter.status
   );
+
+  const handelViewDetails = (row: EncounterDTO) => {
+    handelView(data.find((item) => item.code === row?.code));
+  };
 
   return (
     <div className="patientAdmissionTable">
@@ -97,7 +106,7 @@ const EncounterTable: FunctionComponent<IOwnProps> = ({
                 columnsOrder={order}
                 rowsPerPage={5}
                 isCollapsabile={true}
-                onEdit={undefined}
+                onDetails={handelViewDetails}
                 initialOrderBy="disDate"
                 showEmptyCell={false}
               />

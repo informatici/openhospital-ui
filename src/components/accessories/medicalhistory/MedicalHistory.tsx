@@ -134,12 +134,6 @@ const MedicalHistory: FC = () => {
     dispatch(updateMedicalHistoryReset());
   }, [dispatch]);
 
-  // useEffect(() => {
-  //   if (!creationMode) {
-  //     setShowForm(false);
-  //   } else setShowForm(true);
-  // }, [creationMode]);
-
   useEffect(() => {
     if (activityTransitionState === "TO_RESET") {
       dispatch(createMedicalHistoryReset());

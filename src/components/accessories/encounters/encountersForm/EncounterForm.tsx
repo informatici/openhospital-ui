@@ -53,6 +53,7 @@ const EncounterForm: FC<EncounterProps> = ({
   const handleResetConfirmation = () => {
     setOpenResetConfirmation(false);
     resetForm();
+    resetFormCallback();
   };
 
   const getErrorText = (fieldName: string): string => {
@@ -90,7 +91,7 @@ const EncounterForm: FC<EncounterProps> = ({
                 format="dd/MM/yyyy HH:mm"
                 isValid={isValid("performedAt")}
                 errorText={getErrorText("performedAt")}
-                label={t("encounter.createddate")}
+                label={t("encounter.performedAt")}
                 onChange={(performedAt: Date | null) =>
                   formik.setFieldValue("performedAt", performedAt)
                 }

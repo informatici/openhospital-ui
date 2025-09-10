@@ -9,6 +9,7 @@ import {
   MonetizationOn,
   Print,
   Restore,
+  Visibility,
 } from "@mui/icons-material";
 import {
   IconButton,
@@ -59,6 +60,7 @@ const Table: FunctionComponent<IProps> = ({
   onPrint,
   onPay,
   onView,
+  onDetails,
   onAdd,
   onRestore,
   onSoftDelete,
@@ -193,6 +195,24 @@ const Table: FunctionComponent<IProps> = ({
             <InfoOutlined color="primary" titleAccess={"View Details"} />
           </IconButton>
         );
+
+      case "details":
+        return (
+          <IconButton
+            data-cy="table-view-action"
+            size="small"
+            title={labels?.view?.tooltip ?? "View details"}
+            disabled={disableAction(row, "details")}
+            onClick={
+              disableAction(row, "details")
+                ? () => {}
+                : () => onDetails && onDetails(row)
+            }
+          >
+            <Visibility />
+          </IconButton>
+        );
+
       case "pay":
         return (
           <IconButton
@@ -310,6 +330,7 @@ const Table: FunctionComponent<IProps> = ({
       onDelete ||
       onPrint ||
       onView ||
+      onDetails ||
       onCancel ||
       onRestore ||
       onSoftDelete ||
@@ -325,6 +346,10 @@ const Table: FunctionComponent<IProps> = ({
           {renderCustomActions && renderCustomActions(row)}
           {onView && (displayRowAction ? displayRowAction(row, "view") : true)
             ? renderIcon("view", row)
+            : ""}
+          {onDetails &&
+          (displayRowAction ? displayRowAction(row, "details") : true)
+            ? renderIcon("details", row)
             : ""}
           {onPay && (displayRowAction ? displayRowAction(row, "pay") : true)
             ? renderIcon("pay", row)

@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { wrapper } from "libraries/apiUtils/wrapper";
+import { firstValueFrom } from "rxjs";
 import { EncounterApi, EncounterDTO } from "../../generated";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { Param } from "./param";
@@ -36,4 +37,12 @@ export const getEncountersByPatient = createAsyncThunk(
     wrapper(() => api.getEncountersByPatient({ patientId }))
       .toPromise()
       .catch((error) => thunkApi.rejectWithValue(error.response))
+);
+
+export const getEncounterAdmissions = createAsyncThunk(
+  "encounters/GET_ENCOUNTER_ADMISSIONS",
+  async (payload: { code: string }, thunkApi) =>
+    firstValueFrom(wrapper(() => api.getAdmissionsByEncounter(payload))).catch(
+      (error) => thunkApi.rejectWithValue(error.response)
+    )
 );

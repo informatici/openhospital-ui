@@ -5,6 +5,6 @@ export interface IProps {
   info: string;
   primaryButtonLabel: string;
   secondaryButtonLabel?: string;
-  handlePrimaryButtonClick: (date: Date) => void;
+  handlePrimaryButtonClick: (date: string) => void;
   handleSecondaryButtonClick: () => void;
 }
