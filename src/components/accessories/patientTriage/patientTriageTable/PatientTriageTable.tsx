@@ -103,8 +103,10 @@ const PatientTriageTable: FunctionComponent<IOwnProps> = ({
       };
     });
   };
-  const triageStatus = useAppSelector(
-    (state) => state.examinations.examinationsByPatientId.status
+  const triageStatus = useAppSelector((state) =>
+    code
+      ? state.encounters.encounterExamninations.status
+      : state.examinations.examinationsByPatientId.status
   );
 
   const errorMessage = useAppSelector(
