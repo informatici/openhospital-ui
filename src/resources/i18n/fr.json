@@ -418,12 +418,12 @@
     "updatestatus": "Changer le status",
     "updatestatusmessage": "Êtes-vous sûr de vouloir clôturer la rencontre ?",
     "change": "Changer",
-    "performedAt": "Date de rencontre",
+    "performedAt": "Date de la rencontre",
     "closeddate": "Renseignez la date de cloture",
     "closedtitle": "CLOTURE DE LA RENCONTRE",
     "closedsuccess": "Rencontre clôturée avec succès",
     "closed": "Rencontre clôturée",
-    "closedAt": "Date de clôture"
+    "closedAt": "Date de la clôture"
   },
   "nav": {
     "pharmacy": "Pharmacie",

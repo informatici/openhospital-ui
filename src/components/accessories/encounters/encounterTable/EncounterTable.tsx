@@ -26,6 +26,8 @@ const EncounterTable: FunctionComponent<IOwnProps> = ({
   const label = {
     code: t("encounter.code"),
     status: t("encounter.status"),
+    performedAt: t("encounter.performedAt"),
+    closedAt: t("encounter.closedAt"),
   };
   const order = ["code"];
 
@@ -53,6 +55,8 @@ const EncounterTable: FunctionComponent<IOwnProps> = ({
       return {
         code: item.code ?? "",
         status: item.status,
+        performedAt: item.performedAt,
+        closedAt: item.closedAt,
       };
     });
   };
