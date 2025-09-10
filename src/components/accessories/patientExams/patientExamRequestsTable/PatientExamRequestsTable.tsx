@@ -60,11 +60,16 @@ const PatientExamRequestsTable: FunctionComponent<IOwnProps> = ({
     (state) => state.patients.selectedPatient.data?.code
   );
 
-  // CORRECTION : Utiliser le bon état selon la présence du code
   const isLoading = useAppSelector((state) =>
     code
       ? state.encounters.encounterExamRequests.status === "LOADING"
       : state.laboratories.labsRequestByPatientId.status === "LOADING"
+  );
+
+  const isFail = useAppSelector((state) =>
+    code
+      ? state.encounters.encounterExamRequests.status === "FAIL"
+      : state.laboratories.labsRequestByPatientId.status === "FAIL"
   );
 
   const isSuccess = useAppSelector((state) =>
@@ -85,7 +90,6 @@ const PatientExamRequestsTable: FunctionComponent<IOwnProps> = ({
       : state.laboratories.labsRequestByPatientId.error?.message
   ) || t("common.somethingwrong");
 
-  // CORRECTION : Changement de la condition du useEffect
   useEffect(() => {
     console.log("ExamRequests useEffect triggered:", { shouldUpdateTable, patientCode, code });
     
@@ -210,7 +214,7 @@ const PatientExamRequestsTable: FunctionComponent<IOwnProps> = ({
         </div>
       )}
       
-      {!isLoading && errorMessage && (
+      {isFail && errorMessage && (
         <div ref={infoBoxRef}>
           <InfoBox type="error" message={errorMessage} />
         </div>

@@ -42,7 +42,6 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
 
   const dispatch = useAppDispatch();
 
-  // SÉLECTEURS SÉPARÉS POUR DEBUG
   const encounterData = useAppSelector(
     (state) => state.encounters.encounterLaboratoryExams.data
   );
@@ -61,7 +60,6 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
     (state) => state.patients.selectedPatient.data?.code
   );
 
-  // ÉTATS SÉPARÉS POUR DEBUG
   const encounterStatus = useAppSelector(
     (state) => state.encounters.encounterLaboratoryExams.status
   );
@@ -75,6 +73,10 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
   const isLoading = code 
     ? encounterStatus === "LOADING"
     : labsStatus === "LOADING";
+
+    const isFail = code 
+    ? encounterStatus === "FAIL"
+    : labsStatus === "FAIL";
 
   const isSuccess = code 
     ? encounterStatus === "SUCCESS"
@@ -153,9 +155,7 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
           labelData={label}
           columnsOrder={order}
           rowsPerPage={5}
-          onDelete={handleDelete}
           isCollapsabile={true}
-          onEdit={handleEdit}
         />
       )}
       
@@ -165,7 +165,7 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
         </div>
       )}
       
-      {!isLoading && errorMessage && (
+      {isFail && errorMessage && (
         <div ref={infoBoxRef}>
           <InfoBox type="error" message={errorMessage} />
         </div>

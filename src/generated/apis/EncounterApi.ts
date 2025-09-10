@@ -19,10 +19,7 @@ import type {
     AdmissionDTO,
     ConditioningDTO,
     EncounterDTO,
-<<<<<<< HEAD
     LaboratoryDTO,
-=======
->>>>>>> sokponta
     MedicalHistoryDTO,
     OpdDTO,
     PatientExaminationDTO,
@@ -48,7 +45,6 @@ export interface GetEncountersByPatientRequest {
     patientId: number;
 }
 
-<<<<<<< HEAD
 export interface GetLaboratoryByEncounterRequest {
     code: string;
 }
@@ -57,8 +53,6 @@ export interface GetLaboratoryExamRequestByEncounterRequest {
     code: string;
 }
 
-=======
->>>>>>> sokponta
 export interface GetMedicalHistoriesEncounterByEncounterRequest {
     code: string;
 }
@@ -170,7 +164,6 @@ export class EncounterApi extends BaseAPI {
 
     /**
      */
-<<<<<<< HEAD
     getLaboratoryByEncounter({ code }: GetLaboratoryByEncounterRequest): Observable<Array<LaboratoryDTO>>
     getLaboratoryByEncounter({ code }: GetLaboratoryByEncounterRequest, opts?: OperationOpts): Observable<AjaxResponse<Array<LaboratoryDTO>>>
     getLaboratoryByEncounter({ code }: GetLaboratoryByEncounterRequest, opts?: OperationOpts): Observable<Array<LaboratoryDTO> | AjaxResponse<Array<LaboratoryDTO>>> {
@@ -205,8 +198,6 @@ export class EncounterApi extends BaseAPI {
 
     /**
      */
-=======
->>>>>>> sokponta
     getMedicalHistoriesEncounterByEncounter({ code }: GetMedicalHistoriesEncounterByEncounterRequest): Observable<Array<MedicalHistoryDTO>>
     getMedicalHistoriesEncounterByEncounter({ code }: GetMedicalHistoriesEncounterByEncounterRequest, opts?: OperationOpts): Observable<AjaxResponse<Array<MedicalHistoryDTO>>>
     getMedicalHistoriesEncounterByEncounter({ code }: GetMedicalHistoriesEncounterByEncounterRequest, opts?: OperationOpts): Observable<Array<MedicalHistoryDTO> | AjaxResponse<Array<MedicalHistoryDTO>>> {

@@ -76,14 +76,11 @@ export interface WardDTO {
      * @type {boolean}
      * @memberof WardDTO
      */
-<<<<<<< HEAD
     pharmacy?: boolean;
     /**
      * @type {boolean}
      * @memberof WardDTO
      */
-=======
->>>>>>> sokponta
     male?: boolean;
     /**
      * @type {boolean}
@@ -95,12 +92,4 @@ export interface WardDTO {
      * @memberof WardDTO
      */
     opd?: boolean;
-<<<<<<< HEAD
-=======
-    /**
-     * @type {boolean}
-     * @memberof WardDTO
-     */
-    pharmacy?: boolean;
->>>>>>> sokponta
 }
