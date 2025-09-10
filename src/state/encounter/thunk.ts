@@ -46,3 +46,11 @@ export const getEncounterAdmissions = createAsyncThunk(
       (error) => thunkApi.rejectWithValue(error.response)
     )
 );
+
+export const getEncounterOpds = createAsyncThunk(
+  "encounters/GET_ENCOUNTER_OPDS",
+  async (payload: { code: string }, thunkApi) =>
+    firstValueFrom(wrapper(() => api.getOPDByEncounter(payload))).catch(
+      (error) => thunkApi.rejectWithValue(error.response)
+    )
+);

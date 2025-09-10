@@ -1,4 +1,8 @@
-import { AdmissionDTO, EncounterDTO } from "../../generated";
+import {
+  AdmissionDTO,
+  EncounterDTO,
+  OpdWithOperationRowDTO,
+} from "../../generated";
 import { ApiResponse } from "../types";
 
 export type IEncountersState = {
@@ -9,4 +13,5 @@ export type IEncountersState = {
   updateEncounterCode: ApiResponse<EncounterDTO>;
   getEncountersByPatient: ApiResponse<Array<EncounterDTO>>;
   encounterAdmissions: ApiResponse<Array<AdmissionDTO>>;
+  encounterOpds: ApiResponse<Array<OpdWithOperationRowDTO>>;
 };

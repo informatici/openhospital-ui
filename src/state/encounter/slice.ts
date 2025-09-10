@@ -31,6 +31,9 @@ export const encounterSlice = createSlice({
     resetEncounterAdmissions: (state) => {
       state.encounterAdmissions = initial.encounterAdmissions;
     },
+    resetEncounterOpds: (state) => {
+      state.encounterOpds = initial.encounterOpds;
+    },
     resetPatientEncounterSelection: (state) => {
       state.selectedPatientEncounter = initial.selectedPatientEncounter;
     },
@@ -100,6 +103,18 @@ export const encounterSlice = createSlice({
       })
       .addCase(thunks.getEncounterAdmissions.rejected, (state, action) => {
         state.encounterAdmissions = ApiResponse.error(action.payload);
+      })
+      // Get Encounter Opds
+      .addCase(thunks.getEncounterOpds.pending, (state) => {
+        state.encounterOpds = ApiResponse.loading();
+      })
+      .addCase(thunks.getEncounterOpds.fulfilled, (state, action) => {
+        state.encounterOpds = isEmpty(action.payload)
+          ? ApiResponse.empty()
+          : ApiResponse.value(action.payload);
+      })
+      .addCase(thunks.getEncounterOpds.rejected, (state, action) => {
+        state.encounterOpds = ApiResponse.error(action.payload);
       }),
 });
 
@@ -109,5 +124,6 @@ export const {
   updateEncounterReset,
   updateEncounterCodeReset,
   resetEncounterAdmissions,
+  resetEncounterOpds,
   resetPatientEncounterSelection,
 } = encounterSlice.actions;

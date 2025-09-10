@@ -19,7 +19,8 @@ import type {
     AdmissionDTO,
     ConditioningDTO,
     EncounterDTO,
-    OpdDTO,
+    MedicalHistoryDTO,
+    OpdWithOperationRowDTO,
     PatientExaminationDTO,
 } from '../models';
 
@@ -41,6 +42,10 @@ export interface GetCurrentEncounterByPatientRequest {
 
 export interface GetEncountersByPatientRequest {
     patientId: number;
+}
+
+export interface GetMedicalHistoriesEncounterByEncounterRequest {
+    code: string;
 }
 
 export interface GetOPDByEncounterRequest {
@@ -150,15 +155,32 @@ export class EncounterApi extends BaseAPI {
 
     /**
      */
-    getOPDByEncounter({ code }: GetOPDByEncounterRequest): Observable<Array<OpdDTO>>
-    getOPDByEncounter({ code }: GetOPDByEncounterRequest, opts?: OperationOpts): Observable<AjaxResponse<Array<OpdDTO>>>
-    getOPDByEncounter({ code }: GetOPDByEncounterRequest, opts?: OperationOpts): Observable<Array<OpdDTO> | AjaxResponse<Array<OpdDTO>>> {
+    getMedicalHistoriesEncounterByEncounter({ code }: GetMedicalHistoriesEncounterByEncounterRequest): Observable<Array<MedicalHistoryDTO>>
+    getMedicalHistoriesEncounterByEncounter({ code }: GetMedicalHistoriesEncounterByEncounterRequest, opts?: OperationOpts): Observable<AjaxResponse<Array<MedicalHistoryDTO>>>
+    getMedicalHistoriesEncounterByEncounter({ code }: GetMedicalHistoriesEncounterByEncounterRequest, opts?: OperationOpts): Observable<Array<MedicalHistoryDTO> | AjaxResponse<Array<MedicalHistoryDTO>>> {
+        throwIfNullOrUndefined(code, 'code', 'getMedicalHistoriesEncounterByEncounter');
+
+        const headers: HttpHeaders = {
+        };
+
+        return this.request<Array<MedicalHistoryDTO>>({
+            url: '/encounters/{code}/medicalhistories'.replace('{code}', encodeURI(code)),
+            method: 'GET',
+            headers,
+        }, opts?.responseOpts);
+    };
+
+    /**
+     */
+    getOPDByEncounter({ code }: GetOPDByEncounterRequest): Observable<Array<OpdWithOperationRowDTO>>
+    getOPDByEncounter({ code }: GetOPDByEncounterRequest, opts?: OperationOpts): Observable<AjaxResponse<Array<OpdWithOperationRowDTO>>>
+    getOPDByEncounter({ code }: GetOPDByEncounterRequest, opts?: OperationOpts): Observable<Array<OpdWithOperationRowDTO> | AjaxResponse<Array<OpdWithOperationRowDTO>>> {
         throwIfNullOrUndefined(code, 'code', 'getOPDByEncounter');
 
         const headers: HttpHeaders = {
         };
 
-        return this.request<Array<OpdDTO>>({
+        return this.request<Array<OpdWithOperationRowDTO>>({
             url: '/encounters/{code}/opds'.replace('{code}', encodeURI(code)),
             method: 'GET',
             headers,
