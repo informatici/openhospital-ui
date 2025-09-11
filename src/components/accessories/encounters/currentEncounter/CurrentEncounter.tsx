@@ -1,3 +1,4 @@
+import ConfirmationDialog from "components/accessories/confirmationDialog/ConfirmationDialog";
 import { EncounterDTO } from "generated";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { FunctionComponent, useState } from "react";
@@ -13,6 +14,7 @@ import { IOwnProps } from "./types";
 export const CurrentEncounter: FunctionComponent<IOwnProps> = ({
   onEditChange,
   onEditCode,
+  onDelete,
   onCloseEncounter,
 }) => {
   const { t } = useTranslation();
@@ -22,6 +24,10 @@ export const CurrentEncounter: FunctionComponent<IOwnProps> = ({
   );
 
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
+  const [
+    isConfirmDeleteEncounterDialogOpen,
+    setIsConfirmDeleteEncounterDialogOpen,
+  ] = useState(false);
 
   const closeEncounter = (closureDate: string) => {
     if (!currentEncounter) return;
@@ -49,6 +55,9 @@ export const CurrentEncounter: FunctionComponent<IOwnProps> = ({
         <CurrentEncounterData
           onEdit={onEditChange ? handleEdit : undefined}
           onEditCode={onEditCode}
+          onDelete={() => {
+            setIsConfirmDeleteEncounterDialogOpen(true);
+          }}
           encounter={currentEncounter}
         />
       )}
@@ -62,6 +71,21 @@ export const CurrentEncounter: FunctionComponent<IOwnProps> = ({
         handlePrimaryButtonClick={closeEncounter}
         handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
         withDateField={true}
+      />
+
+      <ConfirmationDialog
+        isOpen={isConfirmDeleteEncounterDialogOpen}
+        title={t("encounter.delete")}
+        icon={warningIcon}
+        info={t("encounter.deletemessage")}
+        primaryButtonLabel={t("common.delete")}
+        secondaryButtonLabel={t("common.discard")}
+        handlePrimaryButtonClick={() => {
+          onDelete && onDelete();
+        }}
+        handleSecondaryButtonClick={() =>
+          setIsConfirmDeleteEncounterDialogOpen(false)
+        }
       />
     </div>
   );

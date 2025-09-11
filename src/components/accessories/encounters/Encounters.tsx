@@ -1,4 +1,4 @@
-import { EncounterDTO } from "generated";
+import { EncounterDTO, EncounterDTOStatusEnum } from "generated";
 import { useAppDispatch, useAppSelector } from "libraries/hooks";
 import { usePermission } from "libraries/permissionUtils/usePermission";
 import { scrollToElement } from "libraries/uiUtils/scrollToElement";
@@ -42,6 +42,8 @@ export const Encounters = () => {
     EncounterDTO | undefined
   >();
   const [isCloseEncounterDialogOpen, setIsCloseEncounterDialogOpen] =
+    useState(false);
+  const [isDeleteEncounterDialogOpen, setIsDeleteEncounterDialogOpen] =
     useState(false);
   const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
   const [activityTransitionState, setActivityTransitionState] =
@@ -149,6 +151,21 @@ export const Encounters = () => {
     scrollToElement(null);
   };
 
+  const onDelete = () => {
+    const encounterToDelete = {
+      ...currentEncounter,
+      status: EncounterDTOStatusEnum.Cancelled,
+    } as EncounterDTO;
+
+    const param: Param = {
+      code: currentEncounter?.code!,
+      body: encounterToDelete,
+    };
+
+    dispatch(updateEncounter(param));
+    setIsDeleteEncounterDialogOpen(true);
+  };
+
   const onView = (encounter: EncounterDTO) => {
     navigate(
       `/patients/details/${encounter.patient.code}/encounters/${encounter.code}`
@@ -180,6 +197,7 @@ export const Encounters = () => {
           <CurrentEncounter
             onEditChange={() => {}}
             onEditCode={onEdit}
+            onDelete={onDelete}
             onCloseEncounter={onCloseEncounter}
           />
         )}
@@ -239,6 +257,19 @@ export const Encounters = () => {
           handlePrimaryButtonClick={() => {
             setActivityTransitionState("TO_RESET");
             setIsCloseEncounterDialogOpen(false);
+          }}
+          handleSecondaryButtonClick={() => ({})}
+        />
+
+        <ConfirmationDialog
+          isOpen={isDeleteEncounterDialogOpen}
+          title={t("encounter.deleted")}
+          icon={checkIcon}
+          info={t("encounter.deletedsuccess")}
+          primaryButtonLabel="Ok"
+          handlePrimaryButtonClick={() => {
+            setActivityTransitionState("TO_RESET");
+            setIsDeleteEncounterDialogOpen(false);
           }}
           handleSecondaryButtonClick={() => ({})}
         />
