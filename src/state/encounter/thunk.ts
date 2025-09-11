@@ -1,9 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { wrapper } from "libraries/apiUtils/wrapper";
 import { firstValueFrom } from "rxjs";
-import { EncounterApi, EncounterDTO } from "../../generated";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { Param } from "./param";
+import { EncounterApi, EncounterDTO } from "generated";
 
 const api = new EncounterApi(customConfiguration());
 
@@ -43,6 +43,22 @@ export const getEncounterAdmissions = createAsyncThunk(
   "encounters/GET_ENCOUNTER_ADMISSIONS",
   async (payload: { code: string }, thunkApi) =>
     firstValueFrom(wrapper(() => api.getAdmissionsByEncounter(payload))).catch(
+      (error) => thunkApi.rejectWithValue(error.response)
+    )
+);
+
+export const getEncounterLaboratoryExams = createAsyncThunk(
+  "encounters/GET_ENCOUNTER_LABORATORY_EXAMS",
+  async (payload: { code: string }, thunkApi) =>
+    firstValueFrom(wrapper(() => api.getLaboratoryByEncounter(payload))).catch(
+      (error) => thunkApi.rejectWithValue(error.response)
+    )
+);
+
+export const getEncounterExamRequests = createAsyncThunk(
+  "encounters/GET_ENCOUNTER_EXAM_REQUESTS",
+  async (payload: { code: string }, thunkApi) =>
+    firstValueFrom(wrapper(() => api.getLaboratoryExamRequestByEncounter(payload))).catch(
       (error) => thunkApi.rejectWithValue(error.response)
     )
 );
