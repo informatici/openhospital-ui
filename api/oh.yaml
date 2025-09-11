@@ -5869,7 +5869,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/OpdWithOperationRowDTO"
+                  $ref: "#/components/schemas/OpdDTO"
       security:
       - bearerAuth: []
   /encounters/{code}/medicalhistories:
@@ -5894,6 +5894,28 @@ paths:
                   $ref: "#/components/schemas/MedicalHistoryDTO"
       security:
       - bearerAuth: []
+  /encounters/{code}/exams:
+    get:
+      tags:
+      - Encounter
+      operationId: getLaboratoryByEncounter
+      parameters:
+      - name: code
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/LaboratoryDTO"
+      security:
+      - bearerAuth: []
   /encounters/{code}/examinations:
     get:
       tags:
@@ -5914,6 +5936,28 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/PatientExaminationDTO"
+      security:
+      - bearerAuth: []
+  /encounters/{code}/examRequest:
+    get:
+      tags:
+      - Encounter
+      operationId: getLaboratoryExamRequestByEncounter
+      parameters:
+      - name: code
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/LaboratoryDTO"
       security:
       - bearerAuth: []
   /encounters/{code}/conditionings:
@@ -6868,13 +6912,15 @@ components:
           format: int32
           description: lock
           example: 0
-        pharmacy:
+        opd:
+          type: boolean
+        female:
           type: boolean
         male:
           type: boolean
         female:
           type: boolean
-        opd:
+        pharmacy:
           type: boolean
       required:
       - beds
@@ -7729,11 +7775,11 @@ components:
           type: string
           description: "Flag record deleted, values are 'Y' OR 'N' "
           example: "N"
+        fhu:
+          type: string
         yprog:
           type: integer
           format: int32
-        fhu:
-          type: string
       required:
       - admDate
       - admitted

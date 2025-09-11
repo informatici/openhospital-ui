@@ -66,7 +66,6 @@ const Conditioning: FC = () => {
       conditioning.patient = patient!;
       dispatch(newConditioning(conditioning));
     } else {
-      console.log(conditioningToEdit);
       conditioning.id = conditioningToEdit?.id!;
       conditioning.patient = patient!;
       conditioning.lock = conditioningToEdit?.lock!;
