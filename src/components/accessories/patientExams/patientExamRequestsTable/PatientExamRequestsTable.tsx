@@ -112,7 +112,6 @@ const PatientExamRequestsTable: FunctionComponent<IOwnProps> = ({
             );
           }
         })
-        .catch((error) => console.error("Print error:", error))
         .finally(() => setPrinting(false));
     }
   }, [dispatch, isPrinting, patientCode]);

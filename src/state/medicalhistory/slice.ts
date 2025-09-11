@@ -58,14 +58,14 @@ export const medicalHistorySlice = createSlice({
       .addCase(thunks.getMedicalHistoryByPatientCode.pending, (state) => {
         state.getMedicalHistoryByPatientCode = ApiResponse.loading();
       })
-      // .addCase(
-      //   thunks.getMedicalHistoryByPatientCode.fulfilled,
-      //   (state, action) => {
-      //     state.getMedicalHistoryByPatientCode = isEmpty(action.payload)
-      //       ? ApiResponse.empty()
-      //       : ApiResponse.value(action.payload);
-      //   }
-      // )
+      .addCase(
+        thunks.getMedicalHistoryByPatientCode.fulfilled,
+        (state, action) => {
+          state.getMedicalHistoryByPatientCode = isEmpty(action.payload)
+            ? ApiResponse.empty()
+            : ApiResponse.value([action.payload]);
+        }
+      )
       .addCase(
         thunks.getMedicalHistoryByPatientCode.rejected,
         (state, action) => {
