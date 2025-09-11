@@ -28,13 +28,18 @@ export const encounterSlice = createSlice({
     resetEncounterAdmissions: (state) => {
       state.encounterAdmissions = initial.encounterAdmissions;
     },
+    resetEncounterLaboratoryExams: (state) => {
+      state.encounterLaboratoryExams = initial.encounterLaboratoryExams;
+    },
+    resetEncounterExamRequests: (state) => {
+      state.encounterExamRequests = initial.encounterExamRequests;
+    },
     resetPatientEncounterSelection: (state) => {
       state.selectedPatientEncounter = initial.selectedPatientEncounter;
     },
   },
   extraReducers: (builder) =>
     builder
-      // Create Encounter
       .addCase(thunks.createEncounter.pending, (state) => {
         state.createEncounter = ApiResponse.loading();
       })
@@ -44,7 +49,6 @@ export const encounterSlice = createSlice({
       .addCase(thunks.createEncounter.rejected, (state, action) => {
         state.createEncounter = ApiResponse.error(action.payload);
       })
-      // Get current encounter
       .addCase(thunks.getCurrentEncounterByPatient.pending, (state) => {
         state.getCurrentEncounterByPatient = ApiResponse.loading();
       })
@@ -64,7 +68,6 @@ export const encounterSlice = createSlice({
           );
         }
       )
-      //Update Encounter
       .addCase(thunks.updateEncounter.pending, (state) => {
         state.updateEncounter = ApiResponse.loading();
       })
@@ -74,7 +77,6 @@ export const encounterSlice = createSlice({
       .addCase(thunks.updateEncounter.rejected, (state, action) => {
         state.updateEncounter = ApiResponse.error(action.payload);
       })
-      // Get Encounters
       .addCase(thunks.getEncountersByPatient.pending, (state) => {
         state.getEncountersByPatient = ApiResponse.loading();
       })
@@ -86,7 +88,6 @@ export const encounterSlice = createSlice({
       .addCase(thunks.getEncountersByPatient.rejected, (state, action) => {
         state.getEncountersByPatient = ApiResponse.error(action.payload);
       })
-      // Get Encounter Admissions
       .addCase(thunks.getEncounterAdmissions.pending, (state) => {
         state.encounterAdmissions = ApiResponse.loading();
       })
@@ -98,7 +99,28 @@ export const encounterSlice = createSlice({
       .addCase(thunks.getEncounterAdmissions.rejected, (state, action) => {
         state.encounterAdmissions = ApiResponse.error(action.payload);
       })
-      // Get Encounter Examinations
+      .addCase(thunks.getEncounterLaboratoryExams.pending, (state) => {
+        state.encounterLaboratoryExams = ApiResponse.loading();
+      })
+      .addCase(thunks.getEncounterLaboratoryExams.fulfilled, (state, action) => {
+        state.encounterLaboratoryExams = isEmpty(action.payload)
+          ? ApiResponse.empty()
+          : ApiResponse.value(action.payload);
+      })
+      .addCase(thunks.getEncounterLaboratoryExams.rejected, (state, action) => {
+        state.encounterLaboratoryExams = ApiResponse.error(action.payload);
+      })
+      .addCase(thunks.getEncounterExamRequests.pending, (state) => {
+        state.encounterExamRequests = ApiResponse.loading();
+      })
+      .addCase(thunks.getEncounterExamRequests.fulfilled, (state, action) => {
+        state.encounterExamRequests = isEmpty(action.payload)
+          ? ApiResponse.empty()
+          : ApiResponse.value(action.payload);
+      })
+      .addCase(thunks.getEncounterExamRequests.rejected, (state, action) => {
+        state.encounterExamRequests = ApiResponse.error(action.payload);
+      })
       .addCase(thunks.getEncounterExaminations.pending, (state) => {
         state.encounterExamninations = ApiResponse.loading();
       })
@@ -117,5 +139,7 @@ export const {
   createEncounterReset,
   updateEncounterReset,
   resetEncounterAdmissions,
+  resetEncounterLaboratoryExams,
+  resetEncounterExamRequests,
   resetPatientEncounterSelection,
 } = encounterSlice.actions;
