@@ -91,31 +91,11 @@ const PatientExamRequestsTable: FunctionComponent<IOwnProps> = ({
   ) || t("common.somethingwrong");
 
   useEffect(() => {
-    console.log("ExamRequests useEffect triggered:", { shouldUpdateTable, patientCode, code });
-    
     if (shouldUpdateTable || patientCode || code) {
-      console.log("Dispatching action for exam requests...");
-      
       if (code) {
-        console.log("Dispatching getEncounterExamRequests with code:", code);
         dispatch(getEncounterExamRequests({ code }) as any)
-          .unwrap()
-          .then((result: any) => {
-            console.log("getEncounterExamRequests success:", result);
-          })
-          .catch((error: any) => {
-            console.error("getEncounterExamRequests error:", error);
-          });
       } else if (patientCode) {
-        console.log("Dispatching getLabsRequestByPatientId with patientCode:", patientCode);
         dispatch(getLabsRequestByPatientId(patientCode) as any)
-          .unwrap()
-          .then((result: any) => {
-            console.log("getLabsRequestByPatientId success:", result);
-          })
-          .catch((error: any) => {
-            console.error("getLabsRequestByPatientId error:", error);
-          });
       }
     }
   }, [dispatch, patientCode, shouldUpdateTable, code]);

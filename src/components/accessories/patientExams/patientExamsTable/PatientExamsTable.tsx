@@ -51,11 +51,6 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
 
   const data = code ? encounterData : labsData;
 
-  console.log('encounterData:', encounterData);
-  console.log('labsData:', labsData);
-  console.log('code:', code);
-  console.log('data to display:', data);
-
   const patientCode = useAppSelector(
     (state) => state.patients.selectedPatient.data?.code
   );
@@ -66,9 +61,6 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
   const labsStatus = useAppSelector(
     (state) => state.laboratories.labsByPatientId.status
   );
-
-  console.log('encounterStatus:', encounterStatus);
-  console.log('labsStatus:', labsStatus);
 
   const isLoading = code 
     ? encounterStatus === "LOADING"
@@ -93,16 +85,11 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
   ) || t("common.somethingwrong");
 
   useEffect(() => {
-    console.log("useEffect triggered:", { shouldUpdateTable, patientCode, code });
-    
     if (shouldUpdateTable || patientCode || code) {
-      console.log("Dispatching action...");
       
       if (code) {
-        console.log("Dispatching getEncounterLaboratoryExams with code:", code);
         dispatch(getEncounterLaboratoryExams({ code }) as any);
       } else if (patientCode) {
-        console.log("Dispatching getLabsByPatientId with patientCode:", patientCode);
         dispatch(getLabsByPatientId(patientCode) as any);
       }
     }
