@@ -82,6 +82,7 @@ export const CurrentEncounter: FunctionComponent<IOwnProps> = ({
         secondaryButtonLabel={t("common.discard")}
         handlePrimaryButtonClick={() => {
           onDelete && onDelete();
+          setIsConfirmDeleteEncounterDialogOpen(false);
         }}
         handleSecondaryButtonClick={() =>
           setIsConfirmDeleteEncounterDialogOpen(false)

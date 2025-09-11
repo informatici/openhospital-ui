@@ -163,7 +163,9 @@ export const Encounters = () => {
     };
 
     dispatch(updateEncounter(param));
-    setIsDeleteEncounterDialogOpen(true);
+    if (updateStatus === "SUCCESS") {
+      setIsDeleteEncounterDialogOpen(true);
+    }
   };
 
   const onView = (encounter: EncounterDTO) => {
