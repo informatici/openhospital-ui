@@ -63,7 +63,7 @@ export const medicalHistorySlice = createSlice({
         (state, action) => {
           state.getMedicalHistoryByPatientCode = isEmpty(action.payload)
             ? ApiResponse.empty()
-            : ApiResponse.value([action.payload]);
+            : ApiResponse.value(action.payload);
         }
       )
       .addCase(
