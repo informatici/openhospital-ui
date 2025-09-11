@@ -423,7 +423,11 @@
     "closedtitle": "CLOTURE DE LA RENCONTRE",
     "closedsuccess": "Rencontre clôturée avec succès",
     "closed": "Rencontre clôturée",
-    "closedAt": "Date de clôture"
+    "closedAt": "Date de clôture",
+    "deleted": "Rencontre supprimée",
+    "deletedsuccess": "Rencontre supprimée avec succès",
+    "delete": "Supprimer la rencontre",
+    "deletemessage": "Êtes-vous sûr de vouloir supprimer la rencontre ?"
   },
   "nav": {
     "pharmacy": "Pharmacie",
