@@ -38,7 +38,7 @@ export const getMedicalHistoryById = createAsyncThunk(
 );
 
 export const getMedicalHistoryByPatientCode = createAsyncThunk(
-  "admissions/GET_MEDICAL_HISTORY_BY_PATIENT_CODE",
+  "admissions/GET_MEDICAL_HISTORIES_BY_PATIENT_CODE",
   async (patientCode: number, thunkApi) =>
     wrapper(() => api.getMedicalHistoryByPatientCode({ patientCode }))
       .toPromise()

@@ -6,14 +6,13 @@ import { isEmpty } from "lodash";
 import "moment/min/locales";
 import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import {
   createEncounter,
   createEncounterReset,
   getCurrentEncounterByPatient,
   getEncountersByPatient,
   updateEncounter,
-  updateEncounterCodeReset,
   updateEncounterReset,
 } from "state/encounter";
 import { Param } from "state/encounter/param";
@@ -42,10 +41,12 @@ export const Encounters = () => {
   const [encounterToEdit, setEncounterToEdit] = useState<
     EncounterDTO | undefined
   >();
-  const [isCloseEncounterDialogOpen, setIsCloseEncounterDialogOpen] = useState(false);  
+  const [isCloseEncounterDialogOpen, setIsCloseEncounterDialogOpen] =
+    useState(false);
   const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
   const [activityTransitionState, setActivityTransitionState] =
     useState<EncounterTransitionState>("IDLE");
+  const navigate = useNavigate();
 
   const patient = useAppSelector(
     (state: IState) => state.patients.selectedPatient.data
@@ -60,13 +61,13 @@ export const Encounters = () => {
   );
 
   const updateStatus = useAppSelector(
-    (state) => state.encounters.updateEncounterCode.status
+    (state) => state.encounters.updateEncounter.status
   );
 
   const errorMessage = useAppSelector(
     (state) =>
       state.encounters.createEncounter.error?.message ||
-      state.encounters.updateEncounterCode.error?.message ||
+      state.encounters.updateEncounter.error?.message ||
       t("common.somethingwrong")
   ) as string;
 
@@ -89,6 +90,8 @@ export const Encounters = () => {
       dispatch(createEncounter(enc));
     } else {
       enc.patient = patient!;
+      enc.id = encounterToEdit?.id;
+      enc.lock = encounterToEdit?.lock;
       const param: Param = {
         code: encounterToEdit?.code!,
         body: enc,
@@ -118,7 +121,7 @@ export const Encounters = () => {
   useEffect(() => {
     if (activityTransitionState === "TO_RESET") {
       dispatch(createEncounterReset());
-      dispatch(updateEncounterCodeReset());
+      dispatch(updateEncounterReset());
       setShouldUpdateTable(true);
       setShouldResetForm(true);
     }
@@ -146,18 +149,22 @@ export const Encounters = () => {
     scrollToElement(null);
   };
 
-  const onCloseEncounter = () => {
-    setIsCloseEncounterDialogOpen(true);
-    setShowForm(true);
-    setShouldResetForm(false);
-    setShouldUpdateTable(false);
-    setActivityTransitionState("IDLE");
-    setEncounterToEdit(undefined);
-    scrollToElement(null);
+  const onView = (encounter: EncounterDTO) => {
+    navigate(
+      `/patients/details/${encounter.patient.code}/encounters/${encounter.code}`
+    );
   };
 
-  const onCurrentEncounterChange = (value: boolean) => {
-    // setIsEditingCurrent(value);
+  const onCloseEncounter = () => {
+    if (updateStatus === "SUCCESS") {
+      setIsCloseEncounterDialogOpen(true);
+      setShowForm(true);
+      setShouldResetForm(false);
+      setShouldUpdateTable(false);
+      setActivityTransitionState("IDLE");
+      setEncounterToEdit(undefined);
+      scrollToElement(null);
+    }
   };
 
   return (
@@ -198,7 +205,7 @@ export const Encounters = () => {
         )}
 
         <EncounterTable
-          handleEdit={onEdit}
+          handelView={onView}
           shouldUpdateTable={shouldUpdateTable}
           activityTransitionState={activityTransitionState}
         />
@@ -206,7 +213,8 @@ export const Encounters = () => {
         <ConfirmationDialog
           isOpen={
             (createStatus === "SUCCESS" || updateStatus === "SUCCESS") &&
-            !isEditingCurrent && !isCloseEncounterDialogOpen
+            !isEditingCurrent &&
+            !isCloseEncounterDialogOpen
           }
           title={creationMode ? t("encounter.created") : t("encounter.updated")}
           icon={checkIcon}
@@ -221,7 +229,7 @@ export const Encounters = () => {
           }
           handleSecondaryButtonClick={() => ({})}
         />
-        
+
         <ConfirmationDialog
           isOpen={isCloseEncounterDialogOpen}
           title={t("encounter.closed")}

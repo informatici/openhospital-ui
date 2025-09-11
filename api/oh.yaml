@@ -5359,7 +5359,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/MedicalHistoryDTO"
+                type: array
+                items:
+                  $ref: "#/components/schemas/MedicalHistoryDTO"
       security:
       - bearerAuth: []
   /malnutritions/{id_admission}:
@@ -6868,11 +6870,11 @@ components:
           example: 0
         opd:
           type: boolean
-        pharmacy:
-          type: boolean
         female:
           type: boolean
         male:
+          type: boolean
+        pharmacy:
           type: boolean
       required:
       - beds
@@ -9119,6 +9121,11 @@ components:
           format: date-time
           description: Closed date
           example: 2025-08-26 16:15:58
+        lock:
+          type: integer
+          format: int32
+          description: Lock
+          example: 1
       required:
       - code
       - patient

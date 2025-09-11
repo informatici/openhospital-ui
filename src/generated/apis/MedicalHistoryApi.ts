@@ -79,15 +79,15 @@ export class MedicalHistoryApi extends BaseAPI {
 
     /**
      */
-    getMedicalHistoryByPatientCode({ patientCode }: GetMedicalHistoryByPatientCodeRequest): Observable<MedicalHistoryDTO>
-    getMedicalHistoryByPatientCode({ patientCode }: GetMedicalHistoryByPatientCodeRequest, opts?: OperationOpts): Observable<AjaxResponse<MedicalHistoryDTO>>
-    getMedicalHistoryByPatientCode({ patientCode }: GetMedicalHistoryByPatientCodeRequest, opts?: OperationOpts): Observable<MedicalHistoryDTO | AjaxResponse<MedicalHistoryDTO>> {
+    getMedicalHistoryByPatientCode({ patientCode }: GetMedicalHistoryByPatientCodeRequest): Observable<Array<MedicalHistoryDTO>>
+    getMedicalHistoryByPatientCode({ patientCode }: GetMedicalHistoryByPatientCodeRequest, opts?: OperationOpts): Observable<AjaxResponse<Array<MedicalHistoryDTO>>>
+    getMedicalHistoryByPatientCode({ patientCode }: GetMedicalHistoryByPatientCodeRequest, opts?: OperationOpts): Observable<Array<MedicalHistoryDTO> | AjaxResponse<Array<MedicalHistoryDTO>>> {
         throwIfNullOrUndefined(patientCode, 'patientCode', 'getMedicalHistoryByPatientCode');
 
         const headers: HttpHeaders = {
         };
 
-        return this.request<MedicalHistoryDTO>({
+        return this.request<Array<MedicalHistoryDTO>>({
             url: '/medicalhistories/patient/{patientCode}'.replace('{patientCode}', encodeURI(patientCode)),
             method: 'GET',
             headers,
