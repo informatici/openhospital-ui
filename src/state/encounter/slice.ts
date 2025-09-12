@@ -34,6 +34,9 @@ export const encounterSlice = createSlice({
     resetEncounterExamRequests: (state) => {
       state.encounterExamRequests = initial.encounterExamRequests;
     },
+    resetEncounterOpds: (state) => {
+      state.encounterOpds = initial.encounterOpds;
+    },
     resetPatientEncounterSelection: (state) => {
       state.selectedPatientEncounter = initial.selectedPatientEncounter;
     },
@@ -102,11 +105,14 @@ export const encounterSlice = createSlice({
       .addCase(thunks.getEncounterLaboratoryExams.pending, (state) => {
         state.encounterLaboratoryExams = ApiResponse.loading();
       })
-      .addCase(thunks.getEncounterLaboratoryExams.fulfilled, (state, action) => {
-        state.encounterLaboratoryExams = isEmpty(action.payload)
-          ? ApiResponse.empty()
-          : ApiResponse.value(action.payload);
-      })
+      .addCase(
+        thunks.getEncounterLaboratoryExams.fulfilled,
+        (state, action) => {
+          state.encounterLaboratoryExams = isEmpty(action.payload)
+            ? ApiResponse.empty()
+            : ApiResponse.value(action.payload);
+        }
+      )
       .addCase(thunks.getEncounterLaboratoryExams.rejected, (state, action) => {
         state.encounterLaboratoryExams = ApiResponse.error(action.payload);
       })
@@ -144,6 +150,18 @@ export const encounterSlice = createSlice({
         state.encounterConditionings = ApiResponse.error(action.payload);
       })
 
+      // Get Encounter Opds
+      .addCase(thunks.getEncounterOpds.pending, (state) => {
+        state.encounterOpds = ApiResponse.loading();
+      })
+      .addCase(thunks.getEncounterOpds.fulfilled, (state, action) => {
+        state.encounterOpds = isEmpty(action.payload)
+          ? ApiResponse.empty()
+          : ApiResponse.value(action.payload);
+      })
+      .addCase(thunks.getEncounterOpds.rejected, (state, action) => {
+        state.encounterOpds = ApiResponse.error(action.payload);
+      }),
 });
 
 export const {
@@ -153,5 +171,6 @@ export const {
   resetEncounterAdmissions,
   resetEncounterLaboratoryExams,
   resetEncounterExamRequests,
+  resetEncounterOpds,
   resetPatientEncounterSelection,
 } = encounterSlice.actions;

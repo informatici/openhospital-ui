@@ -21,7 +21,7 @@ import type {
     EncounterDTO,
     LaboratoryDTO,
     MedicalHistoryDTO,
-    OpdDTO,
+    OpdWithOperationRowDTO,
     PatientExaminationDTO,
 } from '../models';
 
@@ -215,15 +215,15 @@ export class EncounterApi extends BaseAPI {
 
     /**
      */
-    getOPDByEncounter({ code }: GetOPDByEncounterRequest): Observable<Array<OpdDTO>>
-    getOPDByEncounter({ code }: GetOPDByEncounterRequest, opts?: OperationOpts): Observable<AjaxResponse<Array<OpdDTO>>>
-    getOPDByEncounter({ code }: GetOPDByEncounterRequest, opts?: OperationOpts): Observable<Array<OpdDTO> | AjaxResponse<Array<OpdDTO>>> {
+    getOPDByEncounter({ code }: GetOPDByEncounterRequest): Observable<Array<OpdWithOperationRowDTO>>
+    getOPDByEncounter({ code }: GetOPDByEncounterRequest, opts?: OperationOpts): Observable<AjaxResponse<Array<OpdWithOperationRowDTO>>>
+    getOPDByEncounter({ code }: GetOPDByEncounterRequest, opts?: OperationOpts): Observable<Array<OpdWithOperationRowDTO> | AjaxResponse<Array<OpdWithOperationRowDTO>>> {
         throwIfNullOrUndefined(code, 'code', 'getOPDByEncounter');
 
         const headers: HttpHeaders = {
         };
 
-        return this.request<Array<OpdDTO>>({
+        return this.request<Array<OpdWithOperationRowDTO>>({
             url: '/encounters/{code}/opds'.replace('{code}', encodeURI(code)),
             method: 'GET',
             headers,
