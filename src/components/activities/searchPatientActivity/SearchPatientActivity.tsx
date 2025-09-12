@@ -132,10 +132,7 @@ const SearchPatientActivity = () => {
 
   const RESULTS_DATA_CY = "search-patient-results";
 
-  const onPageChange = (e: any, page: number) => {
-    handlePageChange(e, page - 1);
-    console.log(page - 1);
-  };
+  const onPageChange = (e: any, page: number) => handlePageChange(e, page - 1);
 
   const renderSearchResults = (): JSX.Element | undefined => {
     switch (searchStatus) {
@@ -298,6 +295,7 @@ const SearchPatientActivity = () => {
               <div ref={resultsRef}>
                 {renderSearchResults()}
                 <Pagination
+                  className="searchPatient_pagination"
                   page={(pageInfo?.page ?? 0) + 1}
                   count={pageInfo?.totalPages}
                   onChange={onPageChange}
