@@ -6912,11 +6912,11 @@ components:
           format: int32
           description: lock
           example: 0
-        female:
+        opd:
           type: boolean
         male:
           type: boolean
-        opd:
+        female:
           type: boolean
         pharmacy:
           type: boolean
@@ -7773,11 +7773,11 @@ components:
           type: string
           description: "Flag record deleted, values are 'Y' OR 'N' "
           example: "N"
-        fhu:
-          type: string
         yprog:
           type: integer
           format: int32
+        fhu:
+          type: string
       required:
       - admDate
       - admitted
