@@ -2,6 +2,8 @@ import { CircularProgress } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { FunctionComponent, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useParams } from "react-router";
+import { getEncounterOpds } from "state/encounter";
 import { OpdDTO, OpdWithOperationRowDTO } from "../../../../generated";
 import { renderDateTime } from "../../../../libraries/formatUtils/dataFormatting";
 import { usePermission } from "../../../../libraries/permissionUtils/usePermission";
@@ -39,10 +41,15 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
     OpdWithOperationRowDTO | undefined
   >(undefined);
 
+  const { code } = useParams();
+
   const data = useAppSelector((state) =>
-    state.opds.getOpds.data ? state.opds.getOpds.data : []
+    code ? state.encounters.encounterOpds.data : state.opds.getOpds.data ?? []
   );
-  const opdStatus = useAppSelector((state) => state.opds.getOpds.status);
+
+  const opdStatus = useAppSelector((state) =>
+    code ? state.encounters.encounterOpds.status : state.opds.getOpds.status
+  );
   const errorMessage = useAppSelector(
     (state) => state.opds.getOpds.error?.message || t("common.somethingwrong")
   ) as string;
@@ -50,9 +57,13 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
     (state) => state.patients.selectedPatient.data?.code
   );
   useEffect(() => {
-    if (shouldUpdateTable || patientCode)
-      dispatch(getOpdsWithOperationRows(patientCode));
-  }, [dispatch, patientCode, shouldUpdateTable]);
+    if (shouldUpdateTable || patientCode || code) {
+      const action = code
+        ? getEncounterOpds({ code })
+        : getOpdsWithOperationRows(patientCode);
+      dispatch(action as any);
+    }
+  }, [dispatch, patientCode, shouldUpdateTable, code]);
 
   const formatDataToDisplay = (data: OpdWithOperationRowDTO[] | undefined) => {
     let results: any = [];
@@ -72,8 +83,8 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
   };
 
   useEffect(() => {
-    if (data.length > 0) {
-      const mostRecent = data.reduce((latest, item) => {
+    if (data?.length! > 0) {
+      const mostRecent = data?.reduce((latest, item) => {
         if (!!item.opdDTO?.date && latest.opdDTO?.date) {
           return new Date(item.opdDTO?.date) > new Date(latest.opdDTO?.date)
             ? item
@@ -88,7 +99,7 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
   }, [data]);
 
   const onEdit = (row?: OpdDTO) => {
-    handleEdit(data.find((item) => item.opdDTO?.code === row?.code));
+    handleEdit(data?.find((item) => item.opdDTO?.code === row?.code));
   };
 
   const getRowClassNames = (row: any): string => {
