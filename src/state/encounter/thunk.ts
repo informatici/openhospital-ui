@@ -66,7 +66,24 @@ export const getEncounterExamRequests = createAsyncThunk(
 export const getEncounterExaminations = createAsyncThunk(
   "encounters/GET_ENCOUNTER_EXAMINATIONS",
   async (payload: { code: string }, thunkApi) =>
-    firstValueFrom(wrapper(() => api.getPatientExaminationsByEncounter(payload))).catch(
+    firstValueFrom(
+      wrapper(() => api.getPatientExaminationsByEncounter(payload))
+    ).catch((error) => thunkApi.rejectWithValue(error.response))
+);
+
+export const getEncounterOpds = createAsyncThunk(
+  "encounters/GET_ENCOUNTER_OPDS",
+  async (payload: { code: string }, thunkApi) =>
+    firstValueFrom(wrapper(() => api.getOPDByEncounter(payload))).catch(
       (error) => thunkApi.rejectWithValue(error.response)
     )
 );
+
+export const getEncounterConditionings = createAsyncThunk(
+  "encounters/GET_ENCOUNTER_CONDITIONINGS",
+  async (payload: { code: string }, thunkApi) =>
+    firstValueFrom(wrapper(() => api.getConditioningByPatientEncounter(payload))).catch(
+      (error) => thunkApi.rejectWithValue(error.response)
+    )
+);
+
