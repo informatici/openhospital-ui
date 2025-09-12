@@ -2,18 +2,18 @@ import { CircularProgress } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { FunctionComponent, useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { useParams } from "react-router";
+import { getEncounterExaminations } from "state/encounter";
 import { PatientExaminationDTO } from "../../../../generated";
 import { renderDateTime } from "../../../../libraries/formatUtils/dataFormatting";
 import { usePermission } from "../../../../libraries/permissionUtils/usePermission";
 import { examinationsByPatientId } from "../../../../state/examinations";
 import InfoBox from "../../infoBox/InfoBox";
 import Table from "../../table/Table";
-import { useParams } from "react-router";
-import { getEncounterExaminations } from "state/encounter";
 interface IOwnProps {
   shouldUpdateTable: boolean;
-  handleDelete: (code: number | undefined) => void;
-  handleEdit: (row: PatientExaminationDTO) => void;
+  handleDelete?: (code: number | undefined) => void;
+  handleEdit?: (row: PatientExaminationDTO) => void;
   handlePrint: (examinationCode: number) => void;
 }
 
@@ -52,25 +52,29 @@ const PatientTriageTable: FunctionComponent<IOwnProps> = ({
   const { code } = useParams();
 
   const dispatch = useAppDispatch();
-  const data = useAppSelector((state) =>
-     (code
-    ? state.encounters.encounterExamninations.data
-    : state.examinations.examinationsByPatientId.data
-  )?.filter((e) => state.examinations.examinationsByPatientId.data) ?? []
+  const data = useAppSelector(
+    (state) =>
+      (code
+        ? state.encounters.encounterExamninations.data
+        : state.examinations.examinationsByPatientId.data
+      )?.filter((e) => state.examinations.examinationsByPatientId.data) ?? []
   );
 
   const patientCode = useAppSelector(
     (state) => state.patients.selectedPatient.data?.code
   );
   useEffect(() => {
-    code ? dispatch(getEncounterExaminations({ code })) :
-    dispatch(examinationsByPatientId(patientCode));
+    code
+      ? dispatch(getEncounterExaminations({ code }))
+      : dispatch(examinationsByPatientId(patientCode));
   }, [dispatch, patientCode, shouldUpdateTable, code]);
 
-  const onEdit = (row: PatientExaminationDTO) => {
-    const pex = data.find((item) => item.pex_ID === row.pex_ID);
-    handleEdit(pex!);
-  };
+  const onEdit = handleEdit
+    ? (row: PatientExaminationDTO) => {
+        const pex = data.find((item) => item.pex_ID === row.pex_ID);
+        handleEdit(pex!);
+      }
+    : undefined;
 
   const formatDataToDisplay = (data: PatientExaminationDTO[]) => {
     return data.map((item) => {

@@ -1,7 +1,8 @@
 import { CircularProgress } from "@mui/material";
-import { useAppDispatch } from "libraries/hooks/redux";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { FC, Fragment, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useParams } from "react-router";
 import { useOpds } from "../../../libraries/hooks/api/useOpds";
 import { Permission } from "../../../libraries/permissionUtils/Permission";
 import { getDiseasesOpd } from "../../../state/diseases";
@@ -22,6 +23,14 @@ export const Opds: FC = () => {
   const dispatch = useAppDispatch();
 
   const [filter, setFilter] = useState(initialFilter as TFilterValues);
+
+  const { id, code } = useParams();
+
+  const encounter = useAppSelector((state) =>
+    state.encounters.getEncountersByPatient.data?.find(
+      (item) => item.patient.code?.toString() === id && item.code === code
+    )
+  );
 
   const { data, status, error, page, pageInfo, handlePageChange } = useOpds();
 
@@ -62,11 +71,13 @@ export const Opds: FC = () => {
             case "FAIL":
               return (
                 <Permission require="opds.read">
-                  <OpdFilterForm
-                    onSubmit={onSubmit}
-                    fields={fields}
-                    handleResetFilter={handleResetFilter}
-                  />
+                  {!encounter?.closedAt && (
+                    <OpdFilterForm
+                      onSubmit={onSubmit}
+                      fields={fields}
+                      handleResetFilter={handleResetFilter}
+                    />
+                  )}
                   <InfoBox type="error" message={errorMessage} />
                 </Permission>
               );
@@ -81,11 +92,13 @@ export const Opds: FC = () => {
             case "SUCCESS_EMPTY":
               return (
                 <Permission require="opds.read">
-                  <OpdFilterForm
-                    onSubmit={onSubmit}
-                    fields={fields}
-                    handleResetFilter={handleResetFilter}
-                  />
+                  {!encounter?.closedAt && (
+                    <OpdFilterForm
+                      onSubmit={onSubmit}
+                      fields={fields}
+                      handleResetFilter={handleResetFilter}
+                    />
+                  )}
                   <InfoBox type="info" message={t("common.emptydata")} />
                 </Permission>
               );

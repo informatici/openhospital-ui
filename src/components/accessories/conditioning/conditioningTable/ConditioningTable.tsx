@@ -11,7 +11,7 @@ import Table from "../../table/Table";
 
 interface IOwnProps {
   shouldUpdateTable: boolean;
-  handleEdit: (row: any) => void;
+  handleEdit?: (row: any) => void;
 }
 
 const ConditioningTable: FunctionComponent<IOwnProps> = ({
@@ -51,9 +51,11 @@ const ConditioningTable: FunctionComponent<IOwnProps> = ({
     (state) => state.patients.selectedPatient.data?.code
   );
 
-  const onEdit = (row: ConditioningDTO) => {
-    handleEdit(data.find((item: ConditioningDTO) => item.id === row?.id));
-  };
+  const onEdit = handleEdit
+    ? (row: ConditioningDTO) => {
+        handleEdit(data.find((item: ConditioningDTO) => item.id === row?.id));
+      }
+    : undefined;
 
   useEffect(() => {
     if (shouldUpdateTable || patientCode) {
