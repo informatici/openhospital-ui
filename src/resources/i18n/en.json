@@ -456,7 +456,11 @@
     "closedtitle": "CLOSE ENCOUNTER",
     "closedsuccess": "Encounter closed successfully",
     "closed": "Encounter closed",
-    "closedAt": "Closure Date"
+    "closedAt": "Closure Date",
+    "deleted": "Encounter deleted",
+    "deletedsuccess": "Encounter deleted successfully",
+    "delete": "Delete encounter",
+    "deletemessage": "Are you sure you want to delete the encounter?"
   },
   "nav": {
     "pharmacy": "Pharmacy",

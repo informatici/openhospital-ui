@@ -1,4 +1,4 @@
-import { Close, Edit, Visibility } from "@mui/icons-material";
+import { Close, Delete, Edit, Visibility } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 import { renderDateTime } from "libraries/formatUtils/dataFormatting";
 import { useAppDispatch } from "libraries/hooks";
@@ -13,12 +13,14 @@ import "../styles.scss";
 interface IOwnProps {
   onEdit?: () => void;
   onEditCode?: (row: any) => void;
+  onDelete?: () => void;
   encounter: EncounterDTO;
 }
 
 export const CurrentEncounterData: FunctionComponent<IOwnProps> = ({
   onEdit,
   onEditCode,
+  onDelete,
   encounter,
 }) => {
   const { t } = useTranslation();
@@ -44,6 +46,9 @@ export const CurrentEncounterData: FunctionComponent<IOwnProps> = ({
         </IconButton>
         <IconButton onClick={onEdit}>
           <Close />
+        </IconButton>
+        <IconButton onClick={onDelete}>
+          <Delete />
         </IconButton>
       </div>
       <div className="currentEncounterData__content">
