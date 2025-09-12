@@ -1,5 +1,5 @@
 
-import { AdmissionDTO, EncounterDTO, LaboratoryDTO, PatientExaminationDTO } from "generated";
+import { AdmissionDTO, ConditioningDTO, EncounterDTO, LaboratoryDTO, PatientExaminationDTO } from "generated";
 import { ApiResponse } from "../types";
 
 export type IEncountersState = {
@@ -12,4 +12,5 @@ export type IEncountersState = {
   encounterLaboratoryExams: ApiResponse<Array<LaboratoryDTO>>;
   encounterExamRequests: ApiResponse<Array<LaboratoryDTO>>;
   encounterExamninations: ApiResponse<Array<PatientExaminationDTO>>;
+  encounterConditionings: ApiResponse<Array<ConditioningDTO>>;
 };

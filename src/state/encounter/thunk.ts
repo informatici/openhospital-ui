@@ -70,3 +70,12 @@ export const getEncounterExaminations = createAsyncThunk(
       (error) => thunkApi.rejectWithValue(error.response)
     )
 );
+
+export const getEncounterConditionings = createAsyncThunk(
+  "encounters/GET_ENCOUNTER_CONDITIONINGS",
+  async (payload: { code: string }, thunkApi) =>
+    firstValueFrom(wrapper(() => api.getConditioningByPatientEncounter(payload))).catch(
+      (error) => thunkApi.rejectWithValue(error.response)
+    )
+);
+
