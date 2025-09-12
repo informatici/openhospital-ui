@@ -138,6 +138,18 @@ export const encounterSlice = createSlice({
       .addCase(thunks.getEncounterExaminations.rejected, (state, action) => {
         state.encounterExamninations = ApiResponse.error(action.payload);
       })
+      .addCase(thunks.getEncounterConditionings.pending, (state) => {
+        state.encounterConditionings = ApiResponse.loading();
+      })
+      .addCase(thunks.getEncounterConditionings.fulfilled, (state, action) => {
+        state.encounterConditionings = isEmpty(action.payload)
+          ? ApiResponse.empty()
+          : ApiResponse.value(action.payload);
+      })
+      .addCase(thunks.getEncounterConditionings.rejected, (state, action) => {
+        state.encounterConditionings = ApiResponse.error(action.payload);
+      })
+
       // Get Encounter Opds
       .addCase(thunks.getEncounterOpds.pending, (state) => {
         state.encounterOpds = ApiResponse.loading();
