@@ -9,19 +9,26 @@ const api = new PatientsApi(customConfiguration());
 
 export const searchPatient = createAsyncThunk(
   "patients/searchPatient",
-  async (values: TValues, thunkApi) => {
-    if (values.id) {
-      return wrapper(() => api.getPatient({ code: parseInt(values.id) }))
+  async (
+    payload: { values: TValues; page?: number; size?: number },
+    thunkApi
+  ) => {
+    if (payload.values.id) {
+      return wrapper(() =>
+        api.getPatient({ code: parseInt(payload.values.id) })
+      )
         .toPromise()
         .then((result) => (result ? [result] : []))
         .catch((error) => thunkApi.rejectWithValue(error.response));
     }
     return wrapper(() =>
       api.searchPatient({
-        ...values,
-        birthDate: moment(values.birthDate).isValid()
-          ? values.birthDate
+        ...payload.values,
+        birthDate: moment(payload.values.birthDate).isValid()
+          ? payload.values.birthDate
           : undefined,
+        page: payload.page,
+        size: payload.size,
       })
     )
       .toPromise()

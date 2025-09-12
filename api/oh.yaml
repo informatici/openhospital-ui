@@ -4503,15 +4503,27 @@ paths:
         schema:
           type: string
           default: ""
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: size
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 80
       responses:
         "200":
           description: OK
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/PatientDTO"
+                $ref: "#/components/schemas/PagePatientDTO"
       security:
       - bearerAuth: []
   /patients/nextcode:
@@ -6912,13 +6924,13 @@ components:
           format: int32
           description: lock
           example: 0
-        male:
+        opd:
           type: boolean
         female:
           type: boolean
-        pharmacy:
+        male:
           type: boolean
-        opd:
+        pharmacy:
           type: boolean
       required:
       - beds
@@ -7773,11 +7785,11 @@ components:
           type: string
           description: "Flag record deleted, values are 'Y' OR 'N' "
           example: "N"
+        fhu:
+          type: string
         yprog:
           type: integer
           format: int32
-        fhu:
-          type: string
       required:
       - admDate
       - admitted

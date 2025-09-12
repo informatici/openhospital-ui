@@ -3,7 +3,7 @@ import { ApiResponse } from "../types";
 
 export type IPatientsState = {
   createPatient: ApiResponse<PatientDTO>;
-  searchResults: ApiResponse<Array<PatientDTO>>;
+  searchResults: ApiResponse<Array<PatientDTO> | PagePatientDTO>;
   selectedPatient: ApiResponse<PatientDTO>;
   updatePatient: ApiResponse<PatientDTO>;
   getCities: ApiResponse<Array<string>>;
