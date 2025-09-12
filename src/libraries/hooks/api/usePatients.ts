@@ -2,10 +2,9 @@ import { PagePatientDTO } from "generated";
 import moment from "moment";
 import { useEffect, useState } from "react";
 import { ApiResponse } from "state/types";
-import { useAppDispatch, useAppSelector } from "../redux";
+import { useAppSelector } from "../redux";
 
 export const usePatients = () => {
-  const dispatch = useAppDispatch();
   const [size, setSize] = useState(10);
   const [page, setPage] = useState(0);
   const [range, setRange] = useState(
@@ -35,10 +34,6 @@ export const usePatients = () => {
   useEffect(() => {
     setPage(0);
   }, [size, range]);
-
-  //   useEffect(() => {
-  //     dispatch(searchResults({ patientrange: range, page, size }));
-  //   }, [dispatch, page, range, size]);
 
   return {
     pageInfo,
