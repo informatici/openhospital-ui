@@ -46,6 +46,7 @@ export const Encounters = () => {
   const [isDeleteEncounterDialogOpen, setIsDeleteEncounterDialogOpen] =
     useState(false);
   const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
+  const [closedSuccess, setClosedSuccess] = useState(false);
   const [activityTransitionState, setActivityTransitionState] =
     useState<EncounterTransitionState>("IDLE");
   const navigate = useNavigate();
@@ -90,6 +91,7 @@ export const Encounters = () => {
     if (creationMode) {
       enc.patient = patient!;
       dispatch(createEncounter(enc));
+      setClosedSuccess(true);
     } else {
       enc.patient = patient!;
       enc.id = encounterToEdit?.id;
@@ -99,6 +101,7 @@ export const Encounters = () => {
         body: enc,
       };
       dispatch(updateEncounter(param));
+      setClosedSuccess(true);
     }
   };
 
@@ -177,6 +180,7 @@ export const Encounters = () => {
   const onCloseEncounter = () => {
     if (updateStatus === "SUCCESS") {
       setIsCloseEncounterDialogOpen(true);
+      setClosedSuccess(true);
       setShowForm(true);
       setShouldResetForm(false);
       setShouldUpdateTable(false);
@@ -234,7 +238,7 @@ export const Encounters = () => {
           isOpen={
             (createStatus === "SUCCESS" || updateStatus === "SUCCESS") &&
             !isEditingCurrent &&
-            !isCloseEncounterDialogOpen
+            !isCloseEncounterDialogOpen && closedSuccess
           }
           title={creationMode ? t("encounter.created") : t("encounter.updated")}
           icon={checkIcon}

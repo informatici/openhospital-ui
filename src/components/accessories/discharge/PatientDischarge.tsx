@@ -1,7 +1,7 @@
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-import React, { FC, useEffect, useRef, useState } from "react";
+import React, { FC, useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { getPatient } from "state/patients";
 import checkIcon from "../../../assets/check-icon.png";
 import { AdmissionDTO, EncounterDTO } from "../../../generated";
@@ -24,6 +24,7 @@ import { useEncountersEnabled } from "libraries/hooks";
 import CloseEncounterDialog from "../encounters/closeEncounterDialog/CloseEncounterDialog";
 import warningIcon from "../../../assets/warning-icon.png";
 import { updateEncounter } from "state/encounter";
+import { TUserSection } from "components/activities/patientDetailsActivity/types";
 
 const PatientDischarge: FC = () => {
   const { t } = useTranslation();
@@ -41,6 +42,15 @@ const PatientDischarge: FC = () => {
     state.encounters.getEncountersByPatient.data?.find(
       (item) => item.patient.code?.toString() === id && item.code === code
     )
+  );
+
+  const navigate = useNavigate();
+
+  const changeUserSection = useCallback(
+    (section: TUserSection) => {
+      navigate(`/patients/details/${id}/${section}`, { replace: true });
+    },
+    [navigate, id]
   );
 
   const currentAdmission = useAppSelector(
@@ -93,8 +103,8 @@ const PatientDischarge: FC = () => {
       })
     );
     setOpenResetConfirmation(false);
-    setActivityTransitionState("TO_RESET");
     scrollToElement(null);
+    changeUserSection("encounters");
   };
 
   const onSubmit = (adm: AdmissionDTO) => {
