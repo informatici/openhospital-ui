@@ -14,7 +14,7 @@ import Table from "../../table/Table";
 
 interface IOwnProps {
   shouldUpdateTable: boolean;
-  handleEdit: (row: any) => void;
+  handleEdit?: (row: any) => void;
 }
 
 const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
@@ -65,9 +65,11 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
     (state) => state.patients.selectedPatient.data?.code
   );
 
-  const onEdit = (row: AdmissionDTO) => {
-    handleEdit(data.find((item) => item.id === row?.id));
-  };
+  const onEdit = handleEdit
+    ? (row: AdmissionDTO) => {
+        handleEdit(data.find((item) => item.id === row?.id));
+      }
+    : undefined;
 
   useEffect(() => {
     if (shouldUpdateTable || patientCode || code) {

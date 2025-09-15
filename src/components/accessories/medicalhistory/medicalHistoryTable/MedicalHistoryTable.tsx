@@ -10,7 +10,7 @@ import Table from "../../table/Table";
 
 interface IOwnProps {
   shouldUpdateTable: boolean;
-  handleEdit: (row: any) => void;
+  handleEdit?: (row: any) => void;
 }
 
 const MedicalHistoryTable: FunctionComponent<IOwnProps> = ({
@@ -121,9 +121,11 @@ const MedicalHistoryTable: FunctionComponent<IOwnProps> = ({
     (state) => state.medicalhistory.createMedicalHistory.status
   );
 
-  const onEdit = (row: MedicalHistoryDTO) => {
-    handleEdit(data.find((item) => item.id === row?.id));
-  };
+  const onEdit = handleEdit
+    ? (row: MedicalHistoryDTO) => {
+        handleEdit(data.find((item) => item.id === row?.id));
+      }
+    : undefined;
 
   return (
     <div className="patientMedicalHistoryTable">

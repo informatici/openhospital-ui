@@ -2,19 +2,19 @@ import { CircularProgress } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { FunctionComponent, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
+import { useParams } from "react-router";
+import { getEncounterLaboratoryExams } from "state/encounter";
 import { LabWithRowsDTO, LaboratoryDTO } from "../../../../generated";
 import { renderDateTime } from "../../../../libraries/formatUtils/dataFormatting";
 import { getLabsByPatientId } from "../../../../state/laboratories";
 import InfoBox from "../../infoBox/InfoBox";
 import { statusLabel } from "../../laboratory/table/ExamTable";
 import Table from "../../table/Table";
-import { useParams } from "react-router";
-import { getEncounterLaboratoryExams } from "state/encounter";
 
 interface IOwnProps {
   shouldUpdateTable: boolean;
-  handleEdit: (row: any) => void;
-  handleDelete: (code: number | undefined) => void;
+  handleEdit?: (row: any) => void;
+  handleDelete?: (code: number | undefined) => void;
 }
 
 const PatientExamsTable: FunctionComponent<IOwnProps> = ({
@@ -62,31 +62,29 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
     (state) => state.laboratories.labsByPatientId.status
   );
 
-  const isLoading = code 
+  const isLoading = code
     ? encounterStatus === "LOADING"
     : labsStatus === "LOADING";
 
-    const isFail = code 
-    ? encounterStatus === "FAIL"
-    : labsStatus === "FAIL";
+  const isFail = code ? encounterStatus === "FAIL" : labsStatus === "FAIL";
 
-  const isSuccess = code 
+  const isSuccess = code
     ? encounterStatus === "SUCCESS"
     : labsStatus === "SUCCESS";
 
-  const isEmpty = code 
+  const isEmpty = code
     ? encounterStatus === "SUCCESS_EMPTY"
     : labsStatus === "SUCCESS_EMPTY";
 
-  const errorMessage = useAppSelector((state) =>
-    code
-      ? state.encounters.encounterLaboratoryExams.error?.message
-      : state.laboratories.labsByPatientId.error?.message
-  ) || t("common.somethingwrong");
+  const errorMessage =
+    useAppSelector((state) =>
+      code
+        ? state.encounters.encounterLaboratoryExams.error?.message
+        : state.laboratories.labsByPatientId.error?.message
+    ) || t("common.somethingwrong");
 
   useEffect(() => {
     if (shouldUpdateTable || patientCode || code) {
-      
       if (code) {
         dispatch(getEncounterLaboratoryExams({ code }) as any);
       } else if (patientCode) {
@@ -96,12 +94,12 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
   }, [dispatch, patientCode, shouldUpdateTable, code]);
 
   const isLabWithRowsDTO = (item: any): item is LabWithRowsDTO => {
-    return "laboratoryDTO" in item; 
+    return "laboratoryDTO" in item;
   };
 
   const formatDataToDisplay = (data: (LabWithRowsDTO | LaboratoryDTO)[]) => {
     if (!data) return [];
-    
+
     return data.map((item) => {
       if (isLabWithRowsDTO(item)) {
         return {
@@ -110,10 +108,15 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
             ? renderDateTime(item.laboratoryDTO.labDate)
             : "",
           exam: item.laboratoryDTO?.exam?.description ?? "",
-          result: item.laboratoryDTO?.exam?.procedure === 1 ? item.laboratoryDTO?.result : item.laboratoryRowList?.join(", "),
+          result:
+            item.laboratoryDTO?.exam?.procedure === 1
+              ? item.laboratoryDTO?.result
+              : item.laboratoryRowList?.join(", "),
           note: item.laboratoryDTO?.note ?? "",
-          status: item.laboratoryDTO?.status ? statusLabel(item.laboratoryDTO.status) : "",
-        };  
+          status: item.laboratoryDTO?.status
+            ? statusLabel(item.laboratoryDTO.status)
+            : "",
+        };
       }
       return {
         code: item.code,
@@ -129,11 +132,11 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
   return (
     <div className="patientExamsTable">
       <h5>{t("lab.previousentries")}</h5>
-      
+
       {isLoading && (
         <CircularProgress style={{ marginLeft: "50%", position: "relative" }} />
       )}
-      
+
       {isSuccess && data && data.length > 0 && (
         <Table
           rowData={formatDataToDisplay(data)}
@@ -145,13 +148,13 @@ const PatientExamsTable: FunctionComponent<IOwnProps> = ({
           isCollapsabile={true}
         />
       )}
-      
+
       {isEmpty && (
         <div ref={infoBoxRef}>
           <InfoBox type="info" message={t("common.emptydata")} />
         </div>
       )}
-      
+
       {isFail && errorMessage && (
         <div ref={infoBoxRef}>
           <InfoBox type="error" message={errorMessage} />

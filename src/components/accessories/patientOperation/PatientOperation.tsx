@@ -17,12 +17,13 @@ import {
 import { IState } from "../../../types";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import InfoBox from "../infoBox/InfoBox";
+import { opRowFields } from "./opRowFields";
 import OperationRowForm from "./operationForm/OperationRowForm";
 import PatientOperationTable from "./operationTable/OperationRowTable";
-import { opRowFields } from "./opRowFields";
 import "./styles.scss";
 import { OperationRowTransitionState } from "./types";
 
+import { useParams } from "react-router";
 import { Permission } from "../../../libraries/permissionUtils/Permission";
 
 interface IOwnProps {
@@ -42,6 +43,14 @@ const PatientOperation: FC<IOwnProps> = ({ opd, onSuccess }) => {
   const [opRowToEdit, setOpRowToEdit] = useState({} as OperationRowDTO);
 
   const [creationMode, setCreationMode] = useState(true);
+
+  const { id, code } = useParams();
+
+  const encounter = useAppSelector((state) =>
+    state.encounters.getEncountersByPatient.data?.find(
+      (item) => item.patient.code?.toString() === id && item.code === code
+    )
+  );
 
   const changeStatus = useAppSelector((state) => {
     return state.operations.createOperationRow.status !== "IDLE"
@@ -148,18 +157,20 @@ const PatientOperation: FC<IOwnProps> = ({ opd, onSuccess }) => {
       <Permission
         require={creationMode ? "operations.create" : "operations.update"}
       >
-        <OperationRowForm
-          fields={fields}
-          onSubmit={onSubmit}
-          creationMode={creationMode}
-          submitButtonLabel={
-            creationMode ? t("common.save") : t("common.update")
-          }
-          resetButtonLabel={t("common.reset")}
-          shouldResetForm={shouldResetForm}
-          resetFormCallback={resetFormCallback}
-          isLoading={changeStatus === "LOADING"}
-        />
+        {!encounter?.closedAt && (
+          <OperationRowForm
+            fields={fields}
+            onSubmit={onSubmit}
+            creationMode={creationMode}
+            submitButtonLabel={
+              creationMode ? t("common.save") : t("common.update")
+            }
+            resetButtonLabel={t("common.reset")}
+            shouldResetForm={shouldResetForm}
+            resetFormCallback={resetFormCallback}
+            isLoading={changeStatus === "LOADING"}
+          />
+        )}
         {changeStatus === "FAIL" && (
           <div ref={infoBoxRef} className="info-box-container">
             <InfoBox
@@ -190,7 +201,7 @@ const PatientOperation: FC<IOwnProps> = ({ opd, onSuccess }) => {
       <Permission require="operations.read">
         {!opd && (
           <PatientOperationTable
-            onEdit={onEdit}
+            onEdit={encounter?.closedAt ? undefined : onEdit}
             shouldUpdateTable={shouldUpdateTable}
           />
         )}
