@@ -3,7 +3,7 @@ import React, { FC, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { getPatient } from "state/patients";
 import checkIcon from "../../../assets/check-icon.png";
-import { AdmissionDTO } from "../../../generated";
+import { AdmissionDTO, EncounterDTO } from "../../../generated";
 import { parseDateTime } from "../../../libraries/formDataHandling/functions";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
 import {
@@ -19,6 +19,10 @@ import DischargeForm from "./dischargeForm/DischargeForm";
 import "./styles.scss";
 import { AdmissionTransitionState } from "./types";
 import { useFields } from "./useFields";
+import { useEncountersEnabled } from "libraries/hooks";
+import CloseEncounterDialog from "../encounters/closeEncounterDialog/CloseEncounterDialog";
+import warningIcon from "../../../assets/warning-icon.png";
+import { updateEncounter } from "state/encounter";
 
 const PatientDischarge: FC = () => {
   const { t } = useTranslation();
@@ -26,6 +30,7 @@ const PatientDischarge: FC = () => {
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [shouldResetForm, setShouldResetForm] = useState(false);
   const [, setShouldUpdateTable] = useState(false);
+  const [close, setClose] = useState(false);
   const [activityTransitionState, setActivityTransitionState] =
     useState<AdmissionTransitionState>("IDLE");
 
@@ -33,8 +38,16 @@ const PatientDischarge: FC = () => {
     (state: IState) => state.admissions.currentAdmissionByPatientId.data
   );
 
+  const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
+
   const currentAdmissionStatus = useAppSelector(
     (state: IState) => state.admissions.currentAdmissionByPatientId.status
+  );
+
+  const encountersEnabled = useEncountersEnabled();
+
+  const currentEncounter = useAppSelector(
+    (state: IState) => state.encounters.getCurrentEncounterByPatient.data
   );
 
   const fields = useFields(currentAdmission);
@@ -52,6 +65,28 @@ const PatientDischarge: FC = () => {
       state.admissions.dischargePatient.error?.message ||
       state.admissions.currentAdmissionByPatientId.error?.message
   ) as string;
+
+  const onclosure = () => {
+    setClose(true);
+    setOpenResetConfirmation(true);
+  };
+
+  const closeEncounter = (closureDate: string) => {
+    if (!currentEncounter) return;
+    const encounterToUpdate = {
+      ...currentEncounter,
+      closedAt: closureDate,
+    } as EncounterDTO;
+    dispatch(
+      updateEncounter({
+        code: currentEncounter.code!,
+        body: encounterToUpdate,
+      })
+    );
+    setOpenResetConfirmation(false);
+    setActivityTransitionState("TO_RESET");
+    scrollToElement(null);
+  };
 
   const onSubmit = (adm: AdmissionDTO) => {
     setShouldResetForm(false);
@@ -80,7 +115,7 @@ const PatientDischarge: FC = () => {
       setActivityTransitionState("FAIL");
       scrollToElement(infoBoxRef.current);
     }
-  }, [dischargeStatus, currentAdmissionStatus]);
+  }, [dischargeStatus, currentAdmissionStatus, activityTransitionState]);
 
   useEffect(() => {
     dispatch(dischargePatientReset());
@@ -137,7 +172,10 @@ const PatientDischarge: FC = () => {
       )}
 
       <ConfirmationDialog
-        isOpen={dischargeStatus === "SUCCESS"}
+        isOpen={
+          dischargeStatus === "SUCCESS" &&
+          (!encountersEnabled || !currentEncounter)
+        }        
         title={
           dischargeStatus === "SUCCESS"
             ? t("admission.discharged")
@@ -152,6 +190,35 @@ const PatientDischarge: FC = () => {
         primaryButtonLabel="Ok"
         handlePrimaryButtonClick={() => setActivityTransitionState("TO_RESET")}
         handleSecondaryButtonClick={() => ({})}
+      />
+
+      <ConfirmationDialog
+        isOpen={
+          dischargeStatus === "SUCCESS" &&
+          encountersEnabled &&
+          !!currentEncounter && !close
+        }
+        title={t("admission.discharged")}
+        icon={checkIcon}
+        info={t("admission.closeEncounter")}
+        primaryButtonLabel={t("common.yes")}
+        secondaryButtonLabel={t("common.no")}
+        handlePrimaryButtonClick={() => onclosure()}
+        handleSecondaryButtonClick={() =>
+          setActivityTransitionState("TO_RESET")
+        }
+      />
+      
+      <CloseEncounterDialog
+        isOpen={openResetConfirmation}
+        title={t("encounter.closedtitle").toUpperCase()}
+        info={t("encounter.closeddate")}
+        icon={warningIcon}
+        primaryButtonLabel={t("common.yes")}
+        secondaryButtonLabel={t("common.no")}
+        handlePrimaryButtonClick={closeEncounter}
+        handleSecondaryButtonClick={() => setActivityTransitionState("TO_RESET")}
+        withDateField={true}
       />
     </div>
   );
