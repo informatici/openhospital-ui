@@ -11,7 +11,7 @@ import Table from "../../table/Table";
 
 interface IOwnProps {
   shouldUpdateTable: boolean;
-  onEdit: (opRow: OperationRowDTO) => void;
+  onEdit?: (opRow: OperationRowDTO) => void;
 }
 
 const PatientOperationRowTable: FunctionComponent<IOwnProps> = ({
@@ -67,10 +67,12 @@ const PatientOperationRowTable: FunctionComponent<IOwnProps> = ({
       };
     });
   };
-  const handleEdit = (row: any) => {
-    const opRow = data.find((item) => item.id === row.id);
-    if (opRow !== undefined) onEdit(opRow);
-  };
+  const handleEdit = onEdit
+    ? (row: any) => {
+        const opRow = data.find((item) => item.id === row.id);
+        if (opRow !== undefined) onEdit(opRow);
+      }
+    : undefined;
   const status = useAppSelector(
     (state) => state.operations.operationRowsByQdmt.status
   );

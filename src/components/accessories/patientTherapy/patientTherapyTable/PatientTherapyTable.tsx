@@ -14,8 +14,8 @@ import Table from "../../table/Table";
 
 interface IOwnProps {
   shouldUpdateTable: boolean;
-  handleDelete: (code: number | undefined) => void;
-  handleEdit: (row: any) => void;
+  handleDelete?: (code: number | undefined) => void;
+  handleEdit?: (row: any) => void;
 }
 
 const PatientTherapyTable: FunctionComponent<IOwnProps> = ({
@@ -101,9 +101,11 @@ const PatientTherapyTable: FunctionComponent<IOwnProps> = ({
     (state) => state.therapies.therapiesByPatientId.status
   );
 
-  const onEdit = (row: TherapyRowDTO) => {
-    handleEdit(data.find((item) => item.therapyID === row.therapyID));
-  };
+  const onEdit = handleEdit
+    ? (row: TherapyRowDTO) => {
+        handleEdit(data.find((item) => item.therapyID === row.therapyID));
+      }
+    : undefined;
 
   return (
     <div className="patientTherapyTable">

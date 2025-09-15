@@ -2,6 +2,7 @@ import { downloadBlob } from "libraries/downloadUtils/downloadUtils";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { FC, default as React, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useParams } from "react-router";
 import checkIcon from "../../../assets/check-icon.png";
 import { PatientExaminationDTO } from "../../../generated";
 import { updateTriageFields } from "../../../libraries/formDataHandling/functions";
@@ -45,6 +46,14 @@ const PatientTriage: FC = () => {
   const [creationMode, setCreationMode] = useState(true);
 
   const [isPrinting, setPrinting] = useState(false);
+
+  const { id, code } = useParams();
+
+  const encounter = useAppSelector((state) =>
+    state.encounters.getEncountersByPatient.data?.find(
+      (item) => item.patient.code?.toString() === id && item.code === code
+    )
+  );
 
   //const [triage, setTriage] = useState({} as PatientExaminationDTO | undefined);
 
@@ -224,70 +233,75 @@ const PatientTriage: FC = () => {
       <Permission
         require={creationMode ? "examinations.create" : "examinations.update"}
       >
-        <PatientTriageForm
-          fields={
-            creationMode
-              ? {
-                  ...initialFields,
-                  pex_height: {
-                    ...initialFields.pex_height,
-                    value: lastExamination?.pex_height?.toString() ?? "",
-                  },
-                  pex_weight: {
-                    ...initialFields.pex_weight,
-                    value: lastExamination?.pex_weight?.toString() ?? "",
-                  },
-                  pex_body_mass_index: {
-                    ...initialFields.pex_body_mass_index,
-                    value: (lastExamination?.pex_weight &&
-                    lastExamination?.pex_height
-                      ? (
-                          lastExamination.pex_weight /
-                          (lastExamination.pex_height / 100) ** 2
-                        ).toFixed(2)
-                      : ""
-                    ).toString(),
-                  },
-                }
-              : updateTriageFields(initialFields, {
-                  ...triageToEdit,
-                  pex_height:
-                    triageToEdit.pex_height ?? lastExamination?.pex_height,
-                  pex_weight:
-                    triageToEdit.pex_weight ?? lastExamination?.pex_weight,
-                  pex_body_mass_index:
-                    (triageToEdit?.pex_weight && triageToEdit?.pex_height
-                      ? Number(
-                          (
-                            triageToEdit.pex_weight /
-                            (triageToEdit.pex_height / 100) ** 2
-                          ).toFixed(2)
-                        )
-                      : null) ??
-                    (lastExamination?.pex_weight && lastExamination?.pex_height
-                      ? Number(
-                          (
+        {!encounter?.closedAt && (
+          <PatientTriageForm
+            fields={
+              creationMode
+                ? {
+                    ...initialFields,
+                    pex_height: {
+                      ...initialFields.pex_height,
+                      value: lastExamination?.pex_height?.toString() ?? "",
+                    },
+                    pex_weight: {
+                      ...initialFields.pex_weight,
+                      value: lastExamination?.pex_weight?.toString() ?? "",
+                    },
+                    pex_body_mass_index: {
+                      ...initialFields.pex_body_mass_index,
+                      value: (lastExamination?.pex_weight &&
+                      lastExamination?.pex_height
+                        ? (
                             lastExamination.pex_weight /
                             (lastExamination.pex_height / 100) ** 2
                           ).toFixed(2)
-                        )
-                      : 0),
-                })
-          }
-          creationMode={creationMode}
-          onSubmit={onSubmit}
-          submitButtonLabel={
-            creationMode ? t("common.savetriage") : t("common.update")
-          }
-          resetButtonLabel={t("common.reset")}
-          printButtonLabel={
-            creationMode ? t("common.saveandprint") : t("common.updateandprint")
-          }
-          saveAndPrint={handlePrint}
-          shouldResetForm={shouldResetForm}
-          resetFormCallback={resetFormCallback}
-          isLoading={status === "LOADING"}
-        />
+                        : ""
+                      ).toString(),
+                    },
+                  }
+                : updateTriageFields(initialFields, {
+                    ...triageToEdit,
+                    pex_height:
+                      triageToEdit.pex_height ?? lastExamination?.pex_height,
+                    pex_weight:
+                      triageToEdit.pex_weight ?? lastExamination?.pex_weight,
+                    pex_body_mass_index:
+                      (triageToEdit?.pex_weight && triageToEdit?.pex_height
+                        ? Number(
+                            (
+                              triageToEdit.pex_weight /
+                              (triageToEdit.pex_height / 100) ** 2
+                            ).toFixed(2)
+                          )
+                        : null) ??
+                      (lastExamination?.pex_weight &&
+                      lastExamination?.pex_height
+                        ? Number(
+                            (
+                              lastExamination.pex_weight /
+                              (lastExamination.pex_height / 100) ** 2
+                            ).toFixed(2)
+                          )
+                        : 0),
+                  })
+            }
+            creationMode={creationMode}
+            onSubmit={onSubmit}
+            submitButtonLabel={
+              creationMode ? t("common.savetriage") : t("common.update")
+            }
+            resetButtonLabel={t("common.reset")}
+            printButtonLabel={
+              creationMode
+                ? t("common.saveandprint")
+                : t("common.updateandprint")
+            }
+            saveAndPrint={handlePrint}
+            shouldResetForm={shouldResetForm}
+            resetFormCallback={resetFormCallback}
+            isLoading={status === "LOADING"}
+          />
+        )}
         {(status === "FAIL" || deleteStatus === "FAIL") && (
           <div ref={infoBoxRef}>
             <InfoBox type="error" message={errorMessage} />
@@ -319,8 +333,8 @@ const PatientTriage: FC = () => {
 
       <Permission require="examinations.read">
         <PatientTriageTable
-          handleDelete={onDelete}
-          handleEdit={onEdit}
+          handleDelete={encounter?.closedAt ? undefined : onDelete}
+          handleEdit={encounter?.closedAt ? undefined : onEdit}
           shouldUpdateTable={shouldUpdateTable}
           handlePrint={onPrint}
         />

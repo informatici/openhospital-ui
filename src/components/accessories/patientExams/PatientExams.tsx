@@ -2,6 +2,7 @@ import { CircularProgress } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { FC, useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useParams } from "react-router";
 import checkIcon from "../../../assets/check-icon.png";
 import {
   LaboratoryDTO,
@@ -57,6 +58,14 @@ const PatientExams: FC = () => {
   const [labToEdit, setLabToEdit] = useState({} as LaboratoryDTO);
 
   const [creationMode, setCreationMode] = useState(true);
+
+  const { id, code } = useParams();
+
+  const encounter = useAppSelector((state) =>
+    state.encounters.getEncountersByPatient.data?.find(
+      (item) => item.patient.code?.toString() === id && item.code === code
+    )
+  );
 
   const labWithRows = useAppSelector(
     (state: IState) => state.laboratories.getLabWithRowsByCode.data ?? {}
@@ -176,14 +185,15 @@ const PatientExams: FC = () => {
       <Permission
         require={creationMode ? "laboratories.create" : "laboratories.update"}
       >
-        {creationMode && (
+        {!encounter?.closedAt && creationMode && (
           <ExamRequestForm
             fields={initialRequestFields}
             patient={patientData}
             handleSuccess={onSuccess}
           />
         )}
-        {labStore.getLabWithRowsByCode.status !== "LOADING" &&
+        {!encounter?.closedAt &&
+          labStore.getLabWithRowsByCode.status !== "LOADING" &&
           !creationMode && (
             <ExamForm
               fields={
@@ -241,12 +251,12 @@ const PatientExams: FC = () => {
       <Permission require="laboratories.read">
         <PatientExamRequestsTable
           shouldUpdateTable={shouldUpdateRequestsTable}
-          handleCancel={onCancel}
-          handleEdit={onEdit}
+          handleCancel={encounter?.closedAt ? undefined : onCancel}
+          handleEdit={encounter?.closedAt ? undefined : onEdit}
         />
         <PatientExamsTable
-          handleEdit={onEdit}
-          handleDelete={onDelete}
+          handleEdit={encounter?.closedAt ? undefined : onEdit}
+          handleDelete={encounter?.closedAt ? undefined : onDelete}
           shouldUpdateTable={shouldUpdateTable}
         />
         <ConfirmationDialog

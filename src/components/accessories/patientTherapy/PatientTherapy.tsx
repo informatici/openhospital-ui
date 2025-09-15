@@ -1,6 +1,7 @@
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { FC, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useParams } from "react-router";
 import checkIcon from "../../../assets/check-icon.png";
 import { TherapyRowDTO } from "../../../generated";
 import { updateTherapyFields } from "../../../libraries/formDataHandling/functions";
@@ -37,6 +38,14 @@ const PatientTherapy: FC = () => {
   const [therapyToEdit, setTherapyToEdit] = useState({} as TherapyRowDTO);
 
   const [creationMode, setCreationMode] = useState(true);
+
+  const { id, code } = useParams();
+
+  const encounter = useAppSelector((state) =>
+    state.encounters.getEncountersByPatient.data?.find(
+      (item) => item.patient.code?.toString() === id && item.code === code
+    )
+  );
 
   const status = useAppSelector((state) => {
     /*
@@ -133,22 +142,26 @@ const PatientTherapy: FC = () => {
       <Permission
         require={creationMode ? "therapies.create" : "therapies.update"}
       >
-        <TherapyForm
-          fields={
-            creationMode
-              ? initialFields
-              : updateTherapyFields(initialFields, therapyToEdit)
-          }
-          onSubmit={onSubmit}
-          creationMode={creationMode}
-          submitButtonLabel={
-            creationMode ? t("therapy.savetherapy") : t("therapy.updatetherapy")
-          }
-          resetButtonLabel={t("common.reset")}
-          shouldResetForm={shouldResetForm}
-          resetFormCallback={resetFormCallback}
-          isLoading={status === "LOADING"}
-        />
+        {!encounter?.closedAt && (
+          <TherapyForm
+            fields={
+              creationMode
+                ? initialFields
+                : updateTherapyFields(initialFields, therapyToEdit)
+            }
+            onSubmit={onSubmit}
+            creationMode={creationMode}
+            submitButtonLabel={
+              creationMode
+                ? t("therapy.savetherapy")
+                : t("therapy.updatetherapy")
+            }
+            resetButtonLabel={t("common.reset")}
+            shouldResetForm={shouldResetForm}
+            resetFormCallback={resetFormCallback}
+            isLoading={status === "LOADING"}
+          />
+        )}
         {status === "FAIL" && (
           <div ref={infoBoxRef} className="info-box-container">
             <InfoBox type="error" message={errorMessage} />
@@ -173,8 +186,8 @@ const PatientTherapy: FC = () => {
       </Permission>
       <Permission require="therapies.read">
         <PatientTherapyTable
-          handleDelete={onDelete}
-          handleEdit={onEdit}
+          handleDelete={encounter?.closedAt ? undefined : onDelete}
+          handleEdit={encounter?.closedAt ? undefined : onEdit}
           shouldUpdateTable={shouldUpdateTable}
         />
       </Permission>

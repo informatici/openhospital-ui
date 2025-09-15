@@ -3,6 +3,7 @@ import { Permission } from "libraries/permissionUtils/Permission";
 import { scrollToElement } from "libraries/uiUtils/scrollToElement";
 import React, { FC, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useParams } from "react-router";
 import {
   newConditioning,
   newConditioningReset,
@@ -32,6 +33,14 @@ const Conditioning: FC = () => {
   const [conditioningToEdit, setConditioningToEdit] = useState<
     ConditioningDTO | undefined
   >(undefined);
+
+  const { id, code } = useParams();
+
+  const encounter = useAppSelector((state) =>
+    state.encounters.getEncountersByPatient.data?.find(
+      (item) => item.patient.code?.toString() === id && item.code === code
+    )
+  );
 
   const createStatus = useAppSelector(
     (state) => state.conditioning.newConditioning.status
@@ -102,20 +111,22 @@ const Conditioning: FC = () => {
 
   return (
     <div className="Conditioning">
-      <Permission require="conditioning.new">
-        <ConditioningForm
-          fields={fields}
-          creationMode={creationMode}
-          submitButtonLabel={
-            conditioningToEdit ? t("common.update") : t("common.save")
-          }
-          resetButtonLabel={t("common.reset")}
-          isLoading={createStatus === "LOADING"}
-          onSubmit={onSubmit}
-          shouldResetForm={shouldResetForm}
-          resetFormCallback={resetFormCallback}
-        />
-      </Permission>
+      {!encounter?.closedAt && (
+        <Permission require="conditioning.new">
+          <ConditioningForm
+            fields={fields}
+            creationMode={creationMode}
+            submitButtonLabel={
+              conditioningToEdit ? t("common.update") : t("common.save")
+            }
+            resetButtonLabel={t("common.reset")}
+            isLoading={createStatus === "LOADING"}
+            onSubmit={onSubmit}
+            shouldResetForm={shouldResetForm}
+            resetFormCallback={resetFormCallback}
+          />
+        </Permission>
+      )}
 
       {createStatus === "FAIL" && (
         <div ref={infoBoxRef} className="info-box-container">
@@ -124,7 +135,7 @@ const Conditioning: FC = () => {
       )}
 
       <ConditioningTable
-        handleEdit={onEdit}
+        handleEdit={encounter?.closedAt ? undefined : onEdit}
         shouldUpdateTable={shouldUpdateTable}
       />
 

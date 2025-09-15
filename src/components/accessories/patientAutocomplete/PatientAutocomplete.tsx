@@ -35,8 +35,10 @@ const PatientAutocomplete: FC<IProps> = ({ onBlur, ...props }) => {
   useEffect(() => {
     dispatch(
       searchPatient({
-        firstName: inputValue,
-      } as TValues)
+        values: {
+          firstName: inputValue,
+        } as TValues,
+      })
     );
   }, [dispatch, inputValue]);
 
@@ -60,7 +62,11 @@ const PatientAutocomplete: FC<IProps> = ({ onBlur, ...props }) => {
       {...props}
       id="parent_element"
       loading={searchStatus === "LOADING"}
-      options={patientSearchResults}
+      options={
+        patientSearchResults instanceof Array
+          ? patientSearchResults
+          : patientSearchResults.data!
+      }
       onInputChange={handleOnInputChange}
       onBlur={handleOnBlur}
       getOptionLabel={getOptionLabel}

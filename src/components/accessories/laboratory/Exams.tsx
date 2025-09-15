@@ -9,7 +9,13 @@ import React, {
   useState,
 } from "react";
 import { useTranslation } from "react-i18next";
-import { Route, Routes, useLocation, useNavigate } from "react-router";
+import {
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+  useParams,
+} from "react-router";
 import checkIcon from "../../../assets/check-icon.png";
 import { PATHS } from "../../../consts";
 import { LaboratoryDTO, LaboratoryDTOStatusEnum } from "../../../generated";
@@ -33,8 +39,8 @@ import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import InfoBox from "../infoBox/InfoBox";
 import Pagination from "../pagination/Pagination";
 import { ChangeLabStatus } from "./ChangeLabStatus";
-import { initialFilter, initialFilterFields } from "./consts";
 import { EditLaboratoryContent } from "./EditLaboratoryContent";
+import { initialFilter, initialFilterFields } from "./consts";
 import { ExamFilterForm } from "./filter/ExamFilterForm";
 import { TFilterValues } from "./filter/types";
 import "./styles.scss";
@@ -55,6 +61,14 @@ export const Exams: FC = () => {
   const [selectedExamRow, setSelectedExamRow] = useState<
     LaboratoryDTO | undefined
   >(undefined);
+
+  const { id, code } = useParams();
+
+  const encounter = useAppSelector((state) =>
+    state.encounters.getEncountersByPatient.data?.find(
+      (item) => item.patient.code?.toString() === id && item.code === code
+    )
+  );
 
   const { data, pageInfo, page, handlePageChange } = useLaboratories();
 
@@ -189,11 +203,13 @@ export const Exams: FC = () => {
         )}
         {status !== "LOADING" && (
           <Permission require="exams.read">
-            <ExamFilterForm
-              onSubmit={onSubmit}
-              fields={fields}
-              handleResetFilter={handleResetFilter}
-            />
+            {!encounter?.closedAt && (
+              <ExamFilterForm
+                onSubmit={onSubmit}
+                fields={fields}
+                handleResetFilter={handleResetFilter}
+              />
+            )}
             {status === "SUCCESS_EMPTY" && (
               <InfoBox type="info" message={t("common.emptydata")} />
             )}
@@ -209,9 +225,9 @@ export const Exams: FC = () => {
               <>
                 <ExamTable
                   data={data ?? []}
-                  handleDelete={onDelete}
-                  handleCancel={onCancel}
-                  handleEdit={onEdit}
+                  handleDelete={encounter?.closedAt ? undefined : onDelete}
+                  handleCancel={encounter?.closedAt ? undefined : onCancel}
+                  handleEdit={encounter?.closedAt ? undefined : onEdit}
                 />
                 <Pagination
                   page={(pageInfo?.page ?? 0) + 1}

@@ -4,6 +4,8 @@ import { downloadBlob } from "libraries/downloadUtils/downloadUtils";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { FunctionComponent, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useParams } from "react-router";
+import { getEncounterExamRequests } from "state/encounter";
 import { LabWithRowsDTO, LaboratoryDTO } from "../../../../generated";
 import { renderDateTime } from "../../../../libraries/formatUtils/dataFormatting";
 import { usePermission } from "../../../../libraries/permissionUtils/usePermission";
@@ -14,8 +16,6 @@ import {
 import InfoBox from "../../infoBox/InfoBox";
 import { statusLabel } from "../../laboratory/table/ExamTable";
 import Table from "../../table/Table";
-import { useParams } from "react-router";
-import { getEncounterExamRequests } from "state/encounter";
 
 interface IOwnProps {
   shouldUpdateTable: boolean;
@@ -52,8 +52,7 @@ const PatientExamRequestsTable: FunctionComponent<IOwnProps> = ({
     (state) =>
       (code
         ? state.encounters.encounterExamRequests.data
-        : state.laboratories.labsRequestByPatientId.data
-      ) ?? []
+        : state.laboratories.labsRequestByPatientId.data) ?? []
   );
 
   const patientCode = useAppSelector(
@@ -84,18 +83,19 @@ const PatientExamRequestsTable: FunctionComponent<IOwnProps> = ({
       : state.laboratories.labsRequestByPatientId.status === "SUCCESS_EMPTY"
   );
 
-  const errorMessage = useAppSelector((state) =>
-    code
-      ? state.encounters.encounterExamRequests.error?.message
-      : state.laboratories.labsRequestByPatientId.error?.message
-  ) || t("common.somethingwrong");
+  const errorMessage =
+    useAppSelector((state) =>
+      code
+        ? state.encounters.encounterExamRequests.error?.message
+        : state.laboratories.labsRequestByPatientId.error?.message
+    ) || t("common.somethingwrong");
 
   useEffect(() => {
     if (shouldUpdateTable || patientCode || code) {
       if (code) {
-        dispatch(getEncounterExamRequests({ code }) as any)
+        dispatch(getEncounterExamRequests({ code }) as any);
       } else if (patientCode) {
-        dispatch(getLabsRequestByPatientId(patientCode) as any)
+        dispatch(getLabsRequestByPatientId(patientCode) as any);
       }
     }
   }, [dispatch, patientCode, shouldUpdateTable, code]);
@@ -145,11 +145,11 @@ const PatientExamRequestsTable: FunctionComponent<IOwnProps> = ({
     });
   };
 
-  const onCancel = (row: any) => {
-    if (handleCancel) {
-      handleCancel(row.code);
-    }
-  };
+  const onCancel = handleCancel
+    ? (row: any) => {
+        handleCancel(row.code);
+      }
+    : undefined;
 
   const handlePrint = () => {
     setPrinting(true);
@@ -158,11 +158,11 @@ const PatientExamRequestsTable: FunctionComponent<IOwnProps> = ({
   return (
     <div className="patientExamsTable">
       <h5>{t("lab.patientrequestedexam")}</h5>
-      
+
       {isLoading && (
         <CircularProgress style={{ marginLeft: "50%", position: "relative" }} />
       )}
-      
+
       {isSuccess && data.length > 0 && (
         <Table
           rowData={formatDataToDisplay(data)}
@@ -186,13 +186,13 @@ const PatientExamRequestsTable: FunctionComponent<IOwnProps> = ({
           }
         />
       )}
-      
+
       {isEmpty && (
         <div ref={infoBoxRef}>
           <InfoBox type="info" message={t("common.emptydata")} />
         </div>
       )}
-      
+
       {isFail && errorMessage && (
         <div ref={infoBoxRef}>
           <InfoBox type="error" message={errorMessage} />

@@ -14,7 +14,7 @@ import "./styles.scss";
 
 interface IOwnProps {
   shouldUpdateTable: boolean;
-  handleEdit: (row: any) => void;
+  handleEdit?: (row: any) => void;
 }
 
 const PatientOPDTable: FunctionComponent<IOwnProps> = ({
@@ -98,9 +98,11 @@ const PatientOPDTable: FunctionComponent<IOwnProps> = ({
     }
   }, [data]);
 
-  const onEdit = (row?: OpdDTO) => {
-    handleEdit(data?.find((item) => item.opdDTO?.code === row?.code));
-  };
+  const onEdit = handleEdit
+    ? (row?: OpdDTO) => {
+        handleEdit(data?.find((item) => item.opdDTO?.code === row?.code));
+      }
+    : undefined;
 
   const getRowClassNames = (row: any): string => {
     if ((row.opdDTO?.code ?? row.code) === mostRecentVisit?.opdDTO?.code) {

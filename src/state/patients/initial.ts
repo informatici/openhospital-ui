@@ -1,5 +1,5 @@
-import { IPatientsState } from "./types";
 import { ApiResponse } from "../types";
+import { IPatientsState } from "./types";
 
 export const initial: IPatientsState = {
   createPatient: new ApiResponse({ status: "IDLE" }),

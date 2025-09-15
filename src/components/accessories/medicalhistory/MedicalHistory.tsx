@@ -35,10 +35,17 @@ const MedicalHistory: FC = () => {
     MedicalHistoryDTO | undefined
   >();
   const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
-  const { id } = useParams();
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const canCreate = usePermission("medicalhistory.create");
   const canUpdate = usePermission("medicalhistory.update");
+
+  const { id, code } = useParams();
+
+  const encounter = useAppSelector((state) =>
+    state.encounters.getEncountersByPatient.data?.find(
+      (item) => item.patient.code?.toString() === id && item.code === code
+    )
+  );
 
   const patient = useAppSelector(
     (state: IState) => state.patients.selectedPatient.data
@@ -158,7 +165,7 @@ const MedicalHistory: FC = () => {
 
   return (
     <div className="medicalHistory">
-      {(creationMode ? canCreate : canUpdate) && (
+      {!encounter?.closedAt && (creationMode ? canCreate : canUpdate) && (
         <Permission
           require={creationMode ? "therapies.create" : "therapies.update"}
         >
@@ -185,7 +192,7 @@ const MedicalHistory: FC = () => {
       )}
 
       <MedicalHistoryTable
-        handleEdit={onEdit}
+        handleEdit={encounter?.closedAt ? undefined : onEdit}
         shouldUpdateTable={shouldUpdateTable}
       />
       <ConfirmationDialog

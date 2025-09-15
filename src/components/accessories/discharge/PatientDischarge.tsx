@@ -1,6 +1,7 @@
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { FC, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useParams } from "react-router";
 import { getPatient } from "state/patients";
 import checkIcon from "../../../assets/check-icon.png";
 import { AdmissionDTO, EncounterDTO } from "../../../generated";
@@ -33,6 +34,14 @@ const PatientDischarge: FC = () => {
   const [close, setClose] = useState(false);
   const [activityTransitionState, setActivityTransitionState] =
     useState<AdmissionTransitionState>("IDLE");
+
+  const { id, code } = useParams();
+
+  const encounter = useAppSelector((state) =>
+    state.encounters.getEncountersByPatient.data?.find(
+      (item) => item.patient.code?.toString() === id && item.code === code
+    )
+  );
 
   const currentAdmission = useAppSelector(
     (state: IState) => state.admissions.currentAdmissionByPatientId.data
@@ -145,7 +154,7 @@ const PatientDischarge: FC = () => {
 
   return (
     <div className="patientAdmission">
-      {currentAdmissionStatus === "SUCCESS" && (
+      {currentAdmissionStatus === "SUCCESS" && !encounter?.closedAt && (
         <>
           <CurrentAdmission />
           <DischargeForm

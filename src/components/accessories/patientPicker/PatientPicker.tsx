@@ -93,7 +93,7 @@ const PatientPicker: FC<IProps> = ({
     enableReinitialize: true,
     onSubmit: (values) => {
       const formattedValues = formatAllFieldValues(initialFields, values);
-      dispatch(searchPatient(formattedValues as TValues));
+      dispatch(searchPatient({ values: formattedValues as TValues }));
     },
   });
 
@@ -133,7 +133,9 @@ const PatientPicker: FC<IProps> = ({
   }, [value, hasFocus]);
 
   useEffect(() => {
-    const pat = patientData?.find((item) => item.code === fieldValue);
+    const pat = (
+      patientData instanceof Array ? patientData : patientData?.data
+    )?.find((item) => item.code === fieldValue);
     pat ? setValue(pat) : setValue(initialValue ?? ({} as any));
   }, [fieldValue, initialValue, patientData]);
 
@@ -168,10 +170,17 @@ const PatientPicker: FC<IProps> = ({
         return (
           <div className="searchPatient__results">
             <div className="searchPatient__results_count">
-              {t("common.results")}: <strong>{patientData?.length}</strong>
+              {t("common.results")}:{" "}
+              <strong>
+                {patientData instanceof Array
+                  ? patientData?.length
+                  : patientData?.data?.length}
+              </strong>
             </div>
             <div className="searchPatient__results_list">
-              {getCurrentPatients(patientData)?.map((patient, index) => (
+              {getCurrentPatients(
+                patientData instanceof Array ? patientData : patientData?.data
+              )?.map((patient, index) => (
                 <div onClick={() => handleClick(patient)}>
                   <PatientSearchItem
                     key={index}
@@ -353,7 +362,9 @@ const PatientPicker: FC<IProps> = ({
                   className="resultPagination"
                   onChange={handlePageChange}
                   count={Math.ceil(
-                    (patientData?.length ?? 0) / patientsPerPage
+                    (patientData instanceof Array
+                      ? patientData?.length ?? 0
+                      : patientData?.data?.length ?? 0) / patientsPerPage
                   )}
                   page={currentPage}
                   color="primary"
