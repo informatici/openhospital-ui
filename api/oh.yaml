@@ -4503,15 +4503,27 @@ paths:
         schema:
           type: string
           default: ""
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: size
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 80
       responses:
         "200":
           description: OK
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/PatientDTO"
+                $ref: "#/components/schemas/PagePatientDTO"
       security:
       - bearerAuth: []
   /patients/nextcode:
@@ -5869,7 +5881,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/OpdDTO"
+                  $ref: "#/components/schemas/OpdWithOperationRowDTO"
       security:
       - bearerAuth: []
   /encounters/{code}/medicalhistories:
@@ -6912,11 +6924,11 @@ components:
           format: int32
           description: lock
           example: 0
+        pharmacy:
+          type: boolean
         male:
           type: boolean
         female:
-          type: boolean
-        pharmacy:
           type: boolean
         opd:
           type: boolean

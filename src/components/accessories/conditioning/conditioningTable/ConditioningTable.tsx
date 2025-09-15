@@ -8,6 +8,8 @@ import { renderDateTime } from "../../../../libraries/formatUtils/dataFormatting
 import { usePermission } from "../../../../libraries/permissionUtils/usePermission";
 import InfoBox from "../../infoBox/InfoBox";
 import Table from "../../table/Table";
+import { useParams } from "react-router-dom";
+import { getEncounterConditionings } from "state/encounter";
 
 interface IOwnProps {
   shouldUpdateTable: boolean;
@@ -24,11 +26,12 @@ const ConditioningTable: FunctionComponent<IOwnProps> = ({
   const header = ["performedAt"];
   const dateFields = ["performedAt"];
 
+  const { code } = useParams();
+
   const label = {
     id: t("conditioning.code"),
     performedAt: t("conditioning.performedAt"),
     aspiration: t("conditioning.aspiration"),
-    cpap: t("conditioning.cpap"),
     mce: t("conditioning.mce"),
     ventilation: t("conditioning.ventilation"),
     oxygenDebit: t("conditioning.oxygenDebit"),
@@ -37,6 +40,7 @@ const ConditioningTable: FunctionComponent<IOwnProps> = ({
     bolusSsVolume: t("conditioning.bolusSsVolume"),
     sngNumber: t("conditioning.sngNumber"),
     others: t("conditioning.others"),
+    cpap: t("conditioning.cpap"),
   };
 
   const order = ["performedAt"];
@@ -44,7 +48,7 @@ const ConditioningTable: FunctionComponent<IOwnProps> = ({
   const dispatch = useAppDispatch();
 
   const data = useAppSelector(
-    (state) => state.conditioning.getConditioningByPatientCode.data || []
+    (state) => code ? state.encounters.encounterConditionings.data || [] : state.conditioning.getConditioningByPatientCode.data || []
   );
 
   const patientCode = useAppSelector(
@@ -58,10 +62,10 @@ const ConditioningTable: FunctionComponent<IOwnProps> = ({
     : undefined;
 
   useEffect(() => {
-    if (shouldUpdateTable || patientCode) {
-      dispatch(getConditioningByPatientCode(patientCode as number));
+    if (shouldUpdateTable || patientCode || code) {
+      code ? dispatch(getEncounterConditionings({ code: code as string })) : dispatch(getConditioningByPatientCode(patientCode as number));
     }
-  }, [shouldUpdateTable, dispatch, patientCode]);
+  }, [shouldUpdateTable, dispatch, patientCode, code]);
 
   const formatDataToDisplay = (data: ConditioningDTO[]) => {
     return data.map((item) => {
@@ -69,8 +73,8 @@ const ConditioningTable: FunctionComponent<IOwnProps> = ({
         id: item.id ?? "",
         performedAt: item.performedAt ? renderDateTime(item.performedAt) : "",
         aspiration: item.aspiration ? t("common.yes") : t("common.no"),
-        cpap: item.cpap ? t("common.yes") : t("common.no"),
         mce: item.mce ?? "",
+        cpap: item.cpap ? t("common.yes") : t("common.no"),
         ventilation: item.ventilation ?? "",
         oxygenDebit: item.oxygenDebit ?? "",
         sgVolume: item.sgVolume ?? "",
@@ -83,23 +87,24 @@ const ConditioningTable: FunctionComponent<IOwnProps> = ({
   };
 
   const status = useAppSelector(
-    (state) => state.conditioning.getConditioningByPatientCode.status
+    (state) => code ? state.encounters.encounterConditionings.status : state.conditioning.getConditioningByPatientCode.status
   );
 
   const errorMessage = useAppSelector(
     (state) =>
-      state.conditioning.getConditioningByPatientCode.error?.message ||
+      code ? state.encounters.encounterConditionings.error?.message : state.conditioning.getConditioningByPatientCode.error?.message ||
       t("common.somethingwrong")
   ) as string;
 
   const createConditioningStatus = useAppSelector(
-    (state) => state.conditioning.newConditioning.status
+    (state) => code ? state.encounters.encounterConditionings.status : state.conditioning.newConditioning.status
   );
 
   return (
     <div className="conditioningTable">
       <h5>{t("conditioning.previousentries")}</h5>
       {(() => {
+        console.log("status", status);
         switch (status) {
           case "FAIL":
             return (

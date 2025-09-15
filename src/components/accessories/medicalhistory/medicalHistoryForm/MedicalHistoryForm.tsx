@@ -29,6 +29,8 @@ const MedicalHistoryForm: FC<MedicalHistoryProps> = ({
 }) => {
   const { t } = useTranslation();
 
+  const [isTransfusionChecked, setIsTransfusionChecked] = useState(false);
+
   const validationSchema = object({
     siblingRank: number().required(t("common.required")),
     termPregnancy: string().nullable(),
@@ -46,7 +48,9 @@ const MedicalHistoryForm: FC<MedicalHistoryProps> = ({
     vitASupplement: boolean().nullable(),
     otherSupplements: string().nullable(),
     transfusion: boolean().nullable(),
-    lastTransfusionDate: date().nullable(),
+    lastTransfusionDate: isTransfusionChecked
+      ? date().required(t("common.required"))
+      : date().nullable(),
     sickleCell: boolean().nullable(),
     allergyPrecision: string().nullable(),
     allergyDetails: string().nullable(),
@@ -62,7 +66,6 @@ const MedicalHistoryForm: FC<MedicalHistoryProps> = ({
     useState(false);
   const [isVitASupplementChecked, setIsVitASupplementChecked] = useState(false);
   const [isSickleCellChecked, setIsSickleCellChecked] = useState(false);
-  const [isTransfusionChecked, setIsTransfusionChecked] = useState(false);
   const [isHemolysisChecked, setIsHemolysisChecked] = useState(false);
   const formik = useFormik({
     initialValues,
