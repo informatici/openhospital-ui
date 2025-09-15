@@ -9,7 +9,7 @@ import { store } from "./state/store";
 
 if (process.env.REACT_APP_USE_MOCK_API === "true") {
   console.log("Using mocked api");
-  //makeServer();
+  makeServer();
 }
 const container = document.getElementById("root");
 const root = createRoot(container!);
