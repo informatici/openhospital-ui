@@ -172,14 +172,16 @@ const PatientTriage: FC = () => {
         .then((result) => {
           if (!result) return;
           setTriageToEdit(result);
-        });
+        })
+        .catch((error) => {});
     } else {
       dispatch(createExamination(triage))
         .unwrap()
         .then((result) => {
           if (!result) return;
           setTriageToEdit(result);
-        });
+        })
+        .catch((error) => {});
     }
   };
 
