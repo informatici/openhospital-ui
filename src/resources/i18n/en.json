@@ -868,6 +868,7 @@
     "createsuccess": "Patient admitted successfully",
     "created": "Patient admitted",
     "dischargesuccess": "Patient discharged successfully",
+    "closeEncounter": "Patient discharged successfully. Do you want to close the encounter ?",
     "discharged": "Patient discharged",
     "nocurrentadmission": "There is no current admission for the patient. You should admit the patient first",
     "noteaddedwithsuccess": "Admission Note added successfully",

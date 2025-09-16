@@ -834,6 +834,7 @@
     "createsuccess": "Patient admis avec succès",
     "created": "Patient admis",
     "dischargesuccess": "Patient sorti avec succès",
+    "closeEncounter": "Patient sorti avec succès. Voulez-vous fermer la rencontre ?",
     "discharged": "Patient sorti",
     "nocurrentadmission": "Il n'y a pas d'admission en cours pour le patient. Vous devez d'abord enregister le patient",
     "noteaddedwithsuccess": "Note d'admission ajoutée avec succès",
