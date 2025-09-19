@@ -9,6 +9,7 @@ import {
   MonetizationOn,
   Print,
   Restore,
+  Visibility,
 } from "@mui/icons-material";
 import {
   IconButton,
@@ -59,6 +60,7 @@ const Table: FunctionComponent<IProps> = ({
   onPrint,
   onPay,
   onView,
+  onDetails,
   onAdd,
   onRestore,
   onSoftDelete,
@@ -80,6 +82,11 @@ const Table: FunctionComponent<IProps> = ({
   rowKey = "code",
   headerActions,
   labels,
+  renderCustomActions,
+  hideHeader = false,
+  hidePaginator = false,
+  customRenderDetails,
+  isExpanded = false,
 }) => {
   const { t } = useTranslation();
   const [order, setOrder] = React.useState<TOrder>("desc");
@@ -90,7 +97,7 @@ const Table: FunctionComponent<IProps> = ({
     open: boolean;
   }>({ open: false });
   const [currentRow, setCurrentRow] = useState({} as any);
-  const [expanded, setExpanded] = useState(false);
+  const [expanded, setExpanded] = useState(isExpanded);
   const [filters, setFilters] = useState<Record<string, TFilterValues>>({});
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
@@ -100,6 +107,9 @@ const Table: FunctionComponent<IProps> = ({
       handleRequestSort(event, property);
     };
 
+  useEffect(() => {
+    setExpanded(isExpanded);
+  }, [isExpanded]);
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
     property: any
@@ -185,6 +195,24 @@ const Table: FunctionComponent<IProps> = ({
             <InfoOutlined color="primary" titleAccess={"View Details"} />
           </IconButton>
         );
+
+      case "details":
+        return (
+          <IconButton
+            data-cy="table-view-action"
+            size="small"
+            title={labels?.view?.tooltip ?? "View details"}
+            disabled={disableAction(row, "details")}
+            onClick={
+              disableAction(row, "details")
+                ? () => {}
+                : () => onDetails && onDetails(row)
+            }
+          >
+            <Visibility />
+          </IconButton>
+        );
+
       case "pay":
         return (
           <IconButton
@@ -302,9 +330,11 @@ const Table: FunctionComponent<IProps> = ({
       onDelete ||
       onPrint ||
       onView ||
+      onDetails ||
       onCancel ||
       onRestore ||
-      onSoftDelete
+      onSoftDelete ||
+      renderCustomActions
     ) {
       return (
         <TableCell
@@ -313,8 +343,13 @@ const Table: FunctionComponent<IProps> = ({
           size="small"
           style={{ minWidth: 125 }}
         >
+          {renderCustomActions && renderCustomActions(row)}
           {onView && (displayRowAction ? displayRowAction(row, "view") : true)
             ? renderIcon("view", row)
+            : ""}
+          {onDetails &&
+          (displayRowAction ? displayRowAction(row, "details") : true)
+            ? renderIcon("details", row)
             : ""}
           {onPay && (displayRowAction ? displayRowAction(row, "pay") : true)
             ? renderIcon("pay", row)
@@ -412,52 +447,54 @@ const Table: FunctionComponent<IProps> = ({
       )}
       <TableContainer component={Paper}>
         <MaterialComponent className="table" aria-label="simple table">
-          <TableHead className="table_header">
-            <TableRow>
-              {isCollapsabile ? <TableCell /> : ""}
-              {tableHeader.map((h: string, i) => {
-                const filterField = filterColumns?.find(
-                  (item) => item.key === h
-                );
+          {!hideHeader && (
+            <TableHead className="table_header">
+              <TableRow>
+                {isCollapsabile ? <TableCell /> : ""}
+                {tableHeader.map((h: string, i) => {
+                  const filterField = filterColumns?.find(
+                    (item) => item.key === h
+                  );
 
-                return (
-                  <TableCell key={i}>
-                    <div className="headerCell">
-                      {columnsOrder.includes(h) ? (
-                        <TableSortLabel
-                          active={orderBy === h}
-                          direction={
-                            orderBy === h
-                              ? order
-                              : dateFields.includes(h)
-                              ? "desc"
-                              : "asc"
-                          }
-                          onClick={createSortHandler(h)}
-                        >
-                          {labelData[h]}
-                        </TableSortLabel>
-                      ) : (
-                        labelData[h]
-                      )}
-                      {filterField && (
-                        <FilterButton
-                          field={filterField}
-                          onChange={(value) =>
-                            setFilters((previous) => ({
-                              ...previous,
-                              [filterField.key]: value,
-                            }))
-                          }
-                        />
-                      )}
-                    </div>
-                  </TableCell>
-                );
-              })}
-              <TableCell>&nbsp;</TableCell>
-            </TableRow>
-          </TableHead>
+                  return (
+                    <TableCell key={i}>
+                      <div className="headerCell">
+                        {columnsOrder.includes(h) ? (
+                          <TableSortLabel
+                            active={orderBy === h}
+                            direction={
+                              orderBy === h
+                                ? order
+                                : dateFields.includes(h)
+                                ? "desc"
+                                : "asc"
+                            }
+                            onClick={createSortHandler(h)}
+                          >
+                            {labelData[h]}
+                          </TableSortLabel>
+                        ) : (
+                          labelData[h]
+                        )}
+                        {filterField && (
+                          <FilterButton
+                            field={filterField}
+                            onChange={(value) =>
+                              setFilters((previous) => ({
+                                ...previous,
+                                [filterField.key]: value,
+                              }))
+                            }
+                          />
+                        )}
+                      </div>
+                    </TableCell>
+                  );
+                })}
+                <TableCell>&nbsp;</TableCell>
+              </TableRow>
+            </TableHead>
+          )}
           <TableBody className="table_body">
             {filteredData
               .sort(
@@ -484,13 +521,14 @@ const Table: FunctionComponent<IProps> = ({
                     expanded={expanded}
                     dateFields={dateFields}
                     detailsExcludedFields={detailsExcludedFields}
+                    customRenderDetails={customRenderDetails}
                   />
                 );
               })}
           </TableBody>
         </MaterialComponent>
       </TableContainer>
-      {filteredData.length > rowsPerPage ? (
+      {filteredData.length > rowsPerPage && !hidePaginator ? (
         <TablePagination
           component="div"
           count={filteredData.length}

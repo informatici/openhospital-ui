@@ -15,6 +15,7 @@ export interface IProps {
   onDelete?: (row: any) => void;
   onPrint?: (row: any) => void;
   onView?: (row: any) => void;
+  onDetails?: (row: any) => void;
   onAdd?: (row: any) => void;
   onRestore?: (row: any) => void;
   onSoftDelete?: (row: any) => void;
@@ -63,6 +64,11 @@ export interface IProps {
   labels?: Partial<
     Record<TActions, { title?: string; message?: string; tooltip?: string }>
   >;
+  renderCustomActions?: (row: any) => ReactNode;
+  hideHeader?: boolean;
+  hidePaginator?: boolean;
+  customRenderDetails?: (row: any) => ReactNode;
+  isExpanded?: boolean;
 }
 
 export interface IRowProps {
@@ -80,6 +86,7 @@ export interface IRowProps {
   expanded?: boolean;
   dateFields: Array<string>;
   detailsExcludedFields?: string[];
+  customRenderDetails?: (row: any) => ReactNode;
 }
 
 export type TActions =
@@ -92,4 +99,5 @@ export type TActions =
   | "cancel"
   | "add"
   | "restore"
-  | "softDelete";
+  | "softDelete"
+  | "details";

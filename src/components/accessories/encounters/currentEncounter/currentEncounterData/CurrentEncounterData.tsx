@@ -1,0 +1,78 @@
+import { Close, Delete, Edit, Visibility } from "@mui/icons-material";
+import { IconButton } from "@mui/material";
+import { renderDateTime } from "libraries/formatUtils/dataFormatting";
+import { useAppDispatch } from "libraries/hooks";
+import { isEmpty } from "lodash";
+import React, { FunctionComponent } from "react";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router";
+import { selectPatientEncounter } from "state/encounter";
+import { EncounterDTO } from "../../../../../generated";
+import "../styles.scss";
+
+interface IOwnProps {
+  onEdit?: () => void;
+  onEditCode?: (row: any) => void;
+  onDelete?: () => void;
+  encounter: EncounterDTO;
+}
+
+export const CurrentEncounterData: FunctionComponent<IOwnProps> = ({
+  onEdit,
+  onEditCode,
+  onDelete,
+  encounter,
+}) => {
+  const { t } = useTranslation();
+  const dispatch = useAppDispatch();
+
+  const navigate = useNavigate();
+
+  return (
+    <div className="currentEncounterData">
+      <div className="currentEncounter_leading">
+        <IconButton onClick={() => onEditCode && onEditCode(encounter)}>
+          <Edit />
+        </IconButton>
+        <IconButton
+          onClick={() => {
+            dispatch(selectPatientEncounter(encounter.code));
+            navigate(
+              `/patients/details/${encounter.patient.code}/encounters/${encounter.code}`
+            );
+          }}
+        >
+          <Visibility />
+        </IconButton>
+        <IconButton onClick={onEdit}>
+          <Close />
+        </IconButton>
+        <IconButton onClick={onDelete}>
+          <Delete />
+        </IconButton>
+      </div>
+      <div className="currentEncounterData__content">
+        {!isEmpty(encounter?.code) && (
+          <div className="currentEncounterData__item">
+            <span className="item_label">{t("encounter.code")}</span>
+            <p className="item_content">{encounter?.code}</p>
+          </div>
+        )}
+        {!isEmpty(encounter?.status) && (
+          <div className="currentEncounterData__item">
+            <span className="item_label">{t("encounter.status")}</span>
+            <p className="item_content">{encounter?.status}</p>
+          </div>
+        )}
+        {encounter?.performedAt && (
+          <div className="currentEncounterData__item">
+            <span className="item_label">{t("encounter.performedAt")}</span>
+            <p className="item_content">
+              {renderDateTime(encounter?.performedAt!)}
+            </p>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};

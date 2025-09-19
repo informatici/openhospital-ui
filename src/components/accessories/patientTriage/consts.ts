@@ -1,4 +1,4 @@
-import moment from "moment";
+import { parseDateTime } from "libraries/formDataHandling/functions";
 import {
   PatientExaminationDTOPexAuscultationEnum,
   PatientExaminationDTOPexBowelDescEnum,
@@ -23,7 +23,7 @@ const auscultationOptions = Object.keys(
 
 export const initialFields: TFields<TPatientTriageFormFieldName> = {
   pex_date: {
-    value: moment().toISOString(),
+    value: parseDateTime(new Date().toISOString(), false),
     type: "date",
   },
   pex_height: {
@@ -84,5 +84,13 @@ export const initialFields: TFields<TPatientTriageFormFieldName> = {
   pex_note: {
     value: "",
     type: "text",
+  },
+  pex_body_mass_index: {
+    value: "",
+    type: "number",
+  },
+  pex_branchial_perimeter: {
+    value: "",
+    type: "number",
   },
 };

@@ -126,41 +126,43 @@ export const ExamTable: FC<IExamTableProps> = ({
     setOpen(false);
   };
   const handleView = (row: any) => {
-    dispatch(getLabWithRowsByCode(row.id));
+    dispatch(getLabWithRowsByCode(row.code));
     handleOpen();
   };
 
-  const onEdit = (row: any) => {
-    if (handleEdit !== undefined) {
-      handleEdit(
-        data.find((item) => item.laboratoryDTO?.code === row.id)
-          ?.laboratoryDTO ?? {}
-      );
-    }
-  };
-
-  const onCancel = (row: any) => {
-    if (handleCancel) {
-      handleCancel(row.id);
-    }
-  };
-
-  const onDelete = (row: any) => {
-    let labExam = data.find(
-      (item) => item.laboratoryDTO?.code === row.id
-    )?.laboratoryDTO;
-
-    if (labExam) {
-      if (
-        labExam.status === LaboratoryDTOStatusEnum.Draft ||
-        labExam.status === LaboratoryDTOStatusEnum.Open
-      ) {
-        if (handleCancel !== undefined) handleCancel(labExam.code);
-      } else {
-        if (handleDelete !== undefined) handleDelete(labExam.code);
+  const onEdit = handleEdit
+    ? (row: any) => {
+        handleEdit(
+          data.find((item) => item.laboratoryDTO?.code === row.code)
+            ?.laboratoryDTO ?? {}
+        );
       }
-    }
-  };
+    : undefined;
+
+  const onCancel = handleCancel
+    ? (row: any) => {
+        handleCancel(row.id);
+      }
+    : undefined;
+
+  const onDelete = handleDelete
+    ? (row: any) => {
+        let labExam = data.find(
+          (item) => item.laboratoryDTO?.code === row.id
+        )?.laboratoryDTO;
+
+        if (labExam) {
+          if (
+            labExam.status === LaboratoryDTOStatusEnum.Draft ||
+            labExam.status === LaboratoryDTOStatusEnum.Open
+          ) {
+            if (handleCancel !== undefined) handleCancel(labExam.code);
+          } else {
+            if (handleDelete !== undefined) handleDelete(labExam.code);
+          }
+        }
+      }
+    : undefined;
 
   return (
     <div className="exams__table">

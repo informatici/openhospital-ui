@@ -1,7 +1,9 @@
 export type TActivityTransitionState = "IDLE" | "TO_PATIENT_EDITING";
 
-export type IUserSection =
+export type TUserSection =
+  | "encounters"
   | "admissions"
+  | "medical-history"
   | "visits"
   | "triage"
   | "therapy"
@@ -9,4 +11,6 @@ export type IUserSection =
   | "operation"
   | "admission"
   | "discharge"
-  | "clinic";
+  | "clinic"
+  | "conditioning"
+  | "radiology";

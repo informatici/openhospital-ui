@@ -30,7 +30,9 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
   shouldResetForm,
   resetFormCallback,
   submitButtonLabel,
+  saveAndPrint,
   resetButtonLabel,
+  printButtonLabel,
   isLoading,
 }) => {
   const { t } = useTranslation();
@@ -65,6 +67,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
       .min(30, t("common.greaterthan", { value: 30 }))
       .max(600, t("common.lessthan", { value: 600 })),
     pex_diuresis: number()
+      .transform((value) => (value === "" ? null : value))
       .min(1, t("common.greaterthan", { value: 1 }))
       .max(2500, t("common.lessthan", { value: 2500 })),
     pex_rr: number()
@@ -96,6 +99,10 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
           return true;
         },
       }),
+    pex_pex_body_mass_index: number(),
+    pex_pex_branchial_perimeter: number()
+      .min(5, t("common.greaterthan", { value: 5 }))
+      .max(60, t("common.lessthan", { value: 60 })),
   });
   const initialValues = getFromFields(fields, "value");
   const options = getFromFields(fields, "options");
@@ -106,6 +113,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
     enableReinitialize: true,
     onSubmit: (values) => {
       const formattedValues = formatAllFieldValues(fields, values);
+      console.log(formattedValues);
       onSubmit({
         ...formattedValues,
         pex_auscultation: isEmpty(formattedValues.pex_auscultation)
@@ -122,7 +130,6 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
   });
 
   const { setFieldValue, resetForm, handleBlur } = formik;
-
   const dateFieldHandleOnChange = useCallback(
     (fieldName: string) => (value: any) => {
       setFieldValue(fieldName, value);
@@ -168,6 +175,19 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
     resetFormCallback();
   };
 
+  const handleCalculateBMI = (e: React.FocusEvent<HTMLInputElement>) => {
+    formik.handleBlur(e);
+    const weight = parseFloat(formik.values.pex_weight);
+    const height = parseInt(formik.values.pex_height);
+
+    if (!isNaN(weight) && !isNaN(height) && height > 0) {
+      const bmi = parseFloat((weight / (height / 100) ** 2).toFixed(2));
+      formik.setFieldValue("pex_body_mass_index", bmi);
+    } else {
+      formik.setFieldValue("pex_body_mass_index", "");
+    }
+  };
+
   useEffect(() => {
     if (shouldResetForm) {
       resetForm();
@@ -196,7 +216,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
                 fieldValue={formik.values.pex_date}
                 disableFuture={true}
                 theme="regular"
-                format="dd/MM/yyyy"
+                format="dd/MM/yyyy HH:mm"
                 isValid={isValid("pex_date")}
                 errorText={getErrorText("pex_date")}
                 label={t("examination.datetriage")}
@@ -213,7 +233,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
                 label={t("examination.height")}
                 isValid={isValid("pex_height")}
                 errorText={getErrorText("pex_height")}
-                onBlur={formik.handleBlur}
+                onBlur={handleCalculateBMI}
                 type="number"
                 disabled={isLoading}
               />
@@ -226,6 +246,32 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
                 label={t("examination.weight")}
                 isValid={isValid("pex_weight")}
                 errorText={getErrorText("pex_weight")}
+                onBlur={handleCalculateBMI}
+                type="number"
+                disabled={isLoading}
+              />
+            </div>
+
+            <div className="patientTriageForm__item">
+              <TextField
+                field={formik.getFieldProps("pex_body_mass_index")}
+                theme="regular"
+                label={t("examination.bodymassindex")}
+                isValid={isValid("pex_body_mass_index")}
+                errorText={getErrorText("pex_body_mass_index")}
+                onBlur={formik.handleBlur}
+                type="number"
+                disabled={isLoading}
+              />
+            </div>
+
+            <div className="patientTriageForm__item">
+              <TextField
+                field={formik.getFieldProps("pex_branchial_perimeter")}
+                theme="regular"
+                label={t("examination.branchialperimeter")}
+                isValid={isValid("pex_branchial_perimeter")}
+                errorText={getErrorText("pex_branchial_perimeter")}
                 onBlur={formik.handleBlur}
                 type="number"
                 disabled={isLoading}
@@ -395,6 +441,16 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
             <div className="submit_button">
               <Button type="submit" variant="contained" disabled={isLoading}>
                 {submitButtonLabel}
+              </Button>
+            </div>
+            <div className="submit_button">
+              <Button
+                type="submit"
+                variant="contained"
+                disabled={isLoading}
+                onClick={saveAndPrint}
+              >
+                {printButtonLabel}
               </Button>
             </div>
             <div className="reset_button">

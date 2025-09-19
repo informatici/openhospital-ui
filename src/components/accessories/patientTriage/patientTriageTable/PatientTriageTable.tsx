@@ -2,25 +2,30 @@ import { CircularProgress } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { FunctionComponent, useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { useParams } from "react-router";
+import { getEncounterExaminations } from "state/encounter";
 import { PatientExaminationDTO } from "../../../../generated";
-import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
+import { renderDateTime } from "../../../../libraries/formatUtils/dataFormatting";
 import { usePermission } from "../../../../libraries/permissionUtils/usePermission";
 import { examinationsByPatientId } from "../../../../state/examinations";
 import InfoBox from "../../infoBox/InfoBox";
 import Table from "../../table/Table";
 interface IOwnProps {
   shouldUpdateTable: boolean;
-  handleDelete: (code: number | undefined) => void;
-  handleEdit: (row: PatientExaminationDTO) => void;
+  handleDelete?: (code: number | undefined) => void;
+  handleEdit?: (row: PatientExaminationDTO) => void;
+  handlePrint: (examinationCode: number) => void;
 }
 
 const PatientTriageTable: FunctionComponent<IOwnProps> = ({
   shouldUpdateTable,
   handleDelete,
   handleEdit,
+  handlePrint,
 }) => {
   const { t } = useTranslation();
   const canUpdate = usePermission("examinations.update");
+  const canPrint = usePermission("examinations.read");
   const label = {
     pex_ID: t("common.code"),
     pex_date: t("examination.datetriage"),
@@ -38,29 +43,39 @@ const PatientTriageTable: FunctionComponent<IOwnProps> = ({
     pex_bowel_desc: t("examination.bowel"),
     pex_auscultation: t("examination.auscultation"),
     pex_note: t("examination.note"),
+    pex_body_mass_index: t("examination.bodymassindex"),
+    pex_branchial_perimeter: t("examination.branchialperimeter"),
   };
   const header = ["pex_date"];
   const order = ["pex_date"];
   const dateFields = ["pex_date"];
+  const { code } = useParams();
 
   const dispatch = useAppDispatch();
-  const data = useAppSelector((state) =>
-    state.examinations.examinationsByPatientId.data
-      ? state.examinations.examinationsByPatientId.data
-      : []
+  const data = useAppSelector(
+    (state) =>
+      (code
+        ? state.encounters.encounterExamninations.data
+        : state.examinations.examinationsByPatientId.data
+      )?.filter((e) => state.examinations.examinationsByPatientId.data) ?? []
   );
 
   const patientCode = useAppSelector(
     (state) => state.patients.selectedPatient.data?.code
   );
   useEffect(() => {
-    dispatch(examinationsByPatientId(patientCode));
-  }, [dispatch, patientCode, shouldUpdateTable]);
+    code
+      ? dispatch(getEncounterExaminations({ code }))
+      : dispatch(examinationsByPatientId(patientCode));
+  }, [dispatch, patientCode, shouldUpdateTable, code]);
 
-  const onEdit = (row: PatientExaminationDTO) => {
-    const pex = data.find((item) => item.pex_ID === row.pex_ID);
-    handleEdit(pex!);
-  };
+  const onEdit = handleEdit
+    ? (row: PatientExaminationDTO) => {
+        const pex = data.find((item) => item.pex_ID === row.pex_ID);
+        handleEdit(pex!);
+      }
+    : undefined;
+
   const formatDataToDisplay = (data: PatientExaminationDTO[]) => {
     return data.map((item) => {
       return {
@@ -84,14 +99,18 @@ const PatientTriageTable: FunctionComponent<IOwnProps> = ({
         pex_auscultation: item.pex_auscultation
           ? t("examination." + item.pex_auscultation)
           : "",
-        pex_date: item.pex_date ? renderDate(item.pex_date) : "",
+        pex_date: item.pex_date ? renderDateTime(item.pex_date) : "",
         date: item.pex_date,
         pex_note: item.pex_note,
+        pex_pex_body_mass_index: item.pex_body_mass_index,
+        pex_pex_branchial_perimeter: item.pex_branchial_perimeter,
       };
     });
   };
-  const triageStatus = useAppSelector(
-    (state) => state.examinations.examinationsByPatientId.status
+  const triageStatus = useAppSelector((state) =>
+    code
+      ? state.encounters.encounterExamninations.status
+      : state.examinations.examinationsByPatientId.status
   );
 
   const errorMessage = useAppSelector(
@@ -124,6 +143,7 @@ const PatientTriageTable: FunctionComponent<IOwnProps> = ({
                 columnsOrder={order}
                 rowsPerPage={5}
                 onEdit={canUpdate ? onEdit : undefined}
+                onPrint={canPrint ? handlePrint : undefined}
                 isCollapsabile={true}
                 showEmptyCell={false}
               />

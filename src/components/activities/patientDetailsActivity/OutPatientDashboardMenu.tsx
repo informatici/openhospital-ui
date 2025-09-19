@@ -1,41 +1,48 @@
 import {
+  AcUnit,
   ArtTrack,
   Colorize,
   Healing,
+  HistoryEdu,
   LocalHospital,
   LocalHotel,
   Pageview,
 } from "@mui/icons-material";
+import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
+import { useEncountersEnabled } from "libraries/hooks";
+import { usePermission } from "libraries/permissionUtils/usePermission";
 import React, { FunctionComponent, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import Arrow from "../../../assets/arrow-w.svg";
 import "./styles.scss";
-import { IUserSection } from "./types";
+import { TUserSection } from "./types";
 
 interface IOwnProps {
-  setUserSection: React.Dispatch<React.SetStateAction<IUserSection>>;
-  userSection: IUserSection;
+  userSection: TUserSection;
 }
 
 const OutPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
-  setUserSection,
   userSection,
 }) => {
   const { t } = useTranslation();
 
-  const isActive = (value: string) => {
-    return value === userSection ? "active" : "default";
-  };
+  const encountersEnabled = useEncountersEnabled();
+
+  const isActive = useCallback(
+    (value: string) => (value === userSection ? "active" : "default"),
+    [userSection]
+  );
+
+  const canReadRadiology = usePermission("radiology.read");
 
   const navigate = useNavigate();
 
   const changeUserSection = useCallback(
-    (section: IUserSection) => {
-      setUserSection(section);
+    (section: TUserSection) => {
       navigate(`${section}`, { replace: true });
     },
-    [navigate, setUserSection]
+    [navigate]
   );
 
   return (
@@ -44,6 +51,55 @@ const OutPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
       className="patientDetails__main_menu"
     >
       <h6>{t("patient.usersections")}</h6>
+
+      {encountersEnabled && (
+        <div
+          className={
+            "patientDetails__main_menu__item " + isActive("encounters")
+          }
+          onClick={() => {
+            changeUserSection("encounters");
+          }}
+        >
+          <AcUnit
+            fontSize="small"
+            style={{
+              color: "white",
+            }}
+          />
+          <span>{t("nav.encounters")}:</span>
+          <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
+        </div>
+      )}
+
+      {encountersEnabled && (
+        <div
+          className={
+            "patientDetails__main_menu__item " + isActive("conditioning")
+          }
+          onClick={() => changeUserSection("conditioning")}
+        >
+          <FormatListBulletedIcon fontSize="small" style={{ color: "white" }} />
+          <span>{t("nav.conditioning")}:</span>
+          <img src={Arrow} className="icon_toggle" alt="Accordion toggle" />
+        </div>
+      )}
+
+      {encountersEnabled && (
+        <div
+          className={
+            "align__element patientDetails__main_menu__item " +
+            isActive("medical-history")
+          }
+          onClick={() => {
+            changeUserSection("medical-history");
+          }}
+        >
+          <HistoryEdu fontSize="small" style={{ color: "white" }} />
+          <span>{t("nav.medicalHistory")}:</span>
+          <img src={Arrow} className="icon_toggle" alt="Accordion toggle" />
+        </div>
+      )}
 
       <div
         className={"patientDetails__main_menu__item " + isActive("admissions")}
@@ -128,6 +184,21 @@ const OutPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
         <span>{t("nav.userclinic")}</span>
         <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
       </div>
+      {canReadRadiology && (
+        <div
+          className={
+            "align__element patientDetails__main_menu__item " +
+            isActive("radiology")
+          }
+          onClick={() => {
+            changeUserSection("radiology");
+          }}
+        >
+          <Healing fontSize="small" style={{ color: "white" }} />
+          <span>{t("nav.radiology")}</span>
+          <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
+        </div>
+      )}
     </div>
   );
 };

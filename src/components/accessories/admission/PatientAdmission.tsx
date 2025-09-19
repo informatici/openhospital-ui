@@ -32,7 +32,7 @@ const PatientAdmission: FC = () => {
   const dispatch = useAppDispatch();
   const canCreate = usePermission("admissions.create");
   const canUpdate = usePermission("admissions.update");
-  const { id } = useParams();
+  const { id, code } = useParams();
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const [shouldResetForm, setShouldResetForm] = useState(false);
   const [creationMode, setCreationMode] = useState(true);
@@ -47,6 +47,11 @@ const PatientAdmission: FC = () => {
 
   const patient = useAppSelector(
     (state: IState) => state.patients.selectedPatient.data
+  );
+  const encounter = useAppSelector((state) =>
+    state.encounters.getEncountersByPatient.data?.find(
+      (item) => item.patient.code?.toString() === id && item.code === code
+    )
   );
   const username = useAppSelector(
     (state: IState) => state.main.authentication.data?.username
@@ -110,6 +115,9 @@ const PatientAdmission: FC = () => {
         diseaseIn: adm.diseaseIn,
         note: adm.note,
         ward: adm.ward,
+        preTreatment: adm.preTreatment,
+        preAssessment: adm.preAssessment,
+        conditionAtAdmission: adm.conditionAtAdmission,
       };
       if (!isEmpty(admissionToEdit?.disType)) {
         admissionToSave = {
@@ -193,25 +201,27 @@ const PatientAdmission: FC = () => {
       {!showForm && currentAdmission && (
         <CurrentAdmission onEditChange={onCurrentAdmissionChange} />
       )}
-      {showForm && (creationMode ? canCreate : canUpdate) && (
-        <AdmissionForm
-          fields={fields}
-          onSubmit={onSubmit}
-          creationMode={creationMode}
-          submitButtonLabel={
-            admissionToEdit ? t("common.update") : t("common.save")
-          }
-          resetButtonLabel={t("common.reset")}
-          shouldResetForm={shouldResetForm}
-          resetFormCallback={resetFormCallback}
-          admitted={!isEmpty(admissionToEdit?.disType)}
-          isLoading={
-            createStatus === "LOADING" ||
-            updateStatus === "LOADING" ||
-            lastOpdStatus === "LOADING"
-          }
-        />
-      )}
+      {!encounter?.closedAt &&
+        showForm &&
+        (creationMode ? canCreate : canUpdate) && (
+          <AdmissionForm
+            fields={fields}
+            onSubmit={onSubmit}
+            creationMode={creationMode}
+            submitButtonLabel={
+              admissionToEdit ? t("common.update") : t("common.save")
+            }
+            resetButtonLabel={t("common.reset")}
+            shouldResetForm={shouldResetForm}
+            resetFormCallback={resetFormCallback}
+            admitted={!isEmpty(admissionToEdit?.disType)}
+            isLoading={
+              createStatus === "LOADING" ||
+              updateStatus === "LOADING" ||
+              lastOpdStatus === "LOADING"
+            }
+          />
+        )}
       {(createStatus === "FAIL" || updateStatus === "FAIL") && (
         <div ref={infoBoxRef} className="info-box-container">
           <InfoBox type="error" message={errorMessage} />
@@ -219,7 +229,7 @@ const PatientAdmission: FC = () => {
       )}
 
       <PatientAdmissionTable
-        handleEdit={onEdit}
+        handleEdit={encounter?.closedAt ? undefined : onEdit}
         shouldUpdateTable={shouldUpdateTable}
       />
 

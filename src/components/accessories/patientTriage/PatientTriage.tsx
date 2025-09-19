@@ -1,6 +1,8 @@
+import { downloadBlob } from "libraries/downloadUtils/downloadUtils";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { FC, default as React, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useParams } from "react-router";
 import checkIcon from "../../../assets/check-icon.png";
 import { PatientExaminationDTO } from "../../../generated";
 import { updateTriageFields } from "../../../libraries/formDataHandling/functions";
@@ -13,6 +15,8 @@ import {
   deleteExaminationReset,
   getDefaultPatientExamination,
   getLastByPatientId,
+  printExamination,
+  printExaminationReset,
   updateExamination,
   updateExaminationReset,
 } from "../../../state/examinations";
@@ -41,6 +45,18 @@ const PatientTriage: FC = () => {
 
   const [creationMode, setCreationMode] = useState(true);
 
+  const [isPrinting, setPrinting] = useState(false);
+
+  const { id, code } = useParams();
+
+  const encounter = useAppSelector((state) =>
+    state.encounters.getEncountersByPatient.data?.find(
+      (item) => item.patient.code?.toString() === id && item.code === code
+    )
+  );
+
+  //const [triage, setTriage] = useState({} as PatientExaminationDTO | undefined);
+
   const lastExamination = useAppSelector(
     (state) => state.examinations.getLastByPatientId.data
   );
@@ -68,6 +84,7 @@ const PatientTriage: FC = () => {
       state.examinations.createExamination.error?.message ||
       state.examinations.updateExamination.error?.message ||
       state.examinations.deleteExamination.error?.message ||
+      state.examinations.printExamination.error?.message ||
       t("common.somethingwrong")
   ) as string;
 
@@ -88,9 +105,16 @@ const PatientTriage: FC = () => {
   }, [deleteStatus, dispatch, patientDataCode]);
 
   useEffect(() => {
+    if (deleteStatus === "SUCCESS" && patientDataCode) {
+      dispatch(getLastByPatientId(patientDataCode));
+    }
+  }, [deleteStatus, dispatch, patientDataCode]);
+
+  useEffect(() => {
     dispatch(createExaminationReset());
     dispatch(updateExaminationReset());
     dispatch(deleteExaminationReset());
+    dispatch(printExaminationReset());
     setCreationMode(true);
   }, [dispatch]);
 
@@ -99,6 +123,7 @@ const PatientTriage: FC = () => {
       dispatch(createExaminationReset());
       dispatch(updateExaminationReset());
       dispatch(deleteExaminationReset());
+      dispatch(printExaminationReset());
       setShouldResetForm(true);
       setShouldUpdateTable(true);
     }
@@ -111,6 +136,26 @@ const PatientTriage: FC = () => {
     }
   }, [dispatch, patientDataCode]);
 
+  useEffect(() => {
+    if (isPrinting) {
+      dispatch(printExamination(triageToEdit?.pex_ID))
+        .unwrap()
+        .then((result) => {
+          if (result instanceof Blob) {
+            downloadBlob(
+              result,
+              `patient-examination-${
+                triageToEdit?.pex_ID
+              }-${new Date().getTime()}.pdf`
+            );
+          }
+        })
+        .catch((error) => {})
+        .finally(() => setPrinting(false));
+      setActivityTransitionState("TO_RESET");
+    }
+  }, [dispatch, isPrinting, triageToEdit?.pex_ID]);
+
   const onSubmit = (triage: PatientExaminationDTO) => {
     setShouldResetForm(false);
     triage.patientCode = patientDataCode ?? -1;
@@ -122,10 +167,26 @@ const PatientTriage: FC = () => {
           id: triageToEdit.pex_ID,
           patientExaminationDTO: triage,
         })
-      );
+      )
+        .unwrap()
+        .then((result) => {
+          if (!result) return;
+          setTriageToEdit(result);
+        })
+        .catch((error) => {});
     } else {
-      dispatch(createExamination(triage));
+      dispatch(createExamination(triage))
+        .unwrap()
+        .then((result) => {
+          if (!result) return;
+          setTriageToEdit(result);
+        })
+        .catch((error) => {});
     }
+  };
+
+  const handlePrint = () => {
+    setPrinting(true);
   };
 
   const resetFormCallback = () => {
@@ -138,7 +199,6 @@ const PatientTriage: FC = () => {
     setActivityTransitionState("IDLE");
     scrollToElement(null);
   };
-
   const onDelete = (code: number | undefined) => {
     if (code) {
       setDeletedObjCode(code.toString());
@@ -152,46 +212,106 @@ const PatientTriage: FC = () => {
     scrollToElement(null);
   };
 
+  const printExaminationStatus = useAppSelector(
+    (state) => state.examinations.printExamination.status
+  );
+
+  const printExaminationErrorMessage = useAppSelector(
+    (state) =>
+      state.examinations.printExamination.error?.message ||
+      t("common.failedtodownloadthereport")
+  ) as string;
+
+  const onPrint = (row: any) => {
+    dispatch(printExamination(row.pex_ID))
+      .unwrap()
+      .then((result) => {
+        if (result instanceof Blob)
+          downloadBlob(result, `patient-examexamination-${new Date()}.pdf`);
+      });
+  };
   return (
     <div className="patientTriage">
       <Permission
         require={creationMode ? "examinations.create" : "examinations.update"}
       >
-        <PatientTriageForm
-          fields={
-            creationMode
-              ? {
-                  ...initialFields,
-                  pex_height: {
-                    ...initialFields.pex_height,
-                    value: lastExamination?.pex_height?.toString() ?? "",
-                  },
-                  pex_weight: {
-                    ...initialFields.pex_weight,
-                    value: lastExamination?.pex_weight?.toString() ?? "",
-                  },
-                }
-              : updateTriageFields(initialFields, {
-                  ...triageToEdit,
-                  pex_height:
-                    triageToEdit.pex_height ?? lastExamination?.pex_height,
-                  pex_weight:
-                    triageToEdit.pex_weight ?? lastExamination?.pex_weight,
-                })
-          }
-          creationMode={creationMode}
-          onSubmit={onSubmit}
-          submitButtonLabel={
-            creationMode ? t("common.savetriage") : t("common.update")
-          }
-          resetButtonLabel={t("common.reset")}
-          shouldResetForm={shouldResetForm}
-          resetFormCallback={resetFormCallback}
-          isLoading={status === "LOADING"}
-        />
+        {!encounter?.closedAt && (
+          <PatientTriageForm
+            fields={
+              creationMode
+                ? {
+                    ...initialFields,
+                    pex_height: {
+                      ...initialFields.pex_height,
+                      value: lastExamination?.pex_height?.toString() ?? "",
+                    },
+                    pex_weight: {
+                      ...initialFields.pex_weight,
+                      value: lastExamination?.pex_weight?.toString() ?? "",
+                    },
+                    pex_body_mass_index: {
+                      ...initialFields.pex_body_mass_index,
+                      value: (lastExamination?.pex_weight &&
+                      lastExamination?.pex_height
+                        ? (
+                            lastExamination.pex_weight /
+                            (lastExamination.pex_height / 100) ** 2
+                          ).toFixed(2)
+                        : ""
+                      ).toString(),
+                    },
+                  }
+                : updateTriageFields(initialFields, {
+                    ...triageToEdit,
+                    pex_height:
+                      triageToEdit.pex_height ?? lastExamination?.pex_height,
+                    pex_weight:
+                      triageToEdit.pex_weight ?? lastExamination?.pex_weight,
+                    pex_body_mass_index:
+                      (triageToEdit?.pex_weight && triageToEdit?.pex_height
+                        ? Number(
+                            (
+                              triageToEdit.pex_weight /
+                              (triageToEdit.pex_height / 100) ** 2
+                            ).toFixed(2)
+                          )
+                        : null) ??
+                      (lastExamination?.pex_weight &&
+                      lastExamination?.pex_height
+                        ? Number(
+                            (
+                              lastExamination.pex_weight /
+                              (lastExamination.pex_height / 100) ** 2
+                            ).toFixed(2)
+                          )
+                        : 0),
+                  })
+            }
+            creationMode={creationMode}
+            onSubmit={onSubmit}
+            submitButtonLabel={
+              creationMode ? t("common.savetriage") : t("common.update")
+            }
+            resetButtonLabel={t("common.reset")}
+            printButtonLabel={
+              creationMode
+                ? t("common.saveandprint")
+                : t("common.updateandprint")
+            }
+            saveAndPrint={handlePrint}
+            shouldResetForm={shouldResetForm}
+            resetFormCallback={resetFormCallback}
+            isLoading={status === "LOADING"}
+          />
+        )}
         {(status === "FAIL" || deleteStatus === "FAIL") && (
           <div ref={infoBoxRef}>
             <InfoBox type="error" message={errorMessage} />
+          </div>
+        )}
+        {printExaminationStatus === "FAIL" && (
+          <div ref={infoBoxRef}>
+            <InfoBox type="error" message={printExaminationErrorMessage} />
           </div>
         )}
         <ConfirmationDialog
@@ -215,9 +335,10 @@ const PatientTriage: FC = () => {
 
       <Permission require="examinations.read">
         <PatientTriageTable
-          handleDelete={onDelete}
-          handleEdit={onEdit}
+          handleDelete={encounter?.closedAt ? undefined : onDelete}
+          handleEdit={encounter?.closedAt ? undefined : onEdit}
           shouldUpdateTable={shouldUpdateTable}
+          handlePrint={onPrint}
         />
       </Permission>
 

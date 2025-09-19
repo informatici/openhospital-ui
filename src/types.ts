@@ -1,3 +1,7 @@
+import { IConditioningsState } from "state/conditionings";
+import { IEncountersState } from "state/encounter";
+import { IMedicalHistoryState } from "state/medicalhistory";
+import { ISettingsState } from "state/settings";
 import { IAdmissionsState } from "./state/admissions/types";
 import { IBillsState } from "./state/bills/types";
 import { IDashboardState } from "./state/dashboard/types";
@@ -54,6 +58,10 @@ export interface IState {
   types: ITypesState;
   suppliers: ISupplierState;
   permissions: IPermissionsState;
+  settings: ISettingsState;
+  encounters: IEncountersState;
+  conditioning: IConditioningsState;
+  medicalhistory: IMedicalHistoryState;
 }
 
 export enum FIELD_VALIDATION {
@@ -230,4 +238,11 @@ export type TPermission =
   | "laboratories.access"
   | "patients.access"
   | "opds.access"
-  | "admin.access";
+  | "admin.access"
+  | "radiology.read"
+  | "encounters.create"
+  | "encounters.update"
+  | "conditioning.new"
+  | "conditioning.update"
+  | "medicalhistory.create"
+  | "medicalhistory.update";

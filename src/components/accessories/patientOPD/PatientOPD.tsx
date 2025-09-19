@@ -1,6 +1,7 @@
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { FunctionComponent, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useParams } from "react-router";
 import checkIcon from "../../../assets/check-icon.png";
 import { OpdWithOperationRowDTO } from "../../../generated";
 import { updateOpdFields } from "../../../libraries/formDataHandling/functions";
@@ -35,6 +36,15 @@ const PatientOPD: FunctionComponent = () => {
   const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
   const [opdToEdit, setOpdToEdit] = useState({} as OpdWithOperationRowDTO);
   const [creationMode, setCreationMode] = useState(true);
+
+  const { id, code } = useParams();
+
+  const encounter = useAppSelector((state) =>
+    state.encounters.getEncountersByPatient.data?.find(
+      (item) => item.patient.code?.toString() === id && item.code === code
+    )
+  );
+
   const changeStatus = useAppSelector((state) => {
     /*
       Apart from "IDLE" create and update cannot reach "LOADING", "SUCCESS" and "FAIL" 
@@ -141,24 +151,26 @@ const PatientOPD: FunctionComponent = () => {
   return (
     <div className="patientOpd">
       <Permission require={creationMode ? "opds.create" : "opds.update"}>
-        <PatientExtraData />
-        <PatientOPDForm
-          fields={
-            creationMode
-              ? initialFields
-              : updateOpdFields(initialFields, opdToEdit.opdDTO)
-          }
-          creationMode={creationMode}
-          onSubmit={onSubmit}
-          submitButtonLabel={
-            creationMode ? t("opd.saveopd") : t("opd.updateopd")
-          }
-          resetButtonLabel={t("common.reset")}
-          isLoading={changeStatus === "LOADING"}
-          shouldResetForm={shouldResetForm}
-          resetFormCallback={resetFormCallback}
-          operationRowsToEdit={!creationMode ? opdToEdit.operationRows : []}
-        />
+        <PatientExtraData readOnly={!!encounter?.closedAt} />
+        {!encounter?.closedAt && (
+          <PatientOPDForm
+            fields={
+              creationMode
+                ? initialFields
+                : updateOpdFields(initialFields, opdToEdit.opdDTO)
+            }
+            creationMode={creationMode}
+            onSubmit={onSubmit}
+            submitButtonLabel={
+              creationMode ? t("opd.saveopd") : t("opd.updateopd")
+            }
+            resetButtonLabel={t("common.reset")}
+            isLoading={changeStatus === "LOADING"}
+            shouldResetForm={shouldResetForm}
+            resetFormCallback={resetFormCallback}
+            operationRowsToEdit={!creationMode ? opdToEdit.operationRows : []}
+          />
+        )}
         {changeStatus === "FAIL" && (
           <div ref={infoBoxRef}>
             <InfoBox type="error" message={errorMessage} />
@@ -182,7 +194,7 @@ const PatientOPD: FunctionComponent = () => {
       </Permission>
       <Permission require="opds.read">
         <PatientOPDTable
-          handleEdit={onEdit}
+          handleEdit={!encounter?.closedAt ? undefined : onEdit}
           shouldUpdateTable={shouldUpdateTable}
         />
       </Permission>

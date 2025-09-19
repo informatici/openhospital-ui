@@ -1,0 +1,94 @@
+import { parseDateTime } from "libraries/formDataHandling/functions";
+import { TFields } from "../../../libraries/formDataHandling/types";
+import { MedicalHistoryFormFieldName } from "./medicalHistoryForm/types";
+
+export const initialFields: TFields<MedicalHistoryFormFieldName> = {
+  lastTransfusionDate: {
+    value: parseDateTime(new Date().toISOString(), false),
+    type: "date",
+  },
+  siblingRank: {
+    value: "",
+    type: "number",
+  },
+  termPregnancy: {
+    value: "",
+    type: "text",
+  },
+  deliveryMode: {
+    value: "",
+    type: "text",
+  },
+  apgarScore: {
+    value: "",
+    type: "text",
+  },
+  birthWeight: {
+    value: "",
+    type: "number",
+  },
+  vaccinationState: {
+    value: "",
+    type: "text",
+  },
+  antiMalarialProphylaxis: {
+    value: "",
+    type: "text",
+  },
+  diet: {
+    value: "",
+    type: "text",
+  },
+  deParasitization: {
+    value: "",
+    type: "text",
+  },
+  psychomotorDev: {
+    value: "",
+    type: "text",
+  },
+  somaticGrowth: {
+    value: "",
+    type: "text",
+  },
+  ironSupplement: {
+    value: "",
+    type: "boolean",
+  },
+  folicAcidSupplement: {
+    value: "",
+    type: "boolean",
+  },
+  vitASupplement: {
+    value: "",
+    type: "boolean",
+  },
+  otherSupplements: {
+    value: "",
+    type: "text",
+  },
+  transfusion: {
+    value: "",
+    type: "boolean",
+  },
+  sickleCell: {
+    value: "",
+    type: "boolean",
+  },
+  allergyPrecision: {
+    value: "",
+    type: "text",
+  },
+  hemylosis: {
+    value: "",
+    type: "text",
+  },
+  otherPersonalPathologies: {
+    value: "",
+    type: "text",
+  },
+  otherFamilyPathologies: {
+    value: "",
+    type: "text",
+  },
+};

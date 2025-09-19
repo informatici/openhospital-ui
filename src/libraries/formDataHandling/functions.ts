@@ -34,7 +34,7 @@ export const getFromFields = (
     }
     if (fieldAddress === "value") {
       acc[key] = fields[key].isArray
-        ? JSON.parse(fields[key][fieldAddress])
+        ? JSON.parse(fields[key][fieldAddress]?.toString())
         : fields[key][fieldAddress];
     } else {
       acc[key] = fields[key][fieldAddress];
@@ -58,6 +58,18 @@ export const parseDate = (raw: string, withTimezone: boolean = true) => {
   } else {
     return "";
   }
+};
+
+export const parseDateTime = (
+  raw: string,
+  withTimezone: boolean = true
+): string => {
+  if (!raw) return "";
+  const date = isNaN(+raw) ? new Date(raw) : new Date(+raw);
+  const adjustedDate = withTimezone
+    ? new Date(date.getTime() - date.getTimezoneOffset() * 60000)
+    : date;
+  return adjustedDate.toISOString();
 };
 
 export const fixFilterDateFrom = (date: string | Date): string => {
@@ -121,7 +133,7 @@ export const formatAllFieldValues = (
           acc[key] = int < float ? float : int;
           break;
         case "date":
-          acc[key] = parseDate(values[key], withTimezone);
+          acc[key] = parseDateTime(values[key], withTimezone);
           break;
         default:
           acc[key] = values[key];
@@ -240,7 +252,7 @@ export const updateOpdFields = (
           typeof value === "object"
             ? (value as DiseaseDTO)?.code ?? ""
             : moment(value).isValid()
-            ? parseDate(value as string)
+            ? parseDateTime(value as string, false)
             : value);
       }
     });

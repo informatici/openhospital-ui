@@ -1,44 +1,51 @@
 import {
+  AcUnit,
   ArtTrack,
   Colorize,
   ExitToApp,
   Healing,
+  HistoryEdu,
   LocalHospital,
   LocalHotel,
   Pageview,
   SettingsApplications,
 } from "@mui/icons-material";
+import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
+import { useEncountersEnabled } from "libraries/hooks";
+import { usePermission } from "libraries/permissionUtils/usePermission";
 import React, { FunctionComponent, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import Arrow from "../../../assets/arrow-w.svg";
 import { Permission } from "../../../libraries/permissionUtils/Permission";
 import "./styles.scss";
-import { IUserSection } from "./types";
+import { TUserSection } from "./types";
 
 interface IOwnProps {
-  setUserSection: React.Dispatch<React.SetStateAction<IUserSection>>;
-  userSection: IUserSection;
+  userSection: TUserSection;
 }
 
 const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
-  setUserSection,
   userSection,
 }) => {
   const { t } = useTranslation();
 
   const navigate = useNavigate();
 
-  const isActive = (value: string) => {
-    return value === userSection ? "active" : "default";
-  };
+  const canReadRadiology = usePermission("radiology.read");
+
+  const encountersEnabled = useEncountersEnabled();
+
+  const isActive = useCallback(
+    (value: string) => (value === userSection ? "active" : "default"),
+    [userSection]
+  );
 
   const changeUserSection = useCallback(
-    (section: IUserSection) => {
-      setUserSection(section);
+    (section: TUserSection) => {
       navigate(`${section}`, { replace: true });
     },
-    [navigate, setUserSection]
+    [navigate]
   );
 
   return (
@@ -47,6 +54,39 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
       className="patientDetails__main_menu"
     >
       <h6>{t("patient.usersections")}</h6>
+
+      {encountersEnabled && (
+        <div
+          className={
+            "patientDetails__main_menu__item " + isActive("encounters")
+          }
+          onClick={() => {
+            changeUserSection("encounters");
+          }}
+        >
+          <AcUnit
+            fontSize="small"
+            style={{
+              color: "white",
+            }}
+          />
+          <span>{t("nav.encounters")}:</span>
+          <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
+        </div>
+      )}
+
+      {encountersEnabled && (
+        <div
+          className={
+            "patientDetails__main_menu__item " + isActive("conditioning")
+          }
+          onClick={() => changeUserSection("conditioning")}
+        >
+          <FormatListBulletedIcon fontSize="small" style={{ color: "white" }} />
+          <span>{t("nav.conditioning")}:</span>
+          <img src={Arrow} className="icon_toggle" alt="Accordion toggle" />
+        </div>
+      )}
 
       <div
         className={"patientDetails__main_menu__item " + isActive("admissions")}
@@ -63,6 +103,22 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
         <span>{t("nav.admissions")}:</span>
         <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
       </div>
+
+      {encountersEnabled && (
+        <div
+          className={
+            "align__element patientDetails__main_menu__item " +
+            isActive("medical-history")
+          }
+          onClick={() => {
+            changeUserSection("medical-history");
+          }}
+        >
+          <HistoryEdu fontSize="small" style={{ color: "white" }} />
+          <span>{t("nav.medicalHistory")}:</span>
+          <img src={Arrow} className="icon_toggle" alt="Accordion toggle" />
+        </div>
+      )}
 
       <div
         className={
@@ -89,7 +145,6 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
         <span>{t("nav.triage")}:</span>
         <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
       </div>
-
       <div
         className={
           "align__element patientDetails__main_menu__item " +
@@ -103,7 +158,6 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
         <span>{t("nav.laboratory")}:</span>
         <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
       </div>
-
       {false && (
         <div
           className={
@@ -133,7 +187,6 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
         <span>{t("nav.operation")}:</span>
         <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
       </div>
-
       <Permission require="admissions.update">
         <div
           className={
@@ -161,6 +214,21 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
         <span>{t("nav.userclinic")}</span>
         <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
       </div>
+      {canReadRadiology && (
+        <div
+          className={
+            "align__element patientDetails__main_menu__item " +
+            isActive("radiology")
+          }
+          onClick={() => {
+            changeUserSection("radiology");
+          }}
+        >
+          <Healing fontSize="small" style={{ color: "white" }} />
+          <span>{t("nav.radiology")}</span>
+          <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
+        </div>
+      )}
     </div>
   );
 };

@@ -1,5 +1,5 @@
-import { ILaboratoriesState } from "./types";
 import { ApiResponse } from "../types";
+import { ILaboratoriesState } from "./types";
 
 export const initial: ILaboratoriesState = {
   createLab: new ApiResponse({ status: "IDLE" }),
@@ -13,4 +13,5 @@ export const initial: ILaboratoriesState = {
   getLabByCode: new ApiResponse({ status: "IDLE" }),
   getLabWithRowsByCode: new ApiResponse({ status: "IDLE" }),
   searchLabs: new ApiResponse({ status: "IDLE" }),
+  printExamRequest: new ApiResponse({ status: "IDLE" }),
 };

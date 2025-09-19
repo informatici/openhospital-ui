@@ -1,7 +1,10 @@
 import { CircularProgress } from "@mui/material";
+import { useConditionsAtAmission } from "libraries/hooks";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { FunctionComponent, useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { useParams } from "react-router";
+import { getEncounterAdmissions } from "state/encounter";
 import { AdmissionDTO } from "../../../../generated";
 import { renderDateTime } from "../../../../libraries/formatUtils/dataFormatting";
 import { usePermission } from "../../../../libraries/permissionUtils/usePermission";
@@ -11,7 +14,7 @@ import Table from "../../table/Table";
 
 interface IOwnProps {
   shouldUpdateTable: boolean;
-  handleEdit: (row: any) => void;
+  handleEdit?: (row: any) => void;
 }
 
 const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
@@ -20,6 +23,8 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
 }) => {
   const { t } = useTranslation();
   const canUpdate = usePermission("admissions.update");
+
+  const { code } = useParams();
 
   const header = ["admDate", "disDate"];
   const dateFields = ["admDate", "disDate"];
@@ -38,32 +43,44 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
     diseaseOut1: t("admission.diseaseOut1"),
     diseaseOut2: t("admission.diseaseOut2"),
     diseaseOut3: t("admission.diseaseOut3"),
+    preTreatment: t("admission.preTreatment"),
+    preAssessment: t("admission.preAssessment"),
+    conditionAtAdmission: t("admission.conditionAtAdmission.label"),
   };
   const order = ["admDate", "disDate"];
 
   const dispatch = useAppDispatch();
 
-  const data = useAppSelector((state) =>
-    state.admissions.getPatientAdmissions.data
-      ? state.admissions.getPatientAdmissions.data.filter(
-          (e) => state.admissions.currentAdmissionByPatientId.data?.id !== e.id
-        )
-      : []
+  const data = useAppSelector(
+    (state) =>
+      (code
+        ? state.encounters.encounterAdmissions.data
+        : state.admissions.getPatientAdmissions.data
+      )?.filter(
+        (e) => state.admissions.currentAdmissionByPatientId.data?.id !== e.id
+      ) ?? []
   );
 
   const patientCode = useAppSelector(
     (state) => state.patients.selectedPatient.data?.code
   );
 
-  const onEdit = (row: AdmissionDTO) => {
-    handleEdit(data.find((item) => item.id === row?.id));
-  };
+  const onEdit = handleEdit
+    ? (row: AdmissionDTO) => {
+        handleEdit(data.find((item) => item.id === row?.id));
+      }
+    : undefined;
 
   useEffect(() => {
-    if (shouldUpdateTable || patientCode) {
-      dispatch(getPatientAdmissions({ patientCode: patientCode as number }));
+    if (shouldUpdateTable || patientCode || code) {
+      const action = code
+        ? getEncounterAdmissions({ code })
+        : getPatientAdmissions({ patientCode: patientCode ?? -1 });
+      dispatch(action as any);
     }
-  }, [shouldUpdateTable, dispatch, patientCode]);
+  }, [shouldUpdateTable, dispatch, patientCode, code]);
+
+  const { formatValues: formatConditions } = useConditionsAtAmission();
 
   const formatDataToDisplay = (data: AdmissionDTO[]) => {
     return data.map((item) => {
@@ -81,11 +98,18 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
         diseaseOut1: item.diseaseOut1?.description ?? "",
         diseaseOut2: item.diseaseOut2?.description ?? "",
         diseaseOut3: item.diseaseOut3?.description ?? "",
+        preTreatment: item.preTreatment ?? "",
+        preAssessment: item.preAssessment ?? "",
+        conditionAtAdmission: formatConditions(item.conditionAtAdmission).join(
+          ", "
+        ),
       };
     });
   };
-  const status = useAppSelector(
-    (state) => state.admissions.getPatientAdmissions.status
+  const status = useAppSelector((state) =>
+    code
+      ? state.encounters.encounterAdmissions.status
+      : state.admissions.getPatientAdmissions.status
   );
 
   const errorMessage = useAppSelector(

@@ -36,4 +36,12 @@ export type TPatientDataFormFieldName =
   | "hasInsurance"
   | "parentTogether"
   | "taxCode"
-  | "blobPhoto";
+  | "blobPhoto"
+  | "commune"
+  | "ethnic"
+  | "fatherOccupation"
+  | "fatherPhone"
+  | "fatherAge"
+  | "motherOccupation"
+  | "motherPhone"
+  | "motherAge";

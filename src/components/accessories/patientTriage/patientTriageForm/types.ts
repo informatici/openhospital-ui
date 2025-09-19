@@ -6,6 +6,8 @@ interface IOwnProps {
   onSubmit: (triage: PatientExaminationDTO) => void;
   submitButtonLabel: string;
   resetButtonLabel: string;
+  printButtonLabel: string;
+  saveAndPrint: () => void;
   isLoading: boolean;
   creationMode: boolean;
   shouldResetForm: boolean;
@@ -29,4 +31,6 @@ export type TPatientTriageFormFieldName =
   | "pex_diuresis"
   | "pex_bowel_desc"
   | "pex_note"
-  | "pex_diuresis_desc";
+  | "pex_diuresis_desc"
+  | "pex_body_mass_index"
+  | "pex_branchial_perimeter";

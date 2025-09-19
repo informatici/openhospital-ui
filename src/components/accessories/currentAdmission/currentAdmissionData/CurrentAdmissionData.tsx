@@ -1,10 +1,11 @@
 import { Edit } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
+import { renderDateTime } from "libraries/formatUtils/dataFormatting";
+import { useConditionsAtAmission } from "libraries/hooks";
 import { isEmpty } from "lodash";
 import React, { FunctionComponent } from "react";
 import { useTranslation } from "react-i18next";
 import { AdmissionDTO } from "../../../../generated";
-import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 import "../styles.scss";
 
 interface IOwnProps {
@@ -17,6 +18,8 @@ export const CurrentAdmissionData: FunctionComponent<IOwnProps> = ({
   admission,
 }) => {
   const { t } = useTranslation();
+
+  const { formatValues: formatConditions } = useConditionsAtAmission();
 
   return (
     <div className="currentAdmissionData">
@@ -31,7 +34,7 @@ export const CurrentAdmissionData: FunctionComponent<IOwnProps> = ({
         {!isEmpty(admission?.admDate) && (
           <div className="currentAdmissionData__item">
             <span className="item_label">{t("admission.admDate")}</span>
-            <p className="item_content">{renderDate(admission?.admDate)}</p>
+            <p className="item_content">{renderDateTime(admission?.admDate)}</p>
           </div>
         )}
         {!isEmpty(admission?.ward?.description) && (
@@ -62,6 +65,28 @@ export const CurrentAdmissionData: FunctionComponent<IOwnProps> = ({
           <div className="fullWidth currentAdmissionData__item">
             <span className="item_label">{t("admission.note")}</span>
             <p className="item_content">{admission?.note}</p>
+          </div>
+        )}
+        {!isEmpty(admission?.preTreatment) && (
+          <div className="fullWidth currentAdmissionData__item">
+            <span className="item_label">{t("admission.preTreatment")}</span>
+            <p className="item_content">{admission?.preTreatment}</p>
+          </div>
+        )}
+        {!isEmpty(admission?.preAssessment) && (
+          <div className="fullWidth currentAdmissionData__item">
+            <span className="item_label">{t("admission.preAssessment")}</span>
+            <p className="item_content">{admission?.preAssessment}</p>
+          </div>
+        )}
+        {!isEmpty(admission?.conditionAtAdmission) && (
+          <div className="fullWidth currentAdmissionData__item">
+            <span className="item_label">
+              {t("admission.conditionAtAdmission.label")}
+            </span>
+            <p className="item_content">
+              {formatConditions(admission.conditionAtAdmission).join(", ")}
+            </p>
           </div>
         )}
       </div>

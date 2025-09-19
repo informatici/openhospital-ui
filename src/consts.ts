@@ -9,6 +9,9 @@ export const PATHS = {
   home: "/",
   login: "/login",
   patients: "/patients",
+  encounters: "/encounters",
+  encounters_details_id: "/encounters/#id/details",
+  encounters_new: "/encounters/new",
   patients_new: "/patients/new",
   patients_search: "/patients/search",
   patients_details: "/patients/details",
@@ -80,4 +83,5 @@ export const PATHS = {
   admin_hospital_edit: "/admin/hospital/edit",
   admin_age_types: "/admin/types/ages",
   admin_age_types_edit: "/admin/types/ages/edit",
+  admin_settings: "/admin/settings",
 };

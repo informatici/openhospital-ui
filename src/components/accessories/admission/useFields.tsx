@@ -1,7 +1,7 @@
 import { AdmissionDTO, DiseaseDTO } from "../../../generated";
 import {
   differenceInDays,
-  parseDate,
+  parseDateTime,
 } from "../../../libraries/formDataHandling/functions";
 import { TFields } from "../../../libraries/formDataHandling/types";
 import { AdmissionFormFieldName } from "./admissionForm/types";
@@ -29,7 +29,7 @@ export const useFields = (
       type: "text",
     },
     admDate: {
-      value: admission?.admDate ?? parseDate(Date.now().toString()),
+      value: admission?.admDate ?? parseDateTime(Date.now().toString(), false),
       type: "date",
     },
     note: {
@@ -76,6 +76,18 @@ export const useFields = (
               new Date(admission?.disDate ?? "")
             ).toString(),
       type: "number",
+    },
+    preTreatment: {
+      value: admission?.preTreatment ?? "",
+      type: "text",
+    },
+    preAssessment: {
+      value: admission?.preAssessment ?? "",
+      type: "text",
+    },
+    conditionAtAdmission: {
+      value: admission?.conditionAtAdmission ?? [],
+      type: "array",
     },
   };
 

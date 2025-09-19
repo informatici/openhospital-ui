@@ -78,7 +78,7 @@ const DischargeForm: FC<DischargeProps> = ({
       .test({
         name: "disDate",
         message: t("admission.validatelastdate", {
-          admDate: moment(admission?.admDate ?? "").format("DD/MM/YYYY"),
+          admDate: moment(admission?.admDate ?? "").format("DD/MM/YYYY HH:mm"),
         }),
         test: function (value) {
           return (
@@ -216,7 +216,7 @@ const DischargeForm: FC<DischargeProps> = ({
                 fieldValue={formik.values.disDate}
                 disableFuture={true}
                 theme="regular"
-                format="dd/MM/yyyy"
+                format="dd/MM/yyyy HH:mm"
                 isValid={isValid("disDate")}
                 errorText={getErrorText("disDate")}
                 label={t("admission.disDate")}

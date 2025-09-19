@@ -1,3 +1,9 @@
+import Conditioning from "components/accessories/conditioning/Conditioning";
+import { Encounters } from "components/accessories/encounters/Encounters";
+import MedicalHistory from "components/accessories/medicalhistory/MedicalHistory";
+import { Radiology, Series, Studies } from "components/accessories/radiology";
+import PermissionDenied from "components/activities/PermissionDenied/PermissionDenied";
+import { withPermission } from "libraries/permissionUtils/withPermission";
 import React, { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { Navigate, Route, Routes } from "react-router";
@@ -13,12 +19,91 @@ import DischargeDetailsContent from "../../components/activities/patientDetailsA
 import PatientDetailsContent from "../../components/activities/patientDetailsActivityContent/PatientDetailsActivityContent";
 import VisitDetailsContent from "../../components/activities/patientDetailsActivityContent/VisitDetailsActivityContent";
 
-export const PatientDetailsRoutes: FC = () => {
+export const PatientDetailsRoutes: FC<{
+  encountersEnabled?: boolean;
+}> = ({ encountersEnabled }) => {
   const { t } = useTranslation();
+
+  const RadiologyRoutes = withPermission(
+    "radiology.read",
+    PermissionDenied
+  )(() => (
+    <Routes>
+      <Route
+        element={
+          <PatientDetailsContent
+            title={t("patient.radiology")}
+            content={Radiology}
+          />
+        }
+      >
+        <Route path="" element={<Navigate to="studies" />} />
+        <Route path="studies" element={<Studies />} />
+        <Route path="studies/:id/series" element={<Series />} />
+        <Route
+          path="studies/:id/series/:serie_id/instances"
+          element={<h1>Serie Instances</h1>}
+        />
+        <Route
+          path="*"
+          element={
+            <div>
+              <h1>Page not found !</h1>
+            </div>
+          }
+        />
+      </Route>
+    </Routes>
+  ));
+
   return (
     <Routes>
       <Route element={<PatientDetailsActivity />}>
-        <Route index element={<Navigate to="admissions" replace />} />
+        <Route
+          index
+          element={
+            encountersEnabled ? (
+              <Navigate to={"encounters"} replace={true} />
+            ) : (
+              <Navigate to={"admissions"} replace={true} />
+            )
+          }
+        />
+        {encountersEnabled && (
+          <Route
+            path="encounters"
+            element={
+              <PatientDetailsContent
+                title={t("patient.encounters")}
+                content={Encounters}
+              />
+            }
+          />
+        )}
+        {encountersEnabled && (
+          <Route
+            path="conditioning"
+            element={
+              <PatientDetailsContent
+                title={t("patient.conditioning")}
+                content={Conditioning}
+              />
+            }
+          />
+        )}
+
+        {encountersEnabled && (
+          <Route
+            path="medical-history"
+            element={
+              <PatientDetailsContent
+                title={t("patient.medicalHistory")}
+                content={MedicalHistory}
+              />
+            }
+          />
+        )}
+
         <Route
           path="admissions"
           element={
@@ -77,6 +162,7 @@ export const PatientDetailsRoutes: FC = () => {
             />
           }
         />
+        <Route path="radiology/*" element={<RadiologyRoutes />}></Route>
       </Route>
       <Route path="*" element={<NotFound />} />
     </Routes>
