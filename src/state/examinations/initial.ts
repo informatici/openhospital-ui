@@ -8,5 +8,4 @@ export const initial: IExaminationsState = {
   getLastByPatientId: new ApiResponse({ status: "IDLE" }),
   examinationsByPatientId: new ApiResponse({ status: "IDLE", data: [] }),
   deleteExamination: new ApiResponse({ status: "IDLE" }),
-  printExamination: new ApiResponse({ status: "IDLE" }),
 };

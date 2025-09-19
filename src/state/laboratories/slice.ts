@@ -38,9 +38,6 @@ export const laboratorySlice = createSlice({
     getLabWithRowsByCodeReset: (state) => {
       state.getLabWithRowsByCode = initial.getLabWithRowsByCode;
     },
-    printExamRequest: (state) => {
-      state.printExamRequest = initial.printExamRequest;
-    },
   },
   extraReducers: (builder) =>
     builder
@@ -159,21 +156,7 @@ export const laboratorySlice = createSlice({
         state.deleteLab.status = "SUCCESS";
       })
       .addCase(thunks.deleteLab.rejected, (state, action) => {
-        state.printExamRequest = ApiResponse.error(action.payload);
-      })
-      // Print Lab exam request
-      .addCase(thunks.printExamRequests.pending, (state) => {
-        state.printExamRequest = ApiResponse.loading();
-      })
-      .addCase(thunks.printExamRequests.fulfilled, (state, action) => {
-        if (action.payload instanceof Blob) {
-          state.printExamRequest = ApiResponse.value(action.payload);
-        } else {
-          state.printExamRequest = ApiResponse.error(action.payload);
-        }
-      })
-      .addCase(thunks.printExamRequests.rejected, (state, action) => {
-        state.printExamRequest = ApiResponse.error(action.payload);
+        state.deleteLab = ApiResponse.error(action.payload);
       }),
 });
 
@@ -188,5 +171,4 @@ export const {
   getLabsReset,
   getLabByCodeReset,
   getLabWithRowsByCodeReset,
-  printExamRequest,
 } = laboratorySlice.actions;

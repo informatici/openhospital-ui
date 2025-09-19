@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { SettingsApi, UpdateSettingDTO } from "generated";
 import { customConfiguration } from "libraries/apiUtils/configuration";
+import { firstValueFrom } from "rxjs";
 
 const api = new SettingsApi(customConfiguration());
 
@@ -33,11 +34,10 @@ export const getSettingById = createAsyncThunk(
 
 export const updateSetting = createAsyncThunk(
   "settings/update",
-  async (dto: { code: string; setting: UpdateSettingDTO }, thunkApi) =>
-    api
-      .updateSetting({ code: dto.code, updateSettingDTO: dto.setting })
-      .toPromise()
-      .catch((error) => thunkApi.rejectWithValue(error.response))
+  async (dto: { code?: string; setting: UpdateSettingDTO }, thunkApi) =>
+    firstValueFrom(
+      api.updateSetting({ code: dto.code ?? "", updateSettingDTO: dto.setting })
+    ).catch((error) => thunkApi.rejectWithValue(error.response))
 );
 
 export const resetAllSettings = createAsyncThunk(

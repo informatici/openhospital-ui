@@ -1,19 +1,15 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { wrapper } from "libraries/apiUtils/wrapper";
 import moment from "moment";
-import { firstValueFrom } from "rxjs";
 import {
   LaboratoriesApi,
   LaboratoryDTO,
   LabWithRowsDTO,
-  ReportsApi,
   UpdateLaboratoryRequest,
 } from "../../generated";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 
 const api = new LaboratoriesApi(customConfiguration());
-
-const apiReport = new ReportsApi(customConfiguration());
 
 export const searchLabs = createAsyncThunk(
   "laboratories/searchLabs",
@@ -128,18 +124,4 @@ export const cancelLab = createAsyncThunk(
     wrapper(() => api.deleteExamRequest({ code: code ?? -1 }))
       .toPromise()
       .catch((error) => thunkApi.rejectWithValue(error.response))
-);
-
-export const printExamRequests = createAsyncThunk(
-  "reports/patientexamrequest",
-  async (patientId: number | undefined, thunkApi) =>
-    firstValueFrom(
-      wrapper(() =>
-        apiReport.printPatientExamRequestPdf({ patientId: patientId ?? -1 })
-      )
-    )
-      .then((response) => response)
-      .catch((error) => {
-        thunkApi.rejectWithValue(error.response);
-      })
 );
