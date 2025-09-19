@@ -187,6 +187,54 @@ export interface PatientDTO {
      * @memberof PatientDTO
      */
     consensusServiceFlag?: boolean;
+    /**
+     * Commune
+     * @type {string}
+     * @memberof PatientDTO
+     */
+    commune?: string;
+    /**
+     * Ethnic
+     * @type {string}
+     * @memberof PatientDTO
+     */
+    ethnic?: string;
+    /**
+     * Father occupation
+     * @type {string}
+     * @memberof PatientDTO
+     */
+    fatherOccupation?: string;
+    /**
+     * Father age
+     * @type {number}
+     * @memberof PatientDTO
+     */
+    fatherAge?: number;
+    /**
+     * Father phone
+     * @type {string}
+     * @memberof PatientDTO
+     */
+    fatherPhone?: string;
+    /**
+     * Mother occupation
+     * @type {string}
+     * @memberof PatientDTO
+     */
+    motherOccupation?: string;
+    /**
+     * Mother age
+     * @type {number}
+     * @memberof PatientDTO
+     */
+    motherAge?: number;
+    /**
+     * Mother phone
+     * @type {string}
+     * @memberof PatientDTO
+     */
+    motherPhone?: string;
 }
 
 /**

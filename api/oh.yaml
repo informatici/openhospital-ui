@@ -514,6 +514,32 @@ paths:
                 $ref: "#/components/schemas/SupplierDTO"
       security:
       - bearerAuth: []
+  /settings/{code}:
+    put:
+      tags:
+      - Settings
+      operationId: updateSetting
+      parameters:
+      - name: code
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateSettingDTO"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SettingDTO"
+      security:
+      - bearerAuth: []
   /pricesothers/{id}:
     put:
       tags:
@@ -1223,6 +1249,53 @@ paths:
                 $ref: "#/components/schemas/MedicalDTO"
       security:
       - bearerAuth: []
+  /medicalhistories/{id}:
+    get:
+      tags:
+      - MedicalHistory
+      operationId: getMedicalHistoryById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MedicalHistoryDTO"
+      security:
+      - bearerAuth: []
+    put:
+      tags:
+      - MedicalHistory
+      operationId: updateMedicalHistory
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MedicalHistoryDTO"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MedicalHistoryDTO"
+      security:
+      - bearerAuth: []
   /malnutritions:
     put:
       tags:
@@ -1811,6 +1884,33 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/DeliveryResultTypeDTO"
+      security:
+      - bearerAuth: []
+  /conditionings/{id}:
+    put:
+      tags:
+      - Conditionings
+      operationId: updateConditioning
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ConditioningDTO"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConditioningDTO"
       security:
       - bearerAuth: []
   /bills/{id}:
@@ -2501,6 +2601,20 @@ paths:
                 type: boolean
       security:
       - bearerAuth: []
+  /settings/reset:
+    post:
+      tags:
+      - Settings
+      operationId: resetAllSettings
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: boolean
+      security:
+      - bearerAuth: []
   /pricesothers:
     get:
       tags:
@@ -2907,6 +3021,26 @@ paths:
                 type: boolean
       security:
       - bearerAuth: []
+  /medicalhistories:
+    post:
+      tags:
+      - MedicalHistory
+      operationId: createMedicalHistory
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MedicalHistoryDTO"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MedicalHistoryDTO"
+      security:
+      - bearerAuth: []
   /laboratories:
     get:
       tags:
@@ -3140,6 +3274,46 @@ paths:
                 $ref: "#/components/schemas/PatientExaminationDTO"
       security:
       - bearerAuth: []
+  /encounters:
+    post:
+      tags:
+      - Encounter
+      operationId: createEncounter
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EncounterDTO"
+        required: true
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EncounterDTO"
+      security:
+      - bearerAuth: []
+  /conditionings:
+    post:
+      tags:
+      - Conditionings
+      operationId: newConditioning
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ConditioningDTO"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConditioningDTO"
+      security:
+      - bearerAuth: []
   /bills:
     get:
       tags:
@@ -3325,6 +3499,32 @@ paths:
             application/json:
               schema:
                 type: boolean
+      security:
+      - bearerAuth: []
+  /encounters/{code}:
+    patch:
+      tags:
+      - Encounter
+      operationId: updateEncounter
+      parameters:
+      - name: code
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EncounterDTO"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EncounterDTO"
       security:
       - bearerAuth: []
   /wardsNoMaternity:
@@ -3807,6 +4007,107 @@ paths:
                 type: boolean
       security:
       - bearerAuth: []
+  /settings:
+    get:
+      tags:
+      - Settings
+      operationId: getAllSettings
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/SettingDTO"
+      security:
+      - bearerAuth: []
+  /settings/{id}:
+    get:
+      tags:
+      - Settings
+      operationId: getSettingById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SettingDTO"
+      security:
+      - bearerAuth: []
+  /settings/code/{code}:
+    get:
+      tags:
+      - Settings
+      operationId: getSettingByCode
+      parameters:
+      - name: code
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SettingDTO"
+      security:
+      - bearerAuth: []
+  /reports/patientexamrequest/{patientId}:
+    get:
+      tags:
+      - Reports
+      operationId: printPatientExamRequestPdf
+      parameters:
+      - name: patientId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: OK
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+      security:
+      - bearerAuth: []
+  /reports/patientexamination/{examinationId}:
+    get:
+      tags:
+      - Reports
+      operationId: printPatientExaminationPdf
+      parameters:
+      - name: examinationId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: OK
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+      security:
+      - bearerAuth: []
   /reports/exams-list:
     get:
       tags:
@@ -3816,10 +4117,10 @@ paths:
         "200":
           description: OK
           content:
-            application/json:
+            application/octet-stream:
               schema:
                 type: string
-                format: byte
+                format: binary
       security:
       - bearerAuth: []
   /reports/diseases-list:
@@ -3831,10 +4132,96 @@ paths:
         "200":
           description: OK
           content:
-            application/json:
+            application/octet-stream:
               schema:
                 type: string
-                format: byte
+                format: binary
+      security:
+      - bearerAuth: []
+  /radiology/studies/{id}/series:
+    get:
+      tags:
+      - Radiology
+      operationId: getStudySeriesById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/SeriesResponse"
+      security:
+      - bearerAuth: []
+  /radiology/series/{id}/instances:
+    get:
+      tags:
+      - Radiology
+      operationId: getSeriesInstancesById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/InstanceResponse"
+      security:
+      - bearerAuth: []
+  /radiology/patients/{id}/studies:
+    get:
+      tags:
+      - Radiology
+      operationId: getPatientStudiesById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/StudyResponse"
+      security:
+      - bearerAuth: []
+  /radiology/instances/{id}/preview:
+    get:
+      tags:
+      - Radiology
+      operationId: getInstancePreview
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InstancePreviewDTO"
       security:
       - bearerAuth: []
   /pricelists/prices:
@@ -4116,15 +4503,27 @@ paths:
         schema:
           type: string
           default: ""
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: size
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 80
       responses:
         "200":
           description: OK
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/PatientDTO"
+                $ref: "#/components/schemas/PagePatientDTO"
       security:
       - bearerAuth: []
   /patients/nextcode:
@@ -4954,6 +5353,29 @@ paths:
                   $ref: "#/components/schemas/MedicalDTO"
       security:
       - bearerAuth: []
+  /medicalhistories/patient/{patientCode}:
+    get:
+      tags:
+      - MedicalHistory
+      operationId: getMedicalHistoryByPatientCode
+      parameters:
+      - name: patientCode
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/MedicalHistoryDTO"
+      security:
+      - bearerAuth: []
   /malnutritions/{id_admission}:
     get:
       tags:
@@ -5417,6 +5839,204 @@ paths:
                   $ref: "#/components/schemas/PatientExaminationDTO"
       security:
       - bearerAuth: []
+  /encounters/{patientId}:
+    get:
+      tags:
+      - Encounter
+      operationId: getEncountersByPatient
+      parameters:
+      - name: patientId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/EncounterDTO"
+      security:
+      - bearerAuth: []
+  /encounters/{code}/opds:
+    get:
+      tags:
+      - Encounter
+      operationId: getOPDByEncounter
+      parameters:
+      - name: code
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/OpdWithOperationRowDTO"
+      security:
+      - bearerAuth: []
+  /encounters/{code}/medicalhistories:
+    get:
+      tags:
+      - Encounter
+      operationId: getMedicalHistoriesEncounterByEncounter
+      parameters:
+      - name: code
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/MedicalHistoryDTO"
+      security:
+      - bearerAuth: []
+  /encounters/{code}/exams:
+    get:
+      tags:
+      - Encounter
+      operationId: getLaboratoryByEncounter
+      parameters:
+      - name: code
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/LaboratoryDTO"
+      security:
+      - bearerAuth: []
+  /encounters/{code}/examinations:
+    get:
+      tags:
+      - Encounter
+      operationId: getPatientExaminationsByEncounter
+      parameters:
+      - name: code
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PatientExaminationDTO"
+      security:
+      - bearerAuth: []
+  /encounters/{code}/examRequest:
+    get:
+      tags:
+      - Encounter
+      operationId: getLaboratoryExamRequestByEncounter
+      parameters:
+      - name: code
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/LaboratoryDTO"
+      security:
+      - bearerAuth: []
+  /encounters/{code}/conditionings:
+    get:
+      tags:
+      - Encounter
+      operationId: getConditioningByPatientEncounter
+      parameters:
+      - name: code
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ConditioningDTO"
+      security:
+      - bearerAuth: []
+  /encounters/{code}/admissions:
+    get:
+      tags:
+      - Encounter
+      operationId: getAdmissionsByEncounter
+      parameters:
+      - name: code
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AdmissionDTO"
+      security:
+      - bearerAuth: []
+  /encounters/current/{patientId}:
+    get:
+      tags:
+      - Encounter
+      operationId: getCurrentEncounterByPatient
+      parameters:
+      - name: patientId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EncounterDTO"
+      security:
+      - bearerAuth: []
   /diseases/{code}:
     get:
       tags:
@@ -5622,6 +6242,29 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/DiseaseDTO"
+      security:
+      - bearerAuth: []
+  /conditionings/{patientCode}:
+    get:
+      tags:
+      - Conditionings
+      operationId: getConditioningByPatientCode
+      parameters:
+      - name: patientCode
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ConditioningDTO"
       security:
       - bearerAuth: []
   /bills/pending:
@@ -6281,13 +6924,13 @@ components:
           format: int32
           description: lock
           example: 0
-        female:
-          type: boolean
         male:
           type: boolean
-        opd:
-          type: boolean
         pharmacy:
+          type: boolean
+        female:
+          type: boolean
+        opd:
           type: boolean
       required:
       - beds
@@ -6451,6 +7094,38 @@ components:
           type: boolean
           description: Consensus service flag
           example: true
+        commune:
+          type: string
+          description: Commune
+        ethnic:
+          type: string
+          description: Ethnic
+        fatherOccupation:
+          type: string
+          description: Father occupation
+          example: Doctor
+        fatherAge:
+          type: integer
+          format: int32
+          description: Father age
+          example: 45
+        fatherPhone:
+          type: string
+          description: Father phone
+          example: "+393456789012"
+        motherOccupation:
+          type: string
+          description: Mother occupation
+          example: Analyst
+        motherAge:
+          type: integer
+          format: int32
+          description: Mother age
+          example: 35
+        motherPhone:
+          type: string
+          description: Mother phone
+          example: "+393456789012"
       required:
       - age
       - bloodType
@@ -6713,8 +7388,77 @@ components:
           description: Lock
           example: 0
       required:
-      - supId
       - supName
+    UpdateSettingDTO:
+      type: object
+      properties:
+        value:
+          type: string
+          description: The value of the setting
+          example: "FALSE"
+    SettingDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          description: Setting ID
+          example: 1
+        code:
+          type: string
+          description: Setting code
+          example: AUTOMATICLOT_IN
+          maxLength: 50
+        category:
+          type: string
+          description: Setting category
+          enum:
+          - general
+          - telemetry
+          - security
+          - imaging
+          - accounting
+          - reports
+          - pharmacy
+          - gui
+          - application
+          - integration
+          example: application
+        type:
+          type: string
+          description: value type
+          enum:
+          - bool
+          - number
+          - text
+          - select
+          example: bool
+        valueOptions:
+          type: string
+          description: Comma-separated list of possible values
+          maxLength: 500
+        defaultValue:
+          type: string
+          description: Default value
+          example: "TRUE"
+        value:
+          type: string
+          description: The value of the setting
+          example: "FALSE"
+        description:
+          type: string
+          description: Description
+          maxLength: 500
+        needRestart:
+          type: boolean
+          description: Whether the app needs restart after the setting has been modified
+          example: true
+      required:
+      - category
+      - code
+      - defaultValue
+      - id
+      - type
     PricesOthersDTO:
       type: object
       description: Class representing a price others
@@ -7005,6 +7749,25 @@ components:
         abortDate:
           type: string
           format: date-time
+        preTreatment:
+          type: string
+          description: "Treatment received by the patient before admission. Example:\
+            \ medication, outpatient care, prior therapy."
+          example: Antibiotic treatment before hospitalization
+        preAssessment:
+          type: string
+          description: "Assessment performed before the patient's admission. Example:\
+            \ preliminary examinations, lab results, medical observations."
+          example: Blood test and X-ray prior to admission
+        conditionAtAdmission:
+          type: array
+          description: "Patient's condition at the time of admission. Stored as a\
+            \ list of descriptors (e.g., stable, critical, unconscious)."
+          example:
+          - stable
+          - conscious
+          items:
+            type: string
         userID:
           type: string
           description: User id
@@ -7464,6 +8227,72 @@ components:
           format: int32
           description: Lock
           example: 0
+    MedicalHistoryDTO:
+      type: object
+      description: Class representing the medical history of a patient
+      properties:
+        id:
+          type: integer
+          format: int32
+        patient:
+          $ref: "#/components/schemas/PatientDTO"
+          description: The patient identifier linked to this medical history
+        siblingRank:
+          type: integer
+          format: int32
+        termPregnancy:
+          type: string
+        deliveryMode:
+          type: string
+        apgarScore:
+          type: string
+        birthWeight:
+          type: number
+          format: double
+        vaccinationState:
+          type: string
+        antiMalarialProphylaxis:
+          type: string
+        diet:
+          type: string
+        deParasitization:
+          type: string
+        psychomotorDev:
+          type: string
+        somaticGrowth:
+          type: string
+        ironSupplement:
+          type: boolean
+        folicAcidSupplement:
+          type: boolean
+        vitASupplement:
+          type: boolean
+        otherSupplements:
+          type: string
+        transfusion:
+          type: boolean
+        lastTransfusionDate:
+          type: string
+          format: date-time
+        sickleCell:
+          type: boolean
+        drugAllergy:
+          type: boolean
+        allergyPrecision:
+          type: string
+        hemylosis:
+          type: string
+        otherPersonalPathologies:
+          type: string
+        otherFamilyPathologies:
+          type: string
+        lock:
+          type: integer
+          format: int32
+          description: Lock
+          example: 0
+      required:
+      - patient
     MalnutritionDTO:
       type: object
       properties:
@@ -7781,9 +8610,90 @@ components:
           format: int32
           description: Lock
           example: 0
+        pex_body_mass_index:
+          type: number
+          format: double
+          description: Body mass index
+          example: 39.6
+        pex_branchial_perimeter:
+          type: number
+          format: double
+          description: Branchial perimeter
+          example: 3.5
       required:
       - patientCode
       - pex_date
+    ConditioningDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          description: Conditioning key
+          example: 12
+        aspiration:
+          type: boolean
+          description: Aspiration conditioning
+          example: true
+        mce:
+          type: integer
+          format: int32
+          description: Conditioning mce duration
+          example: 4
+        ventilation:
+          type: integer
+          format: int32
+          description: Conditioning ventilation duration
+          example: 2
+        oxygenDebit:
+          type: number
+          format: double
+          description: Oxygen debit
+          example: 3
+        sgVolume:
+          type: number
+          format: double
+          description: Sg volume
+          example: 10
+        diazepamDose:
+          type: number
+          format: double
+          description: Diazepam dose
+          example: 12
+        bolusSsVolume:
+          type: number
+          format: double
+          description: 'Bolus volume '
+          example: 3
+        sngNumber:
+          type: string
+          description: Conditioning sng number
+          example: 3434634
+        others:
+          type: string
+          description: Conditioning others
+          example: others
+        patient:
+          $ref: "#/components/schemas/PatientDTO"
+          description: patient
+          example: 22
+        performedAt:
+          type: string
+          format: date-time
+          description: Conditioning date
+          example: String
+        lock:
+          type: integer
+          format: int32
+          description: Lock
+          example: 0
+        cpap:
+          type: boolean
+          description: CPAP
+          example: true
+      required:
+      - patient
+      - performedAt
     BillItemsDTO:
       type: object
       description: Class representing a billItem
@@ -8234,6 +9144,46 @@ components:
           example: NEGATIVE
         exam:
           $ref: "#/components/schemas/ExamDTO"
+    EncounterDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          description: id of the encounter
+          example: 13
+        code:
+          type: string
+          description: Code of the encounter
+          example: 123
+        status:
+          type: string
+          description: Status of encounter
+          enum:
+          - ACTIVE
+          - CANCELLED
+          example: ACTIVE
+        patient:
+          $ref: "#/components/schemas/PatientDTO"
+          description: Patient
+        performedAt:
+          type: string
+          format: date-time
+          description: Encounter date
+          example: 2025-08-26 16:15:58
+        closedAt:
+          type: string
+          format: date-time
+          description: Closed date
+          example: 2025-08-26 16:15:58
+        lock:
+          type: integer
+          format: int32
+          description: Lock
+          example: 1
+      required:
+      - code
+      - patient
     TokenRefreshRequest:
       type: object
       properties:
@@ -8271,6 +9221,157 @@ components:
       required:
       - password
       - username
+    Series:
+      type: object
+      properties:
+        bodyPartExamined:
+          type: string
+        imageOrientationPatient:
+          type: string
+        manufacturer:
+          type: string
+        modality:
+          type: string
+        operatorsName:
+          type: string
+        protocolName:
+          type: string
+        seriesDescription:
+          type: string
+        instanceUID:
+          type: string
+        number:
+          type: string
+        stationName:
+          type: string
+    SeriesResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        objectType:
+          type: string
+        labels:
+          type: array
+          items:
+            type: string
+        lastUpdate:
+          type: string
+        series:
+          $ref: "#/components/schemas/Series"
+        parentStudyId:
+          type: string
+        instancesIds:
+          type: array
+          items:
+            type: string
+        expectedNumberOfInstances:
+          type: string
+        status:
+          type: string
+        stable:
+          type: boolean
+    Instance:
+      type: object
+      properties:
+        acquisitionNumber:
+          type: string
+        imageOrientationPatient:
+          type: string
+        imagePositionPatient:
+          type: string
+        creationDate:
+          type: string
+        creationTime:
+          type: string
+        instanceNumber:
+          type: string
+        instanceUID:
+          type: string
+    InstanceResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        fileSize:
+          type: integer
+          format: int32
+        fileUuid:
+          type: string
+        indexInSeries:
+          type: integer
+          format: int32
+        labels:
+          type: array
+          items:
+            type: string
+        instance:
+          $ref: "#/components/schemas/Instance"
+        parentSeriesId:
+          type: string
+        objectType:
+          type: string
+    Patient:
+      type: object
+      properties:
+        birthDate:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        sex:
+          type: string
+    Study:
+      type: object
+      properties:
+        accessionNumber:
+          type: string
+        institutionName:
+          type: string
+        referringPhysicianName:
+          type: string
+        date:
+          type: string
+        time:
+          type: string
+        description:
+          type: string
+        id:
+          type: string
+        instanceUID:
+          type: string
+    StudyResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        objectType:
+          type: string
+        labels:
+          type: array
+          items:
+            type: string
+        lastUpdate:
+          type: string
+        study:
+          $ref: "#/components/schemas/Study"
+        parentPatientId:
+          type: string
+        patient:
+          $ref: "#/components/schemas/Patient"
+        seriesIds:
+          type: array
+          items:
+            type: string
+        stable:
+          type: boolean
+    InstancePreviewDTO:
+      type: object
+      properties:
+        data:
+          type: string
+          description: Base64 representation of the instance preview
     PriceDTO:
       type: object
       description: Class representing a prices
