@@ -17,7 +17,6 @@ import {
   formatAllFieldValues,
   getFromFields,
   parseDate,
-  parseDateTime,
 } from "../../../../libraries/formDataHandling/functions";
 import {
   createLabRequest,
@@ -59,7 +58,11 @@ const ExamRequestForm: FC<ExamRequestProps> = ({
       return exams.map((item) => {
         return {
           value: item.code ?? "",
-          label: item.description ?? "",
+          label:
+            (item.description &&
+              item.description?.length > 30 &&
+              item.description.slice(0, 30) + "...") ||
+            (item.description ?? ""),
         };
       });
     } else return [];
@@ -107,7 +110,7 @@ const ExamRequestForm: FC<ExamRequestProps> = ({
     lab.patName = patient?.firstName + " " + patient?.secondName;
     lab.sex = patient?.sex;
     lab.age = patient?.age;
-    lab.labDate = parseDateTime(lab.labDate ?? new Date().toISOString());
+    lab.labDate = parseDate(lab.labDate ?? new Date().toISOString());
     lab.registrationDate = parseDate(lab.registrationDate ?? "");
     lab.inOutPatient = patientData?.status
       ? patientData.status === "O"
@@ -184,7 +187,10 @@ const ExamRequestForm: FC<ExamRequestProps> = ({
       <div className="patientExamRequestForm">
         <h5 className="">{t("lab.examrequest")}</h5>
 
-        <form className="patientExamRequestForm" onSubmit={formik.handleSubmit}>
+        <form
+          className="patientExamRequestForm__form"
+          onSubmit={formik.handleSubmit}
+        >
           <div className="row start-sm center-xs">
             {!patient && (
               <div className="patientExamRequestForm__item col-5">

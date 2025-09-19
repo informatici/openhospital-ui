@@ -22,7 +22,6 @@ const TableBodyRow: FunctionComponent<IRowProps> = ({
   expanded,
   dateFields,
   detailsExcludedFields,
-  customRenderDetails,
 }) => {
   const [open, setOpen] = React.useState(false);
 
@@ -81,9 +80,7 @@ const TableBodyRow: FunctionComponent<IRowProps> = ({
               unmountOnExit
               className="collapseWrapper"
             >
-              {customRenderDetails ? (
-                customRenderDetails(row)
-              ) : renderCellDetails ? (
+              {renderCellDetails ? (
                 renderCellDetails({ ...coreRow })
               ) : (
                 <ul>

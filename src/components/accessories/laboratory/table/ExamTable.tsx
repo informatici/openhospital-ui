@@ -126,14 +126,14 @@ export const ExamTable: FC<IExamTableProps> = ({
     setOpen(false);
   };
   const handleView = (row: any) => {
-    dispatch(getLabWithRowsByCode(row.code));
+    dispatch(getLabWithRowsByCode(row.id));
     handleOpen();
   };
 
   const onEdit = (row: any) => {
     if (handleEdit !== undefined) {
       handleEdit(
-        data.find((item) => item.laboratoryDTO?.code === row.code)
+        data.find((item) => item.laboratoryDTO?.code === row.id)
           ?.laboratoryDTO ?? {}
       );
     }

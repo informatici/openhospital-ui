@@ -13,16 +13,8 @@
 
 import type { Observable } from 'rxjs';
 import type { AjaxResponse } from 'rxjs/ajax';
-import { BaseAPI, throwIfNullOrUndefined, encodeURI } from '../runtime';
+import { BaseAPI } from '../runtime';
 import type { OperationOpts, HttpHeaders } from '../runtime';
-
-export interface PrintPatientExamRequestPdfRequest {
-    patientId: number;
-}
-
-export interface PrintPatientExaminationPdfRequest {
-    examinationId: number;
-}
 
 /**
  * no description
@@ -31,69 +23,31 @@ export class ReportsApi extends BaseAPI {
 
     /**
      */
-    printDiseasesListPdf(): Observable<Blob>
-    printDiseasesListPdf(opts?: OperationOpts): Observable<AjaxResponse<Blob>>
-    printDiseasesListPdf(opts?: OperationOpts): Observable<Blob | AjaxResponse<Blob>> {
+    printDiseasesListPdf(): Observable<string>
+    printDiseasesListPdf(opts?: OperationOpts): Observable<AjaxResponse<string>>
+    printDiseasesListPdf(opts?: OperationOpts): Observable<string | AjaxResponse<string>> {
         const headers: HttpHeaders = {
         };
 
-        return this.request<Blob>({
+        return this.request<string>({
             url: '/reports/diseases-list',
             method: 'GET',
             headers,
-            responseType: 'blob',
         }, opts?.responseOpts);
     };
 
     /**
      */
-    printExamsListPdf(): Observable<Blob>
-    printExamsListPdf(opts?: OperationOpts): Observable<AjaxResponse<Blob>>
-    printExamsListPdf(opts?: OperationOpts): Observable<Blob | AjaxResponse<Blob>> {
+    printExamsListPdf(): Observable<string>
+    printExamsListPdf(opts?: OperationOpts): Observable<AjaxResponse<string>>
+    printExamsListPdf(opts?: OperationOpts): Observable<string | AjaxResponse<string>> {
         const headers: HttpHeaders = {
         };
 
-        return this.request<Blob>({
+        return this.request<string>({
             url: '/reports/exams-list',
             method: 'GET',
             headers,
-            responseType: 'blob',
-        }, opts?.responseOpts);
-    };
-
-    /**
-     */
-    printPatientExamRequestPdf({ patientId }: PrintPatientExamRequestPdfRequest): Observable<Blob>
-    printPatientExamRequestPdf({ patientId }: PrintPatientExamRequestPdfRequest, opts?: OperationOpts): Observable<AjaxResponse<Blob>>
-    printPatientExamRequestPdf({ patientId }: PrintPatientExamRequestPdfRequest, opts?: OperationOpts): Observable<Blob | AjaxResponse<Blob>> {
-        throwIfNullOrUndefined(patientId, 'patientId', 'printPatientExamRequestPdf');
-
-        const headers: HttpHeaders = {
-        };
-
-        return this.request<Blob>({
-            url: '/reports/patientexamrequest/{patientId}'.replace('{patientId}', encodeURI(patientId)),
-            method: 'GET',
-            headers,
-            responseType: 'blob',
-        }, opts?.responseOpts);
-    };
-
-    /**
-     */
-    printPatientExaminationPdf({ examinationId }: PrintPatientExaminationPdfRequest): Observable<Blob>
-    printPatientExaminationPdf({ examinationId }: PrintPatientExaminationPdfRequest, opts?: OperationOpts): Observable<AjaxResponse<Blob>>
-    printPatientExaminationPdf({ examinationId }: PrintPatientExaminationPdfRequest, opts?: OperationOpts): Observable<Blob | AjaxResponse<Blob>> {
-        throwIfNullOrUndefined(examinationId, 'examinationId', 'printPatientExaminationPdf');
-
-        const headers: HttpHeaders = {
-        };
-
-        return this.request<Blob>({
-            url: '/reports/patientexamination/{examinationId}'.replace('{examinationId}', encodeURI(examinationId)),
-            method: 'GET',
-            headers,
-            responseType: 'blob',
         }, opts?.responseOpts);
     };
 

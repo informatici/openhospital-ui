@@ -27,7 +27,7 @@ export interface SettingDTO {
      * @type {string}
      * @memberof SettingDTO
      */
-    code: string;
+    code?: string;
     /**
      * Setting category
      * @type {string}
@@ -51,7 +51,7 @@ export interface SettingDTO {
      * @type {string}
      * @memberof SettingDTO
      */
-    defaultValue: string;
+    defaultValue?: string;
     /**
      * The value of the setting
      * @type {string}
@@ -69,7 +69,7 @@ export interface SettingDTO {
      * @type {boolean}
      * @memberof SettingDTO
      */
-    needRestart?: boolean;
+    needRestart: boolean;
 }
 
 /**
@@ -85,7 +85,8 @@ export enum SettingDTOCategoryEnum {
     Reports = 'reports',
     Pharmacy = 'pharmacy',
     Gui = 'gui',
-    Application = 'application'
+    Application = 'application',
+    Integration = 'integration'
 }
 /**
  * @export

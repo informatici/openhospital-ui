@@ -9,5 +9,4 @@ export type IUserSection =
   | "operation"
   | "admission"
   | "discharge"
-  | "clinic"
-  | "radiology";
+  | "clinic";

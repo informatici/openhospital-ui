@@ -6,8 +6,6 @@ interface IOwnProps {
   onSubmit: (triage: PatientExaminationDTO) => void;
   submitButtonLabel: string;
   resetButtonLabel: string;
-  printButtonLabel: string;
-  saveAndPrint: () => void;
   isLoading: boolean;
   creationMode: boolean;
   shouldResetForm: boolean;

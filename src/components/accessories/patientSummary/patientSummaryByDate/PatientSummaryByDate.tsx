@@ -1,7 +1,6 @@
 import { CircularProgress } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-import { printSubject } from "libraries/printUtilis/printUtils";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { renderSummary } from "../../../../libraries/reduxUtils/convert";
 import { loadSummaryData } from "../../../../state/summary";
 import { IState } from "../../../../types";
@@ -11,7 +10,6 @@ import useSummaryMetaData from "../useSummaryMetaData";
 
 const PatientSummaryByDate = () => {
   const dispatch = useAppDispatch();
-  const [expanded, setExpanded] = useState(false);
   const { labels, dateFields, header, order } = useSummaryMetaData();
   const patientCode = useAppSelector(
     (state: IState) => state.patients.selectedPatient.data?.code
@@ -23,15 +21,6 @@ const PatientSummaryByDate = () => {
     hasFailed: state.summary.summaryApisCall.status === "FAIL",
     summaryData: state.summary.summaryApisCall.data ?? [],
   }));
-
-  useEffect(() => {
-    const subscription = printSubject.subscribe(() => {
-      setExpanded(true);
-    });
-    return () => {
-      subscription.unsubscribe();
-    };
-  }, []);
 
   useEffect(() => {
     if (patientCode) dispatch(loadSummaryData(patientCode));
@@ -57,7 +46,6 @@ const PatientSummaryByDate = () => {
             isCollapsabile={true}
             showEmptyCell={false}
             detailsExcludedFields={["date"]}
-            isExpanded={expanded}
           />
         ) : (
           <CircularProgress

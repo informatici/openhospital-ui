@@ -1,6 +1,6 @@
 import { CircularProgress } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { renderSummary } from "../../../../libraries/reduxUtils/convert";
 import { loadSummaryData } from "../../../../state/summary";
@@ -8,7 +8,6 @@ import { IState } from "../../../../types";
 import Table from "../../table/Table";
 import { ORDER_BY_TYPE_PAGE_SIZE } from "../consts";
 
-import { printSubject } from "libraries/printUtilis/printUtils";
 import { SummaryType } from "../types";
 import useSummaryMetaData from "../useSummaryMetaData";
 
@@ -16,7 +15,7 @@ const PatientSummaryByType = () => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const { labels, dateFields, header, order } = useSummaryMetaData();
-  const [expanded, setExpanded] = useState(false);
+
   const patientCode = useAppSelector(
     (state: IState) => state.patients.selectedPatient.data?.code
   );
@@ -42,15 +41,6 @@ const PatientSummaryByType = () => {
     return summaryData.filter((item) => item.type === type);
   };
 
-  useEffect(() => {
-    const subscription = printSubject.subscribe(() => {
-      setExpanded(true);
-    });
-    return () => {
-      subscription.unsubscribe();
-    };
-  }, []);
-
   return (
     <>
       {!isLoading ? (
@@ -74,7 +64,6 @@ const PatientSummaryByType = () => {
                 isCollapsabile={true}
                 showEmptyCell={false}
                 detailsExcludedFields={["date"]}
-                isExpanded={expanded}
               />
             </div>
           )}
@@ -100,7 +89,6 @@ const PatientSummaryByType = () => {
                 isCollapsabile={true}
                 showEmptyCell={false}
                 detailsExcludedFields={["date"]}
-                isExpanded={expanded}
               />
             </div>
           )}
@@ -125,7 +113,6 @@ const PatientSummaryByType = () => {
                 isCollapsabile={true}
                 showEmptyCell={false}
                 detailsExcludedFields={["date"]}
-                isExpanded={expanded}
               />
             </div>
           )}
@@ -151,7 +138,6 @@ const PatientSummaryByType = () => {
                 isCollapsabile={true}
                 showEmptyCell={false}
                 detailsExcludedFields={["date"]}
-                isExpanded={expanded}
               />
             </div>
           )}
@@ -175,7 +161,6 @@ const PatientSummaryByType = () => {
                 isCollapsabile={true}
                 showEmptyCell={false}
                 detailsExcludedFields={["date"]}
-                isExpanded={expanded}
               />
             </div>
           )}
@@ -199,7 +184,6 @@ const PatientSummaryByType = () => {
                 isCollapsabile={true}
                 showEmptyCell={false}
                 detailsExcludedFields={["date"]}
-                isExpanded={expanded}
               />
             </div>
           )}
@@ -224,7 +208,6 @@ const PatientSummaryByType = () => {
                 isCollapsabile={true}
                 showEmptyCell={false}
                 detailsExcludedFields={["date"]}
-                isExpanded={expanded}
               />
             </div>
           )}
