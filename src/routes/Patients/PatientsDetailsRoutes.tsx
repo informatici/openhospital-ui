@@ -15,6 +15,7 @@ import VisitDetailsContent from "../../components/activities/patientDetailsActiv
 
 export const PatientDetailsRoutes: FC = () => {
   const { t } = useTranslation();
+
   return (
     <Routes>
       <Route element={<PatientDetailsActivity />}>

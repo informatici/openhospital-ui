@@ -3,6 +3,8 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import i18n from "i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
+import ICU from "i18next-icu";
+import "moment/min/locales";
 import React, { FunctionComponent, useState } from "react";
 import { initReactI18next } from "react-i18next";
 import "./App.scss";
@@ -12,6 +14,7 @@ import { I18N_FALLBACK_LNG } from "./resources/config";
 import { MainRouter } from "./routes";
 
 i18n
+  .use(ICU)
   .use(initReactI18next)
   .use(LanguageDetector)
   .init({

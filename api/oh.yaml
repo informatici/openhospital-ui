@@ -514,6 +514,32 @@ paths:
                 $ref: "#/components/schemas/SupplierDTO"
       security:
       - bearerAuth: []
+  /settings/{code}:
+    put:
+      tags:
+      - Settings
+      operationId: updateSetting
+      parameters:
+      - name: code
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateSettingDTO"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SettingDTO"
+      security:
+      - bearerAuth: []
   /pricesothers/{id}:
     put:
       tags:
@@ -2501,6 +2527,20 @@ paths:
                 type: boolean
       security:
       - bearerAuth: []
+  /settings/reset:
+    post:
+      tags:
+      - Settings
+      operationId: resetAllSettings
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: boolean
+      security:
+      - bearerAuth: []
   /pricesothers:
     get:
       tags:
@@ -3805,6 +3845,63 @@ paths:
             application/json:
               schema:
                 type: boolean
+      security:
+      - bearerAuth: []
+  /settings:
+    get:
+      tags:
+      - Settings
+      operationId: getAllSettings
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/SettingDTO"
+      security:
+      - bearerAuth: []
+  /settings/{id}:
+    get:
+      tags:
+      - Settings
+      operationId: getSettingById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SettingDTO"
+      security:
+      - bearerAuth: []
+  /settings/code/{code}:
+    get:
+      tags:
+      - Settings
+      operationId: getSettingByCode
+      parameters:
+      - name: code
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SettingDTO"
       security:
       - bearerAuth: []
   /reports/exams-list:
@@ -6281,13 +6378,13 @@ components:
           format: int32
           description: lock
           example: 0
-        female:
+        pharmacy:
           type: boolean
         male:
           type: boolean
-        opd:
+        female:
           type: boolean
-        pharmacy:
+        opd:
           type: boolean
       required:
       - beds
@@ -6715,6 +6812,77 @@ components:
       required:
       - supId
       - supName
+    UpdateSettingDTO:
+      type: object
+      properties:
+        value:
+          type: string
+          description: The value of the setting
+          example: "FALSE"
+    SettingDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          description: Setting ID
+          example: 1
+        code:
+          type: string
+          description: Setting code
+          example: AUTOMATICLOT_IN
+          maxLength: 50
+          minLength: 1
+        category:
+          type: string
+          description: Setting category
+          enum:
+          - general
+          - telemetry
+          - security
+          - imaging
+          - accounting
+          - reports
+          - pharmacy
+          - gui
+          - application
+          - integration
+          example: application
+        type:
+          type: string
+          description: value type
+          enum:
+          - bool
+          - number
+          - text
+          - select
+          example: bool
+        valueOptions:
+          type: string
+          description: Comma-separated list of possible values
+          maxLength: 500
+        defaultValue:
+          type: string
+          description: Default value
+          example: "TRUE"
+          minLength: 1
+        value:
+          type: string
+          description: The value of the setting
+          example: "FALSE"
+        description:
+          type: string
+          description: Description
+          maxLength: 500
+        needRestart:
+          type: boolean
+          description: Whether the app needs restart after the setting has been modified
+          example: true
+      required:
+      - category
+      - id
+      - needRestart
+      - type
     PricesOthersDTO:
       type: object
       description: Class representing a price others
@@ -7021,11 +7189,11 @@ components:
           type: string
           description: "Flag record deleted, values are 'Y' OR 'N' "
           example: "N"
+        fhu:
+          type: string
         yprog:
           type: integer
           format: int32
-        fhu:
-          type: string
       required:
       - admDate
       - admitted

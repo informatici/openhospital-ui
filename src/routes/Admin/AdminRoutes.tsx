@@ -1,4 +1,5 @@
 import { EditHospital } from "components/accessories/admin/hospital";
+import Settings from "components/accessories/admin/settings";
 import React, { ReactNode, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Navigate, Route, Routes } from "react-router";
@@ -246,6 +247,15 @@ export const AdminRoutes = () => {
           <AdminActivityContent
             title={t("nav.users")}
             children={<EditUser />}
+          />
+        ),
+      },
+      {
+        path: getPath(PATHS.admin_settings),
+        element: (
+          <AdminActivityContent
+            title={t("nav.settings")}
+            children={<Settings />}
           />
         ),
       },

@@ -32,6 +32,7 @@ export * from './PriceListsApi';
 export * from './ReportsApi';
 export * from './RootControllerApi';
 export * from './SMSApi';
+export * from './SettingsApi';
 export * from './StockMovementsApi';
 export * from './SuppliersApi';
 export * from './TherapiesApi';
