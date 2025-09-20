@@ -1,4 +1,5 @@
 import { EncounterDTO, EncounterDTOStatusEnum } from "generated";
+import { downloadBlob } from "libraries/downloadUtils/downloadUtils";
 import { useAppDispatch, useAppSelector } from "libraries/hooks";
 import { usePermission } from "libraries/permissionUtils/usePermission";
 import { scrollToElement } from "libraries/uiUtils/scrollToElement";
@@ -179,8 +180,15 @@ export const Encounters = () => {
   };
 
   const onPrint = (encounter: EncounterDTO) => {
-    dispatch(printEncounter({ encounterCode: encounter.code }));
-    console.log(encounter);
+    dispatch(printEncounter({ encounterCode: encounter.code }))
+      .unwrap()
+      .then((result) => {
+        if (result instanceof Blob)
+          downloadBlob(
+            result,
+            `encounter-report-${encounter?.id}-${new Date().getTime()}.pdf`
+          );
+      });
   };
 
   const onCloseEncounter = () => {
