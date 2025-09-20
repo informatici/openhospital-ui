@@ -12,6 +12,7 @@ import {
   createEncounterReset,
   getCurrentEncounterByPatient,
   getEncountersByPatient,
+  printEncounter,
   updateEncounter,
   updateEncounterReset,
 } from "state/encounter";
@@ -177,6 +178,11 @@ export const Encounters = () => {
     );
   };
 
+  const onPrint = (encounter: EncounterDTO) => {
+    dispatch(printEncounter({ encounterCode: encounter.code }));
+    console.log(encounter);
+  };
+
   const onCloseEncounter = () => {
     if (updateStatus === "SUCCESS") {
       setIsCloseEncounterDialogOpen(true);
@@ -230,6 +236,7 @@ export const Encounters = () => {
 
         <EncounterTable
           handelView={onView}
+          handelPrint={onPrint}
           shouldUpdateTable={shouldUpdateTable}
           activityTransitionState={activityTransitionState}
         />
@@ -238,7 +245,8 @@ export const Encounters = () => {
           isOpen={
             (createStatus === "SUCCESS" || updateStatus === "SUCCESS") &&
             !isEditingCurrent &&
-            !isCloseEncounterDialogOpen && closedSuccess
+            !isCloseEncounterDialogOpen &&
+            closedSuccess
           }
           title={creationMode ? t("encounter.created") : t("encounter.updated")}
           icon={checkIcon}

@@ -16,6 +16,10 @@ import type { AjaxResponse } from 'rxjs/ajax';
 import { BaseAPI, throwIfNullOrUndefined, encodeURI } from '../runtime';
 import type { OperationOpts, HttpHeaders } from '../runtime';
 
+export interface PrintEncounterReportPdfRequest {
+    encounterCode: string;
+}
+
 export interface PrintPatientExamRequestPdfRequest {
     patientId: number;
 }
@@ -39,6 +43,24 @@ export class ReportsApi extends BaseAPI {
 
         return this.request<Blob>({
             url: '/reports/diseases-list',
+            method: 'GET',
+            headers,
+            responseType: 'blob',
+        }, opts?.responseOpts);
+    };
+
+    /**
+     */
+    printEncounterReportPdf({ encounterCode }: PrintEncounterReportPdfRequest): Observable<Blob>
+    printEncounterReportPdf({ encounterCode }: PrintEncounterReportPdfRequest, opts?: OperationOpts): Observable<AjaxResponse<Blob>>
+    printEncounterReportPdf({ encounterCode }: PrintEncounterReportPdfRequest, opts?: OperationOpts): Observable<Blob | AjaxResponse<Blob>> {
+        throwIfNullOrUndefined(encounterCode, 'encounterCode', 'printEncounterReportPdf');
+
+        const headers: HttpHeaders = {
+        };
+
+        return this.request<Blob>({
+            url: '/reports/encounter/{encounterCode}'.replace('{encounterCode}', encodeURI(encounterCode)),
             method: 'GET',
             headers,
             responseType: 'blob',

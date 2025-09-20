@@ -11,12 +11,14 @@ import Table from "../../table/Table";
 interface IOwnProps {
   shouldUpdateTable: boolean;
   handelView: (row: any) => void;
+  handelPrint: (row: any) => void;
   activityTransitionState: string;
 }
 
 const EncounterTable: FunctionComponent<IOwnProps> = ({
   shouldUpdateTable,
   handelView,
+  handelPrint,
   activityTransitionState,
 }) => {
   const { t } = useTranslation();
@@ -107,6 +109,7 @@ const EncounterTable: FunctionComponent<IOwnProps> = ({
                 rowsPerPage={5}
                 isCollapsabile={true}
                 onDetails={handelViewDetails}
+                onPrint={handelPrint}
                 initialOrderBy="disDate"
                 showEmptyCell={false}
               />

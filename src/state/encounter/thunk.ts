@@ -1,11 +1,13 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { EncounterApi, EncounterDTO, ReportsApi } from "generated";
 import { wrapper } from "libraries/apiUtils/wrapper";
 import { firstValueFrom } from "rxjs";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 import { Param } from "./param";
-import { EncounterApi, EncounterDTO } from "generated";
 
 const api = new EncounterApi(customConfiguration());
+
+const apiReport = new ReportsApi(customConfiguration());
 
 export const createEncounter = createAsyncThunk(
   "encounter/CREATE_ENCOUNTER",
@@ -58,9 +60,9 @@ export const getEncounterLaboratoryExams = createAsyncThunk(
 export const getEncounterExamRequests = createAsyncThunk(
   "encounters/GET_ENCOUNTER_EXAM_REQUESTS",
   async (payload: { code: string }, thunkApi) =>
-    firstValueFrom(wrapper(() => api.getLaboratoryExamRequestByEncounter(payload))).catch(
-      (error) => thunkApi.rejectWithValue(error.response)
-    )
+    firstValueFrom(
+      wrapper(() => api.getLaboratoryExamRequestByEncounter(payload))
+    ).catch((error) => thunkApi.rejectWithValue(error.response))
 );
 
 export const getEncounterExaminations = createAsyncThunk(
@@ -82,8 +84,15 @@ export const getEncounterOpds = createAsyncThunk(
 export const getEncounterConditionings = createAsyncThunk(
   "encounters/GET_ENCOUNTER_CONDITIONINGS",
   async (payload: { code: string }, thunkApi) =>
-    firstValueFrom(wrapper(() => api.getConditioningByPatientEncounter(payload))).catch(
-      (error) => thunkApi.rejectWithValue(error.response)
-    )
+    firstValueFrom(
+      wrapper(() => api.getConditioningByPatientEncounter(payload))
+    ).catch((error) => thunkApi.rejectWithValue(error.response))
 );
 
+export const printEncounter = createAsyncThunk(
+  "encounters/PRINT_ENCOUNTER_REPORT",
+  async (payload: { encounterCode: string }, thunkApi) =>
+    firstValueFrom(
+      wrapper(() => apiReport.printEncounterReportPdf(payload))
+    ).catch((error) => thunkApi.rejectWithValue(error.response))
+);

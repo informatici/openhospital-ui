@@ -40,6 +40,9 @@ export const encounterSlice = createSlice({
     resetPatientEncounterSelection: (state) => {
       state.selectedPatientEncounter = initial.selectedPatientEncounter;
     },
+    printEncounterReset: (state) => {
+      state.printEncounter = initial.printEncounter;
+    },
   },
   extraReducers: (builder) =>
     builder
@@ -161,6 +164,21 @@ export const encounterSlice = createSlice({
       })
       .addCase(thunks.getEncounterOpds.rejected, (state, action) => {
         state.encounterOpds = ApiResponse.error(action.payload);
+      })
+
+      // Print Encounter report
+      .addCase(thunks.printEncounter.pending, (state) => {
+        state.printEncounter = ApiResponse.loading();
+      })
+      .addCase(thunks.printEncounter.fulfilled, (state, action) => {
+        if (action.payload instanceof Blob) {
+          state.printEncounter = ApiResponse.value(action.payload);
+        } else {
+          state.printEncounter = ApiResponse.error(action.payload);
+        }
+      })
+      .addCase(thunks.printEncounter.rejected, (state, action) => {
+        state.printEncounter = ApiResponse.error(action.payload);
       }),
 });
 
