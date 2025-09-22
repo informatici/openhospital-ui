@@ -81,6 +81,8 @@ const MedicalHistory: FC = () => {
   const onSubmit = (mh: MedicalHistoryDTO) => {
     setShouldResetForm(false);
     if (creationMode) {
+      mh.drugAllergy = mh.allergyPrecision ? true : false;
+      mh.allergyPrecision = mh.allergyPrecision;
       mh.patient = patient!;
       dispatch(createMedicalHistory(mh));
     } else {
