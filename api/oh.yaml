@@ -6924,9 +6924,11 @@ components:
           format: int32
           description: lock
           example: 0
+        pharmacy:
+          type: boolean
         male:
           type: boolean
-        pharmacy:
+        opd:
           type: boolean
         female:
           type: boolean
@@ -7388,6 +7390,7 @@ components:
           description: Lock
           example: 0
       required:
+      - supId
       - supName
     UpdateSettingDTO:
       type: object

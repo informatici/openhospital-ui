@@ -25,5 +25,4 @@ export const getInitialFields: (
     value: supplier?.supPhone ? supplier?.supPhone : "",
   },
   supNote: { type: "text", value: supplier?.supNote ? supplier?.supNote : "" },
-  lock: { type: "number", value: `${supplier?.lock}` ?? "" },
 });

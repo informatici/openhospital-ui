@@ -21,9 +21,7 @@ export const Suppliers = () => {
   };
 
   const handleDelete = (row: SupplierDTO) => {
-    if (row.supId !== undefined) {
-      dispatch(deleteSupplier(row.supId));
-    }
+    dispatch(deleteSupplier(row.supId));
   };
 
   return (
