@@ -31,15 +31,7 @@ export const patientSlice = createSlice({
         state.searchResults = ApiResponse.loading();
       })
       .addCase(thunks.searchPatient.fulfilled, (state, action) => {
-        if (Array.isArray(action.payload)) {
-          state.searchResults = isEmpty(action.payload)
-            ? ApiResponse.empty()
-            : ApiResponse.value(action.payload);
-        } else {
-          state.searchResults = ApiResponse.error({
-            message: "Unexpected response payload",
-          });
-        }
+        state.searchResults = ApiResponse.value(action.payload);
       })
       .addCase(thunks.searchPatient.rejected, (state, action) => {
         state.searchResults = ApiResponse.error(action.payload);

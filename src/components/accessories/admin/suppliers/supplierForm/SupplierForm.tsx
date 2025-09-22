@@ -74,7 +74,7 @@ const SupplierForm: FC<ISupplierFormProps> = ({
     onSubmit: (values) => {
       const formattedValues = formatAllFieldValues(fields, values);
       if (creationMode) {
-        formattedValues.supId = null;
+        formattedValues.supId = 0;
       }
       onSubmit(formattedValues as any);
     },

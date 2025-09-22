@@ -20,7 +20,7 @@ export interface SupplierDTO {
      * @type {number}
      * @memberof SupplierDTO
      */
-    supId?: number;
+    supId: number;
     /**
      * The supplier\'s name
      * @type {string}
