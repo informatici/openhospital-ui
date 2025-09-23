@@ -120,18 +120,21 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
         </div>
       )}
 
-      <div
-        className={
-          "align__element patientDetails__main_menu__item " + isActive("visits")
-        }
-        onClick={() => {
-          changeUserSection("visits");
-        }}
-      >
-        <Pageview fontSize="small" style={{ color: "white" }} />
-        <span>{t("nav.consultancy")}:</span>
-        <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
-      </div>
+      {!encountersEnabled && (
+        <div
+          className={
+            "align__element patientDetails__main_menu__item " +
+            isActive("visits")
+          }
+          onClick={() => {
+            changeUserSection("visits");
+          }}
+        >
+          <Pageview fontSize="small" style={{ color: "white" }} />
+          <span>{t("nav.consultancy")}:</span>
+          <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
+        </div>
+      )}
 
       <div
         className={

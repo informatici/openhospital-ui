@@ -113,7 +113,10 @@ export const PatientDetailsRoutes: FC<{
             />
           }
         />
-        <Route path="visits" element={<VisitDetailsContent />} />
+
+        {!encountersEnabled && (
+          <Route path="visits" element={<VisitDetailsContent />} />
+        )}
         <Route
           path="laboratory"
           element={

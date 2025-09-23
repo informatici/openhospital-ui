@@ -210,7 +210,7 @@ export const EditUserForm = ({
         info={t("user.updatedSuccessMessage")}
         primaryButtonLabel="Ok"
         handlePrimaryButtonClick={() => {
-          navigate(PATHS.admin_users);
+          navigate(PATHS.admin_users, { replace: true });
         }}
         handleSecondaryButtonClick={() => ({})}
       />

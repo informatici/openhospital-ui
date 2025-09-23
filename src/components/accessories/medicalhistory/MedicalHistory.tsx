@@ -13,7 +13,6 @@ import {
   updateMedicalHistory,
   updateMedicalHistoryReset,
 } from "state/medicalhistory";
-import { getPatient } from "state/patients";
 import checkIcon from "../../../assets/check-icon.png";
 import { IState } from "../../../types";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
@@ -23,6 +22,7 @@ import MedicalHistoryTable from "./medicalHistoryTable/MedicalHistoryTable";
 import "./styles.scss";
 import { MedicalHistoryTransitionState } from "./types";
 import { useFields } from "./useFields";
+import { getPatient } from "state/patients/thunk";
 
 const MedicalHistory: FC = () => {
   const { t } = useTranslation();
@@ -81,6 +81,7 @@ const MedicalHistory: FC = () => {
   const onSubmit = (mh: MedicalHistoryDTO) => {
     setShouldResetForm(false);
     if (creationMode) {
+      mh.drugAllergy = mh.allergyPrecision ? true : false;
       mh.patient = patient!;
       dispatch(createMedicalHistory(mh));
     } else {

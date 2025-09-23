@@ -4,6 +4,7 @@ import {
   ConditioningDTO,
   EncounterDTO,
   LaboratoryDTO,
+  MedicalHistoryDTO,
   OpdWithOperationRowDTO,
   PatientExaminationDTO,
 } from "generated";
@@ -21,4 +22,5 @@ export type IEncountersState = {
   encounterExamninations: ApiResponse<Array<PatientExaminationDTO>>;
   encounterConditionings: ApiResponse<Array<ConditioningDTO>>;
   encounterOpds: ApiResponse<Array<OpdWithOperationRowDTO>>;
+  encounterMedicalHistories: ApiResponse<Array<MedicalHistoryDTO>>;
 };
