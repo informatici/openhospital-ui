@@ -674,7 +674,7 @@
       "transfusion": "Transfusion ",
       "lastTransfusionDate": "Date dernière transfusion",
       "sickleCell": "Drépanocytose",
-      "drugAllergy": "Allergie médicamenteuse: Préciser",
+      "drugAllergy": "Allergie médicamenteuse ",
       "hemolysis": "Hémolyse",
       "otherPathologies": "Autres"
     },
@@ -1396,6 +1396,7 @@
     "performedAt": "Date",
     "others": "Autres",
     "cpap": "CPAP",
+    "code": "Code",
     "previousentries": "Mises en condition précédentes",
     "updated": "Mise en condition mise à jour",
     "createsuccess": "La mise en condition a été enregistrée avec succès.",
