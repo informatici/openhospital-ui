@@ -49,7 +49,7 @@ const MedicalHistoryTable: FunctionComponent<IOwnProps> = ({
     ),
     sickleCell: t("medicalHistory.personalPathological.sickleCell"),
     drugAllergy: t("medicalHistory.personalPathological.drugAllergy"),
-    allergyPrecision: t("medicalHistory.personalPathological.drugAllergy"),
+    allergyPrecision: t("medicalHistory.personalPathological.allergyPrecision"),
     hemylosis: t("medicalHistory.personalPathological.hemolysis"),
     otherPersonalPathologies: t(
       "medicalHistory.personalPathological.otherPathologies"
@@ -104,7 +104,8 @@ const MedicalHistoryTable: FunctionComponent<IOwnProps> = ({
           ? renderDateTime(item.lastTransfusionDate)
           : "",
         sickleCell: item.sickleCell ? t("common.yes") : t("common.no"),
-        drugAllergy: item.drugAllergy ? item.allergyPrecision ?? t("common.yes") : t("common.no"),
+        drugAllergy: item.drugAllergy ? t("common.yes") : t("common.no"),
+        allergyPrecision: item.allergyPrecision ?? "",
         hemylosis: item.hemylosis ?? "",
         otherPersonalPathologies: item.otherPersonalPathologies ?? "",
         otherFamilyPathologies: item.otherFamilyPathologies ?? "",

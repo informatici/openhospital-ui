@@ -709,6 +709,7 @@
       "lastTransfusionDate": "Date of Last Transfusion",
       "sickleCell": "Sickle Cell Disease",
       "drugAllergy": "Drug Allergy ",
+      "allergyPrecision": "Allergy Precision",
       "hemolysis": "Hemolysis",
       "otherPathologies": "Others"
     },

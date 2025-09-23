@@ -23,6 +23,7 @@ import OHFeedback from "../feedback/OHFeedback";
 import LangSwitcher from "../langSwitcher/LangSwitcher";
 import "./styles.scss";
 import { IOwnProps } from "./types";
+import { useEncountersEnabled } from "libraries/hooks";
 
 const AppHeader: FunctionComponent<IOwnProps> = ({ breadcrumbMap }) => {
   const keys = Object.keys(breadcrumbMap);
@@ -54,6 +55,7 @@ const AppHeader: FunctionComponent<IOwnProps> = ({ breadcrumbMap }) => {
   };
   const navigate = useNavigate();
 
+  const encountersEnabled = useEncountersEnabled();
   const canAccessPatient = usePermission("patients.access");
   const canAccessVisit = usePermission("opds.access");
   const canAccessLaboratory = usePermission("laboratories.access");
@@ -157,7 +159,7 @@ const AppHeader: FunctionComponent<IOwnProps> = ({ breadcrumbMap }) => {
                   {t("nav.patients")}
                 </div>
               )}
-              {canAccessVisit && (
+              {canAccessVisit && !encountersEnabled && (
                 <div
                   className="appHeader__nav__item"
                   onClick={() => navigate(PATHS.visits)}

@@ -675,6 +675,7 @@
       "lastTransfusionDate": "Date dernière transfusion",
       "sickleCell": "Drépanocytose",
       "drugAllergy": "Allergie médicamenteuse ",
+      "allergyPrecision": "Précision allergie médicamenteuse",
       "hemolysis": "Hémolyse",
       "otherPathologies": "Autres"
     },
