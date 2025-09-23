@@ -16,6 +16,7 @@ import Arrow from "../../../assets/arrow-w.svg";
 import "./styles.scss";
 import { TUserSection } from "./types";
 import { EncounterDTO } from "generated";
+import { useEncountersEnabled } from "libraries/hooks";
 
 interface IOwnProps {
   userSection: TUserSection;
@@ -26,6 +27,8 @@ const OutPatientEncounterDashboardMenu: FunctionComponent<IOwnProps> = ({
   userSection, encounter,
 }) => {
   const { t } = useTranslation();
+
+  const encountersEnabled = useEncountersEnabled();
 
   const isActive = useCallback(
     (value: string) => (value === userSection ? "active" : "default"),
@@ -93,6 +96,7 @@ const OutPatientEncounterDashboardMenu: FunctionComponent<IOwnProps> = ({
         <img src={Arrow} className="icon_toggle" alt="Accordion toggle" />
       </div>
 
+      {!encountersEnabled && (
       <div
         className={
           "align__element patientEncounter__main_menu__item " +
@@ -106,6 +110,7 @@ const OutPatientEncounterDashboardMenu: FunctionComponent<IOwnProps> = ({
         <span>{t("nav.visits")}:</span>
         <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
       </div>
+      )}
 
       <div
         className={

@@ -19,6 +19,7 @@ import { Permission } from "../../../libraries/permissionUtils/Permission";
 import "./styles.scss";
 import { TUserSection } from "./types";
 import { EncounterDTO } from "generated";
+import { useEncountersEnabled } from "libraries/hooks";
 
 interface IOwnProps {
   userSection: TUserSection;
@@ -29,6 +30,8 @@ const InPatientEncounterDashboardMenu: FunctionComponent<IOwnProps> = ({
   userSection, encounter,
 }) => {
   const { t } = useTranslation();
+
+  const encountersEnabled = useEncountersEnabled();
 
   const navigate = useNavigate();
 
@@ -96,6 +99,7 @@ const InPatientEncounterDashboardMenu: FunctionComponent<IOwnProps> = ({
         <img src={Arrow} className="icon_toggle" alt="Accordion toggle" />
       </div>
 
+      {!encountersEnabled && (
       <div
         className={
           "align__element patientEncounter__main_menu__item " +
@@ -109,7 +113,7 @@ const InPatientEncounterDashboardMenu: FunctionComponent<IOwnProps> = ({
         <span>{t("nav.consultancy")}:</span>
         <img src={Arrow} className="icon_toggle" alt="Accordion toogle" />
       </div>
-
+      )}
       <div
         className={
           "align__element patientEncounter__main_menu__item " +
