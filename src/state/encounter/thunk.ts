@@ -96,3 +96,11 @@ export const printEncounter = createAsyncThunk(
       wrapper(() => apiReport.printEncounterReportPdf(payload))
     ).catch((error) => thunkApi.rejectWithValue(error.response))
 );
+
+export const getEncounterMedicalHistories = createAsyncThunk(
+  "encounters/GET_ENCOUNTER_MEDICAL_HISTORIES",
+  async (payload: { code: string }, thunkApi) =>
+    firstValueFrom(
+      wrapper(() => api.getMedicalHistoriesEncounterByEncounter(payload))
+    ).catch((error) => thunkApi.rejectWithValue(error.response))
+);

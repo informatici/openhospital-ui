@@ -147,6 +147,7 @@ export const ExamsTable = ({ onDelete, onEdit, headerActions }: IOwnProps) => {
                   primaryButtonLabel="Ok"
                   handlePrimaryButtonClick={() => {
                     dispatch(deleteExamReset());
+                    dispatch(getExams());
                   }}
                   handleSecondaryButtonClick={() => ({})}
                 />

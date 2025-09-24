@@ -17,9 +17,12 @@ import PatientSummary from "../../components/accessories/patientSummary/PatientS
 import PatientTherapy from "../../components/accessories/patientTherapy/PatientTherapy";
 import PatientTriage from "../../components/accessories/patientTriage/PatientTriage";
 import NotFound from "../../components/activities/notFound/NotFound";
+import { useEncountersEnabled } from "libraries/hooks";
 
 export const PatientsEncounterRoutes: FC = () => {
   const { t } = useTranslation();
+
+  const encountersEnabled = useEncountersEnabled();
 
   const RadiologyRoutes = withPermission(
     "radiology.read",
@@ -77,7 +80,7 @@ export const PatientsEncounterRoutes: FC = () => {
             />
           }
         />
-        <Route path="visits" element={<VisitDetailsActivityContent />} />
+        {!encountersEnabled && <Route path="visits" element={<VisitDetailsActivityContent />} />}
         <Route
           path="laboratory"
           element={

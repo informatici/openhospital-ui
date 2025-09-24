@@ -708,7 +708,8 @@
       "transfusion": "Transfusion",
       "lastTransfusionDate": "Date of Last Transfusion",
       "sickleCell": "Sickle Cell Disease",
-      "drugAllergy": "Drug Allergy:Specify ",
+      "drugAllergy": "Drug Allergy ",
+      "allergyPrecision": "Allergy Precision",
       "hemolysis": "Hemolysis",
       "otherPathologies": "Others"
     },
@@ -1430,6 +1431,7 @@
     "performedAt": "Date",
     "others": "Others",
     "cpap": "CPAP",
+    "code": "Code",
     "created": "Conditioning created",
     "createsuccess": "Conditioning created successfully",
     "previousentries": "Previous conditionings",

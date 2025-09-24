@@ -141,6 +141,7 @@ export const VaccinesTable = ({
                   primaryButtonLabel="Ok"
                   handlePrimaryButtonClick={() => {
                     dispatch(deleteVaccineReset());
+                    dispatch(getVaccines());
                   }}
                   handleSecondaryButtonClick={() => ({})}
                 />

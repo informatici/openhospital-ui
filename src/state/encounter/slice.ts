@@ -165,6 +165,23 @@ export const encounterSlice = createSlice({
       .addCase(thunks.getEncounterOpds.rejected, (state, action) => {
         state.encounterOpds = ApiResponse.error(action.payload);
       })
+      .addCase(thunks.getEncounterMedicalHistories.pending, (state) => {
+        state.encounterMedicalHistories = ApiResponse.loading();
+      })
+      .addCase(
+        thunks.getEncounterMedicalHistories.fulfilled,
+        (state, action) => {
+          state.encounterMedicalHistories = isEmpty(action.payload)
+            ? ApiResponse.empty()
+            : ApiResponse.value(action.payload);
+        }
+      )
+      .addCase(
+        thunks.getEncounterMedicalHistories.rejected,
+        (state, action) => {
+          state.encounterMedicalHistories = ApiResponse.error(action.payload);
+        }
+      )
 
       // Print Encounter report
       .addCase(thunks.printEncounter.pending, (state) => {

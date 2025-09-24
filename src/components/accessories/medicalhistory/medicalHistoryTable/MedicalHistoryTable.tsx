@@ -7,6 +7,8 @@ import { useTranslation } from "react-i18next";
 import { getMedicalHistoryByPatientCode } from "state/medicalhistory";
 import InfoBox from "../../infoBox/InfoBox";
 import Table from "../../table/Table";
+import { useParams } from "react-router";
+import { getEncounterMedicalHistories } from "state/encounter";
 
 interface IOwnProps {
   shouldUpdateTable: boolean;
@@ -47,7 +49,7 @@ const MedicalHistoryTable: FunctionComponent<IOwnProps> = ({
     ),
     sickleCell: t("medicalHistory.personalPathological.sickleCell"),
     drugAllergy: t("medicalHistory.personalPathological.drugAllergy"),
-    allergyPrecision: t("medicalHistory.personalPathological.drugAllergy"),
+    allergyPrecision: t("medicalHistory.personalPathological.allergyPrecision"),
     hemylosis: t("medicalHistory.personalPathological.hemolysis"),
     otherPersonalPathologies: t(
       "medicalHistory.personalPathological.otherPathologies"
@@ -58,10 +60,12 @@ const MedicalHistoryTable: FunctionComponent<IOwnProps> = ({
   };
   const order = ["id"];
 
+  const { code } = useParams();
+
   const dispatch = useAppDispatch();
 
   const data = useAppSelector(
-    (state) => state.medicalhistory.getMedicalHistoryByPatientCode.data ?? []
+    (state) => code ? state.encounters.encounterMedicalHistories.data || [] : state.medicalhistory.getMedicalHistoryByPatientCode.data || []
   );
 
   const patientCode = useAppSelector(
@@ -69,10 +73,10 @@ const MedicalHistoryTable: FunctionComponent<IOwnProps> = ({
   );
 
   useEffect(() => {
-    if (shouldUpdateTable || patientCode) {
-      dispatch(getMedicalHistoryByPatientCode(patientCode!!));
+    if (shouldUpdateTable || patientCode || code) {
+      code ? dispatch(getEncounterMedicalHistories({ code: code as string })) : dispatch(getMedicalHistoryByPatientCode(patientCode!!));
     }
-  }, [shouldUpdateTable, dispatch, patientCode]);
+  }, [shouldUpdateTable, dispatch, patientCode, code]);
 
   const formatDataToDisplay = (data: MedicalHistoryDTO[]) => {
     return data.map((item) => {
