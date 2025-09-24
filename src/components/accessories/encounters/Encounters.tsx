@@ -217,6 +217,7 @@ export const Encounters = () => {
           <CurrentEncounter
             onEditChange={() => {}}
             onEditCode={onEdit}
+            onPrint={onPrint}
             onDelete={onDelete}
             onCloseEncounter={onCloseEncounter}
           />
