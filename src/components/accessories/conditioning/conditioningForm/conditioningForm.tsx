@@ -58,17 +58,12 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
     validationSchema,
     enableReinitialize: true,
     onSubmit: (values) => {
-      console.log("🔍 Valeurs Formik:", values);
-      console.log("🔍 Valeur TDR:", values.tdr);
-      
       const formattedValues = formatAllFieldValues(fields, values);
       const conditioningToSave: any = {
         ...formattedValues,
         aspiration: isAspirationChecked,
         cpap: isCpapChecked,
       };
-      
-      console.log("🔍 Données finales:", conditioningToSave);
       onSubmit(conditioningToSave as any);
       setIsAspirationCheckedChecked(false);
       setIsCpapChecked(false);

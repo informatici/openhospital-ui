@@ -43,6 +43,7 @@ const ConditioningTable: FunctionComponent<IOwnProps> = ({
     others: t("conditioning.others"),
     cpap: t("conditioning.cpap"),
     tdr: t("conditioning.tdr"),
+    conditionAtAdmission: t("admission.conditionAtAdmission.label"),
   };
 
   const order = ["performedAt"];
