@@ -232,7 +232,8 @@
     "motherage": "Age de la mère",
     "encounters": "Rencontres",
     "conditioning": "Mise en condition et état d'admission",
-    "medicalHistory": "Antécédent médical"
+    "medicalHistory": "Antécédent médical",
+    "folderNumber": "Numéro du dossier"
   },
   "encounters": {
     "admissions": "Admissions",

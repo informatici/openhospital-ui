@@ -18,6 +18,7 @@ export type TAgeType = {
 };
 
 export type TPatientDataFormFieldName =
+  | "folderNumber"
   | "firstName"
   | "secondName"
   | "birthDate"

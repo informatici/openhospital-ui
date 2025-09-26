@@ -55,6 +55,10 @@ export const useFields = (conditioning?: ConditioningDTO) => {
       value: conditioning?.tdr ?? "",
       type: "text",
     },
+    conditionAtAdmission: {
+      value: conditioning?.conditionAtAdmission ?? [],
+      type: "array",
+    },
   };
 
   return fields;

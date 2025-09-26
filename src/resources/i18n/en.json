@@ -265,7 +265,8 @@
     "motherage": "Mother's age",
     "encounters": "Encounters",
     "conditioning": "Conditioning and Admission state",
-    "medicalHistory": "Medical History"
+    "medicalHistory": "Medical History",
+    "folderNumber": "Folder Number"
   },
   "encounters": {
     "admissions": "Admissions",

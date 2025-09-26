@@ -74,12 +74,9 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
 
   const onBlurCallback = useCallback(
     (fieldName: string) =>
-      (
-        e: React.FocusEvent<HTMLInputElement>,
-        value: any | undefined
-      ) => {
+      (e: React.FocusEvent<HTMLInputElement>, value: any | undefined) => {
         handleBlur(e);
-        if (value && typeof value === 'object' && 'value' in value) {
+        if (value && typeof value === "object" && "value" in value) {
           setFieldValue(fieldName, value.value);
         } else {
           setFieldValue(fieldName, value || "");
@@ -173,20 +170,6 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
             />
           </div>
           <div className="conditioningForm__item">
-            <Autocomplete
-              id="conditionAtAdmission"
-              multiple
-              freeSolo
-              value={formik.values.conditionAtAdmission}
-              options={conditionAtAdmissionOptions}
-              onChange={(_, value) => {
-                formik.setFieldValue("conditionAtAdmission", value);
-              }}
-              label={t("admission.conditionAtAdmission.label")}
-              placeholder={t("admission.conditionAtAdmission.label")}
-            />
-          </div>
-          <div className="conditioningForm__item">
             <TextField
               label={t("conditioning.mce")}
               field={formik.getFieldProps("mce")}
@@ -194,21 +177,6 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
               isValid={isValid("mce")}
               errorText={getErrorText("mce")}
               onBlur={formik.handleBlur}
-              disabled={isLoading}
-            />
-          </div>
-          <div className="conditioningForm__item">
-            <AutocompleteField
-              fieldName="tdr"
-              fieldValue={formik.values.tdr}
-              label={t("conditioning.tdr")}
-              isValid={isValid("tdr")}
-              errorText={getErrorText("tdr")}
-              onBlur={onBlurCallback("tdr")}
-              options={[
-                { value: "POSITIF", label: t("conditioning.positive") },
-                { value: "NEGATIF", label: t("conditioning.negative") },
-              ]}
               disabled={isLoading}
             />
           </div>
@@ -298,6 +266,36 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
               rows={3}
               disabled={isLoading}
               maxLength={2000}
+            />
+          </div>
+
+          <div className="fullWidth conditioningForm__item">
+            <Autocomplete
+              id="conditionAtAdmission"
+              multiple
+              freeSolo
+              value={formik.values.conditionAtAdmission}
+              options={conditionAtAdmissionOptions}
+              onChange={(_, value) => {
+                formik.setFieldValue("conditionAtAdmission", value);
+              }}
+              label={t("admission.conditionAtAdmission.label")}
+              placeholder={t("admission.conditionAtAdmission.label")}
+            />
+          </div>
+          <div className="conditioningForm__item">
+            <AutocompleteField
+              fieldName="tdr"
+              fieldValue={formik.values.tdr}
+              label={t("conditioning.tdr")}
+              isValid={isValid("tdr")}
+              errorText={getErrorText("tdr")}
+              onBlur={onBlurCallback("tdr")}
+              options={[
+                { value: "POSITIF", label: t("conditioning.positive") },
+                { value: "NEGATIF", label: t("conditioning.negative") },
+              ]}
+              disabled={isLoading}
             />
           </div>
         </div>
