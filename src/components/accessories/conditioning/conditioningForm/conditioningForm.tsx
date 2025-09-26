@@ -15,6 +15,9 @@ import Button from "../../button/Button";
 import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
 import "./styles.scss";
 import { ConditioningFormProps } from "./types";
+import { useConditionsAtAmission } from "libraries/hooks";
+import { Autocomplete } from "components/accessories/autocomplete";
+import AutocompleteField from "components/accessories/autocompleteField/AutocompleteField";
 
 const ConditioningForm: FC<ConditioningFormProps> = ({
   fields,
@@ -39,10 +42,13 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
     sngNumber: yup.string().nullable(),
     others: yup.string().nullable(),
     cpap: yup.boolean(),
+    tdr: yup.string().nullable(),
     performedAt: yup.date().required(t("common.required")),
   });
 
   const initialValues = getFromFields(fields, "value");
+
+  const { options: conditionAtAdmissionOptions } = useConditionsAtAmission();
 
   const [isAspirationChecked, setIsAspirationCheckedChecked] = useState(false);
   const [isCpapChecked, setIsCpapChecked] = useState(false);
@@ -52,19 +58,42 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
     validationSchema,
     enableReinitialize: true,
     onSubmit: (values) => {
+      console.log("🔍 Valeurs Formik:", values);
+      console.log("🔍 Valeur TDR:", values.tdr);
+      
       const formattedValues = formatAllFieldValues(fields, values);
       const conditioningToSave: any = {
         ...formattedValues,
-        aspiration: isAspirationChecked ? true : false,
-        cpap: isCpapChecked ? true : false,
+        aspiration: isAspirationChecked,
+        cpap: isCpapChecked,
       };
+      
+      console.log("🔍 Données finales:", conditioningToSave);
       onSubmit(conditioningToSave as any);
       setIsAspirationCheckedChecked(false);
       setIsCpapChecked(false);
     },
   });
 
-  const { resetForm, setFieldValue } = formik;
+  const { resetForm, setFieldValue, handleBlur } = formik;
+
+  // CRÉER UN CALLBACK SIMILAIRE À CELUI DE OpdFilterForm
+  const onBlurCallback = useCallback(
+    (fieldName: string) =>
+      (
+        e: React.FocusEvent<HTMLInputElement>,
+        value: any | undefined
+      ) => {
+        handleBlur(e);
+        // Gérer la valeur comme dans OpdFilterForm
+        if (value && typeof value === 'object' && 'value' in value) {
+          setFieldValue(fieldName, value.value);
+        } else {
+          setFieldValue(fieldName, value || "");
+        }
+      },
+    [handleBlur, setFieldValue]
+  );
 
   const dateFieldHandleOnChange = useCallback(
     (fieldName: string) => (value: any) => {
@@ -99,6 +128,7 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
   const handleCpapChecked = () => {
     setIsCpapChecked(!isCpapChecked);
   };
+
   useEffect(() => {
     if (!creationMode) {
       setIsAspirationCheckedChecked(
@@ -149,7 +179,20 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
               disabled={isLoading}
             />
           </div>
-
+          <div className="conditioningForm__item">
+            <Autocomplete
+              id="conditionAtAdmission"
+              multiple
+              freeSolo
+              value={formik.values.conditionAtAdmission}
+              options={conditionAtAdmissionOptions}
+              onChange={(_, value) => {
+                formik.setFieldValue("conditionAtAdmission", value);
+              }}
+              label={t("admission.conditionAtAdmission.label")}
+              placeholder={t("admission.conditionAtAdmission.label")}
+            />
+          </div>
           <div className="conditioningForm__item">
             <TextField
               label={t("conditioning.mce")}
@@ -158,6 +201,23 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
               isValid={isValid("mce")}
               errorText={getErrorText("mce")}
               onBlur={formik.handleBlur}
+              disabled={isLoading}
+            />
+          </div>
+
+          {/* CORRECTION : Utiliser onBlurCallback comme dans OpdFilterForm */}
+          <div className="conditioningForm__item">
+            <AutocompleteField
+              fieldName="tdr"
+              fieldValue={formik.values.tdr}
+              label={t("conditioning.tdr")}
+              isValid={isValid("tdr")}
+              errorText={getErrorText("tdr")}
+              onBlur={onBlurCallback("tdr")} // CHANGEMENT ICI
+              options={[
+                { value: "POSITIF", label: t("conditioning.positive") },
+                { value: "NEGATIF", label: t("conditioning.negative") },
+              ]}
               disabled={isLoading}
             />
           </div>

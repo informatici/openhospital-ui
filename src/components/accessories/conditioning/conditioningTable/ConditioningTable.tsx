@@ -10,6 +10,7 @@ import InfoBox from "../../infoBox/InfoBox";
 import Table from "../../table/Table";
 import { useParams } from "react-router-dom";
 import { getEncounterConditionings } from "state/encounter";
+import { useConditionsAtAmission } from "libraries/hooks";
 
 interface IOwnProps {
   shouldUpdateTable: boolean;
@@ -41,6 +42,7 @@ const ConditioningTable: FunctionComponent<IOwnProps> = ({
     sngNumber: t("conditioning.sngNumber"),
     others: t("conditioning.others"),
     cpap: t("conditioning.cpap"),
+    tdr: t("conditioning.tdr"),
   };
 
   const order = ["performedAt"];
@@ -50,6 +52,8 @@ const ConditioningTable: FunctionComponent<IOwnProps> = ({
   const data = useAppSelector(
     (state) => code ? state.encounters.encounterConditionings.data || [] : state.conditioning.getConditioningByPatientCode.data || []
   );
+  
+  const { formatValues: formatConditions } = useConditionsAtAmission();
 
   const patientCode = useAppSelector(
     (state) => state.patients.selectedPatient.data?.code
@@ -75,6 +79,7 @@ const ConditioningTable: FunctionComponent<IOwnProps> = ({
         aspiration: item.aspiration ? t("common.yes") : t("common.no"),
         mce: item.mce ?? "",
         cpap: item.cpap ? t("common.yes") : t("common.no"),
+        tdr: item.tdr ?? "",
         ventilation: item.ventilation ?? "",
         oxygenDebit: item.oxygenDebit ?? "",
         sgVolume: item.sgVolume ?? "",
@@ -82,6 +87,9 @@ const ConditioningTable: FunctionComponent<IOwnProps> = ({
         bolusSsVolume: item.bolusSsVolume ?? "",
         sngNumber: item.sngNumber ?? "",
         others: item.others ?? "",
+        conditionAtAdmission: formatConditions(item.conditionAtAdmission).join(
+          ", "
+        ),
       };
     });
   };

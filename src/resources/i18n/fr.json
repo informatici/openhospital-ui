@@ -231,7 +231,7 @@
     "motherphone": "Téléphone de la mère",
     "motherage": "Age de la mère",
     "encounters": "Rencontres",
-    "conditioning": "Mise en condition",
+    "conditioning": "Mise en condition et état d'admission",
     "medicalHistory": "Antécédent médical"
   },
   "encounters": {
@@ -1397,10 +1397,13 @@
     "performedAt": "Date",
     "others": "Autres",
     "cpap": "CPAP",
+    "tdr": "TDR",
     "code": "Code",
     "previousentries": "Mises en condition précédentes",
     "updated": "Mise en condition mise à jour",
     "createsuccess": "La mise en condition a été enregistrée avec succès.",
-    "updatesuccess": "La mise en condition a été mise à jour avec succès."
+    "updatesuccess": "La mise en condition a été mise à jour avec succès.",
+    "positive": "Positif",
+    "negative": "Négatif"
   }
 }

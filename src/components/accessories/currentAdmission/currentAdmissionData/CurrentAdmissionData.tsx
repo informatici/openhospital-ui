@@ -79,16 +79,6 @@ export const CurrentAdmissionData: FunctionComponent<IOwnProps> = ({
             <p className="item_content">{admission?.preAssessment}</p>
           </div>
         )}
-        {!isEmpty(admission?.conditionAtAdmission) && (
-          <div className="fullWidth currentAdmissionData__item">
-            <span className="item_label">
-              {t("admission.conditionAtAdmission.label")}
-            </span>
-            <p className="item_content">
-              {formatConditions(admission.conditionAtAdmission).join(", ")}
-            </p>
-          </div>
-        )}
       </div>
     </div>
   );
