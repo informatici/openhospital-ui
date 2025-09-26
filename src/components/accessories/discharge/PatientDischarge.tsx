@@ -1,9 +1,13 @@
+import { TUserSection } from "components/activities/patientDetailsActivity/types";
+import { useEncountersEnabled } from "libraries/hooks";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { FC, useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router";
+import { updateEncounter } from "state/encounter";
 import { getPatient } from "state/patients";
 import checkIcon from "../../../assets/check-icon.png";
+import warningIcon from "../../../assets/warning-icon.png";
 import { AdmissionDTO, EncounterDTO } from "../../../generated";
 import { parseDateTime } from "../../../libraries/formDataHandling/functions";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
@@ -15,16 +19,12 @@ import {
 import { IState } from "../../../types";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import { CurrentAdmission } from "../currentAdmission/CurrentAdmission";
+import CloseEncounterDialog from "../encounters/closeEncounterDialog/CloseEncounterDialog";
 import InfoBox from "../infoBox/InfoBox";
 import DischargeForm from "./dischargeForm/DischargeForm";
 import "./styles.scss";
 import { AdmissionTransitionState } from "./types";
 import { useFields } from "./useFields";
-import { useEncountersEnabled } from "libraries/hooks";
-import CloseEncounterDialog from "../encounters/closeEncounterDialog/CloseEncounterDialog";
-import warningIcon from "../../../assets/warning-icon.png";
-import { updateEncounter } from "state/encounter";
-import { TUserSection } from "components/activities/patientDetailsActivity/types";
 
 const PatientDischarge: FC = () => {
   const { t } = useTranslation();
@@ -117,7 +117,7 @@ const PatientDischarge: FC = () => {
         diseaseOut1: adm.diseaseOut1,
         diseaseOut2: adm.diseaseOut2,
         diseaseOut3: adm.diseaseOut3,
-        note: adm.note,
+        anamnesis: adm.anamnesis,
         admitted: 0,
       };
       dispatch(
@@ -194,7 +194,7 @@ const PatientDischarge: FC = () => {
         isOpen={
           dischargeStatus === "SUCCESS" &&
           (!encountersEnabled || !currentEncounter)
-        }        
+        }
         title={
           dischargeStatus === "SUCCESS"
             ? t("admission.discharged")
@@ -215,7 +215,8 @@ const PatientDischarge: FC = () => {
         isOpen={
           dischargeStatus === "SUCCESS" &&
           encountersEnabled &&
-          !!currentEncounter && !close
+          !!currentEncounter &&
+          !close
         }
         title={t("admission.discharged")}
         icon={checkIcon}
@@ -227,7 +228,7 @@ const PatientDischarge: FC = () => {
           setActivityTransitionState("TO_RESET")
         }
       />
-      
+
       <CloseEncounterDialog
         isOpen={openResetConfirmation}
         title={t("encounter.closedtitle").toUpperCase()}
@@ -236,7 +237,9 @@ const PatientDischarge: FC = () => {
         primaryButtonLabel={t("common.yes")}
         secondaryButtonLabel={t("common.no")}
         handlePrimaryButtonClick={closeEncounter}
-        handleSecondaryButtonClick={() => setActivityTransitionState("TO_RESET")}
+        handleSecondaryButtonClick={() =>
+          setActivityTransitionState("TO_RESET")
+        }
         withDateField={true}
       />
     </div>

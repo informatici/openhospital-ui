@@ -125,11 +125,11 @@ export interface AdmissionDTO {
      */
     disType?: DischargeTypeDTO;
     /**
-     * Free note
+     * Anamnesis
      * @type {string}
      * @memberof AdmissionDTO
      */
-    note?: string;
+    anamnesis?: string;
     /**
      * Transfusional unit
      * @type {number}
@@ -200,11 +200,11 @@ export interface AdmissionDTO {
      */
     preAssessment?: string;
     /**
-     * Patient\'s condition at the time of admission. Stored as a list of descriptors (e.g., stable, critical, unconscious).
-     * @type {Array<string>}
+     * Reason for patient admission to hospital
+     * @type {string}
      * @memberof AdmissionDTO
      */
-    conditionAtAdmission?: Array<string>;
+    entryReason?: string;
     /**
      * User id
      * @type {string}
@@ -229,13 +229,13 @@ export interface AdmissionDTO {
      */
     deleted: string;
     /**
-     * @type {number}
-     * @memberof AdmissionDTO
-     */
-    yprog?: number;
-    /**
      * @type {string}
      * @memberof AdmissionDTO
      */
     fhu?: string;
+    /**
+     * @type {number}
+     * @memberof AdmissionDTO
+     */
+    yprog?: number;
 }
