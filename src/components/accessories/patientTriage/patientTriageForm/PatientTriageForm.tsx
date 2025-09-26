@@ -103,7 +103,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
     pex_pex_branchial_perimeter: number()
       .min(5, t("common.greaterthan", { value: 5 }))
       .max(60, t("common.lessthan", { value: 60 })),
-    examinationType: string().required(t("common.required")),
+    pex_type: string().required(t("common.required")),
   });
   const initialValues = getFromFields(fields, "value");
   const options = getFromFields(fields, "options");
@@ -191,7 +191,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
 
   const examinationTypes = [
     { id: "admission", label: t("examination.type.admission") },
-    { id: "followUp", label: t("examination.type.followUp") },
+    { id: "follow-Up", label: t("examination.type.followUp") },
   ];
   const renderOptions = (options: any[]) => {
     return options.map((option) => ({
@@ -239,12 +239,12 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
 
             <div className="patientTriageForm__item">
               <SelectField
-                fieldName="examinationType"
-                fieldValue={formik.values.examexaminationType}
+                fieldName="pex_type"
+                fieldValue={formik.values.pex_type}
                 label={t("examination.examinationType")}
                 isValid={isValid("pex_type")}
                 errorText={getErrorText("pex_type")}
-                onBlur={onBlurCallback("examinationType")}
+                onBlur={onBlurCallback("pex_type")}
                 options={renderOptions(examinationTypes)}
                 disabled={isLoading}
               />
