@@ -6932,8 +6932,6 @@ components:
           type: boolean
         opd:
           type: boolean
-        pharmacy:
-          type: boolean
       required:
       - beds
       - description
