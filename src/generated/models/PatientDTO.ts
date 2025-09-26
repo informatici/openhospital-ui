@@ -235,6 +235,12 @@ export interface PatientDTO {
      * @memberof PatientDTO
      */
     motherPhone?: string;
+    /**
+     * Folder number
+     * @type {number}
+     * @memberof PatientDTO
+     */
+    folderNumber?: number;
 }
 
 /**

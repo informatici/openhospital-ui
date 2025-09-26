@@ -6924,6 +6924,8 @@ components:
           format: int32
           description: lock
           example: 0
+        pharmacy:
+          type: boolean
         male:
           type: boolean
         female:
@@ -7126,6 +7128,11 @@ components:
           type: string
           description: Mother phone
           example: "+393456789012"
+        folderNumber:
+          type: integer
+          format: int32
+          description: Folder number
+          example: 30
       required:
       - age
       - bloodType
@@ -7784,11 +7791,11 @@ components:
           type: string
           description: "Flag record deleted, values are 'Y' OR 'N' "
           example: "N"
+        fhu:
+          type: string
         yprog:
           type: integer
           format: int32
-        fhu:
-          type: string
       required:
       - admDate
       - admitted
