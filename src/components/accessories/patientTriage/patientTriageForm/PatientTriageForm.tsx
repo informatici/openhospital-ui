@@ -191,7 +191,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
 
   const examinationTypes = [
     { id: "admission", label: t("examination.type.admission") },
-    { id: "follow-Up", label: t("examination.type.followUp") },
+    { id: "followUp", label: t("examination.type.followUp") },
   ];
   const renderOptions = (options: any[]) => {
     return options.map((option) => ({
