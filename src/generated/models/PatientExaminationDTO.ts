@@ -29,6 +29,12 @@ export interface PatientExaminationDTO {
      */
     pex_date: string;
     /**
+     * type of Patient Examination
+     * @type {string}
+     * @memberof PatientExaminationDTO
+     */
+    examinationType: string;
+    /**
      * Patient Examination Code
      * @type {number}
      * @memberof PatientExaminationDTO

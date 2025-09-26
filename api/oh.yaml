@@ -6928,9 +6928,9 @@ components:
           type: boolean
         female:
           type: boolean
-        pharmacy:
-          type: boolean
         opd:
+          type: boolean
+        pharmacy:
           type: boolean
       required:
       - beds
@@ -8238,8 +8238,7 @@ components:
           $ref: "#/components/schemas/PatientDTO"
           description: The patient identifier linked to this medical history
         siblingRank:
-          type: integer
-          format: int32
+          type: string
         termPregnancy:
           type: string
         deliveryMode:
@@ -8524,6 +8523,10 @@ components:
           type: string
           description: Date of Patient Examination
           example: 2020-03-19T14:58:00.000Z
+        examinationType:
+          type: string
+          description: type of Patient Examination
+          example: Admission
         patientCode:
           type: integer
           format: int32
@@ -8621,6 +8624,7 @@ components:
           description: Branchial perimeter
           example: 3.5
       required:
+      - examinationType
       - patientCode
       - pex_date
     ConditioningDTO:

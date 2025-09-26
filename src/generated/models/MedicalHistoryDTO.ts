@@ -33,10 +33,10 @@ export interface MedicalHistoryDTO {
      */
     patient: PatientDTO;
     /**
-     * @type {number}
+     * @type {string}
      * @memberof MedicalHistoryDTO
      */
-    siblingRank?: number;
+    siblingRank?: string;
     /**
      * @type {string}
      * @memberof MedicalHistoryDTO

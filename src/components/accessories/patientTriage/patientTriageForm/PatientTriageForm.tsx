@@ -22,6 +22,7 @@ import SelectField from "../../selectField/SelectField";
 import TextField from "../../textField/TextField";
 import "./styles.scss";
 import { TProps } from "./types";
+import AutocompleteField from "components/accessories/autocompleteField/AutocompleteField";
 
 const PatientTriageForm: FunctionComponent<TProps> = ({
   fields,
@@ -103,6 +104,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
     pex_pex_branchial_perimeter: number()
       .min(5, t("common.greaterthan", { value: 5 }))
       .max(60, t("common.lessthan", { value: 60 })),
+    examinationType: string().required(t("common.required")),
   });
   const initialValues = getFromFields(fields, "value");
   const options = getFromFields(fields, "options");
@@ -188,6 +190,17 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
     }
   };
 
+  const examinationTypes = [
+    { id: "admission", label: t("examination.type.admission") },
+    { id: "followUp", label: t("examination.type.followUp") },
+  ];
+  const renderOptions = (options: any[]) => {
+    return options.map((option) => ({
+      label: option.label,
+      value: option.id,
+    }));
+  }
+
   useEffect(() => {
     if (shouldResetForm) {
       resetForm();
@@ -224,7 +237,21 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
                 disabled={isLoading}
               />
             </div>
+
+            <div className="patientTriageForm__item">
+              <SelectField
+                fieldName="examinationType"
+                fieldValue={formik.values.examexaminationType}
+                label={t("examination.examinationType")}
+                isValid={isValid("pex_type")}
+                errorText={getErrorText("pex_type")}
+                onBlur={onBlurCallback("examinationType")}
+                options={renderOptions(examinationTypes)}
+                disabled={isLoading}
+              />
+            </div>
           </div>
+
           <div className="row start-sm center-xs">
             <div className="patientTriageForm__item">
               <TextField
