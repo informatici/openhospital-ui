@@ -22,7 +22,6 @@ import SelectField from "../../selectField/SelectField";
 import TextField from "../../textField/TextField";
 import "./styles.scss";
 import { TProps } from "./types";
-import AutocompleteField from "components/accessories/autocompleteField/AutocompleteField";
 
 const PatientTriageForm: FunctionComponent<TProps> = ({
   fields,
