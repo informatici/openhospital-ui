@@ -84,6 +84,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
         /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/,
         t("common.incorrectformat")
       ),
+      folderNumber: number(),
     });
   }, [ageType, t]);
 
@@ -229,6 +230,24 @@ const PatientDataForm: FunctionComponent<TProps> = ({
         />
       </div>
       <form className="patientDataForm__form" onSubmit={formik.handleSubmit}>
+        <div className="patientDataForm__item">
+          <TextField
+            field={formik.getFieldProps("folderNumber")}
+            theme="regular"
+            label={t("patient.folderNumber")}
+            isValid={isValid("folderNumber")}
+            errorText={getErrorText("folderNumber")}
+            onBlur={formik.handleBlur}
+            disabled={isLoading}
+            type="number"
+            required={
+              isFieldSuggested(formCustomization, "folderNumber")
+                ? FIELD_VALIDATION.SUGGESTED
+                : FIELD_VALIDATION.IDLE
+            }
+            maxLength={50}
+          />
+        </div>
         <div className="row start-sm center-xs">
           <div className="patientDataForm__item">
             <TextField

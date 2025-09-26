@@ -79,6 +79,10 @@ const yesOrNoOrUnknownOptions = [
 ];
 
 export const initialFields: TFields<TPatientDataFormFieldName> = {
+  folderNumber: {
+    value: "0",
+    type: "number",
+  },
   firstName: {
     value: "",
     type: "text",
