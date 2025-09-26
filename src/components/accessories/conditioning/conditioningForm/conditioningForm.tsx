@@ -77,7 +77,6 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
 
   const { resetForm, setFieldValue, handleBlur } = formik;
 
-  // CRÉER UN CALLBACK SIMILAIRE À CELUI DE OpdFilterForm
   const onBlurCallback = useCallback(
     (fieldName: string) =>
       (
@@ -85,7 +84,6 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
         value: any | undefined
       ) => {
         handleBlur(e);
-        // Gérer la valeur comme dans OpdFilterForm
         if (value && typeof value === 'object' && 'value' in value) {
           setFieldValue(fieldName, value.value);
         } else {
@@ -204,8 +202,6 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
               disabled={isLoading}
             />
           </div>
-
-          {/* CORRECTION : Utiliser onBlurCallback comme dans OpdFilterForm */}
           <div className="conditioningForm__item">
             <AutocompleteField
               fieldName="tdr"
@@ -213,7 +209,7 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
               label={t("conditioning.tdr")}
               isValid={isValid("tdr")}
               errorText={getErrorText("tdr")}
-              onBlur={onBlurCallback("tdr")} // CHANGEMENT ICI
+              onBlur={onBlurCallback("tdr")}
               options={[
                 { value: "POSITIF", label: t("conditioning.positive") },
                 { value: "NEGATIF", label: t("conditioning.negative") },
