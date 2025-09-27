@@ -47,4 +47,12 @@ export const initialFields: TFields<ConditioningFormFieldName> = {
     value: parseDateTime(new Date().toISOString(), false),
     type: "date",
   },
+  conditionAtAdmission: {
+    value: [],
+    type: "array",
+  },
+  tdr: {
+    value: "",
+    type: "text",
+  },
 };

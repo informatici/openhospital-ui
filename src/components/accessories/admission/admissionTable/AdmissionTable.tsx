@@ -45,7 +45,6 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
     diseaseOut3: t("admission.diseaseOut3"),
     preTreatment: t("admission.preTreatment"),
     preAssessment: t("admission.preAssessment"),
-    conditionAtAdmission: t("admission.conditionAtAdmission.label"),
   };
   const order = ["admDate", "disDate"];
 
@@ -80,8 +79,6 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
     }
   }, [shouldUpdateTable, dispatch, patientCode, code]);
 
-  const { formatValues: formatConditions } = useConditionsAtAmission();
-
   const formatDataToDisplay = (data: AdmissionDTO[]) => {
     return data.map((item) => {
       return {
@@ -100,9 +97,6 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
         diseaseOut3: item.diseaseOut3?.description ?? "",
         preTreatment: item.preTreatment ?? "",
         preAssessment: item.preAssessment ?? "",
-        conditionAtAdmission: formatConditions(item.conditionAtAdmission).join(
-          ", "
-        ),
       };
     });
   };

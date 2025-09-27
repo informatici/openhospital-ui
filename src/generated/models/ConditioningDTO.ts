@@ -81,6 +81,18 @@ export interface ConditioningDTO {
      */
     others?: string;
     /**
+     * Patient\'s condition at the time of admission. Stored as a list of descriptors (e.g., stable, critical, unconscious).
+     * @type {Array<string>}
+     * @memberof ConditioningDTO
+     */
+    conditionAtAdmission?: Array<string>;
+    /**
+     * Conditioning tdr 
+     * @type {string}
+     * @memberof ConditioningDTO
+     */
+    tdr?: string;
+    /**
      * patient
      * @type {PatientDTO}
      * @memberof ConditioningDTO

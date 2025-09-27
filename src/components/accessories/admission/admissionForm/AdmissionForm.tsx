@@ -296,8 +296,6 @@ const AdmissionForm: FC<AdmissionProps> = ({
     (state: IState) => state.types.discharges.getAll.status
   );
 
-  const { options: conditionAtAdmissionOptions } = useConditionsAtAmission();
-
   return (
     <>
       <div className="patientAdmissionForm">
@@ -500,21 +498,6 @@ const AdmissionForm: FC<AdmissionProps> = ({
             </div>
           )}
           <div className="row start-sm center-xs">
-            <div className="fullWidth patientAdmissionForm__item">
-              <Autocomplete
-                id="conditionAtAdmission"
-                multiple
-                freeSolo
-                value={formik.values.conditionAtAdmission}
-                options={conditionAtAdmissionOptions}
-                onChange={(_, value) => {
-                  formik.setFieldValue("conditionAtAdmission", value);
-                  console.log(value);
-                }}
-                label={t("admission.conditionAtAdmission.label")}
-                placeholder={t("admission.conditionAtAdmission.label")}
-              />
-            </div>
             <div className="fullWidth patientAdmissionForm__item">
               <TextField
                 field={formik.getFieldProps("preTreatment")}

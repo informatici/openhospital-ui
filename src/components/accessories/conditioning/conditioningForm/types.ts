@@ -25,4 +25,6 @@ export type ConditioningFormFieldName =
   | "sngNumber"
   | "others"
   | "performedAt"
-  | "cpap";
+  | "conditionAtAdmission"
+  | "cpap"
+  | "tdr";

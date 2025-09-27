@@ -6924,13 +6924,13 @@ components:
           format: int32
           description: lock
           example: 0
-        pharmacy:
+        opd:
           type: boolean
         male:
           type: boolean
         female:
           type: boolean
-        opd:
+        pharmacy:
           type: boolean
       required:
       - beds
@@ -7764,15 +7764,6 @@ components:
           description: "Assessment performed before the patient's admission. Example:\
             \ preliminary examinations, lab results, medical observations."
           example: Blood test and X-ray prior to admission
-        conditionAtAdmission:
-          type: array
-          description: "Patient's condition at the time of admission. Stored as a\
-            \ list of descriptors (e.g., stable, critical, unconscious)."
-          example:
-          - stable
-          - conscious
-          items:
-            type: string
         userID:
           type: string
           description: User id
@@ -7789,11 +7780,11 @@ components:
           type: string
           description: "Flag record deleted, values are 'Y' OR 'N' "
           example: "N"
-        fhu:
-          type: string
         yprog:
           type: integer
           format: int32
+        fhu:
+          type: string
       required:
       - admDate
       - admitted
@@ -8682,6 +8673,19 @@ components:
           type: string
           description: Conditioning others
           example: others
+        conditionAtAdmission:
+          type: array
+          description: "Patient's condition at the time of admission. Stored as a\
+            \ list of descriptors (e.g., stable, critical, unconscious)."
+          example:
+          - stable
+          - conscious
+          items:
+            type: string
+        tdr:
+          type: string
+          description: 'Conditioning tdr '
+          example: sonde
         patient:
           $ref: "#/components/schemas/PatientDTO"
           description: patient
