@@ -1,5 +1,4 @@
 import { useFormik } from "formik";
-import { useConditionsAtAmission } from "libraries/hooks";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { get, has } from "lodash";
 import moment from "moment";
@@ -294,8 +293,6 @@ const AdmissionForm: FC<AdmissionProps> = ({
   const disTypeStatus = useAppSelector(
     (state: IState) => state.types.discharges.getAll.status
   );
-
-  const { options: conditionAtAdmissionOptions } = useConditionsAtAmission();
 
   return (
     <>

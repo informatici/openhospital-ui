@@ -6926,9 +6926,9 @@ components:
           example: 0
         opd:
           type: boolean
-        female:
-          type: boolean
         male:
+          type: boolean
+        female:
           type: boolean
         pharmacy:
           type: boolean
@@ -8673,6 +8673,19 @@ components:
           type: string
           description: Conditioning others
           example: others
+        conditionAtAdmission:
+          type: array
+          description: "Patient's condition at the time of admission. Stored as a\
+            \ list of descriptors (e.g., stable, critical, unconscious)."
+          example:
+          - stable
+          - conscious
+          items:
+            type: string
+        tdr:
+          type: string
+          description: 'Conditioning tdr '
+          example: sonde
         patient:
           $ref: "#/components/schemas/PatientDTO"
           description: patient

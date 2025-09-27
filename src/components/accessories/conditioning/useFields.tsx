@@ -51,6 +51,14 @@ export const useFields = (conditioning?: ConditioningDTO) => {
       value: parseDateTime(conditioning?.performedAt.toString()!, false),
       type: "date",
     },
+    tdr: {
+      value: conditioning?.tdr ?? "",
+      type: "text",
+    },
+    conditionAtAdmission: {
+      value: conditioning?.conditionAtAdmission ?? [],
+      type: "array",
+    },
   };
 
   return fields;

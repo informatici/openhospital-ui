@@ -264,7 +264,7 @@
     "motherphone": "Mother's phone number",
     "motherage": "Mother's age",
     "encounters": "Encounters",
-    "conditioning": "Conditioning",
+    "conditioning": "Conditioning and Admission state",
     "medicalHistory": "Medical History",
     "folderNumber": "Folder Number"
   },
@@ -1423,12 +1423,15 @@
     "performedAt": "Date",
     "others": "Others",
     "cpap": "CPAP",
+    "tdr": "TDR",
     "code": "Code",
     "created": "Conditioning created",
     "createsuccess": "Conditioning created successfully",
     "previousentries": "Previous conditionings",
     "currentexists": "A conditioning record already exists for this patient.",
     "updated": "Conditioning updated",
-    "updatesuccess": "Conditioning has been updated successfully."
+    "updatesuccess": "Conditioning has been updated successfully.",
+    "positive": "Positive",
+    "negative": "Negative"
   }
 }
