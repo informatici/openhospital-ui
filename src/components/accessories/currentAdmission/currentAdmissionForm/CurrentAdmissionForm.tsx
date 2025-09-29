@@ -222,19 +222,6 @@ export const CurrentAdmissionForm: FunctionComponent<IOwnProps> = ({
               disabled={isLoading}
             />
           </div>
-          <div className="currentAdmissionForm__item">
-            <AutocompleteField
-              fieldName="diseaseIn"
-              fieldValue={formik.values.diseaseIn}
-              label={t("admission.diseaseIn")}
-              isValid={isValid("diseaseIn")}
-              errorText={getErrorText("diseaseIn")}
-              onBlur={onBlurCallback("diseaseIn")}
-              options={renderOptions(diagnosisInList)}
-              loading={diagnosisInStatus === "LOADING"}
-              disabled={isLoading}
-            />
-          </div>
           <div className="fullWidth currentAdmissionForm__item">
             <TextField
               field={formik.getFieldProps("entryReason")}
@@ -293,6 +280,19 @@ export const CurrentAdmissionForm: FunctionComponent<IOwnProps> = ({
               rows={5}
               disabled={isLoading}
               maxLength={2000}
+            />
+          </div>
+          <div className="currentAdmissionForm__item">
+            <AutocompleteField
+              fieldName="diseaseIn"
+              fieldValue={formik.values.diseaseIn}
+              label={t("admission.diseaseIn")}
+              isValid={isValid("diseaseIn")}
+              errorText={getErrorText("diseaseIn")}
+              onBlur={onBlurCallback("diseaseIn")}
+              options={renderOptions(diagnosisInList)}
+              loading={diagnosisInStatus === "LOADING"}
+              disabled={isLoading}
             />
           </div>
         </div>

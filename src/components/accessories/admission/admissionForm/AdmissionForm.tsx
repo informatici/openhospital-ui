@@ -366,21 +366,6 @@ const AdmissionForm: FC<AdmissionProps> = ({
               />
             </div>
           </div>
-          <div className="row start-sm center-xs">
-            <div className="fullWidth patientAdmissionForm__item">
-              <AutocompleteField
-                fieldName="diseaseIn"
-                fieldValue={formik.values.diseaseIn}
-                label={t("admission.diseaseIn")}
-                isValid={isValid("diseaseIn")}
-                errorText={getErrorText("diseaseIn")}
-                onBlur={onBlurCallback("diseaseIn")}
-                options={renderOptions(diagnosisInList)}
-                loading={diagnosisInStatus === "LOADING"}
-                disabled={isLoading}
-              />
-            </div>
-          </div>
           {admitted && (
             <div>
               <div className="row start-sm center-xs">
@@ -554,6 +539,21 @@ const AdmissionForm: FC<AdmissionProps> = ({
                 rows={5}
                 disabled={isLoading}
                 maxLength={2000}
+              />
+            </div>
+          </div>
+          <div className="row start-sm center-xs">
+            <div className="fullWidth patientAdmissionForm__item">
+              <AutocompleteField
+                fieldName="diseaseIn"
+                fieldValue={formik.values.diseaseIn}
+                label={t("admission.diseaseIn")}
+                isValid={isValid("diseaseIn")}
+                errorText={getErrorText("diseaseIn")}
+                onBlur={onBlurCallback("diseaseIn")}
+                options={renderOptions(diagnosisInList)}
+                loading={diagnosisInStatus === "LOADING"}
+                disabled={isLoading}
               />
             </div>
           </div>
