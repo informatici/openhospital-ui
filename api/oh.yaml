@@ -6924,11 +6924,11 @@ components:
           format: int32
           description: lock
           example: 0
-        opd:
-          type: boolean
         male:
           type: boolean
         female:
+          type: boolean
+        opd:
           type: boolean
         pharmacy:
           type: boolean
@@ -8519,10 +8519,10 @@ components:
           type: string
           description: Date of Patient Examination
           example: 2020-03-19T14:58:00.000Z
-        examinationType:
+        pex_type:
           type: string
           description: type of Patient Examination
-          example: Admission
+          example: admission
         patientCode:
           type: integer
           format: int32
@@ -8620,9 +8620,9 @@ components:
           description: Branchial perimeter
           example: 3.5
       required:
-      - examinationType
       - patientCode
       - pex_date
+      - pex_type
     ConditioningDTO:
       type: object
       properties:

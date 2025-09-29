@@ -33,7 +33,7 @@ export interface PatientExaminationDTO {
      * @type {string}
      * @memberof PatientExaminationDTO
      */
-    examinationType: string;
+    pex_type: string;
     /**
      * Patient Examination Code
      * @type {number}
