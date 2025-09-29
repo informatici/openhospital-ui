@@ -32,8 +32,8 @@ export const useFields = (
       value: admission?.admDate ?? parseDateTime(Date.now().toString(), false),
       type: "date",
     },
-    note: {
-      value: admission?.note ?? "",
+    anamnesis: {
+      value: admission?.anamnesis ?? "",
       type: "text",
     },
     transUnit: {
@@ -83,6 +83,10 @@ export const useFields = (
     },
     preAssessment: {
       value: admission?.preAssessment ?? "",
+      type: "text",
+    },
+    entryReason: {
+      value: admission?.entryReason ?? "",
       type: "text",
     },
   };

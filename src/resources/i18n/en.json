@@ -880,7 +880,7 @@
     "nocurrentadmission": "There is no current admission for the patient. You should admit the patient first",
     "noteaddedwithsuccess": "Admission Note added successfully",
     "noteadded": "Note saved",
-    "note": "Note",
+    "anamnesis": "Anamnesis",
     "validatelastdate": "should be greater or equal to admission date {admDate}",
     "currentadmissionexists": "The patient has an ongoing admission dating from {date}. Discharge him first.",
     "patientnotadmitted": "No current admission found !",
@@ -902,16 +902,7 @@
     "no_beds": "There is not beds in the selected ward",
     "preTreatment": "Pre-admission treatment",
     "preAssessment": "Pre-admission assessment",
-    "conditionAtAdmission": {
-      "label": "Condition at admission",
-      "airway_obstruction": "Airway obstruction",
-      "respiratory_distress": "Respiratory distress",
-      "shock": "Shock",
-      "convulsion": "Convulsion",
-      "coma": "Coma",
-      "dehydration": "Dehydration",
-      "hypoglycemia": "Hypoglycemia"
-    }
+    "entryReason": "Entry reason"
   },
   "bill": {
     "title": "Welcome to Billing",
@@ -1446,6 +1437,16 @@
     "updated": "Conditioning updated",
     "updatesuccess": "Conditioning has been updated successfully.",
     "positive": "Positive",
-    "negative": "Negative"
+    "negative": "Negative",
+    "conditionAtAdmission": {
+      "label": "Condition at admission",
+      "airway_obstruction": "Airway obstruction",
+      "respiratory_distress": "Respiratory distress",
+      "shock": "Shock",
+      "convulsion": "Convulsion",
+      "coma": "Coma",
+      "dehydration": "Dehydration",
+      "hypoglycemia": "Hypoglycemia"
+    }
   }
 }

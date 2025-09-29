@@ -7718,9 +7718,9 @@ components:
         disType:
           $ref: "#/components/schemas/DischargeTypeDTO"
           description: DisChargeType
-        note:
+        anamnesis:
           type: string
-          description: Free note
+          description: Anamnesis
           maxLength: 65535
         transUnit:
           type: number
@@ -7764,6 +7764,10 @@ components:
           description: "Assessment performed before the patient's admission. Example:\
             \ preliminary examinations, lab results, medical observations."
           example: Blood test and X-ray prior to admission
+        entryReason:
+          type: string
+          description: Reason for patient admission to hospital
+          example: Headache
         userID:
           type: string
           description: User id

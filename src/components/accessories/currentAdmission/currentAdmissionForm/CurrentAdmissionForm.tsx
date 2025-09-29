@@ -1,6 +1,4 @@
-import { Autocomplete } from "components/accessories/autocomplete";
 import { useFormik } from "formik";
-import { useConditionsAtAmission } from "libraries/hooks";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { get, has } from "lodash";
 import React, {
@@ -224,17 +222,19 @@ export const CurrentAdmissionForm: FunctionComponent<IOwnProps> = ({
               disabled={isLoading}
             />
           </div>
-          <div className="currentAdmissionForm__item">
-            <AutocompleteField
-              fieldName="diseaseIn"
-              fieldValue={formik.values.diseaseIn}
-              label={t("admission.diseaseIn")}
-              isValid={isValid("diseaseIn")}
-              errorText={getErrorText("diseaseIn")}
-              onBlur={onBlurCallback("diseaseIn")}
-              options={renderOptions(diagnosisInList)}
-              loading={diagnosisInStatus === "LOADING"}
+          <div className="fullWidth currentAdmissionForm__item">
+            <TextField
+              field={formik.getFieldProps("entryReason")}
+              theme="regular"
+              label={t("admission.entryReason")}
+              multiline={true}
+              type="text"
+              isValid={isValid("entryReason")}
+              errorText={getErrorText("entryReason")}
+              onBlur={formik.handleBlur}
+              rows={1}
               disabled={isLoading}
+              maxLength={2000}
             />
           </div>
           <div className="fullWidth currentAdmissionForm__item">
@@ -269,17 +269,30 @@ export const CurrentAdmissionForm: FunctionComponent<IOwnProps> = ({
           </div>
           <div className="fullWidth currentAdmissionForm__item">
             <TextField
-              field={formik.getFieldProps("note")}
+              field={formik.getFieldProps("anamnesis")}
               theme="regular"
-              label={t("admission.note")}
+              label={t("admission.anamnesis")}
               multiline={true}
               type="text"
-              isValid={isValid("note")}
-              errorText={getErrorText("note")}
+              isValid={isValid("anamnesis")}
+              errorText={getErrorText("anamnesis")}
               onBlur={formik.handleBlur}
               rows={5}
               disabled={isLoading}
               maxLength={2000}
+            />
+          </div>
+          <div className="currentAdmissionForm__item">
+            <AutocompleteField
+              fieldName="diseaseIn"
+              fieldValue={formik.values.diseaseIn}
+              label={t("admission.diseaseIn")}
+              isValid={isValid("diseaseIn")}
+              errorText={getErrorText("diseaseIn")}
+              onBlur={onBlurCallback("diseaseIn")}
+              options={renderOptions(diagnosisInList)}
+              loading={diagnosisInStatus === "LOADING"}
+              disabled={isLoading}
             />
           </div>
         </div>

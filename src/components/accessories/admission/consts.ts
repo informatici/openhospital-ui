@@ -30,7 +30,7 @@ export const initialFields: TFields<AdmissionFormFieldName> = {
     type: "text",
     options: [],
   },
-  note: {
+  anamnesis: {
     value: "",
     type: "text",
   },
@@ -77,8 +77,8 @@ export const initialFields: TFields<AdmissionFormFieldName> = {
     value: "",
     type: "text",
   },
-  conditionAtAdmission: {
-    value: [],
+  entryReason: {
+    value: "",
     type: "array",
   },
 };

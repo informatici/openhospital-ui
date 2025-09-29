@@ -295,13 +295,13 @@ const DischargeForm: FC<DischargeProps> = ({
           <div className="row start-sm center-xs">
             <div className="fullWidth patientAdmissionForm__item">
               <TextField
-                field={formik.getFieldProps("note")}
+                field={formik.getFieldProps("anamnesis")}
                 theme="regular"
-                label={t("admission.note")}
+                label={t("admission.anamnesis")}
                 multiline={true}
                 type="text"
-                isValid={isValid("note")}
-                errorText={getErrorText("note")}
+                isValid={isValid("anamnesis")}
+                errorText={getErrorText("anamnesis")}
                 onBlur={formik.handleBlur}
                 rows={5}
                 disabled={isLoading}
