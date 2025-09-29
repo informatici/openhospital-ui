@@ -32,7 +32,7 @@ const MedicalHistoryForm: FC<MedicalHistoryProps> = ({
   const [isTransfusionChecked, setIsTransfusionChecked] = useState(false);
 
   const validationSchema = object({
-    siblingRank: number().required(t("common.required")),
+    siblingRank: string().nullable(),
     termPregnancy: string().nullable(),
     deliveryMode: string().nullable(),
     apgarScore: string().nullable(),

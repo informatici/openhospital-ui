@@ -403,7 +403,12 @@
     "bronchial": "Bronchial",
     "previousentries": "Triages précédentes",
     "bodymassindex": "Indice de masse corporel (kg/m²)",
-    "branchialperimeter": "Périmètre branchial (cm)"
+    "branchialperimeter": "Périmètre branchial (cm)",
+    "type": {
+      "admission": "Admission",
+      "followUp": "Suivi"
+    },
+    "examinationType": "Type de paramètre"
   },
   "encounter": {
     "code": "Code de la rencontre",
@@ -436,7 +441,7 @@
     "billing": "Facturation",
     "summary": "Résumé",
     "opd": "OPD",
-    "triage": "Exam objectif",
+    "triage": "Paramètres",
     "therapy": "Thérapie",
     "booking": "Réservation",
     "laboratory": "Laboratoire",

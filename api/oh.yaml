@@ -8238,8 +8238,7 @@ components:
           $ref: "#/components/schemas/PatientDTO"
           description: The patient identifier linked to this medical history
         siblingRank:
-          type: integer
-          format: int32
+          type: string
         termPregnancy:
           type: string
         deliveryMode:
@@ -8524,6 +8523,10 @@ components:
           type: string
           description: Date of Patient Examination
           example: 2020-03-19T14:58:00.000Z
+        pex_type:
+          type: string
+          description: type of Patient Examination
+          example: admission
         patientCode:
           type: integer
           format: int32
@@ -8623,6 +8626,7 @@ components:
       required:
       - patientCode
       - pex_date
+      - pex_type
     ConditioningDTO:
       type: object
       properties:

@@ -436,7 +436,12 @@
     "bronchial": "Bronchial",
     "previousentries": "Previous Triages",
     "bodymassindex": "Body mass index (kg/m²)",
-    "branchialperimeter": "Branchial perimeter (cm)"
+    "branchialperimeter": "Branchial perimeter (cm)",
+    "type": {
+      "admission": "Admission",
+      "followUp": "Follow-up"
+    },
+    "examinationType": "Examination Type"
   },
   "encounter": {
     "code": "Encounter code",

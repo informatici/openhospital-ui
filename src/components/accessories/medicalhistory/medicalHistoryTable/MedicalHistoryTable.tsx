@@ -92,7 +92,7 @@ const MedicalHistoryTable: FunctionComponent<IOwnProps> = ({
         diet: item.diet ?? "",
         deParasitization: item.deParasitization ?? "",
         psychomotorDev: item.psychomotorDev ?? "",
-        somaticGrowth: item.siblingRank ?? "",
+        somaticGrowth: item.somaticGrowth ?? "",
         ironSupplement: item.ironSupplement ? t("common.yes") : t("common.no"),
         folicAcidSupplement: item.folicAcidSupplement
           ? t("common.yes")

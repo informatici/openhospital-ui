@@ -16,7 +16,7 @@ export const useFields = (medicalhistory?: MedicalHistoryDTO) => {
     },
     siblingRank: {
       value: medicalhistory?.siblingRank?.toString() ?? "",
-      type: "number",
+      type: "text",
     },
     termPregnancy: {
       value: medicalhistory?.termPregnancy ?? "",
