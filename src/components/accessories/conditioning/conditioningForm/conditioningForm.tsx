@@ -1,3 +1,5 @@
+import { Autocomplete } from "components/accessories/autocomplete";
+import AutocompleteField from "components/accessories/autocompleteField/AutocompleteField";
 import CheckboxField from "components/accessories/checkboxField/CheckboxField";
 import DateField from "components/accessories/dateField/DateField";
 import TextField from "components/accessories/textField/TextField";
@@ -6,6 +8,7 @@ import {
   formatAllFieldValues,
   getFromFields,
 } from "libraries/formDataHandling/functions";
+import { useConditionsAtAmission } from "libraries/hooks";
 import { get, has } from "lodash";
 import React, { FC, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -15,9 +18,6 @@ import Button from "../../button/Button";
 import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
 import "./styles.scss";
 import { ConditioningFormProps } from "./types";
-import { useConditionsAtAmission } from "libraries/hooks";
-import { Autocomplete } from "components/accessories/autocomplete";
-import AutocompleteField from "components/accessories/autocompleteField/AutocompleteField";
 
 const ConditioningForm: FC<ConditioningFormProps> = ({
   fields,
@@ -279,8 +279,8 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
               onChange={(_, value) => {
                 formik.setFieldValue("conditionAtAdmission", value);
               }}
-              label={t("admission.conditionAtAdmission.label")}
-              placeholder={t("admission.conditionAtAdmission.label")}
+              label={t("conditioning.conditionAtAdmission.label")}
+              placeholder={t("conditioning.conditionAtAdmission.label")}
             />
           </div>
           <div className="conditioningForm__item">

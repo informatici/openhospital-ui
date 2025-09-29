@@ -1432,6 +1432,16 @@
     "updated": "Conditioning updated",
     "updatesuccess": "Conditioning has been updated successfully.",
     "positive": "Positive",
-    "negative": "Negative"
+    "negative": "Negative",
+    "conditionAtAdmission": {
+      "label": "Condition at admission",
+      "airway_obstruction": "Airway obstruction",
+      "respiratory_distress": "Respiratory distress",
+      "shock": "Shock",
+      "convulsion": "Convulsion",
+      "coma": "Coma",
+      "dehydration": "Dehydration",
+      "hypoglycemia": "Hypoglycemia"
+    }
   }
 }

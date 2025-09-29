@@ -1396,6 +1396,16 @@
     "createsuccess": "La mise en condition a été enregistrée avec succès.",
     "updatesuccess": "La mise en condition a été mise à jour avec succès.",
     "positive": "Positif",
-    "negative": "Négatif"
+    "negative": "Négatif",
+    "conditionAtAdmission": {
+      "label": "État à l'admission",
+      "airway_obstruction": "Obstruction voies aériennes",
+      "respiratory_distress": "Détresse respiratoire",
+      "shock": "État de choc",
+      "convulsion": "Convulsion",
+      "coma": "Coma",
+      "dehydration": "Déshydratation",
+      "hypoglycemia": "Hypoglycémie"
+    }
   }
 }

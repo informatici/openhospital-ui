@@ -16,9 +16,9 @@ export function useConditionsAtAmission() {
       ].map((item) => {
         const option = {
           value: item,
-          label: t(`admission.conditionAtAdmission.${item}`),
+          label: t(`conditioning.conditionAtAdmission.${item}`),
         };
-        if (option.label.includes("admission.conditionAtAdmission.")) {
+        if (option.label.includes("conditioning.conditionAtAdmission.")) {
           option.label = item;
         }
 
