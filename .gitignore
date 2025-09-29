@@ -27,3 +27,6 @@ yarn-error.log*
 # IntelliJ
 .idea
 *.iml
+
+# Cypress
+cypress/downloads
