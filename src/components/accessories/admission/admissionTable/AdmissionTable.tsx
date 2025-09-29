@@ -1,5 +1,4 @@
 import { CircularProgress } from "@mui/material";
-import { useConditionsAtAmission } from "libraries/hooks";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { FunctionComponent, useEffect } from "react";
 import { useTranslation } from "react-i18next";
@@ -38,13 +37,14 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
     transUnit: t("admission.transUnit"),
     fhu: t("admission.fhu"),
     ward: t("admission.ward"),
-    note: t("admission.note"),
+    anamnesis: t("admission.anamnesis"),
     disType: t("admission.disType"),
     diseaseOut1: t("admission.diseaseOut1"),
     diseaseOut2: t("admission.diseaseOut2"),
     diseaseOut3: t("admission.diseaseOut3"),
     preTreatment: t("admission.preTreatment"),
     preAssessment: t("admission.preAssessment"),
+    entryReason: t("admission.entryReason"),
   };
   const order = ["admDate", "disDate"];
 
@@ -90,13 +90,14 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
         transUnit: item.transUnit,
         fhu: item.fhu,
         ward: item.ward?.description ?? "",
-        note: item.note ?? "",
+        anamnesis: item.anamnesis ?? "",
         disType: item.disType?.description ?? "",
         diseaseOut1: item.diseaseOut1?.description ?? "",
         diseaseOut2: item.diseaseOut2?.description ?? "",
         diseaseOut3: item.diseaseOut3?.description ?? "",
         preTreatment: item.preTreatment ?? "",
         preAssessment: item.preAssessment ?? "",
+        entryReason: item.entryReason,
       };
     });
   };

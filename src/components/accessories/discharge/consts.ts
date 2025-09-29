@@ -31,7 +31,7 @@ export const initialFields: TFields<DischargeFormFieldName> = {
     type: "text",
     options: [],
   },
-  note: {
+  anamnesis: {
     value: "",
     type: "text",
   },

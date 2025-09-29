@@ -39,10 +39,11 @@ export const CurrentAdmission: FunctionComponent<IOwnProps> = ({
       admDate: adm.admDate,
       admType: adm.admType,
       diseaseIn: adm.diseaseIn,
-      note: adm.note,
+      anamnesis: adm.anamnesis,
       ward: adm.ward,
       preTreatment: adm.preTreatment,
       preAssessment: adm.preAssessment,
+      entryReason: adm.entryReason,
     };
     dispatch(updateAdmission(admissionToSave));
   };

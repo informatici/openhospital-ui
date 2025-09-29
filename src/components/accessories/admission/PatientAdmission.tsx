@@ -37,6 +37,8 @@ const PatientAdmission: FC = () => {
   const [shouldResetForm, setShouldResetForm] = useState(false);
   const [creationMode, setCreationMode] = useState(true);
   const [isEditingCurrent, setIsEditingCurrent] = useState(false);
+  const [isCurrentAdmissionUpdated, setIsCurrentAdmissionUpdated] =
+    useState(false);
   const [showForm, setShowForm] = useState(false);
   const [admissionToEdit, setAdmissionToEdit] = useState<
     AdmissionDTO | undefined
@@ -113,10 +115,11 @@ const PatientAdmission: FC = () => {
         admDate: adm.admDate,
         admType: adm.admType,
         diseaseIn: adm.diseaseIn,
-        note: adm.note,
+        anamnesis: adm.anamnesis,
         ward: adm.ward,
         preTreatment: adm.preTreatment,
         preAssessment: adm.preAssessment,
+        entryReason: adm.entryReason,
       };
       if (!isEmpty(admissionToEdit?.disType)) {
         admissionToSave = {
@@ -189,6 +192,11 @@ const PatientAdmission: FC = () => {
   };
 
   const onCurrentAdmissionChange = (value: boolean) => {
+    if (updateStatus === "SUCCESS") {
+      setIsCurrentAdmissionUpdated(true);
+    } else {
+      setIsCurrentAdmissionUpdated(false);
+    }
     setIsEditingCurrent(value);
   };
 
@@ -237,10 +245,14 @@ const PatientAdmission: FC = () => {
           (createStatus === "SUCCESS" || updateStatus === "SUCCESS") &&
           !isEditingCurrent
         }
-        title={creationMode ? t("admission.created") : t("admission.updated")}
+        title={
+          creationMode && !isCurrentAdmissionUpdated
+            ? t("admission.created")
+            : t("admission.updated")
+        }
         icon={checkIcon}
         info={
-          creationMode
+          creationMode && !isCurrentAdmissionUpdated
             ? t("admission.createsuccess")
             : t("admission.updatesuccess")
         }

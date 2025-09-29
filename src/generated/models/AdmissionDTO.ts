@@ -125,11 +125,11 @@ export interface AdmissionDTO {
      */
     disType?: DischargeTypeDTO;
     /**
-     * Free note
+     * Anamnesis
      * @type {string}
      * @memberof AdmissionDTO
      */
-    note?: string;
+    anamnesis?: string;
     /**
      * Transfusional unit
      * @type {number}
@@ -199,6 +199,12 @@ export interface AdmissionDTO {
      * @memberof AdmissionDTO
      */
     preAssessment?: string;
+    /**
+     * Reason for patient admission to hospital
+     * @type {string}
+     * @memberof AdmissionDTO
+     */
+    entryReason?: string;
     /**
      * User id
      * @type {string}

@@ -302,6 +302,9 @@ const SearchPatientActivity = () => {
                 />
               </div>
             )}
+            {searchStatus === "FAIL" && (
+              <InfoBox type="info" message={t("common.emptydata")} />
+            )}
           </Permission>
         </div>
       </div>

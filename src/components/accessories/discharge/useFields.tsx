@@ -26,8 +26,8 @@ export const useFields = (admission?: AdmissionDTO) => {
       ).toString(),
       type: "number",
     },
-    note: {
-      value: admission?.note ?? "",
+    anamnesis: {
+      value: admission?.anamnesis ?? "",
       type: "text",
     },
   };

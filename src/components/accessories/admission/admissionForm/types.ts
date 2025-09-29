@@ -22,7 +22,7 @@ export type AdmissionFormFieldName =
   | "admType"
   | "diseaseIn"
   | "fhu"
-  | "note"
+  | "anamnesis"
   | "disDate"
   | "disType"
   | "bedDays"
@@ -33,4 +33,4 @@ export type AdmissionFormFieldName =
   | "imageryCharge"
   | "preTreatment"
   | "preAssessment"
-  | "conditionAtAdmission";
+  | "entryReason";
