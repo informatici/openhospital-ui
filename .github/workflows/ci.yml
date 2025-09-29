@@ -2,9 +2,11 @@ name: CI
 
 on:
   pull_request:
+    branches:
+      - "feature/OH2-122-pharmacy"
   push:
-    branches-ignore:
-      - "develop"
+    branches:
+      - "feature/OH2-122-pharmacy"
 
 jobs:
   build:
