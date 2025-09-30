@@ -1,4 +1,4 @@
-import { AcUnit, EditRounded, Notes, Person, } from "@mui/icons-material";
+import { AcUnit, EditRounded, Notes, Person } from "@mui/icons-material";
 import classNames from "classnames";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { isEmpty } from "lodash";
@@ -239,7 +239,9 @@ const PatientEncounterActivity = () => {
           {t("encounter.closeAt")}:
         </div>
         <div className="patientEncounter__personalData__item__value">
-          {encounter?.closedAt != null ? renderDateTime(encounter?.closedAt) : "-"}
+          {encounter?.closedAt != null
+            ? renderDateTime(encounter?.closedAt)
+            : "-"}
         </div>
       </div>
     </>
@@ -247,7 +249,7 @@ const PatientEncounterActivity = () => {
 
   switch (activityTransitionState) {
     case "TO_PATIENT_ENCOUNTER_EDITING":
-      return <Navigate to="edit" />;
+      return <Navigate to={`/patients/details/${patient.data?.code}/edit`} />;
     default:
       return (
         <div data-cy="patient-encounter" className="patientEncounter">
@@ -413,17 +415,17 @@ const PatientEncounterActivity = () => {
                         <AccordionSummary
                           onClick={() => handleOnExpanded("panel_1")}
                         >
-                          {
-                            encounter != null ? 
-                            (<AcUnit
-                              fontSize="small"
-                              style={{ color: "white" }} 
-                            />) : 
-                            (<Person
+                          {encounter != null ? (
+                            <AcUnit
                               fontSize="small"
                               style={{ color: "white" }}
-                            />)
-                          }
+                            />
+                          ) : (
+                            <Person
+                              fontSize="small"
+                              style={{ color: "white" }}
+                            />
+                          )}
                           <span>
                             {encounter != null
                               ? t("patient.encounterdata")
