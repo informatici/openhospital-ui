@@ -59,6 +59,7 @@ const AppHeader: FunctionComponent<IOwnProps> = ({ breadcrumbMap }) => {
   const canAccessLaboratory = usePermission("laboratories.access");
   const canAccessDashboard = usePermission("dashboard.access");
   const canAccessAdmin = usePermission("admin.access");
+  const canAccessPharmacy = usePermission("pharmacy.access");
 
   return (
     <div
@@ -171,6 +172,14 @@ const AppHeader: FunctionComponent<IOwnProps> = ({ breadcrumbMap }) => {
                   onClick={() => navigate(PATHS.laboratory)}
                 >
                   {t("nav.laboratory")}
+                </div>
+              )}
+              {canAccessPharmacy && (
+                <div
+                  className="appHeader__nav__item"
+                  onClick={() => navigate(PATHS.pharmacy)}
+                >
+                  {t("nav.pharmacy")}
                 </div>
               )}
             </div>

@@ -22,6 +22,7 @@ import { withPermission } from "../libraries/permissionUtils/withPermission";
 import { getUserSettings } from "../state/main";
 import { AdminRoutes } from "./Admin";
 import { PatientsRoutes } from "./Patients/PatientsRoutes";
+import { PharmacyRoutes } from "./Pharmacy";
 
 export const MainRouter: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -36,6 +37,11 @@ export const MainRouter: React.FC = () => {
     "admin.access",
     PermissionDenied
   )(AdminRoutes);
+
+  const RequiredPharmacyAccess = withPermission(
+    "pharmacy.access",
+    PermissionDenied
+  )(PharmacyRoutes);
 
   const router = createBrowserRouter(
     createRoutesFromElements(
@@ -62,6 +68,10 @@ export const MainRouter: React.FC = () => {
           />
           <Route path={`${PATHS.patients}/*`} element={<PatientsRoutes />} />
           <Route path={`${PATHS.admin}/*`} element={<RequiredAdminAccess />} />
+          <Route
+            path={`${PATHS.pharmacy}/*`}
+            element={<RequiredPharmacyAccess />}
+          />
         </Route>
 
         <Route path="*" element={<NotFound />} />

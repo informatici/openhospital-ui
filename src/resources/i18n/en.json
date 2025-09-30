@@ -488,6 +488,7 @@
     "dismiss": "Dismiss",
     "savetriage": "Save triage",
     "404notfound": "404 - Page Not Found",
+    "goback": "Go back",
     "gobackdashboard": "Go back to the dashboard",
     "keepediting": "Keep editing",
     "titleedited": "Patient Edited",
@@ -1225,5 +1226,12 @@
     "updateSuccess": "The exam type has been updated successfully!",
     "cancelCreation": "Are you sure to cancel the exam type creation?",
     "cancelUpdate": "Are you sure to cancel the exam type update?"
+  },
+  "pharmacy": {
+    "labels": {
+      "medicals": "Medical products",
+      "pharmaceutical-stock": "Pharmaceutical stock",
+      "ward-stock": "Ward stock"
+    }
   }
 }
