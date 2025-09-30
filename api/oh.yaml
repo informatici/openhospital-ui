@@ -6945,11 +6945,11 @@ components:
           format: int32
           description: lock
           example: 0
-        pharmacy:
+        female:
           type: boolean
         male:
           type: boolean
-        female:
+        pharmacy:
           type: boolean
         opd:
           type: boolean
@@ -7147,6 +7147,11 @@ components:
           type: string
           description: Mother phone
           example: "+393456789012"
+        folderNumber:
+          type: integer
+          format: int32
+          description: Folder number
+          example: 30
       required:
       - age
       - bloodType
@@ -7734,9 +7739,9 @@ components:
         disType:
           $ref: "#/components/schemas/DischargeTypeDTO"
           description: DisChargeType
-        note:
+        anamnesis:
           type: string
-          description: Free note
+          description: Anamnesis
           maxLength: 65535
         transUnit:
           type: number
@@ -7780,15 +7785,10 @@ components:
           description: "Assessment performed before the patient's admission. Example:\
             \ preliminary examinations, lab results, medical observations."
           example: Blood test and X-ray prior to admission
-        conditionAtAdmission:
-          type: array
-          description: "Patient's condition at the time of admission. Stored as a\
-            \ list of descriptors (e.g., stable, critical, unconscious)."
-          example:
-          - stable
-          - conscious
-          items:
-            type: string
+        entryReason:
+          type: string
+          description: Reason for patient admission to hospital
+          example: Headache
         userID:
           type: string
           description: User id
@@ -7805,11 +7805,11 @@ components:
           type: string
           description: "Flag record deleted, values are 'Y' OR 'N' "
           example: "N"
+        fhu:
+          type: string
         yprog:
           type: integer
           format: int32
-        fhu:
-          type: string
       required:
       - admDate
       - admitted
@@ -8259,8 +8259,7 @@ components:
           $ref: "#/components/schemas/PatientDTO"
           description: The patient identifier linked to this medical history
         siblingRank:
-          type: integer
-          format: int32
+          type: string
         termPregnancy:
           type: string
         deliveryMode:
@@ -8545,6 +8544,10 @@ components:
           type: string
           description: Date of Patient Examination
           example: 2020-03-19T14:58:00.000Z
+        pex_type:
+          type: string
+          description: type of Patient Examination
+          example: Admission
         patientCode:
           type: integer
           format: int32
@@ -8644,6 +8647,7 @@ components:
       required:
       - patientCode
       - pex_date
+      - pex_type
     ConditioningDTO:
       type: object
       properties:
@@ -8694,6 +8698,19 @@ components:
           type: string
           description: Conditioning others
           example: others
+        conditionAtAdmission:
+          type: array
+          description: "Patient's condition at the time of admission. Stored as a\
+            \ list of descriptors (e.g., stable, critical, unconscious)."
+          example:
+          - stable
+          - conscious
+          items:
+            type: string
+        tdr:
+          type: string
+          description: 'Conditioning tdr '
+          example: sonde
         patient:
           $ref: "#/components/schemas/PatientDTO"
           description: patient

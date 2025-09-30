@@ -1,7 +1,6 @@
 import { Edit } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 import { renderDateTime } from "libraries/formatUtils/dataFormatting";
-import { useConditionsAtAmission } from "libraries/hooks";
 import { isEmpty } from "lodash";
 import React, { FunctionComponent } from "react";
 import { useTranslation } from "react-i18next";
@@ -18,9 +17,6 @@ export const CurrentAdmissionData: FunctionComponent<IOwnProps> = ({
   admission,
 }) => {
   const { t } = useTranslation();
-
-  const { formatValues: formatConditions } = useConditionsAtAmission();
-
   return (
     <div className="currentAdmissionData">
       <div className="currentAdmission_leading">
@@ -61,10 +57,10 @@ export const CurrentAdmissionData: FunctionComponent<IOwnProps> = ({
             <p className="item_content">{admission?.diseaseIn?.description}</p>
           </div>
         )}
-        {!isEmpty(admission?.note) && (
+        {!isEmpty(admission?.anamnesis) && (
           <div className="fullWidth currentAdmissionData__item">
-            <span className="item_label">{t("admission.note")}</span>
-            <p className="item_content">{admission?.note}</p>
+            <span className="item_label">{t("admission.anamnesis")}</span>
+            <p className="item_content">{admission?.anamnesis}</p>
           </div>
         )}
         {!isEmpty(admission?.preTreatment) && (
@@ -79,14 +75,10 @@ export const CurrentAdmissionData: FunctionComponent<IOwnProps> = ({
             <p className="item_content">{admission?.preAssessment}</p>
           </div>
         )}
-        {!isEmpty(admission?.conditionAtAdmission) && (
+        {!isEmpty(admission?.entryReason) && (
           <div className="fullWidth currentAdmissionData__item">
-            <span className="item_label">
-              {t("admission.conditionAtAdmission.label")}
-            </span>
-            <p className="item_content">
-              {formatConditions(admission.conditionAtAdmission).join(", ")}
-            </p>
+            <span className="item_label">{t("admission.entryReason")}</span>
+            <p className="item_content">{admission.entryReason}</p>
           </div>
         )}
       </div>

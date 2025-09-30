@@ -9,7 +9,7 @@ export const initialFields: TFields<MedicalHistoryFormFieldName> = {
   },
   siblingRank: {
     value: "",
-    type: "number",
+    type: "text",
   },
   termPregnancy: {
     value: "",

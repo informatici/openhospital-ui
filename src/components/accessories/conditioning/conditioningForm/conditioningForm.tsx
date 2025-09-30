@@ -1,3 +1,5 @@
+import { Autocomplete } from "components/accessories/autocomplete";
+import AutocompleteField from "components/accessories/autocompleteField/AutocompleteField";
 import CheckboxField from "components/accessories/checkboxField/CheckboxField";
 import DateField from "components/accessories/dateField/DateField";
 import TextField from "components/accessories/textField/TextField";
@@ -6,6 +8,7 @@ import {
   formatAllFieldValues,
   getFromFields,
 } from "libraries/formDataHandling/functions";
+import { useConditionsAtAmission } from "libraries/hooks";
 import { get, has } from "lodash";
 import React, { FC, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -39,10 +42,13 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
     sngNumber: yup.string().nullable(),
     others: yup.string().nullable(),
     cpap: yup.boolean(),
+    tdr: yup.string().nullable(),
     performedAt: yup.date().required(t("common.required")),
   });
 
   const initialValues = getFromFields(fields, "value");
+
+  const { options: conditionAtAdmissionOptions } = useConditionsAtAmission();
 
   const [isAspirationChecked, setIsAspirationCheckedChecked] = useState(false);
   const [isCpapChecked, setIsCpapChecked] = useState(false);
@@ -55,8 +61,8 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
       const formattedValues = formatAllFieldValues(fields, values);
       const conditioningToSave: any = {
         ...formattedValues,
-        aspiration: isAspirationChecked ? true : false,
-        cpap: isCpapChecked ? true : false,
+        aspiration: isAspirationChecked,
+        cpap: isCpapChecked,
       };
       onSubmit(conditioningToSave as any);
       setIsAspirationCheckedChecked(false);
@@ -64,7 +70,20 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
     },
   });
 
-  const { resetForm, setFieldValue } = formik;
+  const { resetForm, setFieldValue, handleBlur } = formik;
+
+  const onBlurCallback = useCallback(
+    (fieldName: string) =>
+      (e: React.FocusEvent<HTMLInputElement>, value: any | undefined) => {
+        handleBlur(e);
+        if (value && typeof value === "object" && "value" in value) {
+          setFieldValue(fieldName, value.value);
+        } else {
+          setFieldValue(fieldName, value || "");
+        }
+      },
+    [handleBlur, setFieldValue]
+  );
 
   const dateFieldHandleOnChange = useCallback(
     (fieldName: string) => (value: any) => {
@@ -99,6 +118,7 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
   const handleCpapChecked = () => {
     setIsCpapChecked(!isCpapChecked);
   };
+
   useEffect(() => {
     if (!creationMode) {
       setIsAspirationCheckedChecked(
@@ -149,7 +169,6 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
               disabled={isLoading}
             />
           </div>
-
           <div className="conditioningForm__item">
             <TextField
               label={t("conditioning.mce")}
@@ -247,6 +266,36 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
               rows={3}
               disabled={isLoading}
               maxLength={2000}
+            />
+          </div>
+
+          <div className="fullWidth conditioningForm__item">
+            <Autocomplete
+              id="conditionAtAdmission"
+              multiple
+              freeSolo
+              value={formik.values.conditionAtAdmission}
+              options={conditionAtAdmissionOptions}
+              onChange={(_, value) => {
+                formik.setFieldValue("conditionAtAdmission", value);
+              }}
+              label={t("conditioning.conditionAtAdmission.label")}
+              placeholder={t("conditioning.conditionAtAdmission.label")}
+            />
+          </div>
+          <div className="conditioningForm__item">
+            <AutocompleteField
+              fieldName="tdr"
+              fieldValue={formik.values.tdr}
+              label={t("conditioning.tdr")}
+              isValid={isValid("tdr")}
+              errorText={getErrorText("tdr")}
+              onBlur={onBlurCallback("tdr")}
+              options={[
+                { value: "POSITIF", label: t("conditioning.positive") },
+                { value: "NEGATIF", label: t("conditioning.negative") },
+              ]}
+              disabled={isLoading}
             />
           </div>
         </div>

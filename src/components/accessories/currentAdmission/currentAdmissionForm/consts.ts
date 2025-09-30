@@ -34,7 +34,7 @@ export const initialFields = (
       type: "text",
       options: [],
     },
-    note: {
+    anamnesis: {
       value: "",
       type: "text",
     },
@@ -46,11 +46,9 @@ export const initialFields = (
       value: "",
       type: "text",
     },
-    conditionAtAdmission: {
+    entryReason: {
       value: "",
       type: "text",
-      options: [],
-      isArray: true,
     },
   };
 };
