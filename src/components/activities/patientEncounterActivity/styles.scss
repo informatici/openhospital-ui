@@ -285,14 +285,14 @@
 
       &.patientEncounter_status_in {
         span:before {
-          background-color: $c-green;
+          background-color: $c-red;
           animation: bump 3s infinite;
         }
       }
 
       &.patientEncounter_status_out {
         span:before {
-          background-color: $c-red;
+          background-color: $c-green;
         }
       }
       h6 {
