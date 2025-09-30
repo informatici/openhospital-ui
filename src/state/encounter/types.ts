@@ -1,4 +1,3 @@
-
 import {
   AdmissionDTO,
   ConditioningDTO,
@@ -23,4 +22,5 @@ export type IEncountersState = {
   encounterConditionings: ApiResponse<Array<ConditioningDTO>>;
   encounterOpds: ApiResponse<Array<OpdWithOperationRowDTO>>;
   encounterMedicalHistories: ApiResponse<Array<MedicalHistoryDTO>>;
+  printEncounter: ApiResponse<Blob>;
 };

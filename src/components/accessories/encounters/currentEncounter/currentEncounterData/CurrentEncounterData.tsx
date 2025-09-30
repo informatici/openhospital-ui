@@ -1,4 +1,4 @@
-import { Close, Delete, Edit, Visibility } from "@mui/icons-material";
+import { Close, Delete, Edit, Print, Visibility } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 import { renderDateTime } from "libraries/formatUtils/dataFormatting";
 import { useAppDispatch } from "libraries/hooks";
@@ -13,6 +13,7 @@ import "../styles.scss";
 interface IOwnProps {
   onEdit?: () => void;
   onEditCode?: (row: any) => void;
+  onPrint?: (row: any) => void;
   onDelete?: () => void;
   encounter: EncounterDTO;
 }
@@ -20,6 +21,7 @@ interface IOwnProps {
 export const CurrentEncounterData: FunctionComponent<IOwnProps> = ({
   onEdit,
   onEditCode,
+  onPrint,
   onDelete,
   encounter,
 }) => {
@@ -46,6 +48,9 @@ export const CurrentEncounterData: FunctionComponent<IOwnProps> = ({
         </IconButton>
         <IconButton onClick={onEdit}>
           <Close />
+        </IconButton>
+        <IconButton onClick={() => onPrint && onPrint(encounter)}>
+          <Print color="secondary" />
         </IconButton>
         <IconButton onClick={onDelete}>
           <Delete />

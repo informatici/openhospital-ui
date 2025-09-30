@@ -14,6 +14,7 @@ import { IOwnProps } from "./types";
 export const CurrentEncounter: FunctionComponent<IOwnProps> = ({
   onEditChange,
   onEditCode,
+  onPrint,
   onDelete,
   onCloseEncounter,
 }) => {
@@ -55,6 +56,7 @@ export const CurrentEncounter: FunctionComponent<IOwnProps> = ({
         <CurrentEncounterData
           onEdit={onEditChange ? handleEdit : undefined}
           onEditCode={onEditCode}
+          onPrint={onPrint}
           onDelete={() => {
             setIsConfirmDeleteEncounterDialogOpen(true);
           }}

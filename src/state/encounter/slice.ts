@@ -40,6 +40,9 @@ export const encounterSlice = createSlice({
     resetPatientEncounterSelection: (state) => {
       state.selectedPatientEncounter = initial.selectedPatientEncounter;
     },
+    printEncounterReset: (state) => {
+      state.printEncounter = initial.printEncounter;
+    },
   },
   extraReducers: (builder) =>
     builder
@@ -165,15 +168,35 @@ export const encounterSlice = createSlice({
       .addCase(thunks.getEncounterMedicalHistories.pending, (state) => {
         state.encounterMedicalHistories = ApiResponse.loading();
       })
-      .addCase(thunks.getEncounterMedicalHistories.fulfilled, (state, action) => {
-        state.encounterMedicalHistories = isEmpty(action.payload)
-          ? ApiResponse.empty()
-          : ApiResponse.value(action.payload);
-      })
-      .addCase(thunks.getEncounterMedicalHistories.rejected, (state, action) => {
-        state.encounterMedicalHistories = ApiResponse.error(action.payload);
-      })
+      .addCase(
+        thunks.getEncounterMedicalHistories.fulfilled,
+        (state, action) => {
+          state.encounterMedicalHistories = isEmpty(action.payload)
+            ? ApiResponse.empty()
+            : ApiResponse.value(action.payload);
+        }
+      )
+      .addCase(
+        thunks.getEncounterMedicalHistories.rejected,
+        (state, action) => {
+          state.encounterMedicalHistories = ApiResponse.error(action.payload);
+        }
+      )
 
+      // Print Encounter report
+      .addCase(thunks.printEncounter.pending, (state) => {
+        state.printEncounter = ApiResponse.loading();
+      })
+      .addCase(thunks.printEncounter.fulfilled, (state, action) => {
+        if (action.payload instanceof Blob) {
+          state.printEncounter = ApiResponse.value(action.payload);
+        } else {
+          state.printEncounter = ApiResponse.error(action.payload);
+        }
+      })
+      .addCase(thunks.printEncounter.rejected, (state, action) => {
+        state.printEncounter = ApiResponse.error(action.payload);
+      }),
 });
 
 export const {
