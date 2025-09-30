@@ -251,7 +251,7 @@
     "status_open": "Ouverte",
     "status_closed": "Fermée",
     "encounterId": "ID Rencontre",
-    "edit_title": "Modifier"
+    "edit_title": "Editer Patient"
   },
   "opd": {
     "newopd": "Créer une nouvelle visite OPD",
