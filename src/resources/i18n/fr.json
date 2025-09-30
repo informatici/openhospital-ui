@@ -250,8 +250,7 @@
     "radiology": "Radiologie",
     "status_open": "Ouverte",
     "status_closed": "Fermée",
-    "encounterId": "ID Rencontre",
-    "edit_title": "Editer Patient"
+    "encounterId": "ID Rencontre"
   },
   "opd": {
     "newopd": "Créer une nouvelle visite OPD",

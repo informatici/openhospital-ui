@@ -326,7 +326,7 @@ const PatientEncounterActivity = () => {
                             fontSize="small"
                             style={{ color: "white" }}
                           />
-                          <span>{t("encounters.edit_title")}</span>
+                          <span>{t("patient.titleedit")}</span>
                         </Button>
                       </div>
                     </div>

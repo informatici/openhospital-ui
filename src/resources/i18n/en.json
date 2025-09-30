@@ -283,8 +283,7 @@
     "radiology": "Radiology",
     "status_open": "Open",
     "status_closed": "Closed",
-    "encounterId": "Encounter ID",
-    "edit_title": "Patient Profile"
+    "encounterId": "Encounter ID"
   },
   "opd": {
     "newopd": "Create new OPD Visit",
