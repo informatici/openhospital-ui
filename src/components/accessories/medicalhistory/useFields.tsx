@@ -95,10 +95,15 @@ export const useFields = (medicalhistory?: MedicalHistoryDTO) => {
       value: medicalhistory?.otherPersonalPathologies ?? "",
       type: "text",
     },
-
     otherFamilyPathologies: {
       value: medicalhistory?.otherFamilyPathologies ?? "",
       type: "text",
+    },
+    performedAt: {
+      value: medicalhistory?.performedAt
+        ? parseDateTime(medicalhistory.performedAt)
+        : new Date().toISOString(),
+      type: "date",
     },
   };
 

@@ -730,7 +730,8 @@
     "createsuccess": "Medical history created successfully",
     "updatesuccess": "Medical history updated successfully",
     "id": "ID",
-    "previousentries": "Previous Medicals Histories"
+    "previousentries": "Previous Medicals Histories",
+    "performedAt": "Medidal History performed date"
   },
 
   "permission": {

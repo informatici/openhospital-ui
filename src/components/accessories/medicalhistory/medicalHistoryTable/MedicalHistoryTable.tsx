@@ -1,14 +1,17 @@
 import { CircularProgress } from "@mui/material";
 import { MedicalHistoryDTO } from "generated";
-import { renderDateTime } from "libraries/formatUtils/dataFormatting";
+import {
+  renderDate,
+  renderDateTime,
+} from "libraries/formatUtils/dataFormatting";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { FunctionComponent, useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { useParams } from "react-router";
+import { getEncounterMedicalHistories } from "state/encounter";
 import { getMedicalHistoryByPatientCode } from "state/medicalhistory";
 import InfoBox from "../../infoBox/InfoBox";
 import Table from "../../table/Table";
-import { useParams } from "react-router";
-import { getEncounterMedicalHistories } from "state/encounter";
 
 interface IOwnProps {
   shouldUpdateTable: boolean;
@@ -57,6 +60,7 @@ const MedicalHistoryTable: FunctionComponent<IOwnProps> = ({
     otherFamilyPathologies: t(
       "medicalHistory.familyPathological.otherFamilyPathologies"
     ),
+    performedAt: t("medicalHistory.performedAt"),
   };
   const order = ["id"];
 
@@ -64,8 +68,10 @@ const MedicalHistoryTable: FunctionComponent<IOwnProps> = ({
 
   const dispatch = useAppDispatch();
 
-  const data = useAppSelector(
-    (state) => code ? state.encounters.encounterMedicalHistories.data || [] : state.medicalhistory.getMedicalHistoryByPatientCode.data || []
+  const data = useAppSelector((state) =>
+    code
+      ? state.encounters.encounterMedicalHistories.data || []
+      : state.medicalhistory.getMedicalHistoryByPatientCode.data || []
   );
 
   const patientCode = useAppSelector(
@@ -74,7 +80,9 @@ const MedicalHistoryTable: FunctionComponent<IOwnProps> = ({
 
   useEffect(() => {
     if (shouldUpdateTable || patientCode || code) {
-      code ? dispatch(getEncounterMedicalHistories({ code: code as string })) : dispatch(getMedicalHistoryByPatientCode(patientCode!!));
+      code
+        ? dispatch(getEncounterMedicalHistories({ code: code as string }))
+        : dispatch(getMedicalHistoryByPatientCode(patientCode!!));
     }
   }, [shouldUpdateTable, dispatch, patientCode, code]);
 
@@ -109,6 +117,7 @@ const MedicalHistoryTable: FunctionComponent<IOwnProps> = ({
         hemylosis: item.hemylosis ?? "",
         otherPersonalPathologies: item.otherPersonalPathologies ?? "",
         otherFamilyPathologies: item.otherFamilyPathologies ?? "",
+        performedAt: renderDate(item.performedAt!),
       };
     });
   };
