@@ -83,7 +83,6 @@ const MedicalHistory: FC = () => {
     if (creationMode) {
       mh.drugAllergy = mh.allergyPrecision ? true : false;
       mh.patient = patient!;
-      console.log(mh);
       dispatch(createMedicalHistory(mh));
     } else {
       let medicalHistoryToSave: MedicalHistoryDTO = {
