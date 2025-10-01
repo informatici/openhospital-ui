@@ -731,7 +731,7 @@
     "updatesuccess": "Medical history updated successfully",
     "id": "ID",
     "previousentries": "Previous Medicals Histories",
-    "performedAt": "Medidal History performed date"
+    "performedAt": "Date"
   },
 
   "permission": {

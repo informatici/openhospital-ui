@@ -221,7 +221,7 @@ const MedicalHistoryForm: FC<MedicalHistoryProps> = ({
                 disabled={false}
               />
             </div>
-            <div className="fullWidth medicalHistoryForm__item">
+            <div className="medicalHistoryForm__item">
               <TextField
                 label={t("medicalHistory.physiological.siblingRank")}
                 field={formik.getFieldProps("siblingRank")}

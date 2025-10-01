@@ -697,7 +697,7 @@
     "updatesuccess": "Antécédent médical mis à jour avec succès",
     "id": "ID",
     "previousentries": "Antécédents médicaux  précédents",
-    "performedAt": "Date de l'enrégistrement de l'antécédent médical"
+    "performedAt": "Date"
   },
 
   "permission": {
