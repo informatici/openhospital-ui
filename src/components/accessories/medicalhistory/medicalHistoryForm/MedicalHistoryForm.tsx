@@ -205,7 +205,7 @@ const MedicalHistoryForm: FC<MedicalHistoryProps> = ({
           onSubmit={formik.handleSubmit}
         >
           <div className="row start-sm center-xs bottom-sm">
-            <div className="fullWidth medicalHistoryForm__item">
+            <div className="medicalHistoryForm__item">
               <DateField
                 fieldName="performedAt"
                 fieldValue={formik.values.performedAt}
