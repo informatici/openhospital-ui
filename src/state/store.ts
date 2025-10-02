@@ -26,6 +26,7 @@ import { userSlice } from "./users";
 import { vaccineSlice } from "./vaccines";
 import { visitSlice } from "./visits";
 import { wardSlice } from "./ward";
+import { pharmacySlice } from "./pharmacy";
 
 const reducer = combineReducers({
   main: mainSlice.reducer,
@@ -55,6 +56,7 @@ const reducer = combineReducers({
   vaccines: vaccineSlice.reducer,
   types: typesReducer,
   suppliers: supplierSlice.reducer,
+  pharmacy: pharmacySlice.reducer,
 });
 
 export const store = configureStore({

@@ -61,5 +61,10 @@
       word-break: break-all;
       display: flex;
     }
+    .collapseItem {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
   }
 }

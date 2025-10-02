@@ -32,6 +32,7 @@ export interface IProps {
   displayRowAction?: (row: any, action: TActions) => boolean;
   disableRowAction?: (row: any, action: TActions) => boolean;
   detailsExcludedFields?: string[];
+  adjustQuantity?: boolean;
   /**
    * Column used for the filter. When this prop is provided, don't forget to provide also [rawData]
    */
@@ -80,6 +81,7 @@ export interface IRowProps {
   expanded?: boolean;
   dateFields: Array<string>;
   detailsExcludedFields?: string[];
+  adjustQuantity?: boolean;
 }
 
 export type TActions =
