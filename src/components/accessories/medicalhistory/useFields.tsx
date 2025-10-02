@@ -101,7 +101,7 @@ export const useFields = (medicalhistory?: MedicalHistoryDTO) => {
     },
     performedAt: {
       value: medicalhistory?.performedAt
-        ? parseDateTime(medicalhistory.performedAt)
+        ? parseDateTime(medicalhistory.performedAt.toString()!, false)
         : new Date().toISOString(),
       type: "date",
     },
