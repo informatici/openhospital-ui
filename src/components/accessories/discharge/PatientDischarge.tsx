@@ -112,7 +112,7 @@ const PatientDischarge: FC = () => {
     if (currentAdmission) {
       const dischargeToSave: AdmissionDTO = {
         ...currentAdmission,
-        disDate: parseDateTime(adm.disDate ?? ""),
+        disDate: parseDateTime(adm.disDate ?? "", false),
         disType: adm.disType,
         diseaseOut1: adm.diseaseOut1,
         diseaseOut2: adm.diseaseOut2,
