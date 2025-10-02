@@ -4,6 +4,7 @@ import { useFormik } from "formik";
 import { get, has } from "lodash";
 import React, { FC, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import * as Yup from "yup";
 import { boolean, date, number, object, string } from "yup";
 import warningIcon from "../../../../assets/warning-icon.png";
 import {
@@ -57,6 +58,7 @@ const MedicalHistoryForm: FC<MedicalHistoryProps> = ({
     hemylosis: string().nullable(),
     otherPersonalPathologies: string().nullable(),
     otherFamilyPathologies: string().nullable(),
+    performedAt: Yup.date().nullable().required(t("common.required")),
   });
 
   const initialValues = getFromFields(fields, "value");
@@ -203,7 +205,23 @@ const MedicalHistoryForm: FC<MedicalHistoryProps> = ({
           onSubmit={formik.handleSubmit}
         >
           <div className="row start-sm center-xs bottom-sm">
-            <div className="fullWidth medicalHistoryForm__item">
+            <div className="medicalHistoryForm__item">
+              <DateField
+                fieldName="performedAt"
+                fieldValue={formik.values.performedAt}
+                disableFuture={true}
+                theme="regular"
+                format="dd/MM/yyyy HH:mm"
+                isValid={isValid("performedAt")}
+                errorText={getErrorText("performedAt")}
+                label={t("medicalHistory.performedAt")}
+                onChange={(performedAt: Date | null) =>
+                  formik.setFieldValue("performedAt", performedAt)
+                }
+                disabled={false}
+              />
+            </div>
+            <div className="medicalHistoryForm__item">
               <TextField
                 label={t("medicalHistory.physiological.siblingRank")}
                 field={formik.getFieldProps("siblingRank")}

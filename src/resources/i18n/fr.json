@@ -696,7 +696,8 @@
     "createsuccess": "L'antécédent médical a été créé avec succès",
     "updatesuccess": "Antécédent médical mis à jour avec succès",
     "id": "ID",
-    "previousentries": "Antécédents médicaux  précédents"
+    "previousentries": "Antécédents médicaux  précédents",
+    "performedAt": "Date"
   },
 
   "permission": {

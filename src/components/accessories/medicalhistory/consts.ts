@@ -91,4 +91,8 @@ export const initialFields: TFields<MedicalHistoryFormFieldName> = {
     value: "",
     type: "text",
   },
+  performedAt: {
+    value: "",
+    type: "date",
+  },
 };

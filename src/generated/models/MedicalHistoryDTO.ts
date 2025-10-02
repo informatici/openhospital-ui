@@ -148,6 +148,12 @@ export interface MedicalHistoryDTO {
      */
     otherFamilyPathologies?: string;
     /**
+     * Medical history performed date
+     * @type {string}
+     * @memberof MedicalHistoryDTO
+     */
+    performedAt?: string;
+    /**
      * Lock
      * @type {number}
      * @memberof MedicalHistoryDTO

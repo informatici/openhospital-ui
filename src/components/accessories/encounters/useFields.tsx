@@ -13,7 +13,7 @@ export const useFields = (encounter?: EncounterDTO) => {
     },
     performedAt: {
       value: encounter?.performedAt
-        ? parseDateTime(encounter.performedAt)
+        ? parseDateTime(encounter.performedAt.toString()!, false)
         : new Date().toISOString(),
       type: "date",
     },

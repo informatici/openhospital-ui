@@ -36,4 +36,5 @@ export type MedicalHistoryFormFieldName =
   | "allergyPrecision"
   | "hemylosis"
   | "otherPersonalPathologies"
-  | "otherFamilyPathologies";
+  | "otherFamilyPathologies"
+  | "performedAt";
