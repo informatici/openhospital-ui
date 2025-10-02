@@ -186,7 +186,7 @@ export const Encounters = () => {
         if (result instanceof Blob)
           downloadBlob(
             result,
-            `encounter-report-${encounter?.id}-${new Date().getTime()}.pdf`
+            `encounter-report-${encounter?.code}-${new Date().getTime()}.pdf`
           );
       });
   };
