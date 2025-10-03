@@ -113,7 +113,7 @@ export default function StockTable() {
                   lot: item.lot?.code,
                   type: item.type?.type == "+" ? "Charge" : "Discharge",
                   medical: item.medical?.description,
-                  expDate: formatDate(item.date),
+                  expDate: formatDate(item.lot?.dueDate ?? ""),
                 }))}
                 manualFilter={false}
                 adjustQuantity={(data ?? []).some(
