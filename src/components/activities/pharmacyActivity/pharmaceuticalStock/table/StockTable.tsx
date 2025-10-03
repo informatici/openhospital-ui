@@ -72,7 +72,7 @@ export default function StockTable() {
       return {
         refNo: item.refNo,
         lot: item.lot?.code,
-        expDate: formatDate(item.date),
+        expDate: formatDate(item.lot?.dueDate ?? ""),
         type: item.type?.type == "+" ? "Charge" : "Discharge",
         quantity: item.quantity,
         medical: item.medical?.description,
