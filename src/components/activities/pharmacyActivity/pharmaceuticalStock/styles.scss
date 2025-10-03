@@ -17,10 +17,10 @@
     text-align: center;
     font-weight: bolder;
     @include susy-media($narrow) {
-      padding: 15px;
+      padding: 5px;
     }
     @include susy-media($tablet_land) {
-      padding: 15px;
+      padding: 5px;
     }
   }
   .pharmaceuticalStock__background {
@@ -46,19 +46,19 @@
 
     .not-found__logo {
       margin-top: 0px;
-      margin-bottom: 15px;
+      margin-bottom: 5px;
     }
 
     .not-found__title {
-      padding: 15px 25px 25px 25px;
+      padding: 5px;
       font-size: x-large;
       text-align: center;
       font-weight: bolder;
       @include susy-media($narrow) {
-        padding: 15px;
+        padding: 5px;
       }
       @include susy-media($tablet_land) {
-        padding: 15px;
+        padding: 5px;
       }
     }
   }

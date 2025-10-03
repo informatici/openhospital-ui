@@ -7,6 +7,7 @@ import React, { FunctionComponent, useEffect } from "react";
 import "./styles.scss";
 import { IRowProps } from "./types";
 import Button from "../button/Button";
+import { useTranslation } from "react-i18next";
 
 const TableBodyRow: FunctionComponent<IRowProps> = ({
   row,
@@ -26,6 +27,7 @@ const TableBodyRow: FunctionComponent<IRowProps> = ({
   adjustQuantity = false,
 }) => {
   const [open, setOpen] = React.useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     setOpen(expanded ?? false);
@@ -109,7 +111,7 @@ const TableBodyRow: FunctionComponent<IRowProps> = ({
                   </ul>
                   {adjustQuantity && row.type === "Charge" && (
                     <Button type="button" variant="outlined" color="inherit">
-                      ADJUST QUANTITY
+                      {t("pharmacy.stock.adjustQuantity")}
                     </Button>
                   )}
                 </div>

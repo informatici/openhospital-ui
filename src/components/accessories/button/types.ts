@@ -9,4 +9,5 @@ export interface IProps extends PropsWithChildren {
   dataCy?: string;
   className?: string;
   onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  startIcon?: React.ReactNode;
 }

@@ -1,5 +1,5 @@
 import { useAppSelector } from "libraries/hooks/redux";
-import React from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Outlet } from "react-router";
 import { PATHS } from "../../../consts";
@@ -14,9 +14,9 @@ export function PharmacyActivity() {
     userCredentials: state.main.authentication.data,
   }));
 
-  const breadcrumbMap = {
+  const [breadcrumbMap, setBreadcrumbMap] = useState({
     [t("nav.pharmacy")]: PATHS.pharmacy,
-  };
+  });
 
   return (
     <div data-cy="pharmacy-activity" className="pharmacy">
@@ -26,7 +26,7 @@ export function PharmacyActivity() {
       />
       <div className="pharmacy__background">
         <div className="pharmacy__content">
-          <Outlet />
+          <Outlet context={{ breadcrumbMap, setBreadcrumbMap }} />
         </div>
       </div>
       <Footer />

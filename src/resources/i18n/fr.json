@@ -1241,7 +1241,12 @@
       "medical": "Produit médical",
       "cost": "Coût",
       "total": "Total",
-      "prepDate": "Date de préparation"
+      "prepDate": "Date de préparation",
+      "discharge": "Décharge",
+      "charge": "Charge",
+      "exportList": "Liste d'exportation",
+      "stockReport": "Rapport de stock",
+      "adjustQuantity": "Ajuster la quantité"
     }
   }
 }

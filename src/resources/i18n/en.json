@@ -1242,7 +1242,12 @@
       "medical": "Medical",
       "cost": "Cost",
       "total": "Total",
-      "prepDate": "Prep date"
+      "prepDate": "Prep date",
+      "discharge": "Discharge",
+      "charge": "Charge",
+      "exportList": "Export list",
+      "stockReport": "Stock report",
+      "adjustQuantity": "Adjust quantity"
     }
   }
 }

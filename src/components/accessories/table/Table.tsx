@@ -44,6 +44,7 @@ import { FilterButton } from "./filter/FilterButton";
 import { TFilterValues } from "./filter/types";
 import "./styles.scss";
 import { IProps, TActions } from "./types";
+import TablePaginationActions from "@mui/material/TablePagination/TablePaginationActions";
 
 const Table: FunctionComponent<IProps> = ({
   rowData,
@@ -93,6 +94,7 @@ const Table: FunctionComponent<IProps> = ({
   const [currentRow, setCurrentRow] = useState({} as any);
   const [expanded, setExpanded] = useState(false);
   const [filters, setFilters] = useState<Record<string, TFilterValues>>({});
+  const [rowsPage, setRowsPage] = useState(rowsPerPage ?? 10);
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
   };
@@ -100,6 +102,13 @@ const Table: FunctionComponent<IProps> = ({
     (property: any) => (event: React.MouseEvent<unknown>) => {
       handleRequestSort(event, property);
     };
+
+  const handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setRowsPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
 
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
@@ -492,19 +501,28 @@ const Table: FunctionComponent<IProps> = ({
           </TableBody>
         </MaterialComponent>
       </TableContainer>
-      {filteredData.length > rowsPerPage ? (
+      {filteredData.length > 0 && (
         <TablePagination
           component="div"
           count={filteredData.length}
-          rowsPerPage={rowsPerPage}
-          rowsPerPageOptions={[rowsPerPage]}
           page={page}
+          rowsPerPage={rowsPage}
           onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+          rowsPerPageOptions={[5, 10, 25, 50]}
+          ActionsComponent={(subProps) => (
+            <TablePaginationActions
+              {...subProps}
+              count={filteredData.length}
+              page={page}
+              rowsPerPage={rowsPage}
+              onPageChange={handleChangePage}
+              showFirstButton={true}
+              showLastButton={true}
+            />
+          )}
         />
-      ) : (
-        ""
       )}
-
       <ConfirmationDialog
         isOpen={openConfirmation.open && openConfirmation.action === "delete"}
         title={labels?.delete?.title ?? t("common.delete")}

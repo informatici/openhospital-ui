@@ -12,6 +12,7 @@ const Button: FunctionComponent<IProps> = ({
   dataCy,
   onClick,
   className,
+  startIcon = undefined,
 }) => {
   return (
     <MaterialComponent
@@ -19,6 +20,7 @@ const Button: FunctionComponent<IProps> = ({
       type={type}
       color={color}
       variant={variant}
+      startIcon={startIcon}
       disableElevation
       disabled={disabled}
       onClick={onClick}

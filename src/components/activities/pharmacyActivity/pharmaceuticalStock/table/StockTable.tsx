@@ -17,6 +17,15 @@ export default function StockTable() {
     state.pharmacy.getMovements.data ? state.pharmacy.getMovements.data : []
   );
 
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString("en-GB", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    });
+  };
+
   const status = useAppSelector((state) => state.pharmacy.getMovements.status);
 
   const errorMessage = useAppSelector(
@@ -47,23 +56,14 @@ export default function StockTable() {
     "total",
   ];
 
-  const dateFields = ["type", "expDate", "prepDate"];
-  const order = [
-    "refNo",
-    "lot",
-    "expDate",
-    "type",
-    "quantity",
-    "medical",
-    "cost",
-    "total",
-  ];
+  const dateFields = ["expDate", "prepDate", "type"];
+  const order = ["quantity", "cost", "total"];
 
   const filters: TFilterField[] = [
     { key: "refNo", label: t("pharmacy.stock.refNo"), type: "text" },
     { key: "lot", label: t("pharmacy.stock.lot"), type: "text" },
-    { key: "expDate", label: t("pharmacy.stock.expDate"), type: "date" },
     { key: "type", label: t("pharmacy.stock.type"), type: "text" },
+    { key: "expDate", label: t("pharmacy.stock.expDate"), type: "date" },
     { key: "medical", label: t("pharmacy.stock.medical"), type: "text" },
   ];
 
@@ -72,13 +72,13 @@ export default function StockTable() {
       return {
         refNo: item.refNo,
         lot: item.lot?.code,
-        expDate: item.date,
+        expDate: formatDate(item.date),
         type: item.type?.type == "+" ? "Charge" : "Discharge",
         quantity: item.quantity,
         medical: item.medical?.description,
         cost: item.lot?.cost,
         total: item.lot?.cost ? item.lot?.cost * item.quantity : 0,
-        prepDate: item.date,
+        prepDate: formatDate(item.lot?.preparationDate ?? ""),
       };
     });
   };
@@ -100,10 +100,12 @@ export default function StockTable() {
                 tableHeader={tableHeader}
                 rowsPerPage={10}
                 columnsOrder={order}
+                initialOrderBy="quantity"
                 rowData={formatDataToDisplay(data)}
                 dateFields={dateFields}
                 showEmptyCell={false}
                 isCollapsabile={true}
+                detailColSpan={6}
                 filterColumns={filters}
                 rowKey="refNo"
                 rawData={(data ?? []).map((item) => ({
@@ -111,10 +113,12 @@ export default function StockTable() {
                   lot: item.lot?.code,
                   type: item.type?.type == "+" ? "Charge" : "Discharge",
                   medical: item.medical?.description,
-                  expDate: item.date,
+                  expDate: formatDate(item.date),
                 }))}
                 manualFilter={false}
-                adjustQuantity={(data ?? []).some((item) => item.type?.type === "+")}
+                adjustQuantity={(data ?? []).some(
+                  (item) => item.type?.type === "+"
+                )}
               />
             );
           case "SUCCESS_EMPTY":
