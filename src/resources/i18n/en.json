@@ -1229,7 +1229,8 @@
   },
   "pharmacy": {
     "labels": {
-      "medicals": "Medical products",
+      "pharmaceutical-title": "pharmaceutical",
+      "pharmaceutical": "Medical products",
       "pharmaceutical-stock": "Pharmaceutical stock",
       "ward-stock": "Ward stock"
     },

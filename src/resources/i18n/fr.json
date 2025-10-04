@@ -1228,7 +1228,8 @@
   },
   "pharmacy": {
     "labels": {
-      "medicals": "Produits médicaux",
+      "pharmaceutical-title": "pharmaceutique",
+      "pharmaceutical": "Produits médicaux",
       "pharmaceutical-stock": "Stock pharmaceutique",
       "ward-stock": "Stock du pavillon"
     },

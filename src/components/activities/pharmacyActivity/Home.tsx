@@ -5,7 +5,7 @@ import { useNavigate } from "react-router";
 import LargeButton from "../../accessories/largeButton/LargeButton";
 
 const actions = [
-  { icon: Medication, key: "medicals" },
+  { icon: Medication, key: "pharmaceutical" },
   { icon: MedicalServices, key: "pharmaceutical-stock" },
   { icon: SyncAlt, key: "ward-stock" },
 ];
