@@ -95,6 +95,7 @@ const Table: FunctionComponent<IProps> = ({
   const [expanded, setExpanded] = useState(false);
   const [filters, setFilters] = useState<Record<string, TFilterValues>>({});
   const [rowsPage, setRowsPage] = useState(rowsPerPage ?? 10);
+  rowsPerPage = rowsPage;
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
   };

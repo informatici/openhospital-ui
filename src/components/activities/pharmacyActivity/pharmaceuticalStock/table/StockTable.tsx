@@ -56,7 +56,7 @@ export default function StockTable() {
     "total",
   ];
 
-  const dateFields = ["expDate", "prepDate", "type"];
+  const dateFields = ["expDate", "prepDate"];
   const order = ["quantity", "cost", "total"];
 
   const filters: TFilterField[] = [
@@ -123,8 +123,10 @@ export default function StockTable() {
             );
           case "SUCCESS_EMPTY":
             return <InfoBox type="info" message={t("common.emptydata")} />;
-          default:
+          case "FAIL":
             return <InfoBox type="error" message={errorMessage} />;
+          default:
+            return <CircularProgress />;
         }
       })()}
     </div>

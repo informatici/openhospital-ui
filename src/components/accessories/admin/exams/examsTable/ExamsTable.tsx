@@ -64,6 +64,8 @@ export const ExamsTable = ({ onDelete, onEdit, headerActions }: IOwnProps) => {
     procedure: t("exam.procedure"),
     defaultResult: t("exam.defaultResult"),
   };
+
+  const searchFields = ["description", "examtype", "procedure", "defaultResult"];
   const order: Array<ExamFormFieldName> = [
     "code",
     "examtype",
