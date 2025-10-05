@@ -9,14 +9,30 @@ import { PATHS } from "consts";
 export default function PharmacyStock() {
   const { t } = useTranslation();
 
-  const { breadcrumbMap, setBreadcrumbMap } = useOutletContext<{ breadcrumbMap: Record<string, string>; setBreadcrumbMap: (map: Record<string, string>) => void }>();
+  const { breadcrumbMap, setBreadcrumbMap } = useOutletContext<{
+    breadcrumbMap: Record<string, string>;
+    setBreadcrumbMap: (map: Record<string, string>) => void;
+  }>();
 
   const addBreadcrumb = () => {
-    setBreadcrumbMap({ ...breadcrumbMap, [t("pharmacy.labels.pharmaceutical-stock")]: PATHS.pharmacy_pharmaceuticalstock });
+    setBreadcrumbMap({
+      ...breadcrumbMap,
+      [t("pharmacy.labels.pharmaceutical-stock")]:
+        PATHS.pharmacy_pharmaceuticalstock,
+    });
+  };
+
+  const removeBreadcrumb = () => {
+    const updatedMap = { ...breadcrumbMap };
+    delete updatedMap[t("pharmacy.labels.pharmaceutical-stock")];
+    setBreadcrumbMap(updatedMap);
   };
 
   useEffect(() => {
     addBreadcrumb();
+    return () => {
+      removeBreadcrumb();
+    };
   }, []);
 
   return (

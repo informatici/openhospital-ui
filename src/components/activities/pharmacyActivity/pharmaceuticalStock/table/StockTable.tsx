@@ -7,6 +7,7 @@ import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { getMovements } from "state/pharmacy";
 import { TFilterField } from "components/accessories/table/filter/types";
+import { label } from "components/accessories/patientTherapy/patientTherapyTable/consts";
 
 export default function StockTable() {
   const { t } = useTranslation();
@@ -56,13 +57,15 @@ export default function StockTable() {
     "total",
   ];
 
-  const dateFields = ["expDate", "prepDate"];
+  const dateFields = ["expDate", "prepDate", "type"];
   const order = ["quantity", "cost", "total"];
 
   const filters: TFilterField[] = [
     { key: "refNo", label: t("pharmacy.stock.refNo"), type: "text" },
     { key: "lot", label: t("pharmacy.stock.lot"), type: "text" },
-    { key: "type", label: t("pharmacy.stock.type"), type: "text" },
+    { key: "type", label: t("pharmacy.stock.type"), type: "select", options: [
+      {label: "Charge", value: "Charge"}, {label: "Discharge", value: "Discharge"}
+    ], },
     { key: "expDate", label: t("pharmacy.stock.expDate"), type: "date" },
     { key: "medical", label: t("pharmacy.stock.medical"), type: "text" },
   ];
