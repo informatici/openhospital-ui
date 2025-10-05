@@ -59,15 +59,15 @@ export const FilterButton = ({ field, onChange }: IOwnProps) => {
     enableReinitialize: true,
     onSubmit: (values) => {
       const formattedValues = formatAllFieldValues(fields, values);
+    
+      const value = values.value ?? "";
+      const min = values.min ?? "";
+      const max = values.max ?? "";
+    
       onChange({
-        value:
-          (values.value as string).length === 0
-            ? undefined
-            : formattedValues.value,
-        min:
-          (values.min as string).length === 0 ? undefined : formattedValues.min,
-        max:
-          (values.max as string).length === 0 ? undefined : formattedValues.max,
+        value: value.length === 0 ? undefined : formattedValues.value,
+        min: min.length === 0 ? undefined : formattedValues.min,
+        max: max.length === 0 ? undefined : formattedValues.max,
       } as any);
     },
   });
