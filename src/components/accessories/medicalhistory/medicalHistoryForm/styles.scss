@@ -80,3 +80,16 @@
     }
   }
 }
+
+.medicalHistoryForm__supplementRow .medicalHistoryForm__item {
+  width: 100%;
+  flex: 1 1 0;
+  white-space: nowrap;
+}
+
+.medicalHistoryForm__supplementRow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+}
