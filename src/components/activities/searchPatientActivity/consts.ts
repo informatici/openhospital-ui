@@ -22,4 +22,8 @@ export const initialFields: TFields<TFieldName> = {
     value: "",
     type: "text",
   },
+  folderNumber: {
+    value: "",
+    type: "text",
+  },
 };

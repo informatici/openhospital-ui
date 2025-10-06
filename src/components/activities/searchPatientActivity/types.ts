@@ -20,6 +20,7 @@ export type TValues = {
   secondName: string;
   birthDate: string;
   address: string;
+  folderNumber: string;
 };
 
 export type TFieldName =
@@ -27,6 +28,7 @@ export type TFieldName =
   | "firstName"
   | "secondName"
   | "birthDate"
-  | "address";
+  | "address"
+  | "folderNumber";
 
 export type TActivityTransitionState = "IDLE" | "TO_PATIENT_DETAILS";

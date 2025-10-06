@@ -51,6 +51,7 @@ export interface NewPatientRequest {
 }
 
 export interface SearchPatientRequest {
+    folderNumber?: string;
     firstName?: string;
     secondName?: string;
     birthDate?: string;
@@ -241,15 +242,16 @@ export class PatientsApi extends BaseAPI {
 
     /**
      */
-    searchPatient({ firstName, secondName, birthDate, address, page, size }: SearchPatientRequest): Observable<PagePatientDTO>
-    searchPatient({ firstName, secondName, birthDate, address, page, size }: SearchPatientRequest, opts?: OperationOpts): Observable<AjaxResponse<PagePatientDTO>>
-    searchPatient({ firstName, secondName, birthDate, address, page, size }: SearchPatientRequest, opts?: OperationOpts): Observable<PagePatientDTO | AjaxResponse<PagePatientDTO>> {
+    searchPatient({ folderNumber, firstName, secondName, birthDate, address, page, size }: SearchPatientRequest): Observable<PagePatientDTO>
+    searchPatient({ folderNumber, firstName, secondName, birthDate, address, page, size }: SearchPatientRequest, opts?: OperationOpts): Observable<AjaxResponse<PagePatientDTO>>
+    searchPatient({ folderNumber, firstName, secondName, birthDate, address, page, size }: SearchPatientRequest, opts?: OperationOpts): Observable<PagePatientDTO | AjaxResponse<PagePatientDTO>> {
 
         const headers: HttpHeaders = {
         };
 
         const query: HttpQuery = {};
 
+        if (folderNumber != null) { query['folderNumber'] = folderNumber; }
         if (firstName != null) { query['firstName'] = firstName; }
         if (secondName != null) { query['secondName'] = secondName; }
         if (birthDate != null) { query['birthDate'] = (birthDate as any).toISOString(); }
