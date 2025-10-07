@@ -4915,6 +4915,22 @@ paths:
                 type: boolean
       security:
       - bearerAuth: []
+  /medicals/mov:
+    get:
+      tags:
+      - Medicals
+      operationId: getMedicalsMov
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/MedicalDTO"
+      security:
+      - bearerAuth: []
   /medicals/filter:
     get:
       tags:
@@ -6285,9 +6301,9 @@ components:
           type: boolean
         female:
           type: boolean
-        male:
-          type: boolean
         pharmacy:
+          type: boolean
+        male:
           type: boolean
       required:
       - beds
@@ -7413,6 +7429,30 @@ components:
       required:
       - code
       - description
+    LotDTO:
+      type: object
+      properties:
+        code:
+          type: string
+          description: The lot's code
+          example: LT001
+          maxLength: 50
+        preparationDate:
+          type: string
+          description: The preparation date
+          example: 2020-06-24
+        dueDate:
+          type: string
+          description: The due date
+          example: 2021-06-24
+        cost:
+          type: number
+          description: The lot's code
+          example: 750
+      required:
+      - code
+      - dueDate
+      - preparationDate
     MedicalDTO:
       type: object
       properties:
@@ -7459,6 +7499,9 @@ components:
           format: double
           description: The min quantity of the medical
           example: 15
+        lot:
+          $ref: "#/components/schemas/LotDTO"
+          description: The lot of the medical
         lock:
           type: integer
           format: int32
@@ -8044,30 +8087,6 @@ components:
           description: "The sms flag: true if sms need to be sent to patient, false\
             \ otherwise"
           example: false
-    LotDTO:
-      type: object
-      properties:
-        code:
-          type: string
-          description: The lot's code
-          example: LT001
-          maxLength: 50
-        preparationDate:
-          type: string
-          description: The preparation date
-          example: 2020-06-24
-        dueDate:
-          type: string
-          description: The due date
-          example: 2021-06-24
-        cost:
-          type: number
-          description: The lot's code
-          example: 750
-      required:
-      - code
-      - dueDate
-      - preparationDate
     MovementDTO:
       type: object
       properties:

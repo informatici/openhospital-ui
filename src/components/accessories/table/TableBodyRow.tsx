@@ -1,5 +1,10 @@
-import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
-import { Collapse, IconButton } from "@mui/material";
+import {
+  KeyboardArrowDown,
+  KeyboardArrowUp,
+  Warning,
+  EventBusy,
+} from "@mui/icons-material";
+import { Collapse, IconButton, Typography } from "@mui/material";
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import _ from "lodash";
@@ -33,10 +38,45 @@ const TableBodyRow: FunctionComponent<IRowProps> = ({
     setOpen(expanded ?? false);
   }, [expanded]);
 
+  const getRowStyle = () => {
+    if (row.stock < row.criticalValue) {
+      return {
+        backgroundColor: "#ffebee",
+        "& .MuiTableCell-root": {
+          color: "#c62828",
+          fontWeight: "bold",
+        },
+      };
+    }
+
+    if (row.stock === 0) {
+      return {
+        backgroundColor: "#9e9e9e",
+        "& .MuiTableCell-root": {
+          color: "#ffffff",
+          fontWeight: "bold",
+        },
+      };
+    }
+
+    return {};
+  };
+
+  const hasExpiringLotThisMonth = () => {
+    if (!row.expDate || row.expDate === null) return false;
+
+    const expiry = new Date(row.expDate);
+    const now = new Date();
+    const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+
+    return expiry <= endOfMonth && expiry > now;
+  };
+
   return (
     <>
       <TableRow
         className={rowClassNames ? rowClassNames(row) : ""}
+        sx={getRowStyle()}
         key={rowIndex}
       >
         {isCollapsabile ? (
@@ -62,9 +102,64 @@ const TableBodyRow: FunctionComponent<IRowProps> = ({
               }
             }
           });
+
           return Object.keys(newRow).includes(key) ? (
             <TableCell align="left" key={index}>
-              {newRow[key]}
+              <div
+                style={{ display: "flex", alignItems: "center", gap: "8px" }}
+              >
+                {row.stock === 0 && key === "pharmaceutical" && (
+                  <Typography
+                    component="span"
+                    sx={{
+                      fontWeight: "bold",
+                      fontSize: 15,
+                      color: "white",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      width: 17,
+                      height: 17,
+                      borderRadius: "50%",
+                    }}
+                  >
+                    0
+                  </Typography>
+                )}
+                {row.stock < row.criticalValue &&
+                  hasExpiringLotThisMonth() &&
+                  key === "pharmaceutical" && (
+                    <>
+                      <Warning
+                        sx={{
+                          fontSize: "18px",
+                          color: "#f44336",
+                          marginLeft: "4px",
+                        }}
+                        titleAccess={t("pharmacy.stock.criticalStock")}
+                      />
+                      <EventBusy
+                        sx={{
+                          fontSize: "18px",
+                          color: "#f44336",
+                          marginLeft: "4px",
+                        }}
+                        titleAccess={t("pharmacy.stock.expiringThisMonth")}
+                      />
+                    </>
+                  )}
+                {hasExpiringLotThisMonth() && row.stock >= row.criticalValue && key === "pharmaceutical" && (
+                  <EventBusy
+                    sx={{
+                      fontSize: "18px",
+                      color: "#9e9e9e",
+                      marginLeft: "4px",
+                    }}
+                    titleAccess={t("pharmacy.stock.expiringThisMonth")}
+                  />
+                )}
+                {newRow[key]}
+              </div>
             </TableCell>
           ) : (
             ""

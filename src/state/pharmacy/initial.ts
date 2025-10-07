@@ -6,4 +6,6 @@ export const initial: IPharmacyState = {
     createMovement: new ApiResponse({ status: "IDLE" }),
     updateMovement: new ApiResponse({ status: "IDLE" }),
     deleteMovement: new ApiResponse({ status: "IDLE" }),
+    getMedicals: new ApiResponse({ status: "IDLE", data: [] }),
+    getMedicalsMov: new ApiResponse({ status: "IDLE", data: [] }),
 };

@@ -12,6 +12,7 @@
  */
 
 import type {
+    LotDTO,
     MedicalTypeDTO,
 } from './';
 
@@ -74,6 +75,12 @@ export interface MedicalDTO {
      * @memberof MedicalDTO
      */
     minqty?: number;
+    /**
+     * The lot of the medical
+     * @type {LotDTO}
+     * @memberof MedicalDTO
+     */
+    lot?: LotDTO;
     /**
      * Lock
      * @type {number}

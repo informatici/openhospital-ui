@@ -33,5 +33,31 @@ export const pharmacySlice = createSlice({
             .addCase(thunks.getMovements.rejected, (state, action) => {
                 state.getMovements = ApiResponse.error(action.payload);
             })
+
+            // get medical list
+            .addCase(thunks.getMedicals.pending, (state) => {
+                state.getMedicals = ApiResponse.loading();
+            })
+            .addCase(thunks.getMedicals.fulfilled, (state, action) => {
+                state.getMedicals = isEmpty(action.payload)
+                    ? ApiResponse.empty()
+                    : ApiResponse.value(action.payload);
+            })
+            .addCase(thunks.getMedicals.rejected, (state, action) => {
+                state.getMedicals = ApiResponse.error(action.payload);
+            })
+
+            // get medical movements list
+            .addCase(thunks.getMedicalsMov.pending, (state) => {
+                state.getMedicalsMov = ApiResponse.loading();
+            })
+            .addCase(thunks.getMedicalsMov.fulfilled, (state, action) => {
+                state.getMedicalsMov = isEmpty(action.payload)
+                    ? ApiResponse.empty()
+                    : ApiResponse.value(action.payload);
+            })
+            .addCase(thunks.getMedicalsMov.rejected, (state, action) => {
+                state.getMedicalsMov = ApiResponse.error(action.payload);
+            })
     },
 });

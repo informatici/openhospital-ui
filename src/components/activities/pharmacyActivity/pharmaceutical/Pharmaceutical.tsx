@@ -1,9 +1,37 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import PharmaceuticalActions from './pharmaceuticalActions/PharmaceuticalActions';
+import PharmaceuticalActions from '../../../accessories/pharmaceuticalActions/PharmaceuticalActions';
+import PharmaceuticalTable from '../../../accessories/pharmaceuticalTable/PharmaceuticalTable';
+import { PATHS } from 'consts';
+import { useOutletContext } from 'react-router';
 
 export default function Pharmaceutical() {
     const { t } = useTranslation();
+    const { breadcrumbMap, setBreadcrumbMap } = useOutletContext<{
+      breadcrumbMap: Record<string, string>;
+      setBreadcrumbMap: (map: Record<string, string>) => void;
+    }>();
+  
+    const addBreadcrumb = () => {
+      setBreadcrumbMap({
+        ...breadcrumbMap,
+        [t("pharmacy.labels.pharmaceutical-title")]:
+          PATHS.pharmacy_pharmaceutical,
+      });
+    };
+  
+    const removeBreadcrumb = () => {
+      const updatedMap = { ...breadcrumbMap };
+      delete updatedMap[t("pharmacy.labels.pharmaceutical-title")];
+      setBreadcrumbMap(updatedMap);
+    };
+  
+    useEffect(() => {
+      addBreadcrumb();
+      return () => {
+        removeBreadcrumb();
+      };
+    }, []);
   return (
     <div className="pharmaceutical">
         <h3 className="pharmaceutical__title">
@@ -11,6 +39,9 @@ export default function Pharmaceutical() {
         </h3>
         <div className="pharmaceutical__content">
             <PharmaceuticalActions />
+        </div>
+        <div className="pharmaceutical__content">
+            <PharmaceuticalTable />
         </div>
     </div>
   )

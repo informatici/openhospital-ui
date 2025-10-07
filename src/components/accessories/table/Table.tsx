@@ -85,7 +85,7 @@ const Table: FunctionComponent<IProps> = ({
 }) => {
   const { t } = useTranslation();
   const [order, setOrder] = React.useState<TOrder>("desc");
-  const [orderBy, setOrderBy] = React.useState(initialOrderBy ?? "date"); //keyof -> DTO
+  const [orderBy, setOrderBy] = React.useState(initialOrderBy ?? "date");
   const [page, setPage] = React.useState(0);
   const [openConfirmation, setOpenConfirmation] = useState<{
     action?: TActions;
@@ -396,7 +396,6 @@ const Table: FunctionComponent<IProps> = ({
         filters,
         manualFilter
       ),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [filterColumns, filters, manualFilter, rowData]
   );
 
@@ -404,7 +403,6 @@ const Table: FunctionComponent<IProps> = ({
     if (onFilterChange && !manualFilter) {
       onFilterChange(filters);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters]);
 
   return (

@@ -1248,7 +1248,18 @@
       "charge": "Charge",
       "exportList": "Export list",
       "stockReport": "Stock report",
-      "adjustQuantity": "Adjust quantity"
+      "adjustQuantity": "Adjust quantity",
+      "criticalValue": "Critical value",
+      "amc": "AMC",
+      "pcsperpck": "PCS/PAK",
+      "stock": "Stock",
+      "code": "Code",
+      "pharmaceutical": "Medical product",
+      "stockCardReport": "Stock card report",
+      "addMedecine": "Add medicine",
+      "order": "Order",
+      "expiring": "Expiring",
+      "amcReport": "AMC report"
     }
   }
 }
