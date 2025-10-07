@@ -1,65 +1,7 @@
 @import "../../../../styles/variables";
 @import "../../../../../node_modules/susy/sass/susy";
 
-
 .pharmaceutical {
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  // margin: 0px 0px 70px 0px;
-  //height: calc(100vh - 120px);
-  width: 75%;
-  @include susy-media($smartphone) {
-    height: 100%;
-  }
-  .pharmaceutical__title {
-    font-size: x-large;
-    text-align: center;
-    font-weight: bolder;
-    @include susy-media($narrow) {
-      padding: 5px;
-    }
-    @include susy-media($tablet_land) {
-      padding: 5px;
-    }
-  }
-  .pharmaceutical__background {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: $c-color-secondary;
-    @include susy-media($smartphone) {
-      padding: 24px 0px;
-    }
-  }
-
-  .pharmaceutical__content {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    align-items: stretch;
-    padding-block: 40px;
-    width: 100%;
-    height: 100%;
-
-    .not-found__logo {
-      margin-top: 0px;
-      margin-bottom: 5px;
-    }
-
-    .not-found__title {
-      padding: 5px;
-      font-size: x-large;
-      text-align: center;
-      font-weight: bolder;
-      @include susy-media($narrow) {
-        padding: 5px;
-      }
-      @include susy-media($tablet_land) {
-        padding: 5px;
-      }
-    }
-  }
+  display: grid;
+  gap: 4px;
 }

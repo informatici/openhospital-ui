@@ -3,6 +3,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import LargeButton from "../../accessories/largeButton/LargeButton";
+import { PharmacyActivityContent } from "./PharmacyActivityContent";
 
 const actions = [
   { icon: Medication, key: "pharmaceutical" },
@@ -15,8 +16,7 @@ export function Home() {
   const navigate = useNavigate();
 
   return (
-    <div data-cy="pharmacy-home" className="pharmacy__home">
-      <span className="pharmacy__home_title">{t("nav.pharmacy")}</span>
+    <PharmacyActivityContent title={t("nav.pharmacy")} data-cy="pharmacy-home">
       <div className="pharmacy__actions">
         {actions.map((action) => (
           <LargeButton
@@ -35,6 +35,6 @@ export function Home() {
           </LargeButton>
         ))}
       </div>
-    </div>
+    </PharmacyActivityContent>
   );
 }

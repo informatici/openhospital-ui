@@ -29,23 +29,8 @@
     padding: 24px 48px;
     width: 100%;
     height: 100%;
-
-    .not-found__logo {
-      margin-top: 0px;
-      margin-bottom: 15px;
-    }
-
-    .not-found__title {
-      padding: 50px 25px 25px 25px;
-      font-size: x-large;
-      text-align: center;
-      font-weight: bolder;
-      @include susy-media($narrow) {
-        padding: 25px;
-      }
-      @include susy-media($tablet_land) {
-        padding: 25px;
-      }
+    @include susy-media($smartphone) {
+      padding: 8px;
     }
   }
 
@@ -61,11 +46,13 @@
     }
   }
 
-  .pharmacy__home {
-    display: grid;
-    max-width: 1024px;
-    gap: 28px;
-    .pharmacy__home_title {
+  .pharmacyActivity__content {
+    display: flex;
+    flex-direction: column;
+    max-width: 1280px;
+    width: 100%;
+    gap: 48px;
+    .pharmacyActivity__content_title {
       font-size: xx-large;
     }
   }

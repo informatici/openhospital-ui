@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import PharmaceuticalActions from '../../../accessories/pharmaceuticalActions/PharmaceuticalActions';
-import PharmaceuticalTable from '../../../accessories/pharmaceuticalTable/PharmaceuticalTable';
+import PharmaceuticalActions from './components/pharmaceuticalActions/PharmaceuticalActions';
 import { PATHS } from 'consts';
 import { useOutletContext } from 'react-router';
+import PharmaceuticalTable from './components/pharmaceuticalTable/PharmaceuticalTable';
 
 export default function Pharmaceutical() {
     const { t } = useTranslation();

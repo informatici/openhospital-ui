@@ -1,10 +1,10 @@
+import { PATHS } from "consts";
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import "./styles.scss";
-import ActionStock from "./actionStock/ActionStock";
-import StockTable from "./table/StockTable";
 import { useOutletContext } from "react-router";
-import { PATHS } from "consts";
+import { PharmacyActivityContent } from "../PharmacyActivityContent";
+import { StockActions, StockTable } from "./components";
+import "./styles.scss";
 
 export default function PharmacyStock() {
   const { t } = useTranslation();
@@ -36,14 +36,14 @@ export default function PharmacyStock() {
   }, []);
 
   return (
-    <div className="pharmaceuticalStock">
-      <h3 className="pharmaceuticalStock__title">
-        {t("pharmacy.labels.pharmaceutical-stock")}
-      </h3>
-      <div className="pharmaceuticalStock__content">
-        <ActionStock />
+    <PharmacyActivityContent
+      data-cy="pharmaceutical-stock"
+      title={t("pharmacy.labels.pharmaceutical-stock")}
+    >
+      <div className="pharmaceutical-stock">
+        <StockActions />
         <StockTable />
       </div>
-    </div>
+    </PharmacyActivityContent>
   );
 }
