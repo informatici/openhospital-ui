@@ -67,14 +67,18 @@ const SearchPatientActivity = () => {
     secondName: "",
     birthDate: "",
     address: "",
+    folderNumber: "",
   };
 
   const validationSchema = object({
-    id: number().when(["firstName", "secondName", "birthDate", "address"], {
-      is: (firstName, secondName, birthDate, address) =>
-        !firstName && !secondName && !birthDate && !address,
-      then: number().required(),
-    }),
+    id: number().when(
+      ["firstName", "secondName", "birthDate", "address", "folderNumber"],
+      {
+        is: (firstName, secondName, birthDate, address, folderNumber) =>
+          !firstName && !secondName && !birthDate && !address && !folderNumber,
+        then: number().required(),
+      }
+    ),
   });
 
   const formik = useFormik({
@@ -90,6 +94,7 @@ const SearchPatientActivity = () => {
       // // First scroll to show searching message
       // scrollToElement(resultsRef.current);
       // dispatch(searchPatient(searchParam));
+      console.log(searchParam);
       setFilter(searchParam);
     },
   });
@@ -237,6 +242,18 @@ const SearchPatientActivity = () => {
                   {t("common.searchpatientinstruction")}
                 </div>
                 <div className="row center-xs">
+                  <div className="searchPatient__folderNumber">
+                    <TextField
+                      theme="regular"
+                      field={formik.getFieldProps("folderNumber")}
+                      label={t("patient.folderNumber")}
+                      isValid={isValid("folderNumber")}
+                      errorText={getErrorText("folderNumber")}
+                      onBlur={formik.handleBlur}
+                      type={"number"}
+                      disabled={isSearchById}
+                    />
+                  </div>
                   <div className="searchPatient__formItem">
                     <TextField
                       field={formik.getFieldProps("firstName")}

@@ -142,6 +142,15 @@
         margin: 0px;
       }
     }
+    .searchPatient__folderNumber {
+      width: 73%;
+      @include susy-media($smartphone) {
+        width: 100%;
+      }
+      .MuiFormControl-marginDense {
+        margin: 0px;
+      }
+    }
     .row {
       @include susy-media($smartphone) {
         width: 100%;
@@ -153,6 +162,16 @@
   }
 
   .searchPatient__formItem {
+    margin: 5px 10px;
+    @include susy-media($smartphone) {
+      margin: 10px 0px;
+    }
+    .MuiFormControl-marginDense {
+      width: 100%;
+    }
+  }
+
+  .searchPatient__folderNumber {
     margin: 5px 10px;
     @include susy-media($smartphone) {
       margin: 10px 0px;
