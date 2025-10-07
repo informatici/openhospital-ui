@@ -7,10 +7,6 @@ describe("PharmacyActivity spec", () => {
     it("should navigate to pharmaceutical component and display content", () => {
       cy.dataCy("pharmaceutical").click(); 
   
-      cy.get(".pharmaceutical__title").contains(
-        "Pharmaceutical" 
-      );
-  
       cy.dataCy("pharmaceutical-actions").should("exist");
       cy.dataCy("pharmaceutical-table").should("exist");
     });

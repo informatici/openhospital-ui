@@ -39,8 +39,13 @@ export default function Pharmaceutical() {
       title={t("pharmacy.labels.pharmaceutical-title")}
     >
       <div className="pharmaceutical">
-        <PharmaceuticalActions data-cy="pharmaceutical-actions" />
-        <PharmaceuticalTable data-cy="pharmaceutical-table" />
+        <div data-cy="pharmaceutical-actions">
+          <PharmaceuticalActions />
+        </div>
+
+        <div data-cy="pharmaceutical-table">
+          <PharmaceuticalTable />
+        </div>
       </div>
     </PharmacyActivityContent>
   );
