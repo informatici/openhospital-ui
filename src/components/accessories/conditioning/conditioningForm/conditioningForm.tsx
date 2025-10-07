@@ -140,6 +140,34 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
       <form className="conditioningForm__form" onSubmit={formik.handleSubmit}>
         <div className="row start-sm center-xs bottom-sm">
           <div className="conditioningForm__item">
+            <DateField
+              fieldName="performedAt"
+              fieldValue={formik.values.performedAt}
+              disableFuture={true}
+              theme="regular"
+              format="dd/MM/yyyy HH:mm"
+              isValid={isValid("performedAt")}
+              errorText={getErrorText("performedAt")}
+              label={t("conditioning.performedAt")}
+              onChange={dateFieldHandleOnChange("performedAt")}
+              disabled={isLoading}
+            />
+          </div>
+          <div className="fullWidth conditioningForm__item">
+            <Autocomplete
+              id="conditionAtAdmission"
+              multiple
+              freeSolo
+              value={formik.values.conditionAtAdmission}
+              options={conditionAtAdmissionOptions}
+              onChange={(_, value) => {
+                formik.setFieldValue("conditionAtAdmission", value);
+              }}
+              label={t("conditioning.conditionAtAdmission.label")}
+              placeholder={t("conditioning.conditionAtAdmission.label")}
+            />
+          </div>
+          <div className="conditioningForm__item">
             <CheckboxField
               fieldName="aspiration"
               label={t("conditioning.aspiration")}
@@ -153,20 +181,6 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
               label={t("conditioning.cpap")}
               checked={isCpapChecked}
               onChange={handleCpapChecked}
-            />
-          </div>
-          <div className="conditioningForm__item">
-            <DateField
-              fieldName="performedAt"
-              fieldValue={formik.values.performedAt}
-              disableFuture={true}
-              theme="regular"
-              format="dd/MM/yyyy HH:mm"
-              isValid={isValid("performedAt")}
-              errorText={getErrorText("performedAt")}
-              label={t("conditioning.performedAt")}
-              onChange={dateFieldHandleOnChange("performedAt")}
-              disabled={isLoading}
             />
           </div>
           <div className="conditioningForm__item">
@@ -253,36 +267,6 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
             />
           </div>
 
-          <div className="fullWidth conditioningForm__item">
-            <TextField
-              field={formik.getFieldProps("others")}
-              theme="regular"
-              label={t("conditioning.others")}
-              multiline={true}
-              type="text"
-              isValid={isValid("others")}
-              errorText={getErrorText("others")}
-              onBlur={formik.handleBlur}
-              rows={3}
-              disabled={isLoading}
-              maxLength={2000}
-            />
-          </div>
-
-          <div className="fullWidth conditioningForm__item">
-            <Autocomplete
-              id="conditionAtAdmission"
-              multiple
-              freeSolo
-              value={formik.values.conditionAtAdmission}
-              options={conditionAtAdmissionOptions}
-              onChange={(_, value) => {
-                formik.setFieldValue("conditionAtAdmission", value);
-              }}
-              label={t("conditioning.conditionAtAdmission.label")}
-              placeholder={t("conditioning.conditionAtAdmission.label")}
-            />
-          </div>
           <div className="conditioningForm__item">
             <AutocompleteField
               fieldName="tdr"
@@ -296,6 +280,22 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
                 { value: "NEGATIF", label: t("conditioning.negative") },
               ]}
               disabled={isLoading}
+            />
+          </div>
+          
+          <div className="fullWidth conditioningForm__item">
+            <TextField
+              field={formik.getFieldProps("others")}
+              theme="regular"
+              label={t("conditioning.others")}
+              multiline={true}
+              type="text"
+              isValid={isValid("others")}
+              errorText={getErrorText("others")}
+              onBlur={formik.handleBlur}
+              rows={3}
+              disabled={isLoading}
+              maxLength={2000}
             />
           </div>
         </div>

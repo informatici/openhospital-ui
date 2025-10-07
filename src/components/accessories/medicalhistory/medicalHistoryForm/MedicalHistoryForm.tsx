@@ -355,29 +355,31 @@ const MedicalHistoryForm: FC<MedicalHistoryProps> = ({
             {t("medicalHistory.physiological.Supplement")}
           </h4>
           <div className="row start-sm center-xs bottom-sm">
-            <div className="medicalHistoryForm__item">
-              <CheckboxField
-                fieldName="ironSupplement"
-                label={t("medicalHistory.physiological.ironSupplement")}
-                checked={isIronSupplementChecked}
-                onChange={handleIronSupplementChecked}
-              />
-            </div>
-            <div className="medicalHistoryForm__item">
-              <CheckboxField
-                fieldName="folicAcidSupplement"
-                label={t("medicalHistory.physiological.folicAcidSupplement")}
-                checked={isFolicAcidSupplementChecked}
-                onChange={handleFolicAcidSupplementChecked}
-              />
-            </div>
-            <div className="medicalHistoryForm__item">
-              <CheckboxField
-                fieldName="vitASupplement"
-                label={t("medicalHistory.physiological.vitASupplement")}
-                checked={isVitASupplementChecked}
-                onChange={handleVitASupplementChecked}
-              />
+            <div className="medicalHistoryForm__supplementRow">
+              <div className="medicalHistoryForm__item">
+                <CheckboxField
+                  fieldName="ironSupplement"
+                  label={t("medicalHistory.physiological.ironSupplement")}
+                  checked={isIronSupplementChecked}
+                  onChange={handleIronSupplementChecked}
+                />
+              </div>
+              <div className="medicalHistoryForm__item">
+                <CheckboxField
+                  fieldName="folicAcidSupplement"
+                  label={t("medicalHistory.physiological.folicAcidSupplement")}
+                  checked={isFolicAcidSupplementChecked}
+                  onChange={handleFolicAcidSupplementChecked}
+                />
+              </div>
+              <div className="medicalHistoryForm__item">
+                <CheckboxField
+                  fieldName="vitASupplement"
+                  label={t("medicalHistory.physiological.vitASupplement")}
+                  checked={isVitASupplementChecked}
+                  onChange={handleVitASupplementChecked}
+                />
+              </div>
             </div>
             <div className="fullWidth medicalHistoryForm__item">
               <TextField

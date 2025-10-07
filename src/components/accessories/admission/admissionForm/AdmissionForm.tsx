@@ -498,6 +498,21 @@ const AdmissionForm: FC<AdmissionProps> = ({
             </div>
             <div className="fullWidth patientAdmissionForm__item">
               <TextField
+                field={formik.getFieldProps("anamnesis")}
+                theme="regular"
+                label={t("admission.anamnesis")}
+                multiline={true}
+                type="text"
+                isValid={isValid("anamnesis")}
+                errorText={getErrorText("anamnesis")}
+                onBlur={formik.handleBlur}
+                rows={5}
+                disabled={isLoading}
+                maxLength={2000}
+              />
+            </div>
+            <div className="fullWidth patientAdmissionForm__item">
+              <TextField
                 field={formik.getFieldProps("preTreatment")}
                 theme="regular"
                 label={t("admission.preTreatment")}
@@ -522,21 +537,6 @@ const AdmissionForm: FC<AdmissionProps> = ({
                 errorText={getErrorText("preAssessment")}
                 onBlur={formik.handleBlur}
                 rows={3}
-                disabled={isLoading}
-                maxLength={2000}
-              />
-            </div>
-            <div className="fullWidth patientAdmissionForm__item">
-              <TextField
-                field={formik.getFieldProps("anamnesis")}
-                theme="regular"
-                label={t("admission.anamnesis")}
-                multiline={true}
-                type="text"
-                isValid={isValid("anamnesis")}
-                errorText={getErrorText("anamnesis")}
-                onBlur={formik.handleBlur}
-                rows={5}
                 disabled={isLoading}
                 maxLength={2000}
               />
