@@ -1,15 +1,14 @@
 import { CircularProgress } from "@mui/material";
 import InfoBox from "components/accessories/infoBox/InfoBox";
 import Table from "components/accessories/table/Table";
+import { TFilterField } from "components/accessories/table/filter/types";
 import { MovementDTO } from "generated";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { getMovements } from "state/pharmacy";
-import { TFilterField } from "components/accessories/table/filter/types";
-import { label } from "components/accessories/patientTherapy/patientTherapyTable/consts";
 
-export default function StockTable() {
+export function StockTable() {
   const { t } = useTranslation();
 
   const dispatch = useAppDispatch();
@@ -63,9 +62,15 @@ export default function StockTable() {
   const filters: TFilterField[] = [
     { key: "refNo", label: t("pharmacy.stock.refNo"), type: "text" },
     { key: "lot", label: t("pharmacy.stock.lot"), type: "text" },
-    { key: "type", label: t("pharmacy.stock.type"), type: "select", options: [
-      {label: "Charge", value: "Charge"}, {label: "Discharge", value: "Discharge"}
-    ], },
+    {
+      key: "type",
+      label: t("pharmacy.stock.type"),
+      type: "select",
+      options: [
+        { label: "Charge", value: "Charge" },
+        { label: "Discharge", value: "Discharge" },
+      ],
+    },
     { key: "expDate", label: t("pharmacy.stock.expDate"), type: "date" },
     { key: "medical", label: t("pharmacy.stock.medical"), type: "text" },
   ];
