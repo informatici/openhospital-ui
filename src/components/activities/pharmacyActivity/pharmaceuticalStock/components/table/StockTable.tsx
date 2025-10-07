@@ -80,13 +80,15 @@ export function StockTable() {
       return {
         refNo: item.refNo,
         lot: item.lot?.code,
-        expDate: formatDate(item.lot?.dueDate ?? ""),
+        expDate: item.lot?.dueDate ? formatDate(item.lot.dueDate) : "",
         type: item.type?.type == "+" ? "Charge" : "Discharge",
         quantity: item.quantity,
         medical: item.medical?.description,
         cost: item.lot?.cost,
-        total: item.lot?.cost ? item.lot?.cost * item.quantity : 0,
-        prepDate: formatDate(item.lot?.preparationDate ?? ""),
+        total: item.lot?.cost ? item.lot.cost * item.quantity : "",
+        prepDate: item.lot?.preparationDate
+          ? formatDate(item.lot.preparationDate)
+          : "",
       };
     });
   };
@@ -96,7 +98,7 @@ export function StockTable() {
   }, [dispatch]);
 
   return (
-    <div>
+    <div data-cy="pharmaceutical-stock-table">
       {(() => {
         switch (status) {
           case "IDLE":
