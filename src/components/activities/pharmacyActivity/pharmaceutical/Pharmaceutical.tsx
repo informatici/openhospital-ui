@@ -38,10 +38,10 @@ export default function Pharmaceutical() {
             {t("pharmacy.labels.pharmaceutical-title")}
         </h3>
         <div className="pharmaceutical__content">
-            <PharmaceuticalActions />
+            <PharmaceuticalActions data-cy="pharmaceutical-actions" />
         </div>
         <div className="pharmaceutical__content">
-            <PharmaceuticalTable />
+            <PharmaceuticalTable data-cy="pharmaceutical-table" />
         </div>
     </div>
   )
