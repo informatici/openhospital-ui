@@ -1,0 +1,33 @@
+@import "../../../../../styles/variables";
+@import "../../../../../../node_modules/susy/sass/susy";
+
+.pharmaceuticalActions__buttonSet {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: stretch;
+    flex-wrap: wrap;
+
+    @include susy-media($smartphone) {
+        flex-direction: column;
+    }
+
+    @include susy-media($tablet_land) {
+        flex-direction: column;
+    }
+
+    @include susy-media($tablet_port) {
+        flex-direction: column;
+    }
+
+    .buttonSet {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        padding-block: 24px;
+        align-items: center;
+        gap: 16px;
+    }
+    
+}

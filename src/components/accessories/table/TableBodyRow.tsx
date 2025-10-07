@@ -6,6 +6,8 @@ import _ from "lodash";
 import React, { FunctionComponent, useEffect } from "react";
 import "./styles.scss";
 import { IRowProps } from "./types";
+import Button from "../button/Button";
+import { useTranslation } from "react-i18next";
 
 const TableBodyRow: FunctionComponent<IRowProps> = ({
   row,
@@ -22,8 +24,10 @@ const TableBodyRow: FunctionComponent<IRowProps> = ({
   expanded,
   dateFields,
   detailsExcludedFields,
+  adjustQuantity = false,
 }) => {
   const [open, setOpen] = React.useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     setOpen(expanded ?? false);
@@ -73,6 +77,7 @@ const TableBodyRow: FunctionComponent<IRowProps> = ({
           <TableCell
             style={{ padding: 0, borderBottom: 0, margin: 0 }}
             colSpan={detailColSpan ?? 6}
+            className="collapseCell"
           >
             <Collapse
               in={open}
@@ -83,26 +88,33 @@ const TableBodyRow: FunctionComponent<IRowProps> = ({
               {renderCellDetails ? (
                 renderCellDetails({ ...coreRow })
               ) : (
-                <ul>
-                  {Object.keys(
-                    _.omit(
-                      labelData,
-                      tableHeader
-                        .filter((item) => !dateFields.includes(item))
-                        .concat(detailsExcludedFields ?? [])
+                <div className="collapseItem">
+                  <ul>
+                    {Object.keys(
+                      _.omit(
+                        labelData,
+                        tableHeader
+                          .filter((item) => !dateFields.includes(item))
+                          .concat(detailsExcludedFields ?? [])
+                      )
                     )
-                  )
-                    .filter((key) => Object.keys(row).includes(key))
-                    .map(
-                      (key, index) =>
-                        (showEmptyCell || !!row[key]) && (
-                          <li className="collapseItem_row" key={index}>
-                            <strong>{labelData[key]}:&nbsp;</strong>
-                            <span>{row[key]}</span>
-                          </li>
-                        )
-                    )}
-                </ul>
+                      .filter((key) => Object.keys(row).includes(key))
+                      .map(
+                        (key, index) =>
+                          (showEmptyCell || !!row[key]) && (
+                            <li className="collapseItem_row" key={index}>
+                              <strong>{labelData[key]}:&nbsp;</strong>
+                              <span>{row[key]}</span>
+                            </li>
+                          )
+                      )}
+                  </ul>
+                  {adjustQuantity && row.type === "Charge" && (
+                    <Button type="button" variant="outlined" color="inherit">
+                      {t("pharmacy.stock.adjustQuantity")}
+                    </Button>
+                  )}
+                </div>
               )}
             </Collapse>
           </TableCell>

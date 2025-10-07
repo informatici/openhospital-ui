@@ -1232,6 +1232,22 @@
       "medicals": "Medical products",
       "pharmaceutical-stock": "Pharmaceutical stock",
       "ward-stock": "Ward stock"
+    },
+    "stock": {
+      "refNo": "Ref",
+      "lot": "Lot",
+      "expDate": "Exp date",
+      "type": "Type",
+      "quantity": "Quantity",
+      "medical": "Medical",
+      "cost": "Cost",
+      "total": "Total",
+      "prepDate": "Prep date",
+      "discharge": "Discharge",
+      "charge": "Charge",
+      "exportList": "Export list",
+      "stockReport": "Stock report",
+      "adjustQuantity": "Adjust quantity"
     }
   }
 }

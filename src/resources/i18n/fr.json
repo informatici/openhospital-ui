@@ -1225,5 +1225,28 @@
     "updateSuccess": "Le type d'examen a été mis à jour avec succès !",
     "cancelCreation": "Êtes-vous sûr d'annuler la création du type d'examen?",
     "cancelUpdate": "Êtes-vous sûr d'annuler la mise à jour du type d'examen?"
+  },
+  "pharmacy": {
+    "labels": {
+      "medicals": "Produits médicaux",
+      "pharmaceutical-stock": "Stock pharmaceutique",
+      "ward-stock": "Stock du pavillon"
+    },
+    "stock": {
+      "refNo": "Ref",
+      "lot": "Lot",
+      "expDate": "Date d'expiration",
+      "type": "Type",
+      "quantity": "Quantité",
+      "medical": "Produit médical",
+      "cost": "Coût",
+      "total": "Total",
+      "prepDate": "Date de préparation",
+      "discharge": "Décharge",
+      "charge": "Charge",
+      "exportList": "Liste d'exportation",
+      "stockReport": "Rapport de stock",
+      "adjustQuantity": "Ajuster la quantité"
+    }
   }
 }
