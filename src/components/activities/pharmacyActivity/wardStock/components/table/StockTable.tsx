@@ -2,10 +2,10 @@ import { CircularProgress } from "@mui/material";
 import InfoBox from "components/accessories/infoBox/InfoBox";
 import Table from "components/accessories/table/Table";
 import { TFilterField } from "components/accessories/table/filter/types";
-import { MovementDTO } from "generated";
+import { renderDateTime } from "libraries/formatUtils/dataFormatting";
+import { useTranslation } from "libraries/hooks";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-import React, { useEffect } from "react";
-import { useTranslation } from "react-i18next";
+import React, { useEffect, useMemo } from "react";
 import { getMovements } from "state/pharmacy";
 
 export function StockTable() {
@@ -13,20 +13,11 @@ export function StockTable() {
 
   const dispatch = useAppDispatch();
 
-  const data = useAppSelector((state) =>
-    state.pharmacy.getMovements.data ? state.pharmacy.getMovements.data : []
+  const data = useAppSelector(
+    (state) => state.pharmacy.wardMovements.data ?? []
   );
 
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString("en-GB", {
-      day: "2-digit",
-      month: "short",
-      year: "numeric",
-    });
-  };
-
-  const status = useAppSelector((state) => state.pharmacy.getMovements.status);
+  const status = useAppSelector((state) => state.pharmacy.wardMovements.status);
 
   const errorMessage = useAppSelector(
     (state) =>
@@ -34,71 +25,110 @@ export function StockTable() {
   ) as string;
 
   const labelData = {
-    refNo: t("pharmacy.stock.refNo"),
-    lot: t("pharmacy.stock.lot"),
-    expDate: t("pharmacy.stock.expDate"),
-    type: t("pharmacy.stock.type"),
-    quantity: t("pharmacy.stock.quantity"),
-    medical: t("pharmacy.stock.medical"),
-    cost: t("pharmacy.stock.cost"),
-    total: t("pharmacy.stock.total"),
-    prepDate: t("pharmacy.stock.prepDate"),
+    date: t("pharmacy.stock.ward.date"),
+    type: t("pharmacy.stock.ward.type"),
+    recipient: t("pharmacy.stock.ward.recipient"),
+    pharmaceutical: t("pharmacy.stock.ward.pharmaceutical"),
+    quantity: t("pharmacy.stock.ward.quantity"),
+    units: t("pharmacy.stock.ward.units"),
+    patient: t("pharmacy.stock.ward.patient"),
+    medical: t("pharmacy.stock.ward.medical"),
+    wardFrom: t("pharmacy.stock.ward.wardFrom"),
+    wardTo: t("pharmacy.stock.ward.wardTo"),
+    code: t("pharmacy.stock.ward.code"),
+    description: t("pharmacy.stock.ward.description"),
+    ward: t("pharmacy.stock.ward.ward"),
+    weight: t("pharmacy.stock.ward.weight"),
+    age: t("pharmacy.stock.ward.age"),
   };
 
-  const tableHeader = [
-    "refNo",
-    "lot",
-    "expDate",
+  type LabelDataKey = keyof typeof labelData;
+
+  const tableHeader: LabelDataKey[] = [
+    "date",
     "type",
+    "recipient",
+    "pharmaceutical",
     "quantity",
-    "medical",
-    "cost",
-    "total",
+    "units",
   ];
 
-  const dateFields = ["expDate", "prepDate", "type"];
-  const order = ["quantity", "cost", "total"];
+  const dateFields: LabelDataKey[] = ["date"];
+  const order: LabelDataKey[] = ["pharmaceutical", "quantity"];
 
-  const filters: TFilterField[] = [
-    { key: "refNo", label: t("pharmacy.stock.refNo"), type: "text" },
-    { key: "lot", label: t("pharmacy.stock.lot"), type: "text" },
-    {
-      key: "type",
-      label: t("pharmacy.stock.type"),
-      type: "select",
-      options: [
-        { label: "Charge", value: "Charge" },
-        { label: "Discharge", value: "Discharge" },
-      ],
-    },
-    { key: "expDate", label: t("pharmacy.stock.expDate"), type: "date" },
-    { key: "medical", label: t("pharmacy.stock.medical"), type: "text" },
-  ];
+  const filters = useMemo(
+    () =>
+      [
+        {
+          key: "recipient",
+          label: t("pharmacy.stock.ward.recipient"),
+          type: "text",
+        },
+        {
+          key: "units",
+          label: t("pharmacy.stock.ward.units"),
+          type: "text",
+        },
+        {
+          key: "quantity",
+          label: t("pharmacy.stock.ward.quantity"),
+          type: "number",
+        },
+        {
+          key: "type",
+          label: t("pharmacy.stock.ward.type"),
+          type: "select",
+          options: [
+            {
+              label: t("pharmacy.stock.ward.movementType.patient"),
+              value: "patient",
+            },
+            {
+              label: t("pharmacy.stock.ward.movementType.ward"),
+              value: "ward",
+            },
+          ],
+        },
+        { key: "date", label: t("pharmacy.stock.ward.date"), type: "date" },
+        {
+          key: "medical",
+          label: t("pharmacy.stock.medical"),
+          type: "text",
+        },
+      ] satisfies TFilterField[],
+    [t]
+  );
 
-  const formatDataToDisplay = (data: MovementDTO[]) => {
-    return data.map((item) => {
-      return {
-        refNo: item.refNo,
-        lot: item.lot?.code,
-        expDate: item.lot?.dueDate ? formatDate(item.lot.dueDate) : "",
-        type: item.type?.type == "+" ? "Charge" : "Discharge",
-        quantity: item.quantity,
-        medical: item.medical?.description,
-        cost: item.lot?.cost,
-        total: item.lot?.cost ? item.lot.cost * item.quantity : "",
-        prepDate: item.lot?.preparationDate
-          ? formatDate(item.lot.preparationDate)
-          : "",
-      };
-    });
-  };
+  const formattedData = useMemo(() => {
+    return data.map((item) => ({
+      recipient:
+        (item.patient
+          ? `${item.patient.firstName} ${item.patient.secondName}`
+          : item.wardTo?.description) ?? "",
+      patient: item.patient?.name ?? "",
+      pharmaceutical: item.medical?.description ?? "",
+      wardFrom: item.wardFrom?.description ?? "",
+      wardTo: item.wardTo?.description ?? "",
+      date: renderDateTime(item.date),
+      code: item.code ?? "",
+      units: item.units ?? "",
+      description: item.description,
+      quantity: item.quantity,
+      ward: item.ward.description ?? "",
+      weight: item.weight ?? "",
+      age: item.age ?? "",
+      type: t(
+        `pharmacy.stock.ward.movementType.${item.patient ? "patient" : "ward"}`
+      ),
+    }));
+  }, [data, t]);
 
   useEffect(() => {
     dispatch(getMovements());
   }, [dispatch]);
 
   return (
-    <div data-cy="pharmaceutical-stock-table">
+    <div data-cy="ward-stock-table">
       {(() => {
         switch (status) {
           case "IDLE":
@@ -111,24 +141,22 @@ export function StockTable() {
                 rowsPerPage={10}
                 columnsOrder={order}
                 initialOrderBy="quantity"
-                rowData={formatDataToDisplay(data)}
+                rowData={formattedData}
                 dateFields={dateFields}
                 showEmptyCell={false}
                 isCollapsabile={true}
                 detailColSpan={6}
                 filterColumns={filters}
-                rowKey="refNo"
                 rawData={(data ?? []).map((item) => ({
                   ...item,
-                  lot: item.lot?.code,
-                  type: item.type?.type == "+" ? "Charge" : "Discharge",
-                  medical: item.medical?.description,
-                  expDate: formatDate(item.lot?.dueDate ?? ""),
+                  type: item.patient ? "patient" : "ward",
+                  pharmaceutical: item.medical?.description ?? "",
+                  recipient:
+                    (item.patient
+                      ? `${item.patient.firstName} ${item.patient.secondName}`
+                      : item.wardTo?.description) ?? "",
                 }))}
                 manualFilter={false}
-                adjustQuantity={(data ?? []).some(
-                  (item) => item.type?.type === "+"
-                )}
               />
             );
           case "SUCCESS_EMPTY":
