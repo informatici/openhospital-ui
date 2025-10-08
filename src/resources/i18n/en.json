@@ -1247,7 +1247,14 @@
       "charge": "Charge",
       "exportList": "Export list",
       "stockReport": "Stock report",
-      "adjustQuantity": "Adjust quantity"
+      "adjustQuantity": "Adjust quantity",
+      "actions": {
+        "outcoming": "Outgoing",
+        "incoming": "Incoming",
+        "drugs": "Drugs",
+        "report": "Report",
+        "excel": "Excel"
+      }
     }
   }
 }
