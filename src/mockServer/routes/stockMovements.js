@@ -13,7 +13,11 @@ export const stockMovementsRoutes = (server) => {
       res
         .status(200)
         .json(
-          WARD_MOVEMENTS.filter((movement) => movement.ward?.code === code)
+          WARD_MOVEMENTS.filter((movement) =>
+            [movement.ward, movement.wardFrom, movement.wardTo].some(
+              (ward) => ward?.code === code
+            )
+          )
         );
     });
   });

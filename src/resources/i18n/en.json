@@ -1253,7 +1253,7 @@
         "discharge": "Discharge"
       },
       "actions": {
-        "outcoming": "Outgoing",
+        "outcoming": "Outcoming",
         "incoming": "Incoming",
         "drugs": "Drugs",
         "report": "Report",

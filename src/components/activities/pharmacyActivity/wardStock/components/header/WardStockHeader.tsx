@@ -1,61 +1,55 @@
 import { MedicalServices } from "@mui/icons-material";
 import Button from "components/accessories/button/Button";
 import { WardDTO } from "generated";
-import { useAppSelector } from "libraries/hooks/redux";
-import React, { useCallback, useEffect, useReducer } from "react";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
+import React, { useCallback, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { getInitialState, reducer, updateFilter } from "../../state";
-import { TWardStockFIlter } from "../../types";
+import { updateWardStockFIilter } from "state/pharmacy";
 import "./styles.scss";
 
 const types = ["outcoming", "incoming"] as const;
 const actions = ["report", "excel"];
 
-type WardStockHeaderProps = {
-  onFilterChange?: (filter: TWardStockFIlter) => void;
-};
+type WardStockHeaderProps = {};
 
-export function WardStockHeader({ onFilterChange }: WardStockHeaderProps) {
+export function WardStockHeader({}: WardStockHeaderProps) {
   const { t } = useTranslation();
+  const dispatch = useAppDispatch();
 
   const wards = useAppSelector(
     (state) => state.wards.allWards.data?.filter((ward) => ward.pharmacy) ?? []
   );
 
-  const [state, dispatch] = useReducer(reducer, getInitialState());
+  const filter = useAppSelector((state) => state.pharmacy.wardStock.filter);
 
   const handleWardSelection = useCallback(
     (ward: WardDTO) => () => {
-      dispatch(updateFilter({ ...state.filter, ward }));
+      dispatch(updateWardStockFIilter({ ...filter, ward }));
     },
-    [dispatch, state.filter]
+    [dispatch, filter]
   );
 
   const handleTypeSelection = useCallback(
     (type: "outcoming" | "incoming") => () => {
       dispatch(
-        updateFilter({
-          ...state.filter,
-          type: state.filter.type === type ? undefined : type,
+        updateWardStockFIilter({
+          ...filter,
+          type: filter.type === type ? undefined : type,
         })
       );
     },
-    [dispatch, state.filter]
+    [dispatch, filter]
   );
 
   const handleToggleDrugs = useCallback(() => {
-    dispatch(updateFilter({ ...state.filter, drugs: !state.filter.drugs }));
-  }, [dispatch, state.filter]);
+    dispatch(updateWardStockFIilter({ ...filter, drugs: !filter.drugs }));
+  }, [dispatch, filter]);
 
   useEffect(() => {
-    if (!state.filter.ward && wards.length) {
-      dispatch(updateFilter({ ...state.filter, ward: wards[0] }));
+    if (!filter.ward && wards.length) {
+      dispatch(updateWardStockFIilter({ ...filter, ward: wards[0] }));
     }
-  }, [wards, state.filter, dispatch]);
-
-  useEffect(() => {
-    onFilterChange?.(state.filter);
-  }, [state.filter, onFilterChange]);
+  }, [wards, filter, dispatch]);
 
   return (
     <div className="ward-stock-header">
@@ -63,12 +57,11 @@ export function WardStockHeader({ onFilterChange }: WardStockHeaderProps) {
         {wards.map((ward) => (
           <Button
             key={ward.code}
-            color={
-              state.filter.ward?.code === ward.code ? "primary" : "inherit"
-            }
+            color={filter.ward?.code === ward.code ? "primary" : "inherit"}
             variant={"contained"}
             className="cta-button"
             onClick={handleWardSelection(ward)}
+            dataCy={`cta-button-${ward.code}`}
           >
             <MedicalServices />
             {ward.description}
@@ -76,18 +69,20 @@ export function WardStockHeader({ onFilterChange }: WardStockHeaderProps) {
         ))}
       </div>
       <div className="divider"></div>
-      {state.filter.ward && (
-        <span className="subtitle">{state.filter.ward.description}</span>
+      {filter.ward && (
+        <span data-cy="subtitle" className="subtitle">
+          {filter.ward.description}
+        </span>
       )}
       <div className="ward-stock-actions">
         {types.map((type) => (
           <Button
             key={type}
             className={`${type}-button`}
-            dataCy={type}
+            dataCy={`${type}-button`}
             type="button"
-            color={state.filter.type === type ? "primary" : "inherit"}
-            variant={state.filter.type === type ? "contained" : "outlined"}
+            color={filter.type === type ? "primary" : "inherit"}
+            variant={filter.type === type ? "contained" : "outlined"}
             onClick={handleTypeSelection(type)}
           >
             {t(`pharmacy.stock.actions.${type}`)}
@@ -97,8 +92,8 @@ export function WardStockHeader({ onFilterChange }: WardStockHeaderProps) {
           className={`drugs-button`}
           dataCy={"drugs"}
           type="button"
-          color={state.filter.drugs ? "primary" : "inherit"}
-          variant={state.filter.drugs ? "contained" : "outlined"}
+          color={filter.drugs ? "primary" : "inherit"}
+          variant={filter.drugs ? "contained" : "outlined"}
           onClick={handleToggleDrugs}
         >
           {t("pharmacy.stock.actions.drugs")}

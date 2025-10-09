@@ -13,6 +13,8 @@ export function StockTable() {
 
   const dispatch = useAppDispatch();
 
+  const filter = useAppSelector((state) => state.pharmacy.wardStock.filter);
+
   const data = useAppSelector(
     (state) => state.pharmacy.wardMovements.data ?? []
   );
@@ -100,28 +102,37 @@ export function StockTable() {
   );
 
   const formattedData = useMemo(() => {
-    return data.map((item) => ({
-      recipient:
-        (item.patient
-          ? `${item.patient.firstName} ${item.patient.secondName}`
-          : item.wardTo?.description) ?? "",
-      patient: item.patient?.name ?? "",
-      pharmaceutical: item.medical?.description ?? "",
-      wardFrom: item.wardFrom?.description ?? "",
-      wardTo: item.wardTo?.description ?? "",
-      date: renderDateTime(item.date),
-      code: item.code ?? "",
-      units: item.units ?? "",
-      description: item.description,
-      quantity: item.quantity,
-      ward: item.ward.description ?? "",
-      weight: item.weight ?? "",
-      age: item.age ?? "",
-      type: t(
-        `pharmacy.stock.ward.movementType.${item.patient ? "patient" : "ward"}`
-      ),
-    }));
-  }, [data, t]);
+    return data
+      .filter(
+        (item) =>
+          !filter.type ||
+          (filter.type === "incoming" ? item.wardTo : item.wardFrom)?.code ===
+            filter.ward?.code
+      )
+      .map((item) => ({
+        recipient:
+          (item.patient
+            ? `${item.patient.firstName} ${item.patient.secondName}`
+            : item.wardTo?.description) ?? "",
+        patient: item.patient?.name ?? "",
+        pharmaceutical: item.medical?.description ?? "",
+        wardFrom: item.wardFrom?.description ?? "",
+        wardTo: item.wardTo?.description ?? "",
+        date: renderDateTime(item.date),
+        code: item.code ?? "",
+        units: item.units ?? "",
+        description: item.description,
+        quantity: item.quantity,
+        ward: item.ward.description ?? "",
+        weight: item.weight ?? "",
+        age: item.age ?? "",
+        type: t(
+          `pharmacy.stock.ward.movementType.${
+            item.patient ? "patient" : "ward"
+          }`
+        ),
+      }));
+  }, [data, filter, t]);
 
   useEffect(() => {
     dispatch(getMovements());

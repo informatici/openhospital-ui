@@ -1,8 +1,9 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { isEmpty } from "lodash";
 import { ApiResponse } from "state/types";
 import { initial } from "./initial";
 import * as thunks from "./thunk";
+import { TWardStockFIlter } from "./types";
 
 export const pharmacySlice = createSlice({
   name: "pharmacy",
@@ -19,6 +20,15 @@ export const pharmacySlice = createSlice({
     },
     resetWardMovements: (state) => {
       state.wardMovements = initial.wardMovements;
+    },
+    updateWardStockFIilter: (
+      state,
+      action: PayloadAction<TWardStockFIlter>
+    ) => {
+      state.wardStock.filter = action.payload;
+    },
+    resetWardStockFilter: (state) => {
+      state.wardStock.filter = initial.wardStock.filter;
     },
   },
   extraReducers: (builder) => {
@@ -55,4 +65,6 @@ export const {
   updateMovementReset,
   deleteMovementReset,
   resetWardMovements,
+  updateWardStockFIilter,
+  resetWardStockFilter,
 } = pharmacySlice.actions;
