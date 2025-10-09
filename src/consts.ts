@@ -83,4 +83,5 @@ export const PATHS = {
   pharmacy: "/pharmacy",
   pharmacy_medicals: "/pharmacy/medicals",
   pharmacy_pharmaceuticalstock: "/pharmacy/pharmaceutical-stock",
+  pharmacy_ward_stock: "/pharmacy/ward-stock",
 };

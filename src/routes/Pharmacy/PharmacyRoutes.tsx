@@ -2,11 +2,12 @@ import {
   Home,
   NotFound,
   PharmacyActivity,
+  PharmacyStock,
+  WardStock,
 } from "components/activities/pharmacyActivity";
 import React, { ReactNode } from "react";
 import { Route, Routes } from "react-router";
 import { PATHS } from "../../consts";
-import PharmacyStock from "components/activities/pharmacyActivity/pharmaceuticalStock/PharmacyStock";
 
 const getPath = (from: string) => from.replace(`${PATHS.pharmacy}/`, "");
 
@@ -16,8 +17,8 @@ const routes: { element: ReactNode; path: string }[] = [
     element: <Home />,
   },
   {
-    path: getPath(PATHS.pharmacy_medicals),
-    element: <Home />,
+    path: getPath(PATHS.pharmacy_ward_stock),
+    element: <WardStock />,
   },
   {
     path: getPath(PATHS.pharmacy_pharmaceuticalstock),

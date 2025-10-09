@@ -5,7 +5,7 @@ import { IProps } from "./types";
 
 const Button: FunctionComponent<IProps> = ({
   children,
-  type,
+  type = "button",
   color = "primary",
   variant,
   disabled,

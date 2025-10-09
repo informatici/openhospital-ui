@@ -2,10 +2,10 @@ import { CircularProgress } from "@mui/material";
 import InfoBox from "components/accessories/infoBox/InfoBox";
 import Table from "components/accessories/table/Table";
 import { TFilterField } from "components/accessories/table/filter/types";
-import { MovementDTO } from "generated";
+import { renderDateTime } from "libraries/formatUtils/dataFormatting";
+import { useTranslation } from "libraries/hooks";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-import React, { useEffect } from "react";
-import { useTranslation } from "react-i18next";
+import React, { useEffect, useMemo } from "react";
 import { getMovements } from "state/pharmacy";
 
 export function StockTable() {
@@ -16,15 +16,6 @@ export function StockTable() {
   const data = useAppSelector((state) =>
     state.pharmacy.getMovements.data ? state.pharmacy.getMovements.data : []
   );
-
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString("en-GB", {
-      day: "2-digit",
-      month: "short",
-      year: "numeric",
-    });
-  };
 
   const status = useAppSelector((state) => state.pharmacy.getMovements.status);
 
@@ -59,39 +50,46 @@ export function StockTable() {
   const dateFields = ["expDate", "prepDate", "type"];
   const order = ["quantity", "cost", "total"];
 
-  const filters: TFilterField[] = [
-    { key: "refNo", label: t("pharmacy.stock.refNo"), type: "text" },
-    { key: "lot", label: t("pharmacy.stock.lot"), type: "text" },
-    {
-      key: "type",
-      label: t("pharmacy.stock.type"),
-      type: "select",
-      options: [
-        { label: "Charge", value: "Charge" },
-        { label: "Discharge", value: "Discharge" },
-      ],
-    },
-    { key: "expDate", label: t("pharmacy.stock.expDate"), type: "date" },
-    { key: "medical", label: t("pharmacy.stock.medical"), type: "text" },
-  ];
+  const filters = useMemo(
+    () =>
+      [
+        { key: "refNo", label: t("pharmacy.stock.refNo"), type: "text" },
+        { key: "lot", label: t("pharmacy.stock.lot"), type: "text" },
+        {
+          key: "type",
+          label: t("pharmacy.stock.type"),
+          type: "select",
+          options: [
+            { label: t("pharmacy.stock.movementType.charge"), value: "charge" },
+            {
+              label: t("pharmacy.stock.movementType.discharge"),
+              value: "discharge",
+            },
+          ],
+        },
+        { key: "expDate", label: t("pharmacy.stock.expDate"), type: "date" },
+        { key: "medical", label: t("pharmacy.stock.medical"), type: "text" },
+      ] satisfies TFilterField[],
+    [t]
+  );
 
-  const formatDataToDisplay = (data: MovementDTO[]) => {
-    return data.map((item) => {
-      return {
-        refNo: item.refNo,
-        lot: item.lot?.code,
-        expDate: item.lot?.dueDate ? formatDate(item.lot.dueDate) : "",
-        type: item.type?.type == "+" ? "Charge" : "Discharge",
-        quantity: item.quantity,
-        medical: item.medical?.description,
-        cost: item.lot?.cost,
-        total: item.lot?.cost ? item.lot.cost * item.quantity : "",
-        prepDate: item.lot?.preparationDate
-          ? formatDate(item.lot.preparationDate)
-          : "",
-      };
-    });
-  };
+  const formattedData = useMemo(() => {
+    return data.map((item) => ({
+      refNo: item.refNo,
+      lot: item.lot?.code,
+      expDate: renderDateTime(item.lot?.dueDate),
+      type: t(
+        `pharmacy.stock.movementType.${
+          item.type?.type === "+" ? "charge" : "discharge"
+        }`
+      ),
+      quantity: item.quantity,
+      medical: item.medical?.description,
+      cost: item.lot?.cost,
+      total: item.lot?.cost ? item.lot.cost * item.quantity : "",
+      prepDate: renderDateTime(item.lot?.preparationDate),
+    }));
+  }, [t, data]);
 
   useEffect(() => {
     dispatch(getMovements());
@@ -111,7 +109,7 @@ export function StockTable() {
                 rowsPerPage={10}
                 columnsOrder={order}
                 initialOrderBy="quantity"
-                rowData={formatDataToDisplay(data)}
+                rowData={formattedData}
                 dateFields={dateFields}
                 showEmptyCell={false}
                 isCollapsabile={true}
@@ -121,9 +119,9 @@ export function StockTable() {
                 rawData={(data ?? []).map((item) => ({
                   ...item,
                   lot: item.lot?.code,
-                  type: item.type?.type == "+" ? "Charge" : "Discharge",
-                  medical: item.medical?.description,
-                  expDate: formatDate(item.lot?.dueDate ?? ""),
+                  type: item.type?.type === "+" ? "charge" : "discharge",
+                  medical: item.medical?.description ?? "",
+                  expDate: item.lot?.dueDate ?? "",
                 }))}
                 manualFilter={false}
                 adjustQuantity={(data ?? []).some(
