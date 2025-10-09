@@ -136,7 +136,6 @@ const TableBodyRow: FunctionComponent<IRowProps> = ({
                           color: "#f44336",
                           marginLeft: "4px",
                         }}
-                        titleAccess={t("pharmacy.stock.criticalStock")}
                       />
                       <EventBusy
                         sx={{
@@ -144,7 +143,6 @@ const TableBodyRow: FunctionComponent<IRowProps> = ({
                           color: "#f44336",
                           marginLeft: "4px",
                         }}
-                        titleAccess={t("pharmacy.stock.expiringThisMonth")}
                       />
                     </>
                   )}
@@ -155,7 +153,6 @@ const TableBodyRow: FunctionComponent<IRowProps> = ({
                       color: "#9e9e9e",
                       marginLeft: "4px",
                     }}
-                    titleAccess={t("pharmacy.stock.expiringThisMonth")}
                   />
                 )}
                 {newRow[key]}
