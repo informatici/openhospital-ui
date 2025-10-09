@@ -19,15 +19,6 @@ export default function PharmaceuticalTable() {
 
   const status = useAppSelector((state) => state.pharmacy.getMedicalsMov.status);
 
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString("en-GB", {
-      day: "2-digit",
-      month: "short",
-      year: "numeric",
-    });
-  };
-
   const errorMessage = useAppSelector(
     (state) =>
       state.pharmacy.getMedicalsMov.error?.message || t("errors.somethingwrong")
@@ -60,8 +51,6 @@ export default function PharmaceuticalTable() {
     { key: "type", label: t("pharmacy.stock.type"), type: "text" },
     { key: "code", label: t("pharmacy.stock.code"), type: "number" },
   ];
-
-  const now = new Date();
 
   const formatDataToDisplay = (data: MedicalDTO[]) => {
     return data.map((item) => {
@@ -116,8 +105,6 @@ export default function PharmaceuticalTable() {
             return <InfoBox type="info" message={t("common.emptydata")} />;
           case "FAIL":
             return <InfoBox type="error" message={errorMessage} />;
-          default:
-            return <CircularProgress />;
         }
       })()}
     </div>

@@ -81,12 +81,12 @@ export interface WardDTO {
      * @type {boolean}
      * @memberof WardDTO
      */
-    female?: boolean;
+    pharmacy?: boolean;
     /**
      * @type {boolean}
      * @memberof WardDTO
      */
-    pharmacy?: boolean;
+    female?: boolean;
     /**
      * @type {boolean}
      * @memberof WardDTO

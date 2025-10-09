@@ -3807,6 +3807,163 @@ paths:
                 type: boolean
       security:
       - bearerAuth: []
+  /reports/pharmaceuticalStock:
+    get:
+      tags:
+      - Reports
+      operationId: printPharmaceuticalStockPdf
+      parameters:
+      - name: option
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: date
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: groupBy
+        in: query
+        required: false
+        schema:
+          type: string
+          default: ""
+      - name: sortBy
+        in: query
+        required: false
+        schema:
+          type: string
+          default: ""
+      - name: filter
+        in: query
+        required: false
+        schema:
+          type: string
+          default: ""
+      responses:
+        "200":
+          description: OK
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: byte
+            application/json:
+              schema:
+                type: string
+                format: byte
+      security:
+      - bearerAuth: []
+  /reports/pharmaceuticalStockWard:
+    get:
+      tags:
+      - Reports
+      operationId: printPharmaceuticalStockWardPdf
+      parameters:
+      - name: date
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: wardCode
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+                format: byte
+      security:
+      - bearerAuth: []
+  /reports/pharmaceuticalStockCard:
+    get:
+      tags:
+      - Reports
+      operationId: printPharmaceuticalStockCardPdf
+      parameters:
+      - name: exportFileName
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: dateFrom
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: dateTo
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: medicalCode
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: wardCode
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+                format: byte
+      security:
+      - bearerAuth: []
+  /reports/pharmaceuticalOrder:
+    get:
+      tags:
+      - Reports
+      operationId: printPharmaceuticalOrderPdf
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+                format: byte
+      security:
+      - bearerAuth: []
+  /reports/pharmaceuticalAMC:
+    get:
+      tags:
+      - Reports
+      operationId: printPharmaceuticalAMC
+      parameters:
+      - name: date
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+                format: byte
+      security:
+      - bearerAuth: []
   /reports/exams-list:
     get:
       tags:
@@ -6299,9 +6456,9 @@ components:
           example: 0
         opd:
           type: boolean
-        female:
-          type: boolean
         pharmacy:
+          type: boolean
+        female:
           type: boolean
         male:
           type: boolean

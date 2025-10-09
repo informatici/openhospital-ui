@@ -13,8 +13,33 @@
 
 import type { Observable } from 'rxjs';
 import type { AjaxResponse } from 'rxjs/ajax';
-import { BaseAPI } from '../runtime';
-import type { OperationOpts, HttpHeaders } from '../runtime';
+import { BaseAPI, throwIfNullOrUndefined } from '../runtime';
+import type { OperationOpts, HttpHeaders, HttpQuery } from '../runtime';
+
+export interface PrintPharmaceuticalAMCRequest {
+    date?: string;
+}
+
+export interface PrintPharmaceuticalStockCardPdfRequest {
+    exportFileName: string;
+    dateFrom: string;
+    dateTo: string;
+    medicalCode: number;
+    wardCode: string;
+}
+
+export interface PrintPharmaceuticalStockPdfRequest {
+    option: string;
+    date: string;
+    groupBy?: string;
+    sortBy?: string;
+    filter?: string;
+}
+
+export interface PrintPharmaceuticalStockWardPdfRequest {
+    date: string;
+    wardCode: string;
+}
 
 /**
  * no description
@@ -48,6 +73,124 @@ export class ReportsApi extends BaseAPI {
             url: '/reports/exams-list',
             method: 'GET',
             headers,
+        }, opts?.responseOpts);
+    };
+
+    /**
+     */
+    printPharmaceuticalAMC({ date }: PrintPharmaceuticalAMCRequest): Observable<string>
+    printPharmaceuticalAMC({ date }: PrintPharmaceuticalAMCRequest, opts?: OperationOpts): Observable<AjaxResponse<string>>
+    printPharmaceuticalAMC({ date }: PrintPharmaceuticalAMCRequest, opts?: OperationOpts): Observable<string | AjaxResponse<string>> {
+
+        const headers: HttpHeaders = {
+        };
+
+        const query: HttpQuery = {};
+
+        if (date != null) { query['date'] = (date as any).toISOString(); }
+
+        return this.request<string>({
+            url: '/reports/pharmaceuticalAMC',
+            method: 'GET',
+            headers,
+            query,
+        }, opts?.responseOpts);
+    };
+
+    /**
+     */
+    printPharmaceuticalOrderPdf(): Observable<string>
+    printPharmaceuticalOrderPdf(opts?: OperationOpts): Observable<AjaxResponse<string>>
+    printPharmaceuticalOrderPdf(opts?: OperationOpts): Observable<string | AjaxResponse<string>> {
+        const headers: HttpHeaders = {
+        };
+
+        return this.request<string>({
+            url: '/reports/pharmaceuticalOrder',
+            method: 'GET',
+            headers,
+        }, opts?.responseOpts);
+    };
+
+    /**
+     */
+    printPharmaceuticalStockCardPdf({ exportFileName, dateFrom, dateTo, medicalCode, wardCode }: PrintPharmaceuticalStockCardPdfRequest): Observable<string>
+    printPharmaceuticalStockCardPdf({ exportFileName, dateFrom, dateTo, medicalCode, wardCode }: PrintPharmaceuticalStockCardPdfRequest, opts?: OperationOpts): Observable<AjaxResponse<string>>
+    printPharmaceuticalStockCardPdf({ exportFileName, dateFrom, dateTo, medicalCode, wardCode }: PrintPharmaceuticalStockCardPdfRequest, opts?: OperationOpts): Observable<string | AjaxResponse<string>> {
+        throwIfNullOrUndefined(exportFileName, 'exportFileName', 'printPharmaceuticalStockCardPdf');
+        throwIfNullOrUndefined(dateFrom, 'dateFrom', 'printPharmaceuticalStockCardPdf');
+        throwIfNullOrUndefined(dateTo, 'dateTo', 'printPharmaceuticalStockCardPdf');
+        throwIfNullOrUndefined(medicalCode, 'medicalCode', 'printPharmaceuticalStockCardPdf');
+        throwIfNullOrUndefined(wardCode, 'wardCode', 'printPharmaceuticalStockCardPdf');
+
+        const headers: HttpHeaders = {
+        };
+
+        const query: HttpQuery = { // required parameters are used directly since they are already checked by throwIfNullOrUndefined
+            'exportFileName': exportFileName,
+            'dateFrom': (dateFrom as any).toISOString(),
+            'dateTo': (dateTo as any).toISOString(),
+            'medicalCode': medicalCode,
+            'wardCode': wardCode,
+        };
+
+        return this.request<string>({
+            url: '/reports/pharmaceuticalStockCard',
+            method: 'GET',
+            headers,
+            query,
+        }, opts?.responseOpts);
+    };
+
+    /**
+     */
+    printPharmaceuticalStockPdf({ option, date, groupBy, sortBy, filter }: PrintPharmaceuticalStockPdfRequest): Observable<string>
+    printPharmaceuticalStockPdf({ option, date, groupBy, sortBy, filter }: PrintPharmaceuticalStockPdfRequest, opts?: OperationOpts): Observable<AjaxResponse<string>>
+    printPharmaceuticalStockPdf({ option, date, groupBy, sortBy, filter }: PrintPharmaceuticalStockPdfRequest, opts?: OperationOpts): Observable<string | AjaxResponse<string>> {
+        throwIfNullOrUndefined(option, 'option', 'printPharmaceuticalStockPdf');
+        throwIfNullOrUndefined(date, 'date', 'printPharmaceuticalStockPdf');
+
+        const headers: HttpHeaders = {
+        };
+
+        const query: HttpQuery = { // required parameters are used directly since they are already checked by throwIfNullOrUndefined
+            'option': option,
+            'date': (date as any).toISOString(),
+        };
+
+        if (groupBy != null) { query['groupBy'] = groupBy; }
+        if (sortBy != null) { query['sortBy'] = sortBy; }
+        if (filter != null) { query['filter'] = filter; }
+
+        return this.request<string>({
+            url: '/reports/pharmaceuticalStock',
+            method: 'GET',
+            headers,
+            query,
+        }, opts?.responseOpts);
+    };
+
+    /**
+     */
+    printPharmaceuticalStockWardPdf({ date, wardCode }: PrintPharmaceuticalStockWardPdfRequest): Observable<string>
+    printPharmaceuticalStockWardPdf({ date, wardCode }: PrintPharmaceuticalStockWardPdfRequest, opts?: OperationOpts): Observable<AjaxResponse<string>>
+    printPharmaceuticalStockWardPdf({ date, wardCode }: PrintPharmaceuticalStockWardPdfRequest, opts?: OperationOpts): Observable<string | AjaxResponse<string>> {
+        throwIfNullOrUndefined(date, 'date', 'printPharmaceuticalStockWardPdf');
+        throwIfNullOrUndefined(wardCode, 'wardCode', 'printPharmaceuticalStockWardPdf');
+
+        const headers: HttpHeaders = {
+        };
+
+        const query: HttpQuery = { // required parameters are used directly since they are already checked by throwIfNullOrUndefined
+            'date': (date as any).toISOString(),
+            'wardCode': wardCode,
+        };
+
+        return this.request<string>({
+            url: '/reports/pharmaceuticalStockWard',
+            method: 'GET',
+            headers,
+            query,
         }, opts?.responseOpts);
     };
 

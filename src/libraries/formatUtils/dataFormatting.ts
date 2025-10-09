@@ -34,12 +34,12 @@ export const visitDataFormatter = (
   return data;
 };
 
-export const renderDate = (date: string) => {
-  return moment(date).isValid() ? moment(date).format("DD/MM/YYYY") : "";
+export const renderDate = (date?: string) => {
+  return moment(date ?? "").isValid() ? moment(date).format("DD/MM/YYYY") : "";
 };
 
-export const renderDateTime = (date: string) => {
-  return moment(date).isValid()
+export const renderDateTime = (date?: string) => {
+  return moment(date ?? "").isValid()
     ? moment(date).format("DD/MM/YYYY HH:mm:ss")
     : "";
 };

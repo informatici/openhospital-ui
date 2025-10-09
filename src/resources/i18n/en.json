@@ -1259,7 +1259,39 @@
       "addMedecine": "Add medicine",
       "order": "Order",
       "expiring": "Expiring",
-      "amcReport": "AMC report"
+      "amcReport": "AMC report",  
+      "movementType": {
+        "charge": "Charge",
+        "discharge": "Discharge"
+      },
+      "actions": {
+        "outcoming": "Outcoming",
+        "incoming": "Incoming",
+        "drugs": "Drugs",
+        "report": "Report",
+        "excel": "Excel"
+      },
+      "ward": {
+        "pharmaceutical": "Pharmaceutical",
+        "patient": "Patient",
+        "medical": "Medical",
+        "wardFrom": "From ward",
+        "wardTo": "To ward",
+        "date": "Date",
+        "code": "Code",
+        "units": "Units",
+        "description": "Description",
+        "quantity": "Quantity",
+        "ward": "Ward",
+        "weight": "Weight",
+        "age": "Age",
+        "type": "Type",
+        "recipient": "Recipient",
+        "movementType": {
+          "patient": "To patient",
+          "ward": "Internal"
+        }
+      }
     }
   }
 }
