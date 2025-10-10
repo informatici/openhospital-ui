@@ -105,6 +105,8 @@ export default function PharmaceuticalTable() {
             return <InfoBox type="info" message={t("common.emptydata")} />;
           case "FAIL":
             return <InfoBox type="error" message={errorMessage} />;
+          default :
+          return <CircularProgress />;
         }
       })()}
     </div>

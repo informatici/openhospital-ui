@@ -146,7 +146,9 @@ const TableBodyRow: FunctionComponent<IRowProps> = ({
                       />
                     </>
                   )}
-                {hasExpiringLotThisMonth() && row.stock >= row.criticalValue && key === "pharmaceutical" && (
+                {hasExpiringLotThisMonth() && 
+                row.stock >= row.criticalValue && 
+                key === "pharmaceutical" && (
                   <EventBusy
                     sx={{
                       fontSize: "18px",
