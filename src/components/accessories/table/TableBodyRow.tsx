@@ -8,11 +8,13 @@ import { Collapse, IconButton, Typography } from "@mui/material";
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import _ from "lodash";
-import React, { FunctionComponent, useEffect } from "react";
+import React, { FunctionComponent, useEffect, useCallback } from "react";
 import "./styles.scss";
 import { IRowProps } from "./types";
 import Button from "../button/Button";
 import { useTranslation } from "react-i18next";
+import CellContent from "components/activities/pharmacyActivity/pharmaceutical/components/PharmacyCellContent/CellContent";
+import CollapseContent from "components/activities/pharmacyActivity/pharmaceutical/components/PharmacyCellContent/CollapseContent";
 
 const TableBodyRow: FunctionComponent<IRowProps> = ({
   row,
@@ -38,48 +40,31 @@ const TableBodyRow: FunctionComponent<IRowProps> = ({
     setOpen(expanded ?? false);
   }, [expanded]);
 
-  const getRowStyle = () => {
-    if (row.stock < row.criticalValue) {
-      return {
-        backgroundColor: "#ffebee",
-        "& .MuiTableCell-root": {
-          color: "#c62828",
-          fontWeight: "bold",
-        },
-      };
-    }
-
-    if (row.stock === 0) {
-      return {
-        backgroundColor: "#9e9e9e",
-        "& .MuiTableCell-root": {
-          color: "#ffffff",
-          fontWeight: "bold",
-        },
-      };
-    }
-
-    return {};
+  const getRowClass = () => {
+    if (row.stock === 0) return "row-zero-stock";
+    if (row.stock < row.criticalValue) return "row-critical-stock";
+    return "";
   };
 
-  const hasExpiringLotThisMonth = () => {
-    if (!row.expDate || row.expDate === null) return false;
+  const hasExpiringLotThisMonth = useCallback(() => {
+    if (!row.expDate) return false;
 
     const expiry = new Date(row.expDate);
     const now = new Date();
     const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
 
     return expiry <= endOfMonth && expiry > now;
-  };
+  }, [row.expDate]);
 
   return (
     <>
       <TableRow
-        className={rowClassNames ? rowClassNames(row) : ""}
-        sx={getRowStyle()}
+        className={`table-body-row ${getRowClass()} ${
+          rowClassNames ? rowClassNames(row) : ""
+        }`}
         key={rowIndex}
       >
-        {isCollapsabile ? (
+        {isCollapsabile && (
           <TableCell width="40">
             <IconButton
               aria-label="expand row"
@@ -89,76 +74,25 @@ const TableBodyRow: FunctionComponent<IRowProps> = ({
               {open ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
             </IconButton>
           </TableCell>
-        ) : (
-          ""
         )}
+
         {tableHeader.map((key, index) => {
           const newRow = { ...row };
           dateFields.forEach((dateField) => {
             if (row[dateField]) {
               const parts = row[dateField].split(" ");
-              if (parts.length === 2) {
-                newRow[dateField] = parts[0];
-              }
+              if (parts.length === 2) newRow[dateField] = parts[0];
             }
           });
 
           return Object.keys(newRow).includes(key) ? (
             <TableCell align="left" key={index}>
-              <div
-                style={{ display: "flex", alignItems: "center", gap: "8px" }}
-              >
-                {row.stock === 0 && key === "pharmaceutical" && (
-                  <Typography
-                    component="span"
-                    sx={{
-                      fontWeight: "bold",
-                      fontSize: 15,
-                      color: "white",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      width: 17,
-                      height: 17,
-                      borderRadius: "50%",
-                    }}
-                  >
-                    0
-                  </Typography>
-                )}
-                {row.stock < row.criticalValue &&
-                  hasExpiringLotThisMonth() &&
-                  key === "pharmaceutical" && (
-                    <>
-                      <Warning
-                        sx={{
-                          fontSize: "18px",
-                          color: "#f44336",
-                          marginLeft: "4px",
-                        }}
-                      />
-                      <EventBusy
-                        sx={{
-                          fontSize: "18px",
-                          color: "#f44336",
-                          marginLeft: "4px",
-                        }}
-                      />
-                    </>
-                  )}
-                {hasExpiringLotThisMonth() && 
-                row.stock >= row.criticalValue && 
-                key === "pharmaceutical" && (
-                  <EventBusy
-                    sx={{
-                      fontSize: "18px",
-                      color: "#9e9e9e",
-                      marginLeft: "4px",
-                    }}
-                  />
-                )}
-                {newRow[key]}
-              </div>
+              <CellContent
+                value={newRow[key]}
+                keyName={key}
+                row={newRow}
+                hasExpiringLotThisMonth={hasExpiringLotThisMonth}
+              />
             </TableCell>
           ) : (
             ""
@@ -166,55 +100,31 @@ const TableBodyRow: FunctionComponent<IRowProps> = ({
         })}
         {renderActions()}
       </TableRow>
-      {isCollapsabile ? (
+
+      {isCollapsabile && (
         <TableRow>
           <TableCell
             style={{ padding: 0, borderBottom: 0, margin: 0 }}
             colSpan={detailColSpan ?? 6}
             className="collapseCell"
           >
-            <Collapse
-              in={open}
-              timeout="auto"
-              unmountOnExit
-              className="collapseWrapper"
-            >
+            <Collapse in={open} timeout="auto" unmountOnExit className="collapseWrapper">
               {renderCellDetails ? (
                 renderCellDetails({ ...coreRow })
               ) : (
-                <div className="collapseItem">
-                  <ul>
-                    {Object.keys(
-                      _.omit(
-                        labelData,
-                        tableHeader
-                          .filter((item) => !dateFields.includes(item))
-                          .concat(detailsExcludedFields ?? [])
-                      )
-                    )
-                      .filter((key) => Object.keys(row).includes(key))
-                      .map(
-                        (key, index) =>
-                          (showEmptyCell || !!row[key]) && (
-                            <li className="collapseItem_row" key={index}>
-                              <strong>{labelData[key]}:&nbsp;</strong>
-                              <span>{row[key]}</span>
-                            </li>
-                          )
-                      )}
-                  </ul>
-                  {adjustQuantity && row.type === "Charge" && (
-                    <Button type="button" variant="outlined" color="inherit">
-                      {t("pharmacy.stock.adjustQuantity")}
-                    </Button>
-                  )}
-                </div>
+                <CollapseContent
+                  row={coreRow}
+                  labelData={labelData}
+                  tableHeader={tableHeader}
+                  dateFields={dateFields}
+                  detailsExcludedFields={detailsExcludedFields}
+                  showEmptyCell={showEmptyCell}
+                  adjustQuantity={adjustQuantity}
+                />
               )}
             </Collapse>
           </TableCell>
         </TableRow>
-      ) : (
-        ""
       )}
     </>
   );

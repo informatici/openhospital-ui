@@ -1,10 +1,12 @@
 @import "../../../styles/variables";
 @import "../../../../node_modules/susy/sass/susy";
+
 .header {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 4px;
+
   .headerActions {
     display: flex;
     justify-content: end;
@@ -12,6 +14,7 @@
     flex-wrap: wrap;
     gap: 4px;
   }
+
   margin-bottom: 12px;
 }
 
@@ -19,56 +22,138 @@
   @media print {
     height: auto !important;
   }
+
   .headerCell {
     display: flex;
     align-items: center;
   }
+
   .table_header {
     th {
       text-transform: capitalize;
       font-weight: 600;
     }
   }
+
   .table_body {
     @media print {
       height: auto !important;
     }
+
     tr {
       td.MuiTableCell-root {
         padding: 5px;
       }
     }
+
     .collapseWrapper {
       background: lighten($c-grey-lighter, 30%);
       padding: 5px 5px;
       flex: 1;
+
       ul {
         column-count: 2;
         margin: 14px;
         padding: 15px 27px;
+
         @include susy-media($smartphone) {
           column-count: 1;
         }
+
         li {
           list-style: none;
         }
+
         li + li {
           margin-top: 5px;
         }
       }
     }
+
     .collapseItem_row {
       word-break: break-all;
       display: flex;
     }
+
     .collapseItem {
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
+
+    // ✅ ==== AJOUT : styles TableBodyRow ====
+
+    .table-body-row {
+      transition: background-color 0.3s ease;
+    }
+
+    .row-critical-stock {
+      background-color: #ffebee;
+
+      .MuiTableCell-root {
+        color: #c62828;
+        font-weight: bold;
+      }
+    }
+
+    .row-zero-stock {
+      background-color: #9e9e9e;
+
+      .MuiTableCell-root {
+        color: #ffffff;
+        font-weight: bold;
+      }
+    }
+
+    .cell-content {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .stock-zero-badge {
+      font-weight: bold !important;
+      font-size: 15px !important;
+      color: white !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 17px;
+      height: 17px;
+      border-radius: 50%;
+    }
+
+    .icon-warning {
+      font-size: 18px !important;
+      color: #f44336 !important;
+      margin-left: 4px;
+    }
+
+    .icon-expiry {
+      font-size: 18px !important;
+      color: #f44336 !important;
+      margin-left: 4px;
+    }
+
+    .icon-expiry-grey {
+      font-size: 18px !important;
+      color: #9e9e9e !important;
+      margin-left: 4px;
+    }
+
+    .collapseWrapper {
+      background-color: lighten($c-grey-lighter, 30%);
+      padding: 10px 15px;
+    }
+
+    .collapseCell {
+      border-bottom: none !important;
+      padding: 0 !important;
+      margin: 0 !important;
+    }
+    // ✅ ==== FIN AJOUT ====
   }
 }
-
 
 .pharmaceutical-table__row {
   color: red !important;
