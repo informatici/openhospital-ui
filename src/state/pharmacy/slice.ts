@@ -21,6 +21,9 @@ export const pharmacySlice = createSlice({
     resetWardMovements: (state) => {
       state.wardMovements = initial.wardMovements;
     },
+    resetWardMedicals: (state) => {
+      state.wardMedicals = initial.wardMedicals;
+    },
     updateWardStockFIilter: (
       state,
       action: PayloadAction<TWardStockFIlter>
@@ -56,6 +59,18 @@ export const pharmacySlice = createSlice({
       })
       .addCase(thunks.getWardMovements.rejected, (state, action) => {
         state.wardMovements = ApiResponse.error(action.payload);
+      })
+      // get ward medicals list
+      .addCase(thunks.getWardMedicals.pending, (state) => {
+        state.wardMedicals = ApiResponse.loading();
+      })
+      .addCase(thunks.getWardMedicals.fulfilled, (state, action) => {
+        state.wardMedicals = isEmpty(action.payload)
+          ? ApiResponse.empty()
+          : ApiResponse.value(action.payload);
+      })
+      .addCase(thunks.getWardMedicals.rejected, (state, action) => {
+        state.wardMedicals = ApiResponse.error(action.payload);
       });
   },
 });
@@ -65,6 +80,7 @@ export const {
   updateMovementReset,
   deleteMovementReset,
   resetWardMovements,
+  resetWardMedicals,
   updateWardStockFIilter,
   resetWardStockFilter,
 } = pharmacySlice.actions;

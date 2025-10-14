@@ -8,7 +8,7 @@ import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { useEffect, useMemo } from "react";
 import { getMovements } from "state/pharmacy";
 
-export function StockTable() {
+export function WardMovementsTable() {
   const { t } = useTranslation();
 
   const dispatch = useAppDispatch();
@@ -139,7 +139,7 @@ export function StockTable() {
   }, [dispatch]);
 
   return (
-    <div data-cy="ward-stock-table">
+    <div data-cy="ward-movements-table">
       {(() => {
         switch (status) {
           case "IDLE":

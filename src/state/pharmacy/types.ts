@@ -1,8 +1,14 @@
-import { MovementDTO, MovementWardDTO, WardDTO } from "generated";
+import {
+  MedicalWardDTO,
+  MovementDTO,
+  MovementWardDTO,
+  WardDTO,
+} from "generated";
 import { ApiResponse } from "state/types";
 
 export type IPharmacyState = {
   wardMovements: ApiResponse<MovementWardDTO[]>;
+  wardMedicals: ApiResponse<MedicalWardDTO[]>;
   getMovements: ApiResponse<Array<MovementDTO>>;
   createMovement: ApiResponse<MovementDTO>;
   updateMovement: ApiResponse<MovementDTO>;
@@ -14,6 +20,6 @@ export type IPharmacyState = {
 
 export type TWardStockFIlter = {
   ward?: WardDTO;
-  type?: "outcoming" | "incoming";
+  type?: "outcoming" | "incoming" | "drugs";
   drugs?: boolean;
 };
