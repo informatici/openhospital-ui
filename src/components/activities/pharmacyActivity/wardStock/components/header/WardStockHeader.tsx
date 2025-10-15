@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 import { updateWardStockFIilter } from "state/pharmacy";
 import "./styles.scss";
 
-const types = ["outcoming", "incoming"] as const;
+const types = ["outcoming", "incoming", "drugs"] as const;
 const actions = ["report", "excel"];
 
 type WardStockHeaderProps = {};
@@ -30,7 +30,7 @@ export function WardStockHeader({}: WardStockHeaderProps) {
   );
 
   const handleTypeSelection = useCallback(
-    (type: "outcoming" | "incoming") => () => {
+    (type: (typeof types)[number]) => () => {
       dispatch(
         updateWardStockFIilter({
           ...filter,
@@ -40,10 +40,6 @@ export function WardStockHeader({}: WardStockHeaderProps) {
     },
     [dispatch, filter]
   );
-
-  const handleToggleDrugs = useCallback(() => {
-    dispatch(updateWardStockFIilter({ ...filter, drugs: !filter.drugs }));
-  }, [dispatch, filter]);
 
   useEffect(() => {
     if (!filter.ward && wards.length) {
@@ -88,16 +84,6 @@ export function WardStockHeader({}: WardStockHeaderProps) {
             {t(`pharmacy.stock.actions.${type}`)}
           </Button>
         ))}
-        <Button
-          className={`drugs-button`}
-          dataCy={"drugs"}
-          type="button"
-          color={filter.drugs ? "primary" : "inherit"}
-          variant={filter.drugs ? "contained" : "outlined"}
-          onClick={handleToggleDrugs}
-        >
-          {t("pharmacy.stock.actions.drugs")}
-        </Button>
         <div className="separator"></div>
         {actions.map((action) => (
           <Button
