@@ -195,4 +195,16 @@ export const initialFields: TFields<TPatientDataFormFieldName> = {
     value: "28",
     type: "number",
   },
+  schoolingLevel: {
+    value: "",
+    type: "text",
+  },
+  fatherSchoolingLevel: {
+    value: "",
+    type: "text",
+  },
+  motherSchoolingLevel: {
+    value: "",
+    type: "text",
+  },
 };

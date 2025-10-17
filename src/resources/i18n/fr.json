@@ -222,8 +222,21 @@
     "updatesuccessful": "Le patient a été modifié avec succès.",
     "createother": "Ajouter un autre patient",
     "status": "État de santé",
-    "commune": "Commune",
-    "ethnic": "Ethnie",
+    "commune": {
+      "label": "Commune",
+      "dassa": "Dassa",
+      "savalou": "Savalou",
+      "glazoue": "Glazoue"
+    },
+    "ethnic": {
+      "label": "Ethnie",
+      "idactha": "Idactha",
+      "nogot": "Nogot",
+      "ife": "Ifè",
+      "fon": "Fon",
+      "peulh": "Peulh",
+      "adja": "Adja"
+    },
     "fatheroccupation": "Occupation du père",
     "fatherphone": "Téléphone du père",
     "fatherage": "Age du père",
@@ -233,7 +246,16 @@
     "encounters": "Rencontres",
     "conditioning": "Mise en condition et état à l'admission",
     "medicalHistory": "Antécédent médical",
-    "folderNumber": "Numéro du dossier"
+    "folderNumber": "Numéro du dossier",
+    "schoolingLevel": {
+      "label": "Niveau scolaire",
+      "noSchooling": "Sans scolarisation",
+      "primary": "Primaire",
+      "secondary": "Secondaire",
+      "higherEducation": "Enseignement supérieur"
+    },
+    "motherSchoolingLevel": "Niveau scolaire de la mère",
+    "fatherSchoolingLevel": "Niveau scolaire de la père"
   },
   "encounters": {
     "admissions": "Admissions",

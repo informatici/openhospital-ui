@@ -1,6 +1,8 @@
 import { Tooltip } from "@mui/material";
 import { useFormik } from "formik";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
+import { useCommune } from "libraries/hooks/useCommune";
+import { useEthnic } from "libraries/hooks/useEthnic";
 import { get, has, isEmpty } from "lodash";
 import moment from "moment";
 import React, {
@@ -29,6 +31,7 @@ import {
   updatePatientReset,
 } from "../../../state/patients";
 import { FIELD_VALIDATION, IState } from "../../../types";
+import { Autocomplete } from "../autocomplete";
 import AutocompleteField from "../autocompleteField/AutocompleteField";
 import Button from "../button/Button";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
@@ -190,6 +193,10 @@ const PatientDataForm: FunctionComponent<TProps> = ({
   );
 
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
+
+  const { options: ethnicOptions } = useEthnic();
+
+  const { options: communeOptions } = useCommune();
 
   const handleResetConfirmation = () => {
     setOpenResetConfirmation(false);
@@ -386,7 +393,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
           </div>
 
           <div className="patientDataForm__item">
-            <TextField
+            {/* <TextField
               field={formik.getFieldProps("commune")}
               theme="regular"
               label={t("patient.commune")}
@@ -395,19 +402,41 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               onBlur={formik.handleBlur}
               disabled={isLoading}
               maxLength={50}
+            /> */}
+            <Autocomplete
+              id="commune"
+              freeSolo
+              value={formik.values.commune}
+              options={communeOptions}
+              onChange={(_, value) => {
+                formik.setFieldValue("commune", value);
+              }}
+              label={t("patient.commune.label")}
+              placeholder={t("patient.commune.label")}
             />
           </div>
 
           <div className="patientDataForm__item">
-            <TextField
+            {/* <TextField
               field={formik.getFieldProps("ethnic")}
               theme="regular"
-              label={t("patient.ethnic")}
+              label={t("patient.ethnic.label")}
               isValid={isValid("ethnic")}
               errorText={getErrorText("ethnic")}
               onBlur={formik.handleBlur}
               disabled={isLoading}
               maxLength={50}
+            /> */}
+            <Autocomplete
+              id="ethnic"
+              freeSolo
+              value={formik.values.ethnic}
+              options={ethnicOptions}
+              onChange={(_, value) => {
+                formik.setFieldValue("ethnic", value);
+              }}
+              label={t("patient.ethnic.label")}
+              placeholder={t("patient.ethnic.label")}
             />
           </div>
         </div>
@@ -527,6 +556,36 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               }
             />
           </div>
+          <div className="patientDataForm__item">
+            <AutocompleteField
+              id="schoolingLevel"
+              fieldName="schoolingLevel"
+              fieldValue={formik.values.schoolingLevel}
+              label={t("patient.schoolingLevel.label")}
+              isValid={isValid("schoolingLevel")}
+              errorText={getErrorText("schoolingLevel")}
+              onBlur={onBlurCallback("schoolingLevel")}
+              options={[
+                {
+                  value: "No schooling",
+                  label: t("patient.schoolingLevel.noSchooling"),
+                },
+                {
+                  value: "Primary",
+                  label: t("patient.schoolingLevel.primary"),
+                },
+                {
+                  value: "Secondary",
+                  label: t("patient.schoolingLevel.secondary"),
+                },
+                {
+                  value: "Higher education",
+                  label: t("patient.schoolingLevel.higherEducation"),
+                },
+              ]}
+              disabled={isLoading}
+            />
+          </div>
         </div>
 
         <div className="row start-sm center-xs">
@@ -593,6 +652,36 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               </div>
             </Tooltip>
           </div>
+          <div className="patientDataForm__item">
+            <AutocompleteField
+              id="motherSchoolingLevel"
+              fieldName="motherSchoolingLevel"
+              fieldValue={formik.values.motherSchoolingLevel}
+              label={t("patient.motherSchoolingLevel")}
+              isValid={isValid("motherSchoolingLevel")}
+              errorText={getErrorText("motherSchoolingLevel")}
+              onBlur={onBlurCallback("motherSchoolingLevel")}
+              options={[
+                {
+                  value: "No schooling",
+                  label: t("patient.schoolingLevel.noSchooling"),
+                },
+                {
+                  value: "Primary",
+                  label: t("patient.schoolingLevel.primary"),
+                },
+                {
+                  value: "Secondary",
+                  label: t("patient.schoolingLevel.secondary"),
+                },
+                {
+                  value: "Higher education",
+                  label: t("patient.schoolingLevel.higherEducation"),
+                },
+              ]}
+              disabled={isLoading}
+            />
+          </div>
         </div>
 
         <div className="row start-sm center-xs">
@@ -658,6 +747,36 @@ const PatientDataForm: FunctionComponent<TProps> = ({
                 />
               </div>
             </Tooltip>
+          </div>
+          <div className="patientDataForm__item">
+            <AutocompleteField
+              id="fatherSchoolingLevel"
+              fieldName="fatherSchoolingLevel"
+              fieldValue={formik.values.fatherSchoolingLevel}
+              label={t("patient.fatherSchoolingLevel")}
+              isValid={isValid("fatherSchoolingLevel")}
+              errorText={getErrorText("fatherSchoolingLevel")}
+              onBlur={onBlurCallback("fatherSchoolingLevel")}
+              options={[
+                {
+                  value: "No schooling",
+                  label: t("patient.schoolingLevel.noSchooling"),
+                },
+                {
+                  value: "Primary",
+                  label: t("patient.schoolingLevel.primary"),
+                },
+                {
+                  value: "Secondary",
+                  label: t("patient.schoolingLevel.secondary"),
+                },
+                {
+                  value: "Higher education",
+                  label: t("patient.schoolingLevel.higherEducation"),
+                },
+              ]}
+              disabled={isLoading}
+            />
           </div>
         </div>
 

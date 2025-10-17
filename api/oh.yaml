@@ -6953,9 +6953,9 @@ components:
           example: 0
         opd:
           type: boolean
-        female:
-          type: boolean
         male:
+          type: boolean
+        female:
           type: boolean
         pharmacy:
           type: boolean
@@ -7124,9 +7124,11 @@ components:
         commune:
           type: string
           description: Commune
+          example: Savalou
         ethnic:
           type: string
           description: Ethnic
+          example: Adja
         fatherOccupation:
           type: string
           description: Father occupation
@@ -7158,6 +7160,18 @@ components:
           format: int32
           description: Folder number
           example: 30
+        schoolingLevel:
+          type: string
+          description: Patient schooling level
+          example: No schooling
+        fatherSchoolingLevel:
+          type: string
+          description: Father schooling level
+          example: Secondary
+        motherSchoolingLevel:
+          type: string
+          description: Mother schooling level
+          example: Primary
       required:
       - age
       - bloodType
