@@ -393,16 +393,6 @@ const PatientDataForm: FunctionComponent<TProps> = ({
           </div>
 
           <div className="patientDataForm__item">
-            {/* <TextField
-              field={formik.getFieldProps("commune")}
-              theme="regular"
-              label={t("patient.commune")}
-              isValid={isValid("commune")}
-              errorText={getErrorText("commune")}
-              onBlur={formik.handleBlur}
-              disabled={isLoading}
-              maxLength={50}
-            /> */}
             <Autocomplete
               id="commune"
               freeSolo
@@ -417,16 +407,6 @@ const PatientDataForm: FunctionComponent<TProps> = ({
           </div>
 
           <div className="patientDataForm__item">
-            {/* <TextField
-              field={formik.getFieldProps("ethnic")}
-              theme="regular"
-              label={t("patient.ethnic.label")}
-              isValid={isValid("ethnic")}
-              errorText={getErrorText("ethnic")}
-              onBlur={formik.handleBlur}
-              disabled={isLoading}
-              maxLength={50}
-            /> */}
             <Autocomplete
               id="ethnic"
               freeSolo
@@ -560,7 +540,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
             <AutocompleteField
               id="schoolingLevel"
               fieldName="schoolingLevel"
-              fieldValue={formik.values.schoolingLevel}
+              fieldValue={formik.values.schoolingLevel ?? ""}
               label={t("patient.schoolingLevel.label")}
               isValid={isValid("schoolingLevel")}
               errorText={getErrorText("schoolingLevel")}
@@ -656,7 +636,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
             <AutocompleteField
               id="motherSchoolingLevel"
               fieldName="motherSchoolingLevel"
-              fieldValue={formik.values.motherSchoolingLevel}
+              fieldValue={formik.values.motherSchoolingLevel ?? ""}
               label={t("patient.motherSchoolingLevel")}
               isValid={isValid("motherSchoolingLevel")}
               errorText={getErrorText("motherSchoolingLevel")}
@@ -752,7 +732,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
             <AutocompleteField
               id="fatherSchoolingLevel"
               fieldName="fatherSchoolingLevel"
-              fieldValue={formik.values.fatherSchoolingLevel}
+              fieldValue={formik.values.fatherSchoolingLevel ?? ""}
               label={t("patient.fatherSchoolingLevel")}
               isValid={isValid("fatherSchoolingLevel")}
               errorText={getErrorText("fatherSchoolingLevel")}
