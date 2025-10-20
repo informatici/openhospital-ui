@@ -3942,6 +3942,34 @@ paths:
                 format: byte
       security:
       - bearerAuth: []
+  /reports/pharmaceuticalExpiration:
+    get:
+      tags:
+      - Reports
+      operationId: printPharmaceuticalExpirationPdf
+      parameters:
+      - name: fromDate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: toDate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+                format: byte
+      security:
+      - bearerAuth: []
   /reports/pharmaceuticalAMC:
     get:
       tags:
@@ -5070,22 +5098,6 @@ paths:
             application/json:
               schema:
                 type: boolean
-      security:
-      - bearerAuth: []
-  /medicals/mov:
-    get:
-      tags:
-      - Medicals
-      operationId: getMedicalsMov
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/MedicalDTO"
       security:
       - bearerAuth: []
   /medicals/filter:
@@ -6454,13 +6466,13 @@ components:
           format: int32
           description: lock
           example: 0
-        opd:
-          type: boolean
         pharmacy:
+          type: boolean
+        male:
           type: boolean
         female:
           type: boolean
-        male:
+        opd:
           type: boolean
       required:
       - beds
@@ -7656,9 +7668,11 @@ components:
           format: double
           description: The min quantity of the medical
           example: 15
-        lot:
-          $ref: "#/components/schemas/LotDTO"
-          description: The lot of the medical
+        lots:
+          type: array
+          description: The lots associated to the medical
+          items:
+            $ref: "#/components/schemas/LotDTO"
         lock:
           type: integer
           format: int32
@@ -8562,6 +8576,9 @@ components:
         medical:
           $ref: "#/components/schemas/MedicalDTO"
           description: The medical
+        lot:
+          $ref: "#/components/schemas/LotDTO"
+          description: The medical lot
       required:
       - medical
       - ward

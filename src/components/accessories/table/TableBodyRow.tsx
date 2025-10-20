@@ -108,19 +108,42 @@ const TableBodyRow: FunctionComponent<IRowProps> = ({
             colSpan={detailColSpan ?? 6}
             className="collapseCell"
           >
-            <Collapse in={open} timeout="auto" unmountOnExit className="collapseWrapper">
+            <Collapse
+              in={open}
+              timeout="auto"
+              unmountOnExit
+              className="collapseWrapper"
+            >
               {renderCellDetails ? (
                 renderCellDetails({ ...coreRow })
               ) : (
-                <CollapseContent
-                  row={coreRow}
-                  labelData={labelData}
-                  tableHeader={tableHeader}
-                  dateFields={dateFields}
-                  detailsExcludedFields={detailsExcludedFields}
-                  showEmptyCell={showEmptyCell}
-                  adjustQuantity={adjustQuantity}
-                />
+                <div className="collapseItem">
+                  <ul>
+                    {Object.keys(
+                      _.omit(
+                        labelData,
+                        tableHeader
+                          .filter((item) => !dateFields.includes(item))
+                          .concat(detailsExcludedFields ?? [])
+                      )
+                    )
+                      .filter((key) => Object.keys(row).includes(key))
+                      .map(
+                        (key, index) =>
+                          (showEmptyCell || !!row[key]) && (
+                            <li className="collapseItem_row" key={index}>
+                              <strong>{labelData[key]}:&nbsp;</strong>
+                              <span>{row[key]}</span>
+                            </li>
+                          )
+                      )}
+                  </ul>
+                  {adjustQuantity && row.type === "Charge" && (
+                    <Button type="button" variant="outlined" color="inherit">
+                      {t("pharmacy.stock.adjustQuantity")}
+                    </Button>
+                  )}
+                </div>
               )}
             </Collapse>
           </TableCell>

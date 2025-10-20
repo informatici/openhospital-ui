@@ -20,6 +20,11 @@ export interface PrintPharmaceuticalAMCRequest {
     date?: string;
 }
 
+export interface PrintPharmaceuticalExpirationPdfRequest {
+    fromDate: string;
+    toDate: string;
+}
+
 export interface PrintPharmaceuticalStockCardPdfRequest {
     exportFileName: string;
     dateFrom: string;
@@ -91,6 +96,30 @@ export class ReportsApi extends BaseAPI {
 
         return this.request<string>({
             url: '/reports/pharmaceuticalAMC',
+            method: 'GET',
+            headers,
+            query,
+        }, opts?.responseOpts);
+    };
+
+    /**
+     */
+    printPharmaceuticalExpirationPdf({ fromDate, toDate }: PrintPharmaceuticalExpirationPdfRequest): Observable<string>
+    printPharmaceuticalExpirationPdf({ fromDate, toDate }: PrintPharmaceuticalExpirationPdfRequest, opts?: OperationOpts): Observable<AjaxResponse<string>>
+    printPharmaceuticalExpirationPdf({ fromDate, toDate }: PrintPharmaceuticalExpirationPdfRequest, opts?: OperationOpts): Observable<string | AjaxResponse<string>> {
+        throwIfNullOrUndefined(fromDate, 'fromDate', 'printPharmaceuticalExpirationPdf');
+        throwIfNullOrUndefined(toDate, 'toDate', 'printPharmaceuticalExpirationPdf');
+
+        const headers: HttpHeaders = {
+        };
+
+        const query: HttpQuery = { // required parameters are used directly since they are already checked by throwIfNullOrUndefined
+            'fromDate': (fromDate as any).toISOString().split('T')[0],
+            'toDate': (toDate as any).toISOString().split('T')[0],
+        };
+
+        return this.request<string>({
+            url: '/reports/pharmaceuticalExpiration',
             method: 'GET',
             headers,
             query,

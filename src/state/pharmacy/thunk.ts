@@ -33,9 +33,27 @@ export const getWardMovements = createAsyncThunk(
         wrapper(() =>
           wardStockApi.getMovementWard({
             ...payload,
-            to: payload.to ?? new Date("2010-12-25T10:30:00Z"),
-            from: payload.from ?? new Date(),
+            from: payload.to ?? new Date("2010-12-25T10:30:00Z"),
+            to: payload.from ?? new Date(),
           } as any as GetMovementWardRequest)
+        )
+      );
+      return result;
+    } catch (error: any) {
+      return thunkApi.rejectWithValue(error.response);
+    }
+  }
+);
+
+export const getWardMedicals = createAsyncThunk(
+  "pharmacy/getWardMedicals",
+  async ({ wardCode }: { wardCode: string }, thunkApi) => {
+    try {
+      const result = await firstValueFrom(
+        wrapper(() =>
+          wardStockApi.getMedicalsWard({
+            wardCode,
+          })
         )
       );
       return result;
@@ -57,15 +75,4 @@ export const getMedicals = createAsyncThunk(
     }
   );
 
-  export const getMedicalsMov = createAsyncThunk(
-    "pharmacy/getMedicalsMov",
-    async (_, thunkApi) => {
-      try {
-        const result = await firstValueFrom(wrapper(() => medicalApi.getMedicalsMov()));
-        return result;
-      } catch (error: any) {
-        return thunkApi.rejectWithValue(error.response);
-      }
-    }
-  );
 

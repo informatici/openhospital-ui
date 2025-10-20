@@ -11,12 +11,12 @@ export const MEDICALS: MedicalDTO[] = [
     inqty: 500,
     outqty: 300,
     minqty: 100,
-    lot: {
+    lots: [{
       code: "L2025-01",
       preparationDate: "2025-01-02",
       dueDate: "2027-01-02",
       cost: 0.1,
-    },
+    }],
     lock: 0,
   },
   {
@@ -29,12 +29,12 @@ export const MEDICALS: MedicalDTO[] = [
     inqty: 200,
     outqty: 180,
     minqty: 50,
-    lot: {
+    lots: [{
       code: "L2025-02",
       preparationDate: "2025-02-01",
       dueDate: "2026-02-01",
       cost: 0.25,
-    },
+    }],
     lock: 0,
   },
   {
@@ -47,12 +47,12 @@ export const MEDICALS: MedicalDTO[] = [
     inqty: 300,
     outqty: 100,
     minqty: 50,
-    lot: {
+    lots: [{
       code: "L2025-03",
       preparationDate: "2025-02-10",
       dueDate: "2028-02-10",
       cost: 0.05,
-    },
+    }],
     lock: 0,
   },
   {
@@ -65,6 +65,7 @@ export const MEDICALS: MedicalDTO[] = [
     inqty: 150,
     outqty: 0,
     minqty: 30,
+    lots: [],
     lock: 0,
   },
   {
@@ -77,6 +78,7 @@ export const MEDICALS: MedicalDTO[] = [
     inqty: 0,
     outqty: 50,
     minqty: 20,
+    lots: [],
     lock: 0,
   },
   {
@@ -89,12 +91,12 @@ export const MEDICALS: MedicalDTO[] = [
     inqty: 100,
     outqty: 0,
     minqty: 10,
-    lot: {
+    lots: [{
       code: "L2025-04",
       preparationDate: "2025-03-05",
       dueDate: "2026-03-05",
       cost: 1.5,
-    },
+    }],
     lock: 0,
   },
   {
@@ -107,6 +109,7 @@ export const MEDICALS: MedicalDTO[] = [
     inqty: 500,
     outqty: 150,
     minqty: 50,
+    lots: [],
     lock: 0,
   },
 ];

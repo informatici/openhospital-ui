@@ -11,6 +11,14 @@ export const MEDICALS: MedicalDTO[] = [
     inqty: 500,
     outqty: 100,
     minqty: 100,
+    lots: [
+        {
+            "code": "L2025-10",
+            "preparationDate": "2025-09-01",
+            "dueDate": "2027-09-01",
+            "cost": 0.1,
+        }
+    ],
   },
   {
     code: 2,
@@ -22,6 +30,14 @@ export const MEDICALS: MedicalDTO[] = [
     inqty: 300,
     outqty: 80,
     minqty: 80,
+    lots: [
+        {
+            "code": "L2025-10",
+            "preparationDate": "2025-09-01",
+            "dueDate": "2027-09-01",
+            "cost": 0.1,
+        }
+    ],
   },
   {
     code: 3,
@@ -33,6 +49,14 @@ export const MEDICALS: MedicalDTO[] = [
     inqty: 200,
     outqty: 50,
     minqty: 40,
+    lots: [
+        {
+            "code": "L2025-10",
+            "preparationDate": "2025-09-01",
+            "dueDate": "2027-09-01",
+            "cost": 0.1,
+        }
+    ],
   },
   {
     code: 4,
@@ -44,6 +68,14 @@ export const MEDICALS: MedicalDTO[] = [
     inqty: 100,
     outqty: 20,
     minqty: 10,
+    lots: [
+        {
+            "code": "L2025-10",
+            "preparationDate": "2025-09-01",
+            "dueDate": "2027-09-01",
+            "cost": 0.1,
+        }
+    ],
   },
   {
     code: 5,
@@ -55,5 +87,13 @@ export const MEDICALS: MedicalDTO[] = [
     inqty: 60,
     outqty: 15,
     minqty: 10,
+    lots: [
+        {
+            "code": "L2025-10",
+            "preparationDate": "2025-09-01",
+            "dueDate": "2027-09-01",
+            "cost": 0.1,
+        }
+    ],
   },
 ];

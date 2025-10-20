@@ -6,7 +6,7 @@ import { MedicalDTO } from 'generated';
 import { useAppDispatch, useAppSelector } from 'libraries/hooks/redux';
 import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next';
-import { getMedicalsMov } from 'state/pharmacy';
+import { getMedicals } from 'state/pharmacy';
 
 export default function PharmaceuticalTable() {
   const { t } = useTranslation();
@@ -14,14 +14,14 @@ export default function PharmaceuticalTable() {
   const dispatch = useAppDispatch();
 
   const data = useAppSelector((state) =>
-    state.pharmacy.getMedicalsMov.data ? state.pharmacy.getMedicalsMov.data : []
+    state.pharmacy.getMedicals.data ? state.pharmacy.getMedicals.data : []
   );
 
-  const status = useAppSelector((state) => state.pharmacy.getMedicalsMov.status);
+  const status = useAppSelector((state) => state.pharmacy.getMedicals.status);
 
   const errorMessage = useAppSelector(
     (state) =>
-      state.pharmacy.getMedicalsMov.error?.message || t("errors.somethingwrong")
+      state.pharmacy.getMedicals.error?.message || t("errors.somethingwrong")
   ) as string;
 
   const labelData = {
@@ -54,6 +54,37 @@ export default function PharmaceuticalTable() {
 
   const formatDataToDisplay = (data: MedicalDTO[]) => {
     return data.map((item) => {
+      // Trouver la date d'expiration la plus proche parmi les lots
+      let nearestExpiration: string | null = null;
+  
+      if (item.lots && item.lots.length > 0) {
+        const now = new Date();
+  
+        // Filtrer les lots avec une date future valide
+        const futureLots = item.lots.filter(
+          (lot) => new Date(lot.dueDate) >= now
+        );
+  
+        if (futureLots.length > 0) {
+          // Trouver la plus proche
+          const nearestLot = futureLots.reduce((prev, current) => {
+            const prevDate = new Date(prev.dueDate);
+            const currDate = new Date(current.dueDate);
+            return currDate < prevDate ? current : prev;
+          });
+  
+          nearestExpiration = nearestLot.dueDate;
+        } else {
+          // Si aucun lot futur, on peut choisir le plus récent (déjà expiré)
+          const nearestLot = item.lots.reduce((prev, current) => {
+            const prevDate = new Date(prev.dueDate);
+            const currDate = new Date(current.dueDate);
+            return currDate < prevDate ? current : prev;
+          });
+          nearestExpiration = nearestLot.dueDate;
+        }
+      }
+  
       return {
         pharmaceutical: item.description,
         type: item.type?.description,
@@ -62,13 +93,14 @@ export default function PharmaceuticalTable() {
         stock: item.inqty,
         criticalValue: item.minqty,
         amc: item.outqty,
-        expDate: item.lot?.dueDate,
+        lots: item.lots,
+        expDate: nearestExpiration,
       };
     });
-  };
+  };  
 
   useEffect(() => {
-    dispatch(getMedicalsMov());
+    dispatch(getMedicals());
   }, [dispatch]);
 
   return (

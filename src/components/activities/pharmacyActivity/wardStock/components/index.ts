@@ -1,2 +1,3 @@
 export * from "./header/WardStockHeader";
-export * from "./table/StockTable";
+export * from "./table/WardMedicalsTable";
+export * from "./table/WardMovementsTable";

@@ -3,10 +3,14 @@ import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useOutletContext } from "react-router";
-import { getWardMovements } from "state/pharmacy";
+import { getWardMedicals, getWardMovements } from "state/pharmacy";
 import { getWards } from "state/ward";
 import { PharmacyActivityContent } from "../PharmacyActivityContent";
-import { StockTable, WardStockHeader } from "./components";
+import {
+  WardMedicalsTable,
+  WardMovementsTable,
+  WardStockHeader,
+} from "./components";
 import "./styles.scss";
 
 export function WardStock() {
@@ -46,7 +50,11 @@ export function WardStock() {
 
   useEffect(() => {
     if (filter.ward?.code) {
-      dispatch(getWardMovements({ wardCode: filter.ward.code }));
+      if (filter.type === "drugs") {
+        dispatch(getWardMedicals({ wardCode: filter.ward.code }));
+      } else {
+        dispatch(getWardMovements({ wardCode: filter.ward.code }));
+      }
     }
   }, [dispatch, filter]);
 
@@ -57,7 +65,11 @@ export function WardStock() {
     >
       <div className="ward-stock">
         <WardStockHeader />
-        <StockTable />
+        {filter.type === "drugs" ? (
+          <WardMedicalsTable />
+        ) : (
+          <WardMovementsTable />
+        )}
       </div>
     </PharmacyActivityContent>
   );

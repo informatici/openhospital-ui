@@ -12,6 +12,7 @@
  */
 
 import type {
+    LotDTO,
     MedicalDTO,
     WardDTO,
 } from './';
@@ -33,4 +34,10 @@ export interface MedicalWardIdDTO {
      * @memberof MedicalWardIdDTO
      */
     medical: MedicalDTO;
+    /**
+     * The medical lot
+     * @type {LotDTO}
+     * @memberof MedicalWardIdDTO
+     */
+    lot?: LotDTO;
 }

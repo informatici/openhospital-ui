@@ -76,11 +76,11 @@ export interface MedicalDTO {
      */
     minqty?: number;
     /**
-     * The lot of the medical
-     * @type {LotDTO}
+     * The lots associated to the medical
+     * @type {Array<LotDTO>}
      * @memberof MedicalDTO
      */
-    lot?: LotDTO;
+    lots?: Array<LotDTO>;
     /**
      * Lock
      * @type {number}

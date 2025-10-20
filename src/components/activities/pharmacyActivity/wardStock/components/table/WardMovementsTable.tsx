@@ -8,7 +8,7 @@ import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { useEffect, useMemo } from "react";
 import { getMovements } from "state/pharmacy";
 
-export function StockTable() {
+export function WardMovementsTable() {
   const { t } = useTranslation();
 
   const dispatch = useAppDispatch();
@@ -123,7 +123,7 @@ export function StockTable() {
         units: item.units ?? "",
         description: item.description,
         quantity: item.quantity,
-        ward: item.ward.description ?? "",
+        ward: item.ward?.description ?? "",
         weight: item.weight ?? "",
         age: item.age ?? "",
         type: t(
@@ -139,7 +139,7 @@ export function StockTable() {
   }, [dispatch]);
 
   return (
-    <div data-cy="ward-stock-table">
+    <div data-cy="ward-movements-table">
       {(() => {
         switch (status) {
           case "IDLE":

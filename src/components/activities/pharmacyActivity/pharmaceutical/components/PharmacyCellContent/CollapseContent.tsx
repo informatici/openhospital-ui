@@ -24,15 +24,21 @@ const CollapseContent: FC<ICollapseContentProps> = ({
 }) => {
   const { t } = useTranslation();
 
+  const safeLabelData = labelData || {};
+  const safeRow = row || {};
+  const safeTableHeader = tableHeader || [];
+  const safeDateFields = dateFields || [];
+  const safeExcludedFields = detailsExcludedFields ?? [];
+  
   const keysToDisplay = Object.keys(
     _.omit(
-      labelData,
-      tableHeader
-        .filter((item) => !dateFields.includes(item))
-        .concat(detailsExcludedFields ?? [])
+      safeLabelData,
+      safeTableHeader
+        .filter((item) => !safeDateFields.includes(item))
+        .concat(safeExcludedFields)
     )
-  ).filter((key) => Object.keys(row).includes(key));
-
+  ).filter((key) => Object.keys(safeRow).includes(key));
+  
   return (
     <div className="collapseItem">
       <ul>
