@@ -7,7 +7,7 @@
   align-items: center;
   width: 100%;
 
-  .formInsertMode{
+  .formInsertMode {
     margin: 0px 0px 20px;
   }
 
@@ -79,4 +79,17 @@
       }
     }
   }
+}
+
+.patientAdmissionForm__supplementRow .patientAdmissionForm__item {
+  width: 100%;
+  flex: 1 1 0;
+  white-space: nowrap;
+}
+
+.patientAdmissionForm__supplementRow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
 }

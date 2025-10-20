@@ -266,7 +266,10 @@
     "encounters": "Encounters",
     "conditioning": "Conditioning and Admission state",
     "medicalHistory": "Medical History",
-    "folderNumber": "Folder Number"
+    "folderNumber": "Folder Number",
+    "alertReceived": "Alert received",
+    "referenceSheet": "Reference sheet",
+    "qualifiedAgent": "Qualified agent"
   },
   "encounters": {
     "admissions": "Admissions",
