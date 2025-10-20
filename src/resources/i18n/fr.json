@@ -249,7 +249,7 @@
     "folderNumber": "Numéro du dossier",
     "schoolingLevel": {
       "label": "Niveau scolaire",
-      "noSchooling": "Sans scolarisation",
+      "noSchooling": "Non scolairsé",
       "primary": "Primaire",
       "secondary": "Secondaire",
       "higherEducation": "Enseignement supérieur"
