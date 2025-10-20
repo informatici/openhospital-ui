@@ -198,6 +198,25 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 
   const { options: communeOptions } = useCommune();
 
+  const schoolingLevelOptions = [
+    {
+      value: "No schooling",
+      label: t("patient.schoolingLevel.noSchooling"),
+    },
+    {
+      value: "Primary",
+      label: t("patient.schoolingLevel.primary"),
+    },
+    {
+      value: "Secondary",
+      label: t("patient.schoolingLevel.secondary"),
+    },
+    {
+      value: "Higher education",
+      label: t("patient.schoolingLevel.higherEducation"),
+    },
+  ];
+
   const handleResetConfirmation = () => {
     setOpenResetConfirmation(false);
     formik.resetForm();
@@ -545,24 +564,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               isValid={isValid("schoolingLevel")}
               errorText={getErrorText("schoolingLevel")}
               onBlur={onBlurCallback("schoolingLevel")}
-              options={[
-                {
-                  value: "No schooling",
-                  label: t("patient.schoolingLevel.noSchooling"),
-                },
-                {
-                  value: "Primary",
-                  label: t("patient.schoolingLevel.primary"),
-                },
-                {
-                  value: "Secondary",
-                  label: t("patient.schoolingLevel.secondary"),
-                },
-                {
-                  value: "Higher education",
-                  label: t("patient.schoolingLevel.higherEducation"),
-                },
-              ]}
+              options={schoolingLevelOptions}
               disabled={isLoading}
             />
           </div>
@@ -641,24 +643,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               isValid={isValid("motherSchoolingLevel")}
               errorText={getErrorText("motherSchoolingLevel")}
               onBlur={onBlurCallback("motherSchoolingLevel")}
-              options={[
-                {
-                  value: "No schooling",
-                  label: t("patient.schoolingLevel.noSchooling"),
-                },
-                {
-                  value: "Primary",
-                  label: t("patient.schoolingLevel.primary"),
-                },
-                {
-                  value: "Secondary",
-                  label: t("patient.schoolingLevel.secondary"),
-                },
-                {
-                  value: "Higher education",
-                  label: t("patient.schoolingLevel.higherEducation"),
-                },
-              ]}
+              options={schoolingLevelOptions}
               disabled={isLoading}
             />
           </div>
@@ -737,24 +722,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               isValid={isValid("fatherSchoolingLevel")}
               errorText={getErrorText("fatherSchoolingLevel")}
               onBlur={onBlurCallback("fatherSchoolingLevel")}
-              options={[
-                {
-                  value: "No schooling",
-                  label: t("patient.schoolingLevel.noSchooling"),
-                },
-                {
-                  value: "Primary",
-                  label: t("patient.schoolingLevel.primary"),
-                },
-                {
-                  value: "Secondary",
-                  label: t("patient.schoolingLevel.secondary"),
-                },
-                {
-                  value: "Higher education",
-                  label: t("patient.schoolingLevel.higherEducation"),
-                },
-              ]}
+              options={schoolingLevelOptions}
               disabled={isLoading}
             />
           </div>
