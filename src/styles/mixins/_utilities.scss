@@ -1,0 +1,148 @@
+@use "../variables" as vars;
+@use "../functions";
+@import "./flex";
+@import "./grid";
+@import "./sizing";
+
+// === Padding utilities (p-*, px-*, py-*, pt-*, etc.) ===
+@mixin generate-padding-utilities {
+  @each $key, $value in vars.$spacing-scale {
+    .p-#{$key} {
+      padding: spacing($key);
+    }
+    .px-#{$key} {
+      padding-left: spacing($key);
+      padding-right: spacing($key);
+    }
+    .py-#{$key} {
+      padding-top: spacing($key);
+      padding-bottom: spacing($key);
+    }
+    .pt-#{$key} {
+      padding-top: spacing($key);
+    }
+    .pr-#{$key} {
+      padding-right: spacing($key);
+    }
+    .pb-#{$key} {
+      padding-bottom: spacing($key);
+    }
+    .pl-#{$key} {
+      padding-left: spacing($key);
+    }
+  }
+}
+
+// === Generate margin utilities ===
+@mixin generate-margin-utilities {
+  @each $key, $value in vars.$spacing-scale {
+    // Positive margins
+    .m-#{$key} {
+      margin: spacing($key);
+    }
+    .mx-#{$key} {
+      margin-left: spacing($key);
+      margin-right: spacing($key);
+    }
+    .my-#{$key} {
+      margin-top: spacing($key);
+      margin-bottom: spacing($key);
+    }
+    .mt-#{$key} {
+      margin-top: spacing($key);
+    }
+    .mr-#{$key} {
+      margin-right: spacing($key);
+    }
+    .mb-#{$key} {
+      margin-bottom: spacing($key);
+    }
+    .ml-#{$key} {
+      margin-left: spacing($key);
+    }
+
+    // Negative margins
+    .-m-#{$key} {
+      margin: -spacing($key);
+    }
+    .-mx-#{$key} {
+      margin-left: -spacing($key);
+      margin-right: -spacing($key);
+    }
+    .-my-#{$key} {
+      margin-top: -spacing($key);
+      margin-bottom: -spacing($key);
+    }
+    .-mt-#{$key} {
+      margin-top: -spacing($key);
+    }
+    .-mr-#{$key} {
+      margin-right: -spacing($key);
+    }
+    .-mb-#{$key} {
+      margin-bottom: -spacing($key);
+    }
+    .-ml-#{$key} {
+      margin-left: -spacing($key);
+    }
+  }
+}
+
+@mixin generate-display-utilities {
+  .block {
+    display: block;
+  }
+  .inline-block {
+    display: inline-block;
+  }
+  .inline {
+    display: inline;
+  }
+  .flex {
+    display: flex;
+  }
+  .inline-flex {
+    display: inline-flex;
+  }
+  .grid {
+    display: grid;
+  }
+  .inline-grid {
+    display: inline-grid;
+  }
+  .hidden {
+    display: none;
+  }
+}
+
+@mixin generate-gap-utilities {
+  @each $key, $value in vars.$spacing-scale {
+    .gap-#{$key} {
+      gap: spacing($key);
+    }
+    .gap-x-#{$key} {
+      column-gap: spacing($key);
+    }
+    .gap-y-#{$key} {
+      row-gap: spacing($key);
+    }
+  }
+}
+
+@mixin generate-aspect-ratio-utilities {
+  .aspect-square {
+    aspect-ratio: 1 / 1;
+  }
+  .aspect-video {
+    aspect-ratio: 16 / 9;
+  }
+  .aspect-4\/3 {
+    aspect-ratio: 4 / 3;
+  }
+  .aspect-3\/2 {
+    aspect-ratio: 3 / 2;
+  }
+  .aspect-auto {
+    aspect-ratio: auto;
+  }
+}

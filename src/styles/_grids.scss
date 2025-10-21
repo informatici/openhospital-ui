@@ -1,0 +1,26 @@
+@import "./mixins/mixins";
+
+.form-grid-layout {
+  display: grid;
+  gap: 0.5rem;
+
+  @include respond(md) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include respond(xl) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @include respond(2xl) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  @include respond(4xl) {
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  @include respond(6xl) {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}

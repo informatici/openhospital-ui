@@ -83,5 +83,7 @@ export const PATHS = {
   pharmacy: "/pharmacy",
   pharmacy_medicals: "/pharmacy/medicals",
   pharmacy_pharmaceuticalstock: "/pharmacy/pharmaceutical-stock",
+  pharmacy_pharmaceuticalstock_charge:
+    "/pharmacy/pharmaceutical-stock/charge-movement",
   pharmacy_ward_stock: "/pharmacy/ward-stock",
 };
