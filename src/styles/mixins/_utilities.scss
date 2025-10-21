@@ -1,8 +1,10 @@
 @use "../variables" as vars;
-@use "../functions";
+@use "../functions" as *;
+@use "./responsive" as *;
 @import "./flex";
 @import "./grid";
 @import "./sizing";
+@import "./typography";
 
 // === Padding utilities (p-*, px-*, py-*, pt-*, etc.) ===
 @mixin generate-padding-utilities {
@@ -117,14 +119,33 @@
 
 @mixin generate-gap-utilities {
   @each $key, $value in vars.$spacing-scale {
-    .gap-#{$key} {
-      gap: spacing($key);
+    $safe-key: escape-slash($key);
+
+    // Base (non-responsive)
+    .gap-#{$safe-key} {
+      gap: $value;
     }
-    .gap-x-#{$key} {
-      column-gap: spacing($key);
+    .gap-x-#{$safe-key} {
+      column-gap: $value;
     }
-    .gap-y-#{$key} {
-      row-gap: spacing($key);
+    .gap-y-#{$safe-key} {
+      row-gap: $value;
+    }
+
+    // Responsive variants
+    @each $bp, $_ in $breakpoints {
+      $safe-bp: escape-leading-digit($bp);
+      @include respond($bp) {
+        .#{$safe-bp}\:gap-#{$safe-key} {
+          gap: $value;
+        }
+        .#{$safe-bp}\:gap-x-#{$safe-key} {
+          column-gap: $value;
+        }
+        .#{$safe-bp}\:gap-y-#{$safe-key} {
+          row-gap: $value;
+        }
+      }
     }
   }
 }

@@ -4,8 +4,8 @@ import { TFormValues } from "./types";
 
 export const LotDTOSchema = z.object({
   code: z.string(),
-  preparationDate: z.string(),
-  dueDate: z.string(),
+  preparationDate: z.date(),
+  dueDate: z.date(),
   cost: z.number().nullish(),
 });
 
@@ -27,7 +27,13 @@ export function getInitialValues(from?: MovementDTO): Partial<TFormValues> {
     medical: from?.medical?.code,
     type: from?.type?.code,
     ward: from?.ward?.code,
-    lot: from?.lot,
+    lot: from?.lot
+      ? {
+          ...from.lot,
+          preparationDate: new Date(from.lot.preparationDate),
+          dueDate: new Date(from.lot.dueDate),
+        }
+      : undefined,
     date: from?.date ? new Date(from.date) : undefined,
     quantity: from?.quantity,
     supplier: from?.supplier?.supId,

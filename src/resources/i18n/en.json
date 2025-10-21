@@ -1247,6 +1247,19 @@
         "refNo": "Reference Number"
       }
     },
+    "lot": {
+      "labels": {
+        "existingLots": "Existing lots",
+        "newLot": "New Lot",
+        "change-on-this": "Change on this lot"
+      },
+      "fields": {
+        "code": "Lot Code",
+        "preparationDate": "Preparation Date",
+        "dueDate": "Due Date",
+        "cost": "Cost per unit"
+      }
+    },
     "stock": {
       "refNo": "Ref",
       "lot": "Lot",

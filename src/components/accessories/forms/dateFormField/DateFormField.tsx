@@ -24,7 +24,11 @@ export function DateFormField<T extends Record<string, any>>({
           {...props}
           aria-invalid={fieldState.invalid}
           fieldName={field.name}
-          fieldValue={(field.value as Date)?.toISOString() ?? ""}
+          fieldValue={
+            (field.value as any) instanceof Date
+              ? field.value.toISOString()
+              : field.value ?? ""
+          }
           disabled={props.disabled ?? field.disabled}
           onChange={field.onChange}
           errorText={fieldState.error?.message ?? ""}

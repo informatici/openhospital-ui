@@ -23,3 +23,26 @@
 
   @return $string;
 }
+
+@function escape-slash($str) {
+  @return str-replace("#{$str}", "/", "\\/");
+}
+
+@function escape-dot($str) {
+  @return str-replace("#{$str}", ".", "\\.");
+}
+
+@function escape-classname($str) {
+  $escaped: escape-slash($str);
+  $escaped: escape-dot($escaped);
+  @return $escaped;
+}
+
+// Escape leading digits for breakpoints like "2xl" → "\32 xl"
+@function escape-leading-digit($str) {
+  $first: str-slice("#{$str}", 1, 1);
+  @if str-index("0123456789", $first) {
+    @return "\\3#{$first} "+ str-slice("#{$str}", 2);
+  }
+  @return $str;
+}

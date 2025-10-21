@@ -43,6 +43,7 @@ export function TextFormField<T extends Record<string, any>>({
           onBlur={props.onBlur ?? field.onBlur}
           error={props.error ?? fieldState.invalid}
           helperText={props.helperText ?? fieldState.error?.message}
+          sx={{ marginTop: 1 }}
         />
       )}
     />

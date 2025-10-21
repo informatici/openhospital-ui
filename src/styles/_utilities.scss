@@ -13,6 +13,7 @@
 @include generate-aspect-ratio-utilities;
 @include generate-flex-alignment-utilities;
 @include generate-grid-alignment-utilities;
+@include generate-typography-utilities;
 
 // Sizing
 .w-full {
