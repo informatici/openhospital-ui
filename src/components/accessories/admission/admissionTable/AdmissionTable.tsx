@@ -45,6 +45,9 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
     preTreatment: t("admission.preTreatment"),
     preAssessment: t("admission.preAssessment"),
     entryReason: t("admission.entryReason"),
+    alertReceived: t("patient.alertReceived"),
+    referenceSheet: t("patient.referenceSheet"),
+    qualifiedAgent: t("patient.qualifiedAgent"),
   };
   const order = ["admDate", "disDate"];
 
@@ -98,6 +101,9 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
         preTreatment: item.preTreatment ?? "",
         preAssessment: item.preAssessment ?? "",
         entryReason: item.entryReason,
+        alertReceived: item.alertReceived ? t("common.yes") : t("common.no"),
+        referenceSheet: item.referenceSheet ? t("common.yes") : t("common.no"),
+        qualifiedAgent: item.qualifiedAgent ? t("common.yes") : t("common.no"),
       };
     });
   };

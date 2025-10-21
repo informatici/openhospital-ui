@@ -4,7 +4,7 @@ import { TFields } from "../../../../libraries/formDataHandling/types";
 import { TCurrentAdmissionFieldName } from "./types";
 
 export const initialFields = (
-  patient: AdmissionDTO | undefined
+  admission: AdmissionDTO | undefined
 ): TFields<TCurrentAdmissionFieldName> => {
   return {
     ward: {
@@ -49,6 +49,18 @@ export const initialFields = (
     entryReason: {
       value: "",
       type: "text",
+    },
+    alertReceived: {
+      value: "",
+      type: "boolean",
+    },
+    referenceSheet: {
+      value: "",
+      type: "boolean",
+    },
+    qualifiedAgent: {
+      value: "",
+      type: "boolean",
     },
   };
 };

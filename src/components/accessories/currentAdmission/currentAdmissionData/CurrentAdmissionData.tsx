@@ -57,6 +57,30 @@ export const CurrentAdmissionData: FunctionComponent<IOwnProps> = ({
             <p className="item_content">{admission?.diseaseIn?.description}</p>
           </div>
         )}
+        {admission?.alertReceived != null && (
+          <div className="currentAdmissionData__item">
+            <span className="item_label">{t("patient.alertReceived")}</span>
+            <p className="item_content">
+              {admission.alertReceived ? t("common.yes") : t("common.no")}
+            </p>
+          </div>
+        )}
+        {admission?.referenceSheet != null && (
+          <div className="currentAdmissionData__item">
+            <span className="item_label">{t("patient.referenceSheet")}</span>
+            <p className="item_content">
+              {admission.referenceSheet ? t("common.yes") : t("common.no")}
+            </p>
+          </div>
+        )}
+        {admission?.qualifiedAgent != null && (
+          <div className="currentAdmissionData__item">
+            <span className="item_label">{t("patient.qualifiedAgent")}</span>
+            <p className="item_content">
+              {admission.qualifiedAgent ? t("common.yes") : t("common.no")}
+            </p>
+          </div>
+        )}
         {!isEmpty(admission?.anamnesis) && (
           <div className="fullWidth currentAdmissionData__item">
             <span className="item_label">{t("admission.anamnesis")}</span>
