@@ -241,6 +241,24 @@ export interface PatientDTO {
      * @memberof PatientDTO
      */
     folderNumber?: number;
+    /**
+     * Patient schooling level
+     * @type {string}
+     * @memberof PatientDTO
+     */
+    schoolingLevel?: string;
+    /**
+     * Father schooling level
+     * @type {string}
+     * @memberof PatientDTO
+     */
+    fatherSchoolingLevel?: string;
+    /**
+     * Mother schooling level
+     * @type {string}
+     * @memberof PatientDTO
+     */
+    motherSchoolingLevel?: string;
 }
 
 /**
