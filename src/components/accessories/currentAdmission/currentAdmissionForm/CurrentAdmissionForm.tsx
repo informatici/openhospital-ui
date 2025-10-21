@@ -1,3 +1,4 @@
+import CheckboxField from "components/accessories/checkboxField/CheckboxField";
 import { useFormik } from "formik";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { get, has } from "lodash";
@@ -74,6 +75,13 @@ export const CurrentAdmissionForm: FunctionComponent<IOwnProps> = ({
     (state: IState) => state.types.admissions.getAll.status
   );
 
+  const [isAlertReceivedChecked, setIsIronSupplementChecked] = useState(false);
+
+  const [isReferenceSheetChecked, setIsFolicAcidSupplementChecked] =
+    useState(false);
+
+  const [isQualifiedAgentChecked, setIsVitASupplementChecked] = useState(false);
+
   const renderOptions = (
     data:
       | (
@@ -113,6 +121,9 @@ export const CurrentAdmissionForm: FunctionComponent<IOwnProps> = ({
       formattedValues.ward = wards?.find(
         (item) => item.code === formattedValues.ward
       );
+      formattedValues.alertReceived = isAlertReceivedChecked ? true : false;
+      formattedValues.referenceSheet = isReferenceSheetChecked ? true : false;
+      formattedValues.qualifiedAgent = isQualifiedAgentChecked ? true : false;
       onSubmit({
         ...currentAdmission,
         ...formattedValues,
@@ -129,6 +140,22 @@ export const CurrentAdmissionForm: FunctionComponent<IOwnProps> = ({
       onDiscard();
     }
   }, [dispatch, activityTransitionState, patient, onDiscard]);
+
+  useEffect(() => {
+    setIsIronSupplementChecked(
+      formik.values.alertReceived === "true" ? true : false
+    );
+    setIsFolicAcidSupplementChecked(
+      formik.values.referenceSheet === "true" ? true : false
+    );
+    setIsVitASupplementChecked(
+      formik.values.qualifiedAgent === "true" ? true : false
+    );
+  }, [
+    formik.values.alertReceived,
+    formik.values.referenceSheet,
+    formik.values.qualifiedAgent,
+  ]);
 
   const { setFieldValue, handleBlur } = formik;
 
@@ -163,6 +190,18 @@ export const CurrentAdmissionForm: FunctionComponent<IOwnProps> = ({
       },
     [setFieldValue, handleBlur]
   );
+
+  const handleAlertReceivedChecked = () => {
+    setIsIronSupplementChecked(!isAlertReceivedChecked);
+  };
+
+  const handleReferenceSheetChecked = () => {
+    setIsFolicAcidSupplementChecked(!isReferenceSheetChecked);
+  };
+
+  const handleQualifiedAgentChecked = () => {
+    setIsVitASupplementChecked(!isQualifiedAgentChecked);
+  };
 
   const isLoading = status === "LOADING";
 
@@ -221,6 +260,34 @@ export const CurrentAdmissionForm: FunctionComponent<IOwnProps> = ({
               loading={admTypeStatus === "LOADING"}
               disabled={isLoading}
             />
+          </div>
+          <div className="row start-sm center-xs">
+            <div className="currentAdmissionForm__supplementRow">
+              <div className="currentAdmissionForm__item">
+                <CheckboxField
+                  fieldName="alertReceived"
+                  label={t("patient.alertReceived")}
+                  checked={isAlertReceivedChecked}
+                  onChange={handleAlertReceivedChecked}
+                />
+              </div>
+              <div className="currentAdmissionForm__item">
+                <CheckboxField
+                  fieldName="referenceSheet"
+                  label={t("patient.referenceSheet")}
+                  checked={isReferenceSheetChecked}
+                  onChange={handleReferenceSheetChecked}
+                />
+              </div>
+              <div className="currentAdmissionForm__item">
+                <CheckboxField
+                  fieldName="qualifiedAgent"
+                  label={t("patient.qualifiedAgent")}
+                  checked={isQualifiedAgentChecked}
+                  onChange={handleQualifiedAgentChecked}
+                />
+              </div>
+            </div>
           </div>
           <div className="fullWidth currentAdmissionForm__item">
             <TextField

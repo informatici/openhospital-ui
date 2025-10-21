@@ -280,6 +280,9 @@
     "conditioning": "Conditioning and Admission state",
     "medicalHistory": "Medical History",
     "folderNumber": "Folder Number",
+    "alertReceived": "Alert received",
+    "referenceSheet": "Reference sheet",
+    "qualifiedAgent": "Qualified agent",
     "schoolingLevel": {
       "label": "Educational level",
       "noSchooling": "No schooling",

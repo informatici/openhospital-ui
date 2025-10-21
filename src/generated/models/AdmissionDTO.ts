@@ -173,6 +173,21 @@ export interface AdmissionDTO {
      */
     weight?: number;
     /**
+     * @type {boolean}
+     * @memberof AdmissionDTO
+     */
+    alertReceived?: boolean;
+    /**
+     * @type {boolean}
+     * @memberof AdmissionDTO
+     */
+    referenceSheet?: boolean;
+    /**
+     * @type {boolean}
+     * @memberof AdmissionDTO
+     */
+    qualifiedAgent?: boolean;
+    /**
      * @type {string}
      * @memberof AdmissionDTO
      */

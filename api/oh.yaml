@@ -6983,11 +6983,11 @@ components:
           format: int32
           description: lock
           example: 0
-        female:
+        opd:
           type: boolean
         male:
           type: boolean
-        opd:
+        female:
           type: boolean
         pharmacy:
           type: boolean
@@ -7818,6 +7818,12 @@ components:
           type: number
           format: float
           description: Weight
+        alertReceived:
+          type: boolean
+        referenceSheet:
+          type: boolean
+        qualifiedAgent:
+          type: boolean
         ctrlDate1:
           type: string
           format: date-time

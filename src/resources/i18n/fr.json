@@ -247,6 +247,9 @@
     "conditioning": "Mise en condition et état à l'admission",
     "medicalHistory": "Antécédent médical",
     "folderNumber": "Numéro du dossier",
+    "alertReceived": "Alert reçue",
+    "referenceSheet": "Fiche de référence",
+    "qualifiedAgent": "Agent qualifié",
     "schoolingLevel": {
       "label": "Niveau scolaire",
       "noSchooling": "Non scolairsé",
