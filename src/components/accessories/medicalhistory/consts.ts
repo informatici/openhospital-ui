@@ -19,6 +19,10 @@ export const initialFields: TFields<MedicalHistoryFormFieldName> = {
     value: "",
     type: "text",
   },
+  reasonMode: {
+    value: "",
+    type: "text",
+  },
   apgarScore: {
     value: "",
     type: "text",
@@ -27,11 +31,67 @@ export const initialFields: TFields<MedicalHistoryFormFieldName> = {
     value: "",
     type: "number",
   },
-  vaccinationState: {
+  vaccinationStatePev: {
     value: "",
     type: "text",
   },
-  antiMalarialProphylaxis: {
+  vaccinationStateNoPev: {
+    value: "",
+    type: "text",
+  },
+  antiMalarialProphylaxisVap: {
+    value: "",
+    type: "text",
+  },
+  antiMalarialProphylaxisMilda: {
+    value: "",
+    type: "text",
+  },
+  antiMalarialProphylaxisOthers: {
+    value: "",
+    type: "text",
+  },
+  surgicalProcedure: {
+    value: "",
+    type: "boolean",
+  },
+  surgicalProcedureCondition: {
+    value: "",
+    type: "text",
+  },
+  surgicalProcedureType: {
+    value: "",
+    type: "text",
+  },
+  surgicalProcedureDate: {
+    value: "",
+    type: "date",
+  },
+  diversification: {
+    value: "",
+    type: "text",
+  },
+  neonatalPeriod: {
+    value: "",
+    type: "text",
+  },
+  previousHospitalization: {
+    value: "",
+    type: "text",
+  },
+  father: {
+    value: "",
+    type: "text",
+  },
+  mother: {
+    value: "",
+    type: "text",
+  },
+  siblings: {
+    value: "",
+    type: "number",
+  },
+  otherUsefulInformation: {
     value: "",
     type: "text",
   },

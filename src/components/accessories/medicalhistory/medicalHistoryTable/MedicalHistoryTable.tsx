@@ -34,12 +34,41 @@ const MedicalHistoryTable: FunctionComponent<IOwnProps> = ({
     deliveryMode: t("medicalHistory.physiological.deliveryMode"),
     apgarScore: t("medicalHistory.physiological.apgarScore"),
     birthWeight: t("medicalHistory.physiological.birthWeight"),
-    vaccinationState: t("medicalHistory.physiological.vaccinationStatus"),
+    vaccinationStatePev: t("medicalHistory.physiological.vaccinationStatePev"),
+    vaccinationStateNoPev: t("medicalHistory.physiological.vaccinationStateNoPev"),
+    antiMalarialProphylaxisVap: t(
+      "medicalHistory.physiological.antiMalarialProphylaxisVap"
+    ),
+    antiMalarialProphylaxisMilda: t(
+      "medicalHistory.physiological.antiMalarialProphylaxisMilda"
+    ),
+    antiMalarialProphylaxisOthers: t(
+      "medicalHistory.physiological.antiMalarialProphylaxisOthers"
+    ),
     antiMalarialProphylaxis: t(
       "medicalHistory.physiological.malariaProphylaxis"
     ),
     diet: t("medicalHistory.physiological.diet"),
-    deParasitization: t("medicalHistory.physiological.deworming"),
+    surgicalProcedure: t("medicalHistory.personalPathological.surgicalProcedure"),
+    surgicalProcedureCondition: t(
+      "medicalHistory.personalPathological.surgicalProcedureCondition"
+    ),
+    surgicalProcedureType: t("medicalHistory.personalPathological.surgicalProcedureType"),
+    surgicalProcedureDate: t(
+      "medicalHistory.personalPathological.surgicalProcedureDate"
+    ),
+    neonatalPeriod: t("medicalHistory.personalPathological.neonatalPeriod"),
+    previousHospitalization: t(
+      "medicalHistory.personalPathological.previousHospitalization"
+    ),
+    father: t("medicalHistory.familyPathological.father"),
+    mother: t("medicalHistory.familyPathological.mother"),
+    siblings: t("medicalHistory.familyPathological.siblings"),
+    otherUsefulInformation: t(
+      "medicalHistory.familyPathological.otherUsefulInformation"
+    ),
+    diversification: t("medicalHistory.physiological.diversification"),
+    deParasitization: t("medicalHistory.physiological.deParasitization"),
     psychomotorDev: t("medicalHistory.physiological.psychomotorDevelopment"),
     somaticGrowth: t("medicalHistory.physiological.somaticGrowth"),
     ironSupplement: t("medicalHistory.physiological.ironSupplement"),
@@ -93,12 +122,29 @@ const MedicalHistoryTable: FunctionComponent<IOwnProps> = ({
         siblingRank: item.siblingRank ?? "",
         termPregnancy: item.termPregnancy ?? "",
         deliveryMode: item.deliveryMode ?? "",
+        reasonMode: item.reasonMode ?? "",
         apgarScore: item.apgarScore ?? "",
         birthWeight: item.birthWeight ?? "",
-        vaccinationState: item.vaccinationState ?? "",
-        antiMalarialProphylaxis: item.antiMalarialProphylaxis ?? "",
+        vaccinationStatePev: item.vaccinationStatePev ?? "",
+        vaccinationStateNoPev: item.vaccinationStateNoPev ?? "",
+        antiMalarialProphylaxisVap: item.antiMalarialProphylaxisVap ?? "",
+        antiMalarialProphylaxisMilda: item.antiMalarialProphylaxisMilda ?? "",
+        antiMalarialProphylaxisOthers: item.antiMalarialProphylaxisOthers ?? "",
+        surgicalProcedure: item.surgicalProcedure ? t("common.yes") : t("common.no"),
+        surgicalProcedureCondition: item.surgicalProcedureCondition ?? "",
+        surgicalProcedureType: item.vaccinationStatePev ?? "",
+        surgicalProcedureDate: item.surgicalProcedureDate
+          ? renderDateTime(item.surgicalProcedureDate)
+          : "",
+        diversification: item.diversification ?? "",
+        neonatalPeriod: item.neonatalPeriod ?? "",
+        previousHospitalization: item.previousHospitalization ?? "",
+        father: item.father ?? "",
+        mother: item.mother ?? "",
+        siblings: item.siblings?.toString() ?? "",
+        otherUsefulInformation: item.otherUsefulInformation ?? "",
         diet: item.diet ?? "",
-        deParasitization: item.deParasitization ?? "",
+        deParasitization: item.deParasitization ? t("common.yes") : t("common.no"),
         psychomotorDev: item.psychomotorDev ?? "",
         somaticGrowth: item.somaticGrowth ?? "",
         ironSupplement: item.ironSupplement ? t("common.yes") : t("common.no"),

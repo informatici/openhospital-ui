@@ -27,7 +27,7 @@ export interface MedicalHistoryDTO {
      */
     id?: number;
     /**
-     * The patient identifier linked to this medical history
+     * The patient linked to this medical history
      * @type {PatientDTO}
      * @memberof MedicalHistoryDTO
      */
@@ -51,6 +51,11 @@ export interface MedicalHistoryDTO {
      * @type {string}
      * @memberof MedicalHistoryDTO
      */
+    reasonMode?: string;
+    /**
+     * @type {string}
+     * @memberof MedicalHistoryDTO
+     */
     apgarScore?: string;
     /**
      * @type {number}
@@ -61,22 +66,92 @@ export interface MedicalHistoryDTO {
      * @type {string}
      * @memberof MedicalHistoryDTO
      */
-    vaccinationState?: string;
+    vaccinationStatePev?: string;
     /**
      * @type {string}
      * @memberof MedicalHistoryDTO
      */
-    antiMalarialProphylaxis?: string;
+    vaccinationStateNoPev?: string;
+    /**
+     * @type {string}
+     * @memberof MedicalHistoryDTO
+     */
+    antiMalarialProphylaxisMilda?: string;
+    /**
+     * @type {string}
+     * @memberof MedicalHistoryDTO
+     */
+    antiMalarialProphylaxisVap?: string;
+    /**
+     * @type {string}
+     * @memberof MedicalHistoryDTO
+     */
+    antiMalarialProphylaxisOthers?: string;
+    /**
+     * @type {boolean}
+     * @memberof MedicalHistoryDTO
+     */
+    surgicalProcedure?: boolean;
+    /**
+     * @type {string}
+     * @memberof MedicalHistoryDTO
+     */
+    surgicalProcedureCondition?: string;
+    /**
+     * @type {string}
+     * @memberof MedicalHistoryDTO
+     */
+    surgicalProcedureType?: string;
+    /**
+     * @type {string}
+     * @memberof MedicalHistoryDTO
+     */
+    surgicalProcedureDate?: string;
+    /**
+     * @type {string}
+     * @memberof MedicalHistoryDTO
+     */
+    diversification?: string;
+    /**
+     * @type {string}
+     * @memberof MedicalHistoryDTO
+     */
+    neonatalPeriod?: string;
+    /**
+     * @type {string}
+     * @memberof MedicalHistoryDTO
+     */
+    previousHospitalization?: string;
+    /**
+     * @type {string}
+     * @memberof MedicalHistoryDTO
+     */
+    father?: string;
+    /**
+     * @type {string}
+     * @memberof MedicalHistoryDTO
+     */
+    mother?: string;
+    /**
+     * @type {number}
+     * @memberof MedicalHistoryDTO
+     */
+    siblings?: number;
+    /**
+     * @type {string}
+     * @memberof MedicalHistoryDTO
+     */
+    otherUsefulInformation?: string;
     /**
      * @type {string}
      * @memberof MedicalHistoryDTO
      */
     diet?: string;
     /**
-     * @type {string}
+     * @type {boolean}
      * @memberof MedicalHistoryDTO
      */
-    deParasitization?: string;
+    deParasitization?: boolean;
     /**
      * @type {string}
      * @memberof MedicalHistoryDTO
@@ -154,7 +229,7 @@ export interface MedicalHistoryDTO {
      */
     performedAt?: string;
     /**
-     * Lock
+     * Optimistic lock value
      * @type {number}
      * @memberof MedicalHistoryDTO
      */
