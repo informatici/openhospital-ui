@@ -27,6 +27,8 @@ import {
 import {
   createPatientReset,
   getCities,
+  getCommunes,
+  getEthnics,
   getPatientReset,
   updatePatientReset,
 } from "../../../state/patients";
@@ -101,6 +103,12 @@ const PatientDataForm: FunctionComponent<TProps> = ({
   );
   const options = getFromFields(fields, "options");
   const cityOptions = useCityOptions(cities);
+  const ethnicsOptions = useAppSelector(
+    (state: IState) => state.patients.getEthnics.data
+  );
+  const communesOptions = useAppSelector(
+    (state: IState) => state.patients.getCommunes.data
+  );
 
   const ageRangeOptions = useAppSelector((state: IState) =>
     state.types.ageTypes.getAll.data?.map((e) => ({
@@ -194,9 +202,9 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
-  const { options: ethnicOptions } = useEthnic();
+  const { options: ethnicOptions } = useEthnic(ethnicsOptions);
 
-  const { options: communeOptions } = useCommune();
+  const { options: communeOptions } = useCommune(communesOptions);
 
   const schoolingLevelOptions = [
     {
@@ -224,6 +232,8 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 
   useEffect(() => {
     dispatch(getCities());
+    dispatch(getEthnics());
+    dispatch(getCommunes());
   }, [dispatch, shouldResetForm]);
 
   useEffect(() => {
@@ -235,7 +245,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
       }
       dispatch(getPatientReset());
     };
-  }, [dispatch]);
+  }, [dispatch, mode]);
 
   const navigate = useNavigate();
 
@@ -416,7 +426,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               id="commune"
               freeSolo
               value={formik.values.commune}
-              options={communeOptions}
+              options={communeOptions ?? []}
               onChange={(_, value) => {
                 formik.setFieldValue("commune", value);
               }}
@@ -430,7 +440,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               id="ethnic"
               freeSolo
               value={formik.values.ethnic}
-              options={ethnicOptions}
+              options={ethnicOptions ?? []}
               onChange={(_, value) => {
                 formik.setFieldValue("ethnic", value);
               }}

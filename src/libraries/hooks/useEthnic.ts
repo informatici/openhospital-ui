@@ -1,22 +1,21 @@
 import { useCallback, useMemo } from "react";
-import { useTranslation } from "react-i18next";
 
-export function useEthnic() {
-  const { t } = useTranslation();
+export function useEthnic(ethnics: Array<string> | undefined) {
+  const ethnicList = ["idactha", "nogot", "ife", "fon", "peulh", "adja"];
+  const ethnicsMerged = ethnicList
+    ?.concat(ethnics ?? [])
+    .filter((item, index, self) => self.indexOf(item) === index);
   const options = useMemo(
     () =>
-      ["idactha", "nogot", "ife", "fon", "peulh", "adja"].map((item) => {
+      ethnicsMerged?.map((item) => {
         const option = {
           value: item,
-          label: t(`patient.ethnic.${item}`),
+          label: item,
         };
-        if (option.label.includes("patient.ethnic.")) {
-          option.label = item;
-        }
 
         return option;
       }),
-    [t]
+    [ethnicsMerged]
   );
 
   const formatValues = useCallback(
@@ -24,7 +23,7 @@ export function useEthnic() {
       return (
         values?.map(
           (item) =>
-            options.find((option) => option.value === item)?.label ?? item
+            options?.find((option) => option.value === item)?.label ?? item
         ) ?? []
       );
     },

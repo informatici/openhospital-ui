@@ -162,6 +162,36 @@ export class PatientsApi extends BaseAPI {
 
     /**
      */
+    getPatientCommunes(): Observable<Array<string>>
+    getPatientCommunes(opts?: OperationOpts): Observable<AjaxResponse<Array<string>>>
+    getPatientCommunes(opts?: OperationOpts): Observable<Array<string> | AjaxResponse<Array<string>>> {
+        const headers: HttpHeaders = {
+        };
+
+        return this.request<Array<string>>({
+            url: '/patients/communes',
+            method: 'GET',
+            headers,
+        }, opts?.responseOpts);
+    };
+
+    /**
+     */
+    getPatientEthnics(): Observable<Array<string>>
+    getPatientEthnics(opts?: OperationOpts): Observable<AjaxResponse<Array<string>>>
+    getPatientEthnics(opts?: OperationOpts): Observable<Array<string> | AjaxResponse<Array<string>>> {
+        const headers: HttpHeaders = {
+        };
+
+        return this.request<Array<string>>({
+            url: '/patients/ethnics',
+            method: 'GET',
+            headers,
+        }, opts?.responseOpts);
+    };
+
+    /**
+     */
     getPatientNextCode(): Observable<number>
     getPatientNextCode(opts?: OperationOpts): Observable<AjaxResponse<number>>
     getPatientNextCode(opts?: OperationOpts): Observable<number | AjaxResponse<number>> {

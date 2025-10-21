@@ -1,14 +1,16 @@
 import { useCallback, useMemo } from "react";
-import { useTranslation } from "react-i18next";
 
-export function useCommune() {
-  const { t } = useTranslation();
+export function useCommune(communes: Array<string> | undefined) {
+  const communesList = ["dassa", "glazoue", "savalou"];
+  const communesMerged = communesList
+    ?.concat(communes ?? [])
+    .filter((item, index, self) => self.indexOf(item) === index);
   const options = useMemo(
     () =>
-      ["dassa", "glazoue", "savalou"].map((item) => {
+      communesMerged?.map((item) => {
         const option = {
           value: item,
-          label: t(`patient.commune.${item}`),
+          label: item,
         };
         if (option.label.includes("patient.commune.")) {
           option.label = item;
@@ -16,7 +18,7 @@ export function useCommune() {
 
         return option;
       }),
-    [t]
+    [communesMerged]
   );
 
   const formatValues = useCallback(
@@ -24,7 +26,7 @@ export function useCommune() {
       return (
         values?.map(
           (item) =>
-            options.find((option) => option.value === item)?.label ?? item
+            options?.find((option) => option.value === item)?.label ?? item
         ) ?? []
       );
     },
