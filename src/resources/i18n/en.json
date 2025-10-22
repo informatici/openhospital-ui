@@ -255,8 +255,21 @@
     "createother": "Add Another Patient",
     "status": "Status",
     "radiology": "Radiology",
-    "commune": "Commune",
-    "ethnic": "Ethnicity",
+    "commune": {
+      "label": "Commune",
+      "dassa": "Dassa",
+      "savalou": "Savalou",
+      "glazoue": "Glazoue"
+    },
+    "ethnic": {
+      "label": "Ethnicity",
+      "idactha": "Idactha",
+      "nogot": "Nogot",
+      "ife": "Ifè",
+      "fon": "Fon",
+      "peulh": "Peulh",
+      "adja": "Adja"
+    },
     "fatheroccupation": "Father's occupation",
     "fatherphone": "Father's telephone number",
     "fatherage": "Father's age",
@@ -269,7 +282,16 @@
     "folderNumber": "Folder Number",
     "alertReceived": "Alert received",
     "referenceSheet": "Reference sheet",
-    "qualifiedAgent": "Qualified agent"
+    "qualifiedAgent": "Qualified agent",
+    "schoolingLevel": {
+      "label": "Educational level",
+      "noSchooling": "No schooling",
+      "primary": "Primary",
+      "secondary": "Secondary",
+      "higherEducation": "Higher education"
+    },
+    "motherSchoolingLevel": "Mother's educational level",
+    "fatherSchoolingLevel": "Father's educational level"
   },
   "encounters": {
     "admissions": "Admissions",

@@ -45,4 +45,7 @@ export type TPatientDataFormFieldName =
   | "fatherAge"
   | "motherOccupation"
   | "motherPhone"
-  | "motherAge";
+  | "motherAge"
+  | "schoolingLevel"
+  | "fatherSchoolingLevel"
+  | "motherSchoolingLevel";

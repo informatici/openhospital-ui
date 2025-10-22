@@ -103,7 +103,6 @@ const Conditioning: FC = () => {
   };
 
   const onEdit = (row: ConditioningDTO) => {
-    console.log("Edit conditioning row:", row);
     setCreationMode(false);
     setConditioningToEdit(row);
     scrollToElement(null);
