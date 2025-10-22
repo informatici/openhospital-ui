@@ -1,6 +1,8 @@
 import { useCallback, useMemo } from "react";
+import { useTranslation } from "react-i18next";
 
 export function useCommune(communes: Array<string> | undefined) {
+  const { t } = useTranslation();
   const communesList = ["dassa", "glazoue", "savalou"];
   const communesMerged = communesList
     ?.concat(communes ?? [])
@@ -10,15 +12,15 @@ export function useCommune(communes: Array<string> | undefined) {
       communesMerged?.map((item) => {
         const option = {
           value: item,
-          label: item,
+          label: t(`${item}`),
         };
-        if (option.label.includes("patient.commune.")) {
+        if (option.label.includes("")) {
           option.label = item;
         }
 
         return option;
       }),
-    [communesMerged]
+    [communesMerged, t]
   );
 
   const formatValues = useCallback(

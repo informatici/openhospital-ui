@@ -1,6 +1,8 @@
 import { useCallback, useMemo } from "react";
+import { useTranslation } from "react-i18next";
 
 export function useEthnic(ethnics: Array<string> | undefined) {
+  const { t } = useTranslation();
   const ethnicList = ["idactha", "nogot", "ife", "fon", "peulh", "adja"];
   const ethnicsMerged = ethnicList
     ?.concat(ethnics ?? [])
@@ -10,12 +12,15 @@ export function useEthnic(ethnics: Array<string> | undefined) {
       ethnicsMerged?.map((item) => {
         const option = {
           value: item,
-          label: item,
+          label: t(`${item}`),
         };
+        if (option.label.includes("")) {
+          option.label = item;
+        }
 
         return option;
       }),
-    [ethnicsMerged]
+    [ethnicsMerged, t]
   );
 
   const formatValues = useCallback(
