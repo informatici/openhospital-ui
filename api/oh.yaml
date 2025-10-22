@@ -4595,6 +4595,38 @@ paths:
                 type: boolean
       security:
       - bearerAuth: []
+  /patients/ethnics:
+    get:
+      tags:
+      - Patients
+      operationId: getPatientEthnics
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+      security:
+      - bearerAuth: []
+  /patients/communes:
+    get:
+      tags:
+      - Patients
+      operationId: getPatientCommunes
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+      security:
+      - bearerAuth: []
   /patients/cities:
     get:
       tags:
@@ -6951,11 +6983,11 @@ components:
           format: int32
           description: lock
           example: 0
+        opd:
+          type: boolean
         male:
           type: boolean
         female:
-          type: boolean
-        opd:
           type: boolean
         pharmacy:
           type: boolean
@@ -7124,9 +7156,11 @@ components:
         commune:
           type: string
           description: Commune
+          example: Savalou
         ethnic:
           type: string
           description: Ethnic
+          example: Adja
         fatherOccupation:
           type: string
           description: Father occupation
@@ -7158,6 +7192,18 @@ components:
           format: int32
           description: Folder number
           example: 30
+        schoolingLevel:
+          type: string
+          description: Patient schooling level
+          example: No schooling
+        fatherSchoolingLevel:
+          type: string
+          description: Father schooling level
+          example: Secondary
+        motherSchoolingLevel:
+          type: string
+          description: Mother schooling level
+          example: Primary
       required:
       - age
       - bloodType

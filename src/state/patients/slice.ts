@@ -23,6 +23,12 @@ export const patientSlice = createSlice({
     updatePatientReset: (state) => {
       state.updatePatient = initial.updatePatient;
     },
+    getEthnicsReset: (state) => {
+      state.getEthnics = initial.getEthnics;
+    },
+    getCommunesReset: (state) => {
+      state.getCommunes = initial.getCommunes;
+    },
   },
   extraReducers: (builder) =>
     builder
@@ -99,6 +105,30 @@ export const patientSlice = createSlice({
       })
       .addCase(thunks.updatePatient.rejected, (state, action) => {
         state.updatePatient = ApiResponse.error(action.payload);
+      })
+      // Get Ethnics
+      .addCase(thunks.getEthnics.pending, (state) => {
+        state.getEthnics = ApiResponse.loading();
+      })
+      .addCase(thunks.getEthnics.fulfilled, (state, action) => {
+        state.getEthnics = isEmpty(action.payload)
+          ? ApiResponse.empty()
+          : ApiResponse.value(action.payload);
+      })
+      .addCase(thunks.getEthnics.rejected, (state, action) => {
+        state.getEthnics = ApiResponse.error(action.payload);
+      })
+      // Get Communes
+      .addCase(thunks.getCommunes.pending, (state) => {
+        state.getCommunes = ApiResponse.loading();
+      })
+      .addCase(thunks.getCommunes.fulfilled, (state, action) => {
+        state.getCommunes = isEmpty(action.payload)
+          ? ApiResponse.empty()
+          : ApiResponse.value(action.payload);
+      })
+      .addCase(thunks.getCommunes.rejected, (state, action) => {
+        state.getCommunes = ApiResponse.error(action.payload);
       }),
 });
 
@@ -108,4 +138,6 @@ export const {
   searchPatientsReset,
   createPatientReset,
   updatePatientReset,
+  getEthnicsReset,
+  getCommunesReset,
 } = patientSlice.actions;

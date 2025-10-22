@@ -8,4 +8,6 @@ export const initial: IPatientsState = {
   updatePatient: new ApiResponse({ status: "IDLE" }),
   getCities: new ApiResponse({ status: "IDLE", data: [] }),
   getPatients: new ApiResponse({ status: "IDLE" }),
+  getEthnics: new ApiResponse({ status: "IDLE", data: [] }),
+  getCommunes: new ApiResponse({ status: "IDLE", data: [] }),
 };

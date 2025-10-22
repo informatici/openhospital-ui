@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { wrapper } from "libraries/apiUtils/wrapper";
 import moment from "moment";
+import { firstValueFrom } from "rxjs";
 import { TValues } from "../../components/activities/searchPatientActivity/types";
 import { PatientDTO, PatientsApi, UpdatePatientRequest } from "../../generated";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
@@ -79,4 +80,20 @@ export const updatePatient = createAsyncThunk(
     wrapper(() => api.updatePatient(payload))
       .toPromise()
       .catch((error) => thunkApi.rejectWithValue(error.response))
+);
+
+export const getEthnics = createAsyncThunk(
+  "patients/GET_ETHNIICS",
+  async (_, thunkApi) =>
+    firstValueFrom(wrapper(() => api.getPatientEthnics())).catch((error) =>
+      thunkApi.rejectWithValue(error.response)
+    )
+);
+
+export const getCommunes = createAsyncThunk(
+  "patients/GET_COMMUNES",
+  async (_, thunkApi) =>
+    firstValueFrom(wrapper(() => api.getPatientCommunes())).catch((error) =>
+      thunkApi.rejectWithValue(error.response)
+    )
 );

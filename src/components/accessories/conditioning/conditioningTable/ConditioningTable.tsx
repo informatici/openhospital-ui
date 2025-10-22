@@ -1,16 +1,16 @@
 import { CircularProgress } from "@mui/material";
+import { useConditionsAtAmission } from "libraries/hooks";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { FunctionComponent, useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { useParams } from "react-router-dom";
 import { getConditioningByPatientCode } from "state/conditionings";
+import { getEncounterConditionings } from "state/encounter";
 import { ConditioningDTO } from "../../../../generated";
 import { renderDateTime } from "../../../../libraries/formatUtils/dataFormatting";
 import { usePermission } from "../../../../libraries/permissionUtils/usePermission";
 import InfoBox from "../../infoBox/InfoBox";
 import Table from "../../table/Table";
-import { useParams } from "react-router-dom";
-import { getEncounterConditionings } from "state/encounter";
-import { useConditionsAtAmission } from "libraries/hooks";
 
 interface IOwnProps {
   shouldUpdateTable: boolean;
@@ -50,10 +50,12 @@ const ConditioningTable: FunctionComponent<IOwnProps> = ({
 
   const dispatch = useAppDispatch();
 
-  const data = useAppSelector(
-    (state) => code ? state.encounters.encounterConditionings.data || [] : state.conditioning.getConditioningByPatientCode.data || []
+  const data = useAppSelector((state) =>
+    code
+      ? state.encounters.encounterConditionings.data || []
+      : state.conditioning.getConditioningByPatientCode.data || []
   );
-  
+
   const { formatValues: formatConditions } = useConditionsAtAmission();
 
   const patientCode = useAppSelector(
@@ -68,7 +70,9 @@ const ConditioningTable: FunctionComponent<IOwnProps> = ({
 
   useEffect(() => {
     if (shouldUpdateTable || patientCode || code) {
-      code ? dispatch(getEncounterConditionings({ code: code as string })) : dispatch(getConditioningByPatientCode(patientCode as number));
+      code
+        ? dispatch(getEncounterConditionings({ code: code as string }))
+        : dispatch(getConditioningByPatientCode(patientCode as number));
     }
   }, [shouldUpdateTable, dispatch, patientCode, code]);
 
@@ -95,25 +99,29 @@ const ConditioningTable: FunctionComponent<IOwnProps> = ({
     });
   };
 
-  const status = useAppSelector(
-    (state) => code ? state.encounters.encounterConditionings.status : state.conditioning.getConditioningByPatientCode.status
+  const status = useAppSelector((state) =>
+    code
+      ? state.encounters.encounterConditionings.status
+      : state.conditioning.getConditioningByPatientCode.status
   );
 
-  const errorMessage = useAppSelector(
-    (state) =>
-      code ? state.encounters.encounterConditionings.error?.message : state.conditioning.getConditioningByPatientCode.error?.message ||
-      t("common.somethingwrong")
+  const errorMessage = useAppSelector((state) =>
+    code
+      ? state.encounters.encounterConditionings.error?.message
+      : state.conditioning.getConditioningByPatientCode.error?.message ||
+        t("common.somethingwrong")
   ) as string;
 
-  const createConditioningStatus = useAppSelector(
-    (state) => code ? state.encounters.encounterConditionings.status : state.conditioning.newConditioning.status
+  const createConditioningStatus = useAppSelector((state) =>
+    code
+      ? state.encounters.encounterConditionings.status
+      : state.conditioning.newConditioning.status
   );
 
   return (
     <div className="conditioningTable">
       <h5>{t("conditioning.previousentries")}</h5>
       {(() => {
-        console.log("status", status);
         switch (status) {
           case "FAIL":
             return (
