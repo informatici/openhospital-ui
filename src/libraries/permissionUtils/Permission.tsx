@@ -11,6 +11,8 @@ export const Permission: React.FC<PropsWithChildren<TPermissionProps>> = ({
   require,
 }) => {
   const hasPermission = usePermission(require);
+  console.log(hasPermission);
+  console.log(require);
 
   return hasPermission ? <>{children}</> : null;
 };
