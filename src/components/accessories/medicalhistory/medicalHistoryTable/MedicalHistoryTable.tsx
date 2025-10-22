@@ -141,7 +141,7 @@ const MedicalHistoryTable: FunctionComponent<IOwnProps> = ({
         previousHospitalization: item.previousHospitalization ?? "",
         father: item.father ?? "",
         mother: item.mother ?? "",
-        siblings: item.siblings?.toString() ?? "",
+        siblings: item.siblings ?? "",
         otherUsefulInformation: item.otherUsefulInformation ?? "",
         diet: item.diet ?? "",
         deParasitization: item.deParasitization ? t("common.yes") : t("common.no"),

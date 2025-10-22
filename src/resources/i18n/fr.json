@@ -233,7 +233,10 @@
     "encounters": "Rencontres",
     "conditioning": "Mise en condition et état à l'admission",
     "medicalHistory": "Antécédent médical",
-    "folderNumber": "Numéro du dossier"
+    "folderNumber": "Numéro du dossier",
+    "alertReceived": "Alert reçue",
+    "referenceSheet": "Fiche de référence",
+    "qualifiedAgent": "Agent qualifié"
   },
   "encounters": {
     "admissions": "Admissions",

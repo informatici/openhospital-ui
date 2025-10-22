@@ -113,6 +113,7 @@ const MedicalHistoryForm: FC<MedicalHistoryProps> = ({
         surgicalProcedureCondition: values.surgicalProcedureCondition,
         surgicalProcedureType: values.surgicalProcedureType,
         diversification: values.diversification,
+        siblings: values.siblings,
       };
       onSubmit(medicalHistoryToSave);
       setIsIronSupplementChecked(false);

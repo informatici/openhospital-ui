@@ -173,6 +173,21 @@ export interface AdmissionDTO {
      */
     weight?: number;
     /**
+     * @type {boolean}
+     * @memberof AdmissionDTO
+     */
+    alertReceived?: boolean;
+    /**
+     * @type {boolean}
+     * @memberof AdmissionDTO
+     */
+    referenceSheet?: boolean;
+    /**
+     * @type {boolean}
+     * @memberof AdmissionDTO
+     */
+    qualifiedAgent?: boolean;
+    /**
      * @type {string}
      * @memberof AdmissionDTO
      */
@@ -229,13 +244,13 @@ export interface AdmissionDTO {
      */
     deleted: string;
     /**
-     * @type {number}
-     * @memberof AdmissionDTO
-     */
-    yprog?: number;
-    /**
      * @type {string}
      * @memberof AdmissionDTO
      */
     fhu?: string;
+    /**
+     * @type {number}
+     * @memberof AdmissionDTO
+     */
+    yprog?: number;
 }

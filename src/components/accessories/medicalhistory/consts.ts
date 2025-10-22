@@ -89,7 +89,7 @@ export const initialFields: TFields<MedicalHistoryFormFieldName> = {
   },
   siblings: {
     value: "",
-    type: "number",
+    type: "text",
   },
   otherUsefulInformation: {
     value: "",

@@ -1,10 +1,11 @@
+import CheckboxField from "components/accessories/checkboxField/CheckboxField";
 import { useFormik } from "formik";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { get, has } from "lodash";
 import moment from "moment";
 import React, { FC, useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { object, string } from "yup";
+import { boolean, object, string } from "yup";
 import warningIcon from "../../../../assets/warning-icon.png";
 import {
   AdmissionTypeDTO,
@@ -82,6 +83,13 @@ const AdmissionForm: FC<AdmissionProps> = ({
       ),
     [patient, wards]
   );
+
+  const [isAlertReceivedChecked, setIsIronSupplementChecked] = useState(false);
+
+  const [isReferenceSheetChecked, setIsFolicAcidSupplementChecked] =
+    useState(false);
+
+  const [isQualifiedAgentChecked, setIsVitASupplementChecked] = useState(false);
 
   const renderOptions = (
     data:
@@ -175,6 +183,9 @@ const AdmissionForm: FC<AdmissionProps> = ({
       : string(),
     preTreatment: string(),
     preAssessment: string(),
+    alertReceived: boolean().nullable(),
+    referenceSheet: boolean().nullable(),
+    qualifiedAgent: boolean().nullable(),
   });
 
   const formik = useFormik({
@@ -206,6 +217,9 @@ const AdmissionForm: FC<AdmissionProps> = ({
       formattedValues.disType = dischargeTypes?.find(
         (item) => item.code === formattedValues.disType
       );
+      formattedValues.alertReceived = isAlertReceivedChecked ? true : false;
+      formattedValues.referenceSheet = isReferenceSheetChecked ? true : false;
+      formattedValues.qualifiedAgent = isQualifiedAgentChecked ? true : false;
 
       onSubmit(formattedValues as any);
     },
@@ -236,6 +250,18 @@ const AdmissionForm: FC<AdmissionProps> = ({
       : "";
   };
 
+  const handleAlertReceivedChecked = () => {
+    setIsIronSupplementChecked(!isAlertReceivedChecked);
+  };
+
+  const handleReferenceSheetChecked = () => {
+    setIsFolicAcidSupplementChecked(!isReferenceSheetChecked);
+  };
+
+  const handleQualifiedAgentChecked = () => {
+    setIsVitASupplementChecked(!isQualifiedAgentChecked);
+  };
+
   const onBlurCallback = useCallback(
     (fieldName: string) =>
       (e: React.FocusEvent<HTMLDivElement>, value: string) => {
@@ -264,6 +290,25 @@ const AdmissionForm: FC<AdmissionProps> = ({
       resetFormCallback();
     }
   }, [shouldResetForm, resetForm, resetFormCallback]);
+
+  useEffect(() => {
+    if (!creationMode) {
+      setIsIronSupplementChecked(
+        formik.values.alertReceived === "true" ? true : false
+      );
+      setIsFolicAcidSupplementChecked(
+        formik.values.referenceSheet === "true" ? true : false
+      );
+      setIsVitASupplementChecked(
+        formik.values.qualifiedAgent === "true" ? true : false
+      );
+    }
+  }, [
+    creationMode,
+    formik.values.alertReceived,
+    formik.values.referenceSheet,
+    formik.values.qualifiedAgent,
+  ]);
 
   const diagnosisInStatus = useAppSelector(
     (state: IState) => state.diseases.diseasesIpdIn.status
@@ -480,6 +525,34 @@ const AdmissionForm: FC<AdmissionProps> = ({
               </div>
             </div>
           )}
+          <div className="row start-sm center-xs">
+            <div className="patientAdmissionForm__supplementRow">
+              <div className="patientAdmissionForm__item">
+                <CheckboxField
+                  fieldName="alertReceived"
+                  label={t("patient.alertReceived")}
+                  checked={isAlertReceivedChecked}
+                  onChange={handleAlertReceivedChecked}
+                />
+              </div>
+              <div className="patientAdmissionForm__item">
+                <CheckboxField
+                  fieldName="referenceSheet"
+                  label={t("patient.referenceSheet")}
+                  checked={isReferenceSheetChecked}
+                  onChange={handleReferenceSheetChecked}
+                />
+              </div>
+              <div className="patientAdmissionForm__item">
+                <CheckboxField
+                  fieldName="qualifiedAgent"
+                  label={t("patient.qualifiedAgent")}
+                  checked={isQualifiedAgentChecked}
+                  onChange={handleQualifiedAgentChecked}
+                />
+              </div>
+            </div>
+          </div>
           <div className="row start-sm center-xs">
             <div className="fullWidth patientAdmissionForm__item">
               <TextField
