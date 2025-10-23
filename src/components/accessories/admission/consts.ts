@@ -93,4 +93,8 @@ export const initialFields: TFields<AdmissionFormFieldName> = {
     value: "",
     type: "boolean",
   },
+  transportation: {
+    value: "",
+    type: "text",
+  },
 };

@@ -6511,6 +6511,24 @@ paths:
                   type: string
       security:
       - bearerAuth: []
+  /admissions/transportation:
+    get:
+      tags:
+      - Admissions
+      operationId: getAdmissionTransportation
+      responses:
+        "400":
+          description: Bad Request
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+      security:
+      - bearerAuth: []
   /admissions/patient/{patientCode}:
     get:
       tags:
@@ -6983,13 +7001,13 @@ components:
           format: int32
           description: lock
           example: 0
-        opd:
+        female:
           type: boolean
         male:
           type: boolean
-        female:
-          type: boolean
         pharmacy:
+          type: boolean
+        opd:
           type: boolean
       required:
       - beds
@@ -7847,6 +7865,10 @@ components:
           type: string
           description: Reason for patient admission to hospital
           example: Headache
+        transportation:
+          type: string
+          description: Transportation
+          example: Moto
         userID:
           type: string
           description: User id

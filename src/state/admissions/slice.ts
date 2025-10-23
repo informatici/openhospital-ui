@@ -20,6 +20,9 @@ export const admissionSlice = createSlice({
     getCurrentAdmissionReset: (state) => {
       state.currentAdmissionByPatientId = initial.currentAdmissionByPatientId;
     },
+    getTransportationsReset: (state) => {
+      state.getTransportations = initial.getTransportations;
+    },
   },
   extraReducers: (builder) =>
     builder
@@ -112,6 +115,18 @@ export const admissionSlice = createSlice({
       })
       .addCase(thunks.getCurrentAdmission.rejected, (state, action) => {
         state.currentAdmissionByPatientId = ApiResponse.error(action.payload);
+      })
+      // Get Transportations
+      .addCase(thunks.getTransportations.pending, (state) => {
+        state.getTransportations = ApiResponse.loading();
+      })
+      .addCase(thunks.getTransportations.fulfilled, (state, action) => {
+        state.getTransportations = isEmpty(action.payload)
+          ? ApiResponse.empty()
+          : ApiResponse.value(action.payload);
+      })
+      .addCase(thunks.getTransportations.rejected, (state, action) => {
+        state.getTransportations = ApiResponse.error(action.payload);
       }),
 });
 
@@ -120,4 +135,5 @@ export const {
   updateAdmissionReset,
   dischargePatientReset,
   getCurrentAdmissionReset,
+  getTransportationsReset,
 } = admissionSlice.actions;
