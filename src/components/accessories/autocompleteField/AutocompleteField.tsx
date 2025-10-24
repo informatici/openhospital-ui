@@ -19,7 +19,7 @@ import { useTranslation } from "react-i18next";
 import "./styles.scss";
 import { DefaultOptionType, IProps } from "./types";
 
-const AutocompleteField: FC<IProps> = ({
+export const AutocompleteField: FC<IProps> = ({
   fieldName,
   id = fieldName,
   fieldValue,

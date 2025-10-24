@@ -13,6 +13,7 @@ export type IPharmacyState = {
   createMovement: ApiResponse<MovementDTO>;
   updateMovement: ApiResponse<MovementDTO>;
   deleteMovement: ApiResponse<void>;
+  chargeMovements: ApiResponse<boolean>;
   wardStock: {
     filter: TWardStockFIlter;
   };

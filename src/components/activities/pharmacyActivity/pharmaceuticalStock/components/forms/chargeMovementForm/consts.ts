@@ -1,0 +1,42 @@
+import { MovementDTO } from "generated";
+import { z } from "zod";
+import { TFormValues } from "./types";
+
+export const LotDTOSchema = z.object({
+  code: z.string(),
+  preparationDate: z.date(),
+  dueDate: z.date(),
+  cost: z.number().nullish(),
+});
+
+export const MovementDTOSchema = z.object({
+  code: z.number().nullish(),
+  medical: z.number(),
+  type: z.string(),
+  ward: z.string().nullish(),
+  lot: LotDTOSchema.nullish(),
+  date: z.date(),
+  quantity: z.number(),
+  supplier: z.number().nullish(),
+  refNo: z.string(),
+});
+
+export function getInitialValues(from?: MovementDTO): Partial<TFormValues> {
+  return {
+    code: from?.code,
+    medical: from?.medical?.code,
+    type: from?.type?.code,
+    ward: from?.ward?.code,
+    lot: from?.lot
+      ? {
+          ...from.lot,
+          preparationDate: new Date(from.lot.preparationDate),
+          dueDate: new Date(from.lot.dueDate),
+        }
+      : undefined,
+    date: from?.date ? new Date(from.date) : undefined,
+    quantity: from?.quantity,
+    supplier: from?.supplier?.supId,
+    refNo: from?.refNo,
+  };
+}

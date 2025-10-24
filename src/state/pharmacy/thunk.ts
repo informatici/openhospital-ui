@@ -2,6 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
   GetMovementWardRequest,
   MedicalStockWardApi,
+  NewMultipleChargingMovementsRequest,
   StockMovementsApi,
 } from "generated";
 import { customConfiguration } from "libraries/apiUtils/configuration";
@@ -53,6 +54,20 @@ export const getWardMedicals = createAsyncThunk(
             wardCode,
           })
         )
+      );
+      return result;
+    } catch (error: any) {
+      return thunkApi.rejectWithValue(error.response);
+    }
+  }
+);
+
+export const chargeMovements = createAsyncThunk(
+  "pharmacy/chargeMovements",
+  async (payload: NewMultipleChargingMovementsRequest, thunkApi) => {
+    try {
+      const result = await firstValueFrom(
+        wrapper(() => api.newMultipleChargingMovements(payload))
       );
       return result;
     } catch (error: any) {

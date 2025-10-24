@@ -1,0 +1,48 @@
+@import "./variables";
+
+@function spacing($key) {
+  @if map-has-key($spacing-scale, $key) {
+    @return map-get($spacing-scale, $key);
+  } @else {
+    @warn "⚠️ spacing(#{$key}) not found in $spacing-scale map.";
+    @return $key * $base-spacing;
+  }
+}
+
+@function str-replace($string, $search, $replace: "") {
+  $index: str-index($string, $search);
+
+  @if $index {
+    @return str-slice($string, 1, $index - 1) + $replace +
+      str-replace(
+        str-slice($string, $index + str-length($search)),
+        $search,
+        $replace
+      );
+  }
+
+  @return $string;
+}
+
+@function escape-slash($str) {
+  @return str-replace("#{$str}", "/", "\\/");
+}
+
+@function escape-dot($str) {
+  @return str-replace("#{$str}", ".", "\\.");
+}
+
+@function escape-classname($str) {
+  $escaped: escape-slash($str);
+  $escaped: escape-dot($escaped);
+  @return $escaped;
+}
+
+// Escape leading digits for breakpoints like "2xl" → "\32 xl"
+@function escape-leading-digit($str) {
+  $first: str-slice("#{$str}", 1, 1);
+  @if str-index("0123456789", $first) {
+    @return "\\3#{$first} "+ str-slice("#{$str}", 2);
+  }
+  @return $str;
+}

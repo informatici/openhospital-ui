@@ -1,0 +1,169 @@
+@use "../variables" as vars;
+@use "../functions" as *;
+@use "./responsive" as *;
+@import "./flex";
+@import "./grid";
+@import "./sizing";
+@import "./typography";
+
+// === Padding utilities (p-*, px-*, py-*, pt-*, etc.) ===
+@mixin generate-padding-utilities {
+  @each $key, $value in vars.$spacing-scale {
+    .p-#{$key} {
+      padding: spacing($key);
+    }
+    .px-#{$key} {
+      padding-left: spacing($key);
+      padding-right: spacing($key);
+    }
+    .py-#{$key} {
+      padding-top: spacing($key);
+      padding-bottom: spacing($key);
+    }
+    .pt-#{$key} {
+      padding-top: spacing($key);
+    }
+    .pr-#{$key} {
+      padding-right: spacing($key);
+    }
+    .pb-#{$key} {
+      padding-bottom: spacing($key);
+    }
+    .pl-#{$key} {
+      padding-left: spacing($key);
+    }
+  }
+}
+
+// === Generate margin utilities ===
+@mixin generate-margin-utilities {
+  @each $key, $value in vars.$spacing-scale {
+    // Positive margins
+    .m-#{$key} {
+      margin: spacing($key);
+    }
+    .mx-#{$key} {
+      margin-left: spacing($key);
+      margin-right: spacing($key);
+    }
+    .my-#{$key} {
+      margin-top: spacing($key);
+      margin-bottom: spacing($key);
+    }
+    .mt-#{$key} {
+      margin-top: spacing($key);
+    }
+    .mr-#{$key} {
+      margin-right: spacing($key);
+    }
+    .mb-#{$key} {
+      margin-bottom: spacing($key);
+    }
+    .ml-#{$key} {
+      margin-left: spacing($key);
+    }
+
+    // Negative margins
+    .-m-#{$key} {
+      margin: -spacing($key);
+    }
+    .-mx-#{$key} {
+      margin-left: -spacing($key);
+      margin-right: -spacing($key);
+    }
+    .-my-#{$key} {
+      margin-top: -spacing($key);
+      margin-bottom: -spacing($key);
+    }
+    .-mt-#{$key} {
+      margin-top: -spacing($key);
+    }
+    .-mr-#{$key} {
+      margin-right: -spacing($key);
+    }
+    .-mb-#{$key} {
+      margin-bottom: -spacing($key);
+    }
+    .-ml-#{$key} {
+      margin-left: -spacing($key);
+    }
+  }
+}
+
+@mixin generate-display-utilities {
+  .block {
+    display: block;
+  }
+  .inline-block {
+    display: inline-block;
+  }
+  .inline {
+    display: inline;
+  }
+  .flex {
+    display: flex;
+  }
+  .inline-flex {
+    display: inline-flex;
+  }
+  .grid {
+    display: grid;
+  }
+  .inline-grid {
+    display: inline-grid;
+  }
+  .hidden {
+    display: none;
+  }
+}
+
+@mixin generate-gap-utilities {
+  @each $key, $value in vars.$spacing-scale {
+    $safe-key: escape-slash($key);
+
+    // Base (non-responsive)
+    .gap-#{$safe-key} {
+      gap: $value;
+    }
+    .gap-x-#{$safe-key} {
+      column-gap: $value;
+    }
+    .gap-y-#{$safe-key} {
+      row-gap: $value;
+    }
+
+    // Responsive variants
+    @each $bp, $_ in $breakpoints {
+      $safe-bp: escape-leading-digit($bp);
+      @include respond($bp) {
+        .#{$safe-bp}\:gap-#{$safe-key} {
+          gap: $value;
+        }
+        .#{$safe-bp}\:gap-x-#{$safe-key} {
+          column-gap: $value;
+        }
+        .#{$safe-bp}\:gap-y-#{$safe-key} {
+          row-gap: $value;
+        }
+      }
+    }
+  }
+}
+
+@mixin generate-aspect-ratio-utilities {
+  .aspect-square {
+    aspect-ratio: 1 / 1;
+  }
+  .aspect-video {
+    aspect-ratio: 16 / 9;
+  }
+  .aspect-4\/3 {
+    aspect-ratio: 4 / 3;
+  }
+  .aspect-3\/2 {
+    aspect-ratio: 3 / 2;
+  }
+  .aspect-auto {
+    aspect-ratio: auto;
+  }
+}

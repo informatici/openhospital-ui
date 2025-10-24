@@ -1,0 +1,24 @@
+@use "../variables" as vars;
+
+@mixin respond($breakpoint) {
+  $size: map-get(vars.$breakpoints, $breakpoint);
+  @if $size {
+    @media (min-width: $size) {
+      @content;
+    }
+  } @else {
+    @warn "⚠️ Breakpoint `#{$breakpoint}` not found in $breakpoints map.";
+  }
+}
+
+@mixin respond-down($breakpoint) {
+  $size: map-get(vars.$breakpoints, $breakpoint);
+  @if $size {
+    // subtract 0.02px to avoid overlap between adjacent breakpoints
+    @media (max-width: ($size - 0.02px)) {
+      @content;
+    }
+  } @else {
+    @warn "⚠️ Breakpoint `#{$breakpoint}` not found in $breakpoints map.";
+  }
+}
