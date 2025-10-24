@@ -1,0 +1,160 @@
+@use "../functions";
+
+@mixin generate-grid-utilities {
+  // Grid auto flow
+  .grid-flow-row {
+    grid-auto-flow: row;
+  }
+  .grid-flow-col {
+    grid-auto-flow: column;
+  }
+  .grid-flow-dense {
+    grid-auto-flow: dense;
+  }
+  .grid-flow-row-dense {
+    grid-auto-flow: row dense;
+  }
+  .grid-flow-col-dense {
+    grid-auto-flow: column dense;
+  }
+
+  // Grid column / row auto
+  .auto-cols-auto {
+    grid-auto-columns: auto;
+  }
+  .auto-cols-min {
+    grid-auto-columns: min-content;
+  }
+  .auto-cols-max {
+    grid-auto-columns: max-content;
+  }
+  .auto-cols-fr {
+    grid-auto-columns: 1fr;
+  }
+
+  .auto-rows-auto {
+    grid-auto-rows: auto;
+  }
+  .auto-rows-min {
+    grid-auto-rows: min-content;
+  }
+  .auto-rows-max {
+    grid-auto-rows: max-content;
+  }
+  .auto-rows-fr {
+    grid-auto-rows: 1fr;
+  }
+}
+
+@mixin generate-grid-template-utilities {
+  // Column templates (repeat 1–12 as example)
+  @for $i from 1 through 12 {
+    .grid-cols-#{$i} {
+      grid-template-columns: repeat($i, 1fr);
+    }
+    .grid-rows-#{$i} {
+      grid-template-rows: repeat($i, 1fr);
+    }
+  }
+
+  // Auto-fit / auto-fill variants (optional)
+  .grid-cols-auto {
+    grid-template-columns: auto;
+  }
+  .grid-rows-auto {
+    grid-template-rows: auto;
+  }
+}
+
+@mixin generate-grid-start-utilities {
+  // Column start (1–12)
+  @for $i from 1 through 12 {
+    .col-start-#{$i} {
+      grid-column-start: $i;
+    }
+    .row-start-#{$i} {
+      grid-row-start: $i;
+    }
+  }
+
+  // Auto variants
+  .col-start-auto {
+    grid-column-start: auto;
+  }
+  .row-start-auto {
+    grid-row-start: auto;
+  }
+}
+
+@mixin generate-grid-span-utilities {
+  // Column span 1–12
+  @for $i from 1 through 12 {
+    .col-span-#{$i} {
+      grid-column: span #{$i} / span #{$i};
+    }
+    .row-span-#{$i} {
+      grid-row: span #{$i} / span #{$i};
+    }
+  }
+
+  // Full span
+  .col-span-full {
+    grid-column: 1 / -1;
+  }
+  .row-span-full {
+    grid-row: 1 / -1;
+  }
+}
+
+@mixin generate-grid-alignment-utilities {
+  // Place items (align-items + justify-items)
+  .place-items-start {
+    place-items: start;
+  }
+  .place-items-end {
+    place-items: end;
+  }
+  .place-items-center {
+    place-items: center;
+  }
+  .place-items-stretch {
+    place-items: stretch;
+  }
+
+  // Place content (align-content + justify-content)
+  .place-content-start {
+    place-content: start;
+  }
+  .place-content-end {
+    place-content: end;
+  }
+  .place-content-center {
+    place-content: center;
+  }
+  .place-content-between {
+    place-content: space-between;
+  }
+  .place-content-around {
+    place-content: space-around;
+  }
+  .place-content-evenly {
+    place-content: space-evenly;
+  }
+
+  // Place self (align-self + justify-self)
+  .place-self-auto {
+    place-self: auto;
+  }
+  .place-self-start {
+    place-self: start;
+  }
+  .place-self-end {
+    place-self: end;
+  }
+  .place-self-center {
+    place-self: center;
+  }
+  .place-self-stretch {
+    place-self: stretch;
+  }
+}

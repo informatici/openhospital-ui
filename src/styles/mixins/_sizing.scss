@@ -1,0 +1,52 @@
+@use "../variables" as vars;
+@import "../functions";
+
+// === Size utilities (w-*, h-*, size-*) ===
+@mixin generate-size-utilities {
+  @each $key, $value in vars.$fractions {
+    $escaped-key: str-replace($key, "/", "\\/");
+    .w-#{$escaped-key} {
+      width: $value;
+    }
+    .h-#{$escaped-key} {
+      height: $value;
+    }
+  }
+
+  @each $key, $value in vars.$spacing-scale {
+    .w-#{$key} {
+      width: spacing($key);
+    }
+    .h-#{$key} {
+      height: spacing($key);
+    }
+    .size-#{$key} {
+      width: spacing($key);
+      height: spacing($key);
+    }
+  }
+
+  // Full
+  .w-full {
+    width: 100%;
+  }
+  .h-full {
+    height: 100%;
+  }
+
+  // Screen (viewport)
+  .w-screen {
+    width: 100vw;
+  }
+  .h-screen {
+    height: 100vh;
+  }
+
+  // Auto
+  .w-auto {
+    width: auto;
+  }
+  .h-auto {
+    height: auto;
+  }
+}

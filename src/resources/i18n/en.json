@@ -1232,7 +1232,34 @@
       "pharmaceutical-title": "pharmaceutical",
       "pharmaceutical": "Medical products",
       "pharmaceutical-stock": "Pharmaceutical stock",
-      "ward-stock": "Ward stock"
+      "ward-stock": "Ward stock",
+      "charge-movement": "Charge movement"
+    },
+    "form": {
+      "fields": {
+        "code": "Movement Code",
+        "medical": "Medical",
+        "type": "Movement Type",
+        "ward": "Target Ward",
+        "lot": "Lot",
+        "date": "Movement Date",
+        "quantity": "Quantity",
+        "supplier": "Supplier",
+        "refNo": "Reference Number"
+      }
+    },
+    "lot": {
+      "labels": {
+        "existingLots": "Existing lots",
+        "newLot": "New Lot",
+        "change-on-this": "Change on this lot"
+      },
+      "fields": {
+        "code": "Lot Code",
+        "preparationDate": "Preparation Date",
+        "dueDate": "Due Date",
+        "cost": "Cost per unit"
+      }
     },
     "stock": {
       "refNo": "Ref",

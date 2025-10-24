@@ -7,6 +7,9 @@ export const stockMovementsRoutes = (server) => {
     server.get("/").intercept((_, res) => {
       res.status(200).json(MOVEMENTS);
     });
+    server.post("/charge").intercept((_, res) => {
+      res.status(200).json(true);
+    });
   });
   server.namespace("/medicalstockward", () => {
     server.get("/:code").intercept((req, res) => {

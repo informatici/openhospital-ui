@@ -82,6 +82,8 @@ export const PATHS = {
   admin_age_types_edit: "/admin/types/ages/edit",
   pharmacy: "/pharmacy",
   pharmacy_pharmaceuticalstock: "/pharmacy/pharmaceutical-stock",
+  pharmacy_pharmaceuticalstock_charge:
+    "/pharmacy/pharmaceutical-stock/charge-movement",
   pharmacy_ward_stock: "/pharmacy/ward-stock",
   pharmacy_pharmaceutical: "/pharmacy/pharmaceutical",
 };

@@ -1,4 +1,5 @@
 import {
+  ChargeMovement,
   Home,
   NotFound,
   PharmacyActivity,
@@ -28,6 +29,10 @@ const routes: { element: ReactNode; path: string }[] = [
   {
     path: getPath(PATHS.pharmacy_pharmaceuticalstock),
     element: <PharmacyStock />,
+  },
+  {
+    path: getPath(PATHS.pharmacy_pharmaceuticalstock_charge),
+    element: <ChargeMovement />,
   },
 ];
 

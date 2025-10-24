@@ -1,0 +1,21 @@
+@import "./mixins/mixins";
+
+@include generate-padding-utilities;
+@include generate-size-utilities;
+@include generate-margin-utilities;
+@include generate-display-utilities;
+@include generate-flex-utilities;
+@include generate-grid-utilities;
+@include generate-grid-template-utilities;
+@include generate-grid-start-utilities;
+@include generate-grid-span-utilities;
+@include generate-gap-utilities;
+@include generate-aspect-ratio-utilities;
+@include generate-flex-alignment-utilities;
+@include generate-grid-alignment-utilities;
+@include generate-typography-utilities;
+
+// Sizing
+.w-full {
+  width: 100%;
+}

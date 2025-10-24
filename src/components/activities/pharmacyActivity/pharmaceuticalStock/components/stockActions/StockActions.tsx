@@ -3,6 +3,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import Button from "components/accessories/button/Button";
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 import "./styles.scss";
 
 export function StockActions() {
@@ -35,14 +36,16 @@ export function StockActions() {
       >
         {t("pharmacy.stock.discharge")}
       </Button>
-      <Button
-        className="charge_button"
-        type="button"
-        variant="contained"
-        startIcon={<ExitToAppIcon sx={{ transform: "rotate(-90deg)" }} />}
-      >
-        {t("pharmacy.stock.charge")}
-      </Button>
+      <Link to={"./charge-movement"}>
+        <Button
+          className="charge_button"
+          type="button"
+          variant="contained"
+          startIcon={<ExitToAppIcon sx={{ transform: "rotate(-90deg)" }} />}
+        >
+          {t("pharmacy.stock.charge")}
+        </Button>
+      </Link>
     </div>
   );
 }

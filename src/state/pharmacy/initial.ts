@@ -8,6 +8,7 @@ export const initial: IPharmacyState = {
   createMovement: new ApiResponse({ status: "IDLE" }),
   updateMovement: new ApiResponse({ status: "IDLE" }),
   deleteMovement: new ApiResponse({ status: "IDLE" }),
+  chargeMovements: new ApiResponse({ status: "IDLE" }),
   getMedicals: new ApiResponse({ status: "IDLE", data: [] }),
   wardStock: {
     filter: {

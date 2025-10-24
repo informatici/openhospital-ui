@@ -1,0 +1,26 @@
+@use "../variables" as vars;
+@use "./responsive" as *;
+@import "../functions";
+
+@mixin generate-typography-utilities {
+  @each $key, $size in vars.$font-sizes {
+    $safe-key: escape-leading-digit($key);
+
+    // Base typography class
+    .text-#{$safe-key} {
+      font-size: $size;
+      line-height: 1.25;
+    }
+
+    // Responsive variants using `respond`
+    @each $bp, $_ in vars.$breakpoints {
+      $safe-bp: escape-leading-digit($bp);
+      @include respond($bp) {
+        .#{$safe-bp}\:text-#{$safe-key} {
+          font-size: $size;
+          line-height: 1.25;
+        }
+      }
+    }
+  }
+}
