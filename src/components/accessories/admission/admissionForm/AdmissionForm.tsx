@@ -2,11 +2,8 @@ import { Autocomplete } from "components/accessories/autocomplete";
 import CheckboxField from "components/accessories/checkboxField/CheckboxField";
 import { useFormik } from "formik";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-<<<<<<< HEAD
-import { Permission } from "libraries/permissionUtils/Permission";
-=======
 import { useTransportation } from "libraries/hooks/useTransporation";
->>>>>>> sokponta
+import { Permission } from "libraries/permissionUtils/Permission";
 import { get, has } from "lodash";
 import moment from "moment";
 import React, { FC, useCallback, useEffect, useMemo, useState } from "react";
