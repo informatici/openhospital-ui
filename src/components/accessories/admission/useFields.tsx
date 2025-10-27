@@ -101,6 +101,10 @@ export const useFields = (
       value: admission?.qualifiedAgent ? "true" : "false",
       type: "boolean",
     },
+    transportation: {
+      value: admission?.transportation ?? "",
+      type: "text",
+    },
   };
 
   return fields;

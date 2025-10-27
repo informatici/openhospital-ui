@@ -123,6 +123,7 @@ const PatientAdmission: FC = () => {
         alertReceived: adm.alertReceived,
         referenceSheet: adm.referenceSheet,
         qualifiedAgent: adm.qualifiedAgent,
+        transportation: adm.transportation,
       };
       if (!isEmpty(admissionToEdit?.disType)) {
         admissionToSave = {

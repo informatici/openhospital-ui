@@ -1,6 +1,8 @@
+import { Autocomplete } from "components/accessories/autocomplete";
 import CheckboxField from "components/accessories/checkboxField/CheckboxField";
 import { useFormik } from "formik";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
+import { useTransportation } from "libraries/hooks/useTransporation";
 import { get, has } from "lodash";
 import React, {
   FunctionComponent,
@@ -21,7 +23,10 @@ import {
   formatAllFieldValues,
   getFromFields,
 } from "../../../../libraries/formDataHandling/functions";
-import { updateAdmissionReset } from "../../../../state/admissions";
+import {
+  getTransportations,
+  updateAdmissionReset,
+} from "../../../../state/admissions";
 import { getPatient } from "../../../../state/patients";
 import { IState } from "../../../../types";
 import AutocompleteField from "../../autocompleteField/AutocompleteField";
@@ -82,6 +87,14 @@ export const CurrentAdmissionForm: FunctionComponent<IOwnProps> = ({
 
   const [isQualifiedAgentChecked, setIsVitASupplementChecked] = useState(false);
 
+  const transportationsOptions = useAppSelector(
+    (state: IState) => state.admissions.getTransportations.data
+  );
+
+  const { options: transportationOptions } = useTransportation(
+    transportationsOptions
+  );
+
   const renderOptions = (
     data:
       | (
@@ -124,6 +137,7 @@ export const CurrentAdmissionForm: FunctionComponent<IOwnProps> = ({
       formattedValues.alertReceived = isAlertReceivedChecked ? true : false;
       formattedValues.referenceSheet = isReferenceSheetChecked ? true : false;
       formattedValues.qualifiedAgent = isQualifiedAgentChecked ? true : false;
+      formattedValues.transportation = formik.values.transportation;
       onSubmit({
         ...currentAdmission,
         ...formattedValues,
@@ -151,10 +165,12 @@ export const CurrentAdmissionForm: FunctionComponent<IOwnProps> = ({
     setIsVitASupplementChecked(
       formik.values.qualifiedAgent === "true" ? true : false
     );
+    dispatch(getTransportations());
   }, [
     formik.values.alertReceived,
     formik.values.referenceSheet,
     formik.values.qualifiedAgent,
+    dispatch,
   ]);
 
   const { setFieldValue, handleBlur } = formik;
@@ -259,6 +275,19 @@ export const CurrentAdmissionForm: FunctionComponent<IOwnProps> = ({
               options={renderOptions(admissionTypes)}
               loading={admTypeStatus === "LOADING"}
               disabled={isLoading}
+            />
+          </div>
+          <div className="currentAdmissionForm__item">
+            <Autocomplete
+              id="transportation"
+              freeSolo
+              value={formik.values.transportation}
+              options={transportationOptions ?? []}
+              onChange={(_, value) => {
+                formik.setFieldValue("transportation", value);
+              }}
+              label={t("admission.transportation")}
+              placeholder={t("admission.transportation")}
             />
           </div>
           <div className="row start-sm center-xs">

@@ -1,5 +1,6 @@
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { FunctionComponent, useEffect, useState } from "react";
+import { updateAdmission } from "state/admissions";
 import { AdmissionDTO } from "../../../generated";
 import { IState } from "../../../types";
 import { useFields } from "../admission/useFields";
@@ -7,7 +8,6 @@ import { CurrentAdmissionData } from "./currentAdmissionData/CurrentAdmissionDat
 import { CurrentAdmissionForm } from "./currentAdmissionForm/CurrentAdmissionForm";
 import "./styles.scss";
 import { IOwnProps } from "./types";
-import { updateAdmission } from "state/admissions";
 
 export const CurrentAdmission: FunctionComponent<IOwnProps> = ({
   onEditChange,
@@ -47,6 +47,7 @@ export const CurrentAdmission: FunctionComponent<IOwnProps> = ({
       alertReceived: adm.alertReceived,
       referenceSheet: adm.referenceSheet,
       qualifiedAgent: adm.qualifiedAgent,
+      transportation: adm.transportation,
     };
     dispatch(updateAdmission(admissionToSave));
   };
