@@ -1425,10 +1425,10 @@
     "diazepamDose": "Diazepam (mg)",
     "bolusSsVolume": "Bolus SS (CC)",
     "sngNumber": "SNG Number",
-    "performedAt": "Date",
+    "performedAt": "MCE Date and time",
     "others": "Others",
     "cpap": "CPAP",
-    "tdr": "TDR",
+    "malaria": "Malaria",
     "code": "Code",
     "created": "Conditioning created",
     "createsuccess": "Conditioning created successfully",
@@ -1447,6 +1447,10 @@
       "coma": "Coma",
       "dehydration": "Dehydration",
       "hypoglycemia": "Hypoglycemia"
-    }
+    },
+    "bloodGlucoseLevel": "Blood glucose level",
+    "indeterminate": "Indeterminate",
+    "hivTest": "HIV Test",
+    "performedBy": "Performed by user"
   }
 }

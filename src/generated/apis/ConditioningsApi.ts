@@ -23,6 +23,15 @@ export interface GetConditioningByPatientCodeRequest {
     patientCode: number;
 }
 
+export interface GetConditioningByPatientCodeAndUserNameRequest {
+    patientCode: number;
+    userName: string;
+}
+
+export interface GetConditioningByUserNameRequest {
+    userName: string;
+}
+
 export interface NewConditioningRequest {
     conditioningDTO: ConditioningDTO;
 }
@@ -48,7 +57,42 @@ export class ConditioningsApi extends BaseAPI {
         };
 
         return this.request<Array<ConditioningDTO>>({
-            url: '/conditionings/{patientCode}'.replace('{patientCode}', encodeURI(patientCode)),
+            url: '/conditionings/patient/{patientCode}'.replace('{patientCode}', encodeURI(patientCode)),
+            method: 'GET',
+            headers,
+        }, opts?.responseOpts);
+    };
+
+    /**
+     */
+    getConditioningByPatientCodeAndUserName({ patientCode, userName }: GetConditioningByPatientCodeAndUserNameRequest): Observable<Array<ConditioningDTO>>
+    getConditioningByPatientCodeAndUserName({ patientCode, userName }: GetConditioningByPatientCodeAndUserNameRequest, opts?: OperationOpts): Observable<AjaxResponse<Array<ConditioningDTO>>>
+    getConditioningByPatientCodeAndUserName({ patientCode, userName }: GetConditioningByPatientCodeAndUserNameRequest, opts?: OperationOpts): Observable<Array<ConditioningDTO> | AjaxResponse<Array<ConditioningDTO>>> {
+        throwIfNullOrUndefined(patientCode, 'patientCode', 'getConditioningByPatientCodeAndUserName');
+        throwIfNullOrUndefined(userName, 'userName', 'getConditioningByPatientCodeAndUserName');
+
+        const headers: HttpHeaders = {
+        };
+
+        return this.request<Array<ConditioningDTO>>({
+            url: '/conditionings/patient/{patientCode}/user/{userName}'.replace('{patientCode}', encodeURI(patientCode)).replace('{userName}', encodeURI(userName)),
+            method: 'GET',
+            headers,
+        }, opts?.responseOpts);
+    };
+
+    /**
+     */
+    getConditioningByUserName({ userName }: GetConditioningByUserNameRequest): Observable<Array<ConditioningDTO>>
+    getConditioningByUserName({ userName }: GetConditioningByUserNameRequest, opts?: OperationOpts): Observable<AjaxResponse<Array<ConditioningDTO>>>
+    getConditioningByUserName({ userName }: GetConditioningByUserNameRequest, opts?: OperationOpts): Observable<Array<ConditioningDTO> | AjaxResponse<Array<ConditioningDTO>>> {
+        throwIfNullOrUndefined(userName, 'userName', 'getConditioningByUserName');
+
+        const headers: HttpHeaders = {
+        };
+
+        return this.request<Array<ConditioningDTO>>({
+            url: '/conditionings/user/{userName}'.replace('{userName}', encodeURI(userName)),
             method: 'GET',
             headers,
         }, opts?.responseOpts);

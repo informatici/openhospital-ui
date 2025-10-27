@@ -27,4 +27,6 @@ export type ConditioningFormFieldName =
   | "performedAt"
   | "conditionAtAdmission"
   | "cpap"
-  | "tdr";
+  | "malaria"
+  | "bloodGlucoseLevel"
+  | "performedBy";

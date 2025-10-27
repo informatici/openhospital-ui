@@ -13,6 +13,7 @@
 
 import type {
     PatientDTO,
+    UserDTO,
 } from './';
 
 /**
@@ -87,17 +88,35 @@ export interface ConditioningDTO {
      */
     conditionAtAdmission?: Array<string>;
     /**
-     * Conditioning tdr 
+     * Conditioning malaria 
      * @type {string}
      * @memberof ConditioningDTO
      */
-    tdr?: string;
+    malaria?: string;
+    /**
+     * Conditioning HIV test 
+     * @type {string}
+     * @memberof ConditioningDTO
+     */
+    hivTest?: string;
+    /**
+     * Conditioning blood glucose level 
+     * @type {number}
+     * @memberof ConditioningDTO
+     */
+    bloodGlucoseLevel?: number;
     /**
      * patient
      * @type {PatientDTO}
      * @memberof ConditioningDTO
      */
     patient: PatientDTO;
+    /**
+     * user
+     * @type {UserDTO}
+     * @memberof ConditioningDTO
+     */
+    performedBy: UserDTO;
     /**
      * Conditioning date
      * @type {string}

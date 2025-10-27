@@ -6271,7 +6271,29 @@ paths:
                   $ref: "#/components/schemas/DiseaseDTO"
       security:
       - bearerAuth: []
-  /conditionings/{patientCode}:
+  /conditionings/user/{userName}:
+    get:
+      tags:
+      - Conditionings
+      operationId: getConditioningByUserName
+      parameters:
+      - name: userName
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ConditioningDTO"
+      security:
+      - bearerAuth: []
+  /conditionings/patient/{patientCode}:
     get:
       tags:
       - Conditionings
@@ -6283,6 +6305,34 @@ paths:
         schema:
           type: integer
           format: int32
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ConditioningDTO"
+      security:
+      - bearerAuth: []
+  /conditionings/patient/{patientCode}/user/{userName}:
+    get:
+      tags:
+      - Conditionings
+      operationId: getConditioningByPatientCodeAndUserName
+      parameters:
+      - name: patientCode
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: userName
+        in: path
+        required: true
+        schema:
+          type: string
       responses:
         "200":
           description: OK
@@ -6951,11 +7001,11 @@ components:
           format: int32
           description: lock
           example: 0
-        opd:
+        male:
           type: boolean
         female:
           type: boolean
-        male:
+        opd:
           type: boolean
         pharmacy:
           type: boolean
@@ -7124,9 +7174,11 @@ components:
         commune:
           type: string
           description: Commune
+          example: Savalou
         ethnic:
           type: string
           description: Ethnic
+          example: Adja
         fatherOccupation:
           type: string
           description: Father occupation
@@ -7158,6 +7210,18 @@ components:
           format: int32
           description: Folder number
           example: 30
+        schoolingLevel:
+          type: string
+          description: Patient schooling level
+          example: No schooling
+        fatherSchoolingLevel:
+          type: string
+          description: Father schooling level
+          example: Secondary
+        motherSchoolingLevel:
+          type: string
+          description: Mother schooling level
+          example: Primary
       required:
       - age
       - bloodType
@@ -8718,14 +8782,27 @@ components:
           - conscious
           items:
             type: string
-        tdr:
+        malaria:
           type: string
-          description: 'Conditioning tdr '
+          description: 'Conditioning malaria '
           example: sonde
+        hivTest:
+          type: string
+          description: 'Conditioning HIV test '
+          example: INDETERMINATE
+        bloodGlucoseLevel:
+          type: number
+          format: double
+          description: 'Conditioning blood glucose level '
+          example: 5.6
         patient:
           $ref: "#/components/schemas/PatientDTO"
           description: patient
           example: 22
+        performedBy:
+          $ref: "#/components/schemas/UserDTO"
+          description: user
+          example: 2
         performedAt:
           type: string
           format: date-time
@@ -8743,6 +8820,7 @@ components:
       required:
       - patient
       - performedAt
+      - performedBy
     BillItemsDTO:
       type: object
       description: Class representing a billItem

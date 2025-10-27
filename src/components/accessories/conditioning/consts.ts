@@ -51,8 +51,17 @@ export const initialFields: TFields<ConditioningFormFieldName> = {
     value: [],
     type: "array",
   },
-  tdr: {
+  malaria: {
     value: "",
     type: "text",
+  },
+  bloodGlucoseLevel: {
+    value: "",
+    type: "number",
+  },
+  performedBy: {
+    value: "",
+    type: "text",
+    options: [],
   },
 };

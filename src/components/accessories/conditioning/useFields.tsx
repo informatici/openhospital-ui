@@ -51,13 +51,21 @@ export const useFields = (conditioning?: ConditioningDTO) => {
       value: parseDateTime(conditioning?.performedAt.toString()!, false),
       type: "date",
     },
-    tdr: {
-      value: conditioning?.tdr ?? "",
+    malaria: {
+      value: conditioning?.malaria ?? "",
       type: "text",
     },
     conditionAtAdmission: {
       value: conditioning?.conditionAtAdmission ?? [],
       type: "array",
+    },
+    bloodGlucoseLevel: {
+      value: conditioning?.bloodGlucoseLevel?.toString() ?? "",
+      type: "number",
+    },
+    performedBy: {
+      value: conditioning?.performedBy?.userName ?? "",
+      type: "text",
     },
   };
 

@@ -1391,10 +1391,10 @@
     "diazepamDose": "Diazépam (mg)",
     "bolusSsVolume": "Bolus SS (CC)",
     "sngNumber": "Numéro SNG",
-    "performedAt": "Date",
+    "performedAt": "Date et heure de la MCE",
     "others": "Autres",
     "cpap": "CPAP",
-    "tdr": "TDR",
+    "malaria": "Paludisme",
     "code": "Code",
     "previousentries": "Mises en condition précédentes",
     "updated": "Mise en condition mise à jour",
@@ -1411,6 +1411,10 @@
       "coma": "Coma",
       "dehydration": "Déshydratation",
       "hypoglycemia": "Hypoglycémie"
-    }
+    },
+    "bloodGlucoseLevel": "Taux de glycémie",
+    "indeterminate": "Indéterminé",
+    "hivTest": "Test du VIH",
+    "performedBy": "Effectué par l'utilisateur"
   }
 }
