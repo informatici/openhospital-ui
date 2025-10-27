@@ -36,4 +36,5 @@ export type AdmissionFormFieldName =
   | "entryReason"
   | "alertReceived"
   | "referenceSheet"
-  | "qualifiedAgent";
+  | "qualifiedAgent"
+  | "transportation";

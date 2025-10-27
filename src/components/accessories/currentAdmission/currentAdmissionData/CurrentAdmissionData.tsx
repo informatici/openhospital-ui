@@ -81,6 +81,12 @@ export const CurrentAdmissionData: FunctionComponent<IOwnProps> = ({
             </p>
           </div>
         )}
+        {!isEmpty(admission?.transportation) && (
+          <div className="currentAdmissionData__item">
+            <span className="item_label">{t("admission.transportation")}</span>
+            <p className="item_content">{admission.transportation}</p>
+          </div>
+        )}
         {!isEmpty(admission?.anamnesis) && (
           <div className="fullWidth currentAdmissionData__item">
             <span className="item_label">{t("admission.anamnesis")}</span>
