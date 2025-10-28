@@ -1232,7 +1232,8 @@
       "medicals": "Medical products",
       "pharmaceutical-stock": "Pharmaceutical stock",
       "ward-stock": "Ward stock",
-      "charge-movement": "Charge movement"
+      "charge-movement": "Charge movement",
+      "DisCharge-movement": "DisCharge movement"
     },
     "form": {
       "fields": {
@@ -1244,7 +1245,9 @@
         "date": "Movement Date",
         "quantity": "Quantity",
         "supplier": "Supplier",
-        "refNo": "Reference Number"
+        "refNo": "Reference Number",
+        "discharge": "Discharge",
+        "cancel": "Cancel"
       }
     },
     "lot": {
@@ -1257,7 +1260,9 @@
         "code": "Lot Code",
         "preparationDate": "Preparation Date",
         "dueDate": "Due Date",
-        "cost": "Cost per unit"
+        "cost": "Cost per unit",
+        "quantity": "Quantity",
+        "ward": "to Ward"
       }
     },
     "stock": {
