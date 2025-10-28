@@ -22,127 +22,241 @@ import type {
  */
 export interface MedicalHistoryDTO {
     /**
+     * Unique identifier of the medical history
      * @type {number}
      * @memberof MedicalHistoryDTO
      */
     id?: number;
     /**
-     * The patient identifier linked to this medical history
+     * The patient linked to this medical history
      * @type {PatientDTO}
      * @memberof MedicalHistoryDTO
      */
     patient: PatientDTO;
     /**
+     * Rank of the patient among siblings
      * @type {string}
      * @memberof MedicalHistoryDTO
      */
     siblingRank?: string;
     /**
+     * Pregnancy term description
      * @type {string}
      * @memberof MedicalHistoryDTO
      */
     termPregnancy?: string;
     /**
+     * Mode of delivery
      * @type {string}
      * @memberof MedicalHistoryDTO
      */
     deliveryMode?: string;
     /**
+     * Reason for the delivery mode
+     * @type {string}
+     * @memberof MedicalHistoryDTO
+     */
+    reasonMode?: string;
+    /**
+     * Apgar score of the newborn
      * @type {string}
      * @memberof MedicalHistoryDTO
      */
     apgarScore?: string;
     /**
+     * Birth weight of the patient (kg)
      * @type {number}
      * @memberof MedicalHistoryDTO
      */
     birthWeight?: number;
     /**
+     * Vaccination state for PEV vaccines
      * @type {string}
      * @memberof MedicalHistoryDTO
      */
-    vaccinationState?: string;
+    vaccinationStatePev?: string;
     /**
+     * Vaccination state for non-PEV vaccines
      * @type {string}
      * @memberof MedicalHistoryDTO
      */
-    antiMalarialProphylaxis?: string;
+    vaccinationStateNoPev?: string;
     /**
+     * Use of Milda for anti-malarial prophylaxis
+     * @type {string}
+     * @memberof MedicalHistoryDTO
+     */
+    antiMalarialProphylaxisMilda?: string;
+    /**
+     * Use of VAP for anti-malarial prophylaxis
+     * @type {string}
+     * @memberof MedicalHistoryDTO
+     */
+    antiMalarialProphylaxisVap?: string;
+    /**
+     * Other anti-malarial prophylaxis methods used
+     * @type {string}
+     * @memberof MedicalHistoryDTO
+     */
+    antiMalarialProphylaxisOthers?: string;
+    /**
+     * Indicates if a surgical procedure has been performed
+     * @type {boolean}
+     * @memberof MedicalHistoryDTO
+     */
+    surgicalProcedure?: boolean;
+    /**
+     * Condition leading to surgery
+     * @type {string}
+     * @memberof MedicalHistoryDTO
+     */
+    surgicalProcedureCondition?: string;
+    /**
+     * Type of surgical procedure performed
+     * @type {string}
+     * @memberof MedicalHistoryDTO
+     */
+    surgicalProcedureType?: string;
+    /**
+     * Date of the surgical procedure
+     * @type {string}
+     * @memberof MedicalHistoryDTO
+     */
+    surgicalProcedureDate?: string;
+    /**
+     * Details about food diversification
+     * @type {string}
+     * @memberof MedicalHistoryDTO
+     */
+    diversification?: string;
+    /**
+     * Description of neonatal period condition
+     * @type {string}
+     * @memberof MedicalHistoryDTO
+     */
+    neonatalPeriod?: string;
+    /**
+     * Previous hospitalizations details
+     * @type {string}
+     * @memberof MedicalHistoryDTO
+     */
+    previousHospitalization?: string;
+    /**
+     * Father
+     * @type {string}
+     * @memberof MedicalHistoryDTO
+     */
+    father?: string;
+    /**
+     * Mother
+     * @type {string}
+     * @memberof MedicalHistoryDTO
+     */
+    mother?: string;
+    /**
+     * Siblings
+     * @type {string}
+     * @memberof MedicalHistoryDTO
+     */
+    siblings?: string;
+    /**
+     * Any other useful medical or personal information
+     * @type {string}
+     * @memberof MedicalHistoryDTO
+     */
+    otherUsefulInformation?: string;
+    /**
+     * Patient\'s diet information
      * @type {string}
      * @memberof MedicalHistoryDTO
      */
     diet?: string;
     /**
-     * @type {string}
+     * Indicates if the patient has undergone de-parasitization
+     * @type {boolean}
      * @memberof MedicalHistoryDTO
      */
-    deParasitization?: string;
+    deParasitization?: boolean;
     /**
+     * Psychomotor development status
      * @type {string}
      * @memberof MedicalHistoryDTO
      */
     psychomotorDev?: string;
     /**
+     * Somatic growth status
      * @type {string}
      * @memberof MedicalHistoryDTO
      */
     somaticGrowth?: string;
     /**
+     * Indicates if the patient receives iron supplements
      * @type {boolean}
      * @memberof MedicalHistoryDTO
      */
     ironSupplement?: boolean;
     /**
+     * Indicates if the patient receives folic acid supplements
      * @type {boolean}
      * @memberof MedicalHistoryDTO
      */
     folicAcidSupplement?: boolean;
     /**
+     * Indicates if the patient receives vitamin A supplements
      * @type {boolean}
      * @memberof MedicalHistoryDTO
      */
     vitASupplement?: boolean;
     /**
+     * Details of any other supplements used
      * @type {string}
      * @memberof MedicalHistoryDTO
      */
     otherSupplements?: string;
     /**
+     * Indicates if the patient has received blood transfusions
      * @type {boolean}
      * @memberof MedicalHistoryDTO
      */
     transfusion?: boolean;
     /**
+     * Date of the last blood transfusion
      * @type {string}
      * @memberof MedicalHistoryDTO
      */
     lastTransfusionDate?: string;
     /**
+     * Indicates if the patient has sickle cell disease
      * @type {boolean}
      * @memberof MedicalHistoryDTO
      */
     sickleCell?: boolean;
     /**
+     * Indicates if the patient has a drug allergy
      * @type {boolean}
      * @memberof MedicalHistoryDTO
      */
     drugAllergy?: boolean;
     /**
+     * Details about the allergy
      * @type {string}
      * @memberof MedicalHistoryDTO
      */
     allergyPrecision?: string;
     /**
+     * Information about hemolysis or related conditions
      * @type {string}
      * @memberof MedicalHistoryDTO
      */
     hemylosis?: string;
     /**
+     * Other personal pathologies
      * @type {string}
      * @memberof MedicalHistoryDTO
      */
     otherPersonalPathologies?: string;
     /**
+     * Other family pathologies
      * @type {string}
      * @memberof MedicalHistoryDTO
      */
@@ -154,7 +268,7 @@ export interface MedicalHistoryDTO {
      */
     performedAt?: string;
     /**
-     * Lock
+     * Optimistic lock value
      * @type {number}
      * @memberof MedicalHistoryDTO
      */

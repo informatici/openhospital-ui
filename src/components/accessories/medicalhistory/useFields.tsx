@@ -26,6 +26,10 @@ export const useFields = (medicalhistory?: MedicalHistoryDTO) => {
       value: medicalhistory?.deliveryMode ?? "",
       type: "text",
     },
+    reasonMode: {
+      value: medicalhistory?.reasonMode ?? "",
+      type: "text",
+    },
     apgarScore: {
       value: medicalhistory?.apgarScore ?? "",
       type: "text",
@@ -34,12 +38,68 @@ export const useFields = (medicalhistory?: MedicalHistoryDTO) => {
       value: medicalhistory?.birthWeight?.toString() ?? "",
       type: "number",
     },
-    vaccinationState: {
-      value: medicalhistory?.vaccinationState ?? "",
+    vaccinationStatePev: {
+      value: medicalhistory?.vaccinationStatePev ?? "",
       type: "text",
     },
-    antiMalarialProphylaxis: {
-      value: medicalhistory?.antiMalarialProphylaxis ?? "",
+    vaccinationStateNoPev: {
+      value: medicalhistory?.vaccinationStateNoPev ?? "",
+      type: "text",
+    },
+    antiMalarialProphylaxisVap: {
+      value: medicalhistory?.antiMalarialProphylaxisVap ?? "",
+      type: "text",
+    },
+    antiMalarialProphylaxisMilda: {
+      value: medicalhistory?.antiMalarialProphylaxisMilda ?? "",
+      type: "text",
+    },
+    antiMalarialProphylaxisOthers: {
+      value: medicalhistory?.antiMalarialProphylaxisOthers ?? "",
+      type: "text",
+    },
+    surgicalProcedure: {
+      value: medicalhistory?.surgicalProcedure ? "true" : "false",
+      type: "boolean",
+    },
+    surgicalProcedureCondition: {
+      value: medicalhistory?.surgicalProcedureCondition ?? "",
+      type: "text",
+    },
+    surgicalProcedureType: {
+      value: medicalhistory?.surgicalProcedureType ?? "",
+      type: "text",
+    },
+    surgicalProcedureDate: {
+      value: medicalhistory?.surgicalProcedureDate ?? "",
+      type: "date",
+    },
+    diversification: {
+      value: medicalhistory?.diversification ?? "",
+      type: "text",
+    },
+    neonatalPeriod: {
+      value: medicalhistory?.neonatalPeriod ?? "",
+      type: "text",
+    },
+    previousHospitalization: {
+      value: medicalhistory?.previousHospitalization ?? "",
+      type: "text",
+    },
+    father: {
+      value: medicalhistory?.father ?? "",
+      type: "text",
+    },
+    mother: {
+      value: medicalhistory?.mother ?? "",
+      type: "text",
+    },
+    siblings: {
+      value: medicalhistory?.siblings?.toString() ?? "",
+      type: "number",
+    },
+    otherUsefulInformation: {
+      value: medicalhistory?.otherUsefulInformation ?? "",
       type: "text",
     },
     diet: {
@@ -47,8 +107,8 @@ export const useFields = (medicalhistory?: MedicalHistoryDTO) => {
       type: "text",
     },
     deParasitization: {
-      value: medicalhistory?.deParasitization ?? "",
-      type: "text",
+      value: medicalhistory?.deParasitization ? "true" : "false",
+      type: "boolean",
     },
     psychomotorDev: {
       value: medicalhistory?.psychomotorDev ?? "",

@@ -13,7 +13,10 @@ export type TCurrentAdmissionFieldName =
   | "anamnesis"
   | "preTreatment"
   | "preAssessment"
-  | "entryReason";
+  | "entryReason"
+  | "alertReceived"
+  | "referenceSheet"
+  | "qualifiedAgent";
 
 export type TActivityTransitionState = "IDLE" | "TO_RESET" | "FAIL";
 

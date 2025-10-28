@@ -173,6 +173,21 @@ export interface AdmissionDTO {
      */
     weight?: number;
     /**
+     * @type {boolean}
+     * @memberof AdmissionDTO
+     */
+    alertReceived?: boolean;
+    /**
+     * @type {boolean}
+     * @memberof AdmissionDTO
+     */
+    referenceSheet?: boolean;
+    /**
+     * @type {boolean}
+     * @memberof AdmissionDTO
+     */
+    qualifiedAgent?: boolean;
+    /**
      * @type {string}
      * @memberof AdmissionDTO
      */
@@ -205,6 +220,12 @@ export interface AdmissionDTO {
      * @memberof AdmissionDTO
      */
     entryReason?: string;
+    /**
+     * Transportation
+     * @type {string}
+     * @memberof AdmissionDTO
+     */
+    transportation?: string;
     /**
      * User id
      * @type {string}

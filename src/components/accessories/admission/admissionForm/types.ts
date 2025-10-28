@@ -33,4 +33,8 @@ export type AdmissionFormFieldName =
   | "imageryCharge"
   | "preTreatment"
   | "preAssessment"
-  | "entryReason";
+  | "entryReason"
+  | "alertReceived"
+  | "referenceSheet"
+  | "qualifiedAgent"
+  | "transportation";

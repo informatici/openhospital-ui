@@ -255,8 +255,21 @@
     "createother": "Add Another Patient",
     "status": "Status",
     "radiology": "Radiology",
-    "commune": "Commune",
-    "ethnic": "Ethnicity",
+    "commune": {
+      "label": "Commune",
+      "dassa": "Dassa",
+      "savalou": "Savalou",
+      "glazoue": "Glazoue"
+    },
+    "ethnic": {
+      "label": "Ethnicity",
+      "idactha": "Idactha",
+      "nogot": "Nogot",
+      "ife": "Ifè",
+      "fon": "Fon",
+      "peulh": "Peulh",
+      "adja": "Adja"
+    },
     "fatheroccupation": "Father's occupation",
     "fatherphone": "Father's telephone number",
     "fatherage": "Father's age",
@@ -266,7 +279,19 @@
     "encounters": "Encounters",
     "conditioning": "Conditioning and Admission state",
     "medicalHistory": "Medical History",
-    "folderNumber": "Folder Number"
+    "folderNumber": "Folder Number",
+    "alertReceived": "Alert received",
+    "referenceSheet": "Reference sheet",
+    "qualifiedAgent": "Qualified agent",
+    "schoolingLevel": {
+      "label": "Educational level",
+      "noSchooling": "No schooling",
+      "primary": "Primary",
+      "secondary": "Secondary",
+      "higherEducation": "Higher education"
+    },
+    "motherSchoolingLevel": "Mother's educational level",
+    "fatherSchoolingLevel": "Father's educational level"
   },
   "encounters": {
     "admissions": "Admissions",
@@ -697,29 +722,49 @@
       "apgarScore": "APGAR",
       "birthWeight": "Birth Weight",
       "vaccinationStatus": "Vaccination Status",
+      "vaccinationStatePev": "Vaccination State (Pev)",
+      "vaccinationStateNoPev": "Vaccination State (No Pev)",
+      "antiMalarialProphylaxisVap": "Anti-malarial Prophylaxis (Vap)",
+      "antiMalarialProphylaxisMilda": "Anti-malarial Prophylaxis (Milda)",
+      "antiMalarialProphylaxisOthers": "Anti-malarial Prophylaxis (Others)",
       "malariaProphylaxis": "Anti-malaria Prophylaxis",
-      "diet": "Diet",
-      "deworming": "Deworming",
+      "diet": "Diet (AME)",
+      "diversification": "Diversification",
+      "deworming": "Deworming (yes, If the patient do it more than three months. Otherwise No)",
+      "deParasitization": "Deworming",
       "psychomotorDevelopment": "Psychomotor Development",
       "somaticGrowth": "Somatic Growth",
       "Supplement": "Supplementation ",
       "ironSupplement": "Iron ",
       "folicAcidSupplement": "Folic Acid ",
       "vitASupplement": "Vitamin A ",
-      "otherSupplements": "Other Supplementation"
+      "otherSupplements": "Other Supplementation",
+      "lowBirthWeight": "Low birth weight",
+      "cesarian": "Cesarian",
+      "reasonMode": "Cesarian reason"
     },
     "personalPathological": {
       "title": "Pathological History (Personal)",
-      "transfusion": "Transfusion",
+      "transfusion": "History of transfusion",
       "lastTransfusionDate": "Date of Last Transfusion",
       "sickleCell": "Sickle Cell Disease",
       "drugAllergy": "Drug Allergy ",
+      "neonatalPeriod": "Neonatal Period",
+      "previousHospitalization": "Previous Hospitalization",
+      "surgicalProcedure": "Surgical Procedure",
+      "surgicalProcedureCondition": "Surgical Procedure Condition",
+      "surgicalProcedureType": "Surgical Procedure Type",
+      "surgicalProcedureDate": "Surgical Procedure Date",
       "allergyPrecision": "Allergy Precision",
       "hemolysis": "Hemolysis",
-      "otherPathologies": "Others"
+      "otherPathologies": "Other background information"
     },
     "familyPathological": {
       "title": "Pathological History (Family)",
+      "father": "Father",
+      "mother": "Mother",
+      "siblings": "Siblings",
+      "otherUsefulInformation": "Other Useful Information",
       "otherFamilyPathologies": "Other Family Pathologies"
     },
     "newmedicalHistory": "New medical history",
@@ -902,7 +947,8 @@
     "no_beds": "There is not beds in the selected ward",
     "preTreatment": "Pre-admission treatment",
     "preAssessment": "Pre-admission assessment",
-    "entryReason": "Entry reason"
+    "entryReason": "Entry reason",
+    "transportation": "Transportation"
   },
   "bill": {
     "title": "Welcome to Billing",

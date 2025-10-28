@@ -8,4 +8,6 @@ export type IPatientsState = {
   updatePatient: ApiResponse<PatientDTO>;
   getCities: ApiResponse<Array<string>>;
   getPatients: ApiResponse<PagePatientDTO>;
+  getEthnics: ApiResponse<Array<string>>;
+  getCommunes: ApiResponse<Array<string>>;
 };

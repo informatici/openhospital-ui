@@ -1,7 +1,7 @@
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { FunctionComponent, useEffect, useState } from "react";
+import { updateAdmission } from "state/admissions";
 import { AdmissionDTO } from "../../../generated";
-import { updateAdmission } from "../../../state/admissions";
 import { IState } from "../../../types";
 import { useFields } from "../admission/useFields";
 import { CurrentAdmissionData } from "./currentAdmissionData/CurrentAdmissionData";
@@ -44,6 +44,10 @@ export const CurrentAdmission: FunctionComponent<IOwnProps> = ({
       preTreatment: adm.preTreatment,
       preAssessment: adm.preAssessment,
       entryReason: adm.entryReason,
+      alertReceived: adm.alertReceived,
+      referenceSheet: adm.referenceSheet,
+      qualifiedAgent: adm.qualifiedAgent,
+      transportation: adm.transportation,
     };
     dispatch(updateAdmission(admissionToSave));
   };

@@ -22,7 +22,7 @@ const ConditioningTable: FunctionComponent<IOwnProps> = ({
   handleEdit,
 }) => {
   const { t } = useTranslation();
-  const canUpdate = usePermission("conditioning.update");
+  const canUpdate = usePermission("conditionings.update");
 
   const header = ["performedAt"];
   const dateFields = ["performedAt"];
@@ -124,7 +124,6 @@ const ConditioningTable: FunctionComponent<IOwnProps> = ({
     <div className="conditioningTable">
       <h5>{t("conditioning.previousentries")}</h5>
       {(() => {
-        console.log("status", status);
         switch (status) {
           case "FAIL":
             return (

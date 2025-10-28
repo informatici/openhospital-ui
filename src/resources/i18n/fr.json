@@ -222,8 +222,21 @@
     "updatesuccessful": "Le patient a été modifié avec succès.",
     "createother": "Ajouter un autre patient",
     "status": "État de santé",
-    "commune": "Commune",
-    "ethnic": "Ethnie",
+    "commune": {
+      "label": "Commune",
+      "dassa": "Dassa",
+      "savalou": "Savalou",
+      "glazoue": "Glazoue"
+    },
+    "ethnic": {
+      "label": "Ethnie",
+      "idactha": "Idactha",
+      "nogot": "Nogot",
+      "ife": "Ifè",
+      "fon": "Fon",
+      "peulh": "Peulh",
+      "adja": "Adja"
+    },
     "fatheroccupation": "Occupation du père",
     "fatherphone": "Téléphone du père",
     "fatherage": "Age du père",
@@ -233,7 +246,19 @@
     "encounters": "Rencontres",
     "conditioning": "Mise en condition et état à l'admission",
     "medicalHistory": "Antécédent médical",
-    "folderNumber": "Numéro du dossier"
+    "folderNumber": "Numéro du dossier",
+    "alertReceived": "Alert reçue",
+    "referenceSheet": "Fiche de référence",
+    "qualifiedAgent": "Agent qualifié",
+    "schoolingLevel": {
+      "label": "Niveau scolaire",
+      "noSchooling": "Non scolairsé",
+      "primary": "Primaire",
+      "secondary": "Secondaire",
+      "higherEducation": "Enseignement supérieur"
+    },
+    "motherSchoolingLevel": "Niveau scolaire de la mère",
+    "fatherSchoolingLevel": "Niveau scolaire de la père"
   },
   "encounters": {
     "admissions": "Admissions",
@@ -663,29 +688,49 @@
       "apgarScore": "APGAR",
       "birthWeight": "Poids",
       "vaccinationStatus": "État vaccinal",
+      "vaccinationStatePev": "État vaccinal (Pev)",
+      "vaccinationStateNoPev": "État vaccinal (Non Pev)",
+      "antiMalarialProphylaxisVap": "Prophylaxie anti-palustre (Vap)",
+      "antiMalarialProphylaxisMilda": "Prophylaxie anti-palustre (Milda)",
+      "antiMalarialProphylaxisOthers": "Prophylaxie anti-palustre (Autres)",
       "malariaProphylaxis": "Prophylaxie anti-palustre",
-      "diet": "Régime alimentaire",
-      "deworming": "Déparasitage",
+      "diet": "Régime alimentaire (AME)",
+      "diversification": "Diversification",
+      "deworming": "Déparasitage (Oui, Si le patient le fait depuis plus de trois mois. Sinon Non)",
+      "deParasitization": "Déparasitage",
       "psychomotorDevelopment": "Développement psychomoteur",
       "somaticGrowth": "Croissance somatique",
       "Supplement": "supplémentation ",
       "ironSupplement": "fer",
       "folicAcidSupplement": "acide folique ",
       "vitASupplement": " Vitamine A ",
-      "otherSupplements": "Autre supplémentation"
+      "otherSupplements": "Autre supplémentation",
+      "lowBirthWeight": "Faible poids de naissance",
+      "cesarian": "Césarienne",
+      "reasonMode": "Motif de la césarienne"
     },
     "personalPathological": {
       "title": "Antécédents pathologiques (Personnel)",
-      "transfusion": "Transfusion ",
+      "transfusion": "Antécédents transfusionnels",
       "lastTransfusionDate": "Date dernière transfusion",
       "sickleCell": "Drépanocytose",
       "drugAllergy": "Allergie médicamenteuse ",
+      "neonatalPeriod": "Période néonatale",
+      "previousHospitalization": "Hospitalisation préalable",
+      "surgicalProcedure": "Intervention chirurgicale",
+      "surgicalProcedureCondition": "Condition de l'intervention",
+      "surgicalProcedureType": "Type de l'intervention",
+      "surgicalProcedureDate": "Date de l'intervention",
       "allergyPrecision": "Précision allergie médicamenteuse",
       "hemolysis": "Hémolyse",
-      "otherPathologies": "Autres"
+      "otherPathologies": "Autres informations générales"
     },
     "familyPathological": {
       "title": "Antécédents pathologiques (Familiaux)",
+      "father": "Père",
+      "mother": "Mère",
+      "siblings": "Frères et sœurs",
+      "otherUsefulInformation": "Autres informations utiles",
       "otherFamilyPathologies": "Autres pathologies familiales"
     },
     "newmedicalHistory": "Nouvel antécédent médical",
@@ -868,7 +913,8 @@
     "no_beds": "Il n'y a aucun lit dans le pavillon sélectionné",
     "preTreatment": "Traitement avant admission",
     "preAssessment": "Bilan avant admission",
-    "entryReason": "Motif d'entré"
+    "entryReason": "Motif d'entré",
+    "transportation": "Moyen de transport"
   },
   "bill": {
     "title": "Bienvenue dans la facturation",

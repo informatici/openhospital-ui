@@ -125,7 +125,6 @@ const Conditioning: FC = () => {
   };
 
   const onEdit = (row: ConditioningDTO) => {
-    console.log("Edit conditioning row:", row);
     setCreationMode(false);
     setConditioningToEdit(row);
     scrollToElement(null);
@@ -134,7 +133,7 @@ const Conditioning: FC = () => {
   return (
     <div className="Conditioning">
       {!encounter?.closedAt && (
-        <Permission require="conditioning.new">
+        <Permission require="conditionings.create">
           <ConditioningForm
             fields={fields}
             creationMode={creationMode}

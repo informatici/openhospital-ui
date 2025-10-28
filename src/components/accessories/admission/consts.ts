@@ -81,4 +81,20 @@ export const initialFields: TFields<AdmissionFormFieldName> = {
     value: "",
     type: "array",
   },
+  alertReceived: {
+    value: "",
+    type: "boolean",
+  },
+  referenceSheet: {
+    value: "",
+    type: "boolean",
+  },
+  qualifiedAgent: {
+    value: "",
+    type: "boolean",
+  },
+  transportation: {
+    value: "",
+    type: "text",
+  },
 };

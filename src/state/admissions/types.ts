@@ -14,4 +14,5 @@ export type IAdmissionsState = {
   getAdmittedPatients: ApiResponse<Array<AdmittedPatientDTO>>;
   currentAdmissionByPatientId: ApiResponse<AdmissionDTO>;
   dischargePatient: ApiResponse<AdmissionDTO>;
+  getTransportations: ApiResponse<Array<string>>;
 };

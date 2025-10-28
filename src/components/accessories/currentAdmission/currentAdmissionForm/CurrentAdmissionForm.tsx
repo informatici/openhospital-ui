@@ -1,5 +1,9 @@
+import { Autocomplete } from "components/accessories/autocomplete";
+import CheckboxField from "components/accessories/checkboxField/CheckboxField";
 import { useFormik } from "formik";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
+import { useTransportation } from "libraries/hooks/useTransporation";
+import { Permission } from "libraries/permissionUtils/Permission";
 import { get, has } from "lodash";
 import React, {
   FunctionComponent,
@@ -20,7 +24,10 @@ import {
   formatAllFieldValues,
   getFromFields,
 } from "../../../../libraries/formDataHandling/functions";
-import { updateAdmissionReset } from "../../../../state/admissions";
+import {
+  getTransportations,
+  updateAdmissionReset,
+} from "../../../../state/admissions";
 import { getPatient } from "../../../../state/patients";
 import { IState } from "../../../../types";
 import AutocompleteField from "../../autocompleteField/AutocompleteField";
@@ -74,6 +81,21 @@ export const CurrentAdmissionForm: FunctionComponent<IOwnProps> = ({
     (state: IState) => state.types.admissions.getAll.status
   );
 
+  const [isAlertReceivedChecked, setIsIronSupplementChecked] = useState(false);
+
+  const [isReferenceSheetChecked, setIsFolicAcidSupplementChecked] =
+    useState(false);
+
+  const [isQualifiedAgentChecked, setIsVitASupplementChecked] = useState(false);
+
+  const transportationsOptions = useAppSelector(
+    (state: IState) => state.admissions.getTransportations.data
+  );
+
+  const { options: transportationOptions } = useTransportation(
+    transportationsOptions
+  );
+
   const renderOptions = (
     data:
       | (
@@ -113,6 +135,10 @@ export const CurrentAdmissionForm: FunctionComponent<IOwnProps> = ({
       formattedValues.ward = wards?.find(
         (item) => item.code === formattedValues.ward
       );
+      formattedValues.alertReceived = isAlertReceivedChecked ? true : false;
+      formattedValues.referenceSheet = isReferenceSheetChecked ? true : false;
+      formattedValues.qualifiedAgent = isQualifiedAgentChecked ? true : false;
+      formattedValues.transportation = formik.values.transportation;
       onSubmit({
         ...currentAdmission,
         ...formattedValues,
@@ -129,6 +155,24 @@ export const CurrentAdmissionForm: FunctionComponent<IOwnProps> = ({
       onDiscard();
     }
   }, [dispatch, activityTransitionState, patient, onDiscard]);
+
+  useEffect(() => {
+    setIsIronSupplementChecked(
+      formik.values.alertReceived === "true" ? true : false
+    );
+    setIsFolicAcidSupplementChecked(
+      formik.values.referenceSheet === "true" ? true : false
+    );
+    setIsVitASupplementChecked(
+      formik.values.qualifiedAgent === "true" ? true : false
+    );
+    dispatch(getTransportations());
+  }, [
+    formik.values.alertReceived,
+    formik.values.referenceSheet,
+    formik.values.qualifiedAgent,
+    dispatch,
+  ]);
 
   const { setFieldValue, handleBlur } = formik;
 
@@ -163,6 +207,18 @@ export const CurrentAdmissionForm: FunctionComponent<IOwnProps> = ({
       },
     [setFieldValue, handleBlur]
   );
+
+  const handleAlertReceivedChecked = () => {
+    setIsIronSupplementChecked(!isAlertReceivedChecked);
+  };
+
+  const handleReferenceSheetChecked = () => {
+    setIsFolicAcidSupplementChecked(!isReferenceSheetChecked);
+  };
+
+  const handleQualifiedAgentChecked = () => {
+    setIsVitASupplementChecked(!isQualifiedAgentChecked);
+  };
 
   const isLoading = status === "LOADING";
 
@@ -222,79 +278,124 @@ export const CurrentAdmissionForm: FunctionComponent<IOwnProps> = ({
               disabled={isLoading}
             />
           </div>
-          <div className="fullWidth currentAdmissionForm__item">
-            <TextField
-              field={formik.getFieldProps("entryReason")}
-              theme="regular"
-              label={t("admission.entryReason")}
-              multiline={true}
-              type="text"
-              isValid={isValid("entryReason")}
-              errorText={getErrorText("entryReason")}
-              onBlur={formik.handleBlur}
-              rows={1}
-              disabled={isLoading}
-              maxLength={2000}
-            />
-          </div>
-          <div className="fullWidth currentAdmissionForm__item">
-            <TextField
-              field={formik.getFieldProps("preTreatment")}
-              theme="regular"
-              label={t("admission.preTreatment")}
-              multiline={true}
-              type="text"
-              isValid={isValid("preTreatment")}
-              errorText={getErrorText("preTreatment")}
-              onBlur={formik.handleBlur}
-              rows={3}
-              disabled={isLoading}
-              maxLength={2000}
-            />
-          </div>
-          <div className="fullWidth currentAdmissionForm__item">
-            <TextField
-              field={formik.getFieldProps("preAssessment")}
-              theme="regular"
-              label={t("admission.preAssessment")}
-              multiline={true}
-              type="text"
-              isValid={isValid("preAssessment")}
-              errorText={getErrorText("preAssessment")}
-              onBlur={formik.handleBlur}
-              rows={3}
-              disabled={isLoading}
-              maxLength={2000}
-            />
-          </div>
-          <div className="fullWidth currentAdmissionForm__item">
-            <TextField
-              field={formik.getFieldProps("anamnesis")}
-              theme="regular"
-              label={t("admission.anamnesis")}
-              multiline={true}
-              type="text"
-              isValid={isValid("anamnesis")}
-              errorText={getErrorText("anamnesis")}
-              onBlur={formik.handleBlur}
-              rows={5}
-              disabled={isLoading}
-              maxLength={2000}
-            />
-          </div>
           <div className="currentAdmissionForm__item">
-            <AutocompleteField
-              fieldName="diseaseIn"
-              fieldValue={formik.values.diseaseIn}
-              label={t("admission.diseaseIn")}
-              isValid={isValid("diseaseIn")}
-              errorText={getErrorText("diseaseIn")}
-              onBlur={onBlurCallback("diseaseIn")}
-              options={renderOptions(diagnosisInList)}
-              loading={diagnosisInStatus === "LOADING"}
-              disabled={isLoading}
+            <Autocomplete
+              id="transportation"
+              freeSolo
+              value={formik.values.transportation}
+              options={transportationOptions ?? []}
+              onChange={(_, value) => {
+                formik.setFieldValue("transportation", value);
+              }}
+              label={t("admission.transportation")}
+              placeholder={t("admission.transportation")}
             />
           </div>
+          <div className="row start-sm center-xs">
+            <div className="currentAdmissionForm__supplementRow">
+              <div className="currentAdmissionForm__item">
+                <CheckboxField
+                  fieldName="alertReceived"
+                  label={t("patient.alertReceived")}
+                  checked={isAlertReceivedChecked}
+                  onChange={handleAlertReceivedChecked}
+                />
+              </div>
+              <div className="currentAdmissionForm__item">
+                <CheckboxField
+                  fieldName="referenceSheet"
+                  label={t("patient.referenceSheet")}
+                  checked={isReferenceSheetChecked}
+                  onChange={handleReferenceSheetChecked}
+                />
+              </div>
+              <div className="currentAdmissionForm__item">
+                <CheckboxField
+                  fieldName="qualifiedAgent"
+                  label={t("patient.qualifiedAgent")}
+                  checked={isQualifiedAgentChecked}
+                  onChange={handleQualifiedAgentChecked}
+                />
+              </div>
+            </div>
+          </div>
+          <Permission require="admission.fullacces">
+            <>
+              <div className="fullWidth currentAdmissionForm__item">
+                <TextField
+                  field={formik.getFieldProps("entryReason")}
+                  theme="regular"
+                  label={t("admission.entryReason")}
+                  multiline={true}
+                  type="text"
+                  isValid={isValid("entryReason")}
+                  errorText={getErrorText("entryReason")}
+                  onBlur={formik.handleBlur}
+                  rows={1}
+                  disabled={isLoading}
+                  maxLength={2000}
+                />
+              </div>
+              <div className="fullWidth currentAdmissionForm__item">
+                <TextField
+                  field={formik.getFieldProps("preTreatment")}
+                  theme="regular"
+                  label={t("admission.preTreatment")}
+                  multiline={true}
+                  type="text"
+                  isValid={isValid("preTreatment")}
+                  errorText={getErrorText("preTreatment")}
+                  onBlur={formik.handleBlur}
+                  rows={3}
+                  disabled={isLoading}
+                  maxLength={2000}
+                />
+              </div>
+              <div className="fullWidth currentAdmissionForm__item">
+                <TextField
+                  field={formik.getFieldProps("preAssessment")}
+                  theme="regular"
+                  label={t("admission.preAssessment")}
+                  multiline={true}
+                  type="text"
+                  isValid={isValid("preAssessment")}
+                  errorText={getErrorText("preAssessment")}
+                  onBlur={formik.handleBlur}
+                  rows={3}
+                  disabled={isLoading}
+                  maxLength={2000}
+                />
+              </div>
+              <div className="fullWidth currentAdmissionForm__item">
+                <TextField
+                  field={formik.getFieldProps("anamnesis")}
+                  theme="regular"
+                  label={t("admission.anamnesis")}
+                  multiline={true}
+                  type="text"
+                  isValid={isValid("anamnesis")}
+                  errorText={getErrorText("anamnesis")}
+                  onBlur={formik.handleBlur}
+                  rows={5}
+                  disabled={isLoading}
+                  maxLength={2000}
+                />
+              </div>
+              <div className="currentAdmissionForm__item">
+                <AutocompleteField
+                  fieldName="diseaseIn"
+                  fieldValue={formik.values.diseaseIn}
+                  label={t("admission.diseaseIn")}
+                  isValid={isValid("diseaseIn")}
+                  errorText={getErrorText("diseaseIn")}
+                  onBlur={onBlurCallback("diseaseIn")}
+                  options={renderOptions(diagnosisInList)}
+                  loading={diagnosisInStatus === "LOADING"}
+                  disabled={isLoading}
+                />
+              </div>
+            </>
+          </Permission>
         </div>
         <div className="currentAdmissionForm__buttonSet">
           <div className="submit_button">

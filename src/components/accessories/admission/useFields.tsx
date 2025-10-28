@@ -89,6 +89,22 @@ export const useFields = (
       value: admission?.entryReason ?? "",
       type: "text",
     },
+    alertReceived: {
+      value: admission?.alertReceived ? "true" : "false",
+      type: "boolean",
+    },
+    referenceSheet: {
+      value: admission?.referenceSheet ? "true" : "false",
+      type: "boolean",
+    },
+    qualifiedAgent: {
+      value: admission?.qualifiedAgent ? "true" : "false",
+      type: "boolean",
+    },
+    transportation: {
+      value: admission?.transportation ?? "",
+      type: "text",
+    },
   };
 
   return fields;

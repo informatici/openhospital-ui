@@ -36,8 +36,8 @@ const MedicalHistory: FC = () => {
   >();
   const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
   const infoBoxRef = useRef<HTMLDivElement>(null);
-  const canCreate = usePermission("medicalhistory.create");
-  const canUpdate = usePermission("medicalhistory.update");
+  const canCreate = usePermission("medicalhistories.create");
+  const canUpdate = usePermission("medicalhistories.update");
 
   const { id, code } = useParams();
 
@@ -91,10 +91,25 @@ const MedicalHistory: FC = () => {
         siblingRank: mh.siblingRank,
         termPregnancy: mh.termPregnancy,
         deliveryMode: mh.deliveryMode,
+        reasonMode: mh.reasonMode,
         apgarScore: mh.apgarScore,
         birthWeight: mh.birthWeight,
-        vaccinationState: mh.vaccinationState,
-        antiMalarialProphylaxis: mh.antiMalarialProphylaxis,
+        vaccinationStatePev: mh.vaccinationStatePev,
+        vaccinationStateNoPev: mh.vaccinationStateNoPev,
+        antiMalarialProphylaxisVap: mh.antiMalarialProphylaxisVap,
+        antiMalarialProphylaxisMilda: mh.antiMalarialProphylaxisMilda,
+        antiMalarialProphylaxisOthers: mh.antiMalarialProphylaxisOthers,
+        surgicalProcedure: mh.surgicalProcedure,
+        surgicalProcedureCondition: mh.surgicalProcedureCondition,
+        surgicalProcedureType: mh.surgicalProcedureType,
+        surgicalProcedureDate: mh.surgicalProcedureDate,
+        diversification: mh.diversification,
+        neonatalPeriod: mh.neonatalPeriod,
+        previousHospitalization: mh.previousHospitalization,
+        father: mh.father,
+        mother: mh.mother,
+        siblings: mh.siblings,
+        otherUsefulInformation: mh.otherUsefulInformation,
         diet: mh.diet,
         deParasitization: mh.deParasitization,
         psychomotorDev: mh.psychomotorDev,
@@ -169,7 +184,9 @@ const MedicalHistory: FC = () => {
     <div className="medicalHistory">
       {!encounter?.closedAt && (creationMode ? canCreate : canUpdate) && (
         <Permission
-          require={creationMode ? "therapies.create" : "therapies.update"}
+          require={
+            creationMode ? "medicalhistories.create" : "medicalhistories.update"
+          }
         >
           <MedicalHistoryForm
             fields={fields}
