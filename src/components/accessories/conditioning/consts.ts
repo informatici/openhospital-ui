@@ -64,4 +64,8 @@ export const initialFields: TFields<ConditioningFormFieldName> = {
     type: "text",
     options: [],
   },
+  hivTest: {
+    value: "",
+    type: "text",
+  },
 };

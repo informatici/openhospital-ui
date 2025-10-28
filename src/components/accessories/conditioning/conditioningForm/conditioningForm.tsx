@@ -46,6 +46,7 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
     others: yup.string().nullable(),
     cpap: yup.boolean(),
     malaria: yup.string().nullable(),
+    hivTest: yup.string().nullable(),
     bloodGlucoseLevel: yup.number().nullable(),
     performedBy: yup.string().nullable(),
     performedAt: yup.date().required(t("common.required")),
