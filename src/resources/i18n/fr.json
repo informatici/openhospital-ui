@@ -913,7 +913,8 @@
     "no_beds": "Il n'y a aucun lit dans le pavillon sélectionné",
     "preTreatment": "Traitement avant admission",
     "preAssessment": "Bilan avant admission",
-    "entryReason": "Motif d'entré"
+    "entryReason": "Motif d'entré",
+    "transportation": "Moyen de transport"
   },
   "bill": {
     "title": "Bienvenue dans la facturation",

@@ -947,7 +947,8 @@
     "no_beds": "There is not beds in the selected ward",
     "preTreatment": "Pre-admission treatment",
     "preAssessment": "Pre-admission assessment",
-    "entryReason": "Entry reason"
+    "entryReason": "Entry reason",
+    "transportation": "Transportation"
   },
   "bill": {
     "title": "Welcome to Billing",
