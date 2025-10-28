@@ -6303,7 +6303,7 @@ paths:
                   $ref: "#/components/schemas/DiseaseDTO"
       security:
       - bearerAuth: []
-  /conditionings/patient/{patientCode}:
+  /conditionings/{patientCode}:
     get:
       tags:
       - Conditionings
@@ -7001,11 +7001,11 @@ components:
           format: int32
           description: lock
           example: 0
-        opd:
-          type: boolean
         male:
           type: boolean
         female:
+          type: boolean
+        opd:
           type: boolean
         pharmacy:
           type: boolean
