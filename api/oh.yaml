@@ -6303,28 +6303,6 @@ paths:
                   $ref: "#/components/schemas/DiseaseDTO"
       security:
       - bearerAuth: []
-  /conditionings/user/{userName}:
-    get:
-      tags:
-      - Conditionings
-      operationId: getConditioningByUserName
-      parameters:
-      - name: userName
-        in: path
-        required: true
-        schema:
-          type: string
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/ConditioningDTO"
-      security:
-      - bearerAuth: []
   /conditionings/patient/{patientCode}:
     get:
       tags:
@@ -6337,34 +6315,6 @@ paths:
         schema:
           type: integer
           format: int32
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/ConditioningDTO"
-      security:
-      - bearerAuth: []
-  /conditionings/patient/{patientCode}/user/{userName}:
-    get:
-      tags:
-      - Conditionings
-      operationId: getConditioningByPatientCodeAndUserName
-      parameters:
-      - name: patientCode
-        in: path
-        required: true
-        schema:
-          type: integer
-          format: int32
-      - name: userName
-        in: path
-        required: true
-        schema:
-          type: string
       responses:
         "200":
           description: OK
@@ -7051,11 +7001,11 @@ components:
           format: int32
           description: lock
           example: 0
+        opd:
+          type: boolean
         male:
           type: boolean
         female:
-          type: boolean
-        opd:
           type: boolean
         pharmacy:
           type: boolean
@@ -7935,11 +7885,11 @@ components:
           type: string
           description: "Flag record deleted, values are 'Y' OR 'N' "
           example: "N"
-        fhu:
-          type: string
         yprog:
           type: integer
           format: int32
+        fhu:
+          type: string
       required:
       - admDate
       - admitted
