@@ -1,5 +1,5 @@
-import { IAdmissionsState } from "./types";
 import { ApiResponse } from "../types";
+import { IAdmissionsState } from "./types";
 
 export const initial: IAdmissionsState = {
   createAdmission: new ApiResponse({ status: "IDLE" }),
@@ -10,4 +10,5 @@ export const initial: IAdmissionsState = {
   getAdmittedPatients: new ApiResponse({ status: "IDLE", data: [] }),
   currentAdmissionByPatientId: new ApiResponse({ status: "IDLE" }),
   dischargePatient: new ApiResponse({ status: "IDLE" }),
+  getTransportations: new ApiResponse({ status: "IDLE", data: [] }),
 };

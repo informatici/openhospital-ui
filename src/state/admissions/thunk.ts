@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { wrapper } from "libraries/apiUtils/wrapper";
+import { firstValueFrom } from "rxjs";
 import { AdmissionDTO, AdmissionsApi } from "../../generated";
 import { customConfiguration } from "../../libraries/apiUtils/configuration";
 
@@ -95,4 +96,12 @@ export const getCurrentAdmission = createAsyncThunk(
     wrapper(() => api.getCurrentAdmission({ patientCode: patientCode ?? -1 }))
       .toPromise()
       .catch((error) => thunkApi.rejectWithValue(error.response))
+);
+
+export const getTransportations = createAsyncThunk(
+  "admissions/GET_TRANSPORTATION",
+  async (_, thunkApi) =>
+    firstValueFrom(wrapper(() => api.getAdmissionTransportation())).catch(
+      (error) => thunkApi.rejectWithValue(error.response)
+    )
 );

@@ -221,6 +221,12 @@ export interface AdmissionDTO {
      */
     entryReason?: string;
     /**
+     * Transportation
+     * @type {string}
+     * @memberof AdmissionDTO
+     */
+    transportation?: string;
+    /**
      * User id
      * @type {string}
      * @memberof AdmissionDTO
@@ -244,13 +250,13 @@ export interface AdmissionDTO {
      */
     deleted: string;
     /**
-     * @type {number}
-     * @memberof AdmissionDTO
-     */
-    yprog?: number;
-    /**
      * @type {string}
      * @memberof AdmissionDTO
      */
     fhu?: string;
+    /**
+     * @type {number}
+     * @memberof AdmissionDTO
+     */
+    yprog?: number;
 }

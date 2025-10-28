@@ -1,3 +1,4 @@
+import AutocompleteField from "components/accessories/autocompleteField/AutocompleteField";
 import CheckboxField from "components/accessories/checkboxField/CheckboxField";
 import DateField from "components/accessories/dateField/DateField";
 import { useFormik } from "formik";
@@ -17,7 +18,6 @@ import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
 import TextField from "../../textField/TextField";
 import "./styles.scss";
 import { MedicalHistoryProps } from "./types";
-import AutocompleteField from "components/accessories/autocompleteField/AutocompleteField";
 
 const MedicalHistoryForm: FC<MedicalHistoryProps> = ({
   fields,
@@ -81,7 +81,8 @@ const MedicalHistoryForm: FC<MedicalHistoryProps> = ({
 
   const [isSurgicalProcedureChecked, setIsSurgicalProcedureChecked] =
     useState(false);
-  const [isDeParasitizationChecked, setIsDeParasitizationChecked] = useState(false);
+  const [isDeParasitizationChecked, setIsDeParasitizationChecked] =
+    useState(false);
   const [isIronSupplementChecked, setIsIronSupplementChecked] = useState(false);
   const [isFolicAcidSupplementChecked, setIsFolicAcidSupplementChecked] =
     useState(false);
@@ -221,9 +222,6 @@ const MedicalHistoryForm: FC<MedicalHistoryProps> = ({
     formik.values.sickleCell,
     formik.values.deParasitization,
     formik.values.surgicalProcedure,
-    formik.values.surgicalProcedureCondition,
-    formik.values.surgicalProcedureType,
-    formik.values.surgicalProcedureDate,
   ]);
 
   useEffect(() => {
@@ -422,7 +420,7 @@ const MedicalHistoryForm: FC<MedicalHistoryProps> = ({
               <TextField
                 field={{
                   ...formik.getFieldProps("diet"),
-                  value: formik.values.diet || "AME", // Valeur par défaut si null/undefined
+                  value: formik.values.diet,
                 }}
                 theme="regular"
                 label={t("medicalHistory.physiological.diet")}
@@ -437,7 +435,7 @@ const MedicalHistoryForm: FC<MedicalHistoryProps> = ({
             </div>
             <div className="fullWidth medicalHistoryForm__item">
               <TextField
-                field={formik.getFieldProps("diversification")} 
+                field={formik.getFieldProps("diversification")}
                 theme="regular"
                 label={t("medicalHistory.physiological.diversification")}
                 multiline={true}

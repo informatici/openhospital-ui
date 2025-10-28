@@ -36,8 +36,8 @@ const MedicalHistory: FC = () => {
   >();
   const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
   const infoBoxRef = useRef<HTMLDivElement>(null);
-  const canCreate = usePermission("medicalhistory.create");
-  const canUpdate = usePermission("medicalhistory.update");
+  const canCreate = usePermission("medicalhistories.create");
+  const canUpdate = usePermission("medicalhistories.update");
 
   const { id, code } = useParams();
 
@@ -184,7 +184,9 @@ const MedicalHistory: FC = () => {
     <div className="medicalHistory">
       {!encounter?.closedAt && (creationMode ? canCreate : canUpdate) && (
         <Permission
-          require={creationMode ? "therapies.create" : "therapies.update"}
+          require={
+            creationMode ? "medicalhistories.create" : "medicalhistories.update"
+          }
         >
           <MedicalHistoryForm
             fields={fields}

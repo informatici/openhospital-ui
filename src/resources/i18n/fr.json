@@ -694,7 +694,7 @@
       "antiMalarialProphylaxisMilda": "Prophylaxie anti-palustre (Milda)",
       "antiMalarialProphylaxisOthers": "Prophylaxie anti-palustre (Autres)",
       "malariaProphylaxis": "Prophylaxie anti-palustre",
-      "diet": "Régime alimentaire",
+      "diet": "Régime alimentaire ((AME))",
       "diversification": "Diversification",
       "deworming": "Déparasitage (Oui, Si le patient le fait depuis plus de trois mois. Sinon Non)",
       "deParasitization": "Déparasitage",
@@ -913,7 +913,8 @@
     "no_beds": "Il n'y a aucun lit dans le pavillon sélectionné",
     "preTreatment": "Traitement avant admission",
     "preAssessment": "Bilan avant admission",
-    "entryReason": "Motif d'entré"
+    "entryReason": "Motif d'entré",
+    "transportation": "Moyen de transport"
   },
   "bill": {
     "title": "Bienvenue dans la facturation",

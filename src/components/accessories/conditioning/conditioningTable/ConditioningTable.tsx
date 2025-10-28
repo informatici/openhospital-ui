@@ -22,7 +22,7 @@ const ConditioningTable: FunctionComponent<IOwnProps> = ({
   handleEdit,
 }) => {
   const { t } = useTranslation();
-  const canUpdate = usePermission("conditioning.update");
+  const canUpdate = usePermission("conditionings.update");
 
   const header = ["performedAt"];
   const dateFields = ["performedAt"];

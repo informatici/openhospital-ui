@@ -122,6 +122,21 @@ export class AdmissionsApi extends BaseAPI {
 
     /**
      */
+    getAdmissionTransportation(): Observable<Array<string>>
+    getAdmissionTransportation(opts?: OperationOpts): Observable<AjaxResponse<Array<string>>>
+    getAdmissionTransportation(opts?: OperationOpts): Observable<Array<string> | AjaxResponse<Array<string>>> {
+        const headers: HttpHeaders = {
+        };
+
+        return this.request<Array<string>>({
+            url: '/admissions/transportation',
+            method: 'GET',
+            headers,
+        }, opts?.responseOpts);
+    };
+
+    /**
+     */
     getAdmissions({ admissionrange, page, size, paged }: GetAdmissionsRequest): Observable<PageAdmissionDTO>
     getAdmissions({ admissionrange, page, size, paged }: GetAdmissionsRequest, opts?: OperationOpts): Observable<AjaxResponse<PageAdmissionDTO>>
     getAdmissions({ admissionrange, page, size, paged }: GetAdmissionsRequest, opts?: OperationOpts): Observable<PageAdmissionDTO | AjaxResponse<PageAdmissionDTO>> {

@@ -728,7 +728,7 @@
       "antiMalarialProphylaxisMilda": "Anti-malarial Prophylaxis (Milda)",
       "antiMalarialProphylaxisOthers": "Anti-malarial Prophylaxis (Others)",
       "malariaProphylaxis": "Anti-malaria Prophylaxis",
-      "diet": "Diet",
+      "diet": "Diet (AME)",
       "diversification": "Diversification",
       "deworming": "Deworming (yes, If the patient do it more than three months. Otherwise No)",
       "deParasitization": "Deworming",
@@ -947,7 +947,8 @@
     "no_beds": "There is not beds in the selected ward",
     "preTreatment": "Pre-admission treatment",
     "preAssessment": "Pre-admission assessment",
-    "entryReason": "Entry reason"
+    "entryReason": "Entry reason",
+    "transportation": "Transportation"
   },
   "bill": {
     "title": "Welcome to Billing",
