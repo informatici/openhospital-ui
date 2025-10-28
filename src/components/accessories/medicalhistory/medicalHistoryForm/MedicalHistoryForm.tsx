@@ -81,7 +81,8 @@ const MedicalHistoryForm: FC<MedicalHistoryProps> = ({
 
   const [isSurgicalProcedureChecked, setIsSurgicalProcedureChecked] =
     useState(false);
-  const [isDeParasitizationChecked, setIsDeParasitizationChecked] = useState(false);
+  const [isDeParasitizationChecked, setIsDeParasitizationChecked] =
+    useState(false);
   const [isIronSupplementChecked, setIsIronSupplementChecked] = useState(false);
   const [isFolicAcidSupplementChecked, setIsFolicAcidSupplementChecked] =
     useState(false);
@@ -420,10 +421,7 @@ const MedicalHistoryForm: FC<MedicalHistoryProps> = ({
             </div>
             <div className="fullWidth medicalHistoryForm__item">
               <TextField
-                field={{
-                  ...formik.getFieldProps("diet"),
-                  value: formik.values.diet || "AME", // Valeur par défaut si null/undefined
-                }}
+                field={formik.getFieldProps("diet")}
                 theme="regular"
                 label={t("medicalHistory.physiological.diet")}
                 multiline={true}
@@ -437,7 +435,7 @@ const MedicalHistoryForm: FC<MedicalHistoryProps> = ({
             </div>
             <div className="fullWidth medicalHistoryForm__item">
               <TextField
-                field={formik.getFieldProps("diversification")} 
+                field={formik.getFieldProps("diversification")}
                 theme="regular"
                 label={t("medicalHistory.physiological.diversification")}
                 multiline={true}
@@ -549,31 +547,32 @@ const MedicalHistoryForm: FC<MedicalHistoryProps> = ({
               </div>
             </div>
           )}
-
           <div className="row start-sm center-xs bottom-sm">
-            <div className="medicalHistoryForm__item">
-              <CheckboxField
-                fieldName="transfusion"
-                label={t("medicalHistory.personalPathological.transfusion")}
-                checked={isTransfusionChecked}
-                onChange={handleTransfusionChecked}
-              />
-            </div>
-            <div className="medicalHistoryForm__item">
-              <CheckboxField
-                fieldName="sickleCell"
-                label={t("medicalHistory.personalPathological.sickleCell")}
-                checked={isSickleCellChecked}
-                onChange={handleSickleCellChecked}
-              />
-            </div>
-            <div className="medicalHistoryForm__item">
-              <CheckboxField
-                fieldName="hemylosis"
-                label={t("medicalHistory.personalPathological.hemolysis")}
-                checked={isHemolysisChecked}
-                onChange={handleHemolysisChecked}
-              />
+            <div className="medicalHistoryForm__supplementRow">
+              <div className="medicalHistoryForm__item">
+                <CheckboxField
+                  fieldName="transfusion"
+                  label={t("medicalHistory.personalPathological.transfusion")}
+                  checked={isTransfusionChecked}
+                  onChange={handleTransfusionChecked}
+                />
+              </div>
+              <div className="medicalHistoryForm__item">
+                <CheckboxField
+                  fieldName="sickleCell"
+                  label={t("medicalHistory.personalPathological.sickleCell")}
+                  checked={isSickleCellChecked}
+                  onChange={handleSickleCellChecked}
+                />
+              </div>
+              <div className="medicalHistoryForm__item">
+                <CheckboxField
+                  fieldName="hemylosis"
+                  label={t("medicalHistory.personalPathological.hemolysis")}
+                  checked={isHemolysisChecked}
+                  onChange={handleHemolysisChecked}
+                />
+              </div>
             </div>
             <div className="fullWidth medicalHistoryForm__item">
               <TextField
