@@ -111,7 +111,7 @@ const Conditioning: FC = () => {
   return (
     <div className="Conditioning">
       {!encounter?.closedAt && (
-        <Permission require="conditioning.new">
+        <Permission require="conditionings.create">
           <ConditioningForm
             fields={fields}
             creationMode={creationMode}

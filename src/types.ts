@@ -243,7 +243,13 @@ export type TPermission =
   | "radiology.read"
   | "encounters.create"
   | "encounters.update"
-  | "conditioning.new"
-  | "conditioning.update"
-  | "medicalhistory.create"
-  | "medicalhistory.update";
+  | "encounters.read"
+  | "encounters.delete"
+  | "conditionings.create"
+  | "conditionings.update"
+  | "conditionings.delete"
+  | "conditionings.read"
+  | "medicalhistories.create"
+  | "medicalhistories.delete"
+  | "medicalhistories.read"
+  | "medicalhistories.update";

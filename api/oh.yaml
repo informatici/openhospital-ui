@@ -7001,13 +7001,13 @@ components:
           format: int32
           description: lock
           example: 0
-        female:
-          type: boolean
         male:
           type: boolean
-        pharmacy:
+        female:
           type: boolean
         opd:
+          type: boolean
+        pharmacy:
           type: boolean
       required:
       - beds
@@ -7885,11 +7885,11 @@ components:
           type: string
           description: "Flag record deleted, values are 'Y' OR 'N' "
           example: "N"
+        fhu:
+          type: string
         yprog:
           type: integer
           format: int32
-        fhu:
-          type: string
       required:
       - admDate
       - admitted
@@ -8335,66 +8335,179 @@ components:
         id:
           type: integer
           format: int32
+          description: Unique identifier of the medical history
+          example: 1
         patient:
           $ref: "#/components/schemas/PatientDTO"
-          description: The patient identifier linked to this medical history
+          description: The patient linked to this medical history
         siblingRank:
           type: string
+          description: Rank of the patient among siblings
+          example: 2
         termPregnancy:
           type: string
+          description: Pregnancy term description
+          example: FULL TERM
+          maxLength: 50
         deliveryMode:
           type: string
+          description: Mode of delivery
+          example: CESAREAN
+          maxLength: 50
+        reasonMode:
+          type: string
+          description: Reason for the delivery mode
+          example: Fetal distress
+          maxLength: 100
         apgarScore:
           type: string
+          description: Apgar score of the newborn
+          example: 8/10
+          maxLength: 10
         birthWeight:
           type: number
           format: double
-        vaccinationState:
+          description: Birth weight of the patient (kg)
+          example: 3.2
+        vaccinationStatePev:
           type: string
-        antiMalarialProphylaxis:
+          description: Vaccination state for PEV vaccines
+          example: Up to date
+        vaccinationStateNoPev:
           type: string
+          description: Vaccination state for non-PEV vaccines
+          example: BCG pending
+        antiMalarialProphylaxisMilda:
+          type: string
+          description: Use of Milda for anti-malarial prophylaxis
+          example: "YES"
+        antiMalarialProphylaxisVap:
+          type: string
+          description: Use of VAP for anti-malarial prophylaxis
+          example: "NO"
+        antiMalarialProphylaxisOthers:
+          type: string
+          description: Other anti-malarial prophylaxis methods used
+          example: Herbal medicine
+        surgicalProcedure:
+          type: boolean
+          description: Indicates if a surgical procedure has been performed
+          example: true
+        surgicalProcedureCondition:
+          type: string
+          description: Condition leading to surgery
+          example: Appendicitis
+        surgicalProcedureType:
+          type: string
+          description: Type of surgical procedure performed
+          example: Appendectomy
+        surgicalProcedureDate:
+          type: string
+          format: date-time
+          description: Date of the surgical procedure
+          example: 2024-09-15T08:30:00
+        diversification:
+          type: string
+          description: Details about food diversification
+          example: Started at 6 months
+        neonatalPeriod:
+          type: string
+          description: Description of neonatal period condition
+          example: Normal
+        previousHospitalization:
+          type: string
+          description: Previous hospitalizations details
+          example: Hospitalized in 2023 for malaria
+        father:
+          type: string
+          description: Father
+          example: John Doe
+        mother:
+          type: string
+          description: Mother
+          example: Jane Doe
+        siblings:
+          type: string
+          description: Siblings
+          example: Jone
+        otherUsefulInformation:
+          type: string
+          description: Any other useful medical or personal information
+          example: History of asthma in family
         diet:
           type: string
+          description: Patient's diet information
+          example: Vegetarian diet
         deParasitization:
-          type: string
+          type: boolean
+          description: Indicates if the patient has undergone de-parasitization
+          example: true
         psychomotorDev:
           type: string
+          description: Psychomotor development status
+          example: Normal development
         somaticGrowth:
           type: string
+          description: Somatic growth status
+          example: Normal growth
         ironSupplement:
           type: boolean
+          description: Indicates if the patient receives iron supplements
+          example: true
         folicAcidSupplement:
           type: boolean
+          description: Indicates if the patient receives folic acid supplements
+          example: false
         vitASupplement:
           type: boolean
+          description: Indicates if the patient receives vitamin A supplements
+          example: true
         otherSupplements:
           type: string
+          description: Details of any other supplements used
+          example: Zinc and calcium
         transfusion:
           type: boolean
+          description: Indicates if the patient has received blood transfusions
+          example: false
         lastTransfusionDate:
           type: string
           format: date-time
+          description: Date of the last blood transfusion
+          example: 2023-12-01T14:00:00
         sickleCell:
           type: boolean
+          description: Indicates if the patient has sickle cell disease
+          example: false
         drugAllergy:
           type: boolean
+          description: Indicates if the patient has a drug allergy
+          example: true
         allergyPrecision:
           type: string
+          description: Details about the allergy
+          example: Allergic to penicillin
         hemylosis:
           type: string
+          description: Information about hemolysis or related conditions
+          example: None
         otherPersonalPathologies:
           type: string
+          description: Other personal pathologies
+          example: Hypertension
         otherFamilyPathologies:
           type: string
+          description: Other family pathologies
+          example: Diabetes
         performedAt:
           type: string
           format: date-time
           description: Medical history performed date
-          example: 2025-08-26 16:15:58
+          example: 2025-08-26T16:15:58
         lock:
           type: integer
           format: int32
-          description: Lock
+          description: Optimistic lock value
           example: 0
       required:
       - patient
