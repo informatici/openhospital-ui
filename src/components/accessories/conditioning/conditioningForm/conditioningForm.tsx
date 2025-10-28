@@ -219,7 +219,7 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
               disabled={isLoading}
             />
           </div>
-          <div className="fullWidth conditioningForm__item">
+          <div className="conditioningForm__item">
             <AutocompleteField
               fieldName="performedBy"
               fieldValue={formik.values.performedBy}
