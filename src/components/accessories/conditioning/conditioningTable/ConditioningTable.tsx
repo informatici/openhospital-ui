@@ -42,7 +42,9 @@ const ConditioningTable: FunctionComponent<IOwnProps> = ({
     sngNumber: t("conditioning.sngNumber"),
     others: t("conditioning.others"),
     cpap: t("conditioning.cpap"),
-    tdr: t("conditioning.tdr"),
+    hivTest: t("conditioning.hivTest"),
+    malaria: t("conditioning.malaria"),
+    bloodGlucoseLevel: t("conditioning.bloodGlucoseLevel"),
     conditionAtAdmission: t("admission.conditionAtAdmission.label"),
   };
 
@@ -85,6 +87,7 @@ const ConditioningTable: FunctionComponent<IOwnProps> = ({
         mce: item.mce ?? "",
         cpap: item.cpap ? t("common.yes") : t("common.no"),
         malaria: item.malaria ?? "",
+        hivTest: item.hivTest ?? "",
         ventilation: item.ventilation ?? "",
         oxygenDebit: item.oxygenDebit ?? "",
         sgVolume: item.sgVolume ?? "",
