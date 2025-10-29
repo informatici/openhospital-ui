@@ -872,7 +872,7 @@
     "admType": "Type d'admission",
     "newadmission": "Nouvelle hospitalisation",
     "editadmission": "Mise a jour de l'admission",
-    "diseaseIn": "Diagnostic de ",
+    "diseaseIn": "Diagnostic d'entré ",
     "ward": "Pavillon",
     "transUnit": "Unité de transfusion",
     "fhu": "Du Bureau de santé",
@@ -1438,10 +1438,10 @@
     "diazepamDose": "Diazépam (mg)",
     "bolusSsVolume": "Bolus SS (CC)",
     "sngNumber": "Numéro SNG",
-    "performedAt": "Date",
+    "performedAt": "Date et heure de la MCE",
     "others": "Autres",
     "cpap": "CPAP",
-    "tdr": "TDR",
+    "malaria": "Paludisme",
     "code": "Code",
     "previousentries": "Mises en condition précédentes",
     "updated": "Mise en condition mise à jour",
@@ -1458,6 +1458,10 @@
       "coma": "Coma",
       "dehydration": "Déshydratation",
       "hypoglycemia": "Hypoglycémie"
-    }
+    },
+    "bloodGlucoseLevel": "Taux de glycémie",
+    "indeterminate": "Indéterminé",
+    "hivTest": "Test du VIH",
+    "performedBy": "Effectué par l'utilisateur"
   }
 }

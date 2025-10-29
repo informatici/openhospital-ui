@@ -7885,11 +7885,11 @@ components:
           type: string
           description: "Flag record deleted, values are 'Y' OR 'N' "
           example: "N"
-        fhu:
-          type: string
         yprog:
           type: integer
           format: int32
+        fhu:
+          type: string
       required:
       - admDate
       - admitted
@@ -8905,14 +8905,27 @@ components:
           - conscious
           items:
             type: string
-        tdr:
+        malaria:
           type: string
-          description: 'Conditioning tdr '
+          description: 'Conditioning malaria '
           example: sonde
+        hivTest:
+          type: string
+          description: 'Conditioning HIV test '
+          example: INDETERMINATE
+        bloodGlucoseLevel:
+          type: number
+          format: double
+          description: 'Conditioning blood glucose level '
+          example: 5.6
         patient:
           $ref: "#/components/schemas/PatientDTO"
           description: patient
           example: 22
+        performedBy:
+          $ref: "#/components/schemas/UserDTO"
+          description: user
+          example: 2
         performedAt:
           type: string
           format: date-time
@@ -8930,6 +8943,7 @@ components:
       required:
       - patient
       - performedAt
+      - performedBy
     BillItemsDTO:
       type: object
       description: Class representing a billItem

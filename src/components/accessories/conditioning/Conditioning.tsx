@@ -54,6 +54,10 @@ const Conditioning: FC = () => {
     (state: IState) => state.patients.selectedPatient.data
   );
 
+  const usersList = useAppSelector(
+    (state: IState) => state.users.userList.data
+  );
+
   const errorMessage = useAppSelector(
     (state) =>
       state.conditioning.newConditioning.error?.message ||
@@ -73,11 +77,29 @@ const Conditioning: FC = () => {
     setShouldResetForm(false);
     if (creationMode) {
       conditioning.patient = patient!;
+      if (
+        conditioning.performedBy &&
+        typeof (conditioning.performedBy as unknown) === "string"
+      ) {
+        const username = conditioning.performedBy as unknown as string;
+        const found = usersList?.find((u) => u.userName === username);
+        conditioning.performedBy =
+          (found as any) ?? ({ userName: username } as any);
+      }
       dispatch(newConditioning(conditioning));
     } else {
       conditioning.id = conditioningToEdit?.id!;
       conditioning.patient = patient!;
       conditioning.lock = conditioningToEdit?.lock!;
+      if (
+        conditioning.performedBy &&
+        typeof (conditioning.performedBy as unknown) === "string"
+      ) {
+        const username = conditioning.performedBy as unknown as string;
+        const found = usersList?.find((u) => u.userName === username);
+        conditioning.performedBy =
+          (found as any) ?? ({ userName: username } as any);
+      }
       dispatch(
         updateConditioning({ id: conditioningToEdit?.id!, body: conditioning })
       );

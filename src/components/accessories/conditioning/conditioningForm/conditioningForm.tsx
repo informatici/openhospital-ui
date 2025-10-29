@@ -4,14 +4,17 @@ import CheckboxField from "components/accessories/checkboxField/CheckboxField";
 import DateField from "components/accessories/dateField/DateField";
 import TextField from "components/accessories/textField/TextField";
 import { useFormik } from "formik";
+import { UserDTO } from "generated";
 import {
   formatAllFieldValues,
   getFromFields,
 } from "libraries/formDataHandling/functions";
-import { useConditionsAtAmission } from "libraries/hooks";
+import { useAppSelector, useConditionsAtAmission } from "libraries/hooks";
+import { useAppDispatch } from "libraries/hooks/redux";
 import { get, has } from "lodash";
 import React, { FC, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { IState } from "types";
 import * as yup from "yup";
 import warningIcon from "../../../../assets/warning-icon.png";
 import Button from "../../button/Button";
@@ -42,13 +45,37 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
     sngNumber: yup.string().nullable(),
     others: yup.string().nullable(),
     cpap: yup.boolean(),
-    tdr: yup.string().nullable(),
+    malaria: yup.string().nullable(),
+    hivTest: yup.string().nullable(),
+    bloodGlucoseLevel: yup.number().nullable(),
+    performedBy: yup.string().nullable(),
     performedAt: yup.date().required(t("common.required")),
   });
 
   const initialValues = getFromFields(fields, "value");
 
+  const userName = useAppSelector(
+    (state: IState) => state.main.authentication.data?.username
+  );
+
+  const dispatch = useAppDispatch();
+
   const { options: conditionAtAdmissionOptions } = useConditionsAtAmission();
+
+  const usersList = useAppSelector(
+    (state: IState) => state.users.userList.data
+  );
+
+  const renderOptions = (data: UserDTO[] | undefined) => {
+    if (data) {
+      return data.map((item) => {
+        return {
+          value: item.userName?.toString() ?? "",
+          label: item.userName ?? "",
+        };
+      });
+    } else return [];
+  };
 
   const [isAspirationChecked, setIsAspirationCheckedChecked] = useState(false);
   const [isCpapChecked, setIsCpapChecked] = useState(false);
@@ -87,7 +114,19 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
 
   const dateFieldHandleOnChange = useCallback(
     (fieldName: string) => (value: any) => {
-      setFieldValue(fieldName, value);
+      if (value) {
+        // Ensure we keep a sensible time when user only picks a date.
+        // If the picked date has time 00:00, default to current hours/minutes so
+        // the form shows a date+time and user can update the time if needed.
+        const newDate = new Date(value);
+        if (newDate.getHours() === 0 && newDate.getMinutes() === 0) {
+          const now = new Date();
+          newDate.setHours(now.getHours(), now.getMinutes());
+        }
+        setFieldValue(fieldName, newDate);
+      } else {
+        setFieldValue(fieldName, value);
+      }
       formik.setFieldTouched(fieldName);
     },
     [formik, setFieldValue]
@@ -118,6 +157,34 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
   const handleCpapChecked = () => {
     setIsCpapChecked(!isCpapChecked);
   };
+
+  const usersStatus = useAppSelector(
+    (state: IState) => state.users.userList.status
+  );
+
+  useEffect(() => {
+    if (!usersList || usersList.length === 0) {
+      import("../../../../state/users").then((m) => {
+        if (m.getUsers) dispatch(m.getUsers({}));
+      });
+    }
+  }, [usersList, dispatch]);
+
+  useEffect(() => {
+    if (creationMode && userName && usersList && usersList.length > 0) {
+      const currentValue = formik.values.performedBy;
+      if (!currentValue || currentValue === "") {
+        const found = usersList.find((u) => u.userName === userName);
+        setFieldValue("performedBy", found ? found.userName : userName);
+      }
+    }
+  }, [
+    creationMode,
+    userName,
+    usersList,
+    setFieldValue,
+    formik.values.performedBy,
+  ]);
 
   useEffect(() => {
     if (!creationMode) {
@@ -150,6 +217,19 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
               errorText={getErrorText("performedAt")}
               label={t("conditioning.performedAt")}
               onChange={dateFieldHandleOnChange("performedAt")}
+              disabled={isLoading}
+            />
+          </div>
+          <div className="conditioningForm__item">
+            <AutocompleteField
+              fieldName="performedBy"
+              fieldValue={formik.values.performedBy}
+              label={t("conditioning.performedBy")}
+              isValid={isValid("performedBy")}
+              errorText={getErrorText("performedBy")}
+              onBlur={onBlurCallback("performedBy")}
+              options={renderOptions(usersList)}
+              loading={usersStatus === "LOADING"}
               disabled={isLoading}
             />
           </div>
@@ -268,13 +348,25 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
           </div>
 
           <div className="conditioningForm__item">
+            <TextField
+              label={t("conditioning.bloodGlucoseLevel")}
+              field={formik.getFieldProps("bloodGlucoseLevel")}
+              theme="regular"
+              isValid={isValid("bloodGlucoseLevel")}
+              errorText={getErrorText("bloodGlucoseLevel")}
+              onBlur={formik.handleBlur}
+              disabled={isLoading}
+            />
+          </div>
+
+          <div className="conditioningForm__item">
             <AutocompleteField
-              fieldName="tdr"
-              fieldValue={formik.values.tdr}
-              label={t("conditioning.tdr")}
-              isValid={isValid("tdr")}
-              errorText={getErrorText("tdr")}
-              onBlur={onBlurCallback("tdr")}
+              fieldName="malaria"
+              fieldValue={formik.values.malaria}
+              label={t("conditioning.malaria")}
+              isValid={isValid("malaria")}
+              errorText={getErrorText("malaria")}
+              onBlur={onBlurCallback("malaria")}
               options={[
                 { value: "POSITIF", label: t("conditioning.positive") },
                 { value: "NEGATIF", label: t("conditioning.negative") },
@@ -282,7 +374,27 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
               disabled={isLoading}
             />
           </div>
-          
+
+          <div className="conditioningForm__item">
+            <AutocompleteField
+              fieldName="hivTest"
+              fieldValue={formik.values.hivTest}
+              label={t("conditioning.hivTest")}
+              isValid={isValid("hivTest")}
+              errorText={getErrorText("hivTest")}
+              onBlur={onBlurCallback("hivTest")}
+              options={[
+                {
+                  value: "INDETERMINATE",
+                  label: t("conditioning.indeterminate"),
+                },
+                { value: "POSITIF", label: t("conditioning.positive") },
+                { value: "NEGATIF", label: t("conditioning.negative") },
+              ]}
+              disabled={isLoading}
+            />
+          </div>
+
           <div className="fullWidth conditioningForm__item">
             <TextField
               field={formik.getFieldProps("others")}

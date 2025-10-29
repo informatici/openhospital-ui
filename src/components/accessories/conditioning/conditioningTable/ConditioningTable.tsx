@@ -42,8 +42,11 @@ const ConditioningTable: FunctionComponent<IOwnProps> = ({
     sngNumber: t("conditioning.sngNumber"),
     others: t("conditioning.others"),
     cpap: t("conditioning.cpap"),
-    tdr: t("conditioning.tdr"),
-    conditionAtAdmission: t("admission.conditionAtAdmission.label"),
+    hivTest: t("conditioning.hivTest"),
+    malaria: t("conditioning.malaria"),
+    bloodGlucoseLevel: t("conditioning.bloodGlucoseLevel"),
+    conditionAtAdmission: t("conditioning.conditionAtAdmission.label"),
+    performedBy: t("conditioning.performedBy"),
   };
 
   const order = ["performedAt"];
@@ -84,7 +87,8 @@ const ConditioningTable: FunctionComponent<IOwnProps> = ({
         aspiration: item.aspiration ? t("common.yes") : t("common.no"),
         mce: item.mce ?? "",
         cpap: item.cpap ? t("common.yes") : t("common.no"),
-        tdr: item.tdr ?? "",
+        malaria: item.malaria ?? "",
+        hivTest: item.hivTest ?? "",
         ventilation: item.ventilation ?? "",
         oxygenDebit: item.oxygenDebit ?? "",
         sgVolume: item.sgVolume ?? "",
@@ -95,6 +99,8 @@ const ConditioningTable: FunctionComponent<IOwnProps> = ({
         conditionAtAdmission: formatConditions(item.conditionAtAdmission).join(
           ", "
         ),
+        bloodGlucoseLevel: item.bloodGlucoseLevel ?? "",
+        performedBy: item.performedBy?.userName ?? "",
       };
     });
   };
