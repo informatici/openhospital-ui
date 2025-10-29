@@ -9,5 +9,6 @@ export const initial: IPharmacyState = {
   updateMovement: new ApiResponse({ status: "IDLE" }),
   deleteMovement: new ApiResponse({ status: "IDLE" }),
   chargeMovements: new ApiResponse({ status: "IDLE" }),
+  dischargeMovements: new ApiResponse({ status: "IDLE" }),
   wardStock: { filter: {} },
 };

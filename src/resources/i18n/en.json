@@ -1262,7 +1262,10 @@
         "dueDate": "Due Date",
         "cost": "Cost per unit",
         "quantity": "Quantity",
-        "ward": "to Ward"
+        "ward": "to Ward",
+        "mainStoreQuantity": "Main Store Quantity",
+        "wardsTotalQuantity": "Wards Total Quantity",
+        "overallQuantity": "Overall Quantity"
       }
     },
     "stock": {

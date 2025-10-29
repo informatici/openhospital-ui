@@ -2,7 +2,9 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
   GetMovementWardRequest,
   MedicalStockWardApi,
+  MovementDTO,
   NewMultipleChargingMovementsRequest,
+  NewMultipleDischargingMovementsRequest,
   StockMovementsApi,
 } from "generated";
 import { customConfiguration } from "libraries/apiUtils/configuration";
@@ -68,6 +70,43 @@ export const chargeMovements = createAsyncThunk(
     try {
       const result = await firstValueFrom(
         wrapper(() => api.newMultipleChargingMovements(payload))
+      );
+      return result;
+    } catch (error: any) {
+      return thunkApi.rejectWithValue(error.response);
+    }
+  }
+);
+
+// export const dischargeMovements = createAsyncThunk(
+//   "pharmacy/dischargeMovements",
+//   async (payload: NewMultipleDischargingMovementsRequest, thunkApi) => {
+//     try {
+//       const result = await firstValueFrom(
+//         wrapper(() => api.newMultipleDischargingMovements(payload))
+//       );
+//       return result;
+//     } catch (error: any) {
+//       return thunkApi.rejectWithValue(error.response);
+//     }
+//   }
+// );
+
+export const dischargeMovements = createAsyncThunk<
+  boolean, // type du retour
+  { ref: string; movementDTO: MovementDTO[] }, // payload attendu
+  { rejectValue: any }
+>(
+  "pharmacy/dischargeMovements",
+  async (payload, thunkApi) => {
+    try {
+      const request: NewMultipleDischargingMovementsRequest = {
+        ref: payload.ref,
+        movementDTO: payload.movementDTO
+      };
+
+      const result = await firstValueFrom(
+        wrapper(() => api.newMultipleDischargingMovements(request))
       );
       return result;
     } catch (error: any) {
