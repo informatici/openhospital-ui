@@ -45,7 +45,8 @@ const ConditioningTable: FunctionComponent<IOwnProps> = ({
     hivTest: t("conditioning.hivTest"),
     malaria: t("conditioning.malaria"),
     bloodGlucoseLevel: t("conditioning.bloodGlucoseLevel"),
-    conditionAtAdmission: t("admission.conditionAtAdmission.label"),
+    conditionAtAdmission: t("conditioning.conditionAtAdmission.label"),
+    performedBy: t("conditioning.performedBy"),
   };
 
   const order = ["performedAt"];
