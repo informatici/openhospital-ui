@@ -758,7 +758,8 @@
     "accessarea": "Zone d'accès",
     "accesscontrollist": "Liste de contrôle d'accès",
     "toggle-check-all": "Activer/désactiver tout vérifier",
-    "all": "Tous"
+    "all": "Tous",
+    "accessform": "Accès au formulaire"
   },
   "therapy": {
     "newtherapy": "Nouvelle thérapie",
