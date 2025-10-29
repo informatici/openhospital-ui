@@ -55,6 +55,10 @@ export const useFields = (conditioning?: ConditioningDTO) => {
       value: conditioning?.malaria ?? "",
       type: "text",
     },
+    hivTest: {
+      value: conditioning?.hivTest ?? "",
+      type: "text",
+    },
     conditionAtAdmission: {
       value: conditioning?.conditionAtAdmission ?? [],
       type: "array",
