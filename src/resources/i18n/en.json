@@ -792,7 +792,8 @@
     "accessarea": "Access area",
     "accesscontrollist": "Access control list",
     "toggle-check-all": "Toggle check all",
-    "all": "All"
+    "all": "All",
+    "accessform": "Access form"
   },
   "therapy": {
     "newtherapy": "New Therapy",

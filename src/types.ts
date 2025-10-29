@@ -77,7 +77,7 @@ export type TPermission =
   | "admissions.update"
   | "admissions.delete"
   | "admissiontypes.create"
-  | "admission.fullacces"
+  | "admission.fullaccess"
   | "admissiontypes.read"
   | "admissiontypes.update"
   | "admissiontypes.delete"
