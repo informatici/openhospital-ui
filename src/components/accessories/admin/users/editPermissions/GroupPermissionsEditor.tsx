@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { PermissionDTO } from "../../../../../generated";
 import { AclTable } from "./AclTable";
 import { AreaAccess } from "./AreaAccess";
+import { FormAccess } from "./FormAccess";
 import { PermissionActionEnum, PermissionActionType } from "./permission.utils";
 
 interface IProps {
@@ -32,6 +33,12 @@ export const GroupPermissionsEditor = ({
     <>
       <h2>{t("permission.accessarea")}</h2>
       <AreaAccess
+        permissions={permissions}
+        groupPermissions={groupPermissions}
+        onChange={handleChange}
+      />
+      <h2>{t("permission.accessform")}</h2>
+      <FormAccess
         permissions={permissions}
         groupPermissions={groupPermissions}
         onChange={handleChange}
