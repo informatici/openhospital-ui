@@ -298,7 +298,7 @@ const MedicalHistoryForm: FC<MedicalHistoryProps> = ({
               <div className="medicalHistoryForm__item">
                 <AutocompleteField
                   fieldName="deliveryMode"
-                  fieldValue={formik.values.deliveryMode || ""}
+                  fieldValue={formik.values.deliveryMode}
                   label={t("medicalHistory.physiological.deliveryMode")}
                   isValid={isValid("deliveryMode")}
                   errorText={getErrorText("deliveryMode")}
