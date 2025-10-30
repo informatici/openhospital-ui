@@ -7001,13 +7001,13 @@ components:
           format: int32
           description: lock
           example: 0
-        male:
+        pharmacy:
           type: boolean
         female:
           type: boolean
-        opd:
+        male:
           type: boolean
-        pharmacy:
+        opd:
           type: boolean
       required:
       - beds
@@ -8348,6 +8348,11 @@ components:
           type: string
           description: Pregnancy term description
           example: FULL TERM
+          maxLength: 50
+        pregnancy:
+          type: string
+          description: Pregnancy information
+          example: "YES"
           maxLength: 50
         deliveryMode:
           type: string

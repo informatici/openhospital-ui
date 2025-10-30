@@ -22,6 +22,10 @@ export const useFields = (medicalhistory?: MedicalHistoryDTO) => {
       value: medicalhistory?.termPregnancy ?? "",
       type: "text",
     },
+    pregnancy: {
+      value: medicalhistory?.pregnancy ?? "",
+      type: "text",
+    },
     deliveryMode: {
       value: medicalhistory?.deliveryMode ?? "",
       type: "text",

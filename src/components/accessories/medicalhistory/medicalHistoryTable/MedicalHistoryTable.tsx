@@ -24,18 +24,22 @@ const MedicalHistoryTable: FunctionComponent<IOwnProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  const header = ["termPregnancy", "deliveryMode"];
-  const dateFields = ["termPregnancy", "deliveryMode"];
+  const header = ["termPregnancy", "siblingRank"];
+  const dateFields = ["termPregnancy", "siblingRank"];
 
   const label = {
     id: t("medicalHistory.id"),
     siblingRank: t("medicalHistory.physiological.siblingRank"),
     termPregnancy: t("medicalHistory.physiological.pregnancyTerm"),
+    pregnancy: t("medicalHistory.physiological.pregnancy"),
     deliveryMode: t("medicalHistory.physiological.deliveryMode"),
+    reasonMode: t("medicalHistory.physiological.reasonMode"),
     apgarScore: t("medicalHistory.physiological.apgarScore"),
     birthWeight: t("medicalHistory.physiological.birthWeight"),
     vaccinationStatePev: t("medicalHistory.physiological.vaccinationStatePev"),
-    vaccinationStateNoPev: t("medicalHistory.physiological.vaccinationStateNoPev"),
+    vaccinationStateNoPev: t(
+      "medicalHistory.physiological.vaccinationStateNoPev"
+    ),
     antiMalarialProphylaxisVap: t(
       "medicalHistory.physiological.antiMalarialProphylaxisVap"
     ),
@@ -49,11 +53,15 @@ const MedicalHistoryTable: FunctionComponent<IOwnProps> = ({
       "medicalHistory.physiological.malariaProphylaxis"
     ),
     diet: t("medicalHistory.physiological.diet"),
-    surgicalProcedure: t("medicalHistory.personalPathological.surgicalProcedure"),
+    surgicalProcedure: t(
+      "medicalHistory.personalPathological.surgicalProcedure"
+    ),
     surgicalProcedureCondition: t(
       "medicalHistory.personalPathological.surgicalProcedureCondition"
     ),
-    surgicalProcedureType: t("medicalHistory.personalPathological.surgicalProcedureType"),
+    surgicalProcedureType: t(
+      "medicalHistory.personalPathological.surgicalProcedureType"
+    ),
     surgicalProcedureDate: t(
       "medicalHistory.personalPathological.surgicalProcedureDate"
     ),
@@ -121,7 +129,10 @@ const MedicalHistoryTable: FunctionComponent<IOwnProps> = ({
         id: item.id ?? "",
         siblingRank: item.siblingRank ?? "",
         termPregnancy: item.termPregnancy ?? "",
-        deliveryMode: item.deliveryMode ?? "",
+        pregnancy: item.pregnancy ?? "",
+        deliveryMode: item.deliveryMode
+          ? t("medicalHistory.physiological." + item.deliveryMode)
+          : "",
         reasonMode: item.reasonMode ?? "",
         apgarScore: item.apgarScore ?? "",
         birthWeight: item.birthWeight ?? "",
@@ -130,7 +141,9 @@ const MedicalHistoryTable: FunctionComponent<IOwnProps> = ({
         antiMalarialProphylaxisVap: item.antiMalarialProphylaxisVap ?? "",
         antiMalarialProphylaxisMilda: item.antiMalarialProphylaxisMilda ?? "",
         antiMalarialProphylaxisOthers: item.antiMalarialProphylaxisOthers ?? "",
-        surgicalProcedure: item.surgicalProcedure ? t("common.yes") : t("common.no"),
+        surgicalProcedure: item.surgicalProcedure
+          ? t("common.yes")
+          : t("common.no"),
         surgicalProcedureCondition: item.surgicalProcedureCondition ?? "",
         surgicalProcedureType: item.vaccinationStatePev ?? "",
         surgicalProcedureDate: item.surgicalProcedureDate
@@ -144,7 +157,9 @@ const MedicalHistoryTable: FunctionComponent<IOwnProps> = ({
         siblings: item.siblings ?? "",
         otherUsefulInformation: item.otherUsefulInformation ?? "",
         diet: item.diet ?? "",
-        deParasitization: item.deParasitization ? t("common.yes") : t("common.no"),
+        deParasitization: item.deParasitization
+          ? t("common.yes")
+          : t("common.no"),
         psychomotorDev: item.psychomotorDev ?? "",
         somaticGrowth: item.somaticGrowth ?? "",
         ironSupplement: item.ironSupplement ? t("common.yes") : t("common.no"),

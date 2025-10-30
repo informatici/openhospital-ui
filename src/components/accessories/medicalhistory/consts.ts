@@ -15,6 +15,10 @@ export const initialFields: TFields<MedicalHistoryFormFieldName> = {
     value: "",
     type: "text",
   },
+  pregnancy: {
+    value: "",
+    type: "text",
+  },
   deliveryMode: {
     value: "",
     type: "text",
