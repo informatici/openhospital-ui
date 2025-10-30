@@ -46,6 +46,12 @@ export interface MedicalHistoryDTO {
      */
     termPregnancy?: string;
     /**
+     * Pregnancy information
+     * @type {string}
+     * @memberof MedicalHistoryDTO
+     */
+    pregnancy?: string;
+    /**
      * Mode of delivery
      * @type {string}
      * @memberof MedicalHistoryDTO

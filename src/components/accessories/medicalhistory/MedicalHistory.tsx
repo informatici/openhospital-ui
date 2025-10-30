@@ -90,6 +90,7 @@ const MedicalHistory: FC = () => {
         patient: patient!,
         siblingRank: mh.siblingRank,
         termPregnancy: mh.termPregnancy,
+        pregnancy: mh.pregnancy,
         deliveryMode: mh.deliveryMode,
         reasonMode: mh.reasonMode,
         apgarScore: mh.apgarScore,
