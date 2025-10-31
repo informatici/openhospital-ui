@@ -7001,13 +7001,13 @@ components:
           format: int32
           description: lock
           example: 0
-        male:
+        pharmacy:
           type: boolean
         female:
           type: boolean
-        opd:
+        male:
           type: boolean
-        pharmacy:
+        opd:
           type: boolean
       required:
       - beds

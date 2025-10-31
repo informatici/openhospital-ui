@@ -275,7 +275,9 @@
     "radiology": "Radiologie",
     "status_open": "Ouverte",
     "status_closed": "Fermée",
-    "encounterId": "ID Rencontre"
+    "encounterId": "ID Rencontre",
+    "information": "Information",
+    "informationmessage": "Veuillez créer une rencontre pour ce patient avant de continuer."
   },
   "opd": {
     "newopd": "Créer une nouvelle visite OPD",
@@ -685,6 +687,7 @@
       "pregnancyAndDelivery": "Grossesse et Accouchement",
       "siblingRank": "Rang de la fratrie",
       "pregnancyTerm": "Terme",
+      "pregnancy": "Grossesse",
       "deliveryMode": "Mode",
       "apgarScore": "APGAR",
       "birthWeight": "Poids",
@@ -706,7 +709,7 @@
       "folicAcidSupplement": "acide folique ",
       "vitASupplement": " Vitamine A ",
       "otherSupplements": "Autre supplémentation",
-      "lowBirthWeight": "Voie base",
+      "vaginaldelivery": "Voie base",
       "cesarian": "Césarienne",
       "reasonMode": "Motif de la césarienne"
     },
@@ -719,7 +722,7 @@
       "neonatalPeriod": "Période néonatale",
       "previousHospitalization": "Hospitalisation préalable",
       "surgicalProcedure": "Intervention chirurgicale",
-      "surgicalProcedureCondition": "Condition de l'intervention",
+      "surgicalProcedureCondition": "Pathologie",
       "surgicalProcedureType": "Type de l'intervention",
       "surgicalProcedureDate": "Date de l'intervention",
       "allergyPrecision": "Précision allergie médicamenteuse",

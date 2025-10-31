@@ -17,6 +17,7 @@ export type MedicalHistoryProps = IMedicalHistoryProps;
 export type MedicalHistoryFormFieldName =
   | "siblingRank"
   | "termPregnancy"
+  | "pregnancy"
   | "deliveryMode"
   | "reasonMode"
   | "apgarScore"

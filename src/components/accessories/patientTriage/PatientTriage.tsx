@@ -4,6 +4,7 @@ import { FC, default as React, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router";
 import checkIcon from "../../../assets/check-icon.png";
+import failIcon from "../../../assets/fail-icon.png";
 import { PatientExaminationDTO } from "../../../generated";
 import { updateTriageFields } from "../../../libraries/formDataHandling/functions";
 import { Permission } from "../../../libraries/permissionUtils/Permission";
@@ -27,6 +28,7 @@ import { initialFields } from "./consts";
 import PatientTriageForm from "./patientTriageForm/PatientTriageForm";
 import PatientTriageTable from "./patientTriageTable/PatientTriageTable";
 import "./styles.scss";
+
 export type TActivityTransitionState = "IDLE" | "TO_RESET" | "FAIL";
 
 const PatientTriage: FC = () => {
@@ -156,8 +158,14 @@ const PatientTriage: FC = () => {
     }
   }, [dispatch, isPrinting, triageToEdit?.pex_ID]);
 
+  const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
+
   const onSubmit = (triage: PatientExaminationDTO) => {
     setShouldResetForm(false);
+    if (!encounter) {
+      setOpenConfirmDialog(true);
+      return;
+    }
     triage.patientCode = patientDataCode ?? -1;
     if (triageToEdit.pex_ID) triage.pex_ID = triageToEdit.pex_ID;
     if (!creationMode && triageToEdit.pex_ID) {
@@ -353,6 +361,15 @@ const PatientTriage: FC = () => {
             setActivityTransitionState("TO_RESET")
           }
           handleSecondaryButtonClick={() => {}}
+        />
+        <ConfirmationDialog
+          isOpen={openConfirmDialog}
+          title={t("encounters.information")}
+          icon={failIcon}
+          info={t("encounters.informationmessage")}
+          primaryButtonLabel="Ok"
+          handlePrimaryButtonClick={() => setOpenConfirmDialog(false)}
+          handleSecondaryButtonClick={() => ({})}
         />
       </Permission>
     </div>

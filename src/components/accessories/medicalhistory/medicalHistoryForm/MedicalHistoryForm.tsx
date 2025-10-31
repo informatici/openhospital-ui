@@ -36,6 +36,7 @@ const MedicalHistoryForm: FC<MedicalHistoryProps> = ({
   const validationSchema = object({
     siblingRank: string().nullable(),
     termPregnancy: string().nullable(),
+    pregnancy: string().nullable(),
     deliveryMode: string().nullable(),
     reasonMode: string().nullable(),
     apgarScore: string().nullable(),
@@ -237,6 +238,17 @@ const MedicalHistoryForm: FC<MedicalHistoryProps> = ({
       : "";
   };
 
+    const deliveryModeOption = [
+      {
+        value: "vaginaldelivery",
+        label: t("medicalHistory.physiological.vaginaldelivery"),
+      },
+      {
+        value: "cesarian",
+        label: t("medicalHistory.physiological.cesarian"),
+      },
+    ];
+
   return (
     <>
       <div className="medicalHistoryForm">
@@ -284,6 +296,17 @@ const MedicalHistoryForm: FC<MedicalHistoryProps> = ({
               {t("medicalHistory.physiological.pregnancyAndDelivery")}
             </h4>
             <div className="row start-sm center-xs bottom-sm">
+              <div className="fullWidth medicalHistoryForm__item">
+                <TextField
+                  label={t("medicalHistory.physiological.pregnancy")}
+                  field={formik.getFieldProps("pregnancy")}
+                  theme="regular"
+                  isValid={isValid("pregnancy")}
+                  errorText={getErrorText("pregnancy")}
+                  onBlur={formik.handleBlur}
+                  disabled={isLoading}
+                />
+              </div>
               <div className="medicalHistoryForm__item">
                 <TextField
                   label={t("medicalHistory.physiological.pregnancyTerm")}
@@ -304,18 +327,14 @@ const MedicalHistoryForm: FC<MedicalHistoryProps> = ({
                   errorText={getErrorText("deliveryMode")}
                   onBlur={formik.handleBlur}
                   onChange={(event, value) => {
-                    setIsCesarianMode(!!value && value.value === "CESARIAN");
+                    formik.setFieldValue("deliveryMode", value?.value || "");
+                    const isCesarian = !!value && value.value === "cesarian";
+                    setIsCesarianMode(isCesarian);
+                    if (!isCesarian) {
+                      formik.setFieldValue("reasonMode", "");
+                    }
                   }}
-                  options={[
-                    {
-                      value: "LOW_BIRTH_WEIGHT",
-                      label: t("medicalHistory.physiological.lowBirthWeight"),
-                    },
-                    {
-                      value: "CESARIAN",
-                      label: t("medicalHistory.physiological.cesarian"),
-                    },
-                  ]}
+                  options={deliveryModeOption}
                   disabled={isLoading}
                 />
               </div>

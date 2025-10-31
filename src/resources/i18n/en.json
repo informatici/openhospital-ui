@@ -308,7 +308,9 @@
     "radiology": "Radiology",
     "status_open": "Open",
     "status_closed": "Closed",
-    "encounterId": "Encounter ID"
+    "encounterId": "Encounter ID",
+    "information": "Information",
+    "informationmessage": "Please Create an encounter for this patient before continous."
   },
   "opd": {
     "newopd": "Create new OPD Visit",
@@ -719,6 +721,7 @@
       "pregnancyAndDelivery": "Pregnancy and Delivery",
       "siblingRank": "Sibling Rank",
       "pregnancyTerm": "Pregnancy Term",
+      "pregnancy": "Pregnancy",
       "deliveryMode": "Mode",
       "apgarScore": "APGAR",
       "birthWeight": "Birth Weight",
@@ -740,7 +743,7 @@
       "folicAcidSupplement": "Folic Acid ",
       "vitASupplement": "Vitamin A ",
       "otherSupplements": "Other Supplementation",
-      "lowBirthWeight": "Vaginal delivery",
+      "vaginaldelivery": "Vaginal delivery",
       "cesarian": "Cesarian",
       "reasonMode": "Cesarian reason"
     },
@@ -753,7 +756,7 @@
       "neonatalPeriod": "Neonatal Period",
       "previousHospitalization": "Previous Hospitalization",
       "surgicalProcedure": "Surgical Procedure",
-      "surgicalProcedureCondition": "Surgical Procedure Condition",
+      "surgicalProcedureCondition": "Pathology",
       "surgicalProcedureType": "Surgical Procedure Type",
       "surgicalProcedureDate": "Surgical Procedure Date",
       "allergyPrecision": "Allergy Precision",
