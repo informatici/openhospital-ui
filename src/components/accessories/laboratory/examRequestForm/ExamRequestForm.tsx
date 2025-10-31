@@ -4,8 +4,10 @@ import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { get, has } from "lodash";
 import React, { FC, useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useParams } from "react-router";
 import { object, string } from "yup";
 import checkIcon from "../../../../assets/check-icon.png";
+import failIcon from "../../../../assets/fail-icon.png";
 import {
   ExamDTO,
   LaboratoryDTO,
@@ -121,11 +123,24 @@ const ExamRequestForm: FC<ExamRequestProps> = ({
     dispatch(createLabRequest(lab));
   };
 
+  const { id, code } = useParams();
+  const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
+
+  const encounter = useAppSelector((state) =>
+    state.encounters.getEncountersByPatient.data?.find(
+      (item) => item.patient.code?.toString() === id && item.code === code
+    )
+  );
+
   const formik = useFormik({
     initialValues,
     validationSchema,
     enableReinitialize: true,
     onSubmit: (values) => {
+      if (!encounter) {
+        setOpenConfirmDialog(true);
+        return;
+      }
       const formattedValues = formatAllFieldValues(fields, values);
       onSubmit(formattedValues);
     },
@@ -242,6 +257,15 @@ const ExamRequestForm: FC<ExamRequestProps> = ({
               info={t("lab.examrequestcreated")}
               primaryButtonLabel="Ok"
               handlePrimaryButtonClick={onClose}
+              handleSecondaryButtonClick={() => ({})}
+            />
+            <ConfirmationDialog
+              isOpen={openConfirmDialog}
+              title={t("encounters.information")}
+              icon={failIcon}
+              info={t("encounters.informationmessage")}
+              primaryButtonLabel="Ok"
+              handlePrimaryButtonClick={() => setOpenConfirmDialog(false)}
               handleSecondaryButtonClick={() => ({})}
             />
           </div>

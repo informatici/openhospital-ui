@@ -15,6 +15,7 @@ import {
 } from "state/medicalhistory";
 import { getPatient } from "state/patients/thunk";
 import checkIcon from "../../../assets/check-icon.png";
+import failIcon from "../../../assets/fail-icon.png";
 import { IState } from "../../../types";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import InfoBox from "../infoBox/InfoBox";
@@ -71,6 +72,8 @@ const MedicalHistory: FC = () => {
 
   const fields = useFields(medicalHistoryToEdit);
 
+  const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
+
   const errorMessage = useAppSelector(
     (state) =>
       state.medicalhistory.createMedicalHistory.error?.message ||
@@ -80,6 +83,10 @@ const MedicalHistory: FC = () => {
 
   const onSubmit = (mh: MedicalHistoryDTO) => {
     setShouldResetForm(false);
+    if (!encounter) {
+      setOpenConfirmDialog(true);
+      return;
+    }
     if (creationMode) {
       mh.drugAllergy = mh.allergyPrecision ? true : false;
       mh.patient = patient!;
@@ -230,6 +237,15 @@ const MedicalHistory: FC = () => {
         }
         primaryButtonLabel="Ok"
         handlePrimaryButtonClick={() => setActivityTransitionState("TO_RESET")}
+        handleSecondaryButtonClick={() => ({})}
+      />
+      <ConfirmationDialog
+        isOpen={openConfirmDialog}
+        title={t("encounters.information")}
+        icon={failIcon}
+        info={t("encounters.informationmessage")}
+        primaryButtonLabel="Ok"
+        handlePrimaryButtonClick={() => setOpenConfirmDialog(false)}
         handleSecondaryButtonClick={() => ({})}
       />
     </div>
