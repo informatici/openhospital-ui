@@ -467,7 +467,8 @@
       "admission": "Admission",
       "followUp": "Follow-up"
     },
-    "examinationType": "Examination Type"
+    "examinationType": "Examination Type",
+    "ipt": "Weight height index (WHI)"
   },
   "encounter": {
     "code": "Encounter code",

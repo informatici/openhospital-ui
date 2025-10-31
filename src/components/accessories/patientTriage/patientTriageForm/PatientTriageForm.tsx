@@ -198,7 +198,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
       label: option.label,
       value: option.id,
     }));
-  }
+  };
 
   useEffect(() => {
     if (shouldResetForm) {
@@ -246,6 +246,17 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
                 errorText={getErrorText("pex_type")}
                 onBlur={onBlurCallback("pex_type")}
                 options={renderOptions(examinationTypes)}
+                disabled={isLoading}
+              />
+            </div>
+            <div className="patientTriageForm__item">
+              <TextField
+                field={formik.getFieldProps("pex_ipt")}
+                theme="regular"
+                label={t("examination.ipt")}
+                isValid={isValid("pex_ipt")}
+                errorText={getErrorText("pex_ipt")}
+                onBlur={formik.handleBlur}
                 disabled={isLoading}
               />
             </div>

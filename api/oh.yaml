@@ -7885,11 +7885,11 @@ components:
           type: string
           description: "Flag record deleted, values are 'Y' OR 'N' "
           example: "N"
+        fhu:
+          type: string
         yprog:
           type: integer
           format: int32
-        fhu:
-          type: string
       required:
       - admDate
       - admitted
@@ -8352,8 +8352,7 @@ components:
         pregnancy:
           type: string
           description: Pregnancy information
-          example: "YES"
-          maxLength: 50
+          example: Pregnancy description
         deliveryMode:
           type: string
           description: Mode of delivery
@@ -8847,6 +8846,10 @@ components:
           format: double
           description: Branchial perimeter
           example: 3.5
+        pex_ipt:
+          type: string
+          description: IPT
+          example: regular
       required:
       - patientCode
       - pex_date
