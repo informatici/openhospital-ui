@@ -142,6 +142,12 @@ export interface PatientExaminationDTO {
      * @memberof PatientExaminationDTO
      */
     pex_branchial_perimeter?: number;
+    /**
+     * IPT
+     * @type {string}
+     * @memberof PatientExaminationDTO
+     */
+    pex_ipt?: string;
 }
 
 /**

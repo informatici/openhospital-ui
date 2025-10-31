@@ -450,6 +450,17 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
           <div className="row start-sm center-xs">
             <div className="patientTriageForm__item fullWidth">
               <TextField
+                field={formik.getFieldProps("pex_ipt")}
+                theme="regular"
+                label={t("examination.ipt")}
+                isValid={isValid("pex_ipt")}
+                errorText={getErrorText("pex_ipt")}
+                onBlur={formik.handleBlur}
+                disabled={isLoading}
+              />
+            </div>
+            <div className="patientTriageForm__item fullWidth">
+              <TextField
                 field={formik.getFieldProps("pex_note")}
                 theme="regular"
                 label={t("examination.note")}

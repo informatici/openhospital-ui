@@ -34,4 +34,5 @@ export type TPatientTriageFormFieldName =
   | "pex_diuresis_desc"
   | "pex_body_mass_index"
   | "pex_branchial_perimeter"
-  | "pex_type";
+  | "pex_type"
+  | "pex_ipt";

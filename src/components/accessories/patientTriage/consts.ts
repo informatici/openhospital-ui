@@ -96,5 +96,9 @@ export const initialFields: TFields<TPatientTriageFormFieldName> = {
   pex_type: {
     value: "",
     type: "text",
-  }
+  },
+  pex_ipt: {
+    value: "",
+    type: "text",
+  },
 };

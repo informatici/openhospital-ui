@@ -432,7 +432,8 @@
       "admission": "Admission",
       "followUp": "Suivi"
     },
-    "examinationType": "Type de paramètre"
+    "examinationType": "Type de paramètre",
+    "ipt": "Indice poid taille(IPT)"
   },
   "encounter": {
     "code": "Code de la rencontre",
