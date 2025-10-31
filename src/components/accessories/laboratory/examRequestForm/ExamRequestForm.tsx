@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 import { useParams } from "react-router";
 import { object, string } from "yup";
 import checkIcon from "../../../../assets/check-icon.png";
+import failIcon from "../../../../assets/fail-icon.png";
 import {
   ExamDTO,
   LaboratoryDTO,
@@ -25,7 +26,6 @@ import {
   createLabRequestReset,
 } from "../../../../state/laboratories";
 import { IState } from "../../../../types";
-import failIcon from "../../../assets/fail-icon.png";
 import AutocompleteField from "../../autocompleteField/AutocompleteField";
 import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
 import InfoBox from "../../infoBox/InfoBox";
