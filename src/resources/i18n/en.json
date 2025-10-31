@@ -308,7 +308,9 @@
     "radiology": "Radiology",
     "status_open": "Open",
     "status_closed": "Closed",
-    "encounterId": "Encounter ID"
+    "encounterId": "Encounter ID",
+    "information": "Information",
+    "informationmessage": "Please Create an encounter for this patient before continous."
   },
   "opd": {
     "newopd": "Create new OPD Visit",

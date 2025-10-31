@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { useParams } from "react-router";
 import { getPatient } from "state/patients";
 import checkIcon from "../../../assets/check-icon.png";
+import failIcon from "../../../assets/fail-icon.png";
 import { AdmissionDTO, PatientDTOStatusEnum } from "../../../generated";
 import { usePermission } from "../../../libraries/permissionUtils/usePermission";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
@@ -94,8 +95,14 @@ const PatientAdmission: FC = () => {
 
   const fields = useFields(admissionToEdit, lastOpd?.disease);
 
+  const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
+
   const onSubmit = (adm: AdmissionDTO) => {
     setShouldResetForm(false);
+    if (!encounter) {
+      setOpenConfirmDialog(true);
+      return;
+    }
     if (creationMode) {
       adm.patient = patient;
       adm.userID = username;
@@ -262,6 +269,15 @@ const PatientAdmission: FC = () => {
         }
         primaryButtonLabel="Ok"
         handlePrimaryButtonClick={() => setActivityTransitionState("TO_RESET")}
+        handleSecondaryButtonClick={() => ({})}
+      />
+      <ConfirmationDialog
+        isOpen={openConfirmDialog}
+        title={t("encounters.information")}
+        icon={failIcon}
+        info={t("encounters.informationmessage")}
+        primaryButtonLabel="Ok"
+        handlePrimaryButtonClick={() => setOpenConfirmDialog(false)}
         handleSecondaryButtonClick={() => ({})}
       />
     </div>

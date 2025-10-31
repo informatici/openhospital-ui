@@ -12,6 +12,7 @@ import {
 } from "state/conditionings";
 import { IState } from "types";
 import checkIcon from "../../../assets/check-icon.png";
+import failIcon from "../../../assets/fail-icon.png";
 import { ConditioningDTO } from "../../../generated";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import InfoBox from "../infoBox/InfoBox";
@@ -73,8 +74,14 @@ const Conditioning: FC = () => {
 
   const fields = useFields(conditioningToEdit);
 
+  const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
+
   const onSubmit = (conditioning: ConditioningDTO) => {
     setShouldResetForm(false);
+    if (!encounter) {
+      setOpenConfirmDialog(true);
+      return;
+    }
     if (creationMode) {
       conditioning.patient = patient!;
       if (
@@ -173,6 +180,15 @@ const Conditioning: FC = () => {
         }
         primaryButtonLabel="Ok"
         handlePrimaryButtonClick={() => setActivityTransitionState("TO_RESET")}
+        handleSecondaryButtonClick={() => ({})}
+      />
+      <ConfirmationDialog
+        isOpen={openConfirmDialog}
+        title={t("encounters.information")}
+        icon={failIcon}
+        info={t("encounters.informationmessage")}
+        primaryButtonLabel="Ok"
+        handlePrimaryButtonClick={() => setOpenConfirmDialog(false)}
         handleSecondaryButtonClick={() => ({})}
       />
     </div>
