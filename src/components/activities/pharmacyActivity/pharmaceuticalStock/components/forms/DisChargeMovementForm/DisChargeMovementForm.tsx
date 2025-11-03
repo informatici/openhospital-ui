@@ -72,11 +72,9 @@ export function DisChargeMovementForm({
   //   }
   // }, [values]);
 
-  // 👉 fonction appelée quand on clique sur "Submit"
   const handleFormSubmit = (data: TFormValues) => {
     if (!data.lots || data.lots.length === 0) return;
 
-    // ✅ Filtrer uniquement les lots renseignés
     const filledLots = data.lots.filter(
       (lot) => lot.ward && lot.quantity && lot.quantity > 0
     );
@@ -98,7 +96,6 @@ export function DisChargeMovementForm({
       refNo: data.refNo,
     }));
 
-    console.log("🟢 Movements à soumettre :", movements);
     onSubmit?.(movements);
   };
 
@@ -115,9 +112,7 @@ export function DisChargeMovementForm({
     <div className="dischargeMovementForm">
       <form
         className="form-grid-layout gap-2"
-        onSubmit={handleSubmit(handleFormSubmit, (errors) => {
-          console.error("❌ Erreurs de validation :", errors);
-        })}
+        onSubmit={handleSubmit(handleFormSubmit)}
       >
         <DateFormField
           format={DATETIME_FORMAT}
@@ -157,7 +152,6 @@ export function DisChargeMovementForm({
           <Button
             type="submit"
             variant="contained"
-            onClick={() => console.log("🟡 Bouton cliqué")}
           >
             {t("pharmacy.form.fields.discharge")}
           </Button>
