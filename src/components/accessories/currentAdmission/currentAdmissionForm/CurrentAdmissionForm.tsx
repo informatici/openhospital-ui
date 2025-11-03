@@ -319,7 +319,7 @@ export const CurrentAdmissionForm: FunctionComponent<IOwnProps> = ({
               </div>
             </div>
           </div>
-          <Permission require="admission.fullaccess">
+          <Permission require="admissions.fullaccess">
             <>
               <div className="fullWidth currentAdmissionForm__item">
                 <TextField
