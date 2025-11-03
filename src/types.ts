@@ -252,4 +252,11 @@ export type TPermission =
   | "medicalhistories.create"
   | "medicalhistories.delete"
   | "medicalhistories.read"
-  | "medicalhistories.update";
+  | "medicalhistories.update"
+  | "encounters.access"
+  | "conditionings.access"
+  | "admissions.access"
+  | "medicalhistories.access"
+  | "examinations.access"
+  | "operations.access"
+  | "clinics.access";
