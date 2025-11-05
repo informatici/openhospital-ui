@@ -77,7 +77,6 @@ export type TPermission =
   | "admissions.update"
   | "admissions.delete"
   | "admissiontypes.create"
-  | "admission.fullaccess"
   | "admissiontypes.read"
   | "admissiontypes.update"
   | "admissiontypes.delete"
@@ -252,4 +251,12 @@ export type TPermission =
   | "medicalhistories.create"
   | "medicalhistories.delete"
   | "medicalhistories.read"
-  | "medicalhistories.update";
+  | "medicalhistories.update"
+  | "encounters.access"
+  | "conditionings.access"
+  | "admissions.access"
+  | "medicalhistories.access"
+  | "examinations.access"
+  | "operations.access"
+  | "admissions.fullaccess"
+  | "clinics.access";

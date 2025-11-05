@@ -248,6 +248,45 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
             />
           </div>
           <div className="conditioningForm__item">
+            <AutocompleteField
+              fieldName="malaria"
+              fieldValue={formik.values.malaria}
+              label={t("conditioning.malaria")}
+              isValid={isValid("malaria")}
+              errorText={getErrorText("malaria")}
+              onBlur={onBlurCallback("malaria")}
+              options={[
+                {
+                  value: "INDETERMINATE",
+                  label: t("conditioning.indeterminate"),
+                },
+                { value: "POSITIF", label: t("conditioning.positive") },
+                { value: "NEGATIF", label: t("conditioning.negative") },
+              ]}
+              disabled={isLoading}
+            />
+          </div>
+
+          <div className="conditioningForm__item">
+            <AutocompleteField
+              fieldName="hivTest"
+              fieldValue={formik.values.hivTest}
+              label={t("conditioning.hivTest")}
+              isValid={isValid("hivTest")}
+              errorText={getErrorText("hivTest")}
+              onBlur={onBlurCallback("hivTest")}
+              options={[
+                {
+                  value: "INDETERMINATE",
+                  label: t("conditioning.indeterminate"),
+                },
+                { value: "POSITIF", label: t("conditioning.positive") },
+                { value: "NEGATIF", label: t("conditioning.negative") },
+              ]}
+              disabled={isLoading}
+            />
+          </div>
+          <div className="conditioningForm__item">
             <CheckboxField
               fieldName="aspiration"
               label={t("conditioning.aspiration")}
@@ -355,42 +394,6 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
               isValid={isValid("bloodGlucoseLevel")}
               errorText={getErrorText("bloodGlucoseLevel")}
               onBlur={formik.handleBlur}
-              disabled={isLoading}
-            />
-          </div>
-
-          <div className="conditioningForm__item">
-            <AutocompleteField
-              fieldName="malaria"
-              fieldValue={formik.values.malaria}
-              label={t("conditioning.malaria")}
-              isValid={isValid("malaria")}
-              errorText={getErrorText("malaria")}
-              onBlur={onBlurCallback("malaria")}
-              options={[
-                { value: "POSITIF", label: t("conditioning.positive") },
-                { value: "NEGATIF", label: t("conditioning.negative") },
-              ]}
-              disabled={isLoading}
-            />
-          </div>
-
-          <div className="conditioningForm__item">
-            <AutocompleteField
-              fieldName="hivTest"
-              fieldValue={formik.values.hivTest}
-              label={t("conditioning.hivTest")}
-              isValid={isValid("hivTest")}
-              errorText={getErrorText("hivTest")}
-              onBlur={onBlurCallback("hivTest")}
-              options={[
-                {
-                  value: "INDETERMINATE",
-                  label: t("conditioning.indeterminate"),
-                },
-                { value: "POSITIF", label: t("conditioning.positive") },
-                { value: "NEGATIF", label: t("conditioning.negative") },
-              ]}
               disabled={isLoading}
             />
           </div>

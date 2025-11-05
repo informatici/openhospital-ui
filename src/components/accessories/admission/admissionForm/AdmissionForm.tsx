@@ -582,7 +582,7 @@ const AdmissionForm: FC<AdmissionProps> = ({
               </div>
             </div>
           </div>
-          <Permission require="admission.fullaccess">
+          <Permission require="admissions.fullaccess">
             <>
               <div className="row start-sm center-xs">
                 <div className="fullWidth patientAdmissionForm__item">

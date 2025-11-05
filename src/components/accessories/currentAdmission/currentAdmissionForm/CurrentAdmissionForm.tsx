@@ -319,7 +319,7 @@ export const CurrentAdmissionForm: FunctionComponent<IOwnProps> = ({
               </div>
             </div>
           </div>
-          <Permission require="admission.fullaccess">
+          <Permission require="admissions.fullaccess">
             <>
               <div className="fullWidth currentAdmissionForm__item">
                 <TextField
@@ -332,6 +332,21 @@ export const CurrentAdmissionForm: FunctionComponent<IOwnProps> = ({
                   errorText={getErrorText("entryReason")}
                   onBlur={formik.handleBlur}
                   rows={1}
+                  disabled={isLoading}
+                  maxLength={2000}
+                />
+              </div>
+              <div className="fullWidth currentAdmissionForm__item">
+                <TextField
+                  field={formik.getFieldProps("anamnesis")}
+                  theme="regular"
+                  label={t("admission.anamnesis")}
+                  multiline={true}
+                  type="text"
+                  isValid={isValid("anamnesis")}
+                  errorText={getErrorText("anamnesis")}
+                  onBlur={formik.handleBlur}
+                  rows={5}
                   disabled={isLoading}
                   maxLength={2000}
                 />
@@ -367,21 +382,6 @@ export const CurrentAdmissionForm: FunctionComponent<IOwnProps> = ({
                 />
               </div>
               <div className="fullWidth currentAdmissionForm__item">
-                <TextField
-                  field={formik.getFieldProps("anamnesis")}
-                  theme="regular"
-                  label={t("admission.anamnesis")}
-                  multiline={true}
-                  type="text"
-                  isValid={isValid("anamnesis")}
-                  errorText={getErrorText("anamnesis")}
-                  onBlur={formik.handleBlur}
-                  rows={5}
-                  disabled={isLoading}
-                  maxLength={2000}
-                />
-              </div>
-              <div className="currentAdmissionForm__item">
                 <AutocompleteField
                   fieldName="diseaseIn"
                   fieldValue={formik.values.diseaseIn}
