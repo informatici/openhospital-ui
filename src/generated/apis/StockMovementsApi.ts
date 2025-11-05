@@ -84,7 +84,7 @@ export interface GetMovements7Request {
     to: string;
 }
 
-export interface NewMultipleChargingMovementsRequest {
+export interface    NewMultipleChargingMovementsRequest {
     ref: string;
     movementDTO: Array<MovementDTO>;
 }

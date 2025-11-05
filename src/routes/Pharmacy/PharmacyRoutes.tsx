@@ -10,6 +10,7 @@ import React, { ReactNode } from "react";
 import { Route, Routes } from "react-router";
 import { PATHS } from "../../consts";
 import Pharmaceutical from "components/activities/pharmacyActivity/pharmaceutical/Pharmaceutical";
+import NewPharmaceuticalForm from "components/activities/pharmacyActivity/pharmaceutical/components/forms/mewPharmaceuticalForm/NewPharmaceuticalForm";
 
 const getPath = (from: string) => from.replace(`${PATHS.pharmacy}/`, "");
 
@@ -33,6 +34,10 @@ const routes: { element: ReactNode; path: string }[] = [
   {
     path: getPath(PATHS.pharmacy_pharmaceuticalstock_charge),
     element: <ChargeMovement />,
+  },
+  {
+    path: getPath(PATHS.pharmacy_pharmaceutical_new),
+    element: <NewPharmaceuticalForm />,
   },
 ];
 

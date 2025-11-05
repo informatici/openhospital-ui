@@ -1233,7 +1233,13 @@
       "pharmaceutical": "Medical products",
       "pharmaceutical-stock": "Pharmaceutical stock",
       "ward-stock": "Ward stock",
-      "charge-movement": "Charge movement"
+      "charge-movement": "Charge movement",
+      "pharmaceutical-new-title": "New pharmaceutical",
+      "pharmaceutical-created": "Pharmaceutical created",
+      "pharmaceutical-add-another": "Add another pharmaceutical",
+      "pharmaceutical-success": "successfully!",
+      "pharmaceutical-cancel": "Cancel",
+      "pharmaceutical-ok": "OK"
     },
     "form": {
       "fields": {
@@ -1245,7 +1251,13 @@
         "date": "Movement Date",
         "quantity": "Quantity",
         "supplier": "Supplier",
-        "refNo": "Reference Number"
+        "refNo": "Reference Number",
+        "prodCode": "Code",
+        "typeMedical": "Type",
+        "description": "Description",
+        "pcsperpck": "Pieces per Packet",
+        "minqty": "Critical level",
+        "deleted": "Deleted"
       }
     },
     "lot": {
@@ -1286,7 +1298,7 @@
       "addMedecine": "Add medicine",
       "order": "Order",
       "expiring": "Expiring",
-      "amcReport": "AMC report",  
+      "amcReport": "AMC report",
       "movementType": {
         "charge": "Charge",
         "discharge": "Discharge"

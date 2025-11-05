@@ -5,7 +5,7 @@ export const MOVEMENTS: MovementDTO[] = [
     code: 1001,
     medical: {
       code: 1,
-      prod_code: "PARA500",
+      prodCode: "PARA500",
       description: "Paracetamol 500mg tablets",
       type: { code: "DRUG", description: "Pharmaceutical" },
       initialqty: 2000,
@@ -35,7 +35,7 @@ export const MOVEMENTS: MovementDTO[] = [
     code: 1002,
     medical: {
       code: 2,
-      prod_code: "AMOX500",
+      prodCode: "AMOX500",
       description: "Amoxicillin 500mg capsules",
       type: { code: "DRUG", description: "Antibiotic" },
       initialqty: 1000,
@@ -49,7 +49,7 @@ export const MOVEMENTS: MovementDTO[] = [
     code: 1003,
     medical: {
       code: 3,
-      prod_code: "GAUZE01",
+      prodCode: "GAUZE01",
       description: "Sterile Gauze Pads",
       type: { code: "SUPPLY", description: "Medical Supply" },
       initialqty: 500,
@@ -74,7 +74,7 @@ export const MOVEMENTS: MovementDTO[] = [
     code: 1004,
     medical: {
       code: 1,
-      prod_code: "PARA500",
+      prodCode: "PARA500",
       description: "Paracetamol 500mg tablets",
     },
     type: { code: "OUT", description: "Dispensed to pharmacy", type: "OUT" },
@@ -86,7 +86,7 @@ export const MOVEMENTS: MovementDTO[] = [
     code: 1005,
     medical: {
       code: 4,
-      prod_code: "VITC100",
+      prodCode: "VITC100",
       description: "Vitamin C 100mg tablets",
       type: { code: "SUPPLEMENT", description: "Vitamin supplement" },
     },
@@ -99,7 +99,7 @@ export const MOVEMENTS: MovementDTO[] = [
     code: 1006,
     medical: {
       code: 5,
-      prod_code: "SALT01",
+      prodCode: "SALT01",
       description: "Normal Saline 500ml",
       type: { code: "FLUID", description: "Infusion fluid" },
     },
@@ -112,7 +112,7 @@ export const MOVEMENTS: MovementDTO[] = [
     code: 1007,
     medical: {
       code: 6,
-      prod_code: "INS100",
+      prodCode: "INS100",
       description: "Insulin 100 IU/ml",
       type: { code: "DRUG", description: "Hormone" },
     },
@@ -132,7 +132,7 @@ export const MOVEMENTS: MovementDTO[] = [
     code: 1008,
     medical: {
       code: 2,
-      prod_code: "AMOX500",
+      prodCode: "AMOX500",
       description: "Amoxicillin 500mg capsules",
     },
     type: { code: "OUT", description: "Dispensed to patient", type: "OUT" },
@@ -144,7 +144,7 @@ export const MOVEMENTS: MovementDTO[] = [
     code: 1009,
     medical: {
       code: 7,
-      prod_code: "GLOVEXL",
+      prodCode: "GLOVEXL",
       description: "Latex Gloves (XL)",
       type: { code: "SUPPLY", description: "Disposable" },
     },
@@ -157,7 +157,7 @@ export const MOVEMENTS: MovementDTO[] = [
     code: 1010,
     medical: {
       code: 7,
-      prod_code: "GLOVEXL",
+      prodCode: "GLOVEXL",
       description: "Latex Gloves (XL)",
     },
     type: { code: "OUT", description: "Distributed to wards", type: "OUT" },

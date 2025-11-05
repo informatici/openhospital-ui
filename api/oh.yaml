@@ -6466,13 +6466,13 @@ components:
           format: int32
           description: lock
           example: 0
-        pharmacy:
-          type: boolean
-        male:
+        opd:
           type: boolean
         female:
           type: boolean
-        opd:
+        male:
+          type: boolean
+        pharmacy:
           type: boolean
       required:
       - beds
@@ -7206,11 +7206,11 @@ components:
           type: string
           description: "Flag record deleted, values are 'Y' OR 'N' "
           example: "N"
-        fhu:
-          type: string
         yprog:
           type: integer
           format: int32
+        fhu:
+          type: string
       required:
       - admDate
       - admitted
@@ -7618,6 +7618,21 @@ components:
           type: number
           description: The lot's code
           example: 750
+        mainStoreQuantity:
+          type: integer
+          format: int32
+          description: The main store quantity
+          example: 750
+        wardsTotalQuantity:
+          type: number
+          format: double
+          description: The ward store quantity
+          example: 750
+        overallQuantity:
+          type: number
+          format: double
+          description: The overall quantity
+          example: 750
       required:
       - code
       - dueDate
@@ -7631,7 +7646,7 @@ components:
           description: The id of the medical
           example: 1
           maxLength: 5
-        prod_code:
+        prodCode:
           type: string
           description: The product code
           example: PARA
@@ -7668,6 +7683,10 @@ components:
           format: double
           description: The min quantity of the medical
           example: 15
+        deleted:
+          type: string
+          description: The deletad value of the medical
+          example: "N"
         lots:
           type: array
           description: The lots associated to the medical

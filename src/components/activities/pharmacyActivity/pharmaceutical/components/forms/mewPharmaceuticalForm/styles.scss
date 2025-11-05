@@ -1,0 +1,94 @@
+@import "../../../../../../../styles/variables";
+@import "../../../../../../../../node_modules/susy/sass/susy";
+
+.newPharmaceuticalForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  background-color: $c-white;
+  padding: 8px;
+
+  .fields {
+    display: flex;
+    width: 100%;
+  }
+
+  .infoBox {
+    width: 100%;
+  }
+  
+  .separator {
+    flex-grow: 1;
+  }
+
+  &__smallInfoBox {
+    width: 100%;
+    max-width: 400px;
+    margin: 10px auto; 
+    
+    .infoBox {
+      padding: 11px 15px;
+      font-size: 15px; 
+      
+      .infoBox_icon {
+        width: 19px;
+        height: 19px;
+      }
+      
+      .infoBox_message {
+        font-size: 15px;
+        line-height: 1.3;
+      }
+    }
+  }
+
+  @include susy-media($medium-down) {
+    flex-direction: column;
+    button {
+      width: 100%;
+    }
+    .separator {
+      display: none;
+    }
+    
+    &__smallInfoBox {
+      max-width: 100%;
+      margin: 8px 0;
+    }
+  }
+
+  .newPharmaceuticalForm__buttonSet {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: end; 
+    gap: 10px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding: 0 15px;
+
+    @include susy-media($smartphone_small) {
+      flex-direction: column; 
+      width: 100%;
+    }
+
+    .submit_button,
+    .reset_button {
+      .MuiButton-label {
+        font-size: smaller;
+        letter-spacing: 1px;
+        font-weight: 600;
+      }
+
+      button {
+        @include susy-media($smartphone_small) {
+          width: 100%;
+          margin-top: 10px;
+        }
+      }
+    }
+  }
+}

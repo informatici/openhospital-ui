@@ -3,7 +3,7 @@ import { MedicalDTO } from "generated";
 export const MEDICALS: MedicalDTO[] = [
   {
     code: 1,
-    prod_code: "PARA500",
+    prodCode: "PARA500",
     description: "Paracetamol 500mg tablets",
     type: { code: "DRUG", description: "Pharmaceutical" },
     initialqty: 2000,
@@ -21,7 +21,7 @@ export const MEDICALS: MedicalDTO[] = [
   },
   {
     code: 2,
-    prod_code: "AMOX500",
+    prodCode: "AMOX500",
     description: "Amoxicillin 500mg capsules",
     type: { code: "DRUG", description: "Antibiotic" },
     initialqty: 1000,
@@ -39,7 +39,7 @@ export const MEDICALS: MedicalDTO[] = [
   },
   {
     code: 3,
-    prod_code: "GAUZE01",
+    prodCode: "GAUZE01",
     description: "Sterile Gauze Pads",
     type: { code: "SUPPLY", description: "Medical Supply" },
     initialqty: 500,
@@ -57,7 +57,7 @@ export const MEDICALS: MedicalDTO[] = [
   },
   {
     code: 4,
-    prod_code: "VITC100",
+    prodCode: "VITC100",
     description: "Vitamin C 100mg tablets",
     type: { code: "SUPPLEMENT", description: "Vitamin supplement" },
     initialqty: 0,
@@ -70,7 +70,7 @@ export const MEDICALS: MedicalDTO[] = [
   },
   {
     code: 5,
-    prod_code: "SALT01",
+    prodCode: "SALT01",
     description: "Normal Saline 500ml",
     type: { code: "FLUID", description: "Infusion fluid" },
     initialqty: 0,
@@ -83,7 +83,7 @@ export const MEDICALS: MedicalDTO[] = [
   },
   {
     code: 6,
-    prod_code: "INS100",
+    prodCode: "INS100",
     description: "Insulin 100 IU/ml",
     type: { code: "DRUG", description: "Hormone" },
     initialqty: 0,
@@ -101,7 +101,7 @@ export const MEDICALS: MedicalDTO[] = [
   },
   {
     code: 7,
-    prod_code: "GLOVEXL",
+    prodCode: "GLOVEXL",
     description: "Latex Gloves (XL)",
     type: { code: "SUPPLY", description: "Disposable" },
     initialqty: 0,

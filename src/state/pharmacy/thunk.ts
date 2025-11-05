@@ -5,6 +5,9 @@ import {
   NewMultipleChargingMovementsRequest,
   StockMovementsApi,
   MedicalsApi,
+  MedicalTypesApi,
+  MedicalDTO,
+  NewMedicalRequest,
 } from "generated";
 import { customConfiguration } from "libraries/apiUtils/configuration";
 import { wrapper } from "libraries/apiUtils/wrapper";
@@ -13,6 +16,7 @@ import { firstValueFrom } from "rxjs";
 const api = new StockMovementsApi(customConfiguration());
 const wardStockApi = new MedicalStockWardApi(customConfiguration());
 const medicalApi = new MedicalsApi(customConfiguration());
+const medicalTypeApi = new MedicalTypesApi(customConfiguration());
 
 export const getMovements = createAsyncThunk(
   "pharmacy/getMovements",
@@ -79,15 +83,44 @@ export const chargeMovements = createAsyncThunk(
 );
 
 export const getMedicals = createAsyncThunk(
-    "pharmacy/getMedicals",
-    async (_, thunkApi) => {
-      try {
-        const result = await firstValueFrom(wrapper(() => medicalApi.getMedicals({})));
-        return result;
-      } catch (error: any) {
-        return thunkApi.rejectWithValue(error.response);
-      }
+  "pharmacy/getMedicals",
+  async (_, thunkApi) => {
+    try {
+      const result = await firstValueFrom(
+        wrapper(() => medicalApi.getMedicals({}))
+      );
+      return result;
+    } catch (error: any) {
+      return thunkApi.rejectWithValue(error.response);
     }
-  );
+  }
+);
 
+export const getMedicalTypes = createAsyncThunk(
+  "pharmacy/getMedicalTypes",
+  async (_, thunkApi) => {
+    try {
+      const result = await firstValueFrom(
+        wrapper(() => medicalTypeApi.getMedicalTypes({}))
+      );
+      return result;
+    } catch (error: any) {
+      return thunkApi.rejectWithValue(error.response);
+    }
+  }
+);
+
+export const newMedical = createAsyncThunk(
+  "pharmacy/newMedical",
+  async (payload: NewMedicalRequest, thunkApi) => {
+    try {
+      const result = await firstValueFrom(
+        wrapper(() => medicalApi.newMedical(payload))
+      );
+      return result;
+    } catch (error: any) {
+      return thunkApi.rejectWithValue(error.response);
+    }
+  }
+);
 
