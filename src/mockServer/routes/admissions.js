@@ -42,7 +42,7 @@ export const admissionRoutes = (server) => {
     });
     server.put("/").intercept((req, res) => {
       const body = req.jsonBody();
-      switch (body.note) {
+      switch (body.anamnesis) {
         case "fail":
           res.status(400);
           break;
@@ -85,7 +85,7 @@ export const admissionRoutes = (server) => {
     server.post("/discharge").intercept((req, res) => {
       const body = req.jsonBody();
 
-      switch (body.note) {
+      switch (body.anamnesis) {
         case "fail":
           res.status(400).json(null);
           break;
@@ -96,7 +96,7 @@ export const admissionRoutes = (server) => {
     server.get("/discharges").intercept((req, res) => {
       const body = req.jsonBody();
 
-      switch (body.note) {
+      switch (body.anamnesis) {
         case "fail":
           res.status(400).json(null);
           break;

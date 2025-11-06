@@ -37,7 +37,14 @@ export const patientSlice = createSlice({
         state.searchResults = ApiResponse.loading();
       })
       .addCase(thunks.searchPatient.fulfilled, (state, action) => {
-        state.searchResults = ApiResponse.value(action.payload);
+        const data =
+          action.payload instanceof Array
+            ? action.payload
+            : action.payload.data;
+        state.searchResults = new ApiResponse({
+          data: action.payload,
+          status: isEmpty(data) ? "SUCCESS_EMPTY" : "SUCCESS",
+        });
       })
       .addCase(thunks.searchPatient.rejected, (state, action) => {
         state.searchResults = ApiResponse.error(action.payload);

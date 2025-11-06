@@ -1,6 +1,7 @@
 import { Pagination } from "@mui/material";
 import Button from "@mui/material/Button";
 import { useFormik } from "formik";
+import { PagePatientDTO } from "generated";
 import { usePatients } from "libraries/hooks/api/usePatients";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { get, has } from "lodash";
@@ -19,8 +20,8 @@ import DateField from "../../accessories/dateField/DateField";
 import Footer from "../../accessories/footer/Footer";
 import InfoBox from "../../accessories/infoBox/InfoBox";
 import TextField from "../../accessories/textField/TextField";
-import { initialFields } from "./consts";
 import PatientSearchItem from "./PatientSearchItem";
+import { initialFields } from "./consts";
 import "./styles.scss";
 import { TValues } from "./types";
 import { useIsSearchById } from "./useIsSearchById";
@@ -32,7 +33,7 @@ const SearchPatientActivity = () => {
   const { userCredentials, patientSearchResults, searchStatus } =
     useAppSelector((state) => ({
       userCredentials: state.main.authentication.data,
-      patientSearchResults: state.patients.searchResults.data,
+      patientSearchResults: state.patients.searchResults.data as PagePatientDTO,
       searchStatus: state.patients.searchResults.status || "IDLE",
     }));
 
@@ -45,7 +46,7 @@ const SearchPatientActivity = () => {
     dispatch(searchPatientsReset());
   }, [dispatch]);
 
-  const { data, pageInfo, page, handlePageChange } = usePatients();
+  const { pageInfo, page, handlePageChange } = usePatients();
   const [filter, setFilter] = useState({
     values: formatAllFieldValues(initialFields, {} as TValues) as TValues,
     page: 0,
@@ -306,19 +307,17 @@ const SearchPatientActivity = () => {
                 </div>
               </div>
             </form>
-            {(data.length > 0 ||
-              (patientSearchResults instanceof Array &&
-                patientSearchResults.length)) && (
-              <div ref={resultsRef}>
-                {renderSearchResults()}
+            <div ref={resultsRef}>
+              {renderSearchResults()}
+              {pageInfo && (
                 <Pagination
                   className="searchPatient_pagination"
-                  page={(pageInfo?.page ?? 0) + 1}
-                  count={pageInfo?.totalPages}
+                  page={(pageInfo.page ?? 0) + 1}
+                  count={pageInfo.totalPages}
                   onChange={onPageChange}
                 />
-              </div>
-            )}
+              )}
+            </div>
             {searchStatus === "FAIL" && (
               <InfoBox type="info" message={t("common.emptydata")} />
             )}

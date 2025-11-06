@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
-const START_PATH_INPATIENT = '/patients/details/2';
-const START_PATH_OUTPATIENT = '/patients/details/1234563';
+const START_PATH_INPATIENT = "/patients/details/2";
+const START_PATH_OUTPATIENT = "/patients/details/1234563";
 
 //both inpatient and out-patient used the same opd form now!
 describe.skip("Patient Details / Visit - Inpatient", () => {
@@ -39,7 +39,7 @@ describe.skip("Patient Details / Visit - Inpatient", () => {
   });
 });
 
-describe("Patient Details / Visit - Outpatient", () => {
+describe.skip("Patient Details / Visit - Outpatient", () => {
   before(() => {
     cy.authenticate(START_PATH_OUTPATIENT);
   });

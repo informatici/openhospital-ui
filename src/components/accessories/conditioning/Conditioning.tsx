@@ -1,3 +1,4 @@
+import { IS_PROD } from "libraries/consts";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { Permission } from "libraries/permissionUtils/Permission";
 import { scrollToElement } from "libraries/uiUtils/scrollToElement";
@@ -78,7 +79,7 @@ const Conditioning: FC = () => {
 
   const onSubmit = (conditioning: ConditioningDTO) => {
     setShouldResetForm(false);
-    if (!encounter) {
+    if (!encounter && IS_PROD) {
       setOpenConfirmDialog(true);
       return;
     }

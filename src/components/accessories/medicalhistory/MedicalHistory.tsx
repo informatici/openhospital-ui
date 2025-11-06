@@ -1,4 +1,5 @@
 import { MedicalHistoryDTO } from "generated";
+import { IS_PROD } from "libraries/consts";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { Permission } from "libraries/permissionUtils/Permission";
 import { usePermission } from "libraries/permissionUtils/usePermission";
@@ -83,7 +84,7 @@ const MedicalHistory: FC = () => {
 
   const onSubmit = (mh: MedicalHistoryDTO) => {
     setShouldResetForm(false);
-    if (!encounter) {
+    if (!encounter && IS_PROD) {
       setOpenConfirmDialog(true);
       return;
     }
