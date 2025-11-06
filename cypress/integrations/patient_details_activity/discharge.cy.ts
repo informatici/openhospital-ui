@@ -2,7 +2,7 @@
 
 describe("Patient Details / Discharge", () => {
   before(() => {
-    cy.authenticate('/patients/details/1');
+    cy.authenticate("/patients/details/1");
   });
 
   it("should render the ui", () => {
@@ -17,7 +17,7 @@ describe("Patient Details / Discharge", () => {
     cy.byId("disDate").focus().type("03052022").blur();
     cy.byId("disType").focus().type("NORMALE").blur();
     cy.byId("diseaseOut1").focus().type("Abortions").blur();
-    cy.byId("note").focus().clear().type("fail").blur();
+    cy.byId("anamnesis").focus().clear().type("fail").blur();
   });
 
   it("should display an error info box if the patient discharging fails", () => {
@@ -27,7 +27,7 @@ describe("Patient Details / Discharge", () => {
   });
 
   it("should show a confirmation dialog if the patient discharging succeeds", () => {
-    cy.byId("note").focus().clear().type("success").blur();
+    cy.byId("anamnesis").focus().clear().type("success").blur();
     cy.get("[class='submit_button']").click();
     cy.dataCy("info-box").should("not.exist");
     cy.dataCy("dialog-title").contains("Patient discharged");

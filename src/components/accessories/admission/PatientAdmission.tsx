@@ -1,3 +1,4 @@
+import { IS_PROD } from "libraries/consts";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { isEmpty } from "lodash";
 import React, { FC, useEffect, useRef, useState } from "react";
@@ -99,7 +100,7 @@ const PatientAdmission: FC = () => {
 
   const onSubmit = (adm: AdmissionDTO) => {
     setShouldResetForm(false);
-    if (!encounter) {
+    if (!encounter && IS_PROD) {
       setOpenConfirmDialog(true);
       return;
     }

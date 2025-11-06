@@ -1,3 +1,4 @@
+import { IS_PROD } from "libraries/consts";
 import { downloadBlob } from "libraries/downloadUtils/downloadUtils";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { FC, default as React, useEffect, useRef, useState } from "react";
@@ -162,7 +163,7 @@ const PatientTriage: FC = () => {
 
   const onSubmit = (triage: PatientExaminationDTO) => {
     setShouldResetForm(false);
-    if (!encounter) {
+    if (!encounter && IS_PROD) {
       setOpenConfirmDialog(true);
       return;
     }

@@ -1,5 +1,6 @@
 import { Button } from "@mui/material";
 import { useFormik } from "formik";
+import { IS_PROD } from "libraries/consts";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { get, has } from "lodash";
 import React, { FC, useCallback, useEffect, useRef, useState } from "react";
@@ -137,7 +138,7 @@ const ExamRequestForm: FC<ExamRequestProps> = ({
     validationSchema,
     enableReinitialize: true,
     onSubmit: (values) => {
-      if (!encounter) {
+      if (!encounter && IS_PROD) {
         setOpenConfirmDialog(true);
         return;
       }
