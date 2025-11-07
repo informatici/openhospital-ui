@@ -1,6 +1,7 @@
 import {
   MedicalWardDTO,
   MovementDTO,
+  MovementTypeDTO,
   MovementWardDTO,
   WardDTO,
 } from "generated";
@@ -10,6 +11,7 @@ export type IPharmacyState = {
   wardMovements: ApiResponse<MovementWardDTO[]>;
   wardMedicals: ApiResponse<MedicalWardDTO[]>;
   getMovements: ApiResponse<Array<MovementDTO>>;
+  movementTypes: ApiResponse<Array<MovementTypeDTO>>;
   createMovement: ApiResponse<MovementDTO>;
   updateMovement: ApiResponse<MovementDTO>;
   deleteMovement: ApiResponse<void>;
