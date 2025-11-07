@@ -1,7 +1,7 @@
+import { TextFieldProps } from "@mui/material";
 import { DateView } from "@mui/x-date-pickers";
 import { ComponentType } from "react";
 import { FIELD_VALIDATION } from "../../../types";
-import { TextFieldProps } from "@mui/material";
 
 export interface IProps {
   fieldName: string;
@@ -13,6 +13,7 @@ export interface IProps {
   errorText: string;
   label: string;
   format: string;
+  className?: string;
   onChange: (value: Date | null) => void;
   onMonthChange?: (date: any) => void | Promise<void>;
   shouldDisableDate?: (date: any) => boolean;

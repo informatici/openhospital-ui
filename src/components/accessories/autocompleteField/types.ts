@@ -24,6 +24,7 @@ export interface IProps {
   handleHomeEndKeys?: boolean;
   options_limit?: number;
   maxLength?: number;
+  className?: string;
 }
 export type DefaultOptionType = {
   value: string | number | JSX.Element;

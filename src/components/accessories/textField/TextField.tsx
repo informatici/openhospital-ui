@@ -25,7 +25,7 @@ const TextField: FunctionComponent<IProps> = ({
   const actualClassName = theme === "light" ? "textField__light" : "textField";
 
   return (
-    <div style={{ position: "relative" }}>
+    <div style={{ position: "relative" }} data-slot="text-field">
       <MaterialComponent
         id={field.name}
         label={required === FIELD_VALIDATION.SUGGESTED ? label + " **" : label}
@@ -36,7 +36,7 @@ const TextField: FunctionComponent<IProps> = ({
         error={isValid}
         helperText={errorText}
         variant="outlined"
-        className={actualClassName}
+        className={"w-full" + actualClassName}
         size="small"
         multiline={multiline || false}
         rows={rows}
