@@ -18,6 +18,9 @@ export const pharmacySlice = createSlice({
     deleteMovementReset: (state) => {
       state.deleteMovement = initial.deleteMovement;
     },
+    resetMovementTypes: (state) => {
+      state.movementTypes = initial.movementTypes;
+    },
     resetWardMovements: (state) => {
       state.wardMovements = initial.wardMovements;
     },
@@ -48,6 +51,18 @@ export const pharmacySlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      // get movement types list
+      .addCase(thunks.getMovementTypes.pending, (state) => {
+        state.movementTypes = ApiResponse.loading();
+      })
+      .addCase(thunks.getMovementTypes.fulfilled, (state, action) => {
+        state.movementTypes = isEmpty(action.payload)
+          ? ApiResponse.empty()
+          : ApiResponse.value(action.payload);
+      })
+      .addCase(thunks.getMovementTypes.rejected, (state, action) => {
+        state.movementTypes = ApiResponse.error(action.payload);
+      })
       // get movements list
       .addCase(thunks.getMovements.pending, (state) => {
         state.getMovements = ApiResponse.loading();
@@ -139,6 +154,7 @@ export const {
   updateWardStockFIilter,
   resetWardStockFilter,
   resetChargeMovements,
+  resetMovementTypes,
   resetMedicals,
   resetMedicalTypes,
   resetNewMedical,

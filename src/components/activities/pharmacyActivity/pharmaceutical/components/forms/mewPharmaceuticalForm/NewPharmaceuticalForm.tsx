@@ -4,7 +4,7 @@ import {
 } from "components/accessories/forms";
 import { PATHS } from "consts";
 import { useTranslation } from "libraries/hooks";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useOutletContext, useNavigate } from "react-router";
 import { useForm, useWatch } from "react-hook-form";
 import { standardSchemaResolver } from "@hookform/resolvers/standard-schema";
@@ -38,11 +38,7 @@ export default function NewPharmaceuticalForm() {
     resolver: standardSchemaResolver(MedicalDTOSchema),
   });
 
-  const {
-    medicalTypes,
-    options: medicalOptions,
-    selectMedicalType,
-  } = useMedicalType();
+  const { medicalTypes, options: medicalOptions } = useMedicalType();
 
   const values = useWatch({
     control,
@@ -96,11 +92,11 @@ export default function NewPharmaceuticalForm() {
     return () => {
       removeBreadcrumb();
     };
-  }, []);
+  }, [addBreadcrumb, removeBreadcrumb]);
 
   useEffect(() => {
     dispatch(getMedicalTypes());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (newMedicalStatus === "SUCCESS") {
@@ -108,20 +104,17 @@ export default function NewPharmaceuticalForm() {
     }
   }, [newMedicalStatus]);
 
-  const onSubmit = async (data: TFormValues) => {
-    console.log(values);
-    dispatch(newMedical({ medicalDTO: values }));
-  };
+  const onSubmit = useCallback(
+    (data: TFormValues) => {
+      dispatch(newMedical({ medicalDTO: values }));
+    },
+    [dispatch, values]
+  );
 
-  const handleSuccessConfirm = () => {
+  const handleSuccessConfirm = useCallback(() => {
     setOpenSuccessDialog(false);
     navigate(PATHS.pharmacy_pharmaceutical);
-  };
-
-  const handleAddAnother = () => {
-    setOpenSuccessDialog(false);
-    reset();
-  };
+  }, [navigate]);
 
   if (status === "LOADING") {
     return (
@@ -181,7 +174,10 @@ export default function NewPharmaceuticalForm() {
           name="deleted"
         />
 
-        <div data-cy="pharmaceutical-button-set" className="newPharmaceuticalForm__buttonSet">
+        <div
+          data-cy="pharmaceutical-button-set"
+          className="newPharmaceuticalForm__buttonSet"
+        >
           <Button
             type="submit"
             variant="contained"

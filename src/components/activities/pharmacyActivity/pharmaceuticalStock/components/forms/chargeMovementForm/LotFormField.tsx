@@ -1,6 +1,7 @@
 import { FormControlLabel, Radio, TextField } from "@mui/material";
 import DateField from "components/accessories/dateField/DateField";
 import { DateFormField, TextFormField } from "components/accessories/forms";
+import { parseISO } from "date-fns";
 import { LotDTO } from "generated";
 import { DATETIME_FORMAT } from "libraries/consts";
 import { useTranslation } from "libraries/hooks";
@@ -11,7 +12,7 @@ import { LotFormFieldProps, TFormValues } from "./types";
 
 export function LotFormField({ medical, control }: LotFormFieldProps) {
   const { t } = useTranslation();
-  const [lots, setLots] = useState<LotDTO[]>(() => [
+  const [lots] = useState<LotDTO[]>(() => [
     ...(medical.lots ?? []),
     {
       code: "",
@@ -22,7 +23,13 @@ export function LotFormField({ medical, control }: LotFormFieldProps) {
 
   const handleChange = useCallback(
     (field: ControllerRenderProps<TFormValues, "lot">, lot: LotDTO) => () => {
-      field.onChange(lot);
+      field.onChange({
+        ...lot,
+        dueDate: lot.dueDate ? parseISO(lot.dueDate) : undefined,
+        preparationDate: lot.preparationDate
+          ? parseISO(lot.preparationDate)
+          : undefined,
+      });
     },
     []
   );

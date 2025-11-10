@@ -1,15 +1,18 @@
 import { standardSchemaResolver } from "@hookform/resolvers/standard-schema";
+import Button from "components/accessories/button/Button";
 import {
   AutocompleteFormField,
   DateFormField,
   TextFormField,
 } from "components/accessories/forms";
+import { PATHS } from "consts";
 import { MovementDTO } from "generated";
 import { DATETIME_FORMAT } from "libraries/consts";
-import { useTranslation } from "libraries/hooks";
-import { useMedicals } from "libraries/hooks/api";
-import React, { useEffect } from "react";
-import { useForm, useWatch } from "react-hook-form";
+import { useNavigationHandler, useTranslation } from "libraries/hooks";
+import { useMedicals, useMovementTypes } from "libraries/hooks/api";
+import { isEmpty } from "lodash";
+import React, { FormEvent, useCallback, useEffect, useMemo } from "react";
+import { useForm } from "react-hook-form";
 import { LotFormField } from "./LotFormField";
 import { MovementDTOSchema, getInitialValues } from "./consts";
 import "./styles.scss";
@@ -21,29 +24,49 @@ export function ChargeMovementForm({
 }: ChargeMovementProps) {
   const { t } = useTranslation();
 
-  const { medicals, options: medicalOptions, selectMedical } = useMedicals();
+  const { options: medicalOptions, selectMedical } = useMedicals();
+  const { selectMovementType } = useMovementTypes();
 
-  const { control, subscribe, setValue, formState } = useForm<TFormValues>({
+  const { control, subscribe, watch, formState } = useForm<TFormValues>({
     defaultValues: getInitialValues(movement),
     resolver: standardSchemaResolver(MovementDTOSchema),
   });
 
-  const values = useWatch({
-    control,
-    compute: (values) => {
-      return {
-        ...values,
-        lot: values.lot
-          ? {
-              ...values.lot,
-              dueDate: values.lot.dueDate?.toISOString(),
-              preparationDate: values.lot.preparationDate?.toISOString(),
-            }
-          : undefined,
-        medical: medicals.find((medical) => medical.code === values.medical),
-      };
+  const values = watch();
+
+  const formatedValues = useMemo(() => {
+    return {
+      ...values,
+      date: values.date?.toISOString(),
+      lot: values.lot
+        ? {
+            ...values.lot,
+            dueDate: values.lot.dueDate?.toISOString(),
+            preparationDate: values.lot.preparationDate?.toISOString(),
+          }
+        : undefined,
+      medical: selectMedical(values.medical),
+      type: selectMovementType(values.type),
+      ward: undefined,
+    };
+  }, [values, selectMedical, selectMovementType]);
+
+  const handleSubmit = useCallback(
+    (event: FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+      if (isEmpty(Object.keys(formState.errors))) {
+        onSubmit?.(formatedValues as MovementDTO);
+      }
     },
-  });
+    [formState, formatedValues, onSubmit]
+  );
+
+  const handleGoBack = useNavigationHandler(
+    PATHS.pharmacy_pharmaceuticalstock,
+    {
+      replace: true,
+    }
+  );
 
   useEffect(() => {
     const callback = subscribe({
@@ -58,34 +81,28 @@ export function ChargeMovementForm({
     return () => callback();
   }, [subscribe]);
 
-  useEffect(() => {
-    if (formState.isValid) {
-      onSubmit(values as any as MovementDTO);
-    }
-  }, [values]);
-
   return (
     <div className="chargeMovementForm">
-      <form className="form-grid-layout gap-2">
+      <form className="form-grid-layout gap-2 w-full" onSubmit={handleSubmit}>
         <DateFormField
           format={DATETIME_FORMAT}
           label={t("pharmacy.form.fields.date")}
           control={control}
           name="date"
         />
-        <div className="col-span-full">
-          <AutocompleteFormField
-            label={t("pharmacy.form.fields.medical")}
-            control={control}
-            name="medical"
-            options={medicalOptions}
-          />
-        </div>
+        <AutocompleteFormField
+          label={t("pharmacy.form.fields.medical")}
+          control={control}
+          name="medical"
+          options={medicalOptions}
+          className="col-start-1"
+        />
         <TextFormField
           type="number"
           label={t("pharmacy.form.fields.quantity")}
           control={control}
           name="quantity"
+          className="col-start-1"
         />
         <TextFormField
           type="number"
@@ -94,9 +111,18 @@ export function ChargeMovementForm({
           name="refNo"
         />
         <div className="col-start-1 col-span-full"></div>
-        {values.medical && (
-          <LotFormField medical={values.medical} control={control} />
+        {formatedValues.medical && (
+          <LotFormField medical={formatedValues.medical} control={control} />
         )}
+        <div className="col-start-1 col-span-full"></div>
+        <div className="col-span-full flex gap-2 justify-end">
+          <Button type="reset" onClick={handleGoBack}>
+            {t("common.close")}
+          </Button>
+          <Button variant="contained" type="submit">
+            {t("pharmacy.stock.charge")}
+          </Button>
+        </div>
       </form>
     </div>
   );

@@ -16,7 +16,7 @@ export function useMedicals() {
   );
 
   const selectMedical = useCallback(
-    (code?: string) => medicals.find((medical) => medical.code === code),
+    (code?: number) => medicals.find((medical) => medical.code === code),
     [medicals]
   );
 

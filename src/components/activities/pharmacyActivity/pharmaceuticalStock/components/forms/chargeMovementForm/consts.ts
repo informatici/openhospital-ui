@@ -6,18 +6,18 @@ export const LotDTOSchema = z.object({
   code: z.string(),
   preparationDate: z.date(),
   dueDate: z.date(),
-  cost: z.number().nullish(),
+  cost: z.number().optional(),
 });
 
 export const MovementDTOSchema = z.object({
-  code: z.number().nullish(),
+  code: z.number().optional(),
   medical: z.number(),
-  type: z.string(),
-  ward: z.string().nullish(),
-  lot: LotDTOSchema.nullish(),
+  type: z.string().optional(),
+  ward: z.string().optional(),
+  lot: LotDTOSchema.optional(),
   date: z.date(),
   quantity: z.number(),
-  supplier: z.number().nullish(),
+  supplier: z.number().optional(),
   refNo: z.string(),
 });
 

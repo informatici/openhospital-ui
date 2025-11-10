@@ -1229,7 +1229,7 @@
   },
   "pharmacy": {
     "labels": {
-      "pharmaceutical-title": "pharmaceutical",
+      "pharmaceutical-title": "Pharmaceutical",
       "pharmaceutical": "Medical products",
       "pharmaceutical-stock": "Pharmaceutical stock",
       "ward-stock": "Ward stock",
@@ -1240,6 +1240,16 @@
       "pharmaceutical-success": "successfully!",
       "pharmaceutical-cancel": "Cancel",
       "pharmaceutical-ok": "OK"
+    },
+    "messages": {
+      "charge-movement-success": {
+        "title": "Charge Movement Successful",
+        "description": "The charge movement has been saved successfully."
+      },
+      "charge-movement-fail": {
+        "title": "Charge Movement Failed",
+        "description": "We were unable to save the charge movement. Please try again or contact support."
+      }
     },
     "form": {
       "fields": {

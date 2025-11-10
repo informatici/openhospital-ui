@@ -1,10 +1,8 @@
 import {
   KeyboardArrowDown,
   KeyboardArrowUp,
-  Warning,
-  EventBusy,
 } from "@mui/icons-material";
-import { Collapse, IconButton, Typography } from "@mui/material";
+import { Collapse, IconButton } from "@mui/material";
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import _ from "lodash";
@@ -14,7 +12,6 @@ import { IRowProps } from "./types";
 import Button from "../button/Button";
 import { useTranslation } from "react-i18next";
 import CellContent from "components/activities/pharmacyActivity/pharmaceutical/components/PharmacyCellContent/CellContent";
-import CollapseContent from "components/activities/pharmacyActivity/pharmaceutical/components/PharmacyCellContent/CollapseContent";
 
 const TableBodyRow: FunctionComponent<IRowProps> = ({
   row,

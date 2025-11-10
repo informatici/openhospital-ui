@@ -1228,7 +1228,7 @@
   },
   "pharmacy": {
     "labels": {
-      "pharmaceutical-title": "pharmaceutique",
+      "pharmaceutical-title": "Pharmaceutique",
       "pharmaceutical": "Produits médicaux",
       "pharmaceutical-stock": "Stock pharmaceutique",
       "ward-stock": "Stock du pavillon"
@@ -1253,11 +1253,11 @@
       "pcsperpck": "PCS/PAK",
       "stock": "Stock",
       "code": "Code",
-      "pharmaceutical": "Produit pharmaceutique",
+      "pharmaceutical": "Médicament",
       "stockCardReport": "Rapport de stock",
       "addMedecine": "Ajouter un médicament",
-      "order": "Commande",
-      "expiring": "Expirant",
+      "order": "Commander",
+      "expiring": "Expirer",
       "amcReport": "Rapport AMC"
     }
   }
