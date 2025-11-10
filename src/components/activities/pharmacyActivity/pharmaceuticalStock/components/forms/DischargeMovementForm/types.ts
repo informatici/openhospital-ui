@@ -1,9 +1,8 @@
-import { MedicalDTO, MovementDTO, WardDTO } from "generated";
+import { LotDTO, MedicalDTO, MovementDTO, WardDTO } from "generated";
 import { Control } from "react-hook-form";
 import z from "zod";
 import { MovementDTOSchema } from "./consts";
 
-// ✅ TFormValues contient maintenant un tableau de lots
 export type TFormValues = z.infer<typeof MovementDTOSchema>;
 
 export type DisChargeMovementProps = {
@@ -17,5 +16,7 @@ export type LotFormFieldProps = {
   medical: MedicalDTO;
   wards?: WardDTO[];
   control: Control<TFormValues>;
+  lots?: LotDTO[];
+  lotsValues?: TFormValues["lots"];
   medicalChange: boolean;
 };

@@ -4,21 +4,21 @@ import {
   DateFormField,
   TextFormField,
 } from "components/accessories/forms";
-import { MovementDTO } from "generated";
+import { LotDTO, MovementDTO } from "generated";
 import { DATETIME_FORMAT } from "libraries/consts";
 import { useTranslation } from "libraries/hooks";
 import { useMedicals } from "libraries/hooks/api";
 import React, { useEffect, useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
-import { MovementDTOSchema, getInitialValues } from "./consts";
+import { MovementDTOSchema } from "./consts";
 import "./styles.scss";
 import { DisChargeMovementProps, TFormValues } from "./types";
-import { DischargeLotFormField } from "./DisChargeLotFormField";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { getWards } from "state/ward";
 import Button from "components/accessories/button/Button";
+import { DischargeLotFormField } from "./DischargeLotFormField";
 
-export function DisChargeMovementForm({
+export function DischargeMovementForm({
   movement,
   onSubmit,
   onCancel,
@@ -27,21 +27,20 @@ export function DisChargeMovementForm({
 
   const dispatch = useAppDispatch();
 
-  const { medicals, options: medicalOptions, selectMedical } = useMedicals();
+  const { medicals, options: medicalOptions } = useMedicals();
 
   const wards = useAppSelector((state) => state.wards.allWards.data ?? []);
 
   const [medicalChange, setMedicalChange] = useState<boolean>(false);
 
-  const { control, subscribe, setValue, formState, handleSubmit, resetField } =
-    useForm<TFormValues>({
-      defaultValues: {
-        type: "",
-        quantity: 0,
-        refNo: "",
-      },
-      resolver: standardSchemaResolver(MovementDTOSchema),
-    });
+  const { control, handleSubmit, reset, getValues } = useForm<TFormValues>({
+    defaultValues: {
+      type: "",
+      quantity: 0,
+      refNo: "",
+    },
+    resolver: standardSchemaResolver(MovementDTOSchema),
+  });
 
   const values = useWatch({
     control,
@@ -52,25 +51,6 @@ export function DisChargeMovementForm({
       };
     },
   });
-
-  // useEffect(() => {
-  //   const callback = subscribe({
-  //     formState: {
-  //       values: true,
-  //     },
-  //     callback: ({ values }) => {
-  //       console.log(values);
-  //     },
-  //   });
-
-  //   return () => callback();
-  // }, [subscribe]);
-
-  // useEffect(() => {
-  //   if (formState.isValid) {
-  //     onSubmit(values as any as MovementDTO[]);
-  //   }
-  // }, [values]);
 
   const handleFormSubmit = (data: TFormValues) => {
     if (!data.lots || data.lots.length === 0) return;
@@ -83,7 +63,7 @@ export function DisChargeMovementForm({
 
     const movements: MovementDTO[] = filledLots.map((lot) => ({
       medical: medicals.find((m) => m.code === data.medical)!,
-      type: { code: "discharge", description: "Discharge", type: "-" }, // adapter selon ton type réel
+      type: { code: "discharge", description: "Discharge", type: "-" },
       date: data.date.toISOString(),
       quantity: lot.quantity!,
       ward: wards.find((w) => w.code === lot.ward),
@@ -99,10 +79,36 @@ export function DisChargeMovementForm({
     onSubmit?.(movements);
   };
 
-  const handleMedicalChange = (e: any) => {
-    setMedicalChange(true);
-    resetField("lots");
-  };
+  const [lots, setLots] = useState<LotDTO[]>([]);
+
+  const lotsValues = useWatch({
+    control,
+    name: "lots",
+  });
+
+  useEffect(() => {
+    setLots(values.medical?.lots ?? []);
+
+    if (values.medical?.lots) {
+      reset({
+        ...getValues(),
+        lots: values.medical.lots.map((lot) => ({
+          code: lot.code,
+          preparationDate: lot.preparationDate
+            ? new Date(lot.preparationDate)
+            : undefined,
+          dueDate: lot.dueDate ? new Date(lot.dueDate) : undefined,
+          cost: lot.cost ?? undefined,
+          ward: "",
+          quantity: undefined,
+        })),
+      });
+    }
+
+    return () => {
+      setLots([]);
+    };
+  }, [values.medical, reset, getValues]);
 
   useEffect(() => {
     dispatch(getWards());
@@ -126,7 +132,6 @@ export function DisChargeMovementForm({
             control={control}
             name="medical"
             options={medicalOptions}
-            onChange={handleMedicalChange}
           />
         </div>
         <TextFormField
@@ -141,6 +146,8 @@ export function DisChargeMovementForm({
             key={values.medical.code}
             wards={wards}
             medical={values.medical}
+            lots={lots}
+            lotsValues={lotsValues}
             control={control}
             medicalChange={medicalChange}
           />
@@ -149,10 +156,7 @@ export function DisChargeMovementForm({
           <Button type="button" variant="outlined" onClick={onCancel}>
             {t("pharmacy.form.fields.cancel")}
           </Button>
-          <Button
-            type="submit"
-            variant="contained"
-          >
+          <Button type="submit" variant="contained">
             {t("pharmacy.form.fields.discharge")}
           </Button>
         </div>

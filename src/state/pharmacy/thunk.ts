@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
   GetMovementWardRequest,
+  MedicalStockMovementTypeApi,
   MedicalStockWardApi,
   MovementDTO,
   NewMultipleChargingMovementsRequest,
@@ -12,6 +13,7 @@ import { wrapper } from "libraries/apiUtils/wrapper";
 import { firstValueFrom } from "rxjs";
 
 const api = new StockMovementsApi(customConfiguration());
+const movementTypeApi = new MedicalStockMovementTypeApi(customConfiguration());
 const wardStockApi = new MedicalStockWardApi(customConfiguration());
 
 export const getMovements = createAsyncThunk(
@@ -19,6 +21,20 @@ export const getMovements = createAsyncThunk(
   async (_, thunkApi) => {
     try {
       const result = await firstValueFrom(wrapper(() => api.getMovements()));
+      return result;
+    } catch (error: any) {
+      return thunkApi.rejectWithValue(error.response);
+    }
+  }
+);
+
+export const getMovementTypes = createAsyncThunk(
+  "pharmacy/movementTypes",
+  async (_, thunkApi) => {
+    try {
+      const result = await firstValueFrom(
+        wrapper(() => movementTypeApi.getMedicalDsrStockMovementType())
+      );
       return result;
     } catch (error: any) {
       return thunkApi.rejectWithValue(error.response);

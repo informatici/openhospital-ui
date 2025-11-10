@@ -43,6 +43,7 @@ export const AutocompleteField: FC<IProps> = ({
   handleHomeEndKeys,
   options_limit = 10,
   maxLength,
+  className = "",
   optionsComparator = (option: DefaultOptionType, val: string | number) =>
     option.value + "" === val + "",
 }) => {
@@ -136,7 +137,11 @@ export const AutocompleteField: FC<IProps> = ({
   const actualClassName =
     theme === "light" ? "autocomplete__light" : "autocomplete";
   return (
-    <FormControl variant="outlined" className={actualClassName}>
+    <FormControl
+      variant="outlined"
+      className={className + " " + actualClassName}
+      data-slot="autocomplete-field"
+    >
       <Autocomplete
         id={id}
         filterOptions={freeSolo ? filterOptions : undefined}

@@ -1233,7 +1233,20 @@
       "pharmaceutical-stock": "Pharmaceutical stock",
       "ward-stock": "Ward stock",
       "charge-movement": "Charge movement",
-      "DisCharge-movement": "DisCharge movement"
+      "discharge-movement": "Discharge movement",
+      "discharge-movement-created": "Discharge movement created",
+      "discharge-movement-created-successfully": "Discharge movement created successfully",
+      "ok": "OK"
+    },
+    "messages": {
+      "charge-movement-success": {
+        "title": "Charge Movement Successful",
+        "description": "The charge movement has been saved successfully."
+      },
+      "charge-movement-fail": {
+        "title": "Charge Movement Failed",
+        "description": "We were unable to save the charge movement. Please try again or contact support."
+      }
     },
     "form": {
       "fields": {

@@ -10,7 +10,6 @@ import {
 export type AutocompleteFormFieldProps<T extends Record<string, any>> = {
   control: Control<T>;
   name: Path<T>;
-  onChange?: (value: any) => void;
 } & Omit<
   ComponentProps<typeof AutocompleteField>,
   "fieldName" | "fieldValue" | "onChange" | "onBlur" | "errorText" | "isValid"
@@ -19,13 +18,11 @@ export type AutocompleteFormFieldProps<T extends Record<string, any>> = {
 export function AutocompleteFormField<T extends Record<string, any>>({
   name,
   control,
-  onChange,
   ...props
 }: AutocompleteFormFieldProps<T>) {
   const handleChange = useCallback(
     (field: ControllerRenderProps<T, Path<T>>) => (_: object, value: any) => {
       field.onChange(value?.value);
-      onChange?.(value?.value);
     },
     []
   );

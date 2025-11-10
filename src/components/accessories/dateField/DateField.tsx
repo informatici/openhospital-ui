@@ -24,6 +24,7 @@ const DateField: FunctionComponent<IProps> = ({
   okLabel,
   cancelLabel,
   TextFieldComponent,
+  className = "",
 }) => {
   const [value, setValue] = useState<Date | null>(null);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -47,7 +48,11 @@ const DateField: FunctionComponent<IProps> = ({
   const actualClassName = theme === "light" ? "dateField__light" : "dateField";
 
   return (
-    <div ref={anchorElRef}>
+    <div
+      className={"w-full " + className}
+      ref={anchorElRef}
+      data-slot="date-field"
+    >
       {matches ? (
         <DesktopDatePicker
           format={format}
@@ -79,6 +84,7 @@ const DateField: FunctionComponent<IProps> = ({
           }}
           views={views}
           open={open}
+          className="w-full"
         />
       ) : (
         <MobileDatePicker
@@ -107,6 +113,7 @@ const DateField: FunctionComponent<IProps> = ({
           }}
           views={views}
           open={open}
+          className="w-full"
         />
       )}
     </div>

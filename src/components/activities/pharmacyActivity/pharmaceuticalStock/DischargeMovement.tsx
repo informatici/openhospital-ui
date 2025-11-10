@@ -1,6 +1,6 @@
 import { PATHS } from "consts";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useOutletContext } from "react-router";
 import { getMedicals } from "state/medicals";
@@ -8,18 +8,18 @@ import "./styles.scss";
 import { PharmacyActivityContent } from "../PharmacyActivityContent";
 import { MovementDTO } from "generated";
 import {
-  createMovementReset,
   dischargeMovements,
   resetDischargeMovements,
 } from "state/pharmacy";
 import ConfirmationDialog from "components/accessories/confirmationDialog/ConfirmationDialog";
-import { DisChargeMovementForm } from "./components/forms/DisChargeMovementForm/DisChargeMovementForm";
 import checkIcon from "../../../../assets/check-icon.png";
 import { DisChargeMovementTransitionState } from "./types";
 import { useNavigate } from "react-router";
 import InfoBox from "components/accessories/infoBox/InfoBox";
+import { DischargeMovementForm } from "./components/forms/DischargeMovementForm/DischargeMovementForm";
+import { values } from "lodash";
 
-export function DisChargeMovement() {
+export function DischargeMovement() {
   const { t } = useTranslation();
   const infoBoxRef = useRef<HTMLDivElement>(null);
   const dispatch = useAppDispatch();
@@ -46,30 +46,30 @@ export function DisChargeMovement() {
       ...breadcrumbMap,
       [t("pharmacy.labels.pharmaceutical-stock")]:
         PATHS.pharmacy_pharmaceuticalstock,
-      [t("pharmacy.labels.DisCharge-movement")]:
+      [t("pharmacy.labels.discharge-movement")]:
         PATHS.pharmacy_pharmaceuticalstock_discharge,
     });
   };
 
-  const removeBreadcrumb = () => {
-    setBreadcrumbMap({
-      ...breadcrumbMap,
-      [t("pharmacy.labels.pharmaceutical-stock")]: undefined,
-      [t("pharmacy.labels.DisCharge-movement")]: undefined,
-    });
-  };
-
-  const handleSubmit = (values: MovementDTO[]) => {
-    console.log("handleSubmit", values);
+  const handleSubmit = useCallback((values: MovementDTO[]) => {
     dispatch(dischargeMovements({ ref: "REF123", movementDTO: values }));
-  };
+  }, [dispatch, values]);
+
+  const handleReset = useCallback(() => {
+    const newMap = { ...breadcrumbMap };
+    delete newMap[t("pharmacy.labels.pharmaceutical-stock")];
+    delete newMap[t("pharmacy.labels.discharge-movement")];
+    dispatch(resetDischargeMovements());
+    setBreadcrumbMap(newMap);
+    setActivityTransitionState("TO_RESET");
+    navigate(PATHS.pharmacy_pharmaceuticalstock, { replace: true });
+  }, [dispatch, breadcrumbMap, navigate]);
 
   useEffect(() => {
     if (activityTransitionState === "TO_RESET") {
       dispatch(resetDischargeMovements());
       setActivityTransitionState("IDLE");
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, activityTransitionState]);
 
   useEffect(() => {
@@ -77,10 +77,9 @@ export function DisChargeMovement() {
     return () => {
       const newMap = { ...breadcrumbMap };
       delete newMap[t("pharmacy.labels.pharmaceutical-stock")];
-      delete newMap[t("pharmacy.labels.DisCharge-movement")];
+      delete newMap[t("pharmacy.labels.discharge-movement")];
       setBreadcrumbMap(newMap);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -89,16 +88,16 @@ export function DisChargeMovement() {
 
   return (
     <PharmacyActivityContent
-      data-cy="DisCharge-movement"
-      title={t("pharmacy.labels.DisCharge-movement")}
+      data-cy="discharge-movement"
+      title={t("pharmacy.labels.discharge-movement")}
     >
-      <div className="DisCharge-movement">
-        <DisChargeMovementForm
+      <div className="discharge-movement">
+        <DischargeMovementForm
           onSubmit={handleSubmit}
           onCancel={() => {
             const newMap = { ...breadcrumbMap };
             delete newMap[t("pharmacy.labels.pharmaceutical-stock")];
-            delete newMap[t("pharmacy.labels.DisCharge-movement")];
+            delete newMap[t("pharmacy.labels.discharge-movement")];
             setBreadcrumbMap(newMap);
             navigate(PATHS.pharmacy_pharmaceuticalstock, { replace: true });
           }}
@@ -106,19 +105,11 @@ export function DisChargeMovement() {
       </div>
       <ConfirmationDialog
         isOpen={createStatus === "SUCCESS"}
-        title="Discharge movement created"
+        title={t("pharmacy.labels.discharge-movement-created")}
         icon={checkIcon}
-        info="Discharge movement created successfully"
-        primaryButtonLabel="Ok"
-        handlePrimaryButtonClick={() => {
-          const newMap = { ...breadcrumbMap };
-          delete newMap[t("pharmacy.labels.pharmaceutical-stock")];
-          delete newMap[t("pharmacy.labels.DisCharge-movement")];
-          dispatch(resetDischargeMovements());
-          setBreadcrumbMap(newMap);
-          setActivityTransitionState("TO_RESET");
-          navigate(PATHS.pharmacy_pharmaceuticalstock, { replace: true });
-        }}
+        info={t("pharmacy.labels.discharge-movement-created-successfully")}
+        primaryButtonLabel={t("pharmacy.labels.ok")}
+        handlePrimaryButtonClick={handleReset}
         handleSecondaryButtonClick={() => ({})}
       />
       {createStatus === "SUCCESS_EMPTY" && (

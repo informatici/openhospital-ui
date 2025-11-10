@@ -14,23 +14,20 @@ export const LotDTOSchema = z.object({
   overallQuantity: z.number().optional(),
 })
 .superRefine((lot, ctx) => {
-  // Si l'utilisateur a renseigné quelque chose partiellement
   const hasWard = !!lot.ward;
   const hasQuantity = lot.quantity !== undefined && lot.quantity !== null && lot.quantity > 0;
-
-  // ⚠️ Si l'un des deux est rempli, l'autre doit l'être aussi
   if (hasWard && !hasQuantity) {
     ctx.addIssue({
       code: z.ZodIssueCode.custom,
       path: ["quantity"],
-      message: "Veuillez renseigner la quantité pour ce lot.",
+      message: "The quantity is required.",
     });
   }
   if (!hasWard && hasQuantity) {
     ctx.addIssue({
       code: z.ZodIssueCode.custom,
       path: ["ward"],
-      message: "Veuillez sélectionner un ward pour ce lot.",
+      message: "The ward is required.",
     });
   }
 });
@@ -62,7 +59,7 @@ export function getInitialValues(from?: MovementDTO): Partial<TFormValues> {
       preparationDate: new Date(lot.preparationDate),
       dueDate: new Date(lot.dueDate),
       cost: lot.cost,
-      ward: "", // 🟡 initialement vide
+      ward: "",
       quantity: 0,
     })) ?? [],
   };

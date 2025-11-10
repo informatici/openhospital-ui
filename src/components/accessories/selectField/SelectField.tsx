@@ -46,6 +46,7 @@ const SelectField: FunctionComponent<IProps> = ({
       required={required === FIELD_VALIDATION.REQUIRED}
       className="selectField"
       size="small"
+      data-slot="select-field"
     >
       <InputLabel id={fieldName} error={isValid}>
         {required === FIELD_VALIDATION.SUGGESTED ? label + " **" : label}

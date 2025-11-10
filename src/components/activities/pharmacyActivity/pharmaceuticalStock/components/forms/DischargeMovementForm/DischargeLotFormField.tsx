@@ -1,55 +1,25 @@
-import { FormControlLabel, Radio, TextField } from "@mui/material";
+import { TextField } from "@mui/material";
 import DateField from "components/accessories/dateField/DateField";
 import {
   AutocompleteFormField,
-  DateFormField,
   TextFormField,
 } from "components/accessories/forms";
 import { LotDTO } from "generated";
 import { DATETIME_FORMAT } from "libraries/consts";
 import { useTranslation } from "libraries/hooks";
-import { isEmpty, values } from "lodash";
+import { isEmpty } from "lodash";
 import React, { Fragment, useEffect, useState } from "react";
 import { Controller, useWatch } from "react-hook-form";
-import Button from "components/accessories/button/Button";
 import { LotFormFieldProps } from "./types";
 
 export function DischargeLotFormField({
   medical,
   wards,
   control,
+  lots,
+  lotsValues,
 }: LotFormFieldProps) {
   const { t } = useTranslation();
-  const [lots, setLots] = useState<LotDTO[]>([]);
-
-  const lotsValues = useWatch({
-    control,
-    name: "lots",
-  });
-
-  useEffect(() => {
-    setLots(medical?.lots ?? []);
-
-    if (control && medical?.lots) {
-      control._reset({
-        ...control._formValues,
-        lots: medical.lots.map((lot) => ({
-          code: lot.code,
-          preparationDate: lot.preparationDate
-            ? new Date(lot.preparationDate)
-            : undefined,
-          dueDate: lot.dueDate ? new Date(lot.dueDate) : undefined,
-          cost: lot.cost ?? undefined,
-          ward: "",
-          quantity: undefined,
-        })),
-      });
-    }
-
-    return () => {
-      setLots([]);
-    };
-  }, [medical]);
 
   return (
     <>
@@ -59,7 +29,7 @@ export function DischargeLotFormField({
         </span>
       )}
 
-      {lots.map((lot, index) => {
+      {lots?.map((lot, index) => {
         const wardValue = lotsValues?.[index]?.ward;
         return (
           <Fragment key={lot.code}>
@@ -117,7 +87,7 @@ export function DischargeLotFormField({
             <Controller
               name={`lots.${index}.mainStoreQuantity`}
               control={control}
-              defaultValue={lot.wardsTotalQuantity}
+              defaultValue={lot.mainStoreQuantity}
               render={({ field }) => (
                 <TextField
                   {...field}
@@ -156,17 +126,6 @@ export function DischargeLotFormField({
           </Fragment>
         );
       })}
-
-      {/* {!isEmpty(lots) && (
-        <div className="col-start-1 col-span-full">
-          <Button type="button" variant="outlined">
-            {t("pharmacy.form.fields.cancel")}
-          </Button>
-          <Button type="submit" variant="contained">
-            {t("pharmacy.form.fields.discharge")}
-          </Button>
-        </div>
-      )} */}
     </>
   );
 }

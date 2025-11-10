@@ -86,7 +86,7 @@ const DateRangeField: FunctionComponent<IProps> = ({
   };
 
   return (
-    <div className="dateRangeField">
+    <div className="dateRangeField" data-slot="date-range-field">
       <DateField
         fieldName="from"
         fieldValue={formik.values.from}
