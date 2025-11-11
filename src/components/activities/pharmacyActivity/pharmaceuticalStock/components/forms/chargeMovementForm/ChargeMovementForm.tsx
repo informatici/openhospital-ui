@@ -8,11 +8,11 @@ import {
 import { PATHS } from "consts";
 import { MovementDTO } from "generated";
 import { DATETIME_FORMAT } from "libraries/consts";
-import { safeFormatToIso } from "libraries/formatUtils";
+import { safeFormatToISO } from "libraries/formatUtils";
 import { useNavigationHandler, useTranslation } from "libraries/hooks";
 import { useMedicals, useMovementTypes } from "libraries/hooks/api";
 import { isEmpty } from "lodash";
-import React, { FormEvent, useCallback, useEffect, useMemo } from "react";
+import React, { FormEvent, useCallback, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { LotFormField } from "./LotFormField";
 import { MovementDTOSchema, getInitialValues } from "./consts";
@@ -28,7 +28,7 @@ export function ChargeMovementForm({
   const { options: medicalOptions, selectMedical } = useMedicals();
   const { selectMovementType } = useMovementTypes();
 
-  const { control, subscribe, watch, formState } = useForm<TFormValues>({
+  const { control, watch, formState } = useForm<TFormValues>({
     defaultValues: getInitialValues(movement),
     resolver: standardSchemaResolver(MovementDTOSchema),
   });
@@ -38,12 +38,12 @@ export function ChargeMovementForm({
   const formatedValues = useMemo(() => {
     return {
       ...values,
-      date: safeFormatToIso(values.date),
+      date: safeFormatToISO(values.date),
       lot: values.lot
         ? {
             ...values.lot,
-            dueDate: safeFormatToIso(values.lot?.dueDate),
-            preparationDate: safeFormatToIso(values.lot?.preparationDate),
+            dueDate: safeFormatToISO(values.lot?.dueDate),
+            preparationDate: safeFormatToISO(values.lot?.preparationDate),
           }
         : undefined,
       medical: selectMedical(values.medical),
@@ -68,19 +68,6 @@ export function ChargeMovementForm({
       replace: true,
     }
   );
-
-  useEffect(() => {
-    const callback = subscribe({
-      formState: {
-        values: true,
-      },
-      callback: ({ values }) => {
-        console.log(values);
-      },
-    });
-
-    return () => callback();
-  }, [subscribe]);
 
   return (
     <div className="chargeMovementForm">
