@@ -247,7 +247,7 @@
     "conditioning": "Mise en condition et état à l'admission",
     "medicalHistory": "Antécédent médical",
     "folderNumber": "Numéro du dossier",
-    "alertReceived": "Alert reçue",
+    "alertReceived": "Alerte reçue",
     "referenceSheet": "Fiche de référence",
     "qualifiedAgent": "Agent qualifié",
     "schoolingLevel": {
@@ -876,7 +876,7 @@
     "admType": "Type d'admission",
     "newadmission": "Nouvelle hospitalisation",
     "editadmission": "Mise a jour de l'admission",
-    "diseaseIn": "Diagnostic d'entré ",
+    "diseaseIn": "Diagnostic d'entrée",
     "ward": "Pavillon",
     "transUnit": "Unité de transfusion",
     "fhu": "Du Bureau de santé",
@@ -918,7 +918,7 @@
     "no_beds": "Il n'y a aucun lit dans le pavillon sélectionné",
     "preTreatment": "Traitement avant admission",
     "preAssessment": "Bilan avant admission",
-    "entryReason": "Motif d'entré",
+    "entryReason": "Motif d'entrée",
     "transportation": "Moyen de transport"
   },
   "bill": {
