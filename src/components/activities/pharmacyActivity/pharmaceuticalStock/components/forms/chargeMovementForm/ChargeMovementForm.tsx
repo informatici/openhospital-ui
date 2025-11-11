@@ -8,6 +8,7 @@ import {
 import { PATHS } from "consts";
 import { MovementDTO } from "generated";
 import { DATETIME_FORMAT } from "libraries/consts";
+import { safeFormatToIso } from "libraries/formatUtils";
 import { useNavigationHandler, useTranslation } from "libraries/hooks";
 import { useMedicals, useMovementTypes } from "libraries/hooks/api";
 import { isEmpty } from "lodash";
@@ -37,12 +38,12 @@ export function ChargeMovementForm({
   const formatedValues = useMemo(() => {
     return {
       ...values,
-      date: values.date?.toISOString(),
+      date: safeFormatToIso(values.date),
       lot: values.lot
         ? {
             ...values.lot,
-            dueDate: values.lot.dueDate?.toISOString(),
-            preparationDate: values.lot.preparationDate?.toISOString(),
+            dueDate: safeFormatToIso(values.lot?.dueDate),
+            preparationDate: safeFormatToIso(values.lot?.preparationDate),
           }
         : undefined,
       medical: selectMedical(values.medical),
@@ -116,10 +117,10 @@ export function ChargeMovementForm({
         )}
         <div className="col-start-1 col-span-full"></div>
         <div className="col-span-full flex gap-2 justify-end">
-          <Button type="reset" onClick={handleGoBack}>
+          <Button type="reset" dataCy="reset-button" onClick={handleGoBack}>
             {t("common.close")}
           </Button>
-          <Button variant="contained" type="submit">
+          <Button variant="contained" dataCy="submit-button" type="submit">
             {t("pharmacy.stock.charge")}
           </Button>
         </div>
