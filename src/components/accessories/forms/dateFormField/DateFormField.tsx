@@ -1,4 +1,5 @@
 import DateField from "components/accessories/dateField/DateField";
+import { isValid } from "date-fns";
 import React, { ComponentProps } from "react";
 import { Control, Controller, Path } from "react-hook-form";
 
@@ -25,7 +26,7 @@ export function DateFormField<T extends Record<string, any>>({
           aria-invalid={fieldState.invalid}
           fieldName={field.name}
           fieldValue={
-            (field.value as any) instanceof Date
+            (field.value as any) instanceof Date && isValid(field.value)
               ? field.value.toISOString()
               : field.value ?? ""
           }

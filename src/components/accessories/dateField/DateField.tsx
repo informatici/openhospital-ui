@@ -61,7 +61,7 @@ const DateField: FunctionComponent<IProps> = ({
           }
           disabled={disabled}
           disableFuture={disableFuture}
-          onChange={(date: any) => handleDateChange(date)}
+          onChange={handleDateChange}
           value={value}
           onMonthChange={onMonthChange}
           shouldDisableDate={shouldDisableDate}
@@ -94,7 +94,7 @@ const DateField: FunctionComponent<IProps> = ({
           }
           disabled={disabled}
           disableFuture={disableFuture}
-          onChange={(date: any) => handleDateChange(date)}
+          onChange={handleDateChange}
           value={value}
           onMonthChange={onMonthChange}
           shouldDisableDate={shouldDisableDate}
