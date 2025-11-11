@@ -4,16 +4,14 @@ import {
   AutocompleteFormField,
   TextFormField,
 } from "components/accessories/forms";
-import { LotDTO } from "generated";
 import { DATETIME_FORMAT } from "libraries/consts";
 import { useTranslation } from "libraries/hooks";
 import { isEmpty } from "lodash";
-import React, { Fragment, useEffect, useState } from "react";
-import { Controller, useWatch } from "react-hook-form";
+import React, { Fragment } from "react";
+import { Controller } from "react-hook-form";
 import { LotFormFieldProps } from "./types";
 
 export function DischargeLotFormField({
-  medical,
   wards,
   control,
   lots,
