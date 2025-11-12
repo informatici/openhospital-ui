@@ -1267,7 +1267,8 @@
       "labels": {
         "existingLots": "Existing lots",
         "newLot": "New Lot",
-        "change-on-this": "Change on this lot"
+        "change-on-this": "Change on this lot",
+        "select-lot": "Select the lot"
       },
       "fields": {
         "code": "Lot Code",

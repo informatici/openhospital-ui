@@ -58,6 +58,9 @@ export function LotFormField({ medical, control }: LotFormFieldProps) {
 
   return (
     <>
+      <span className="col-start-1 col-span-full text-lg mb-2">
+        {t("pharmacy.lot.labels.select-lot")}
+      </span>
       {!isEmpty(medical.lots) && (
         <span className="col-start-1 col-span-full text-lg">
           {t("pharmacy.lot.labels.existingLots")}
