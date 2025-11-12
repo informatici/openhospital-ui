@@ -6,7 +6,6 @@ import _ from "lodash";
 import React, {
   FunctionComponent,
   useEffect,
-  useCallback,
   useMemo,
 } from "react";
 import "./styles.scss";
