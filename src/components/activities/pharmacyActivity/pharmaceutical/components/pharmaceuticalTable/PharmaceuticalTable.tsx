@@ -1,12 +1,12 @@
-import { CircularProgress } from '@mui/material';
-import InfoBox from 'components/accessories/infoBox/InfoBox';
-import Table from 'components/accessories/table/Table';
-import { TFilterField } from 'components/accessories/table/filter/types';
-import { MedicalDTO } from 'generated';
-import { useAppDispatch, useAppSelector } from 'libraries/hooks/redux';
-import React, { useEffect } from 'react'
-import { useTranslation } from 'react-i18next';
-import { getMedicals } from 'state/pharmacy';
+import { CircularProgress } from "@mui/material";
+import InfoBox from "components/accessories/infoBox/InfoBox";
+import Table from "components/accessories/table/Table";
+import { TFilterField } from "components/accessories/table/filter/types";
+import { MedicalDTO } from "generated";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
+import React, { useEffect, useMemo } from "react";
+import { useTranslation } from "react-i18next";
+import { getMedicals } from "state/pharmacy";
 
 export default function PharmaceuticalTable() {
   const { t } = useTranslation();
@@ -47,24 +47,28 @@ export default function PharmaceuticalTable() {
   const order = ["pcsperpck", "stock", "criticalValue", "amc"];
 
   const filters: TFilterField[] = [
-    { key: "pharmaceutical", label: t("pharmacy.stock.pharmaceutical"), type: "text" },
+    {
+      key: "pharmaceutical",
+      label: t("pharmacy.stock.pharmaceutical"),
+      type: "text",
+    },
     { key: "type", label: t("pharmacy.stock.type"), type: "text" },
     { key: "code", label: t("pharmacy.stock.code"), type: "number" },
   ];
 
-  const formatDataToDisplay = (data: MedicalDTO[]) => {
+  const formattedData = useMemo(() => {
     return data.map((item) => {
       // Trouver la date d'expiration la plus proche parmi les lots
       let nearestExpiration: string | null = null;
-  
+
       if (item.lots && item.lots.length > 0) {
         const now = new Date();
-  
+
         // Filtrer les lots avec une date future valide
         const futureLots = item.lots.filter(
           (lot) => new Date(lot.dueDate) >= now
         );
-  
+
         if (futureLots.length > 0) {
           // Trouver la plus proche
           const nearestLot = futureLots.reduce((prev, current) => {
@@ -72,7 +76,6 @@ export default function PharmaceuticalTable() {
             const currDate = new Date(current.dueDate);
             return currDate < prevDate ? current : prev;
           });
-  
           nearestExpiration = nearestLot.dueDate;
         } else {
           // Si aucun lot futur, on peut choisir le plus récent (déjà expiré)
@@ -84,7 +87,7 @@ export default function PharmaceuticalTable() {
           nearestExpiration = nearestLot.dueDate;
         }
       }
-  
+
       return {
         pharmaceutical: item.description,
         type: item.type?.description,
@@ -97,7 +100,7 @@ export default function PharmaceuticalTable() {
         expDate: nearestExpiration,
       };
     });
-  };  
+  }, [data]);
 
   useEffect(() => {
     dispatch(getMedicals());
@@ -113,23 +116,17 @@ export default function PharmaceuticalTable() {
             return (
               <Table
                 labelData={labelData}
-                tableHeader={tableHeader} 
+                tableHeader={tableHeader}
                 rowsPerPage={10}
                 columnsOrder={order}
                 rowClassNames={(row) => "pharmaceutical-table__row"}
                 initialOrderBy="pcsperpck"
-                rowData={formatDataToDisplay(data)}
+                rowData={formattedData}
                 showEmptyCell={false}
                 isCollapsabile={false}
                 detailColSpan={6}
                 filterColumns={filters}
                 rowKey="pharmaceutical"
-                rawData={(data ?? []).map((item: MedicalDTO) => ({
-                  ...item,
-                  type: item.type?.description,
-                  code: item.code,
-                  pharmaceutical: item.description,
-                }))}
                 manualFilter={false}
               />
             );
@@ -137,8 +134,8 @@ export default function PharmaceuticalTable() {
             return <InfoBox type="info" message={t("common.emptydata")} />;
           case "FAIL":
             return <InfoBox type="error" message={errorMessage} />;
-          default :
-          return <CircularProgress />;
+          default:
+            return <CircularProgress />;
         }
       })()}
     </div>

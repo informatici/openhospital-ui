@@ -1,12 +1,14 @@
-import {
-  KeyboardArrowDown,
-  KeyboardArrowUp,
-} from "@mui/icons-material";
+import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
 import { Collapse, IconButton } from "@mui/material";
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import _ from "lodash";
-import React, { FunctionComponent, useEffect, useCallback } from "react";
+import React, {
+  FunctionComponent,
+  useEffect,
+  useCallback,
+  useMemo,
+} from "react";
 import "./styles.scss";
 import { IRowProps } from "./types";
 import Button from "../button/Button";
@@ -43,7 +45,7 @@ const TableBodyRow: FunctionComponent<IRowProps> = ({
     return "";
   };
 
-  const hasExpiringLotThisMonth = useCallback(() => {
+  const hasExpiringLotThisMonth = useMemo(() => {
     if (!row.expDate) return false;
 
     const expiry = new Date(row.expDate);

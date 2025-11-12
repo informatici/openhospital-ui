@@ -6,7 +6,7 @@ interface ICellContentProps {
   value: any;
   keyName: string;
   row: any;
-  hasExpiringLotThisMonth: () => boolean;
+  hasExpiringLotThisMonth: boolean;
 }
 
 const CellContent: FC<ICellContentProps> = ({
@@ -24,7 +24,7 @@ const CellContent: FC<ICellContentProps> = ({
       )}
 
       {row.stock < row.criticalValue &&
-        hasExpiringLotThisMonth() &&
+        hasExpiringLotThisMonth &&
         keyName === "pharmaceutical" && (
           <>
             <Warning className="icon-warning" />
@@ -32,7 +32,7 @@ const CellContent: FC<ICellContentProps> = ({
           </>
         )}
 
-      {hasExpiringLotThisMonth() &&
+      {hasExpiringLotThisMonth &&
         row.stock >= row.criticalValue &&
         keyName === "pharmaceutical" && (
           <EventBusy className="icon-expiry-grey" />
