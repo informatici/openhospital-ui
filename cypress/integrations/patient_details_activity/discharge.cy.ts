@@ -2,7 +2,7 @@
 
 describe("Patient Details / Discharge", () => {
   before(() => {
-    cy.authenticate('/patients/details/1');
+    cy.authenticate("/patients/details/1");
   });
 
   it("should render the ui", () => {

@@ -7,8 +7,16 @@ export const stockMovementsRoutes = (server) => {
     server.get("/").intercept((_, res) => {
       res.status(200).json(MOVEMENTS);
     });
-    server.post("/charge").intercept((_, res) => {
-      res.status(200).json(true);
+    server.post("/charge").intercept((req, res) => {
+      const body = req.jsonBody();
+      switch (body[0].refNo) {
+        case 0:
+          res.status(400);
+          break;
+        default:
+          res.status(201).json(true);
+          break;
+      }
     });
   });
   server.namespace("/medicalstockward", () => {
