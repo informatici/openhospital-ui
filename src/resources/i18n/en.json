@@ -1268,7 +1268,9 @@
         "existingLots": "Existing lots",
         "newLot": "New Lot",
         "change-on-this": "Change on this lot",
-        "select-lot": "Select the lot"
+        "select-lot": "Select the lot",
+        "lots": "Lots",
+        "total": "Total stock quantity: <1>{{count}}</1>"
       },
       "fields": {
         "code": "Lot Code",

@@ -1,14 +1,17 @@
+import { LOTS } from "./lots";
+
 export const medicalDTO = {
-    "code": 12,
-    "prod_code": "PARA",
-    "type": {
-        "code": "M",
-        "description": "Medical material"
-    },
-    "description": "Paracétamol",
-    "initialqty": 21,
-    "pcsperpck": 100,
-    "inqty": 340,
-    "outqty": 8,
-    "minqty": 15
-}
+  code: 12,
+  prod_code: "PARA",
+  type: {
+    code: "M",
+    description: "Medical material",
+  },
+  description: "Paracétamol",
+  initialqty: 21,
+  pcsperpck: 100,
+  inqty: 340,
+  outqty: 8,
+  minqty: 15,
+  lots: LOTS.filter((lot) => lot.code.endsWith("MED0")),
+};

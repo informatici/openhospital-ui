@@ -9,8 +9,9 @@ import { safeFormatToISO } from "libraries/formatUtils";
 import { useTranslation } from "libraries/hooks";
 import { useWardOptions } from "libraries/hooks/api";
 import { isEmpty } from "lodash";
-import React, { Fragment } from "react";
+import React, { Fragment, useMemo } from "react";
 import { useFieldArray, useWatch } from "react-hook-form";
+import { Trans } from "react-i18next";
 import { DischargeLotFormFieldProps } from "./types";
 
 export function DischargeLotFormField({
@@ -28,10 +29,25 @@ export function DischargeLotFormField({
 
   const wardOptions = useWardOptions(wards);
 
+  const total = useMemo(
+    () =>
+      lots.reduce((acc, current) => acc + (current.mainStoreQuantity ?? 0), 0),
+    [lots]
+  );
+
   return (
     <>
+      <b className="col-start-1 col-span-full text-2xl">
+        {t("pharmacy.lot.labels.lots")}
+      </b>
+      <span className="col-start-1 col-span-full text-lg mb-2">
+        <Trans i18nKey="pharmacy.lot.labels.total" values={{ count: total }}>
+          Total stock quantity: <b>0</b>
+        </Trans>
+      </span>
+
       {!isEmpty(lots) && (
-        <span className="col-start-1 col-span-full text-lg">
+        <span className="col-start-1 col-span-full text-lg mb-2">
           {t("pharmacy.lot.labels.existingLots")}
         </span>
       )}
@@ -44,6 +60,7 @@ export function DischargeLotFormField({
               value={lot.code}
               label={t("pharmacy.lot.fields.code")}
               name={`lots.${index}.preparationDate`}
+              sx={{ marginTop: 1 }}
               disabled
             />
 
@@ -87,6 +104,7 @@ export function DischargeLotFormField({
               value={lot.cost}
               label={t("pharmacy.lot.fields.cost")}
               name={`lots.${index}.cost`}
+              sx={{ marginTop: 1 }}
               disabled
             />
             {wardValue && (

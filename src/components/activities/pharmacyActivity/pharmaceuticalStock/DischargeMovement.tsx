@@ -1,23 +1,19 @@
+import ConfirmationDialog from "components/accessories/confirmationDialog/ConfirmationDialog";
+import InfoBox from "components/accessories/infoBox/InfoBox";
 import { PATHS } from "consts";
+import { MovementDTO } from "generated";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
+import { values } from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useOutletContext } from "react-router";
+import { useNavigate, useOutletContext } from "react-router";
 import { getMedicals } from "state/medicals";
-import "./styles.scss";
-import { PharmacyActivityContent } from "../PharmacyActivityContent";
-import { MovementDTO } from "generated";
-import {
-  dischargeMovements,
-  resetDischargeMovements,
-} from "state/pharmacy";
-import ConfirmationDialog from "components/accessories/confirmationDialog/ConfirmationDialog";
+import { dischargeMovements, resetDischargeMovements } from "state/pharmacy";
 import checkIcon from "../../../../assets/check-icon.png";
-import { DisChargeMovementTransitionState } from "./types";
-import { useNavigate } from "react-router";
-import InfoBox from "components/accessories/infoBox/InfoBox";
+import { PharmacyActivityContent } from "../PharmacyActivityContent";
 import { DischargeMovementForm } from "./components/forms/DischargeMovementForm/DischargeMovementForm";
-import { values } from "lodash";
+import "./styles.scss";
+import { DisChargeMovementTransitionState } from "./types";
 
 export function DischargeMovement() {
   const { t } = useTranslation();
@@ -51,9 +47,12 @@ export function DischargeMovement() {
     });
   };
 
-  const handleSubmit = useCallback((values: MovementDTO[]) => {
-    dispatch(dischargeMovements({ ref: "REF123", movementDTO: values }));
-  }, [dispatch, values]);
+  const handleSubmit = useCallback(
+    (values: MovementDTO[]) => {
+      dispatch(dischargeMovements({ ref: "REF123", movementDTO: values }));
+    },
+    [dispatch, values]
+  );
 
   const handleReset = useCallback(() => {
     const newMap = { ...breadcrumbMap };

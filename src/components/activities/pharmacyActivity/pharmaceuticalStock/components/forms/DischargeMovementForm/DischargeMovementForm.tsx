@@ -5,7 +5,7 @@ import {
   DateFormField,
   TextFormField,
 } from "components/accessories/forms";
-import { MovementDTO, WardDTO } from "generated";
+import { MedicalDTO, MovementDTO, WardDTO } from "generated";
 import { DATETIME_FORMAT } from "libraries/consts";
 import { useTranslation } from "libraries/hooks";
 import { useMedicals, useWards } from "libraries/hooks/api";
@@ -29,7 +29,16 @@ export function DischargeMovementForm({
 
   const dispatch = useAppDispatch();
 
-  const { medicals, options: medicalOptions, selectMedical } = useMedicals();
+  const medicalFilter = useCallback(
+    (medical: MedicalDTO) => !!medical.lots?.length,
+    []
+  );
+
+  const {
+    medicals,
+    options: medicalOptions,
+    selectMedical,
+  } = useMedicals(medicalFilter);
 
   const wardFilter = useCallback((ward: WardDTO) => !!ward.pharmacy, []);
 
@@ -88,12 +97,11 @@ export function DischargeMovementForm({
     setValue(
       "lots",
       (values.medical?.lots ?? []).map((lot) => ({
-        code: lot.code,
+        ...lot,
         preparationDate: lot.preparationDate
           ? new Date(lot.preparationDate)
           : undefined,
         dueDate: lot.dueDate ? new Date(lot.dueDate) : undefined,
-        cost: lot.cost ?? undefined,
         ward: "",
         quantity: undefined,
       })) as z.infer<typeof LotDTOSchema>[]
