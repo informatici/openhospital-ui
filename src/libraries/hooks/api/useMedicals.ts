@@ -1,9 +1,14 @@
+import { MedicalDTO } from "generated";
 import { useCallback, useMemo } from "react";
 import { useAppSelector } from "../redux";
 
-export function useMedicals() {
-  const medicals = useAppSelector(
-    (state) => state.medicals.medicalsOrderByName.data ?? []
+export type MedicalPredicate = (medical: MedicalDTO) => boolean;
+
+export function useMedicals(perdicate?: MedicalPredicate) {
+  const medicals = useAppSelector((state) =>
+    (state.medicals.medicalsOrderByName.data ?? []).filter(
+      (item) => perdicate?.(item) ?? true
+    )
   );
 
   const options = useMemo(

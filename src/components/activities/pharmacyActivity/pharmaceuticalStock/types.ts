@@ -1,0 +1,1 @@
+export type DisChargeMovementTransitionState = "IDLE" | "TO_RESET" | "FAIL";

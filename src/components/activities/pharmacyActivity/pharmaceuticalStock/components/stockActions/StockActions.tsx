@@ -28,6 +28,7 @@ export function StockActions() {
         {t("pharmacy.stock.stockReport")}
       </Button>
       <div className="separator"></div>
+      <Link to={"./discharge-movement"}>
       <Button
         type="button"
         variant="contained"
@@ -36,6 +37,7 @@ export function StockActions() {
       >
         {t("pharmacy.stock.discharge")}
       </Button>
+      </Link>
       <Link to={"./charge-movement"}>
         <Button
           className="charge_button"

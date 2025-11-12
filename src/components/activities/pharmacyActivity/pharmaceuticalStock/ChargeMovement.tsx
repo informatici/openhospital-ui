@@ -58,7 +58,17 @@ export function ChargeMovement() {
 
   const handleMovementCharge = useCallback(
     (values: MovementDTO) => {
-      dispatch(chargeMovements({ movementDTO: [values], ref: values.refNo }));
+      dispatch(
+        chargeMovements({
+          movementDTO: [
+            {
+              ...values,
+              type: { code: "charge", description: "Charge", type: "+" },
+            },
+          ],
+          ref: values.refNo,
+        })
+      );
     },
     [dispatch]
   );
