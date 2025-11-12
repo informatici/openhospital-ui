@@ -71,7 +71,7 @@ export function LotFormField({ medical, control }: LotFormFieldProps) {
         name="lot"
         render={({ field }) => (
           <>
-            {(medical.lots ?? []).map((lot) => (
+            {(medical.lots ?? []).map((lot, index) => (
               <Fragment key={lot.code}>
                 <FormControlLabel
                   value={lot.code}
@@ -83,14 +83,14 @@ export function LotFormField({ medical, control }: LotFormFieldProps) {
                 <TextField
                   value={lot.code}
                   label={t("pharmacy.lot.fields.code")}
-                  name="lot.code"
+                  name={`lot.${index}.code`}
                   disabled
                 />
                 <DateField
                   format={DATETIME_FORMAT}
                   fieldValue={lot.preparationDate}
                   label={t("pharmacy.lot.fields.preparationDate")}
-                  fieldName="lot.preparationDate"
+                  fieldName={`lot.${index}.preperationDate`}
                   isValid={true}
                   errorText=""
                   onChange={() => {}}
@@ -100,7 +100,7 @@ export function LotFormField({ medical, control }: LotFormFieldProps) {
                   format={DATETIME_FORMAT}
                   fieldValue={lot.dueDate}
                   label={t("pharmacy.lot.fields.dueDate")}
-                  fieldName="lot.dueDate"
+                  fieldName={`lot.${index}.dueDate`}
                   isValid={true}
                   errorText=""
                   onChange={() => {}}
@@ -109,7 +109,7 @@ export function LotFormField({ medical, control }: LotFormFieldProps) {
                 <TextField
                   value={lot.cost}
                   label={t("pharmacy.lot.fields.cost")}
-                  name="lot.cost"
+                  name={`lot.${index}.cost`}
                   disabled
                 />
               </Fragment>
