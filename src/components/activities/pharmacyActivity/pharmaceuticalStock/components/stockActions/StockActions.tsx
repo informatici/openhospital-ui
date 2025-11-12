@@ -41,6 +41,7 @@ export function StockActions() {
       <Link to={"./charge-movement"}>
         <Button
           className="charge_button"
+          dataCy="charge-button"
           type="button"
           variant="contained"
           startIcon={<ExitToAppIcon sx={{ transform: "rotate(-90deg)" }} />}

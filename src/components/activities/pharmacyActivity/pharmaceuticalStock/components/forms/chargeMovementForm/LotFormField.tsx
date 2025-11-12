@@ -4,22 +4,34 @@ import { DateFormField, TextFormField } from "components/accessories/forms";
 import { parseISO } from "date-fns";
 import { LotDTO } from "generated";
 import { DATETIME_FORMAT } from "libraries/consts";
+import { safeFormatToISO } from "libraries/formatUtils";
 import { useTranslation } from "libraries/hooks";
 import { isEmpty } from "lodash";
-import React, { Fragment, useCallback, useState } from "react";
-import { Controller, ControllerRenderProps } from "react-hook-form";
+import React, {
+  Fragment,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
+import { Controller, ControllerRenderProps, useWatch } from "react-hook-form";
 import { LotFormFieldProps, TFormValues } from "./types";
 
 export function LotFormField({ medical, control }: LotFormFieldProps) {
   const { t } = useTranslation();
-  const [lots] = useState<LotDTO[]>(() => [
-    ...(medical.lots ?? []),
-    {
-      code: "",
-      preparationDate: new Date().toISOString(),
-      dueDate: new Date().toISOString(),
-    },
-  ]);
+  const [newLot, setNewLot] = useState<LotDTO>({
+    code: "LOT_00",
+    preparationDate: new Date().toISOString(),
+    dueDate: new Date().toISOString(),
+    cost: 0,
+  });
+
+  const value = useWatch({ control, name: "lot" });
+
+  const isNewLotActive = useMemo(
+    () => !medical.lots?.some((lot) => lot.code === value?.code),
+    [value, medical]
+  );
 
   const handleChange = useCallback(
     (field: ControllerRenderProps<TFormValues, "lot">, lot: LotDTO) => () => {
@@ -34,11 +46,15 @@ export function LotFormField({ medical, control }: LotFormFieldProps) {
     []
   );
 
-  const isActiveNewLot = useCallback(
-    (field: ControllerRenderProps<TFormValues, "lot">, lot: LotDTO) =>
-      !medical.lots?.some((item) => item.code === lot.code),
-    [medical]
-  );
+  useEffect(() => {
+    if (value && !medical.lots?.some((lot) => lot.code === value?.code)) {
+      setNewLot({
+        ...value,
+        preparationDate: safeFormatToISO(value?.preparationDate) ?? "",
+        dueDate: safeFormatToISO(value?.dueDate) ?? "",
+      });
+    }
+  }, [value, medical]);
 
   return (
     <>
@@ -52,86 +68,86 @@ export function LotFormField({ medical, control }: LotFormFieldProps) {
         name="lot"
         render={({ field }) => (
           <>
-            {lots.map((lot) => (
+            {(medical.lots ?? []).map((lot) => (
               <Fragment key={lot.code}>
-                {isActiveNewLot(field, lot) && (
-                  <span className="col-start-1 col-span-full text-lg">
-                    {t("pharmacy.lot.labels.newLot")}
-                  </span>
-                )}
                 <FormControlLabel
                   value={lot.code}
-                  checked={
-                    lot.code === field.value?.code || isActiveNewLot(field, lot)
-                  }
+                  checked={lot.code === field.value?.code}
                   className="col-start-1 col-span-full"
                   control={<Radio onClick={handleChange(field, lot)} />}
                   label={t("pharmacy.lot.labels.change-on-this")}
                 />
-                {isActiveNewLot(field, lot) ? (
-                  <>
-                    <TextFormField
-                      label={t("pharmacy.lot.fields.code")}
-                      control={control}
-                      name="lot.code"
-                    />
-                    <DateFormField
-                      format={DATETIME_FORMAT}
-                      label={t("pharmacy.lot.fields.preparationDate")}
-                      control={control}
-                      name="lot.preparationDate"
-                    />
-                    <DateFormField
-                      format={DATETIME_FORMAT}
-                      label={t("pharmacy.lot.fields.dueDate")}
-                      control={control}
-                      name="lot.dueDate"
-                    />
-                    <TextFormField
-                      type="number"
-                      label={t("pharmacy.lot.fields.cost")}
-                      control={control}
-                      name="lot.cost"
-                    />
-                  </>
-                ) : (
-                  <>
-                    <TextField
-                      value={lot.code}
-                      label={t("pharmacy.lot.fields.code")}
-                      name="lot.code"
-                      disabled
-                    />
-                    <DateField
-                      format={DATETIME_FORMAT}
-                      fieldValue={lot.preparationDate}
-                      label={t("pharmacy.lot.fields.preparationDate")}
-                      fieldName="lot.preparationDate"
-                      isValid={true}
-                      errorText=""
-                      onChange={() => {}}
-                      disabled
-                    />
-                    <DateField
-                      format={DATETIME_FORMAT}
-                      fieldValue={lot.dueDate}
-                      label={t("pharmacy.lot.fields.dueDate")}
-                      fieldName="lot.dueDate"
-                      isValid={true}
-                      errorText=""
-                      onChange={() => {}}
-                      disabled
-                    />
-                    <TextField
-                      value={lot.cost}
-                      label={t("pharmacy.lot.fields.cost")}
-                      name="lot.cost"
-                      disabled
-                    />
-                  </>
-                )}
+                <TextField
+                  value={lot.code}
+                  label={t("pharmacy.lot.fields.code")}
+                  name="lot.code"
+                  disabled
+                />
+                <DateField
+                  format={DATETIME_FORMAT}
+                  fieldValue={lot.preparationDate}
+                  label={t("pharmacy.lot.fields.preparationDate")}
+                  fieldName="lot.preparationDate"
+                  isValid={true}
+                  errorText=""
+                  onChange={() => {}}
+                  disabled
+                />
+                <DateField
+                  format={DATETIME_FORMAT}
+                  fieldValue={lot.dueDate}
+                  label={t("pharmacy.lot.fields.dueDate")}
+                  fieldName="lot.dueDate"
+                  isValid={true}
+                  errorText=""
+                  onChange={() => {}}
+                  disabled
+                />
+                <TextField
+                  value={lot.cost}
+                  label={t("pharmacy.lot.fields.cost")}
+                  name="lot.cost"
+                  disabled
+                />
               </Fragment>
             ))}
+            <span className="col-start-1 col-span-full text-lg">
+              {t("pharmacy.lot.labels.newLot")}
+            </span>
+            <FormControlLabel
+              value={newLot.code}
+              checked={newLot.code === value?.code}
+              className="col-start-1 col-span-full"
+              control={<Radio onClick={handleChange(field, newLot)} />}
+              label={t("pharmacy.lot.labels.change-on-this")}
+            />
+            <TextFormField
+              label={t("pharmacy.lot.fields.code")}
+              control={control}
+              name="lot.code"
+              disabled={!isNewLotActive}
+            />
+            <DateFormField
+              format={DATETIME_FORMAT}
+              label={t("pharmacy.lot.fields.preparationDate")}
+              control={control}
+              name="lot.preparationDate"
+              disabled={!isNewLotActive}
+            />
+            <DateFormField
+              format={DATETIME_FORMAT}
+              label={t("pharmacy.lot.fields.dueDate")}
+              control={control}
+              name="lot.dueDate"
+              disabled={!isNewLotActive}
+            />
+            <TextFormField
+              type="number"
+              label={t("pharmacy.lot.fields.cost")}
+              control={control}
+              name="lot.cost"
+              disabled={!isNewLotActive}
+            />
           </>
         )}
       />
