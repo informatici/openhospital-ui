@@ -6,12 +6,12 @@ import {
   PharmacyStock,
   WardStock,
 } from "components/activities/pharmacyActivity";
+import { NewPharmaceutical } from "components/activities/pharmacyActivity/pharmaceutical/NewPharmaceutical";
+import Pharmaceutical from "components/activities/pharmacyActivity/pharmaceutical/Pharmaceutical";
+import { DischargeMovement } from "components/activities/pharmacyActivity/pharmaceuticalStock/DischargeMovement";
 import React, { ReactNode } from "react";
 import { Route, Routes } from "react-router";
 import { PATHS } from "../../consts";
-import { DischargeMovement } from "components/activities/pharmacyActivity/pharmaceuticalStock/DischargeMovement";
-import Pharmaceutical from "components/activities/pharmacyActivity/pharmaceutical/Pharmaceutical";
-import NewPharmaceuticalForm from "components/activities/pharmacyActivity/pharmaceutical/components/forms/mewPharmaceuticalForm/NewPharmaceuticalForm";
 
 const getPath = (from: string) => from.replace(`${PATHS.pharmacy}/`, "");
 
@@ -42,7 +42,7 @@ const routes: { element: ReactNode; path: string }[] = [
   },
   {
     path: getPath(PATHS.pharmacy_pharmaceutical_new),
-    element: <NewPharmaceuticalForm />,
+    element: <NewPharmaceutical />,
   },
 ];
 

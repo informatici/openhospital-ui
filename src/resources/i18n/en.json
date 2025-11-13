@@ -1238,12 +1238,9 @@
       "discharge-movement-created": "Discharge movement created",
       "discharge-movement-created-successfully": "Discharge movement created successfully",
       "ok": "OK",
-      "pharmaceutical-new-title": "New pharmaceutical",
+      "new-pharmaceutical-title": "New pharmaceutical",
       "pharmaceutical-created": "Pharmaceutical created",
-      "pharmaceutical-add-another": "Add another pharmaceutical",
-      "pharmaceutical-success": "successfully!",
-      "pharmaceutical-cancel": "Cancel",
-      "pharmaceutical-ok": "OK"
+      "pharmaceutical-add-another": "Add another pharmaceutical"
     },
     "messages": {
       "charge-movement-success": {
@@ -1253,6 +1250,14 @@
       "charge-movement-fail": {
         "title": "Charge Movement Failed",
         "description": "We were unable to save the charge movement. Please try again or contact support."
+      },
+      "new-pharmaceutical-success": {
+        "title": "Pharmaceutical added successful",
+        "description": "The pharmaceutical has been added successfully."
+      },
+      "new-pharmaceutical-fail": {
+        "title": "Pharamaceutical creation failed Failed",
+        "description": "We were unable to add the pharmaceutical. Please try again or contact support."
       }
     },
     "form": {

@@ -1,12 +1,11 @@
-
+import { MedicalDTO } from "generated";
 import z from "zod";
 import { MedicalDTOSchema } from "./consts";
 
 export type TFormValues = z.infer<typeof MedicalDTOSchema>;
 
-export type NewPharmaceuticalProps = {
-    onSubmit: (values: TFormValues) => void;
-    loading?: boolean;
-    initialValues?: TFormValues;
+export type PharmaceuticalFormProps = {
+  onSubmit: (values: MedicalDTO) => void;
+  loading?: boolean;
+  pharmaceutical?: MedicalDTO;
 };
-
