@@ -10,7 +10,11 @@ import { MovementDTO } from "generated";
 import { DATETIME_FORMAT } from "libraries/consts";
 import { safeFormatToISO } from "libraries/formatUtils";
 import { useNavigationHandler, useTranslation } from "libraries/hooks";
-import { useMedicals, useMovementTypes } from "libraries/hooks/api";
+import {
+  useMedicals,
+  useMovementTypes,
+  useSuppliers,
+} from "libraries/hooks/api";
 import { isEmpty } from "lodash";
 import React, { FormEvent, useCallback, useMemo } from "react";
 import { useForm } from "react-hook-form";
@@ -26,6 +30,8 @@ export function ChargeMovementForm({
   const { t } = useTranslation();
 
   const { options: medicalOptions, selectMedical } = useMedicals();
+  const { options: supplierOptions, selectSupplier } = useSuppliers();
+
   const { selectMovementType } = useMovementTypes();
 
   const { control, watch, formState } = useForm<TFormValues>({
@@ -47,6 +53,7 @@ export function ChargeMovementForm({
           }
         : undefined,
       medical: selectMedical(values.medical),
+      supplier: selectSupplier(values.supplier),
       type: selectMovementType(values.type),
       ward: undefined,
     };
@@ -83,6 +90,13 @@ export function ChargeMovementForm({
           control={control}
           name="medical"
           options={medicalOptions}
+          className="col-start-1"
+        />
+        <AutocompleteFormField
+          label={t("pharmacy.form.fields.supplier")}
+          control={control}
+          name="supplier"
+          options={supplierOptions}
           className="col-start-1"
         />
         <TextFormField
