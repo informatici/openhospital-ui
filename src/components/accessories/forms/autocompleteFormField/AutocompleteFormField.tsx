@@ -37,10 +37,10 @@ export function AutocompleteFormField<T extends Record<string, any>>({
           fieldName={field.name}
           fieldValue={field.value ?? ""}
           disabled={props.disabled ?? field.disabled}
-          onChange={handleChange(field)}
           onBlur={field.onBlur}
           errorText={fieldState.error?.message ?? ""}
           isValid={!fieldState.invalid}
+          onChange={handleChange(field)}
         />
       )}
     />

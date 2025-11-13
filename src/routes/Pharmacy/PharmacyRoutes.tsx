@@ -9,6 +9,7 @@ import {
 import React, { ReactNode } from "react";
 import { Route, Routes } from "react-router";
 import { PATHS } from "../../consts";
+import { DischargeMovement } from "components/activities/pharmacyActivity/pharmaceuticalStock/DischargeMovement";
 import Pharmaceutical from "components/activities/pharmacyActivity/pharmaceutical/Pharmaceutical";
 import NewPharmaceuticalForm from "components/activities/pharmacyActivity/pharmaceutical/components/forms/mewPharmaceuticalForm/NewPharmaceuticalForm";
 
@@ -34,6 +35,10 @@ const routes: { element: ReactNode; path: string }[] = [
   {
     path: getPath(PATHS.pharmacy_pharmaceuticalstock_charge),
     element: <ChargeMovement />,
+  },
+  {
+    path: getPath(PATHS.pharmacy_pharmaceuticalstock_discharge),
+    element: <DischargeMovement />,
   },
   {
     path: getPath(PATHS.pharmacy_pharmaceutical_new),

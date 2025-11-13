@@ -84,6 +84,8 @@ export const PATHS = {
   pharmacy_pharmaceuticalstock: "/pharmacy/pharmaceutical-stock",
   pharmacy_pharmaceuticalstock_charge:
     "/pharmacy/pharmaceutical-stock/charge-movement",
+  pharmacy_pharmaceuticalstock_discharge:
+    "/pharmacy/pharmaceutical-stock/discharge-movement",
   pharmacy_ward_stock: "/pharmacy/ward-stock",
   pharmacy_pharmaceutical: "/pharmacy/pharmaceutical",
   pharmacy_pharmaceutical_new: "/pharmacy/pharmaceutical/new",

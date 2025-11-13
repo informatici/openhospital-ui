@@ -39,6 +39,9 @@ export const pharmacySlice = createSlice({
     resetChargeMovements: (state) => {
       state.chargeMovements = initial.chargeMovements;
     },
+    resetDischargeMovements: (state) => {
+      state.dischargeMovements = initial.dischargeMovements;
+    },
     resetMedicals: (state) => {
       state.getMedicals = initial.getMedicals;
     },
@@ -121,6 +124,16 @@ export const pharmacySlice = createSlice({
       .addCase(thunks.chargeMovements.rejected, (state, action) => {
         state.chargeMovements = ApiResponse.error(action.payload);
       })
+      // Discharge movements
+      .addCase(thunks.dischargeMovements.pending, (state) => {
+        state.dischargeMovements = ApiResponse.loading();
+      })
+      .addCase(thunks.dischargeMovements.fulfilled, (state, action) => {
+        state.dischargeMovements = ApiResponse.value(action.payload);
+      })
+      .addCase(thunks.dischargeMovements.rejected, (state, action) => {
+        state.dischargeMovements = ApiResponse.error(action.payload);
+      })
       // get medical types list
       .addCase(thunks.getMedicalTypes.pending, (state) => {
         state.getMedicalTypes = ApiResponse.loading();
@@ -155,6 +168,7 @@ export const {
   resetWardStockFilter,
   resetChargeMovements,
   resetMovementTypes,
+  resetDischargeMovements,
   resetMedicals,
   resetMedicalTypes,
   resetNewMedical,

@@ -1,4 +1,5 @@
 import { MedicalDTO } from "generated";
+import { LOTS } from "./lots";
 
 export const MEDICALS: MedicalDTO[] = [
   {
@@ -11,14 +12,7 @@ export const MEDICALS: MedicalDTO[] = [
     inqty: 500,
     outqty: 100,
     minqty: 100,
-    lots: [
-        {
-            "code": "L2025-10",
-            "preparationDate": "2025-09-01",
-            "dueDate": "2027-09-01",
-            "cost": 0.1,
-        }
-    ],
+    lots: LOTS.slice(0, 2),
   },
   {
     code: 2,
@@ -30,14 +24,7 @@ export const MEDICALS: MedicalDTO[] = [
     inqty: 300,
     outqty: 80,
     minqty: 80,
-    lots: [
-        {
-            "code": "L2025-10",
-            "preparationDate": "2025-09-01",
-            "dueDate": "2027-09-01",
-            "cost": 0.1,
-        }
-    ],
+    lots: LOTS.slice(3, 4),
   },
   {
     code: 3,
@@ -49,14 +36,7 @@ export const MEDICALS: MedicalDTO[] = [
     inqty: 200,
     outqty: 50,
     minqty: 40,
-    lots: [
-        {
-            "code": "L2025-10",
-            "preparationDate": "2025-09-01",
-            "dueDate": "2027-09-01",
-            "cost": 0.1,
-        }
-    ],
+    lots: LOTS.slice(5, 7),
   },
   {
     code: 4,
@@ -65,17 +45,10 @@ export const MEDICALS: MedicalDTO[] = [
     type: { code: "DRUG", description: "Pharmaceutical" },
     initialqty: 500,
     pcsperpck: 10,
-    inqty: 100,
-    outqty: 20,
+    inqty: 0,
+    outqty: 0,
     minqty: 10,
-    lots: [
-        {
-            "code": "L2025-10",
-            "preparationDate": "2025-09-01",
-            "dueDate": "2027-09-01",
-            "cost": 0.1,
-        }
-    ],
+    lots: LOTS.slice(8, 10),
   },
   {
     code: 5,
@@ -86,14 +59,7 @@ export const MEDICALS: MedicalDTO[] = [
     pcsperpck: 1,
     inqty: 60,
     outqty: 15,
-    minqty: 10,
-    lots: [
-        {
-            "code": "L2025-10",
-            "preparationDate": "2025-09-01",
-            "dueDate": "2027-09-01",
-            "cost": 0.1,
-        }
-    ],
+    minqty: 100,
+    lots: [],
   },
 ];

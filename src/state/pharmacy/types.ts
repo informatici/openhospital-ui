@@ -21,6 +21,7 @@ export type IPharmacyState = {
   newMedical: ApiResponse<MedicalDTO>;
   getMedicalTypes: ApiResponse<Array<MedicalTypeDTO>>;
   chargeMovements: ApiResponse<boolean>;
+  dischargeMovements: ApiResponse<boolean>;
   wardStock: {
     filter: TWardStockFIlter;
   };

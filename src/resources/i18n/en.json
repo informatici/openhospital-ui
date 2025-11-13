@@ -1234,6 +1234,10 @@
       "pharmaceutical-stock": "Pharmaceutical stock",
       "ward-stock": "Ward stock",
       "charge-movement": "Charge movement",
+      "discharge-movement": "Discharge movement",
+      "discharge-movement-created": "Discharge movement created",
+      "discharge-movement-created-successfully": "Discharge movement created successfully",
+      "ok": "OK",
       "pharmaceutical-new-title": "New pharmaceutical",
       "pharmaceutical-created": "Pharmaceutical created",
       "pharmaceutical-add-another": "Add another pharmaceutical",
@@ -1262,6 +1266,8 @@
         "quantity": "Quantity",
         "supplier": "Supplier",
         "refNo": "Reference Number",
+        "discharge": "Discharge",
+        "cancel": "Cancel",
         "prodCode": "Code",
         "typeMedical": "Type",
         "description": "Description",
@@ -1274,13 +1280,21 @@
       "labels": {
         "existingLots": "Existing lots",
         "newLot": "New Lot",
-        "change-on-this": "Change on this lot"
+        "change-on-this": "Change on this lot",
+        "select-lot": "Select the lot",
+        "lots": "Lots",
+        "total": "Total stock quantity: <1>{{count}}</1>"
       },
       "fields": {
         "code": "Lot Code",
         "preparationDate": "Preparation Date",
         "dueDate": "Due Date",
-        "cost": "Cost per unit"
+        "cost": "Cost per unit",
+        "quantity": "Quantity",
+        "ward": "to Ward",
+        "mainStoreQuantity": "Main Store Quantity",
+        "wardsTotalQuantity": "Wards Total Quantity",
+        "overallQuantity": "Overall Quantity"
       }
     },
     "stock": {
