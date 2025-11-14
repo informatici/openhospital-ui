@@ -1,7 +1,7 @@
 import { useCallback, useMemo } from "react";
 import { useAppSelector } from "../redux";
 
-export function useMedicalType() {
+export function useMedicalTypes() {
   const medicalTypes = useAppSelector(
     (state) => state.pharmacy.getMedicalTypes.data ?? []
   );
@@ -16,7 +16,8 @@ export function useMedicalType() {
   );
 
   const selectMedicalType = useCallback(
-    (code?: string) => medicalTypes.find((medicalType) => medicalType.code === code),
+    (code?: string) =>
+      medicalTypes.find((medicalType) => medicalType.code === code),
     [medicalTypes]
   );
 

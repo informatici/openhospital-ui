@@ -8,7 +8,7 @@ import { CheckboxFormField } from "components/accessories/forms/CheckboxFormFiel
 import { PATHS } from "consts";
 import { MedicalDTO } from "generated";
 import { useNavigationHandler, useTranslation } from "libraries/hooks";
-import { useMedicalType } from "libraries/hooks/api/useMedicalType";
+import { useMedicalTypes } from "libraries/hooks/api/useMedicalTypes";
 import React, { FormEvent, useCallback } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { MedicalDTOSchema, getInitialValues } from "./consts";
@@ -27,7 +27,7 @@ export function PharmaceuticalForm({
     resolver: standardSchemaResolver(MedicalDTOSchema),
   });
 
-  const { medicalTypes, options: medicalTypeOptions } = useMedicalType();
+  const { medicalTypes, options: medicalTypeOptions } = useMedicalTypes();
 
   const values = useWatch({
     control,
