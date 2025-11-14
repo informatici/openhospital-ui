@@ -84,6 +84,7 @@ export function LotFormField({ medical, control }: LotFormFieldProps) {
                   value={lot.code}
                   label={t("pharmacy.lot.fields.code")}
                   name={`lot.${index}.code`}
+                  sx={{ marginTop: 1 }}
                   disabled
                 />
                 <DateField
@@ -110,6 +111,7 @@ export function LotFormField({ medical, control }: LotFormFieldProps) {
                   value={lot.cost}
                   label={t("pharmacy.lot.fields.cost")}
                   name={`lot.${index}.cost`}
+                  sx={{ marginTop: 1 }}
                   disabled
                 />
               </Fragment>

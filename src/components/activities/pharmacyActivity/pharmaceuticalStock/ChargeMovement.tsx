@@ -9,6 +9,7 @@ import React, { useCallback, useEffect, useRef } from "react";
 import { useOutletContext } from "react-router";
 import { getMedicals } from "state/medicals";
 import { chargeMovements, resetChargeMovements } from "state/pharmacy";
+import { getSuppliers } from "state/suppliers";
 import { PharmacyActivityContent } from "../PharmacyActivityContent";
 import { ChargeMovementForm } from "./components/forms";
 import "./styles.scss";
@@ -87,6 +88,7 @@ export function ChargeMovement() {
 
   useEffect(() => {
     dispatch(getMedicals());
+    dispatch(getSuppliers());
   }, [dispatch]);
 
   return (
