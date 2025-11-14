@@ -3,11 +3,16 @@ import { Collapse, IconButton } from "@mui/material";
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import _ from "lodash";
-import React, { FunctionComponent, useEffect } from "react";
+import React, {
+  FunctionComponent,
+  useEffect,
+  useMemo,
+} from "react";
 import "./styles.scss";
 import { IRowProps } from "./types";
 import Button from "../button/Button";
 import { useTranslation } from "react-i18next";
+import CellContent from "components/activities/pharmacyActivity/pharmaceutical/components/PharmacyCellContent/CellContent";
 
 const TableBodyRow: FunctionComponent<IRowProps> = ({
   row,
@@ -33,13 +38,31 @@ const TableBodyRow: FunctionComponent<IRowProps> = ({
     setOpen(expanded ?? false);
   }, [expanded]);
 
+  const getRowClass = () => {
+    if (row.stock === 0) return "row-zero-stock";
+    if (row.stock < row.criticalValue) return "row-critical-stock";
+    return "";
+  };
+
+  const hasExpiringLotThisMonth = useMemo(() => {
+    if (!row.expDate) return false;
+
+    const expiry = new Date(row.expDate);
+    const now = new Date();
+    const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+
+    return expiry <= endOfMonth && expiry > now;
+  }, [row.expDate]);
+
   return (
     <>
       <TableRow
-        className={rowClassNames ? rowClassNames(row) : ""}
+        className={`table-body-row ${getRowClass()} ${
+          rowClassNames ? rowClassNames(row) : ""
+        }`}
         key={rowIndex}
       >
-        {isCollapsabile ? (
+        {isCollapsabile && (
           <TableCell width="40">
             <IconButton
               aria-label="expand row"
@@ -49,22 +72,25 @@ const TableBodyRow: FunctionComponent<IRowProps> = ({
               {open ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
             </IconButton>
           </TableCell>
-        ) : (
-          ""
         )}
+
         {tableHeader.map((key, index) => {
           const newRow = { ...row };
           dateFields.forEach((dateField) => {
             if (row[dateField]) {
               const parts = row[dateField].split(" ");
-              if (parts.length === 2) {
-                newRow[dateField] = parts[0];
-              }
+              if (parts.length === 2) newRow[dateField] = parts[0];
             }
           });
+
           return Object.keys(newRow).includes(key) ? (
             <TableCell align="left" key={index}>
-              {newRow[key]}
+              <CellContent
+                value={newRow[key]}
+                keyName={key}
+                row={newRow}
+                hasExpiringLotThisMonth={hasExpiringLotThisMonth}
+              />
             </TableCell>
           ) : (
             ""
@@ -72,7 +98,8 @@ const TableBodyRow: FunctionComponent<IRowProps> = ({
         })}
         {renderActions()}
       </TableRow>
-      {isCollapsabile ? (
+
+      {isCollapsabile && (
         <TableRow>
           <TableCell
             style={{ padding: 0, borderBottom: 0, margin: 0 }}
@@ -119,8 +146,6 @@ const TableBodyRow: FunctionComponent<IRowProps> = ({
             </Collapse>
           </TableCell>
         </TableRow>
-      ) : (
-        ""
       )}
     </>
   );

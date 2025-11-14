@@ -4,7 +4,7 @@ export const LOTS: LotDTO[] = [
   {
     code: "L001-MED0",
     preparationDate: "2024-01-01",
-    dueDate: "2025-01-01",
+    dueDate: "2025-11-17",
     cost: 10.5,
     mainStoreQuantity: 10,
     wardsTotalQuantity: 5,
@@ -40,7 +40,7 @@ export const LOTS: LotDTO[] = [
   {
     code: "L005-MED4",
     preparationDate: "2024-05-10",
-    dueDate: "2025-05-10",
+    dueDate: "2025-10-15",
     cost: 15.0,
     mainStoreQuantity: 25,
     wardsTotalQuantity: 30,

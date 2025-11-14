@@ -6,7 +6,7 @@ import LargeButton from "../../accessories/largeButton/LargeButton";
 import { PharmacyActivityContent } from "./PharmacyActivityContent";
 
 const actions = [
-  { icon: Medication, key: "medicals" },
+  { icon: Medication, key: "pharmaceutical" },
   { icon: MedicalServices, key: "pharmaceutical-stock" },
   { icon: SyncAlt, key: "ward-stock" },
 ];

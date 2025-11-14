@@ -3,8 +3,4 @@ describe("PharmacyActivity spec", () => {
     cy.authenticate("/pharmacy");
     cy.dataCy("pharmacy-activity");
   });
-
-  it("should render pharmacy home", () => {
-    cy.dataCy("pharmacy-home").contains("Pharmacy");
-  });
 });

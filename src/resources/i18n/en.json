@@ -1229,14 +1229,18 @@
   },
   "pharmacy": {
     "labels": {
-      "medicals": "Medical products",
+      "pharmaceutical-title": "Pharmaceutical",
+      "pharmaceutical": "Medical products",
       "pharmaceutical-stock": "Pharmaceutical stock",
       "ward-stock": "Ward stock",
       "charge-movement": "Charge movement",
       "discharge-movement": "Discharge movement",
       "discharge-movement-created": "Discharge movement created",
       "discharge-movement-created-successfully": "Discharge movement created successfully",
-      "ok": "OK"
+      "ok": "OK",
+      "new-pharmaceutical-title": "New pharmaceutical",
+      "pharmaceutical-created": "Pharmaceutical created",
+      "pharmaceutical-add-another": "Add another pharmaceutical"
     },
     "messages": {
       "charge-movement-success": {
@@ -1246,6 +1250,14 @@
       "charge-movement-fail": {
         "title": "Charge Movement Failed",
         "description": "We were unable to save the charge movement. Please try again or contact support."
+      },
+      "new-pharmaceutical-success": {
+        "title": "Pharmaceutical added successful",
+        "description": "The pharmaceutical has been added successfully."
+      },
+      "new-pharmaceutical-fail": {
+        "title": "Pharamaceutical creation failed Failed",
+        "description": "We were unable to add the pharmaceutical. Please try again or contact support."
       }
     },
     "form": {
@@ -1260,7 +1272,13 @@
         "supplier": "Supplier",
         "refNo": "Reference Number",
         "discharge": "Discharge",
-        "cancel": "Cancel"
+        "cancel": "Cancel",
+        "prodCode": "Code",
+        "typeMedical": "Type",
+        "description": "Description",
+        "pcsperpck": "Pieces per Packet",
+        "minqty": "Critical level",
+        "deleted": "Deleted"
       }
     },
     "lot": {
@@ -1299,6 +1317,17 @@
       "exportList": "Export list",
       "stockReport": "Stock report",
       "adjustQuantity": "Adjust quantity",
+      "criticalValue": "Critical value",
+      "amc": "AMC",
+      "pcsperpck": "PCS/PAK",
+      "stock": "Stock",
+      "code": "Code",
+      "pharmaceutical": "Medical product",
+      "stockCardReport": "Stock card report",
+      "addMedecine": "Add medicine",
+      "order": "Order",
+      "expiring": "Expiring",
+      "amcReport": "AMC report",
       "movementType": {
         "charge": "Charge",
         "discharge": "Discharge"

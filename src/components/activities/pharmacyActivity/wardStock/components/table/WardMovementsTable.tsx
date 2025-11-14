@@ -123,7 +123,7 @@ export function WardMovementsTable() {
         units: item.units ?? "",
         description: item.description,
         quantity: item.quantity,
-        ward: item.ward.description ?? "",
+        ward: item.ward?.description ?? "",
         weight: item.weight ?? "",
         age: item.age ?? "",
         type: t(

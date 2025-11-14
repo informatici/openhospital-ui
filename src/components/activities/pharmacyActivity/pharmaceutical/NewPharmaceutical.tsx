@@ -2,19 +2,17 @@ import checkIcon from "assets/check-icon.png";
 import ConfirmationDialog from "components/accessories/confirmationDialog/ConfirmationDialog";
 import InfoBox from "components/accessories/infoBox/InfoBox";
 import { PATHS } from "consts";
-import { MovementDTO } from "generated";
+import { MedicalDTO } from "generated";
 import { useNavigationHandler, useTranslation } from "libraries/hooks";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { useCallback, useEffect, useRef } from "react";
 import { useOutletContext } from "react-router";
-import { getMedicals } from "state/medicals";
-import { chargeMovements, resetChargeMovements } from "state/pharmacy";
-import { getSuppliers } from "state/suppliers";
+import { getMedicalTypes, newMedical, resetNewMedical } from "state/pharmacy";
 import { PharmacyActivityContent } from "../PharmacyActivityContent";
-import { ChargeMovementForm } from "./components/forms";
+import { PharmaceuticalForm } from "./components/forms/mewPharmaceuticalForm/PharmaceuticalForm";
 import "./styles.scss";
 
-export function ChargeMovement() {
+export function NewPharmaceutical() {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const infoBoxRef = useRef<HTMLDivElement>(null);
@@ -27,55 +25,42 @@ export function ChargeMovement() {
   const addBreadcrumb = useCallback(() => {
     setBreadcrumbMap({
       ...breadcrumbMap,
-      [t("pharmacy.labels.pharmaceutical-stock")]:
-        PATHS.pharmacy_pharmaceuticalstock,
-      [t("pharmacy.labels.charge-movement")]:
-        PATHS.pharmacy_pharmaceuticalstock_charge,
+      [t("pharmacy.labels.pharmaceutical")]: PATHS.pharmacy_pharmaceutical,
+      [t("pharmacy.labels.new-pharmaceutical-title")]:
+        PATHS.pharmacy_pharmaceutical_new,
     });
   }, [t, breadcrumbMap]);
 
   const removeBreadcrumb = useCallback(() => {
     setBreadcrumbMap({
       ...breadcrumbMap,
-      [t("pharmacy.labels.pharmaceutical-stock")]: undefined,
-      [t("pharmacy.labels.charge-movement")]: undefined,
+      [t("pharmacy.labels.pharmaceutical")]: PATHS.pharmacy_pharmaceutical,
+      [t("pharmacy.labels.new-pharmaceutical-title")]:
+        PATHS.pharmacy_pharmaceutical_new,
     });
   }, [t, breadcrumbMap]);
 
-  const status = useAppSelector(
-    (state) => state.pharmacy.chargeMovements.status
-  );
+  const status = useAppSelector((state) => state.pharmacy.newMedical.status);
 
   const errorMessage = useAppSelector(
     (state) =>
-      state.pharmacy.chargeMovements.error?.message ??
-      t("pharmacy.messages.charge-movement-fail.description")
+      state.pharmacy.newMedical.error?.message ??
+      t("pharmacy.messages.new-pharmaceutical-fail.description")
   );
 
-  const handleGoBack = useNavigationHandler(
-    PATHS.pharmacy_pharmaceuticalstock,
-    { replace: true }
-  );
+  const handleGoBack = useNavigationHandler(PATHS.pharmacy_pharmaceutical, {
+    replace: true,
+  });
 
-  const handleMovementCharge = useCallback(
-    (values: MovementDTO) => {
-      dispatch(
-        chargeMovements({
-          movementDTO: [
-            {
-              ...values,
-              type: { code: "charge", description: "Charge", type: "+" },
-            },
-          ],
-          ref: values.refNo,
-        })
-      );
+  const handleSubmit = useCallback(
+    (data: MedicalDTO) => {
+      dispatch(newMedical({ medicalDTO: data }));
     },
     [dispatch]
   );
 
   const handleDialogActions = useCallback(() => {
-    dispatch(resetChargeMovements());
+    dispatch(resetNewMedical());
     if (status === "SUCCESS") {
       handleGoBack();
     }
@@ -87,18 +72,17 @@ export function ChargeMovement() {
   }, [breadcrumbMap]);
 
   useEffect(() => {
-    dispatch(getMedicals());
-    dispatch(getSuppliers());
+    dispatch(getMedicalTypes());
   }, [dispatch]);
 
   return (
     <PharmacyActivityContent
-      data-cy="charge-movement"
-      title={t("pharmacy.labels.charge-movement")}
+      data-cy="new-pharmaceutical"
+      title={t("pharmacy.labels.new-pharmaceutical-title")}
     >
-      <div className="charge-movement">
-        <ChargeMovementForm
-          onSubmit={handleMovementCharge}
+      <div className="new-pharmaceutical">
+        <PharmaceuticalForm
+          onSubmit={handleSubmit}
           loading={status === "LOADING"}
         />
         {status === "FAIL" && (
@@ -109,9 +93,9 @@ export function ChargeMovement() {
       </div>
       <ConfirmationDialog
         isOpen={status === "SUCCESS"}
-        title={t("pharmacy.messages.charge-movement-success.title")}
+        title={t("pharmacy.messages.new-pharmaceutical-success.title")}
         icon={checkIcon}
-        info={t("pharmacy.messages.charge-movement-success.description")}
+        info={t("pharmacy.messages.new-pharmaceutical-success.description")}
         primaryButtonLabel="OK"
         handlePrimaryButtonClick={handleDialogActions}
         handleSecondaryButtonClick={handleDialogActions}

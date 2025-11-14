@@ -2,7 +2,6 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import logo from "../../../assets/logo-color.svg";
-import { Diversity1Rounded } from "@mui/icons-material";
 
 export function NotFound() {
   const { t } = useTranslation();

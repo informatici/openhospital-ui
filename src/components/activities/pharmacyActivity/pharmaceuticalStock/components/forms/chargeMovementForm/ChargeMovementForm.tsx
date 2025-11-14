@@ -26,6 +26,7 @@ import { ChargeMovementProps, TFormValues } from "./types";
 export function ChargeMovementForm({
   movement,
   onSubmit,
+  loading,
 }: ChargeMovementProps) {
   const { t } = useTranslation();
 
@@ -118,10 +119,20 @@ export function ChargeMovementForm({
         )}
         <div className="col-start-1 col-span-full"></div>
         <div className="col-span-full flex gap-2 justify-end">
-          <Button type="reset" dataCy="reset-button" onClick={handleGoBack}>
+          <Button
+            type="reset"
+            dataCy="reset-button"
+            onClick={handleGoBack}
+            disabled={loading}
+          >
             {t("common.close")}
           </Button>
-          <Button variant="contained" dataCy="submit-button" type="submit">
+          <Button
+            variant="contained"
+            dataCy="submit-button"
+            type="submit"
+            disabled={loading}
+          >
             {t("pharmacy.stock.charge")}
           </Button>
         </div>
