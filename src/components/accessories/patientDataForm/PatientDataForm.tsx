@@ -287,23 +287,6 @@ const PatientDataForm: FunctionComponent<TProps> = ({
         <div className="row start-sm center-xs">
           <div className="patientDataForm__item">
             <TextField
-              field={formik.getFieldProps("firstName")}
-              theme="regular"
-              label={t("patient.firstname")}
-              isValid={isValid("firstName")}
-              errorText={getErrorText("firstName")}
-              onBlur={formik.handleBlur}
-              disabled={isLoading}
-              required={
-                isFieldSuggested(formCustomization, "firstName")
-                  ? FIELD_VALIDATION.SUGGESTED
-                  : FIELD_VALIDATION.REQUIRED
-              }
-              maxLength={50}
-            />
-          </div>
-          <div className="patientDataForm__item">
-            <TextField
               field={formik.getFieldProps("secondName")}
               theme="regular"
               label={t("patient.secondname")}
@@ -319,7 +302,23 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               maxLength={50}
             />
           </div>
-
+          <div className="patientDataForm__item">
+            <TextField
+              field={formik.getFieldProps("firstName")}
+              theme="regular"
+              label={t("patient.firstname")}
+              isValid={isValid("firstName")}
+              errorText={getErrorText("firstName")}
+              onBlur={formik.handleBlur}
+              disabled={isLoading}
+              required={
+                isFieldSuggested(formCustomization, "firstName")
+                  ? FIELD_VALIDATION.SUGGESTED
+                  : FIELD_VALIDATION.REQUIRED
+              }
+              maxLength={50}
+            />
+          </div>
           <div className="patientDataForm__item">
             <TextField
               field={formik.getFieldProps("taxCode")}
@@ -338,8 +337,25 @@ const PatientDataForm: FunctionComponent<TProps> = ({
             />
           </div>
         </div>
-
         <div className="row start-sm center-xs">
+          <div className="patientDataForm__item">
+            <SelectField
+              fieldName="sex"
+              fieldValue={formik.values.sex}
+              label={t("patient.sex")}
+              isValid={isValid("sex")}
+              errorText={getErrorText("sex")}
+              onBlur={onBlurCallback("sex")}
+              options={options.sex}
+              translateOptions={true}
+              disabled={isLoading}
+              required={
+                isFieldSuggested(formCustomization, "sex")
+                  ? FIELD_VALIDATION.SUGGESTED
+                  : FIELD_VALIDATION.REQUIRED
+              }
+            />
+          </div>
           <div className="patientDataForm__item">
             <TextField
               field={formik.getFieldProps("address")}
@@ -376,7 +392,56 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               maxLength={50}
             />
           </div>
+        </div>
 
+        <div className="row start-sm center-xs">
+          <div className="patientDataForm__item">
+            <Autocomplete
+              id="commune"
+              freeSolo
+              value={formik.values.commune}
+              options={communeOptions ?? []}
+              onChange={(_, value) => {
+                formik.setFieldValue("commune", value);
+              }}
+              label={t("patient.commune.label")}
+              placeholder={t("patient.commune.label")}
+            />
+          </div>
+          <div className="patientDataForm__item">
+            <Autocomplete
+              id="ethnic"
+              freeSolo
+              value={formik.values.ethnic}
+              options={ethnicOptions ?? []}
+              onChange={(_, value) => {
+                formik.setFieldValue("ethnic", value);
+              }}
+              label={t("patient.ethnic.label")}
+              placeholder={t("patient.ethnic.label")}
+            />
+          </div>
+          <div className="patientDataForm__item">
+            <SelectField
+              fieldName="hasInsurance"
+              fieldValue={formik.values.hasInsurance}
+              label={t("patient.hasinsurance")}
+              isValid={isValid("hasInsurance")}
+              errorText={getErrorText("hasInsurance")}
+              onBlur={onBlurCallback("hasInsurance")}
+              options={options.hasInsurance}
+              translateOptions={true}
+              disabled={isLoading}
+              required={
+                isFieldSuggested(formCustomization, "hasInsurance")
+                  ? FIELD_VALIDATION.SUGGESTED
+                  : FIELD_VALIDATION.IDLE
+              }
+            />
+          </div>
+        </div>
+
+        <div className="row start-sm center-xs">
           <div className="patientDataForm__item">
             <Tooltip title="ex: +237 690000000" placement="bottom">
               <div>
@@ -398,76 +463,6 @@ const PatientDataForm: FunctionComponent<TProps> = ({
                 />
               </div>
             </Tooltip>
-          </div>
-        </div>
-
-        <div className="row start-sm center-xs">
-          <div className="patientDataForm__item">
-            <SelectField
-              fieldName="hasInsurance"
-              fieldValue={formik.values.hasInsurance}
-              label={t("patient.hasinsurance")}
-              isValid={isValid("hasInsurance")}
-              errorText={getErrorText("hasInsurance")}
-              onBlur={onBlurCallback("hasInsurance")}
-              options={options.hasInsurance}
-              translateOptions={true}
-              disabled={isLoading}
-              required={
-                isFieldSuggested(formCustomization, "hasInsurance")
-                  ? FIELD_VALIDATION.SUGGESTED
-                  : FIELD_VALIDATION.IDLE
-              }
-            />
-          </div>
-
-          <div className="patientDataForm__item">
-            <Autocomplete
-              id="commune"
-              freeSolo
-              value={formik.values.commune}
-              options={communeOptions ?? []}
-              onChange={(_, value) => {
-                formik.setFieldValue("commune", value);
-              }}
-              label={t("patient.commune.label")}
-              placeholder={t("patient.commune.label")}
-            />
-          </div>
-
-          <div className="patientDataForm__item">
-            <Autocomplete
-              id="ethnic"
-              freeSolo
-              value={formik.values.ethnic}
-              options={ethnicOptions ?? []}
-              onChange={(_, value) => {
-                formik.setFieldValue("ethnic", value);
-              }}
-              label={t("patient.ethnic.label")}
-              placeholder={t("patient.ethnic.label")}
-            />
-          </div>
-        </div>
-
-        <div className="row start-sm center-xs">
-          <div className="patientDataForm__item">
-            <SelectField
-              fieldName="sex"
-              fieldValue={formik.values.sex}
-              label={t("patient.sex")}
-              isValid={isValid("sex")}
-              errorText={getErrorText("sex")}
-              onBlur={onBlurCallback("sex")}
-              options={options.sex}
-              translateOptions={true}
-              disabled={isLoading}
-              required={
-                isFieldSuggested(formCustomization, "sex")
-                  ? FIELD_VALIDATION.SUGGESTED
-                  : FIELD_VALIDATION.REQUIRED
-              }
-            />
           </div>
           <div className="patientDataForm__item">
             <SelectField
@@ -583,85 +578,6 @@ const PatientDataForm: FunctionComponent<TProps> = ({
         <div className="row start-sm center-xs">
           <div className="patientDataForm__item">
             <TextField
-              field={formik.getFieldProps("motherName")}
-              theme="regular"
-              label={t("patient.mothername")}
-              isValid={isValid("motherName")}
-              errorText={getErrorText("motherName")}
-              onBlur={formik.handleBlur}
-              disabled={isLoading}
-              required={
-                isFieldSuggested(formCustomization, "motherName")
-                  ? FIELD_VALIDATION.SUGGESTED
-                  : FIELD_VALIDATION.IDLE
-              }
-              maxLength={50}
-            />
-          </div>
-
-          <div className="patientDataForm__item">
-            <TextField
-              field={formik.getFieldProps("motherOccupation")}
-              theme="regular"
-              label={t("patient.motheroccupation")}
-              isValid={isValid("motherOccupation")}
-              errorText={getErrorText("motherOccupation")}
-              onBlur={formik.handleBlur}
-              disabled={isLoading}
-              maxLength={50}
-            />
-          </div>
-
-          <div className="patientDataForm__item">
-            <TextField
-              field={formik.getFieldProps("motherAge")}
-              theme="regular"
-              label={t("patient.motherage")}
-              isValid={isValid("motherAge")}
-              errorText={getErrorText("motherAge")}
-              onBlur={formik.handleBlur}
-              disabled={isLoading}
-              type="number"
-            />
-          </div>
-        </div>
-
-        <div className="row start-sm center-xs">
-          <div className="patientDataForm__item">
-            <Tooltip title="ex: +237 690000000" placement="bottom">
-              <div>
-                <TextField
-                  field={formik.getFieldProps("motherPhone")}
-                  theme="regular"
-                  label={t("patient.motherphone")}
-                  isValid={isValid("motherPhone")}
-                  errorText={getErrorText("motherPhone")}
-                  onBlur={formik.handleBlur}
-                  type="tel"
-                  disabled={isLoading}
-                  maxLength={50}
-                />
-              </div>
-            </Tooltip>
-          </div>
-          <div className="patientDataForm__item">
-            <AutocompleteField
-              id="motherSchoolingLevel"
-              fieldName="motherSchoolingLevel"
-              fieldValue={formik.values.motherSchoolingLevel ?? ""}
-              label={t("patient.motherSchoolingLevel")}
-              isValid={isValid("motherSchoolingLevel")}
-              errorText={getErrorText("motherSchoolingLevel")}
-              onBlur={onBlurCallback("motherSchoolingLevel")}
-              options={schoolingLevelOptions}
-              disabled={isLoading}
-            />
-          </div>
-        </div>
-
-        <div className="row start-sm center-xs">
-          <div className="patientDataForm__item">
-            <TextField
               field={formik.getFieldProps("fatherName")}
               theme="regular"
               label={t("patient.fathername")}
@@ -732,6 +648,85 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               isValid={isValid("fatherSchoolingLevel")}
               errorText={getErrorText("fatherSchoolingLevel")}
               onBlur={onBlurCallback("fatherSchoolingLevel")}
+              options={schoolingLevelOptions}
+              disabled={isLoading}
+            />
+          </div>
+        </div>
+
+        <div className="row start-sm center-xs">
+          <div className="patientDataForm__item">
+            <TextField
+              field={formik.getFieldProps("motherName")}
+              theme="regular"
+              label={t("patient.mothername")}
+              isValid={isValid("motherName")}
+              errorText={getErrorText("motherName")}
+              onBlur={formik.handleBlur}
+              disabled={isLoading}
+              required={
+                isFieldSuggested(formCustomization, "motherName")
+                  ? FIELD_VALIDATION.SUGGESTED
+                  : FIELD_VALIDATION.IDLE
+              }
+              maxLength={50}
+            />
+          </div>
+
+          <div className="patientDataForm__item">
+            <TextField
+              field={formik.getFieldProps("motherOccupation")}
+              theme="regular"
+              label={t("patient.motheroccupation")}
+              isValid={isValid("motherOccupation")}
+              errorText={getErrorText("motherOccupation")}
+              onBlur={formik.handleBlur}
+              disabled={isLoading}
+              maxLength={50}
+            />
+          </div>
+
+          <div className="patientDataForm__item">
+            <TextField
+              field={formik.getFieldProps("motherAge")}
+              theme="regular"
+              label={t("patient.motherage")}
+              isValid={isValid("motherAge")}
+              errorText={getErrorText("motherAge")}
+              onBlur={formik.handleBlur}
+              disabled={isLoading}
+              type="number"
+            />
+          </div>
+        </div>
+
+        <div className="row start-sm center-xs">
+          <div className="patientDataForm__item">
+            <Tooltip title="ex: +237 690000000" placement="bottom">
+              <div>
+                <TextField
+                  field={formik.getFieldProps("motherPhone")}
+                  theme="regular"
+                  label={t("patient.motherphone")}
+                  isValid={isValid("motherPhone")}
+                  errorText={getErrorText("motherPhone")}
+                  onBlur={formik.handleBlur}
+                  type="tel"
+                  disabled={isLoading}
+                  maxLength={50}
+                />
+              </div>
+            </Tooltip>
+          </div>
+          <div className="patientDataForm__item">
+            <AutocompleteField
+              id="motherSchoolingLevel"
+              fieldName="motherSchoolingLevel"
+              fieldValue={formik.values.motherSchoolingLevel ?? ""}
+              label={t("patient.motherSchoolingLevel")}
+              isValid={isValid("motherSchoolingLevel")}
+              errorText={getErrorText("motherSchoolingLevel")}
+              onBlur={onBlurCallback("motherSchoolingLevel")}
               options={schoolingLevelOptions}
               disabled={isLoading}
             />
