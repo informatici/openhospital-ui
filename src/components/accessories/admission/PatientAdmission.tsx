@@ -132,6 +132,7 @@ const PatientAdmission: FC = () => {
         referenceSheet: adm.referenceSheet,
         qualifiedAgent: adm.qualifiedAgent,
         transportation: adm.transportation,
+        physicalExam: adm.physicalExam,
       };
       if (!isEmpty(admissionToEdit?.disType)) {
         admissionToSave = {

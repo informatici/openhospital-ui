@@ -62,5 +62,9 @@ export const initialFields = (
       value: "",
       type: "boolean",
     },
+    physicalExam: {
+      value: "",
+      type: "boolean",
+    },
   };
 };

@@ -953,7 +953,8 @@
     "preTreatment": "Pre-admission treatment",
     "preAssessment": "Pre-admission assessment",
     "entryReason": "Entry reason",
-    "transportation": "Transportation"
+    "transportation": "Transportation",
+    "physicalExam": "Physical exam"
   },
   "bill": {
     "title": "Welcome to Billing",

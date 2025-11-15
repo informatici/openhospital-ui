@@ -48,6 +48,7 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
     alertReceived: t("patient.alertReceived"),
     referenceSheet: t("patient.referenceSheet"),
     qualifiedAgent: t("patient.qualifiedAgent"),
+    physicalExam: t("admission.physicalExam"),
   };
   const order = ["admDate", "disDate"];
 
@@ -104,6 +105,7 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
         alertReceived: item.alertReceived ? t("common.yes") : t("common.no"),
         referenceSheet: item.referenceSheet ? t("common.yes") : t("common.no"),
         qualifiedAgent: item.qualifiedAgent ? t("common.yes") : t("common.no"),
+        physicalExam: item.physicalExam ?? "",
       };
     });
   };

@@ -16,7 +16,8 @@ export type TCurrentAdmissionFieldName =
   | "entryReason"
   | "alertReceived"
   | "referenceSheet"
-  | "qualifiedAgent";
+  | "qualifiedAgent"
+  | "physicalExam";
 
 export type TActivityTransitionState = "IDLE" | "TO_RESET" | "FAIL";
 

@@ -199,6 +199,7 @@ const AdmissionForm: FC<AdmissionProps> = ({
     referenceSheet: boolean().nullable(),
     qualifiedAgent: boolean().nullable(),
     transportation: string(),
+    physicalExam: string(),
   });
 
   const formik = useFormik({
@@ -643,6 +644,21 @@ const AdmissionForm: FC<AdmissionProps> = ({
                     rows={3}
                     disabled={isLoading}
                     maxLength={2000}
+                  />
+                </div>
+                <div className="fullWidth patientAdmissionForm__item">
+                  <TextField
+                    field={formik.getFieldProps("physicalExam")}
+                    theme="regular"
+                    label={t("admission.physicalExam")}
+                    multiline={true}
+                    type="text"
+                    isValid={isValid("physicalExam")}
+                    errorText={getErrorText("physicalExam")}
+                    onBlur={formik.handleBlur}
+                    rows={10}
+                    disabled={isLoading}
+                    maxLength={10000}
                   />
                 </div>
               </div>

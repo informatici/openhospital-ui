@@ -250,13 +250,19 @@ export interface AdmissionDTO {
      */
     deleted: string;
     /**
+     * physical exam made by doctor
      * @type {string}
      * @memberof AdmissionDTO
      */
-    fhu?: string;
+    physicalExam?: string;
     /**
      * @type {number}
      * @memberof AdmissionDTO
      */
     yprog?: number;
+    /**
+     * @type {string}
+     * @memberof AdmissionDTO
+     */
+    fhu?: string;
 }

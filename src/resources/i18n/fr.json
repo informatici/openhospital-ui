@@ -919,7 +919,8 @@
     "preTreatment": "Traitement avant admission",
     "preAssessment": "Bilan avant admission",
     "entryReason": "Motif d'entrée",
-    "transportation": "Moyen de transport"
+    "transportation": "Moyen de transport",
+    "physicalExam": "Examen physique"
   },
   "bill": {
     "title": "Bienvenue dans la facturation",

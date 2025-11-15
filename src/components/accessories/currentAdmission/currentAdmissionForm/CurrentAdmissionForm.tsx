@@ -139,6 +139,7 @@ export const CurrentAdmissionForm: FunctionComponent<IOwnProps> = ({
       formattedValues.referenceSheet = isReferenceSheetChecked ? true : false;
       formattedValues.qualifiedAgent = isQualifiedAgentChecked ? true : false;
       formattedValues.transportation = formik.values.transportation;
+      formattedValues.physicalExam = formik.values.physicalExam;
       onSubmit({
         ...currentAdmission,
         ...formattedValues,
@@ -379,6 +380,21 @@ export const CurrentAdmissionForm: FunctionComponent<IOwnProps> = ({
                   rows={3}
                   disabled={isLoading}
                   maxLength={2000}
+                />
+              </div>
+              <div className="fullWidth currentAdmissionForm__item">
+                <TextField
+                  field={formik.getFieldProps("physicalExam")}
+                  theme="regular"
+                  label={t("admission.physicalExam")}
+                  multiline={true}
+                  type="text"
+                  isValid={isValid("physicalExam")}
+                  errorText={getErrorText("physicalExam")}
+                  onBlur={formik.handleBlur}
+                  rows={10}
+                  disabled={isLoading}
+                  maxLength={10000}
                 />
               </div>
               <div className="fullWidth currentAdmissionForm__item">
