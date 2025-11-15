@@ -97,4 +97,8 @@ export const initialFields: TFields<AdmissionFormFieldName> = {
     value: "",
     type: "text",
   },
+  physicalExam: {
+    value: "",
+    type: "text",
+  },
 };

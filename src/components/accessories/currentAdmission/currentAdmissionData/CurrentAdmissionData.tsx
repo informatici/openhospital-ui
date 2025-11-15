@@ -87,6 +87,12 @@ export const CurrentAdmissionData: FunctionComponent<IOwnProps> = ({
             <p className="item_content">{admission.transportation}</p>
           </div>
         )}
+        {!isEmpty(admission?.entryReason) && (
+          <div className="fullWidth currentAdmissionData__item">
+            <span className="item_label">{t("admission.entryReason")}</span>
+            <p className="item_content">{admission.entryReason}</p>
+          </div>
+        )}
         {!isEmpty(admission?.anamnesis) && (
           <div className="fullWidth currentAdmissionData__item">
             <span className="item_label">{t("admission.anamnesis")}</span>
@@ -105,10 +111,10 @@ export const CurrentAdmissionData: FunctionComponent<IOwnProps> = ({
             <p className="item_content">{admission?.preAssessment}</p>
           </div>
         )}
-        {!isEmpty(admission?.entryReason) && (
+        {!isEmpty(admission?.physicalExam) && (
           <div className="fullWidth currentAdmissionData__item">
-            <span className="item_label">{t("admission.entryReason")}</span>
-            <p className="item_content">{admission.entryReason}</p>
+            <span className="item_label">{t("admission.physicalExam")}</span>
+            <p className="item_content">{admission.physicalExam}</p>
           </div>
         )}
       </div>

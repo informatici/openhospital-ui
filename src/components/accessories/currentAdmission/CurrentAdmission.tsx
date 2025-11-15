@@ -48,6 +48,7 @@ export const CurrentAdmission: FunctionComponent<IOwnProps> = ({
       referenceSheet: adm.referenceSheet,
       qualifiedAgent: adm.qualifiedAgent,
       transportation: adm.transportation,
+      physicalExam: adm.physicalExam,
     };
     dispatch(updateAdmission(admissionToSave));
   };

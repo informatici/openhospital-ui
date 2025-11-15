@@ -37,4 +37,5 @@ export type AdmissionFormFieldName =
   | "alertReceived"
   | "referenceSheet"
   | "qualifiedAgent"
-  | "transportation";
+  | "transportation"
+  | "physicalExam";
