@@ -7001,11 +7001,11 @@ components:
           format: int32
           description: lock
           example: 0
-        female:
+        pharmacy:
           type: boolean
         male:
           type: boolean
-        pharmacy:
+        female:
           type: boolean
         opd:
           type: boolean
@@ -8855,6 +8855,11 @@ components:
           type: string
           description: IPT
           example: regular
+        pex_pc:
+          type: number
+          format: double
+          description: Head circumference
+          example: 23
       required:
       - patientCode
       - pex_date

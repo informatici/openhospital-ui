@@ -46,6 +46,7 @@ const PatientTriageTable: FunctionComponent<IOwnProps> = ({
     pex_body_mass_index: t("examination.bodymassindex"),
     pex_branchial_perimeter: t("examination.branchialperimeter"),
     pex_ipt: t("examination.ipt"),
+    pex_pc: t("examination.headcircumference"),
   };
   const header = ["pex_date"];
   const order = ["pex_date"];
@@ -106,6 +107,7 @@ const PatientTriageTable: FunctionComponent<IOwnProps> = ({
         pex_pex_body_mass_index: item.pex_body_mass_index,
         pex_pex_branchial_perimeter: item.pex_branchial_perimeter,
         pex_ipt: item.pex_ipt,
+        pex_pc: item.pex_pc,
       };
     });
   };

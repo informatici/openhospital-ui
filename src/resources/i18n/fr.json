@@ -162,7 +162,7 @@
     "hasinsurance": "Assuré",
     "mothername": "Nom de la mère",
     "note": "Remarques",
-    "height": "Hauteur (cm)",
+    "height": "Taille (cm)",
     "weight": "Poids (kg)",
     "secondname": "Nom de famille",
     "sex": "Sexe",
@@ -371,8 +371,8 @@
     "newtriage": "Créer un nouveau examen spécifique",
     "edittriage": "Modifier l'examen spécifique",
     "ap": {
-      "max": "Pression artérielle max (mmHg)",
-      "min": "Pression artérielle min (mmHg)",
+      "max": "Diastolique (mmHg)",
+      "min": "Systolique (mmHg)",
       "lessthanmax": "Doit être inférieur au maximum",
       "morethanmin": "Doit être supérieur au min"
     },
@@ -389,7 +389,7 @@
     "diuresisvolume24habbr": "D24H",
     "heartrate": "Fréquence Cardiaque (bpm)",
     "heartrateabbr": "FC",
-    "height": "Hauteur (cm)",
+    "height": "Taille (cm)",
     "heightabbr": "(H)",
     "hemoglucosetest": "Hemo Glucose Test",
     "hgt": "HGT",
@@ -435,7 +435,8 @@
       "followUp": "Suivi"
     },
     "examinationType": "Type de paramètre",
-    "ipt": "Indice poid taille(IPT)"
+    "ipt": "Indice poid taille(IPT)",
+    "headcircumference": "Périmetre cranien"
   },
   "encounter": {
     "code": "Code de la rencontre",
@@ -1467,6 +1468,7 @@
     "bloodGlucoseLevel": "Taux de glycémie",
     "indeterminate": "Indéterminé",
     "hivTest": "Test du VIH",
-    "performedBy": "Effectué par l'utilisateur"
+    "performedBy": "Effectué par l'utilisateur",
+    "notAvailable": "Non disponible"
   }
 }

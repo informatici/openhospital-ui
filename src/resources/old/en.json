@@ -549,7 +549,8 @@
       "toggleexamination": "Enable / Disable examination"
     },
     "weight": "Weight",
-    "weightabbr": "(W)"
+    "weightabbr": "(W)",
+    "headcircumference": "Head circumference"
   },
   "exams": {
     "find": "Search"

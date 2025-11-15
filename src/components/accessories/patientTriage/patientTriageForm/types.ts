@@ -35,4 +35,5 @@ export type TPatientTriageFormFieldName =
   | "pex_body_mass_index"
   | "pex_branchial_perimeter"
   | "pex_type"
-  | "pex_ipt";
+  | "pex_ipt"
+  | "pex_pc";

@@ -259,4 +259,5 @@ export type TPermission =
   | "examinations.access"
   | "operations.access"
   | "admissions.fullaccess"
-  | "clinics.access";
+  | "clinics.access"
+  | "examinassions.fullaccess";
