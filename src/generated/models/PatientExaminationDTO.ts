@@ -148,6 +148,12 @@ export interface PatientExaminationDTO {
      * @memberof PatientExaminationDTO
      */
     pex_ipt?: string;
+    /**
+     * Head circumference
+     * @type {number}
+     * @memberof PatientExaminationDTO
+     */
+    pex_pc?: number;
 }
 
 /**

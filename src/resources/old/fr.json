@@ -549,7 +549,8 @@
       "toggleexamination": "Activer / désactiver l'examen"
     },
     "weight": "Poids",
-    "weightabbr": "(P)"
+    "weightabbr": "(P)",
+    "headcircumference": "Périmetre cranien"
   },
   "exams": {
     "find": "Cherchez"

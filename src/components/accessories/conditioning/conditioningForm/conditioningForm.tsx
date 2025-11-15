@@ -260,6 +260,7 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
                   value: "INDETERMINATE",
                   label: t("conditioning.indeterminate"),
                 },
+                { value: "ND", label: t("conditioning.notAvailable") },
                 { value: "POSITIF", label: t("conditioning.positive") },
                 { value: "NEGATIF", label: t("conditioning.negative") },
               ]}
@@ -280,12 +281,60 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
                   value: "INDETERMINATE",
                   label: t("conditioning.indeterminate"),
                 },
+                { value: "ND", label: t("conditioning.notAvailable") },
                 { value: "POSITIF", label: t("conditioning.positive") },
                 { value: "NEGATIF", label: t("conditioning.negative") },
               ]}
               disabled={isLoading}
             />
           </div>
+          <div className="conditioningForm__item">
+            <TextField
+              label={t("conditioning.bloodGlucoseLevel")}
+              field={formik.getFieldProps("bloodGlucoseLevel")}
+              theme="regular"
+              isValid={isValid("bloodGlucoseLevel")}
+              errorText={getErrorText("bloodGlucoseLevel")}
+              onBlur={formik.handleBlur}
+              disabled={isLoading}
+            />
+          </div>
+          <div className="conditioningForm__item">
+            <TextField
+              label={t("conditioning.sgVolume")}
+              field={formik.getFieldProps("sgVolume")}
+              theme="regular"
+              isValid={isValid("sgVolume")}
+              errorText={getErrorText("sgVolume")}
+              onBlur={formik.handleBlur}
+              disabled={isLoading}
+            />
+          </div>
+
+          <div className="conditioningForm__item">
+            <TextField
+              label={t("conditioning.bolusSsVolume")}
+              field={formik.getFieldProps("bolusSsVolume")}
+              theme="regular"
+              isValid={isValid("bolusSsVolume")}
+              errorText={getErrorText("bolusSsVolume")}
+              onBlur={formik.handleBlur}
+              disabled={isLoading}
+            />
+          </div>
+
+          <div className="conditioningForm__item">
+            <TextField
+              label={t("conditioning.diazepamDose")}
+              field={formik.getFieldProps("diazepamDose")}
+              theme="regular"
+              isValid={isValid("diazepamDose")}
+              errorText={getErrorText("diazepamDose")}
+              onBlur={formik.handleBlur}
+              disabled={isLoading}
+            />
+          </div>
+
           <div className="conditioningForm__item">
             <CheckboxField
               fieldName="aspiration"
@@ -340,59 +389,11 @@ const ConditioningForm: FC<ConditioningFormProps> = ({
 
           <div className="conditioningForm__item">
             <TextField
-              label={t("conditioning.sgVolume")}
-              field={formik.getFieldProps("sgVolume")}
-              theme="regular"
-              isValid={isValid("sgVolume")}
-              errorText={getErrorText("sgVolume")}
-              onBlur={formik.handleBlur}
-              disabled={isLoading}
-            />
-          </div>
-
-          <div className="conditioningForm__item">
-            <TextField
-              label={t("conditioning.diazepamDose")}
-              field={formik.getFieldProps("diazepamDose")}
-              theme="regular"
-              isValid={isValid("diazepamDose")}
-              errorText={getErrorText("diazepamDose")}
-              onBlur={formik.handleBlur}
-              disabled={isLoading}
-            />
-          </div>
-
-          <div className="conditioningForm__item">
-            <TextField
-              label={t("conditioning.bolusSsVolume")}
-              field={formik.getFieldProps("bolusSsVolume")}
-              theme="regular"
-              isValid={isValid("bolusSsVolume")}
-              errorText={getErrorText("bolusSsVolume")}
-              onBlur={formik.handleBlur}
-              disabled={isLoading}
-            />
-          </div>
-
-          <div className="conditioningForm__item">
-            <TextField
               label={t("conditioning.sngNumber")}
               field={formik.getFieldProps("sngNumber")}
               theme="regular"
               isValid={isValid("sngNumber")}
               errorText={getErrorText("sngNumber")}
-              onBlur={formik.handleBlur}
-              disabled={isLoading}
-            />
-          </div>
-
-          <div className="conditioningForm__item">
-            <TextField
-              label={t("conditioning.bloodGlucoseLevel")}
-              field={formik.getFieldProps("bloodGlucoseLevel")}
-              theme="regular"
-              isValid={isValid("bloodGlucoseLevel")}
-              errorText={getErrorText("bloodGlucoseLevel")}
               onBlur={formik.handleBlur}
               disabled={isLoading}
             />

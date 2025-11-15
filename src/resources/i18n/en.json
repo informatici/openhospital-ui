@@ -468,7 +468,8 @@
       "followUp": "Follow-up"
     },
     "examinationType": "Examination Type",
-    "ipt": "Weight height index (WHI)"
+    "ipt": "Weight height index (WHI)",
+    "headcircumference": "Head circumference"
   },
   "encounter": {
     "code": "Encounter code",
@@ -1503,6 +1504,7 @@
     "bloodGlucoseLevel": "Blood glucose level",
     "indeterminate": "Indeterminate",
     "hivTest": "HIV Test",
-    "performedBy": "Performed by user"
+    "performedBy": "Performed by user",
+    "notAvailable": "Not available"
   }
 }
