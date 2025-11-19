@@ -2,14 +2,18 @@ import { CircularProgress } from "@mui/material";
 import InfoBox from "components/accessories/infoBox/InfoBox";
 import Table from "components/accessories/table/Table";
 import { TFilterField } from "components/accessories/table/filter/types";
+import { PATHS } from "consts";
 import { MedicalDTO } from "generated";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-import React, { useEffect, useMemo } from "react";
+import React, { useCallback, useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router";
 import { getMedicals } from "state/pharmacy";
 
 export default function PharmaceuticalTable() {
   const { t } = useTranslation();
+
+  const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
 
@@ -102,6 +106,18 @@ export default function PharmaceuticalTable() {
     });
   }, [data]);
 
+  const handleEdit = useCallback(
+    (medical: MedicalDTO) => {
+      navigate(
+        PATHS.pharmacy_pharmaceutical_update.replace(
+          ":id",
+          medical.code?.toString() ?? ""
+        )
+      );
+    },
+    [navigate]
+  );
+
   useEffect(() => {
     dispatch(getMedicals());
   }, [dispatch]);
@@ -128,6 +144,7 @@ export default function PharmaceuticalTable() {
                 filterColumns={filters}
                 rowKey="pharmaceutical"
                 manualFilter={false}
+                onEdit={handleEdit}
               />
             );
           case "SUCCESS_EMPTY":

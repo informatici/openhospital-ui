@@ -8,6 +8,7 @@ import {
 } from "components/activities/pharmacyActivity";
 import { NewPharmaceutical } from "components/activities/pharmacyActivity/pharmaceutical/NewPharmaceutical";
 import Pharmaceutical from "components/activities/pharmacyActivity/pharmaceutical/Pharmaceutical";
+import { UpdatePharmaceutical } from "components/activities/pharmacyActivity/pharmaceutical/UpdatePharmaceutical";
 import { DischargeMovement } from "components/activities/pharmacyActivity/pharmaceuticalStock/DischargeMovement";
 import React, { ReactNode } from "react";
 import { Route, Routes } from "react-router";
@@ -43,6 +44,10 @@ const routes: { element: ReactNode; path: string }[] = [
   {
     path: getPath(PATHS.pharmacy_pharmaceutical_new),
     element: <NewPharmaceutical />,
+  },
+  {
+    path: getPath(PATHS.pharmacy_pharmaceutical_update),
+    element: <UpdatePharmaceutical />,
   },
 ];
 

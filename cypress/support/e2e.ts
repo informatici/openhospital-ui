@@ -15,6 +15,10 @@ Cypress.Commands.add("byId", (value) => {
   return cy.get(`[id=${value}]`);
 });
 
+Cypress.Commands.add("byName", (value) => {
+  return cy.get(`[name=${value}]`);
+});
+
 Cypress.Commands.add("authenticate", (url: string) => {
   cy.visit(url, {
     onBeforeLoad(w) {

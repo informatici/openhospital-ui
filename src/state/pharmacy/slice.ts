@@ -48,8 +48,14 @@ export const pharmacySlice = createSlice({
     resetMedicalTypes: (state) => {
       state.getMedicalTypes = initial.getMedicalTypes;
     },
+    resetGetMedical: (state) => {
+      state.getMedical = initial.getMedical;
+    },
     resetNewMedical: (state) => {
       state.newMedical = initial.newMedical;
+    },
+    resetUpdateMedical: (state) => {
+      state.updateMedical = initial.updateMedical;
     },
   },
   extraReducers: (builder) => {
@@ -145,7 +151,17 @@ export const pharmacySlice = createSlice({
       .addCase(thunks.getMedicalTypes.rejected, (state, action) => {
         state.getMedicalTypes = ApiResponse.error(action.payload);
       })
-      // new medical
+      // Get medical
+      .addCase(thunks.getMedical.pending, (state) => {
+        state.getMedical = ApiResponse.loading();
+      })
+      .addCase(thunks.getMedical.fulfilled, (state, action) => {
+        state.getMedical = ApiResponse.value(action.payload);
+      })
+      .addCase(thunks.getMedical.rejected, (state, action) => {
+        state.getMedical = ApiResponse.error(action.payload);
+      })
+      // New medical
       .addCase(thunks.newMedical.pending, (state) => {
         state.newMedical = ApiResponse.loading();
       })
@@ -155,6 +171,16 @@ export const pharmacySlice = createSlice({
       .addCase(thunks.newMedical.rejected, (state, action) => {
         state.newMedical = ApiResponse.error(action.payload);
       })
+      // Update medical
+      .addCase(thunks.updateMedical.pending, (state) => {
+        state.updateMedical = ApiResponse.loading();
+      })
+      .addCase(thunks.updateMedical.fulfilled, (state, action) => {
+        state.updateMedical = ApiResponse.value(action.payload);
+      })
+      .addCase(thunks.updateMedical.rejected, (state, action) => {
+        state.updateMedical = ApiResponse.error(action.payload);
+      });
   },
 });
 
@@ -171,5 +197,7 @@ export const {
   resetDischargeMovements,
   resetMedicals,
   resetMedicalTypes,
+  resetGetMedical,
   resetNewMedical,
+  resetUpdateMedical,
 } = pharmacySlice.actions;

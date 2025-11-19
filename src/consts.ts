@@ -89,4 +89,5 @@ export const PATHS = {
   pharmacy_ward_stock: "/pharmacy/ward-stock",
   pharmacy_pharmaceutical: "/pharmacy/pharmaceutical",
   pharmacy_pharmaceutical_new: "/pharmacy/pharmaceutical/new",
+  pharmacy_pharmaceutical_update: "/pharmacy/pharmaceutical/:id/update",
 };

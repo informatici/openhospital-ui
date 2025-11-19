@@ -5,17 +5,26 @@ import { PATHS } from "consts";
 import { MedicalDTO } from "generated";
 import { useNavigationHandler, useTranslation } from "libraries/hooks";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
+import { omit } from "lodash";
 import React, { useCallback, useEffect, useRef } from "react";
-import { useOutletContext } from "react-router";
-import { getMedicalTypes, newMedical, resetNewMedical } from "state/pharmacy";
+import { Navigate, useOutletContext, useParams } from "react-router";
+import {
+  getMedical,
+  getMedicalTypes,
+  resetNewMedical,
+  resetUpdateMedical,
+  updateMedical,
+} from "state/pharmacy";
 import { PharmacyActivityContent } from "../PharmacyActivityContent";
 import { PharmaceuticalForm } from "./components/forms/pharmaceuticalForm/PharmaceuticalForm";
 import "./styles.scss";
 
-export function NewPharmaceutical() {
+export function UpdatePharmaceutical() {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const infoBoxRef = useRef<HTMLDivElement>(null);
+
+  const { id } = useParams();
 
   const { breadcrumbMap, setBreadcrumbMap } = useOutletContext<{
     breadcrumbMap: Record<string, string>;
@@ -26,35 +35,45 @@ export function NewPharmaceutical() {
     setBreadcrumbMap({
       ...breadcrumbMap,
       [t("pharmacy.labels.pharmaceutical")]: PATHS.pharmacy_pharmaceutical,
-      [t("pharmacy.labels.new-pharmaceutical-title")]:
-        PATHS.pharmacy_pharmaceutical_new,
+      [t("pharmacy.labels.update-pharmaceutical-title")]:
+        PATHS.pharmacy_pharmaceutical_update.replace(":id", id ?? ""),
     });
-  }, [t, breadcrumbMap]);
+  }, [id, t, breadcrumbMap]);
 
   const removeBreadcrumb = useCallback(() => {
     setBreadcrumbMap({
       ...breadcrumbMap,
       [t("pharmacy.labels.pharmaceutical")]: PATHS.pharmacy_pharmaceutical,
-      [t("pharmacy.labels.new-pharmaceutical-title")]:
-        PATHS.pharmacy_pharmaceutical_new,
+      [t("pharmacy.labels.update-pharmaceutical-title")]:
+        PATHS.pharmacy_pharmaceutical_update.replace(":id", id ?? ""),
     });
   }, [t, breadcrumbMap]);
 
-  const status = useAppSelector((state) => state.pharmacy.newMedical.status);
+  const status = useAppSelector((state) => state.pharmacy.updateMedical.status);
 
   const errorMessage = useAppSelector(
     (state) =>
-      state.pharmacy.newMedical.error?.message ??
-      t("pharmacy.messages.new-pharmaceutical-fail.description")
+      state.pharmacy.updateMedical.error?.message ??
+      t("pharmacy.messages.update-pharmaceutical-fail.description")
   );
+
+  const medical = useAppSelector((state) => state.pharmacy.getMedical.data);
 
   const handleGoBack = useNavigationHandler(PATHS.pharmacy_pharmaceutical, {
     replace: true,
   });
 
   const handleSubmit = useCallback(
-    (data: MedicalDTO) => {
-      dispatch(newMedical({ medicalDTO: data }));
+    (data: MedicalDTO & { ignoreSimilar?: boolean }) => {
+      dispatch(
+        updateMedical({
+          medicalDTO: {
+            ...omit(data, ["ignoreSimilar"]),
+            code: +id!,
+          },
+          ignoreSimilar: data.ignoreSimilar,
+        })
+      );
     },
     [dispatch]
   );
@@ -72,19 +91,33 @@ export function NewPharmaceutical() {
   }, [breadcrumbMap]);
 
   useEffect(() => {
+    dispatch(getMedical({ code: +(id ?? "0") }));
+  }, [dispatch, id]);
+
+  useEffect(() => {
     dispatch(getMedicalTypes());
+    return () => {
+      dispatch(resetUpdateMedical());
+    };
   }, [dispatch]);
+
+  if (!id) {
+    return <Navigate to={PATHS.pharmacy_pharmaceutical} replace />;
+  }
 
   return (
     <PharmacyActivityContent
-      data-cy="new-pharmaceutical"
-      title={t("pharmacy.labels.new-pharmaceutical-title")}
+      data-cy="update-pharmaceutical"
+      title={t("pharmacy.labels.update-pharmaceutical-title")}
     >
-      <div className="new-pharmaceutical">
-        <PharmaceuticalForm
-          onSubmit={handleSubmit}
-          loading={status === "LOADING"}
-        />
+      <div className="update-pharmaceutical">
+        {medical && (
+          <PharmaceuticalForm
+            onSubmit={handleSubmit}
+            loading={status === "LOADING"}
+            pharmaceutical={medical}
+          />
+        )}
         {status === "FAIL" && (
           <div ref={infoBoxRef} className="info-box-container">
             <InfoBox type="error" message={errorMessage} />
@@ -93,9 +126,9 @@ export function NewPharmaceutical() {
       </div>
       <ConfirmationDialog
         isOpen={status === "SUCCESS"}
-        title={t("pharmacy.messages.new-pharmaceutical-success.title")}
+        title={t("pharmacy.messages.update-pharmaceutical-success.title")}
         icon={checkIcon}
-        info={t("pharmacy.messages.new-pharmaceutical-success.description")}
+        info={t("pharmacy.messages.update-pharmaceutical-success.description")}
         primaryButtonLabel="OK"
         handlePrimaryButtonClick={handleDialogActions}
         handleSecondaryButtonClick={handleDialogActions}
