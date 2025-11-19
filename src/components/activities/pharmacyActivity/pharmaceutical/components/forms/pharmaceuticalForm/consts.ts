@@ -20,6 +20,7 @@ export const MedicalDTOSchema = z.object({
   initialqty: z.number().default(0),
   inqty: z.number().default(0),
   outqty: z.number().default(0),
+  ignoreSimilar: z.boolean().optional(),
 });
 
 export function getInitialValues(from?: MedicalDTO): Partial<TFormValues> {

@@ -1239,6 +1239,7 @@
       "discharge-movement-created-successfully": "Discharge movement created successfully",
       "ok": "OK",
       "new-pharmaceutical-title": "New pharmaceutical",
+      "update-pharmaceutical-title": "Update pharmaceutical",
       "pharmaceutical-created": "Pharmaceutical created",
       "pharmaceutical-add-another": "Add another pharmaceutical"
     },
@@ -1252,12 +1253,20 @@
         "description": "We were unable to save the charge movement. Please try again or contact support."
       },
       "new-pharmaceutical-success": {
-        "title": "Pharmaceutical added successful",
+        "title": "Pharmaceutical added successfully",
         "description": "The pharmaceutical has been added successfully."
       },
       "new-pharmaceutical-fail": {
-        "title": "Pharamaceutical creation failed Failed",
+        "title": "Pharamaceutical creation failed",
         "description": "We were unable to add the pharmaceutical. Please try again or contact support."
+      },
+      "update-pharmaceutical-success": {
+        "title": "Pharmaceutical updated successfully",
+        "description": "The pharmaceutical has been updated successfully."
+      },
+      "update-pharmaceutical-fail": {
+        "title": "Pharamaceutical update failed",
+        "description": "We were unable to update the pharmaceutical. Please try again or contact support."
       }
     },
     "form": {
@@ -1278,6 +1287,7 @@
         "description": "Description",
         "pcsperpck": "Pieces per Packet",
         "minqty": "Critical level",
+        "ignoreSimilar": "Ignore somilar",
         "deleted": "Deleted"
       }
     },

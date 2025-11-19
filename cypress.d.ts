@@ -24,6 +24,11 @@ declare global {
       byId(value: string): Chainable<JQuery<HTMLElement>>;
 
       /**
+       * select DOM element by name
+       */
+      byName(value: string): Chainable<JQuery<HTMLElement>>;
+
+      /**
        * authenticate by setting a session storage
        */
       authenticate(value: string): void;

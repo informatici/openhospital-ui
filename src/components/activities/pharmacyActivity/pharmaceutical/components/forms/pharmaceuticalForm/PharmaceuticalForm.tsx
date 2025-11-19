@@ -9,6 +9,7 @@ import { PATHS } from "consts";
 import { MedicalDTO } from "generated";
 import { useNavigationHandler, useTranslation } from "libraries/hooks";
 import { useMedicalTypes } from "libraries/hooks/api/useMedicalTypes";
+import { isEmpty } from "lodash";
 import React, { FormEvent, useCallback } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { MedicalDTOSchema, getInitialValues } from "./consts";
@@ -50,7 +51,7 @@ export function PharmaceuticalForm({
   const handleSubmit = useCallback(
     (event: FormEvent<HTMLFormElement>) => {
       event.preventDefault();
-      if (formState.isValid) {
+      if (isEmpty(Object.keys(formState.errors))) {
         onSubmit?.(values as MedicalDTO);
       }
     },
@@ -58,8 +59,12 @@ export function PharmaceuticalForm({
   );
 
   return (
-    <div data-cy="pharmaceutical-form" className="pharmaceuticalForm">
-      <form className="form-grid-layout gap-2 w-full" onSubmit={handleSubmit}>
+    <div className="pharmaceuticalForm">
+      <form
+        data-cy="pharmaceutical-form"
+        className="form-grid-layout gap-2 w-full"
+        onSubmit={handleSubmit}
+      >
         <TextFormField
           type="string"
           label={t("pharmacy.form.fields.prodCode")}
@@ -97,6 +102,13 @@ export function PharmaceuticalForm({
           control={control}
           name="deleted"
         />
+        {pharmaceutical && (
+          <CheckboxFormField
+            label={t("pharmacy.form.fields.ignoreSimilar")}
+            control={control}
+            name="ignoreSimilar"
+          />
+        )}
         <div className="col-start-1 col-span-full"></div>
 
         <div className="col-span-full flex gap-2 justify-end">
@@ -106,7 +118,7 @@ export function PharmaceuticalForm({
             onClick={handleGoBack}
             disabled={loading}
           >
-            {t("common.cancel")}
+            {t("common.discard")}
           </Button>
           <Button
             variant="contained"
