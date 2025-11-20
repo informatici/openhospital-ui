@@ -28,7 +28,7 @@ export default function Pharmaceutical() {
 
   return (
     <PharmacyActivityContent
-      data-cy="pharmacy"
+      data-cy="pharmaceutical"
       title={t("pharmacy.labels.pharmaceutical-title")}
     >
       <div className="pharmaceutical">
