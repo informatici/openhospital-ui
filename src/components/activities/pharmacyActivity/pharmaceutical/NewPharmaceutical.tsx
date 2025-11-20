@@ -17,28 +17,25 @@ export function NewPharmaceutical() {
   const dispatch = useAppDispatch();
   const infoBoxRef = useRef<HTMLDivElement>(null);
 
-  const { breadcrumbMap, setBreadcrumbMap } = useOutletContext<{
+  const { setBreadcrumbMap } = useOutletContext<{
     breadcrumbMap: Record<string, string>;
     setBreadcrumbMap: (map: Record<string, string | undefined>) => void;
   }>();
 
-  const addBreadcrumb = useCallback(() => {
+  useEffect(() => {
     setBreadcrumbMap({
-      ...breadcrumbMap,
-      [t("pharmacy.labels.pharmaceutical")]: PATHS.pharmacy_pharmaceutical,
+      [t("nav.pharmacy")]: PATHS.pharmacy,
+      [t("pharmacy.labels.pharmaceutical-title")]:
+        PATHS.pharmacy_pharmaceutical,
       [t("pharmacy.labels.new-pharmaceutical-title")]:
         PATHS.pharmacy_pharmaceutical_new,
     });
-  }, [t, breadcrumbMap]);
-
-  const removeBreadcrumb = useCallback(() => {
-    setBreadcrumbMap({
-      ...breadcrumbMap,
-      [t("pharmacy.labels.pharmaceutical")]: PATHS.pharmacy_pharmaceutical,
-      [t("pharmacy.labels.new-pharmaceutical-title")]:
-        PATHS.pharmacy_pharmaceutical_new,
-    });
-  }, [t, breadcrumbMap]);
+    return () => {
+      setBreadcrumbMap({
+        [t("nav.pharmacy")]: PATHS.pharmacy,
+      });
+    };
+  }, [t, setBreadcrumbMap]);
 
   const status = useAppSelector((state) => state.pharmacy.newMedical.status);
 
@@ -65,11 +62,6 @@ export function NewPharmaceutical() {
       handleGoBack();
     }
   }, [dispatch, handleGoBack]);
-
-  useEffect(() => {
-    addBreadcrumb();
-    return removeBreadcrumb;
-  }, [breadcrumbMap]);
 
   useEffect(() => {
     dispatch(getMedicalTypes());

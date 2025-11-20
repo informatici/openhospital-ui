@@ -1,10 +1,10 @@
+import { PATHS } from "consts";
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import PharmaceuticalActions from "./components/pharmaceuticalActions/PharmaceuticalActions";
-import { PATHS } from "consts";
 import { useOutletContext } from "react-router";
-import PharmaceuticalTable from "./components/pharmaceuticalTable/PharmaceuticalTable";
 import { PharmacyActivityContent } from "../PharmacyActivityContent";
+import PharmaceuticalActions from "./components/pharmaceuticalActions/PharmaceuticalActions";
+import PharmaceuticalTable from "./components/pharmaceuticalTable/PharmaceuticalTable";
 
 export default function Pharmaceutical() {
   const { t } = useTranslation();
@@ -13,29 +13,22 @@ export default function Pharmaceutical() {
     setBreadcrumbMap: (map: Record<string, string>) => void;
   }>();
 
-  const addBreadcrumb = () => {
+  useEffect(() => {
     setBreadcrumbMap({
-      ...breadcrumbMap,
+      [t("nav.pharmacy")]: PATHS.pharmacy,
       [t("pharmacy.labels.pharmaceutical-title")]:
         PATHS.pharmacy_pharmaceutical,
     });
-  };
-
-  const removeBreadcrumb = () => {
-    const updatedMap = { ...breadcrumbMap };
-    delete updatedMap[t("pharmacy.labels.pharmaceutical-title")];
-    setBreadcrumbMap(updatedMap);
-  };
-
-  useEffect(() => {
-    addBreadcrumb();
     return () => {
-      removeBreadcrumb();
+      setBreadcrumbMap({
+        [t("nav.pharmacy")]: PATHS.pharmacy,
+      });
     };
-  }, []);
+  }, [t, setBreadcrumbMap]);
+
   return (
     <PharmacyActivityContent
-      data-cy="pharmaceutical"
+      data-cy="pharmacy"
       title={t("pharmacy.labels.pharmaceutical-title")}
     >
       <div className="pharmaceutical">
