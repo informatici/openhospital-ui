@@ -14,26 +14,18 @@ export function PharmacyStock() {
     setBreadcrumbMap: (map: Record<string, string>) => void;
   }>();
 
-  const addBreadcrumb = () => {
+  useEffect(() => {
     setBreadcrumbMap({
-      ...breadcrumbMap,
+      [t("nav.pharmacy")]: PATHS.pharmacy,
       [t("pharmacy.labels.pharmaceutical-stock")]:
         PATHS.pharmacy_pharmaceuticalstock,
     });
-  };
-
-  const removeBreadcrumb = () => {
-    const updatedMap = { ...breadcrumbMap };
-    delete updatedMap[t("pharmacy.labels.pharmaceutical-stock")];
-    setBreadcrumbMap(updatedMap);
-  };
-
-  useEffect(() => {
-    addBreadcrumb();
     return () => {
-      removeBreadcrumb();
+      setBreadcrumbMap({
+        [t("nav.pharmacy")]: PATHS.pharmacy,
+      });
     };
-  }, []);
+  }, [t, setBreadcrumbMap]);
 
   return (
     <PharmacyActivityContent

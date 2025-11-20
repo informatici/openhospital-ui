@@ -37,15 +37,20 @@ export function DischargeMovement() {
     setBreadcrumbMap: (map: Record<string, string | undefined>) => void;
   }>();
 
-  const addBreadcrumb = () => {
+  useEffect(() => {
     setBreadcrumbMap({
-      ...breadcrumbMap,
+      [t("nav.pharmacy")]: PATHS.pharmacy,
       [t("pharmacy.labels.pharmaceutical-stock")]:
         PATHS.pharmacy_pharmaceuticalstock,
       [t("pharmacy.labels.discharge-movement")]:
         PATHS.pharmacy_pharmaceuticalstock_discharge,
     });
-  };
+    return () => {
+      setBreadcrumbMap({
+        [t("nav.pharmacy")]: PATHS.pharmacy,
+      });
+    };
+  }, [t, setBreadcrumbMap]);
 
   const handleSubmit = useCallback(
     (values: MovementDTO[]) => {
@@ -70,16 +75,6 @@ export function DischargeMovement() {
       setActivityTransitionState("IDLE");
     }
   }, [dispatch, activityTransitionState]);
-
-  useEffect(() => {
-    addBreadcrumb();
-    return () => {
-      const newMap = { ...breadcrumbMap };
-      delete newMap[t("pharmacy.labels.pharmaceutical-stock")];
-      delete newMap[t("pharmacy.labels.discharge-movement")];
-      setBreadcrumbMap(newMap);
-    };
-  }, []);
 
   useEffect(() => {
     dispatch(getMedicals());
