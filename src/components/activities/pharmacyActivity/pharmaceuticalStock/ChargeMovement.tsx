@@ -24,23 +24,20 @@ export function ChargeMovement() {
     setBreadcrumbMap: (map: Record<string, string | undefined>) => void;
   }>();
 
-  const addBreadcrumb = useCallback(() => {
+  useEffect(() => {
     setBreadcrumbMap({
-      ...breadcrumbMap,
+      [t("nav.pharmacy")]: PATHS.pharmacy,
       [t("pharmacy.labels.pharmaceutical-stock")]:
         PATHS.pharmacy_pharmaceuticalstock,
       [t("pharmacy.labels.charge-movement")]:
         PATHS.pharmacy_pharmaceuticalstock_charge,
     });
-  }, [t, breadcrumbMap]);
-
-  const removeBreadcrumb = useCallback(() => {
-    setBreadcrumbMap({
-      ...breadcrumbMap,
-      [t("pharmacy.labels.pharmaceutical-stock")]: undefined,
-      [t("pharmacy.labels.charge-movement")]: undefined,
-    });
-  }, [t, breadcrumbMap]);
+    return () => {
+      setBreadcrumbMap({
+        [t("nav.pharmacy")]: PATHS.pharmacy,
+      });
+    };
+  }, [t, setBreadcrumbMap]);
 
   const status = useAppSelector(
     (state) => state.pharmacy.chargeMovements.status
@@ -80,11 +77,6 @@ export function ChargeMovement() {
       handleGoBack();
     }
   }, [dispatch, handleGoBack]);
-
-  useEffect(() => {
-    addBreadcrumb();
-    return removeBreadcrumb;
-  }, [breadcrumbMap]);
 
   useEffect(() => {
     dispatch(getMedicals());
