@@ -2,17 +2,12 @@ import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
 import { Collapse, IconButton } from "@mui/material";
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
+import CellContent from "components/activities/pharmacyActivity/pharmaceutical/components/PharmacyCellContent/CellContent";
 import _ from "lodash";
-import React, {
-  FunctionComponent,
-  useEffect,
-  useMemo,
-} from "react";
+import React, { FunctionComponent, useEffect, useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import "./styles.scss";
 import { IRowProps } from "./types";
-import Button from "../button/Button";
-import { useTranslation } from "react-i18next";
-import CellContent from "components/activities/pharmacyActivity/pharmaceutical/components/PharmacyCellContent/CellContent";
 
 const TableBodyRow: FunctionComponent<IRowProps> = ({
   row,
@@ -29,7 +24,7 @@ const TableBodyRow: FunctionComponent<IRowProps> = ({
   expanded,
   dateFields,
   detailsExcludedFields,
-  adjustQuantity = false,
+  renderExtraContent,
 }) => {
   const [open, setOpen] = React.useState(false);
   const { t } = useTranslation();
@@ -136,11 +131,7 @@ const TableBodyRow: FunctionComponent<IRowProps> = ({
                           )
                       )}
                   </ul>
-                  {adjustQuantity && row.type === "Charge" && (
-                    <Button type="button" variant="outlined" color="inherit">
-                      {t("pharmacy.stock.adjustQuantity")}
-                    </Button>
-                  )}
+                  {renderExtraContent && renderExtraContent(row)}
                 </div>
               )}
             </Collapse>
