@@ -131,7 +131,11 @@ const TableBodyRow: FunctionComponent<IRowProps> = ({
                           )
                       )}
                   </ul>
-                  {renderExtraContent && renderExtraContent(row)}
+                  {renderExtraContent && (
+                    <div className="extraContentContainer">
+                      {renderExtraContent(row)}
+                    </div>
+                  )}
                 </div>
               )}
             </Collapse>
