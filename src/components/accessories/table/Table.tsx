@@ -21,6 +21,7 @@ import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
+import TablePaginationActions from "@mui/material/TablePagination/TablePaginationActions";
 import TableRow from "@mui/material/TableRow";
 import { filterData } from "libraries/tableUtils";
 import React, {
@@ -44,7 +45,6 @@ import { FilterButton } from "./filter/FilterButton";
 import { TFilterValues } from "./filter/types";
 import "./styles.scss";
 import { IProps, TActions } from "./types";
-import TablePaginationActions from "@mui/material/TablePagination/TablePaginationActions";
 
 const Table: FunctionComponent<IProps> = ({
   rowData,
@@ -81,7 +81,7 @@ const Table: FunctionComponent<IProps> = ({
   rowKey = "code",
   headerActions,
   labels,
-  adjustQuantity,
+  renderExtraContent,
 }) => {
   const { t } = useTranslation();
   const [order, setOrder] = React.useState<TOrder>("desc");
@@ -493,7 +493,7 @@ const Table: FunctionComponent<IProps> = ({
                     expanded={expanded}
                     dateFields={dateFields}
                     detailsExcludedFields={detailsExcludedFields}
-                    adjustQuantity={adjustQuantity}
+                    renderExtraContent={renderExtraContent}
                   />
                 );
               })}
