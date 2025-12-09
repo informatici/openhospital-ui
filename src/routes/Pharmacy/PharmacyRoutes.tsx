@@ -13,6 +13,7 @@ import { DischargeMovement } from "components/activities/pharmacyActivity/pharma
 import React, { ReactNode } from "react";
 import { Route, Routes } from "react-router";
 import { PATHS } from "../../consts";
+import WardStockRectify from "components/activities/pharmacyActivity/wardStock/WardStockRectify";
 
 const getPath = (from: string) => from.replace(`${PATHS.pharmacy}/`, "");
 
@@ -24,6 +25,10 @@ const routes: { element: ReactNode; path: string }[] = [
   {
     path: getPath(PATHS.pharmacy_ward_stock),
     element: <WardStock />,
+  },
+  {
+    path: getPath(PATHS.pharmacy_ward_stock_rectify),
+    element: <WardStockRectify />,
   },
   {
     path: getPath(PATHS.pharmacy_pharmaceutical),

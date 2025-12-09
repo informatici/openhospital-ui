@@ -180,7 +180,18 @@ export const pharmacySlice = createSlice({
       })
       .addCase(thunks.updateMedical.rejected, (state, action) => {
         state.updateMedical = ApiResponse.error(action.payload);
-      });
+      })
+
+      // Rectify ward movement
+      .addCase(thunks.newMovementWard.pending, (state) => {
+      state.newMovementWard = ApiResponse.loading();
+      })
+      .addCase(thunks.newMovementWard.fulfilled, (state, action) => {
+        state.newMovementWard = ApiResponse.value(action.payload);
+      })
+      .addCase(thunks.newMovementWard.rejected, (state, action) => {
+        state.newMovementWard = ApiResponse.error(action.payload);
+      })
   },
 });
 

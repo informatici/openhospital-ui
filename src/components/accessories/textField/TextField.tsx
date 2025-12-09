@@ -36,11 +36,11 @@ const TextField: FunctionComponent<IProps> = ({
         error={isValid}
         helperText={errorText}
         variant="outlined"
-        className={"w-full" + actualClassName}
+        className={`w-full ${actualClassName}`}
         size="small"
+        fullWidth
         multiline={multiline || false}
         rows={rows}
-        margin="dense"
         disabled={disabled}
         InputProps={InputProps}
         inputProps={{ maxLength }}

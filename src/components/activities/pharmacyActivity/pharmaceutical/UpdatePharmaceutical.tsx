@@ -6,7 +6,7 @@ import { MedicalDTO } from "generated";
 import { useNavigationHandler, useTranslation } from "libraries/hooks";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { omit } from "lodash";
-import React, { useCallback, useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useMemo, useRef } from "react";
 import { Navigate, useOutletContext, useParams } from "react-router";
 import {
   getMedical,

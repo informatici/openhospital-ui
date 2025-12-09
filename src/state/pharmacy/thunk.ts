@@ -7,6 +7,7 @@ import {
   MedicalTypesApi,
   MedicalsApi,
   MovementDTO,
+  MovementWardDTO,
   NewMedicalRequest,
   NewMultipleChargingMovementsRequest,
   NewMultipleDischargingMovementsRequest,
@@ -202,5 +203,25 @@ export const dischargeMovements = createAsyncThunk<
     return result;
   } catch (error: any) {
     return thunkApi.rejectWithValue(error.response);
+  }
+});
+
+export const newMovementWard = createAsyncThunk<
+  boolean,
+  MovementWardDTO,
+  { rejectValue: any }
+>("pharmacy/newMovementWard", async (payload, thunkApi) => {
+  try {
+    const result = await firstValueFrom(
+      wrapper(() =>
+        wardStockApi.newMovementWard({
+          movementWardDTO: payload,
+        })
+      )
+    );
+
+    return result;
+  } catch (error: any) {
+    return thunkApi.rejectWithValue(error?.response);
   }
 });

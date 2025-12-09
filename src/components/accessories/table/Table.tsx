@@ -9,6 +9,7 @@ import {
   MonetizationOn,
   Print,
   Restore,
+  Undo,
 } from "@mui/icons-material";
 import {
   IconButton,
@@ -56,6 +57,7 @@ const Table: FunctionComponent<IProps> = ({
   columnsOrder,
   initialOrderBy,
   onEdit,
+  onRectify,
   onDelete,
   onPrint,
   onPay,
@@ -143,6 +145,22 @@ const Table: FunctionComponent<IProps> = ({
             }
           >
             <Edit />
+          </IconButton>
+        );
+      case "rectify":
+        return (
+          <IconButton
+            data-cy="table-rectify-action"
+            title={labels?.rectify?.tooltip ?? "Rectify quantity"}
+            size="small"
+            disabled={disableAction(row, "rectify")}
+            onClick={
+              disableAction(row, "rectify")
+                ? () => {}
+                : () => onRectify && onRectify(row)
+            }
+          >
+            <Undo />
           </IconButton>
         );
       case "delete":
@@ -310,6 +328,7 @@ const Table: FunctionComponent<IProps> = ({
   const renderActions = (row: any) => {
     if (
       onEdit ||
+      onRectify ||
       onDelete ||
       onPrint ||
       onView ||
@@ -332,6 +351,9 @@ const Table: FunctionComponent<IProps> = ({
             : ""}
           {onEdit && (displayRowAction ? displayRowAction(row, "edit") : true)
             ? renderIcon("edit", row)
+            : ""}
+          {onRectify && (displayRowAction ? displayRowAction(row, "rectify") : true)
+            ? renderIcon("rectify", row)
             : ""}
           {onPrint && (displayRowAction ? displayRowAction(row, "print") : true)
             ? renderIcon("print", row)

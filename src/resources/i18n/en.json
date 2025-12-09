@@ -1233,6 +1233,7 @@
       "pharmaceutical": "Medical products",
       "pharmaceutical-stock": "Pharmaceutical stock",
       "ward-stock": "Ward stock",
+      "rectify-ward-stock": "Rectify Quantity",
       "charge-movement": "Charge movement",
       "discharge-movement": "Discharge movement",
       "discharge-movement-created": "Discharge movement created",
@@ -1350,6 +1351,12 @@
         "excel": "Excel"
       },
       "ward": {
+        "lotNo": "Lot No.",
+        "inStock": "In Stock",  
+        "chooseALot": "Choose Lot",
+        "newLot": "New Lot",
+        "reason": "Reason",
+        "actualQuantity": "Actual Quantity",
         "pharmaceutical": "Pharmaceutical",
         "patient": "Patient",
         "medical": "Medical",
@@ -1365,6 +1372,8 @@
         "age": "Age",
         "type": "Type",
         "recipient": "Recipient",
+        "SelectMedical": "Select Medical",
+        "pieces": "Pieces",
         "movementType": {
           "patient": "To patient",
           "ward": "Internal"

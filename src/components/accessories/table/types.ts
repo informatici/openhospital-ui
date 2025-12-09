@@ -12,6 +12,7 @@ export interface IProps {
   initialOrderBy?: string;
   columnsOrder: Array<string>;
   onEdit?: (row: any) => void;
+  onRectify?: (row: any) => void;
   onDelete?: (row: any) => void;
   onPrint?: (row: any) => void;
   onView?: (row: any) => void;
@@ -96,4 +97,5 @@ export type TActions =
   | "cancel"
   | "add"
   | "restore"
-  | "softDelete";
+  | "softDelete"
+  | "rectify";

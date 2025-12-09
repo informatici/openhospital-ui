@@ -1,0 +1,180 @@
+@import "../../../../../../styles/variables";
+@import "../../../../../../../node_modules/susy/sass/susy";
+
+.rectifyStockForm__quantities {
+  display: flex;
+  gap: 16px;
+  align-items: flex-end;
+}
+
+.rectifyStockForm__quantity-item {
+  flex: 1;
+}
+
+.rectifyStockForm__quantity-current {
+  padding: 8px;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.rectifyStockForm__title {
+  text-align: center;
+  margin: 0;
+  font-size: 18px;
+  color: #222;
+}
+
+.rectifyStockForm__form {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 12px 16px;
+  align-items: start;
+  flex: 1 1 auto;
+  min-height: 420px;
+  align-content: start;
+}
+
+.rectifyStockForm__label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #333;
+  justify-self: start;
+  align-self: center;
+  padding-right: 8px;
+}
+
+.rectifyStockForm__row {
+  display: contents;
+}
+
+
+.rectifyStockForm__control--full {
+  grid-column: 1 / span 2;
+}
+
+.rectifyStockForm__actions {
+  grid-column: 1 / span 2;
+  display: flex;
+  justify-content: flex-start;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.rectifyStockForm__lot-container {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 8px;
+  align-items: center;
+}
+
+.rectifyStockForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background-color: white;
+  padding: 1.5em;
+
+  &__header { 
+  display: flex;
+  justify-content: flex-end;
+    span {
+      font-weight: bold;
+      color: #666;
+    }
+  }
+
+  &__lot-input {
+    margin: 0 !important;
+
+    input {
+      height: 50px !important;
+    }
+
+    fieldset, input {
+      height: 100%;
+    }
+  }
+
+  button {
+    height: 85%;
+  }
+}
+
+.rectifyStockForm__actual-input,
+.rectifyStockForm__control input,
+.rectifyStockForm__control textarea {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+.rectifyStockForm__lot-actions {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.rectifyStockForm__lot-actions button {
+  flex: 1;
+}
+
+.rectifyStockForm__new-lot {
+  width: 100%;
+}
+.rectifyStockForm__lot-field .col-start-1,
+.rectifyStockForm__lot-field .col-span-full {
+  display: block !important;
+  width: 100% !important;
+  box-sizing: border-box;
+}
+.rectifyStockForm__lot-field .MuiTextField-root,
+.rectifyStockForm__lot-field input,
+.rectifyStockForm__lot-field textarea,
+.rectifyStockForm__lot-field .date-field {
+  width: 100% !important;
+}
+.rectifyStockForm__lot-field .col-start-1 + .MuiTextField-root,
+.rectifyStockForm__lot-field .col-start-1 + div {
+  margin-top: 6px;
+}
+
+.rectifyStockForm__actual-input input[type="number"]::-webkit-outer-spin-button,
+.rectifyStockForm__actual-input
+  input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: auto;
+  margin: 0;
+  opacity: 1;
+}
+.rectifyStockForm__actual-input input[type="number"] {
+  appearance: textfield;
+  -moz-appearance: textfield;
+  height: 38px;
+  padding: 6px 8px;
+  box-sizing: border-box;
+}
+
+.rectifyStockForm__control textarea {
+  min-height: 60px;
+  resize: none;
+  -webkit-resize: none;
+  -moz-resize: none;
+}
+
+.rectifyStockForm__actions {
+  grid-column: 1 / span 2;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: auto;
+  padding-bottom: 12px;
+}
+
+.rectifyStockForm__field-error {
+  display: block;
+  color: #d32f2f;
+  font-size: 0.75rem;
+  margin-top: 4px;
+}

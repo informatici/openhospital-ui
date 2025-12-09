@@ -16,9 +16,9 @@ import {
   useSuppliers,
 } from "libraries/hooks/api";
 import { isEmpty } from "lodash";
-import React, { FormEvent, useCallback, useMemo } from "react";
+import React, { FormEvent, useCallback, useEffect, useMemo } from "react";
 import { useForm } from "react-hook-form";
-import { LotFormField } from "./LotFormField";
+import { LotFormField } from "../lotFormField";
 import { MovementDTOSchema, getInitialValues } from "./consts";
 import "./styles.scss";
 import { ChargeMovementProps, TFormValues } from "./types";
@@ -77,6 +77,10 @@ export function ChargeMovementForm({
     }
   );
 
+  useEffect(() => {
+    console.log(values);
+  }, [values]);
+
   return (
     <div className="chargeMovementForm">
       <form className="form-grid-layout gap-2 w-full" onSubmit={handleSubmit}>
@@ -115,7 +119,11 @@ export function ChargeMovementForm({
         />
         <div className="col-start-1 col-span-full"></div>
         {formatedValues.medical && (
-          <LotFormField medical={formatedValues.medical} control={control} />
+          <LotFormField
+            control={control}
+            medical={formatedValues.medical}
+            name="lot"
+          />
         )}
         <div className="col-start-1 col-span-full"></div>
         <div className="col-span-full flex gap-2 justify-end">

@@ -2,13 +2,17 @@ import { CircularProgress } from "@mui/material";
 import InfoBox from "components/accessories/infoBox/InfoBox";
 import Table from "components/accessories/table/Table";
 import { TFilterField } from "components/accessories/table/filter/types";
+import { PATHS } from "consts";
+import { MedicalWardDTO } from "generated";
 import { useTranslation } from "libraries/hooks";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-import React, { useEffect, useMemo } from "react";
+import React, { useCallback, useEffect, useMemo } from "react";
+import { useNavigate } from "react-router";
 import { getMovements } from "state/pharmacy";
 
 export function WardMedicalsTable() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
 
@@ -64,6 +68,8 @@ export function WardMedicalsTable() {
   const formattedData = useMemo(() => {
     return data.map((item) => ({
       code: item.id?.medical?.code ?? "",
+      wardCode: item.id?.ward.code ?? "",
+      lotCode: item.id?.lot?.code ?? "",
       pharmaceutical: item.id?.medical?.description ?? "",
       units: "",
       quantity: (item.in_quantity ?? 0) - (item.out_quantity ?? 0),
@@ -73,6 +79,22 @@ export function WardMedicalsTable() {
   useEffect(() => {
     dispatch(getMovements());
   }, [dispatch]);
+
+    const handleRectify = (medical: any) => {
+        navigate(
+          PATHS.pharmacy_ward_stock_rectify.replace(
+            ":medCode",
+            medical.code.toString() ?? ""
+          ).replace(
+            ":wardCode",
+            medical.wardCode ?? ""
+          ).replace(
+            ":lotCode",
+            medical.lotCode ?? ""
+          )
+        );
+      };
+  
 
   return (
     <div data-cy="ward-movements-table">
@@ -100,6 +122,7 @@ export function WardMedicalsTable() {
                   quantity: (item.in_quantity ?? 0) - (item.out_quantity ?? 0),
                 }))}
                 manualFilter={false}
+                onRectify={(row) => handleRectify(row)}
               />
             );
           case "SUCCESS_EMPTY":
