@@ -1,28 +1,28 @@
-import { TFields } from "../../../../../libraries/formDataHandling/types";
-import { SupplierFormFieldName } from ".";
-import { SupplierDTO } from "../../../../../generated";
+import type { SupplierDTO } from '../../../../../generated';
+import type { TFields } from '../../../../../libraries/formDataHandling/types';
+import type { SupplierFormFieldName } from '.';
 
 export const getInitialFields: (
-  supplier: SupplierDTO | undefined
+	supplier: SupplierDTO | undefined,
 ) => TFields<SupplierFormFieldName> = (supplier) => ({
-  supId: { type: "number", value: `${supplier?.supId}` ?? "" },
-  supName: { type: "text", value: supplier?.supName ?? "" },
-  supAddress: {
-    type: "text",
-    value: supplier?.supAddress ? supplier?.supAddress : "",
-  },
-  supEmail: {
-    type: "text",
-    value: supplier?.supEmail ? supplier?.supEmail : "",
-  },
-  supFax: { type: "text", value: supplier?.supFax ? supplier?.supFax : "" },
-  supTaxcode: {
-    type: "text",
-    value: supplier?.supTaxcode ? supplier?.supTaxcode : "",
-  },
-  supPhone: {
-    type: "text",
-    value: supplier?.supPhone ? supplier?.supPhone : "",
-  },
-  supNote: { type: "text", value: supplier?.supNote ? supplier?.supNote : "" },
+	supId: { type: 'number', value: `${supplier?.supId}` ?? '' },
+	supName: { type: 'text', value: supplier?.supName ?? '' },
+	supAddress: {
+		type: 'text',
+		value: supplier?.supAddress ? supplier?.supAddress : '',
+	},
+	supEmail: {
+		type: 'text',
+		value: supplier?.supEmail ? supplier?.supEmail : '',
+	},
+	supFax: { type: 'text', value: supplier?.supFax ? supplier?.supFax : '' },
+	supTaxcode: {
+		type: 'text',
+		value: supplier?.supTaxcode ? supplier?.supTaxcode : '',
+	},
+	supPhone: {
+		type: 'text',
+		value: supplier?.supPhone ? supplier?.supPhone : '',
+	},
+	supNote: { type: 'text', value: supplier?.supNote ? supplier?.supNote : '' },
 });

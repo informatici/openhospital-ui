@@ -1,3 +1,3 @@
-import { UserGroupsTable } from "./UserGroupsTable";
+import { UserGroupsTable } from './UserGroupsTable';
 
 export default UserGroupsTable;

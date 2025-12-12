@@ -13,18 +13,18 @@
 // the project's config changing)
 
 const plugin: Cypress.PluginConfig = (on, config) => {
-  // `on` is used to hook into various events Cypress emits
-  // `config` is the resolved Cypress config
+	// `on` is used to hook into various events Cypress emits
+	// `config` is the resolved Cypress config
 
-  on("before:browser:launch", (browser, launchOptions) => {
-    if (browser.name === "chrome" || browser.name === "firefox") {
-      launchOptions.args.push("--lang=en");
-      return launchOptions;
-    } else {
-      launchOptions.env.LANG = "en_US";
-      return launchOptions;
-    }
-  });
+	on('before:browser:launch', (browser, launchOptions) => {
+		if (browser.name === 'chrome' || browser.name === 'firefox') {
+			launchOptions.args.push('--lang=en');
+			return launchOptions;
+		} else {
+			launchOptions.env.LANG = 'en_US';
+			return launchOptions;
+		}
+	});
 };
 
 export default plugin;

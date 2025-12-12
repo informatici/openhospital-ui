@@ -1,7 +1,7 @@
-import PregnantTreatmentType from "./PregnantTreatmentType";
+import PregnantTreatmentType from './PregnantTreatmentType';
 
 export default PregnantTreatmentType;
-export * from "./editPregnantTreatmentType";
-export * from "./newPregnantTreatmentType";
-export * from "./pregnantTreatmentTypeForm";
-export * from "./pregnantTreatmentTableType";
+export * from './editPregnantTreatmentType';
+export * from './newPregnantTreatmentType';
+export * from './pregnantTreatmentTableType';
+export * from './pregnantTreatmentTypeForm';

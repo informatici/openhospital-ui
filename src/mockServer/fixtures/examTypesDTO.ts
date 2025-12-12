@@ -1,12 +1,12 @@
-import { ExamTypeDTO } from "../../generated";
+import type { ExamTypeDTO } from '../../generated';
 
 export const examTypesDTO: ExamTypeDTO[] = [
-  {
-    code: "HB",
-    description: "1.Haematology",
-  },
-  {
-    code: "OT",
-    description: "2.Some other exam type",
-  },
+	{
+		code: 'HB',
+		description: '1.Haematology',
+	},
+	{
+		code: 'OT',
+		description: '2.Some other exam type',
+	},
 ];

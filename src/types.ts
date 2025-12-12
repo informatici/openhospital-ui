@@ -1,233 +1,233 @@
-import { IAdmissionsState } from "./state/admissions/types";
-import { IBillsState } from "./state/bills/types";
-import { IDashboardState } from "./state/dashboard/types";
-import { IDiseaseState } from "./state/diseases/types";
-import { IExaminationsState } from "./state/examinations/types";
-import { IExamState } from "./state/exams/types";
-import { IHospitalState } from "./state/hospital/types";
-import { ILaboratoriesState } from "./state/laboratories/types";
-import { ILayoutsState } from "./state/layouts/types";
-import { IMainState } from "./state/main/types";
-import { IMedicalState } from "./state/medicals/types";
-import { IOpdState } from "./state/opds/types";
-import { IOperationState } from "./state/operations/types";
-import { IPatientsState } from "./state/patients/types";
-import { IPermissionsState } from "./state/permissions/types";
-import { IPricesState } from "./state/prices/types";
-import { ISummaryState } from "./state/summary/types";
-import { ISupplierState } from "./state/suppliers/types";
-import { ITherapiesState } from "./state/therapies/types";
-import { IDiseaseTypesState } from "./state/types/diseases/types";
-import { IExamTypesState } from "./state/types/exams/types";
-import { ITypesState } from "./state/types/types";
-import { IUserGroupState } from "./state/usergroups/types";
-import { IUserState } from "./state/users/types";
-import { IVaccineState } from "./state/vaccines/types";
-import { IVisitState } from "./state/visits/types";
-import { IWardState } from "./state/ward/types";
+import type { IAdmissionsState } from './state/admissions/types';
+import type { IBillsState } from './state/bills/types';
+import type { IDashboardState } from './state/dashboard/types';
+import type { IDiseaseState } from './state/diseases/types';
+import type { IExaminationsState } from './state/examinations/types';
+import type { IExamState } from './state/exams/types';
+import type { IHospitalState } from './state/hospital/types';
+import type { ILaboratoriesState } from './state/laboratories/types';
+import type { ILayoutsState } from './state/layouts/types';
+import type { IMainState } from './state/main/types';
+import type { IMedicalState } from './state/medicals/types';
+import type { IOpdState } from './state/opds/types';
+import type { IOperationState } from './state/operations/types';
+import type { IPatientsState } from './state/patients/types';
+import type { IPermissionsState } from './state/permissions/types';
+import type { IPricesState } from './state/prices/types';
+import type { ISummaryState } from './state/summary/types';
+import type { ISupplierState } from './state/suppliers/types';
+import type { ITherapiesState } from './state/therapies/types';
+import type { IDiseaseTypesState } from './state/types/diseases/types';
+import type { IExamTypesState } from './state/types/exams/types';
+import type { ITypesState } from './state/types/types';
+import type { IUserGroupState } from './state/usergroups/types';
+import type { IUserState } from './state/users/types';
+import type { IVaccineState } from './state/vaccines/types';
+import type { IVisitState } from './state/visits/types';
+import type { IWardState } from './state/ward/types';
 
 export interface IState {
-  main: IMainState;
-  patients: IPatientsState;
-  examinations: IExaminationsState;
-  therapies: ITherapiesState;
-  diseases: IDiseaseState;
-  summary: ISummaryState;
-  opds: IOpdState;
-  medicals: IMedicalState;
-  admissions: IAdmissionsState;
-  wards: IWardState;
-  laboratories: ILaboratoriesState;
-  exams: IExamState;
-  bills: IBillsState;
-  prices: IPricesState;
-  visits: IVisitState;
-  operations: IOperationState;
-  diseaseTypes: IDiseaseTypesState;
-  examTypes: IExamTypesState;
-  hospital: IHospitalState;
-  layouts: ILayoutsState;
-  dashboard: IDashboardState;
-  users: IUserState;
-  usergroups: IUserGroupState;
-  vaccines: IVaccineState;
-  types: ITypesState;
-  suppliers: ISupplierState;
-  permissions: IPermissionsState;
+	main: IMainState;
+	patients: IPatientsState;
+	examinations: IExaminationsState;
+	therapies: ITherapiesState;
+	diseases: IDiseaseState;
+	summary: ISummaryState;
+	opds: IOpdState;
+	medicals: IMedicalState;
+	admissions: IAdmissionsState;
+	wards: IWardState;
+	laboratories: ILaboratoriesState;
+	exams: IExamState;
+	bills: IBillsState;
+	prices: IPricesState;
+	visits: IVisitState;
+	operations: IOperationState;
+	diseaseTypes: IDiseaseTypesState;
+	examTypes: IExamTypesState;
+	hospital: IHospitalState;
+	layouts: ILayoutsState;
+	dashboard: IDashboardState;
+	users: IUserState;
+	usergroups: IUserGroupState;
+	vaccines: IVaccineState;
+	types: ITypesState;
+	suppliers: ISupplierState;
+	permissions: IPermissionsState;
 }
 
 export enum FIELD_VALIDATION {
-  SUGGESTED = "SUGGESTED",
-  REQUIRED = "REQUIRED",
-  IDLE = "IDLE",
+	SUGGESTED = 'SUGGESTED',
+	REQUIRED = 'REQUIRED',
+	IDLE = 'IDLE',
 }
 
 // WARN: keep in sync with fixtures in ./mockServer/fixtures/permissionList.js
 export type TPermission =
-  | "admissions.create"
-  | "admissions.read"
-  | "admissions.update"
-  | "admissions.delete"
-  | "admissiontypes.create"
-  | "admissiontypes.read"
-  | "admissiontypes.update"
-  | "admissiontypes.delete"
-  | "agetypes.read"
-  | "agetypes.update"
-  | "dischargetypes.create"
-  | "dischargetypes.read"
-  | "dischargetypes.update"
-  | "dischargetypes.delete"
-  | "diseases.create"
-  | "diseases.read"
-  | "diseases.update"
-  | "diseases.delete"
-  | "diseasetypes.read"
-  | "diseasetypes.create"
-  | "diseasetypes.update"
-  | "diseasetypes.delete"
-  | "deliveryresulttypes.create"
-  | "deliveryresulttypes.read"
-  | "deliveryresulttypes.update"
-  | "deliveryresulttypes.delete"
-  | "deliverytypes.create"
-  | "deliverytypes.read"
-  | "deliverytypes.update"
-  | "deliverytypes.delete"
-  | "exams.create"
-  | "exams.read"
-  | "exams.update"
-  | "exams.delete"
-  | "examrows.create"
-  | "examrows.read"
-  | "examrows.update"
-  | "examrows.delete"
-  | "examinations.create"
-  | "examinations.read"
-  | "examinations.update"
-  | "examinations.delete"
-  | "examtypes.create"
-  | "examtypes.read"
-  | "examtypes.update"
-  | "examtypes.delete"
-  | "hospitals.create"
-  | "hospitals.read"
-  | "hospitals.update"
-  | "hospitals.delete"
-  | "laboratories.create"
-  | "laboratories.read"
-  | "laboratories.update"
-  | "laboratories.delete"
-  | "malnutritions.create"
-  | "malnutritions.read"
-  | "malnutritions.update"
-  | "malnutritions.delete"
-  | "medicals.create"
-  | "medicals.read"
-  | "medicals.update"
-  | "medicals.delete"
-  | "medicalstockmovements.create"
-  | "medicalstockmovements.read"
-  | "medicalstockmovements.update"
-  | "medicalstockmovements.delete"
-  | "medicalstockward.create"
-  | "medicalstockward.read"
-  | "medicalstockward.update"
-  | "medicalstockward.delete"
-  | "medstockmovementtypes.create"
-  | "medstockmovementtypes.read"
-  | "medstockmovementtypes.update"
-  | "medstockmovementtypes.delete"
-  | "medicaltypes.create"
-  | "medicaltypes.read"
-  | "medicaltypes.update"
-  | "medicaltypes.delete"
-  | "opds.create"
-  | "opds.read"
-  | "opds.update"
-  | "opds.delete"
-  | "operations.create"
-  | "operations.read"
-  | "operations.update"
-  | "operations.delete"
-  | "operationtypes.create"
-  | "operationtypes.read"
-  | "operationtypes.update"
-  | "operationtypes.delete"
-  | "patientconsensus.create"
-  | "patientconsensus.read"
-  | "patientconsensus.update"
-  | "patientconsensus.delete"
-  | "patients.create"
-  | "patients.read"
-  | "patients.update"
-  | "patients.delete"
-  | "patientvaccines.create"
-  | "patientvaccines.read"
-  | "patientvaccines.update"
-  | "patientvaccines.delete"
-  | "permissions.create"
-  | "permissions.read"
-  | "permissions.update"
-  | "permissions.delete"
-  | "grouppermission.create"
-  | "grouppermission.read"
-  | "grouppermission.update"
-  | "grouppermission.delete"
-  | "users.create"
-  | "users.read"
-  | "users.update"
-  | "users.delete"
-  | "usersettings.create"
-  | "usersettings.read"
-  | "usersettings.update"
-  | "usersettings.delete"
-  | "pregnanttreatmenttypes.create"
-  | "pregnanttreatmenttypes.read"
-  | "pregnanttreatmenttypes.update"
-  | "pregnanttreatmenttypes.delete"
-  | "pricelists.create"
-  | "pricelists.read"
-  | "pricelists.update"
-  | "pricelists.delete"
-  | "pricesothers.create"
-  | "pricesothers.read"
-  | "pricesothers.update"
-  | "pricesothers.delete"
-  | "reports.create"
-  | "reports.read"
-  | "reports.update"
-  | "reports.delete"
-  | "sms.create"
-  | "sms.read"
-  | "sms.update"
-  | "sms.delete"
-  | "suppliers.create"
-  | "suppliers.read"
-  | "suppliers.update"
-  | "suppliers.delete"
-  | "therapies.create"
-  | "therapies.read"
-  | "therapies.update"
-  | "therapies.delete"
-  | "vaccines.create"
-  | "vaccines.read"
-  | "vaccines.update"
-  | "vaccines.delete"
-  | "vaccinetype.create"
-  | "vaccinetype.read"
-  | "vaccinetype.update"
-  | "vaccinetype.delete"
-  | "visits.create"
-  | "visits.read"
-  | "visits.update"
-  | "visits.delete"
-  | "wards.create"
-  | "wards.read"
-  | "wards.update"
-  | "wards.delete"
-  | "dashboard.access"
-  | "laboratories.access"
-  | "patients.access"
-  | "opds.access"
-  | "admin.access";
+	| 'admissions.create'
+	| 'admissions.read'
+	| 'admissions.update'
+	| 'admissions.delete'
+	| 'admissiontypes.create'
+	| 'admissiontypes.read'
+	| 'admissiontypes.update'
+	| 'admissiontypes.delete'
+	| 'agetypes.read'
+	| 'agetypes.update'
+	| 'dischargetypes.create'
+	| 'dischargetypes.read'
+	| 'dischargetypes.update'
+	| 'dischargetypes.delete'
+	| 'diseases.create'
+	| 'diseases.read'
+	| 'diseases.update'
+	| 'diseases.delete'
+	| 'diseasetypes.read'
+	| 'diseasetypes.create'
+	| 'diseasetypes.update'
+	| 'diseasetypes.delete'
+	| 'deliveryresulttypes.create'
+	| 'deliveryresulttypes.read'
+	| 'deliveryresulttypes.update'
+	| 'deliveryresulttypes.delete'
+	| 'deliverytypes.create'
+	| 'deliverytypes.read'
+	| 'deliverytypes.update'
+	| 'deliverytypes.delete'
+	| 'exams.create'
+	| 'exams.read'
+	| 'exams.update'
+	| 'exams.delete'
+	| 'examrows.create'
+	| 'examrows.read'
+	| 'examrows.update'
+	| 'examrows.delete'
+	| 'examinations.create'
+	| 'examinations.read'
+	| 'examinations.update'
+	| 'examinations.delete'
+	| 'examtypes.create'
+	| 'examtypes.read'
+	| 'examtypes.update'
+	| 'examtypes.delete'
+	| 'hospitals.create'
+	| 'hospitals.read'
+	| 'hospitals.update'
+	| 'hospitals.delete'
+	| 'laboratories.create'
+	| 'laboratories.read'
+	| 'laboratories.update'
+	| 'laboratories.delete'
+	| 'malnutritions.create'
+	| 'malnutritions.read'
+	| 'malnutritions.update'
+	| 'malnutritions.delete'
+	| 'medicals.create'
+	| 'medicals.read'
+	| 'medicals.update'
+	| 'medicals.delete'
+	| 'medicalstockmovements.create'
+	| 'medicalstockmovements.read'
+	| 'medicalstockmovements.update'
+	| 'medicalstockmovements.delete'
+	| 'medicalstockward.create'
+	| 'medicalstockward.read'
+	| 'medicalstockward.update'
+	| 'medicalstockward.delete'
+	| 'medstockmovementtypes.create'
+	| 'medstockmovementtypes.read'
+	| 'medstockmovementtypes.update'
+	| 'medstockmovementtypes.delete'
+	| 'medicaltypes.create'
+	| 'medicaltypes.read'
+	| 'medicaltypes.update'
+	| 'medicaltypes.delete'
+	| 'opds.create'
+	| 'opds.read'
+	| 'opds.update'
+	| 'opds.delete'
+	| 'operations.create'
+	| 'operations.read'
+	| 'operations.update'
+	| 'operations.delete'
+	| 'operationtypes.create'
+	| 'operationtypes.read'
+	| 'operationtypes.update'
+	| 'operationtypes.delete'
+	| 'patientconsensus.create'
+	| 'patientconsensus.read'
+	| 'patientconsensus.update'
+	| 'patientconsensus.delete'
+	| 'patients.create'
+	| 'patients.read'
+	| 'patients.update'
+	| 'patients.delete'
+	| 'patientvaccines.create'
+	| 'patientvaccines.read'
+	| 'patientvaccines.update'
+	| 'patientvaccines.delete'
+	| 'permissions.create'
+	| 'permissions.read'
+	| 'permissions.update'
+	| 'permissions.delete'
+	| 'grouppermission.create'
+	| 'grouppermission.read'
+	| 'grouppermission.update'
+	| 'grouppermission.delete'
+	| 'users.create'
+	| 'users.read'
+	| 'users.update'
+	| 'users.delete'
+	| 'usersettings.create'
+	| 'usersettings.read'
+	| 'usersettings.update'
+	| 'usersettings.delete'
+	| 'pregnanttreatmenttypes.create'
+	| 'pregnanttreatmenttypes.read'
+	| 'pregnanttreatmenttypes.update'
+	| 'pregnanttreatmenttypes.delete'
+	| 'pricelists.create'
+	| 'pricelists.read'
+	| 'pricelists.update'
+	| 'pricelists.delete'
+	| 'pricesothers.create'
+	| 'pricesothers.read'
+	| 'pricesothers.update'
+	| 'pricesothers.delete'
+	| 'reports.create'
+	| 'reports.read'
+	| 'reports.update'
+	| 'reports.delete'
+	| 'sms.create'
+	| 'sms.read'
+	| 'sms.update'
+	| 'sms.delete'
+	| 'suppliers.create'
+	| 'suppliers.read'
+	| 'suppliers.update'
+	| 'suppliers.delete'
+	| 'therapies.create'
+	| 'therapies.read'
+	| 'therapies.update'
+	| 'therapies.delete'
+	| 'vaccines.create'
+	| 'vaccines.read'
+	| 'vaccines.update'
+	| 'vaccines.delete'
+	| 'vaccinetype.create'
+	| 'vaccinetype.read'
+	| 'vaccinetype.update'
+	| 'vaccinetype.delete'
+	| 'visits.create'
+	| 'visits.read'
+	| 'visits.update'
+	| 'visits.delete'
+	| 'wards.create'
+	| 'wards.read'
+	| 'wards.update'
+	| 'wards.delete'
+	| 'dashboard.access'
+	| 'laboratories.access'
+	| 'patients.access'
+	| 'opds.access'
+	| 'admin.access';

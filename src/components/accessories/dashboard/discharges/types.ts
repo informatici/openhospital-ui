@@ -1,3 +1,3 @@
 export interface IOwnProps {
-  period: string[];
+	period: string[];
 }

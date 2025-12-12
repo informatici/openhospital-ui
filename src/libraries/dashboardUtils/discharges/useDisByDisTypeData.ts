@@ -1,57 +1,58 @@
-import { useAppSelector } from "libraries/hooks/redux";
-import { useTranslation } from "react-i18next";
-import { colorGen } from "../../uiUtils/colorGenerator";
+import { useTranslation } from 'react-i18next';
+import { useAppSelector } from '~/libraries/hooks/redux';
+import { colorGen } from '../../uiUtils/colorGenerator';
 
 export const useDisByDisTypeData = () => {
-  const { t } = useTranslation();
-  const admissions = useAppSelector(
-    (state) => state.admissions.getDischarges.data?.data ?? []
-  );
-  const dischargeTypes = useAppSelector(
-    (state) => state.types.discharges.getAll.data ?? []
-  );
-  const dischargeTypeStatus = useAppSelector(
-    (state) => state.types.discharges.getAll.status ?? "IDLE"
-  );
-  const status = useAppSelector(
-    (state) => state.admissions.getDischarges.status ?? "IDLE"
-  );
-  const success = useAppSelector((state) =>
-    ["SUCCESS", "SUCCESS_EMPTY"].includes(
-      state.admissions.getDischarges.status ?? ""
-    )
-  );
-  const labels = dischargeTypes.map((e) => e.description ?? "");
-  const data = {
-    labels: labels,
-    datasets: [
-      {
-        data: dischargeTypes.map(
-          (e) => admissions.filter((adm) => adm.disType?.code === e.code).length
-        ),
-        backgroundColor: colorGen(dischargeTypes.length),
-      },
-    ],
-  };
+	const { t } = useTranslation();
+	const admissions = useAppSelector(
+		(state) => state.admissions.getDischarges.data?.data ?? [],
+	);
+	const dischargeTypes = useAppSelector(
+		(state) => state.types.discharges.getAll.data ?? [],
+	);
+	const dischargeTypeStatus = useAppSelector(
+		(state) => state.types.discharges.getAll.status ?? 'IDLE',
+	);
+	const status = useAppSelector(
+		(state) => state.admissions.getDischarges.status ?? 'IDLE',
+	);
+	const success = useAppSelector((state) =>
+		['SUCCESS', 'SUCCESS_EMPTY'].includes(
+			state.admissions.getDischarges.status ?? '',
+		),
+	);
+	const labels = dischargeTypes.map((e) => e.description ?? '');
+	const data = {
+		labels: labels,
+		datasets: [
+			{
+				data: dischargeTypes.map(
+					(e) =>
+						admissions.filter((adm) => adm.disType?.code === e.code).length,
+				),
+				backgroundColor: colorGen(dischargeTypes.length),
+			},
+		],
+	};
 
-  const csvData = [
-    ...dischargeTypes.map((e) => ({
-      [t("admission.distype")]: e.description ?? "",
-      [t("common.male")]: admissions.filter(
-        (adm) => adm.disType?.code === e.code && adm.patient?.sex === "M"
-      ).length,
-      [t("common.female")]: admissions.filter(
-        (adm) => adm.disType?.code === e.code && adm.patient?.sex === "F"
-      ).length,
-    })),
-  ];
+	const csvData = [
+		...dischargeTypes.map((e) => ({
+			[t('admission.distype')]: e.description ?? '',
+			[t('common.male')]: admissions.filter(
+				(adm) => adm.disType?.code === e.code && adm.patient?.sex === 'M',
+			).length,
+			[t('common.female')]: admissions.filter(
+				(adm) => adm.disType?.code === e.code && adm.patient?.sex === 'F',
+			).length,
+		})),
+	];
 
-  return {
-    status,
-    dischargeTypeStatus,
-    data,
-    csvData,
-    success,
-    total: admissions.length,
-  };
+	return {
+		status,
+		dischargeTypeStatus,
+		data,
+		csvData,
+		success,
+		total: admissions.length,
+	};
 };

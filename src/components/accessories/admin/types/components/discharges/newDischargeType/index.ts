@@ -1,1 +1,1 @@
-export * from "./NewDischargeType";
+export * from './NewDischargeType';

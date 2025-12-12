@@ -1,3 +1,3 @@
-import { WardTable } from "./WardTable";
+import { WardTable } from './WardTable';
 
 export default WardTable;

@@ -1,1 +1,1 @@
-export interface IProps {}
+export type IProps = {};

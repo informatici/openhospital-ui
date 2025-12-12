@@ -1,12 +1,12 @@
-import { ButtonProps } from "@mui/material";
-import { PropsWithChildren } from "react";
+import type { ButtonProps } from '@mui/material';
+import type { PropsWithChildren } from 'react';
 
 export interface IProps extends PropsWithChildren {
-  type: "button" | "submit" | "reset" | undefined;
-  variant?: "text" | "outlined" | "contained" | undefined;
-  color?: ButtonProps["color"] | undefined;
-  disabled?: boolean;
-  dataCy?: string;
-  className?: string;
-  onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+	type: 'button' | 'submit' | 'reset' | undefined;
+	variant?: 'text' | 'outlined' | 'contained' | undefined;
+	color?: ButtonProps['color'] | undefined;
+	disabled?: boolean;
+	dataCy?: string;
+	className?: string;
+	onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }

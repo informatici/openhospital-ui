@@ -1,3 +1,3 @@
-import DischargeTypesTable from "./DischargeTypesTable";
+import DischargeTypesTable from './DischargeTypesTable';
 
 export default DischargeTypesTable;

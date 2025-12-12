@@ -1,1 +1,1 @@
-export * from "./EditOperationType";
+export * from './EditOperationType';

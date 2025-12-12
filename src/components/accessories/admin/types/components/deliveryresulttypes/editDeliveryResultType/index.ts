@@ -1,1 +1,1 @@
-export * from "./EditDeliveryResultType";
+export * from './EditDeliveryResultType';

@@ -1,7 +1,3 @@
 {
-  "cityOptions": [
-    "Rome",
-    "Rio",
-    "Milano"
-  ]
+	"cityOptions": ["Rome", "Rio", "Milano"]
 }

@@ -1,37 +1,36 @@
-import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { Chart, registerables } from "chart.js";
-import React from "react";
-
-import moment from "moment";
-import { Piechart } from "./Piechart";
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
+import { Chart, registerables } from 'chart.js';
+import moment from 'moment';
+import React from 'react';
+import { Piechart } from './Piechart';
 
 Chart.register(...registerables);
 
 export default {
-  title: "Charts/Piechart",
-  component: Piechart,
-  argTypes: {
-    backgroundColor: { control: "color" },
-  },
+	title: 'Charts/Piechart',
+	component: Piechart,
+	argTypes: {
+		backgroundColor: { control: 'color' },
+	},
 } as ComponentMeta<typeof Piechart>;
 
 const Template: ComponentStory<typeof Piechart> = (args) => (
-  <Piechart {...args} />
+	<Piechart {...args} />
 );
 
 const labels = moment.weekdays();
 
 export const Pie1 = Template.bind({});
 Pie1.args = {
-  title: "Pie Title",
-  data: {
-    labels,
-    datasets: [
-      {
-        label: "Data 1",
-        data: labels.map((e, i) => Math.random()),
-        backgroundColor: labels.map((e) => "#feaedb"),
-      },
-    ],
-  },
+	title: 'Pie Title',
+	data: {
+		labels,
+		datasets: [
+			{
+				label: 'Data 1',
+				data: labels.map((e, i) => Math.random()),
+				backgroundColor: labels.map((e) => '#feaedb'),
+			},
+		],
+	},
 };

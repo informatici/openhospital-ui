@@ -1,11 +1,11 @@
-import { ILayoutsState } from "./types";
-import { ApiResponse } from "../types";
+import { ApiResponse } from '../types';
+import type { ILayoutsState } from './types';
 
 export const initial: ILayoutsState = {
-  saveLayouts: new ApiResponse({ status: "IDLE" }),
-  getLayouts: new ApiResponse({ status: "IDLE" }),
-  resetLayouts: new ApiResponse({ status: "IDLE" }),
-  toolbox: {},
-  layouts: {},
-  breakpoint: "md",
+	saveLayouts: new ApiResponse({ status: 'IDLE' }),
+	getLayouts: new ApiResponse({ status: 'IDLE' }),
+	resetLayouts: new ApiResponse({ status: 'IDLE' }),
+	toolbox: {},
+	layouts: {},
+	breakpoint: 'md',
 };

@@ -1,13 +1,13 @@
-import { PregnantTreatmentTypeDTO } from "../../../../../../../generated";
-import { TFields } from "../../../../../../../libraries/formDataHandling/types";
-import { PregnantTreatmentTypeFormFieldName } from "./types";
+import type { PregnantTreatmentTypeDTO } from '../../../../../../../generated';
+import type { TFields } from '../../../../../../../libraries/formDataHandling/types';
+import type { PregnantTreatmentTypeFormFieldName } from './types';
 
 export const getInitialFields: (
-  pregnantTreatmentType: PregnantTreatmentTypeDTO | undefined
+	pregnantTreatmentType: PregnantTreatmentTypeDTO | undefined,
 ) => TFields<PregnantTreatmentTypeFormFieldName> = (pregnantTreatmentType) => ({
-  code: { type: "text", value: pregnantTreatmentType?.code ?? "" },
-  description: {
-    type: "text",
-    value: pregnantTreatmentType?.description ?? "",
-  },
+	code: { type: 'text', value: pregnantTreatmentType?.code ?? '' },
+	description: {
+		type: 'text',
+		value: pregnantTreatmentType?.description ?? '',
+	},
 });

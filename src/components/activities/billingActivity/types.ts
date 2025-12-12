@@ -1,12 +1,12 @@
-import { BillItemsDTO } from "generated/models/BillItemsDTO";
-import { FullBillDTO } from "generated/models/FullBillDTO";
-import { PriceDTO } from "generated/models/PriceDTO";
-import { Dispatch, SetStateAction } from "react";
-import { TUserCredentials } from "../../../state/main/types";
+import type { BillItemsDTO } from 'generated/models/BillItemsDTO';
+import type { FullBillDTO } from 'generated/models/FullBillDTO';
+import type { PriceDTO } from 'generated/models/PriceDTO';
+import type { Dispatch, SetStateAction } from 'react';
+import type { TUserCredentials } from '../../../state/main/types';
 
 interface IOwnProps {
-  billHomeRoute: string;
-  dashboardRoute: string;
+	billHomeRoute: string;
+	dashboardRoute: string;
 }
 
 //
@@ -14,77 +14,77 @@ interface IOwnProps {
 //between child and father
 //
 export interface PricesState {
-  prices: Array<PriceDTO> | undefined;
-  items: BillItemsDTO[];
-  setItems: Dispatch<SetStateAction<BillItemsDTO[]>>;
+	prices: Array<PriceDTO> | undefined;
+	items: BillItemsDTO[];
+	setItems: Dispatch<SetStateAction<BillItemsDTO[]>>;
 }
 
 export interface ItemsState {
-  items: Array<Item> | undefined;
+	items: Array<Item> | undefined;
 }
 
 export interface IStateProps {
-  userCredentials: TUserCredentials;
-  prices: Array<PriceDTO> | undefined;
-  isLoading: boolean;
-  hasSucceeded: boolean;
-  hasFailed: boolean;
+	userCredentials: TUserCredentials;
+	prices: Array<PriceDTO> | undefined;
+	isLoading: boolean;
+	hasSucceeded: boolean;
+	hasFailed: boolean;
 }
 
 export interface IDispatchProps {
-  getPrices: () => any;
-  newBill: (bill: FullBillDTO) => any;
-  newBillReset: () => any;
+	getPrices: () => any;
+	newBill: (bill: FullBillDTO) => any;
+	newBillReset: () => any;
 }
 
 export type TProps = IOwnProps & IStateProps & IDispatchProps;
 
 export type Item = {
-  hashCode: number | undefined; //doesn't match with directus
-  id: number | undefined;
-  price: boolean | undefined;
-  billId: number | undefined;
-  priceId: number | undefined;
-  itemDescription: string | undefined;
-  itemAmount: number | undefined;
-  itemQuantity: number | undefined;
-  itemDisplayCode: string | undefined; //doesn't match with directus
-  itemId: number | undefined; //doesn't match with directus
+	hashCode: number | undefined; //doesn't match with directus
+	id: number | undefined;
+	price: boolean | undefined;
+	billId: number | undefined;
+	priceId: number | undefined;
+	itemDescription: string | undefined;
+	itemAmount: number | undefined;
+	itemQuantity: number | undefined;
+	itemDisplayCode: string | undefined; //doesn't match with directus
+	itemId: number | undefined; //doesn't match with directus
 };
 
 export type TActivityTransitionState =
-  | "IDLE"
-  | "TO_BILL_HOME"
-  | "TO_DASHBOARD"
-  | "TO_NEW_BILL"
-  | "TO_PAYMENTS"
-  | "TO_BILLS";
+	| 'IDLE'
+	| 'TO_BILL_HOME'
+	| 'TO_DASHBOARD'
+	| 'TO_NEW_BILL'
+	| 'TO_PAYMENTS'
+	| 'TO_BILLS';
 
 export type IBillSummary = {
-  dailyRevenue: number;
-  dailyDebt: number;
+	dailyRevenue: number;
+	dailyDebt: number;
 
-  monthlyRevenue: number;
-  monthlyDebt: number;
+	monthlyRevenue: number;
+	monthlyDebt: number;
 
-  weeklyRevenue: number;
-  weeklyDebt: number;
+	weeklyRevenue: number;
+	weeklyDebt: number;
 
-  annualRevenue: number;
-  annualDebt: number;
+	annualRevenue: number;
+	annualDebt: number;
 
-  bestSellingByQuantity: { [key: string]: number };
-  bestSellingByOccurence: { [key: string]: number };
+	bestSellingByQuantity: { [key: string]: number };
+	bestSellingByOccurence: { [key: string]: number };
 
-  bestPatientsByPayments: { [key: string]: number };
-  mostIndebtedPatients: { [key: string]: number };
+	bestPatientsByPayments: { [key: string]: number };
+	mostIndebtedPatients: { [key: string]: number };
 
-  currentUserCashIn: number;
-  currentUserDebt: number;
+	currentUserCashIn: number;
+	currentUserDebt: number;
 
-  debtsByMonthsOfYear: { [key: string]: number };
+	debtsByMonthsOfYear: { [key: string]: number };
 
-  paymentsByMonthsOfYear: { [key: string]: number };
+	paymentsByMonthsOfYear: { [key: string]: number };
 };
 
-export type IBillingSection = "dashboard" | "bills" | "payments";
+export type IBillingSection = 'dashboard' | 'bills' | 'payments';

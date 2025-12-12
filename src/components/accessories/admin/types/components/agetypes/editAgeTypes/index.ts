@@ -1,1 +1,1 @@
-export * from "./EditAgeTypes";
+export * from './EditAgeTypes';

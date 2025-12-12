@@ -1,376 +1,375 @@
-import SelectField from "components/accessories/selectField/SelectField";
-import { useFormik } from "formik";
-import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-import { get, has } from "lodash";
-import moment from "moment";
-import React, { FC, useCallback, useEffect, useRef, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router";
-import { object, string } from "yup";
-import checkIcon from "../../../../assets/check-icon.png";
-import warningIcon from "../../../../assets/warning-icon.png";
-import { PATHS } from "../../../../consts";
+import { useFormik } from 'formik';
+import { get, has } from 'lodash';
+import moment from 'moment';
+import type React from 'react';
+import { type FC, useCallback, useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router';
+import { object, string } from 'yup';
+import SelectField from '~/components/accessories/selectField/SelectField';
+import { useAppDispatch, useAppSelector } from '~/libraries/hooks/redux';
+import checkIcon from '../../../../assets/check-icon.png';
+import warningIcon from '../../../../assets/warning-icon.png';
+import { PATHS } from '../../../../consts';
 import {
-  LaboratoryDTO,
-  LaboratoryDTOInOutPatientEnum,
-  LaboratoryDTOStatusEnum,
-  PatientDTO,
-} from "../../../../generated";
+	type LaboratoryDTO,
+	LaboratoryDTOInOutPatientEnum,
+	LaboratoryDTOStatusEnum,
+	type PatientDTO,
+} from '../../../../generated';
+import { renderDate } from '../../../../libraries/formatUtils/dataFormatting';
 import {
-  formatAllFieldValues,
-  getFromFields,
-  parseDate,
-} from "../../../../libraries/formDataHandling/functions";
-import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
-import { getExamRows, getExams } from "../../../../state/exams";
+	formatAllFieldValues,
+	getFromFields,
+	parseDate,
+} from '../../../../libraries/formDataHandling/functions';
+import { getExamRows, getExams } from '../../../../state/exams';
 import {
-  createLab,
-  createLabReset,
-  deleteLabReset,
-  getMaterials,
-  updateLab,
-  updateLabReset,
-} from "../../../../state/laboratories";
-import { IState } from "../../../../types";
-import AutocompleteField from "../../autocompleteField/AutocompleteField";
-import Button from "../../button/Button";
-import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
-import DateField from "../../dateField/DateField";
-import InfoBox from "../../infoBox/InfoBox";
-import ExamRowTable from "../../patientExams/examRowTable/ExamRowTable";
-import PatientPicker from "../../patientPicker/PatientPicker";
-import TextField from "../../textField/TextField";
-import "./styles.scss";
-import { ExamProps, ExamTransitionState } from "./type";
+	createLab,
+	createLabReset,
+	deleteLabReset,
+	getMaterials,
+	updateLab,
+	updateLabReset,
+} from '../../../../state/laboratories';
+import type { IState } from '../../../../types';
+import AutocompleteField from '../../autocompleteField/AutocompleteField';
+import Button from '../../button/Button';
+import ConfirmationDialog from '../../confirmationDialog/ConfirmationDialog';
+import DateField from '../../dateField/DateField';
+import InfoBox from '../../infoBox/InfoBox';
+import ExamRowTable from '../../patientExams/examRowTable/ExamRowTable';
+import PatientPicker from '../../patientPicker/PatientPicker';
+import TextField from '../../textField/TextField';
+import './styles.scss';
+import type { ExamProps, ExamTransitionState } from './type';
 
 const ExamForm: FC<ExamProps> = ({
-  fields,
-  creationMode,
-  labWithRowsToEdit,
-  handleReset,
+	fields,
+	creationMode,
+	labWithRowsToEdit,
+	handleReset,
 }) => {
-  const { t } = useTranslation();
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-  const [currentExamCode, setCurrentExamCode] = useState("");
-  const [currentExamProcedure, setCurrentExamProcedure] = useState("");
+	const { t } = useTranslation();
+	const dispatch = useAppDispatch();
+	const navigate = useNavigate();
+	const [currentExamCode, setCurrentExamCode] = useState('');
+	const [currentExamProcedure, setCurrentExamProcedure] = useState('');
 
-  const infoBoxRef = useRef<HTMLDivElement>(null);
-  const [shouldResetForm, setShouldResetForm] = useState(false);
-  const [activityTransitionState, setActivityTransitionState] =
-    useState<ExamTransitionState>("IDLE");
+	const infoBoxRef = useRef<HTMLDivElement>(null);
+	const [shouldResetForm, setShouldResetForm] = useState(false);
+	const [activityTransitionState, setActivityTransitionState] =
+		useState<ExamTransitionState>('IDLE');
 
-  const [patientData, setPatientData] = useState({} as PatientDTO);
-  const labToEdit = labWithRowsToEdit.laboratoryDTO ?? {};
-  const labToEditRows = labWithRowsToEdit.laboratoryRowList ?? [];
+	const [patientData, setPatientData] = useState({} as PatientDTO);
+	const labToEdit = labWithRowsToEdit.laboratoryDTO ?? {};
+	const labToEditRows = labWithRowsToEdit.laboratoryRowList ?? [];
 
-  useEffect(() => {
-    dispatch(getExams());
-    dispatch(getMaterials());
-    dispatch(createLabReset());
-    dispatch(updateLabReset());
-    dispatch(deleteLabReset());
-  }, [dispatch]);
+	useEffect(() => {
+		dispatch(getExams());
+		dispatch(getMaterials());
+		dispatch(createLabReset());
+		dispatch(updateLabReset());
+		dispatch(deleteLabReset());
+	}, [dispatch]);
 
-  useEffect(() => {
-    if (activityTransitionState === "TO_RESET") {
-      dispatch(createLabReset());
-      dispatch(updateLabReset());
-      dispatch(deleteLabReset());
-      setShouldResetForm(true);
-      handleReset();
-    }
-  }, [dispatch, activityTransitionState, handleReset]);
+	useEffect(() => {
+		if (activityTransitionState === 'TO_RESET') {
+			dispatch(createLabReset());
+			dispatch(updateLabReset());
+			dispatch(deleteLabReset());
+			setShouldResetForm(true);
+			handleReset();
+		}
+	}, [dispatch, activityTransitionState, handleReset]);
 
-  const patient = useAppSelector(
-    (state: IState) => state.patients.selectedPatient.data
-  );
+	const patient = useAppSelector(
+		(state: IState) => state.patients.selectedPatient.data,
+	);
 
-  const labStore = useAppSelector((state: IState) => state.laboratories);
-  const errorMessage = useAppSelector(
-    (state) =>
-      labStore.createLab.error?.message ||
-      labStore.updateLab.error?.message ||
-      labStore.deleteLab.error?.message ||
-      t("common.somethingwrong")
-  ) as string;
+	const labStore = useAppSelector((state: IState) => state.laboratories);
+	const errorMessage = useAppSelector(
+		(state) =>
+			labStore.createLab.error?.message ||
+			labStore.updateLab.error?.message ||
+			labStore.deleteLab.error?.message ||
+			t('common.somethingwrong'),
+	) as string;
 
-  const exams = useAppSelector((state: IState) => state.exams.examList.data);
+	const exams = useAppSelector((state: IState) => state.exams.examList.data);
 
-  const onSubmit = (lab: LaboratoryDTO, rows: string[]) => {
-    setShouldResetForm(false);
-    lab.patientCode = patientData?.code;
-    lab.exam = exams?.find((item) => item.code === lab.exam);
-    lab.patName = patientData?.firstName + " " + patientData?.secondName;
-    lab.sex = patientData?.sex;
-    lab.age = patientData?.age;
-    lab.labDate = parseDate(lab.labDate ?? "");
-    lab.registrationDate = parseDate(lab.registrationDate ?? "");
-    lab.inOutPatient = patientData?.status
-      ? patientData.status === "O"
-        ? LaboratoryDTOInOutPatientEnum.O
-        : LaboratoryDTOInOutPatientEnum.I
-      : LaboratoryDTOInOutPatientEnum.O;
-    if (!creationMode && labToEdit.code) {
-      lab.code = labToEdit.code;
-      lab.lock = labToEdit.lock;
-    }
-    const labWithRowsDTO = {
-      laboratoryDTO: lab,
-      laboratoryRowList: rows,
-    };
+	const onSubmit = (lab: LaboratoryDTO, rows: string[]) => {
+		setShouldResetForm(false);
+		lab.patientCode = patientData?.code;
+		lab.exam = exams?.find((item) => item.code === lab.exam);
+		lab.patName = patientData?.firstName + ' ' + patientData?.secondName;
+		lab.sex = patientData?.sex;
+		lab.age = patientData?.age;
+		lab.labDate = parseDate(lab.labDate ?? '');
+		lab.registrationDate = parseDate(lab.registrationDate ?? '');
+		lab.inOutPatient = patientData?.status
+			? patientData.status === 'O'
+				? LaboratoryDTOInOutPatientEnum.O
+				: LaboratoryDTOInOutPatientEnum.I
+			: LaboratoryDTOInOutPatientEnum.O;
+		if (!creationMode && labToEdit.code) {
+			lab.code = labToEdit.code;
+			lab.lock = labToEdit.lock;
+		}
+		const labWithRowsDTO = {
+			laboratoryDTO: lab,
+			laboratoryRowList: rows,
+		};
 
-    if (rowsData.length > 0 || (lab.result && lab.result.length > 0)) {
-      lab.status = LaboratoryDTOStatusEnum.Done;
-    } else {
-      lab.status = LaboratoryDTOStatusEnum.Open;
-    }
-    lab.material = "Undefined";
+		if (rowsData.length > 0 || (lab.result && lab.result.length > 0)) {
+			lab.status = LaboratoryDTOStatusEnum.Done;
+		} else {
+			lab.status = LaboratoryDTOStatusEnum.Open;
+		}
+		lab.material = 'Undefined';
 
-    if (!creationMode && labToEdit.code) {
-      dispatch(updateLab({ code: labToEdit.code, labWithRowsDTO }));
-    } else {
-      dispatch(createLab(labWithRowsDTO));
-    }
-  };
+		if (!creationMode && labToEdit.code) {
+			dispatch(updateLab({ code: labToEdit.code, labWithRowsDTO }));
+		} else {
+			dispatch(createLab(labWithRowsDTO));
+		}
+	};
 
-  const resetFormCallback = useCallback(() => {
-    setShouldResetForm(false);
-    dispatch(createLabReset());
-    dispatch(updateLabReset());
-    setActivityTransitionState("IDLE");
-  }, [dispatch]);
+	const resetFormCallback = useCallback(() => {
+		setShouldResetForm(false);
+		dispatch(createLabReset());
+		dispatch(updateLabReset());
+		setActivityTransitionState('IDLE');
+	}, [dispatch]);
 
-  const validationSchema = object({
-    labDate: string()
-      .required(t("common.required"))
-      .test({
-        name: "labDate",
-        message: t("common.invaliddate"),
-        test: function (value) {
-          return moment(value).isValid();
-        },
-      }),
-    exam: string().required(t("common.required")),
-    ///material: string().required(t("common.required")),
-    result: string(),
-    note: string().test({
-      name: "maxLength",
-      message: t("common.maxlengthexceeded", { maxLength: 255 }),
-      test: function (value) {
-        if (!value) return true;
-        return value.length <= 255;
-      },
-    }),
-  });
+	const validationSchema = object({
+		labDate: string()
+			.required(t('common.required'))
+			.test({
+				name: 'labDate',
+				message: t('common.invaliddate'),
+				test: (value) => moment(value).isValid(),
+			}),
+		exam: string().required(t('common.required')),
+		///material: string().required(t("common.required")),
+		result: string(),
+		note: string().test({
+			name: 'maxLength',
+			message: t('common.maxlengthexceeded', { maxLength: 255 }),
+			test: (value) => {
+				if (!value) return true;
+				return value.length <= 255;
+			},
+		}),
+	});
 
-  const initialValues = getFromFields(fields, "value");
-  const [rowsData, setRowsData] = useState([...labToEditRows]);
+	const initialValues = getFromFields(fields, 'value');
+	const [rowsData, setRowsData] = useState([...labToEditRows]);
 
-  const examOptions = useAppSelector((state: IState) => {
-    return (state.exams.examList.data ?? []).map((item) => {
-      return {
-        value: item.code ?? "",
-        label:
-          (item.description &&
-            item.description?.length > 30 &&
-            item.description.slice(0, 30) + "...") ||
-          (item.description ?? ""),
-      };
-    });
-  });
+	const examOptions = useAppSelector((state: IState) => {
+		return (state.exams.examList.data ?? []).map((item) => {
+			return {
+				value: item.code ?? '',
+				label:
+					(item.description &&
+						item.description?.length > 30 &&
+						item.description.slice(0, 30) + '...') ||
+					(item.description ?? ''),
+			};
+		});
+	});
 
-  const examList = useAppSelector((state: IState) => state.exams.examList.data);
+	const examList = useAppSelector((state: IState) => state.exams.examList.data);
 
-  const examRowOptionsSelector = (state: IState) => {
-    if (state.exams.examRowsByExamCode.data) {
-      return state.exams.examRowsByExamCode.data.map((item) => {
-        return {
-          value: item.description ?? "",
-          label: item.description ?? "",
-        };
-      });
-    } else return [];
-  };
+	const examRowOptionsSelector = (state: IState) => {
+		if (state.exams.examRowsByExamCode.data) {
+			return state.exams.examRowsByExamCode.data.map((item) => {
+				return {
+					value: item.description ?? '',
+					label: item.description ?? '',
+				};
+			});
+		} else return [];
+	};
 
-  const examRows = useAppSelector((state: IState) =>
-    examRowOptionsSelector(state)
-  );
+	const examRows = useAppSelector((state: IState) =>
+		examRowOptionsSelector(state),
+	);
 
-  const formik = useFormik({
-    initialValues,
-    validationSchema,
-    enableReinitialize: true,
-    onSubmit: (values) => {
-      const formattedValues = formatAllFieldValues(fields, values);
-      onSubmit(
-        formattedValues,
-        Object.values(rowsData).filter((item) => item)
-      );
-      setRowsData([]);
-    },
-  });
+	const formik = useFormik({
+		initialValues,
+		validationSchema,
+		enableReinitialize: true,
+		onSubmit: (values) => {
+			const formattedValues = formatAllFieldValues(fields, values);
+			onSubmit(
+				formattedValues,
+				Object.values(rowsData).filter((item) => item),
+			);
+			setRowsData([]);
+		},
+	});
 
-  const { setFieldValue, resetForm, handleBlur } = formik;
+	const { setFieldValue, resetForm, handleBlur } = formik;
 
-  const dateFieldHandleOnChange = useCallback(
-    (fieldName: string) => (value: any) => {
-      setFieldValue(fieldName, value);
-      formik.setFieldTouched(fieldName);
-    },
-    [formik, setFieldValue]
-  );
+	const dateFieldHandleOnChange = useCallback(
+		(fieldName: string) => (value: any) => {
+			setFieldValue(fieldName, value);
+			formik.setFieldTouched(fieldName);
+		},
+		[formik, setFieldValue],
+	);
 
-  useEffect(() => {
-    if (initialValues["exam"] !== "") {
-      setCurrentExamCode(initialValues["exam"]);
-    }
+	useEffect(() => {
+		if (initialValues['exam'] !== '') {
+			setCurrentExamCode(initialValues['exam']);
+		}
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
-  useEffect(() => {
-    if (currentExamCode) {
-      dispatch(getExamRows(currentExamCode));
-    }
-    if (currentExamCode && examList) {
-      setCurrentExamProcedure(
-        examList
-          ?.find((item) => item.code === currentExamCode)
-          ?.procedure?.toString() ?? ""
-      );
-    }
-  }, [examList, currentExamCode, dispatch]);
+	useEffect(() => {
+		if (currentExamCode) {
+			dispatch(getExamRows(currentExamCode));
+		}
+		if (currentExamCode && examList) {
+			setCurrentExamProcedure(
+				examList
+					?.find((item) => item.code === currentExamCode)
+					?.procedure?.toString() ?? '',
+			);
+		}
+	}, [examList, currentExamCode, dispatch]);
 
-  const isValid = (fieldName: string): boolean => {
-    return has(formik.touched, fieldName) && has(formik.errors, fieldName);
-  };
+	const isValid = (fieldName: string): boolean => {
+		return has(formik.touched, fieldName) && has(formik.errors, fieldName);
+	};
 
-  const getErrorText = (fieldName: string): string => {
-    return has(formik.touched, fieldName)
-      ? (get(formik.errors, fieldName) as string)
-      : "";
-  };
+	const getErrorText = (fieldName: string): string => {
+		return has(formik.touched, fieldName)
+			? (get(formik.errors, fieldName) as string)
+			: '';
+	};
 
-  const onBlurCallback = useCallback(
-    (fieldName: string) =>
-      (
-        e: React.FocusEvent<HTMLInputElement>,
-        value: PatientDTO | string | undefined
-      ) => {
-        handleBlur(e);
-        if (typeof value === "string") {
-          setFieldValue(fieldName, value);
-          if (fieldName === "exam") {
-            setCurrentExamCode(value);
-            setFieldValue("result", "");
-          }
+	const onBlurCallback = useCallback(
+		(fieldName: string) =>
+			(
+				e: React.FocusEvent<HTMLInputElement>,
+				value: PatientDTO | string | undefined,
+			) => {
+				handleBlur(e);
+				if (typeof value === 'string') {
+					setFieldValue(fieldName, value);
+					if (fieldName === 'exam') {
+						setCurrentExamCode(value);
+						setFieldValue('result', '');
+					}
 
-          // Clear rowsData variable for exam status validation
-          if (fieldName === "result") {
-            setRowsData([]);
-          }
-        } else {
-          setFieldValue(fieldName, value?.code ?? "");
-          setPatientData(value as PatientDTO);
-        }
-      },
-    [setFieldValue, handleBlur]
-  );
+					// Clear rowsData variable for exam status validation
+					if (fieldName === 'result') {
+						setRowsData([]);
+					}
+				} else {
+					setFieldValue(fieldName, value?.code ?? '');
+					setPatientData(value as PatientDTO);
+				}
+			},
+		[setFieldValue, handleBlur],
+	);
 
-  const handleExamChange = useCallback(
-    (value: string) => {
-      setFieldValue("exam", value);
-      formik.setFieldTouched("exam");
-      setCurrentExamCode(value);
-      setFieldValue("result", "");
-    },
-    [setFieldValue, handleBlur]
-  );
+	const handleExamChange = useCallback(
+		(value: string) => {
+			setFieldValue('exam', value);
+			formik.setFieldTouched('exam');
+			setCurrentExamCode(value);
+			setFieldValue('result', '');
+		},
+		[setFieldValue, handleBlur],
+	);
 
-  const onBlurCallbackForTableRow = useCallback(
-    (value: string, checked: boolean) => {
-      if (checked && !rowsData.includes(value)) {
-        setRowsData((prevState) => [...prevState, value]);
-      } else {
-        setRowsData((prevState) => prevState.filter((row) => row !== value));
-      }
-    },
-    [rowsData]
-  );
+	const onBlurCallbackForTableRow = useCallback(
+		(value: string, checked: boolean) => {
+			if (checked && !rowsData.includes(value)) {
+				setRowsData((prevState) => [...prevState, value]);
+			} else {
+				setRowsData((prevState) => prevState.filter((row) => row !== value));
+			}
+		},
+		[rowsData],
+	);
 
-  const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
+	const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
 
-  const handleResetConfirmation = () => {
-    setOpenResetConfirmation(false);
-    formik.resetForm();
-    resetFormCallback();
-    setCurrentExamProcedure("");
-    setCurrentExamCode("");
-  };
+	const handleResetConfirmation = () => {
+		setOpenResetConfirmation(false);
+		formik.resetForm();
+		resetFormCallback();
+		setCurrentExamProcedure('');
+		setCurrentExamCode('');
+	};
 
-  useEffect(() => {
-    if (shouldResetForm) {
-      resetForm();
-      resetFormCallback();
-      setCurrentExamProcedure("");
-      setCurrentExamCode("");
-    }
-  }, [shouldResetForm, resetForm, resetFormCallback]);
+	useEffect(() => {
+		if (shouldResetForm) {
+			resetForm();
+			resetFormCallback();
+			setCurrentExamProcedure('');
+			setCurrentExamCode('');
+		}
+	}, [shouldResetForm, resetForm, resetFormCallback]);
 
-  const examRowsLaoding = useAppSelector(
-    (state: IState) => state.exams.examRowsByExamCode.status === "LOADING"
-  );
+	const examRowsLaoding = useAppSelector(
+		(state: IState) => state.exams.examRowsByExamCode.status === 'LOADING',
+	);
 
-  const examsLoading = useAppSelector(
-    (state: IState) => state.exams.examList.status === "LOADING"
-  );
+	const examsLoading = useAppSelector(
+		(state: IState) => state.exams.examList.status === 'LOADING',
+	);
 
-  const isLoading =
-    labStore.createLab.status === "LOADING" ||
-    labStore.updateLab.status === "LOADING";
+	const isLoading =
+		labStore.createLab.status === 'LOADING' ||
+		labStore.updateLab.status === 'LOADING';
 
-  const isOpen =
-    labStore.createLab.status === "SUCCESS" ||
-    labStore.updateLab.status === "SUCCESS";
+	const isOpen =
+		labStore.createLab.status === 'SUCCESS' ||
+		labStore.updateLab.status === 'SUCCESS';
 
-  return (
-    <>
-      <div className="patientExamForm">
-        <h5 className="formInsertMode">
-          {creationMode
-            ? t("lab.newlab") + " thanks"
-            : t("lab.editlab") + ": " + renderDate(formik.values.labDate)}
-        </h5>
-        <form className="patientExamForm__form" onSubmit={formik.handleSubmit}>
-          <div className="row start-sm center-xs">
-            <div className="fullWidth patientExamForm__item">
-              <PatientPicker
-                theme={"regular"}
-                fieldName="patientCode"
-                initialValue={patient}
-                fieldValue={formik.values.patientCode}
-                label={t("opd.patient")}
-                isValid={isValid("patientCode")}
-                errorText={getErrorText("patientCode")}
-                onBlur={onBlurCallback("patientCode")}
-              />
-            </div>
-            <div className="patientExamForm__item">
-              <DateField
-                fieldName="date"
-                fieldValue={formik.values.labDate}
-                disableFuture={false}
-                theme="regular"
-                format="dd/MM/yyyy"
-                isValid={isValid("labDate")}
-                errorText={getErrorText("labDate")}
-                label={t("lab.date")}
-                onChange={dateFieldHandleOnChange("labDate")}
-                disabled={false}
-              />
-            </div>
-            {/* <div className="patientExamForm__item">
+	return (
+		<>
+			<div className="patientExamForm">
+				<h5 className="formInsertMode">
+					{creationMode
+						? t('lab.newlab') + ' thanks'
+						: t('lab.editlab') + ': ' + renderDate(formik.values.labDate)}
+				</h5>
+				<form className="patientExamForm__form" onSubmit={formik.handleSubmit}>
+					<div className="row start-sm center-xs">
+						<div className="fullWidth patientExamForm__item">
+							<PatientPicker
+								theme={'regular'}
+								fieldName="patientCode"
+								initialValue={patient}
+								fieldValue={formik.values.patientCode}
+								label={t('opd.patient')}
+								isValid={isValid('patientCode')}
+								errorText={getErrorText('patientCode')}
+								onBlur={onBlurCallback('patientCode')}
+							/>
+						</div>
+						<div className="patientExamForm__item">
+							<DateField
+								fieldName="date"
+								fieldValue={formik.values.labDate}
+								disableFuture={false}
+								theme="regular"
+								format="dd/MM/yyyy"
+								isValid={isValid('labDate')}
+								errorText={getErrorText('labDate')}
+								label={t('lab.date')}
+								onChange={dateFieldHandleOnChange('labDate')}
+								disabled={false}
+							/>
+						</div>
+						{/* <div className="patientExamForm__item">
               <AutocompleteField
                 fieldName="material"
                 fieldValue={formik.values.material}
@@ -383,129 +382,129 @@ const ExamForm: FC<ExamProps> = ({
                 disabled={isLoading}
               />
             </div> */}
-            <div className="patientExamForm__item">
-              <SelectField
-                fieldName="exam"
-                fieldValue={formik.values.exam}
-                label={t("lab.exam")}
-                isValid={isValid("exam")}
-                errorText={getErrorText("exam")}
-                onBlur={onBlurCallback("exam")}
-                onChange={handleExamChange}
-                options={examOptions}
-                isLoading={examsLoading}
-                disabled={isLoading}
-              />
-            </div>
-          </div>
-          <div className="row start-sm center-xs bottom-sm">
-            <div className="fullWidth patientExamForm__item">
-              {currentExamProcedure === "3" && (
-                <TextField
-                  multiline={true}
-                  field={formik.getFieldProps("result")}
-                  theme="regular"
-                  label={t("lab.result")}
-                  isValid={isValid("result")}
-                  errorText={getErrorText("result")}
-                  onBlur={formik.handleBlur}
-                  type="text"
-                  disabled={isLoading}
-                />
-              )}
-              {currentExamProcedure === "2" && (
-                <ExamRowTable
-                  title={t("lab.resultstitle")}
-                  onChange={onBlurCallbackForTableRow}
-                  rows={examRows}
-                  disabled={isLoading}
-                />
-              )}
-              {currentExamProcedure === "1" && (
-                <AutocompleteField
-                  fieldName="result"
-                  fieldValue={formik.values.result}
-                  label={t("lab.result")}
-                  isValid={isValid("result")}
-                  errorText={getErrorText("result")}
-                  onBlur={onBlurCallback("result")}
-                  options={examRows}
-                  isLoading={examRowsLaoding}
-                  disabled={currentExamCode === "" || isLoading}
-                />
-              )}
-            </div>
-          </div>
-          <div className="row start-sm center-xs bottom-sm">
-            <div className="fullWidth patientExamForm__item">
-              <TextField
-                multiline={true}
-                field={formik.getFieldProps("note")}
-                theme="regular"
-                label={t("lab.note")}
-                isValid={isValid("note")}
-                errorText={getErrorText("note")}
-                onBlur={formik.handleBlur}
-                type="text"
-                disabled={isLoading}
-                maxLength={255}
-              />
-            </div>
-          </div>
-          <div className="patientExamForm__buttonSet">
-            <div className="submit_button">
-              <Button type="submit" variant="contained" disabled={isLoading}>
-                {creationMode ? t("common.save") : t("common.update")}
-              </Button>
-            </div>
-            <div className="reset_button">
-              <Button
-                type="reset"
-                variant="text"
-                disabled={isLoading}
-                onClick={() => setOpenResetConfirmation(true)}
-              >
-                {t("common.reset")}
-              </Button>
-            </div>
-          </div>
-          <ConfirmationDialog
-            isOpen={openResetConfirmation}
-            title={t("common.reset").toUpperCase()}
-            info={t("common.resetform")}
-            icon={warningIcon}
-            primaryButtonLabel={t("common.reset")}
-            secondaryButtonLabel={t("common.discard")}
-            handlePrimaryButtonClick={handleResetConfirmation}
-            handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
-          />
-        </form>
-      </div>
-      {(labStore.createLab.status === "FAIL" ||
-        labStore.updateLab.status === "FAIL" ||
-        labStore.deleteLab.status === "FAIL") && (
-        <div ref={infoBoxRef} className="info-box-container">
-          <InfoBox type="error" message={errorMessage} />
-        </div>
-      )}
-      <ConfirmationDialog
-        isOpen={isOpen}
-        title={creationMode ? t("lab.created") : t("lab.updated")}
-        icon={checkIcon}
-        info={
-          creationMode
-            ? t("lab.createsuccess")
-            : t("lab.updatesuccess", { code: labToEdit.code })
-        }
-        primaryButtonLabel="Ok"
-        handlePrimaryButtonClick={() => {
-          setActivityTransitionState("TO_RESET");
-          navigate(PATHS.laboratory);
-        }}
-        handleSecondaryButtonClick={() => ({})}
-      />
-    </>
-  );
+						<div className="patientExamForm__item">
+							<SelectField
+								fieldName="exam"
+								fieldValue={formik.values.exam}
+								label={t('lab.exam')}
+								isValid={isValid('exam')}
+								errorText={getErrorText('exam')}
+								onBlur={onBlurCallback('exam')}
+								onChange={handleExamChange}
+								options={examOptions}
+								isLoading={examsLoading}
+								disabled={isLoading}
+							/>
+						</div>
+					</div>
+					<div className="row start-sm center-xs bottom-sm">
+						<div className="fullWidth patientExamForm__item">
+							{currentExamProcedure === '3' && (
+								<TextField
+									multiline={true}
+									field={formik.getFieldProps('result')}
+									theme="regular"
+									label={t('lab.result')}
+									isValid={isValid('result')}
+									errorText={getErrorText('result')}
+									onBlur={formik.handleBlur}
+									type="text"
+									disabled={isLoading}
+								/>
+							)}
+							{currentExamProcedure === '2' && (
+								<ExamRowTable
+									title={t('lab.resultstitle')}
+									onChange={onBlurCallbackForTableRow}
+									rows={examRows}
+									disabled={isLoading}
+								/>
+							)}
+							{currentExamProcedure === '1' && (
+								<AutocompleteField
+									fieldName="result"
+									fieldValue={formik.values.result}
+									label={t('lab.result')}
+									isValid={isValid('result')}
+									errorText={getErrorText('result')}
+									onBlur={onBlurCallback('result')}
+									options={examRows}
+									isLoading={examRowsLaoding}
+									disabled={currentExamCode === '' || isLoading}
+								/>
+							)}
+						</div>
+					</div>
+					<div className="row start-sm center-xs bottom-sm">
+						<div className="fullWidth patientExamForm__item">
+							<TextField
+								multiline={true}
+								field={formik.getFieldProps('note')}
+								theme="regular"
+								label={t('lab.note')}
+								isValid={isValid('note')}
+								errorText={getErrorText('note')}
+								onBlur={formik.handleBlur}
+								type="text"
+								disabled={isLoading}
+								maxLength={255}
+							/>
+						</div>
+					</div>
+					<div className="patientExamForm__buttonSet">
+						<div className="submit_button">
+							<Button type="submit" variant="contained" disabled={isLoading}>
+								{creationMode ? t('common.save') : t('common.update')}
+							</Button>
+						</div>
+						<div className="reset_button">
+							<Button
+								type="reset"
+								variant="text"
+								disabled={isLoading}
+								onClick={() => setOpenResetConfirmation(true)}
+							>
+								{t('common.reset')}
+							</Button>
+						</div>
+					</div>
+					<ConfirmationDialog
+						isOpen={openResetConfirmation}
+						title={t('common.reset').toUpperCase()}
+						info={t('common.resetform')}
+						icon={warningIcon}
+						primaryButtonLabel={t('common.reset')}
+						secondaryButtonLabel={t('common.discard')}
+						handlePrimaryButtonClick={handleResetConfirmation}
+						handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
+					/>
+				</form>
+			</div>
+			{(labStore.createLab.status === 'FAIL' ||
+				labStore.updateLab.status === 'FAIL' ||
+				labStore.deleteLab.status === 'FAIL') && (
+				<div ref={infoBoxRef} className="info-box-container">
+					<InfoBox type="error" message={errorMessage} />
+				</div>
+			)}
+			<ConfirmationDialog
+				isOpen={isOpen}
+				title={creationMode ? t('lab.created') : t('lab.updated')}
+				icon={checkIcon}
+				info={
+					creationMode
+						? t('lab.createsuccess')
+						: t('lab.updatesuccess', { code: labToEdit.code })
+				}
+				primaryButtonLabel="Ok"
+				handlePrimaryButtonClick={() => {
+					setActivityTransitionState('TO_RESET');
+					navigate(PATHS.laboratory);
+				}}
+				handleSecondaryButtonClick={() => ({})}
+			/>
+		</>
+	);
 };
 
 export default ExamForm;

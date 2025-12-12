@@ -1,3 +1,3 @@
-export * from "./TypesAdmin";
-export * from "./Empty";
-export * from "./components";
+export * from './components';
+export * from './Empty';
+export * from './TypesAdmin';

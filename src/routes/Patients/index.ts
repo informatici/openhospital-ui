@@ -1,2 +1,2 @@
-export * from "./PatientsRoutes";
-export * from "./PatientsDetailsRoutes";
+export * from './PatientsDetailsRoutes';
+export * from './PatientsRoutes';

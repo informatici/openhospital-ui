@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { initial } from "./initial";
 import * as thunks from "./thunk";
-import { ApiResponse } from "state/types";
+import { ApiResponse } from '~/state/types";
 
 export const summarySlice = createSlice({
   name: "symmary",

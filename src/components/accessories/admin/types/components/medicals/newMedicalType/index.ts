@@ -1,1 +1,1 @@
-export * from "./NewMedicalType";
+export * from './NewMedicalType';

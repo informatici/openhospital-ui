@@ -1,5 +1,5 @@
-import { ITypeConfigsState } from "./types";
+import type { ITypeConfigsState } from './types';
 
 export const initial: ITypeConfigsState = {
-  mode: "manage",
+	mode: 'manage',
 };

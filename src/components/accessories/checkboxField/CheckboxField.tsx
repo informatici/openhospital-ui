@@ -1,40 +1,41 @@
-import { Checkbox, FormControlLabel } from "@mui/material";
-import React, { FunctionComponent, useEffect, useState } from "react";
-import "./styles.scss";
-import { IProps } from "./types";
+import { Checkbox, FormControlLabel } from '@mui/material';
+import React, { type FunctionComponent, useEffect, useState } from 'react';
+import './styles.scss';
+import type { IProps } from './types';
+
 const CheckboxField: FunctionComponent<IProps> = ({
-  fieldName,
-  checked,
-  disabled,
-  label,
-  onChange,
-  indeterminate,
+	fieldName,
+	checked,
+	disabled,
+	label,
+	onChange,
+	indeterminate,
 }) => {
-  const [value, setValue] = useState<boolean>(false);
+	const [value, setValue] = useState<boolean>(false);
 
-  useEffect(() => {
-    setValue(checked);
-  }, [checked]);
+	useEffect(() => {
+		setValue(checked);
+	}, [checked]);
 
-  const handleChange = (event: any, value: boolean) => {
-    onChange(value);
-    setValue(value);
-  };
+	const handleChange = (event: any, value: boolean) => {
+		onChange(value);
+		setValue(value);
+	};
 
-  return (
-    <FormControlLabel
-      control={
-        <Checkbox
-          disabled={disabled}
-          checked={value}
-          onChange={handleChange}
-          name={fieldName}
-          indeterminate={indeterminate}
-        />
-      }
-      label={label}
-    />
-  );
+	return (
+		<FormControlLabel
+			control={
+				<Checkbox
+					disabled={disabled}
+					checked={value}
+					onChange={handleChange}
+					name={fieldName}
+					indeterminate={indeterminate}
+				/>
+			}
+			label={label}
+		/>
+	);
 };
 
 export default CheckboxField;

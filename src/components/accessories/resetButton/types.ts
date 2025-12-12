@@ -1,7 +1,7 @@
-import { useFormik } from "formik";
+import type { useFormik } from 'formik';
 
 export interface IProps {
-  title?: string;
-  formik: ReturnType<typeof useFormik>;
-  isLoading?: boolean;
+	title?: string;
+	formik: ReturnType<typeof useFormik>;
+	isLoading?: boolean;
 }

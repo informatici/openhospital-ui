@@ -1,3 +1,3 @@
-import PregnantTreatmentTableType from "./PregnantTreatmentTableType";
+import PregnantTreatmentTableType from './PregnantTreatmentTableType';
 
 export default PregnantTreatmentTableType;

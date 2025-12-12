@@ -1,3 +1,3 @@
-import DeliveryTypesTable from "./DeliveryTypesTable";
+import DeliveryTypesTable from './DeliveryTypesTable';
 
 export default DeliveryTypesTable;
