@@ -154,7 +154,7 @@ const PatientAdmission: FC = () => {
 
 	useEffect(() => {
 		if (createStatus === 'SUCCESS' || updateStatus === 'SUCCESS') {
-			dispatch(getPatient(id!));
+			dispatch(getPatient(id ?? ''));
 			dispatch(getCurrentAdmission(parseInt(id!, 10)));
 		}
 	}, [createStatus, dispatch, id, updateStatus]);

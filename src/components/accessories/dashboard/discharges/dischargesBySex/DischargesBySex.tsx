@@ -29,7 +29,7 @@ export const DischargesBySex: FC<TDashboardComponentProps & IOwnProps> = ({
 
 	const { total, success, status, data, csvData } = useDisBySexData();
 
-	const { displaySize, onSizeChange } = useDisplaySize();
+	const { onSizeChange } = useDisplaySize();
 
 	const downloadOptions = (
 		<DataDownloadButton

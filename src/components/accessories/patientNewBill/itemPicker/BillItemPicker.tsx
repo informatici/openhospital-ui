@@ -14,8 +14,6 @@ import type { BillItemProps } from './types';
 
 const BillItemPickerForm: FC<BillItemProps> = ({
 	onSubmit,
-	resetFormCallback,
-	shouldResetForm,
 	itemToEdit,
 	items,
 	fields,

@@ -72,11 +72,14 @@ export const BillsRecap: FC = () => {
 		(state) => state.main.authentication.data,
 	);
 
-	const filter = {
-		fromDate: moment().startOf('year').toISOString(),
-		toDate: moment().toISOString(),
-		patientCode: 0,
-	};
+	const filter = useMemo(
+		() => ({
+			fromDate: moment().startOf('year').toISOString(),
+			toDate: moment().toISOString(),
+			patientCode: 0,
+		}),
+		[],
+	);
 	useEffect(() => {
 		const summary = computeBillSummary(currentData);
 		summaryCurrentYearChange(summary);

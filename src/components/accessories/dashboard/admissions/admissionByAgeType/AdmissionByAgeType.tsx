@@ -35,7 +35,7 @@ export const AdmissionsByAgeType: FC<TDashboardComponentProps & IOwnProps> = ({
 	const { total, success, status, ageTypeStatus, data, csvData } =
 		useAdmByAgeTypeData();
 
-	const { displaySize, onSizeChange } = useDisplaySize();
+	const { onSizeChange } = useDisplaySize();
 
 	const downloadOptions = (
 		<DataDownloadButton

@@ -29,7 +29,7 @@ export const OpdBySex: FC<TDashboardComponentProps & IOwnProps> = ({
 
 	const { status, data, success, total, csvData } = useOpdBySexData();
 
-	const { displaySize, onSizeChange } = useDisplaySize();
+	const { onSizeChange } = useDisplaySize();
 
 	const downloadOptions = (
 		<DataDownloadButton

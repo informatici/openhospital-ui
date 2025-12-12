@@ -51,7 +51,7 @@ export const NewUser = () => {
 		initialValues,
 		validationSchema: userSchema(t),
 		onSubmit: (values: FormProps) => {
-			const { passwd2, ...cleaned } = values;
+			const { passwd2: _, ...cleaned } = values;
 			dispatch(createUser(cleaned));
 		},
 	});

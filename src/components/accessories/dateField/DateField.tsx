@@ -12,18 +12,14 @@ const DateField: FunctionComponent<IProps> = ({
 	disabled,
 	label,
 	theme,
-	isValid,
 	errorText,
 	format,
 	onChange,
 	onMonthChange,
 	shouldDisableDate,
-	renderDay,
 	views,
 	required = FIELD_VALIDATION.IDLE,
 	open,
-	okLabel,
-	cancelLabel,
 	TextFieldComponent,
 }) => {
 	const [value, setValue] = useState<Date | null>(null);

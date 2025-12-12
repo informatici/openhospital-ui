@@ -27,7 +27,7 @@ export const EditUser = () => {
 	const groups = useAppSelector((state) => state.usergroups.groupList);
 
 	useEffect(() => {
-		dispatch(getUserById(id!));
+		dispatch(getUserById(id ?? ''));
 		dispatch(getUserGroups());
 		return () => {
 			dispatch(updateUserReset());

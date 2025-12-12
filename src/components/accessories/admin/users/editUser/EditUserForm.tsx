@@ -44,7 +44,7 @@ export const EditUserForm = ({
 	const navigate = useNavigate();
 
 	const handleFormSubmit = (values: UserDTO & { passwd2: string }) => {
-		const { passwd2, ...userDTO } = values;
+		const { passwd2: _, ...userDTO } = values;
 		if (userDTO.passwd === undefined) {
 			userDTO.passwd = '';
 		}

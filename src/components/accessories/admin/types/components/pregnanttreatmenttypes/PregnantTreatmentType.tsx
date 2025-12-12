@@ -29,7 +29,10 @@ const PregnantTreatmentType = () => {
 
 	const handleEdit = (row: PregnantTreatmentTypeDTO) => {
 		navigate(
-			PATHS.admin_pregnant_treatment_types_edit.replace(':code', row.code!),
+			PATHS.admin_pregnant_treatment_types_edit.replace(
+				':code',
+				row.code ?? '',
+			),
 			{
 				state: row,
 			},

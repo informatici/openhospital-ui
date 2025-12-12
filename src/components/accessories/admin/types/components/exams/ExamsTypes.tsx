@@ -28,7 +28,7 @@ const ExamTypes = () => {
 	}, [dispatch]);
 
 	const handleEdit = (row: ExamTypeDTO) => {
-		navigate(PATHS.admin_exams_types_edit.replace(':code', row.code!), {
+		navigate(PATHS.admin_exams_types_edit.replace(':code', row.code ?? ''), {
 			state: row,
 		});
 	};

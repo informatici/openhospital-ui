@@ -554,7 +554,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
 															' ' +
 															value.operation?.description
 														}
-														secondary={renderDate(value.opDate!)}
+														secondary={renderDate(value.opDate ?? '')}
 													/>
 													<ListItemSecondaryAction>
 														<IconButton

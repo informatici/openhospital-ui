@@ -110,7 +110,7 @@ export const EditGroup = () => {
 	// load permissions and group on mount
 	useEffect(() => {
 		dispatch(getAllPermissions());
-		dispatch(getUserGroup(id!));
+		dispatch(getUserGroup(id ?? ''));
 		return () => {
 			dispatch(updateUserGroupReset());
 		};

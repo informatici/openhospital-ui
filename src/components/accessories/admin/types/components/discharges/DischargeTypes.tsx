@@ -28,9 +28,12 @@ const DischargeTypes = () => {
 	}, [dispatch]);
 
 	const handleEdit = (row: DischargeTypeDTO) => {
-		navigate(PATHS.admin_discharges_types_edit.replace(':code', row.code!), {
-			state: row,
-		});
+		navigate(
+			PATHS.admin_discharges_types_edit.replace(':code', row.code ?? ''),
+			{
+				state: row,
+			},
+		);
 	};
 
 	const handleDelete = (row: DischargeTypeDTO) => {

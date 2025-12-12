@@ -28,9 +28,12 @@ const AdmissionTypes = () => {
 	}, [dispatch]);
 
 	const handleEdit = (row: AdmissionTypeDTO) => {
-		navigate(PATHS.admin_admissions_types_edit.replace(':code', row.code!), {
-			state: row,
-		});
+		navigate(
+			PATHS.admin_admissions_types_edit.replace(':code', row.code ?? ''),
+			{
+				state: row,
+			},
+		);
 	};
 
 	const handleDelete = (row: AdmissionTypeDTO) => {

@@ -14,7 +14,7 @@ export const Exams = () => {
 	const { t } = useTranslation();
 
 	const handleDelete = (row: ExamDTO) => {
-		dispatch(deleteExam(row.code!));
+		dispatch(deleteExam(row.code ?? ''));
 	};
 	const handleEdit = (row: ExamDTO) => {
 		navigate(PATHS.admin_exams_edit.replace(':id', `${row.code}`), {

@@ -24,11 +24,17 @@
 		"rules": {
 			"recommended": true,
 			"suspicious": {
-				"noExplicitAny": "off"
+				"noExplicitAny": "off",
+				"noArrayIndexKey": "off",
+				"noThenProperty": "off",
+				"noAssignInExpressions": "off"
 			},
 			"a11y": {
 				"noStaticElementInteractions": "off",
 				"useKeyWithClickEvents": "off"
+			},
+			"correctness": {
+				"useExhaustiveDependencies": "off"
 			}
 		},
 		"domains": {

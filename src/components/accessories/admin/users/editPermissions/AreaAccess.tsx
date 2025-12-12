@@ -10,6 +10,7 @@ interface IProps {
 		action: PermissionActionEnum,
 	) => void;
 }
+
 export const AreaAccess = ({
 	permissions,
 	groupPermissions,

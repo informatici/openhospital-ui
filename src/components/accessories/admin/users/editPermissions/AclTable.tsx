@@ -62,7 +62,7 @@ export const AclTable = ({
 				Crud.DELETE,
 			].map((item) => `${crudKey}.${item}`);
 			const crudPerms = permissions.filter((p) =>
-				crudPermNames.includes(p.name!),
+				crudPermNames.includes(p.name ?? ''),
 			);
 			if (event.target.checked) {
 				onChange(
@@ -87,7 +87,7 @@ export const AclTable = ({
 				Crud.DELETE,
 			].flatMap((item) => crudKeys.map((crudKey) => `${crudKey}.${item}`));
 			const crudPerms = permissions.filter((p) =>
-				crudPermNames.includes(p.name!),
+				crudPermNames.includes(p.name ?? ''),
 			);
 			if (event.target.checked) {
 				onChange(
@@ -127,7 +127,7 @@ export const AclTable = ({
 				<tbody>
 					{Array.from(crudPermissions.values()).map((crudPermission, index) => {
 						return (
-							<tr key={index}>
+							<tr key={crudKeys[index]}>
 								<td>
 									<Tooltip title={t('permission.toggle-check-all')}>
 										<Checkbox
@@ -139,9 +139,9 @@ export const AclTable = ({
 								</td>
 								<td>{crudKeys[index]}</td>
 								{[Crud.CREATE, Crud.READ, Crud.UPDATE, Crud.DELETE].map(
-									(access: Crud, index: number) => {
+									(access: Crud) => {
 										return crudPermission[access] ? (
-											<td key={index}>
+											<td key={access}>
 												<AclPermissionCheckbox
 													permission={crudPermission[access]}
 													onChange={onChange}
@@ -149,7 +149,7 @@ export const AclTable = ({
 												/>
 											</td>
 										) : (
-											<td key={index} className={classes.empty}>
+											<td key={access} className={classes.empty}>
 												<span>∅</span>
 											</td>
 										);

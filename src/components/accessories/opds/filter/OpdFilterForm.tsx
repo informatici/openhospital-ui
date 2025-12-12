@@ -279,9 +279,9 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({
 					formik.setFieldValue('patientCode', '');
 				}
 				if (fieldName === 'patientCode' && !isEmpty(value)) {
-					['sex', 'ageFrom', 'ageTo'].forEach((e) =>
-						formik.setFieldValue(e, ''),
-					);
+					['sex', 'ageFrom', 'ageTo'].forEach((e) => {
+						formik.setFieldValue(e, '');
+					});
 				}
 				if (fieldName === 'diseaseTypeCode') {
 					setDiseaseTypeCode((value ?? '') as string);

@@ -53,7 +53,7 @@ const PatientDetailsActivity = () => {
 
 	useEffect(() => {
 		if (isEmpty(patient.data) && patient.status === 'IDLE') {
-			dispatch(getPatient(id!));
+			dispatch(getPatient(id ?? ''));
 		}
 	}, [patient, id, dispatch]);
 
@@ -211,6 +211,7 @@ const PatientDetailsActivity = () => {
 											x="0px"
 											y="0px"
 										>
+											<title>arrow_down</title>
 											<polygon points="12 17.02 4.08 9.1 5.5 7.69 12 14.19 18.5 7.69 19.92 9.1 12 17.02" />
 										</svg>
 									</div>

@@ -32,7 +32,7 @@ export const OpdByAgeTypes: FC<TDashboardComponentProps & IOwnProps> = ({
 	const { status, ageTypeStatus, data, success, total, csvData } =
 		useOpdByAgeTypeData();
 
-	const { displaySize, onSizeChange } = useDisplaySize();
+	const { onSizeChange } = useDisplaySize();
 
 	const downloadOptions = (
 		<DataDownloadButton

@@ -28,9 +28,12 @@ const OperationTypes = () => {
 	}, [dispatch]);
 
 	const handleEdit = (row: OperationTypeDTO) => {
-		navigate(PATHS.admin_operations_types_edit.replace(':code', row.code!), {
-			state: row,
-		});
+		navigate(
+			PATHS.admin_operations_types_edit.replace(':code', row.code ?? ''),
+			{
+				state: row,
+			},
+		);
 	};
 
 	const handleDelete = (row: OperationTypeDTO) => {

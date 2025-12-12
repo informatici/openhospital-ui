@@ -28,7 +28,7 @@ export const Vaccines = () => {
 	}, [dispatch]);
 
 	const handleEdit = (row: VaccineDTO) => {
-		navigate(PATHS.admin_vaccines_edit.replace(':code', row.code!), {
+		navigate(PATHS.admin_vaccines_edit.replace(':code', row.code ?? ''), {
 			state: row,
 		});
 	};

@@ -28,9 +28,12 @@ const DeliveryTypes = () => {
 	}, [dispatch]);
 
 	const handleEdit = (row: DeliveryTypeDTO) => {
-		navigate(PATHS.admin_deliveries_types_edit.replace(':code', row.code!), {
-			state: row,
-		});
+		navigate(
+			PATHS.admin_deliveries_types_edit.replace(':code', row.code ?? ''),
+			{
+				state: row,
+			},
+		);
 	};
 
 	const handleDelete = (row: DeliveryTypeDTO) => {

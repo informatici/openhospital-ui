@@ -17,8 +17,6 @@ interface IOwnProps {
 
 const PatientExamsTable: FunctionComponent<IOwnProps> = ({
 	shouldUpdateTable,
-	handleEdit,
-	handleDelete,
 }) => {
 	const { t } = useTranslation();
 	const infoBoxRef = useRef<HTMLDivElement>(null);

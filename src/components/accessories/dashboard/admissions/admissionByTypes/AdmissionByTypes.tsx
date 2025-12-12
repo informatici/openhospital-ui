@@ -35,7 +35,7 @@ export const AdmissionsByTypes: FC<TDashboardComponentProps & IOwnProps> = ({
 	const { total, success, status, admissionTypeStatus, data, csvData } =
 		useAdmByAdmTypeData();
 
-	const { displaySize, onSizeChange } = useDisplaySize();
+	const { onSizeChange } = useDisplaySize();
 
 	const downloadOptions = (
 		<DataDownloadButton

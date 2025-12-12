@@ -16,7 +16,7 @@ export const EditExam = () => {
 	const update = useAppSelector((state) => state.exams.examUpdate);
 
 	const examRows: string[] | undefined = useAppSelector((state) =>
-		state.exams.examRowsByExamCode.data?.map((row) => row.description!),
+		state.exams.examRowsByExamCode.data?.map((row) => row.description ?? ''),
 	);
 
 	useEffect(() => {
@@ -31,7 +31,7 @@ export const EditExam = () => {
 	}: ExamDTO & { rows: string[] | undefined }) => {
 		dispatch(
 			updateExam({
-				code: examDTO.code!,
+				code: examDTO.code ?? '',
 				examWithRowsDTO: { exam: examDTO, rows },
 			}),
 		);

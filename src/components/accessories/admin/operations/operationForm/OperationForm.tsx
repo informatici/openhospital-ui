@@ -35,7 +35,6 @@ const OperationForm: FC<IOperationProps> = ({
 	onSubmit,
 	creationMode,
 	submitButtonLabel,
-	resetButtonLabel,
 	isLoading,
 }) => {
 	const dispatch = useAppDispatch();

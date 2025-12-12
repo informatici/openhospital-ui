@@ -36,7 +36,7 @@ export const AdmissionsByWards: FC<TDashboardComponentProps & IOwnProps> = ({
 	const { total, success, status, wardStatus, data, csvData } =
 		useAdmByAdmWardData();
 
-	const { displaySize, onSizeChange } = useDisplaySize();
+	const { onSizeChange } = useDisplaySize();
 
 	const downloadOptions = (
 		<DataDownloadButton

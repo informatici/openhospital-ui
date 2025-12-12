@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useAppDispatch, useAppSelector } from '~/libraries/hooks/redux';
+import { useAppSelector } from '~/libraries/hooks/redux';
 import { scrollToElement } from '../../../libraries/uiUtils/scrollToElement';
 import BookingForm from './bookingForm/BookingForm';
 import { initialFields } from './consts';
@@ -8,7 +8,6 @@ import './styles.scss';
 import type { TBookingTransitionState } from './types';
 
 const PatientBooking = () => {
-	const _dispatch = useAppDispatch();
 	const { t } = useTranslation();
 	const infoBoxRef = useRef<HTMLDivElement>(null);
 	const [shouldResetForm, setShouldResetForm] = useState(false);

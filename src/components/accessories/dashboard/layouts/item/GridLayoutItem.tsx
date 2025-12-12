@@ -111,7 +111,7 @@ export const DashboardWidget: FC<TDashboardWidgetProps> = ({
 				);
 
 			default:
-				return <></>;
+				return null;
 			//return <OpdBySex onRemove={onRemove} period={period} />;
 		}
 	};

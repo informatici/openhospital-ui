@@ -37,7 +37,7 @@ export const DischargesByWards: FC<TDashboardComponentProps & IOwnProps> = ({
 		useDisByWardData();
 	const cardRef = useRef<HTMLDivElement>(null);
 
-	const { displaySize, onSizeChange } = useDisplaySize();
+	const { onSizeChange } = useDisplaySize();
 
 	const downloadOptions = (
 		<DataDownloadButton

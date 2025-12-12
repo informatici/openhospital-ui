@@ -88,7 +88,7 @@ const EditPatientActivity = () => {
 
 	useEffect(() => {
 		if (isEmpty(patient.data) && patient.status === 'IDLE') {
-			dispatch(getPatient(id!));
+			dispatch(getPatient(id ?? ''));
 		}
 	}, [dispatch, patient, id]);
 

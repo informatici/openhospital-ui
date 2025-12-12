@@ -38,7 +38,6 @@ const AutocompleteField: FC<IProps> = ({
 	onInputChange,
 	getOptionLabel,
 	renderOption,
-	getOptionSelected,
 	onChange,
 	selectOnFocus,
 	handleHomeEndKeys,
@@ -94,7 +93,7 @@ const AutocompleteField: FC<IProps> = ({
 		}
 	};
 
-	const handleOnInputChange = (event: ChangeEvent<{}>, value: string) => {
+	const handleOnInputChange = (event: ChangeEvent<object>, value: string) => {
 		setInputValue(value);
 		onInputChange?.(event, value);
 	};

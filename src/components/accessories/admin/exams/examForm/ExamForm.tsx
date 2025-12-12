@@ -294,7 +294,7 @@ const ExamForm: FC<IExamProps> = ({
 							<span className="trailing">{t('exam.defaultValue')}</span>
 						)}
 						{(formik.values.rows as string[]).map((row, index) => (
-							<Fragment key={index}>
+							<Fragment key={`row-${index}`}>
 								<div className="col-start-1 examForm__item fullWidth">
 									<TextField
 										field={formik.getFieldProps(`rows.${index}`)}

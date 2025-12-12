@@ -29,7 +29,7 @@ const DelevyResultType = () => {
 
 	const handleEdit = (row: DeliveryResultTypeDTO) => {
 		navigate(
-			PATHS.admin_delivery_result_types_edit.replace(':code', row.code!),
+			PATHS.admin_delivery_result_types_edit.replace(':code', row.code ?? ''),
 			{
 				state: row,
 			},

@@ -16,7 +16,6 @@ export interface IProps {
 	freeSolo?: boolean;
 	getOptionLabel?: (option: any) => string;
 	renderOption?: (params: any) => React.ReactElement;
-	getOptionSelected?: (option: any, value: any) => boolean;
 	id?: string;
 	onChange?: (e: object, val: any | null) => void;
 	optionsComparator?: (option: any, val: string | number) => boolean;

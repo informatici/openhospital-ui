@@ -26,7 +26,9 @@ import { PatientsRoutes } from './Patients/PatientsRoutes';
 
 export const MainRouter: React.FC = () => {
 	const dispatch = useAppDispatch();
-	const status = useAppSelector((state) => state.main.authentication.status!);
+	const status = useAppSelector(
+		(state) => state.main.authentication.status ?? '',
+	);
 	useEffect(() => {
 		if (status === 'SUCCESS') {
 			dispatch(getUserSettings());

@@ -16,13 +16,7 @@ export const DownloadOptions = React.forwardRef<
 		<>
 			{actions.map((action, index) => {
 				return (
-					<MenuItem
-						key={`action-${
-							// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
-							index
-						}`}
-						onClick={onClose}
-					>
+					<MenuItem key={`action-${index}`} onClick={onClose}>
 						{action.action}
 					</MenuItem>
 				);

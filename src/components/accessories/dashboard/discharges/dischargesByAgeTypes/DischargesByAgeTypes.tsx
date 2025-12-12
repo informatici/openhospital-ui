@@ -36,7 +36,7 @@ export const DischargesByAgeTypes: FC<TDashboardComponentProps & IOwnProps> = ({
 	const { total, success, status, ageTypeStatus, data, csvData } =
 		useDisByAgeTypeData();
 
-	const { displaySize, onSizeChange } = useDisplaySize();
+	const { onSizeChange } = useDisplaySize();
 
 	const downloadOptions = (
 		<DataDownloadButton

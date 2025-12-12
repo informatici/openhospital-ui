@@ -35,7 +35,7 @@ export const DischargesByTypes: FC<TDashboardComponentProps & IOwnProps> = ({
 	const { total, success, status, dischargeTypeStatus, data, csvData } =
 		useDisByDisTypeData();
 
-	const { displaySize, onSizeChange } = useDisplaySize();
+	const { onSizeChange } = useDisplaySize();
 
 	const downloadOptions = (
 		<DataDownloadButton
