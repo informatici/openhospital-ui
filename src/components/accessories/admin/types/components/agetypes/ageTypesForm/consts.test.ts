@@ -1,4 +1,4 @@
-import type { AgeTypeDTO } from 'generated';
+import type { AgeTypeDTO } from '~/generated';
 import { validateRange } from './consts';
 
 const validRange: AgeTypeDTO[] = [

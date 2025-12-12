@@ -56,7 +56,7 @@ export const vaccineSlice = createSlice({
 			.addCase(thunks.deleteVaccine.pending, (state) => {
 				state.delete = ApiResponse.loading();
 			})
-			.addCase(thunks.deleteVaccine.fulfilled, (state, action) => {
+			.addCase(thunks.deleteVaccine.fulfilled, (state) => {
 				state.delete.status = 'SUCCESS';
 			})
 			.addCase(thunks.deleteVaccine.rejected, (state, action) => {

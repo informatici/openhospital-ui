@@ -70,7 +70,7 @@ export const userSlice = createSlice({
 			.addCase(thunks.deleteUser.pending, (state) => {
 				state.delete = ApiResponse.loading();
 			})
-			.addCase(thunks.deleteUser.fulfilled, (state, action) => {
+			.addCase(thunks.deleteUser.fulfilled, (state) => {
 				state.delete.status = 'SUCCESS';
 			})
 			.addCase(thunks.deleteUser.rejected, (state, action) => {

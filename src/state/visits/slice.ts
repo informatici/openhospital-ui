@@ -56,7 +56,7 @@ export const visitSlice = createSlice({
 			.addCase(thunks.deleteVisit.pending, (state) => {
 				state.deleteVisit = ApiResponse.loading();
 			})
-			.addCase(thunks.deleteVisit.fulfilled, (state, action) => {
+			.addCase(thunks.deleteVisit.fulfilled, (state) => {
 				state.deleteVisit.status = 'SUCCESS';
 			})
 			.addCase(thunks.deleteVisit.rejected, (state, action) => {

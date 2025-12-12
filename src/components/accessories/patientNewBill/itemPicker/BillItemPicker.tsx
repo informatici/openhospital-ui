@@ -1,14 +1,7 @@
 import { FormControlLabel, Radio, RadioGroup } from '@mui/material';
-
-import type { PriceDTO } from 'generated/models/PriceDTO';
-import React, {
-	type FC,
-	useCallback,
-	useEffect,
-	useMemo,
-	useState,
-} from 'react';
+import { type FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import type { PriceDTO } from '~/generated/models/PriceDTO';
 import { formatAllFieldValues } from '../../../../libraries/formDataHandling/functions';
 import AutocompleteField from '../../autocompleteField/AutocompleteField';
 import SmallButton from '../../smallButton/SmallButton';

@@ -284,7 +284,7 @@ const ExamForm: FC<ExamProps> = ({
 			setCurrentExamCode(value);
 			setFieldValue('result', '');
 		},
-		[setFieldValue, handleBlur],
+		[setFieldValue, formik.setFieldTouched],
 	);
 
 	const onBlurCallbackForTableRow = useCallback(

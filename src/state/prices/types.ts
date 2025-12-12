@@ -1,5 +1,5 @@
-import type { PriceDTO } from 'generated/models/PriceDTO';
-import type { PriceListDTO } from 'generated/models/PriceListDTO';
+import type { PriceDTO } from '~/generated/models/PriceDTO';
+import type { PriceListDTO } from '~/generated/models/PriceListDTO';
 import type { ApiResponse } from '../types';
 
 export type IPricesState = {

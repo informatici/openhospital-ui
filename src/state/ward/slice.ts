@@ -56,7 +56,7 @@ export const wardSlice = createSlice({
 			.addCase(thunks.deleteWard.pending, (state) => {
 				state.delete = ApiResponse.loading();
 			})
-			.addCase(thunks.deleteWard.fulfilled, (state, action) => {
+			.addCase(thunks.deleteWard.fulfilled, (state) => {
 				state.delete.status = 'SUCCESS';
 			})
 			.addCase(thunks.deleteWard.rejected, (state, action) => {

@@ -1,7 +1,7 @@
-import type { BillItemsDTO } from 'generated/models/BillItemsDTO';
-import type { FullBillDTO } from 'generated/models/FullBillDTO';
-import type { PriceDTO } from 'generated/models/PriceDTO';
 import type { Dispatch, SetStateAction } from 'react';
+import type { BillItemsDTO } from '~/generated/models/BillItemsDTO';
+import type { FullBillDTO } from '~/generated/models/FullBillDTO';
+import type { PriceDTO } from '~/generated/models/PriceDTO';
 import type { TUserCredentials } from '../../../state/main/types';
 
 interface IOwnProps {
