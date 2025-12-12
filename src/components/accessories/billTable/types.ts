@@ -1,3 +1,4 @@
+import type React from 'react';
 import type { TFields } from '../../../libraries/formDataHandling/types';
 
 export type IStatus = 'ALL' | 'PENDING' | 'CLOSE' | 'DELETE';
@@ -34,7 +35,7 @@ export type BillFilterFormFieldName =
 export type TBillDisplayData = {
 	id: string | number;
 	date: string;
-	patient: JSX.Element;
+	patient: React.ReactElement;
 	amount: string;
 	balance: string;
 	status: string;

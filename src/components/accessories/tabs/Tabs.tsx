@@ -6,7 +6,7 @@ import type { IProps } from './types';
 const Tabs: FunctionComponent<IProps> = ({ config }) => {
 	const [currentIndex, updateCurrentIndex] = useState(0);
 
-	const renderHeader = (mobile = false): JSX.Element[] => {
+	const renderHeader = (mobile = false): React.ReactElement[] => {
 		if (!mobile) {
 			return config.map((item, index) => {
 				return (
@@ -34,7 +34,7 @@ const Tabs: FunctionComponent<IProps> = ({ config }) => {
 		}
 	};
 
-	const renderContent = (): JSX.Element | null => {
+	const renderContent = (): React.ReactElement | null => {
 		const content = config[currentIndex]?.content;
 		if (content) {
 			return <div className="panel">{content}</div>;

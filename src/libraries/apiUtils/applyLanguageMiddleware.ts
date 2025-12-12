@@ -1,6 +1,6 @@
-import { LAGUAGE_KEY } from 'consts';
 import produce from 'immer';
 import { set } from 'lodash';
+import { LAGUAGE_KEY } from '../../consts';
 import type { Middleware, RequestOpts } from '../../generated';
 import { LocalStorage } from '../storage/storage';
 

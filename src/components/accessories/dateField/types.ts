@@ -1,5 +1,6 @@
 import type { TextFieldProps } from '@mui/material';
 import type { DateView } from '@mui/x-date-pickers';
+import type React from 'react';
 import type { ComponentType } from 'react';
 import type { FIELD_VALIDATION } from '../../../types';
 
@@ -20,8 +21,8 @@ export interface IProps {
 		day: any,
 		selectedDate: any,
 		dayInCurrentMonth: boolean,
-		dayComponent: JSX.Element,
-	) => JSX.Element;
+		dayComponent: React.ReactElement,
+	) => React.ReactElement;
 	views?: DateView[];
 	required?: FIELD_VALIDATION;
 	TextFieldComponent?: ComponentType<TextFieldProps>;

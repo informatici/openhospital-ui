@@ -1,5 +1,6 @@
 import type { DateRange } from '@mui/lab/DateRangePicker';
 import type { TextFieldProps } from '@mui/material';
+import type React from 'react';
 import type { ComponentType } from 'react';
 import type { FIELD_VALIDATION } from '../../../types';
 
@@ -22,8 +23,8 @@ export interface IProps {
 		day: any,
 		selectedDate: any,
 		dayInCurrentMonth: boolean,
-		dayComponent: JSX.Element,
-	) => JSX.Element;
+		dayComponent: React.ReactElement,
+	) => React.ReactElement;
 	required?: FIELD_VALIDATION;
 	TextFieldComponent?: ComponentType<TextFieldProps>;
 	open?: boolean;

@@ -11,7 +11,7 @@ export type TDashboardCardProps = {
 } & PropsWithChildren;
 
 export type TDashboardDownloadProps = {
-	action: JSX.Element;
+	action: React.ReactElement;
 };
 
 export type TDashboardCardOptionActions = {

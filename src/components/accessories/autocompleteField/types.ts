@@ -1,3 +1,5 @@
+import type React from 'react';
+
 export interface IProps {
 	fieldName: string;
 	fieldValue: string | number;
@@ -13,7 +15,7 @@ export interface IProps {
 	onInputChange?: (e: any, value: any) => void;
 	freeSolo?: boolean;
 	getOptionLabel?: (option: any) => string;
-	renderOption?: (params: any) => JSX.Element;
+	renderOption?: (params: any) => React.ReactElement;
 	getOptionSelected?: (option: any, value: any) => boolean;
 	id?: string;
 	onChange?: (e: object, val: any | null) => void;
@@ -26,6 +28,6 @@ export interface IProps {
 	maxLength?: number;
 }
 export type DefaultOptionType = {
-	value: string | number | JSX.Element;
+	value: string | number | React.ReactElement;
 	label: string;
 };

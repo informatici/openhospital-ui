@@ -1,3 +1,4 @@
+import type React from 'react';
 import type { TPermission } from '../../../types';
 
 export interface IProps {
@@ -13,7 +14,7 @@ export type TTabElement = {
 	checkPermissions?: TPermission | TPermission[];
 
 	// tab content
-	content: JSX.Element;
+	content: React.ReactElement;
 
 	// tab label
 	label: string;

@@ -28,7 +28,7 @@ const LangSwitcher: FunctionComponent = () => {
 		? Object.keys(fallbackLanguages)
 		: availableLanguages.availableLanguages;
 
-	const renderOptions = (): JSX.Element[] => {
+	const renderOptions = (): React.ReactElement[] => {
 		return languages.map((code: string) => (
 			<option key={code} value={code}>
 				{fallbackLanguages[code]}

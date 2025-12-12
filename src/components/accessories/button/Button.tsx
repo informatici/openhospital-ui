@@ -1,5 +1,5 @@
 import { Button as MaterialComponent } from '@mui/material';
-import React, { type FunctionComponent } from 'react';
+import { type FunctionComponent } from 'react';
 import './styles.scss';
 import type { IProps } from './types';
 
@@ -15,7 +15,7 @@ const Button: FunctionComponent<IProps> = ({
 }) => {
 	return (
 		<MaterialComponent
-			className={'button ' + className ?? ''}
+			className={'button ' + (className ?? '')}
 			type={type}
 			color={color}
 			variant={variant}

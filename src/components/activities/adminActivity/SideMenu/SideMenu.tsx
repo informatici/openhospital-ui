@@ -10,13 +10,13 @@ import {
 	People,
 	SupervisedUserCircle,
 } from '@mui/icons-material';
-import { PATHS } from 'consts';
-import React, { type ReactNode, useCallback } from 'react';
+import { type ReactNode, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router';
 import { useAppSelector } from '../../../../libraries/hooks/redux';
 import Button from '../../../accessories/button/Button';
 import { MenuItem } from '../../../accessories/menuItem';
+import { PATHS } from '../../../consts';
 import type { IAdminSection } from '../types';
 import classes from './SideMenu.module.scss';
 

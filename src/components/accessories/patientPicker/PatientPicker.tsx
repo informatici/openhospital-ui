@@ -154,7 +154,7 @@ const PatientPicker: FC<IProps> = ({
 		(state) => state.patients.searchResults.status === 'LOADING',
 	);
 
-	const renderSearchResults = (): JSX.Element | undefined => {
+	const renderSearchResults = (): React.ReactElement | undefined => {
 		switch (searchStatus) {
 			case 'IDLE':
 				return;

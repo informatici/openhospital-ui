@@ -1,5 +1,6 @@
 import { Feedback } from '@mui/icons-material';
 import { Tooltip } from '@mui/material';
+import $ from 'jquery';
 import type { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAppSelector } from '~/libraries/hooks/redux';

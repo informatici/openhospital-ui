@@ -26,7 +26,7 @@ const RouterTabs: FunctionComponent<IProps> = ({ config, defaultRoute }) => {
 		}
 	}, [navigate, defaultRoute, pathname]);
 
-	const renderHeader = (mobile = false): JSX.Element[] => {
+	const renderHeader = (mobile = false): React.ReactElement[] => {
 		if (!mobile) {
 			return tabs.map((item, index) => {
 				const path = item.path!;

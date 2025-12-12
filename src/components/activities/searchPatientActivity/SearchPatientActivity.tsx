@@ -1,6 +1,7 @@
 import Button from '@mui/material/Button';
 import { useFormik } from 'formik';
 import { get, has } from 'lodash';
+import type React from 'react';
 import { useCallback, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { number, object } from 'yup';
@@ -97,7 +98,7 @@ const SearchPatientActivity = () => {
 
 	const RESULTS_DATA_CY = 'search-patient-results';
 
-	const renderSearchResults = (): JSX.Element | undefined => {
+	const renderSearchResults = (): React.ReactElement | undefined => {
 		switch (searchStatus) {
 			case 'IDLE':
 				return;

@@ -1,3 +1,4 @@
+import type React from 'react';
 import type { PatientDTO } from '../../../../generated';
 import type { TFields } from '../../../../libraries/formDataHandling/types';
 
@@ -15,8 +16,8 @@ interface IBookingProps {
 		day: any,
 		selectedDate: any,
 		dayInCurrentMonth: boolean,
-		dayComponent: JSX.Element,
-	) => JSX.Element;
+		dayComponent: React.ReactElement,
+	) => React.ReactElement;
 }
 
 export type TBookingProps = IBookingProps;
