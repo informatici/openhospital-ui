@@ -1,5 +1,3 @@
-import React from 'react';
-
 const PlusIcon = (): JSX.Element => (
 	<svg
 		width="44px"
@@ -9,6 +7,7 @@ const PlusIcon = (): JSX.Element => (
 		xmlns="http://www.w3.org/2000/svg"
 		xmlnsXlink="http://www.w3.org/1999/xlink"
 	>
+		<title>Plus</title>
 		<g id="Layout" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
 			<g
 				id="Home"

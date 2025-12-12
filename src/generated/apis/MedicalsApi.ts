@@ -96,16 +96,16 @@ export class MedicalsApi extends BaseAPI {
 		const query: HttpQuery = {};
 
 		if (desc != null) {
-			query['desc'] = desc;
+			query.desc = desc;
 		}
 		if (type != null) {
-			query['type'] = type;
+			query.type = type;
 		}
 		if (critical != null) {
-			query['critical'] = critical;
+			query.critical = critical;
 		}
 		if (nameSorted != null) {
-			query['name_sorted'] = nameSorted;
+			query.name_sorted = nameSorted;
 		}
 
 		return this.request<Array<MedicalDTO>>(
@@ -160,7 +160,7 @@ export class MedicalsApi extends BaseAPI {
 		const query: HttpQuery = {};
 
 		if (sortBy != null) {
-			query['sort_by'] = sortBy;
+			query.sort_by = sortBy;
 		}
 
 		return this.request<Array<MedicalDTO>>(
@@ -197,7 +197,7 @@ export class MedicalsApi extends BaseAPI {
 		const query: HttpQuery = {};
 
 		if (ignoreSimilar != null) {
-			query['ignore_similar'] = ignoreSimilar;
+			query.ignore_similar = ignoreSimilar;
 		}
 
 		return this.request<MedicalDTO>(
@@ -235,7 +235,7 @@ export class MedicalsApi extends BaseAPI {
 		const query: HttpQuery = {};
 
 		if (ignoreSimilar != null) {
-			query['ignore_similar'] = ignoreSimilar;
+			query.ignore_similar = ignoreSimilar;
 		}
 
 		return this.request<MedicalDTO>(

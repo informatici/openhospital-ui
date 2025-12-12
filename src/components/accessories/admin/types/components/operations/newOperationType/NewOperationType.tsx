@@ -17,7 +17,7 @@ export const NewOperationType = () => {
 		dispatch(setTypeMode('edit'));
 	});
 
-	const handleSubmit = (code: string, value: OperationTypeDTO) => {
+	const handleSubmit = (_code: string, value: OperationTypeDTO) => {
 		dispatch(createOperationType(value));
 	};
 

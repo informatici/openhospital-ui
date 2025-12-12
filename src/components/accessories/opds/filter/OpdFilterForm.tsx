@@ -186,7 +186,7 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({
 			: diseases
 					.filter((e) => e.diseaseType?.code === diseaseTypeCode)
 					.map((e) => mapToOptions(e));
-	}, [diseaseTypeCode, diseases]);
+	}, [diseaseTypeCode, diseases, mapToOptions]);
 
 	const diseaseTypeOptions = useAppSelector((state: IState) => {
 		return state.types.diseases.getAll.data?.map((e) => mapToOptions(e)) ?? [];
@@ -198,7 +198,7 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({
 
 	const wardOptions = useMemo(() => {
 		return wards.map((e) => mapToOptions(e));
-	}, [wards]);
+	}, [wards, mapToOptions]);
 
 	const dateFieldHandleOnChange = useCallback(
 		(fieldName: string) => (val: Date | null) => {

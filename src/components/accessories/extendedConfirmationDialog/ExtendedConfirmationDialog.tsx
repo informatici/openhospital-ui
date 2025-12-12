@@ -1,7 +1,7 @@
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import React, { type FunctionComponent } from 'react';
+import type { FunctionComponent } from 'react';
 import Button from '../button/Button';
 import './styles.scss';
 import type { IProps } from './types';
@@ -29,7 +29,11 @@ const ExtendedConfirmationDialog: FunctionComponent<IProps> = ({
 					</div>
 					<div className="dialog__buttonSet" data-cy="dialog-button-set">
 						{items.map((e) => (
-							<div data-cy="dialog-return-button" className="return_button">
+							<div
+								key={e.label}
+								data-cy="dialog-return-button"
+								className="return_button"
+							>
 								<Button type="submit" variant="contained" onClick={e.onClick}>
 									{e.label}
 								</Button>

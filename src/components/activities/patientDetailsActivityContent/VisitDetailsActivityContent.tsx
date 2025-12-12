@@ -1,4 +1,4 @@
-import React, { Fragment, type FunctionComponent } from 'react';
+import { Fragment, type FunctionComponent } from 'react';
 import { useTranslation } from 'react-i18next';
 import PatientDetailsContent from '../../../components/activities/patientDetailsActivityContent/PatientDetailsActivityContent';
 import PatientOPD from '../../accessories/patientOPD/patientOPD';

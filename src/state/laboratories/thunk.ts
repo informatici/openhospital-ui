@@ -19,7 +19,9 @@ export const searchLabs = createAsyncThunk(
 				dateFrom: query.dateFrom ?? moment().add('-30', 'days').toISOString(),
 				dateTo: query.dateTo ?? moment().toISOString(),
 				examName: query.examName,
-				patientCode: !isNaN(query.patientCode) ? query.patientCode : undefined,
+				patientCode: !Number.isNaN(query.patientCode)
+					? query.patientCode
+					: undefined,
 				status: query.status ?? undefined,
 				paged: query.paged,
 				page: query.page,

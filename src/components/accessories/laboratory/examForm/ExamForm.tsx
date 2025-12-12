@@ -89,7 +89,7 @@ const ExamForm: FC<ExamProps> = ({
 
 	const labStore = useAppSelector((state: IState) => state.laboratories);
 	const errorMessage = useAppSelector(
-		(state) =>
+		(_state) =>
 			labStore.createLab.error?.message ||
 			labStore.updateLab.error?.message ||
 			labStore.deleteLab.error?.message ||
@@ -102,7 +102,7 @@ const ExamForm: FC<ExamProps> = ({
 		setShouldResetForm(false);
 		lab.patientCode = patientData?.code;
 		lab.exam = exams?.find((item) => item.code === lab.exam);
-		lab.patName = patientData?.firstName + ' ' + patientData?.secondName;
+		lab.patName = `${patientData?.firstName} ${patientData?.secondName}`;
 		lab.sex = patientData?.sex;
 		lab.age = patientData?.age;
 		lab.labDate = parseDate(lab.labDate ?? '');
@@ -173,7 +173,7 @@ const ExamForm: FC<ExamProps> = ({
 				label:
 					(item.description &&
 						item.description?.length > 30 &&
-						item.description.slice(0, 30) + '...') ||
+						`${item.description.slice(0, 30)}...`) ||
 					(item.description ?? ''),
 			};
 		});
@@ -221,12 +221,12 @@ const ExamForm: FC<ExamProps> = ({
 	);
 
 	useEffect(() => {
-		if (initialValues['exam'] !== '') {
-			setCurrentExamCode(initialValues['exam']);
+		if (initialValues.exam !== '') {
+			setCurrentExamCode(initialValues.exam);
 		}
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [initialValues.exam]);
 
 	useEffect(() => {
 		if (currentExamCode) {
@@ -338,8 +338,8 @@ const ExamForm: FC<ExamProps> = ({
 			<div className="patientExamForm">
 				<h5 className="formInsertMode">
 					{creationMode
-						? t('lab.newlab') + ' thanks'
-						: t('lab.editlab') + ': ' + renderDate(formik.values.labDate)}
+						? `${t('lab.newlab')} thanks`
+						: `${t('lab.editlab')}: ${renderDate(formik.values.labDate)}`}
 				</h5>
 				<form className="patientExamForm__form" onSubmit={formik.handleSubmit}>
 					<div className="row start-sm center-xs">

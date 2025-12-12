@@ -2,7 +2,7 @@ import { vaccineDTO } from '../fixtures/vaccineDTO';
 
 export const vaccineRoutes = (server) => {
 	server.namespace('/vaccines', () => {
-		server.get('/').intercept((req, res) => {
+		server.get('/').intercept((_req, res) => {
 			res.status(200).json(vaccineDTO);
 		});
 		server.post('/').intercept((req, res) => {

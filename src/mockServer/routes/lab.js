@@ -104,7 +104,9 @@ export const labRoutes = (server) => {
 						data: labWithRowsDTO,
 						pageInfo: {
 							totalPage: 8,
-							page: !isNaN(req.query.page) ? parseInt(req.query.page) : 0,
+							page: !Number.isNaN(req.query.page)
+								? parseInt(req.query.page, 10)
+								: 0,
 						},
 					});
 			}
@@ -151,7 +153,7 @@ export const labRoutes = (server) => {
 			}
 		});
 
-		server.get('/materials').intercept((req, res) => {
+		server.get('/materials').intercept((_req, res) => {
 			res.status(200).json(materialsDTO);
 		});
 	});

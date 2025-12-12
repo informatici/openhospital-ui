@@ -100,7 +100,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 	const ageRangeOptions = useAppSelector((state: IState) =>
 		state.types.ageTypes.getAll.data?.map((e) => ({
 			value: e.code ?? '',
-			label: e.code ? t('patient.agetypes.' + e.code) : '',
+			label: e.code ? t(`patient.agetypes.${e.code}`) : '',
 		})),
 	);
 
@@ -196,7 +196,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 
 	useEffect(() => {
 		dispatch(getCities());
-	}, [dispatch, shouldResetForm]);
+	}, [dispatch]);
 
 	useEffect(() => {
 		return () => {
@@ -207,7 +207,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 			}
 			dispatch(getPatientReset());
 		};
-	}, [dispatch]);
+	}, [dispatch, mode]);
 
 	const navigate = useNavigate();
 
@@ -309,7 +309,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 							label={t('patient.agetype')}
 							isValid={isValid('atype')}
 							errorText={''}
-							onBlur={(e, value) => {
+							onBlur={(_e, value) => {
 								setAgeType(value as TAgeFieldName);
 							}}
 							onChange={(value) => {

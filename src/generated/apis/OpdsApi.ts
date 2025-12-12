@@ -198,37 +198,37 @@ export class OpdsApi extends BaseAPI {
 		};
 
 		if (diseaseTypeCode != null) {
-			query['diseaseTypeCode'] = diseaseTypeCode;
+			query.diseaseTypeCode = diseaseTypeCode;
 		}
 		if (diseaseCode != null) {
-			query['diseaseCode'] = diseaseCode;
+			query.diseaseCode = diseaseCode;
 		}
 		if (ageFrom != null) {
-			query['ageFrom'] = ageFrom;
+			query.ageFrom = ageFrom;
 		}
 		if (ageTo != null) {
-			query['ageTo'] = ageTo;
+			query.ageTo = ageTo;
 		}
 		if (sex != null) {
-			query['sex'] = sex;
+			query.sex = sex;
 		}
 		if (newPatient != null) {
-			query['newPatient'] = newPatient;
+			query.newPatient = newPatient;
 		}
 		if (patientCode != null) {
-			query['patientCode'] = patientCode;
+			query.patientCode = patientCode;
 		}
 		if (page != null) {
-			query['page'] = page;
+			query.page = page;
 		}
 		if (size != null) {
-			query['size'] = size;
+			query.size = size;
 		}
 		if (paged != null) {
-			query['paged'] = paged;
+			query.paged = paged;
 		}
 		if (wardCode != null) {
-			query['wardCode'] = wardCode;
+			query.wardCode = wardCode;
 		}
 
 		return this.request<PageOpdDTO>(
@@ -289,7 +289,7 @@ export class OpdsApi extends BaseAPI {
 		const query: HttpQuery = {};
 
 		if (oneWeek != null) {
-			query['oneWeek'] = oneWeek;
+			query.oneWeek = oneWeek;
 		}
 
 		return this.request<Array<OpdDTO>>(

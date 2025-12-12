@@ -46,14 +46,12 @@ const TypesAdmin = () => {
 	useEffect(() => {
 		if (
 			location.pathname !== PATHS.admin_types_base &&
-			location.pathname !== PATHS.admin_types_base + '/'
+			location.pathname !== `${PATHS.admin_types_base}/`
 		) {
-			const typeFromUrl = typeOptions.find(
-				(typeOption) =>
-					typeOption.value !== null &&
-					typeOption.value.includes(
-						location.pathname.substring((PATHS.admin_types_base + '/').length),
-					),
+			const typeFromUrl = typeOptions.find((typeOption) =>
+				typeOption.value?.includes(
+					location.pathname.substring(`${PATHS.admin_types_base}/`.length),
+				),
 			);
 
 			if (typeFromUrl) {
@@ -66,7 +64,7 @@ const TypesAdmin = () => {
 
 	const handleTypeChange = (value: string) => {
 		if (value?.length > 0) {
-			navigate(PATHS.admin_types_base + '/' + value);
+			navigate(`${PATHS.admin_types_base}/${value}`);
 		} else {
 			navigate(PATHS.admin_types_base);
 		}

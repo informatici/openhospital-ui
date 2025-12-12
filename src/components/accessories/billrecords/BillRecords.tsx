@@ -70,7 +70,7 @@ const BillRecords = () => {
 	}, [dispatch]);
 
 	useEffect(() => {
-		if (patient && patient.code) {
+		if (patient?.code) {
 			dispatch(getPendingBills(patient.code));
 			dispatch(
 				searchBills({
@@ -152,7 +152,7 @@ const BillRecords = () => {
 			type: 'date',
 		},
 		paymentAmount: {
-			value: numbro.unformat(selectedObj?.balance ?? '0') + '',
+			value: `${numbro.unformat(selectedObj?.balance ?? '0')}`,
 			type: 'number',
 		},
 	};

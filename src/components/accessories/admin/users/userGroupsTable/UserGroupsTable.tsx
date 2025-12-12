@@ -49,7 +49,7 @@ export const UserGroupsTable = ({ headerActions, onEdit }: IOwnProps) => {
 		(deleted: boolean) => (row: UserGroupDTO) => {
 			dispatch(updateUserGroup({ ...row, deleted }));
 		},
-		[updateUserGroup],
+		[dispatch],
 	);
 
 	const header = ['code', 'desc', 'deleted'];
@@ -78,7 +78,7 @@ export const UserGroupsTable = ({ headerActions, onEdit }: IOwnProps) => {
 		return () => {
 			dispatch(deleteUserGroupReset());
 		};
-	}, [update.status, dispatch]);
+	}, [dispatch, update.hasFailed, update.hasSucceeded]);
 
 	useEffect(() => {
 		if (deleteGroup.hasFailed) {
@@ -89,7 +89,7 @@ export const UserGroupsTable = ({ headerActions, onEdit }: IOwnProps) => {
 		return () => {
 			dispatch(updateUserGroupReset());
 		};
-	}, [deleteGroup.status, dispatch]);
+	}, [dispatch, deleteGroup.hasFailed, deleteGroup.hasSucceeded]);
 
 	const formatDataToDisplay = (data: UserGroupDTO[]) => {
 		return data.map((item) => {

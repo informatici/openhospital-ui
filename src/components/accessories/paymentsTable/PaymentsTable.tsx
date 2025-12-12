@@ -93,7 +93,7 @@ export const PaymentsTable: FC<IPaymentsTableProps> = ({ fields }) => {
 
 	useEffect(() => {
 		dispatch(searchPayments(initialValues as TFilterValues));
-	}, [dispatch, fields, initialValues]);
+	}, [dispatch, initialValues]);
 
 	const { setFieldValue, handleBlur } = formik;
 

@@ -2,7 +2,7 @@ import ErrorIcon from '@mui/icons-material/Error';
 import InfoIcon from '@mui/icons-material/Info';
 import WarningIcon from '@mui/icons-material/Warning';
 import classNames from 'classnames';
-import React, { type FunctionComponent } from 'react';
+import type { FunctionComponent } from 'react';
 import './styles.scss';
 import { InfoBoxType, type IProps } from './types';
 

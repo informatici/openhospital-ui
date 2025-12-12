@@ -118,109 +118,107 @@ const PatientVisitForm: FunctionComponent<TProps> = ({
 	);
 
 	return (
-		<>
-			<div className="patientVisitForm">
-				<form className="patientVisitForm__form" onSubmit={formik.handleSubmit}>
-					<div className="row start-sm center-xs">
-						<div className="patientVisitForm__item fullWith">
-							<AutocompleteField
-								fieldName="ward"
-								fieldValue={formik.values.ward}
-								label={t('visit.ward')}
-								isValid={isValid('ward')}
-								errorText={getErrorText('ward')}
-								onBlur={onBlurCallback('ward')}
-								options={wardOptions}
-								disabled={isLoading}
-							/>
-						</div>
+		<div className="patientVisitForm">
+			<form className="patientVisitForm__form" onSubmit={formik.handleSubmit}>
+				<div className="row start-sm center-xs">
+					<div className="patientVisitForm__item fullWith">
+						<AutocompleteField
+							fieldName="ward"
+							fieldValue={formik.values.ward}
+							label={t('visit.ward')}
+							isValid={isValid('ward')}
+							errorText={getErrorText('ward')}
+							onBlur={onBlurCallback('ward')}
+							options={wardOptions}
+							disabled={isLoading}
+						/>
 					</div>
-					<div className="row start-sm center-xs">
-						<div className="patientVisitForm__item halfWidth">
-							<DateField
-								fieldName="date"
-								fieldValue={formik.values.date}
-								disableFuture={true}
-								theme="regular"
-								format="dd/MM/yyyy"
-								isValid={isValid('date')}
-								errorText={getErrorText('date')}
-								label={t('visit.date')}
-								onChange={dateFieldHandleOnChange('date')}
-								disabled={isLoading}
-							/>
-						</div>
-						<div className="patientVisitForm__item halfWidth">
-							<TextField
-								field={formik.getFieldProps('duration')}
-								theme="regular"
-								label={t('visit.duration')}
-								isValid={isValid('duration')}
-								errorText={getErrorText('duration')}
-								onBlur={formik.handleBlur}
-								type="number"
-								disabled={isLoading}
-							/>
-						</div>
+				</div>
+				<div className="row start-sm center-xs">
+					<div className="patientVisitForm__item halfWidth">
+						<DateField
+							fieldName="date"
+							fieldValue={formik.values.date}
+							disableFuture={true}
+							theme="regular"
+							format="dd/MM/yyyy"
+							isValid={isValid('date')}
+							errorText={getErrorText('date')}
+							label={t('visit.date')}
+							onChange={dateFieldHandleOnChange('date')}
+							disabled={isLoading}
+						/>
 					</div>
-					<div className="row start-sm center-xs">
-						<div className="patientVisitForm__item fullWith">
-							<TextField
-								field={formik.getFieldProps('service')}
-								multiline={true}
-								theme="regular"
-								label={t('visit.service')}
-								isValid={isValid('service')}
-								errorText={getErrorText('service')}
-								onBlur={formik.handleBlur}
-								type="string"
-								disabled={isLoading}
-							/>
-						</div>
+					<div className="patientVisitForm__item halfWidth">
+						<TextField
+							field={formik.getFieldProps('duration')}
+							theme="regular"
+							label={t('visit.duration')}
+							isValid={isValid('duration')}
+							errorText={getErrorText('duration')}
+							onBlur={formik.handleBlur}
+							type="number"
+							disabled={isLoading}
+						/>
 					</div>
-					<div className="patientVisitForm__buttonSet">
-						<div className="visits_button">
-							<div className="submit_button">
-								<Button type="submit" variant="contained" disabled={isLoading}>
-									{submitButtonLabel}
-								</Button>
-							</div>
-							<div className="reset_button">
-								<Button
-									type="reset"
-									variant="text"
-									disabled={isLoading}
-									onClick={() => setOpenResetConfirmation(true)}
-								>
-									{resetButtonLabel}
-								</Button>
-							</div>
+				</div>
+				<div className="row start-sm center-xs">
+					<div className="patientVisitForm__item fullWith">
+						<TextField
+							field={formik.getFieldProps('service')}
+							multiline={true}
+							theme="regular"
+							label={t('visit.service')}
+							isValid={isValid('service')}
+							errorText={getErrorText('service')}
+							onBlur={formik.handleBlur}
+							type="string"
+							disabled={isLoading}
+						/>
+					</div>
+				</div>
+				<div className="patientVisitForm__buttonSet">
+					<div className="visits_button">
+						<div className="submit_button">
+							<Button type="submit" variant="contained" disabled={isLoading}>
+								{submitButtonLabel}
+							</Button>
 						</div>
-						<div className="add_button">
+						<div className="reset_button">
 							<Button
-								type="button"
-								onClick={() => addOperationCallback!()}
-								disabled={false}
+								type="reset"
+								variant="text"
+								disabled={isLoading}
+								onClick={() => setOpenResetConfirmation(true)}
 							>
-								{' '}
-								<AddIcon fontSize="small" />
-								{t('button.addoperation')}
+								{resetButtonLabel}
 							</Button>
 						</div>
 					</div>
-					<ConfirmationDialog
-						isOpen={openResetConfirmation}
-						title={resetButtonLabel.toUpperCase()}
-						info={t('common.resetform')}
-						icon={warningIcon}
-						primaryButtonLabel={resetButtonLabel}
-						secondaryButtonLabel={t('common.discard')}
-						handlePrimaryButtonClick={handleResetConfirmation}
-						handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
-					/>
-				</form>
-			</div>
-		</>
+					<div className="add_button">
+						<Button
+							type="button"
+							onClick={() => addOperationCallback?.()}
+							disabled={false}
+						>
+							{' '}
+							<AddIcon fontSize="small" />
+							{t('button.addoperation')}
+						</Button>
+					</div>
+				</div>
+				<ConfirmationDialog
+					isOpen={openResetConfirmation}
+					title={resetButtonLabel.toUpperCase()}
+					info={t('common.resetform')}
+					icon={warningIcon}
+					primaryButtonLabel={resetButtonLabel}
+					secondaryButtonLabel={t('common.discard')}
+					handlePrimaryButtonClick={handleResetConfirmation}
+					handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
+				/>
+			</form>
+		</div>
 	);
 };
 

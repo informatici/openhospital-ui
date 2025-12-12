@@ -8,17 +8,17 @@ import type { TFields } from '../../../libraries/formDataHandling/types';
 import type { TPatientTriageFormFieldName } from './patientTriageForm/types';
 
 const diuresisOptions = Object.keys(PatientExaminationDTOPexDiuresisDescEnum)
-	.filter((v) => isNaN(Number(v)))
+	.filter((v) => Number.isNaN(Number(v)))
 	.map((e) => ({ label: e.toLowerCase(), value: e.toLowerCase() }));
 
 const bowelOptions = Object.keys(PatientExaminationDTOPexBowelDescEnum)
-	.filter((v) => isNaN(Number(v)))
+	.filter((v) => Number.isNaN(Number(v)))
 	.map((e) => ({ label: e.toLowerCase(), value: e.toLowerCase() }));
 
 const auscultationOptions = Object.keys(
 	PatientExaminationDTOPexAuscultationEnum,
 )
-	.filter((v) => isNaN(Number(v)))
+	.filter((v) => Number.isNaN(Number(v)))
 	.map((e) => ({ label: e.toLowerCase(), value: e.toLowerCase() }));
 
 export const initialFields: TFields<TPatientTriageFormFieldName> = {

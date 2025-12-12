@@ -8,7 +8,7 @@ import {
 import Modal from '@mui/material/Modal';
 import { makeStyles } from '@mui/styles';
 import { GridCloseIcon } from '@mui/x-data-grid';
-import React, { type FC } from 'react';
+import type { FC } from 'react';
 import './styles.scss';
 import type { ICustomModal } from './types';
 
@@ -38,7 +38,7 @@ export const CustomModal: FC<ICustomModal> = ({
 				timeout: 200,
 			}}
 		>
-			<div className={classes.paper + ' custom__modal'}>
+			<div className={`${classes.paper} custom__modal`}>
 				<DialogTitle>
 					<Box display="flex" alignItems="center">
 						<Box flexGrow={1}>

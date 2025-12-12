@@ -2,7 +2,7 @@ import {
 	Pagination as MaterialPagination,
 	type PaginationProps,
 } from '@mui/lab';
-import React, { type FunctionComponent } from 'react';
+import type { FunctionComponent } from 'react';
 import './styles.scss';
 import type { IProps } from './types';
 

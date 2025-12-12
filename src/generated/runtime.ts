@@ -136,7 +136,7 @@ export class BaseAPI {
 			map((request) => {
 				this.middleware
 					.filter((item) => item.pre)
-					.forEach((mw) => (request = mw.pre!(request)));
+					.forEach((mw) => (request = mw.pre?.(request)));
 				return request;
 			}),
 			concatMap((args) =>
@@ -144,7 +144,7 @@ export class BaseAPI {
 					map((response) => {
 						this.middleware
 							.filter((item) => item.post)
-							.forEach((mw) => (response = mw.post!(response)));
+							.forEach((mw) => (response = mw.post?.(response)));
 						return response;
 					}),
 				),
@@ -216,7 +216,7 @@ export const encodeURI = (value: any) => encodeURIComponent(`${value}`);
 const queryString = (params: HttpQuery): string =>
 	Object.entries(params)
 		.map(([key, value]) =>
-			value instanceof Array
+			Array.isArray(value)
 				? value.map((val) => `${encodeURI(key)}=${encodeURI(val)}`).join('&')
 				: `${encodeURI(key)}=${encodeURI(value)}`,
 		)

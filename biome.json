@@ -8,7 +8,7 @@
 	},
 	"files": {
 		"ignoreUnknown": false,
-		"includes": ["**", "!public/**/*.js"]
+		"includes": ["**", "!public/**/*.js", "!scripts/**/*.js"]
 	},
 	"css": {
 		"parser": {
@@ -25,6 +25,10 @@
 			"recommended": true,
 			"suspicious": {
 				"noExplicitAny": "off"
+			},
+			"a11y": {
+				"noStaticElementInteractions": "off",
+				"useKeyWithClickEvents": "off"
 			}
 		},
 		"domains": {

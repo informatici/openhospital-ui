@@ -25,7 +25,7 @@ export const EditLaboratoryContent: FC = () => {
 	const { id } = useParams<{ id: string | undefined }>();
 	const navigate = useNavigate();
 
-	const creationMode = useMemo(() => (id ? false : true), [id]);
+	const creationMode = useMemo(() => !id, [id]);
 
 	const labWithRows = useAppSelector(
 		(state: IState) => state.laboratories.getLabWithRowsByCode.data,
@@ -35,7 +35,7 @@ export const EditLaboratoryContent: FC = () => {
 
 	useEffect(() => {
 		if (id) {
-			dispatch(getLabWithRowsByCode(parseInt(id)));
+			dispatch(getLabWithRowsByCode(parseInt(id, 10)));
 		}
 	}, [id, dispatch]);
 
@@ -43,7 +43,7 @@ export const EditLaboratoryContent: FC = () => {
 		if (labToEdit?.patientCode) {
 			dispatch(getPatient(labToEdit.patientCode.toString()));
 		}
-	}, [labWithRows, dispatch, labToEdit?.patientCode]);
+	}, [dispatch, labToEdit?.patientCode]);
 
 	const handleReset = useCallback(() => {
 		dispatch(getLabWithRowsByCodeReset());

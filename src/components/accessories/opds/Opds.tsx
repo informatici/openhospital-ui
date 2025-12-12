@@ -1,5 +1,5 @@
 import { CircularProgress } from '@mui/material';
-import { type FC, Fragment, useEffect, useState } from 'react';
+import { type FC, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch } from '~/libraries/hooks/redux';
 import { useOpds } from '../../../libraries/hooks/api/useOpds';
@@ -52,63 +52,61 @@ export const Opds: FC = () => {
 	}, [dispatch]);
 
 	return (
-		<Fragment>
-			<div className="opd_opds">
-				<div className="opd__header">
-					<div className="opd__title">{t('nav.visits')}</div>
-				</div>
-				{(() => {
-					switch (status) {
-						case 'FAIL':
-							return (
-								<Permission require="opds.read">
-									<OpdFilterForm
-										onSubmit={onSubmit}
-										fields={fields}
-										handleResetFilter={handleResetFilter}
-									/>
-									<InfoBox type="error" message={errorMessage} />
-								</Permission>
-							);
-
-						case 'LOADING':
-							return (
-								<CircularProgress
-									style={{ marginLeft: '50%', position: 'relative' }}
-								/>
-							);
-
-						case 'SUCCESS_EMPTY':
-							return (
-								<Permission require="opds.read">
-									<OpdFilterForm
-										onSubmit={onSubmit}
-										fields={fields}
-										handleResetFilter={handleResetFilter}
-									/>
-									<InfoBox type="info" message={t('common.emptydata')} />
-								</Permission>
-							);
-
-						case 'SUCCESS':
-							return (
-								<Permission require="opds.read">
-									<OpdFilterForm
-										onSubmit={onSubmit}
-										fields={fields}
-										handleResetFilter={handleResetFilter}
-									/>
-									<OpdTable data={data ?? []} />
-									<Pagination
-										page={(pageInfo?.page ?? 0) + 1}
-										count={pageInfo?.totalPages}
-										onChange={onPageChange}
-									/>
-								</Permission>
-							);
-					}
-				})()}
+		<div className="opd_opds">
+			<div className="opd__header">
+				<div className="opd__title">{t('nav.visits')}</div>
 			</div>
-		</Fragment>
+			{(() => {
+				switch (status) {
+					case 'FAIL':
+						return (
+							<Permission require="opds.read">
+								<OpdFilterForm
+									onSubmit={onSubmit}
+									fields={fields}
+									handleResetFilter={handleResetFilter}
+								/>
+								<InfoBox type="error" message={errorMessage} />
+							</Permission>
+						);
+
+					case 'LOADING':
+						return (
+							<CircularProgress
+								style={{ marginLeft: '50%', position: 'relative' }}
+							/>
+						);
+
+					case 'SUCCESS_EMPTY':
+						return (
+							<Permission require="opds.read">
+								<OpdFilterForm
+									onSubmit={onSubmit}
+									fields={fields}
+									handleResetFilter={handleResetFilter}
+								/>
+								<InfoBox type="info" message={t('common.emptydata')} />
+							</Permission>
+						);
+
+					case 'SUCCESS':
+						return (
+							<Permission require="opds.read">
+								<OpdFilterForm
+									onSubmit={onSubmit}
+									fields={fields}
+									handleResetFilter={handleResetFilter}
+								/>
+								<OpdTable data={data ?? []} />
+								<Pagination
+									page={(pageInfo?.page ?? 0) + 1}
+									count={pageInfo?.totalPages}
+									onChange={onPageChange}
+								/>
+							</Permission>
+						);
+				}
+			})()}
+		</div>
 	);
 };

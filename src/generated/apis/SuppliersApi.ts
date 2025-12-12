@@ -84,7 +84,7 @@ export class SuppliersApi extends BaseAPI {
 		const query: HttpQuery = {};
 
 		if (excludeDeleted != null) {
-			query['exclude_deleted'] = excludeDeleted;
+			query.exclude_deleted = excludeDeleted;
 		}
 
 		return this.request<Array<SupplierDTO>>(

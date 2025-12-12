@@ -1,5 +1,5 @@
 import { Dialog, DialogContent, DialogContentText } from '@mui/material';
-import React, { type FunctionComponent } from 'react';
+import type { FunctionComponent } from 'react';
 import ImageResize from '../imageResize/ImageResize';
 import './styles.scss';
 import type { IProps } from './types';

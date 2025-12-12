@@ -92,7 +92,7 @@ const BookingForm: FC<TBookingProps> = ({
 
 	const [unAvailables, setUnavailables] = useState([12, 20, 14, 5, 6, 25]);
 	const [barelyAvailable, setBarelyAvalaible] = useState([1, 30]);
-	const handleDateMonthChange = (date: Date | null) => {
+	const handleDateMonthChange = (_date: Date | null) => {
 		const result1 = [];
 		while (result1.length <= 5) {
 			result1.push(Math.floor(Math.random() * 31));
@@ -106,11 +106,11 @@ const BookingForm: FC<TBookingProps> = ({
 	};
 
 	const filtrerUnavailableDates = (date: Date | null) => {
-		return unAvailables.includes(date!.getDate());
+		return unAvailables.includes(date?.getDate());
 	};
 	const renderWrappedDay = (
 		date: any,
-		selectedDate: any,
+		_selectedDate: any,
 		dayInCurrentMonth: boolean,
 		component: any,
 	) => {
@@ -146,98 +146,93 @@ const BookingForm: FC<TBookingProps> = ({
 	};
 
 	return (
-		<>
-			<div className="patientBookingForm">
-				<form
-					className="patientBookingForm__form"
-					onSubmit={formik.handleSubmit}
-				>
-					<div className="row start-sm center-xs">
-						<div className="patientBookingForm__item">
-							<SelectField
-								fieldName="category"
-								fieldValue={formik.values.category}
-								label={t('booking.category')}
-								isValid={isValid('category')}
-								errorText={getErrorText('category')}
-								onBlur={onBlurCallback('category')}
-								options={options.category}
-							/>
-						</div>
-						<div className="patientBookingForm__item">
-							<SelectField
-								fieldName="service"
-								fieldValue={formik.values.service}
-								label={t('booking.service')}
-								isValid={isValid('service')}
-								errorText={getErrorText('service')}
-								onBlur={onBlurCallback('service')}
-								options={options.service}
-							/>
+		<div className="patientBookingForm">
+			<form className="patientBookingForm__form" onSubmit={formik.handleSubmit}>
+				<div className="row start-sm center-xs">
+					<div className="patientBookingForm__item">
+						<SelectField
+							fieldName="category"
+							fieldValue={formik.values.category}
+							label={t('booking.category')}
+							isValid={isValid('category')}
+							errorText={getErrorText('category')}
+							onBlur={onBlurCallback('category')}
+							options={options.category}
+						/>
+					</div>
+					<div className="patientBookingForm__item">
+						<SelectField
+							fieldName="service"
+							fieldValue={formik.values.service}
+							label={t('booking.service')}
+							isValid={isValid('service')}
+							errorText={getErrorText('service')}
+							onBlur={onBlurCallback('service')}
+							options={options.service}
+						/>
+					</div>
+				</div>
+				<div className="row start-sm center-xs">
+					<div className="patientBookingForm__item dateVisit">
+						<DateField
+							fieldName="bookingDate"
+							fieldValue={formik.values.bookingDate}
+							disableFuture={false}
+							onMonthChange={handleDateMonthChange}
+							renderDay={renderWrappedDay}
+							shouldDisableDate={filtrerUnavailableDates}
+							theme="regular"
+							format="dd/MM/yyyy"
+							isValid={isValid('bookingDate')}
+							errorText={getErrorText('bookingDate')}
+							label={t('booking.bookingdate')}
+							onChange={dateFieldHandleOnChange('bookingDate')}
+						/>
+						<div className="helper-text">
+							<p>
+								<span className="badge available"></span>The date is availabe to
+								book a visit.
+							</p>
+							<p>
+								<span className="badge b-available"></span>The date is availabe,
+								but it's almost complete.
+							</p>
+							<p>
+								<span className="badge u-available"></span>The date isn't
+								available, no more visit allowed.
+							</p>
 						</div>
 					</div>
-					<div className="row start-sm center-xs">
-						<div className="patientBookingForm__item dateVisit">
-							<DateField
-								fieldName="bookingDate"
-								fieldValue={formik.values.bookingDate}
-								disableFuture={false}
-								onMonthChange={handleDateMonthChange}
-								renderDay={renderWrappedDay}
-								shouldDisableDate={filtrerUnavailableDates}
-								theme="regular"
-								format="dd/MM/yyyy"
-								isValid={isValid('bookingDate')}
-								errorText={getErrorText('bookingDate')}
-								label={t('booking.bookingdate')}
-								onChange={dateFieldHandleOnChange('bookingDate')}
-							/>
-							<div className="helper-text">
-								<p>
-									<span className="badge available"></span>The date is availabe
-									to book a visit.
-								</p>
-								<p>
-									<span className="badge b-available"></span>The date is
-									availabe, but it's almost complete.
-								</p>
-								<p>
-									<span className="badge u-available"></span>The date isn't
-									available, no more visit allowed.
-								</p>
-							</div>
-						</div>
+				</div>
+				<div className="patientBookingForm__buttonSet">
+					<div className="submit_button">
+						<Button type="submit" variant="contained" disabled={isLoading}>
+							{submitButtonLabel}
+						</Button>
 					</div>
-					<div className="patientBookingForm__buttonSet">
-						<div className="submit_button">
-							<Button type="submit" variant="contained" disabled={isLoading}>
-								{submitButtonLabel}
-							</Button>
-						</div>
-						<div className="reset_button">
-							<Button
-								type="reset"
-								variant="text"
-								disabled={isLoading}
-								onClick={() => setOpenResetConfirmation(true)}
-							>
-								{resetButtonLabel}
-							</Button>
-						</div>
+					<div className="reset_button">
+						<Button
+							type="reset"
+							variant="text"
+							disabled={isLoading}
+							onClick={() => setOpenResetConfirmation(true)}
+						>
+							{resetButtonLabel}
+						</Button>
 					</div>
-					<ConfirmationDialog
-						isOpen={openResetConfirmation}
-						title={resetButtonLabel.toUpperCase()}
-						info={t('common.resetform')}
-						icon={warningIcon}
-						primaryButtonLabel={resetButtonLabel}
-						secondaryButtonLabel={t('common.discard')}
-						handlePrimaryButtonClick={handleResetConfirmation}
-						handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
-					/>
-				</form>
-			</div>
-		</>
+				</div>
+				<ConfirmationDialog
+					isOpen={openResetConfirmation}
+					title={resetButtonLabel.toUpperCase()}
+					info={t('common.resetform')}
+					icon={warningIcon}
+					primaryButtonLabel={resetButtonLabel}
+					secondaryButtonLabel={t('common.discard')}
+					handlePrimaryButtonClick={handleResetConfirmation}
+					handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
+				/>
+			</form>
+		</div>
 	);
 };
 

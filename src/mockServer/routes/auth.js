@@ -16,7 +16,7 @@ export const authRoutes = (server) => {
 					break;
 			}
 		});
-		server.post('/logout').intercept((req, res) => {
+		server.post('/logout').intercept((_req, res) => {
 			res.status(200);
 		});
 	});

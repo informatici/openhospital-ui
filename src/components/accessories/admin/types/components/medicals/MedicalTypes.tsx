@@ -28,7 +28,7 @@ const MedicalTypes = () => {
 	}, [dispatch]);
 
 	const handleEdit = (row: MedicalTypeDTO) => {
-		navigate(PATHS.admin_medicals_types_edit.replace(':code', row.code!), {
+		navigate(PATHS.admin_medicals_types_edit.replace(':code', row.code ?? ''), {
 			state: row,
 		});
 	};

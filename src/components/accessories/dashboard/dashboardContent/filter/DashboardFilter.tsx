@@ -3,7 +3,7 @@ import { type DateRange, ToggleButton, ToggleButtonGroup } from '@mui/lab';
 import { IconButton } from '@mui/material';
 import { isEmpty } from 'lodash';
 import moment from 'moment';
-import React, { type FC, useCallback, useEffect, useState } from 'react';
+import { type FC, useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import DateField from '../../../dateField/DateField';
 import DateRangeField from '../../../dateRangeField/DateRangeField';
@@ -28,21 +28,21 @@ export const DashboardFilter: FC<IOwnProps> = ({ onPeriodChange }) => {
 	useEffect(() => {
 		onPeriodChange([range[0], range[1]]);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [range]);
+	}, [range, onPeriodChange]);
 
 	const handleViewChange = useCallback(
-		(event: any, value: any) => {
+		(_event: any, value: any) => {
 			if (!isEmpty(value)) {
 				setView(value as TViewType);
 				setSelection('current');
 			}
 		},
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-		[view],
+		[setSelection, setView],
 	);
 
 	const handleSelectionChange = useCallback(
-		(event: any, value: any) => {
+		(_event: any, value: any) => {
 			if (!isEmpty(value)) {
 				setSelection(value as TPeriodType);
 			}
@@ -51,7 +51,7 @@ export const DashboardFilter: FC<IOwnProps> = ({ onPeriodChange }) => {
 	);
 
 	const onIconClickHandler = useCallback(
-		(event: any) => {
+		(_event: any) => {
 			setOpen(!open);
 		},
 		[open],
@@ -69,7 +69,7 @@ export const DashboardFilter: FC<IOwnProps> = ({ onPeriodChange }) => {
 			setOpen(false);
 		},
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-		[dateRange],
+		[setDateRange, setSelection],
 	);
 
 	const handleDateChange = useCallback(
@@ -148,7 +148,7 @@ export const DashboardFilter: FC<IOwnProps> = ({ onPeriodChange }) => {
 									format="dd/MM/YYY"
 									onClose={() => setOpen(false)}
 									onChange={handleDateRangeChange}
-									TextFieldComponent={(props) => (
+									TextFieldComponent={(_props) => (
 										<IconButton
 											onClick={() => {
 												setOpen(!open);
@@ -168,7 +168,7 @@ export const DashboardFilter: FC<IOwnProps> = ({ onPeriodChange }) => {
 									fieldValue={dateRange[0]?.toISOString() ?? ''}
 									format="dd/MM/YYY"
 									onChange={handleDateChange}
-									TextFieldComponent={(props) => (
+									TextFieldComponent={(_props) => (
 										<IconButton onClick={onIconClickHandler}>
 											<CalendarTodaySharp />
 										</IconButton>

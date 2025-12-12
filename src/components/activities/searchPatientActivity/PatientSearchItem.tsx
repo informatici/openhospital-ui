@@ -1,4 +1,4 @@
-import React, { type FunctionComponent, useEffect, useState } from 'react';
+import { type FunctionComponent, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import { PatientDTOStatusEnum } from '../../../generated';
@@ -87,7 +87,7 @@ const PatientSearchItem: FunctionComponent<IPatientSearchItemProps> = ({
 								<div className="patientSearchItem__profile__content__item">
 									<strong>{t('patient.address')}:</strong>{' '}
 									{`${patient.address || ''} ${
-										patient.city ? ' - ' + patient.city : ''
+										patient.city ? ` - ${patient.city}` : ''
 									}`}
 								</div>
 							)}

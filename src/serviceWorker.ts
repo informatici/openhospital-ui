@@ -83,7 +83,7 @@ function registerValidSW(swUrl: string, config?: Config) {
 							);
 
 							// Execute callback
-							if (config && config.onUpdate) {
+							if (config?.onUpdate) {
 								config.onUpdate(registration);
 							}
 						} else {
@@ -93,7 +93,7 @@ function registerValidSW(swUrl: string, config?: Config) {
 							console.log('Content is cached for offline use.');
 
 							// Execute callback
-							if (config && config.onSuccess) {
+							if (config?.onSuccess) {
 								config.onSuccess(registration);
 							}
 						}

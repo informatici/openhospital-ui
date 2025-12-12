@@ -99,24 +99,24 @@ const TherapyForm: FC<TherapyProps> = ({
 	const computeEndDate = (startDate: any) => {
 		const endDate = moment(startDate)
 			.add(-1, 'days')
-			.add(parseInt(formik.values.nbDays), 'days')
-			.add(parseInt(formik.values.nbWeeks), 'weeks')
-			.add(parseInt(formik.values.nbMonths), 'months');
+			.add(parseInt(formik.values.nbDays, 10), 'days')
+			.add(parseInt(formik.values.nbWeeks, 10), 'weeks')
+			.add(parseInt(formik.values.nbMonths, 10), 'months');
 		setFieldValue('endDate', endDate.toISOString());
 		formik.validateField('endDate');
 	};
 
 	const handleBlur = useCallback(
 		(fieldName: TherapyFormFieldName) => (e: React.FocusEvent<any>) => {
-			const value = parseInt(e.target.value);
+			const value = parseInt(e.target.value, 10);
 			setFieldValue(
 				fieldName,
-				isNaN(value) ? initialFields[fieldName].value : Math.abs(value),
+				Number.isNaN(value) ? initialFields[fieldName].value : Math.abs(value),
 			);
 			computeEndDate(formik.values.startDate);
 		},
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-		[formik],
+		[formik, computeEndDate, setFieldValue],
 	);
 
 	const dateFieldHandleOnChange = useCallback(
@@ -128,7 +128,7 @@ const TherapyForm: FC<TherapyProps> = ({
 			}
 		},
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-		[formik],
+		[formik, computeEndDate, setFieldValue],
 	);
 
 	const isValid = (fieldName: string): boolean => {
@@ -166,182 +166,177 @@ const TherapyForm: FC<TherapyProps> = ({
 	}, [shouldResetForm, resetForm, resetFormCallback]);
 
 	return (
-		<>
-			<div className="patientTherapyForm">
-				<h5 className="formInsertMode">
-					{creationMode
-						? t('therapy.newtherapy')
-						: t('therapy.edittherapy') +
-							': ' +
-							renderDate(formik.values.startDate) +
-							' - ' +
-							renderDate(formik.values.endDate)}
-				</h5>
-				<form
-					className="patientTherapyForm__form"
-					onSubmit={formik.handleSubmit}
-				>
-					<div className="row start-sm center-xs">
-						<div className="fullWidth patientTherapyForm__item">
-							<AutocompleteField
-								fieldName="medicalId"
-								fieldValue={formik.values.medicalId}
-								label={t('therapy.medical')}
-								isValid={isValid('medicalId')}
-								errorText={getErrorText('medicalId')}
-								onBlur={onBlurCallback('medicalId')}
-								options={medicalOptions}
-								disabled={isLoading}
-							/>
-						</div>
+		<div className="patientTherapyForm">
+			<h5 className="formInsertMode">
+				{creationMode
+					? t('therapy.newtherapy')
+					: t('therapy.edittherapy') +
+						': ' +
+						renderDate(formik.values.startDate) +
+						' - ' +
+						renderDate(formik.values.endDate)}
+			</h5>
+			<form className="patientTherapyForm__form" onSubmit={formik.handleSubmit}>
+				<div className="row start-sm center-xs">
+					<div className="fullWidth patientTherapyForm__item">
+						<AutocompleteField
+							fieldName="medicalId"
+							fieldValue={formik.values.medicalId}
+							label={t('therapy.medical')}
+							isValid={isValid('medicalId')}
+							errorText={getErrorText('medicalId')}
+							onBlur={onBlurCallback('medicalId')}
+							options={medicalOptions}
+							disabled={isLoading}
+						/>
 					</div>
-					<div className="row start-sm center-xs bottom-sm">
-						<div className="patientTherapyForm__item">
-							<TextField
-								field={formik.getFieldProps('qty')}
-								theme="regular"
-								label={t('therapy.quantity')}
-								isValid={isValid('qty')}
-								errorText={getErrorText('qty')}
-								onBlur={formik.handleBlur}
-								type="number"
-								disabled={isLoading}
-							/>
-						</div>
-						<div className="patientTherapyForm__item">
-							<TextField
-								field={formik.getFieldProps('freqInDay')}
-								theme="regular"
-								label={t('therapy.frequencyInDay')}
-								isValid={isValid('freqInDay')}
-								errorText={getErrorText('freqInDay')}
-								onBlur={formik.handleBlur}
-								type="number"
-								disabled={isLoading}
-							/>
-						</div>
-						<div className="patientTherapyForm__item">
-							<TextField
-								field={formik.getFieldProps('nbDays')}
-								theme="regular"
-								label={t('therapy.nbdays')}
-								isValid={isValid('nbDays')}
-								errorText={getErrorText('nbDays')}
-								onBlur={handleBlur('nbDays')}
-								type="number"
-								disabled={isLoading}
-							/>
-						</div>
-						<div className="patientTherapyForm__item">
-							<TextField
-								field={formik.getFieldProps('nbWeeks')}
-								theme="regular"
-								label={t('therapy.nbweeks')}
-								isValid={isValid('nbWeeks')}
-								errorText={getErrorText('nbWeeks')}
-								onBlur={handleBlur('nbWeeks')}
-								type="number"
-								disabled={isLoading}
-							/>
-						</div>
-						<div className="patientTherapyForm__item">
-							<TextField
-								field={formik.getFieldProps('nbMonths')}
-								theme="regular"
-								label={t('therapy.nbmonths')}
-								isValid={isValid('nbMonths')}
-								errorText={getErrorText('nbMonths')}
-								onBlur={handleBlur('nbMonths')}
-								type="number"
-								disabled={isLoading}
-							/>
-						</div>
-						<div id="frequency" className="patientTherapyForm__item">
-							<TextField
-								field={formik.getFieldProps('freqInPeriod')}
-								theme="regular"
-								label={t('therapy.frequencyInPeriod')}
-								isValid={isValid('freqInPeriod')}
-								errorText={getErrorText('freqInPeriod')}
-								onBlur={formik.handleBlur}
-								type="number"
-								disabled={isLoading}
-							/>
-						</div>
-						<div className="patientTherapyForm__item">
-							<DateField
-								fieldName="startDate"
-								fieldValue={formik.values.startDate}
-								disableFuture={false}
-								theme="regular"
-								format="dd/MM/yyyy"
-								isValid={isValid('startDate')}
-								errorText={getErrorText('startDate')}
-								label={t('therapy.startDate')}
-								onChange={dateFieldHandleOnChange('startDate')}
-								disabled={isLoading}
-							/>
-						</div>
-						<div className="patientTherapyForm__item">
-							<DateField
-								fieldName="endDate"
-								fieldValue={formik.values.endDate}
-								disableFuture={false}
-								theme="regular"
-								format="dd/MM/yyyy"
-								isValid={isValid('endDate')}
-								errorText={getErrorText('endDate')}
-								label={t('therapy.endDate')}
-								onChange={dateFieldHandleOnChange('endDate')}
-								disabled={true}
-							/>
-						</div>
+				</div>
+				<div className="row start-sm center-xs bottom-sm">
+					<div className="patientTherapyForm__item">
+						<TextField
+							field={formik.getFieldProps('qty')}
+							theme="regular"
+							label={t('therapy.quantity')}
+							isValid={isValid('qty')}
+							errorText={getErrorText('qty')}
+							onBlur={formik.handleBlur}
+							type="number"
+							disabled={isLoading}
+						/>
 					</div>
-					<div className="row start-sm center-xs">
-						<div className="fullWidth patientTherapyForm__item">
-							<TextField
-								multiline={true}
-								theme="regular"
-								type="text"
-								field={formik.getFieldProps('note')}
-								label={t('therapy.note')}
-								isValid={isValid('note')}
-								errorText={getErrorText('note')}
-								onBlur={formik.handleBlur}
-								disabled={isLoading}
-							/>
-						</div>
+					<div className="patientTherapyForm__item">
+						<TextField
+							field={formik.getFieldProps('freqInDay')}
+							theme="regular"
+							label={t('therapy.frequencyInDay')}
+							isValid={isValid('freqInDay')}
+							errorText={getErrorText('freqInDay')}
+							onBlur={formik.handleBlur}
+							type="number"
+							disabled={isLoading}
+						/>
 					</div>
-					<div className="patientTherapyForm__buttonSet">
-						<div className="submit_button">
-							<Button type="submit" variant="contained" disabled={isLoading}>
-								{submitButtonLabel}
-							</Button>
-						</div>
-						<div className="reset_button">
-							<Button
-								type="reset"
-								variant="text"
-								disabled={isLoading}
-								onClick={() => setOpenResetConfirmation(true)}
-							>
-								{resetButtonLabel}
-							</Button>
-						</div>
+					<div className="patientTherapyForm__item">
+						<TextField
+							field={formik.getFieldProps('nbDays')}
+							theme="regular"
+							label={t('therapy.nbdays')}
+							isValid={isValid('nbDays')}
+							errorText={getErrorText('nbDays')}
+							onBlur={handleBlur('nbDays')}
+							type="number"
+							disabled={isLoading}
+						/>
 					</div>
-					<ConfirmationDialog
-						isOpen={openResetConfirmation}
-						title={resetButtonLabel.toUpperCase()}
-						info={t('common.resetform')}
-						icon={warningIcon}
-						primaryButtonLabel={resetButtonLabel}
-						secondaryButtonLabel={t('common.discard')}
-						handlePrimaryButtonClick={handleResetConfirmation}
-						handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
-					/>
-				</form>
-			</div>
-		</>
+					<div className="patientTherapyForm__item">
+						<TextField
+							field={formik.getFieldProps('nbWeeks')}
+							theme="regular"
+							label={t('therapy.nbweeks')}
+							isValid={isValid('nbWeeks')}
+							errorText={getErrorText('nbWeeks')}
+							onBlur={handleBlur('nbWeeks')}
+							type="number"
+							disabled={isLoading}
+						/>
+					</div>
+					<div className="patientTherapyForm__item">
+						<TextField
+							field={formik.getFieldProps('nbMonths')}
+							theme="regular"
+							label={t('therapy.nbmonths')}
+							isValid={isValid('nbMonths')}
+							errorText={getErrorText('nbMonths')}
+							onBlur={handleBlur('nbMonths')}
+							type="number"
+							disabled={isLoading}
+						/>
+					</div>
+					<div id="frequency" className="patientTherapyForm__item">
+						<TextField
+							field={formik.getFieldProps('freqInPeriod')}
+							theme="regular"
+							label={t('therapy.frequencyInPeriod')}
+							isValid={isValid('freqInPeriod')}
+							errorText={getErrorText('freqInPeriod')}
+							onBlur={formik.handleBlur}
+							type="number"
+							disabled={isLoading}
+						/>
+					</div>
+					<div className="patientTherapyForm__item">
+						<DateField
+							fieldName="startDate"
+							fieldValue={formik.values.startDate}
+							disableFuture={false}
+							theme="regular"
+							format="dd/MM/yyyy"
+							isValid={isValid('startDate')}
+							errorText={getErrorText('startDate')}
+							label={t('therapy.startDate')}
+							onChange={dateFieldHandleOnChange('startDate')}
+							disabled={isLoading}
+						/>
+					</div>
+					<div className="patientTherapyForm__item">
+						<DateField
+							fieldName="endDate"
+							fieldValue={formik.values.endDate}
+							disableFuture={false}
+							theme="regular"
+							format="dd/MM/yyyy"
+							isValid={isValid('endDate')}
+							errorText={getErrorText('endDate')}
+							label={t('therapy.endDate')}
+							onChange={dateFieldHandleOnChange('endDate')}
+							disabled={true}
+						/>
+					</div>
+				</div>
+				<div className="row start-sm center-xs">
+					<div className="fullWidth patientTherapyForm__item">
+						<TextField
+							multiline={true}
+							theme="regular"
+							type="text"
+							field={formik.getFieldProps('note')}
+							label={t('therapy.note')}
+							isValid={isValid('note')}
+							errorText={getErrorText('note')}
+							onBlur={formik.handleBlur}
+							disabled={isLoading}
+						/>
+					</div>
+				</div>
+				<div className="patientTherapyForm__buttonSet">
+					<div className="submit_button">
+						<Button type="submit" variant="contained" disabled={isLoading}>
+							{submitButtonLabel}
+						</Button>
+					</div>
+					<div className="reset_button">
+						<Button
+							type="reset"
+							variant="text"
+							disabled={isLoading}
+							onClick={() => setOpenResetConfirmation(true)}
+						>
+							{resetButtonLabel}
+						</Button>
+					</div>
+				</div>
+				<ConfirmationDialog
+					isOpen={openResetConfirmation}
+					title={resetButtonLabel.toUpperCase()}
+					info={t('common.resetform')}
+					icon={warningIcon}
+					primaryButtonLabel={resetButtonLabel}
+					secondaryButtonLabel={t('common.discard')}
+					handlePrimaryButtonClick={handleResetConfirmation}
+					handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
+				/>
+			</form>
+		</div>
 	);
 };
 

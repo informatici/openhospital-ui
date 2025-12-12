@@ -52,7 +52,7 @@ export const ChangeLabStatus: React.FC<ChangeLabStatusProps> = ({
 					<IconButton
 						edge="end"
 						color="inherit"
-						onClick={(event: any) => {
+						onClick={(_event: any) => {
 							handleClose();
 						}}
 						aria-label="close"
@@ -66,7 +66,7 @@ export const ChangeLabStatus: React.FC<ChangeLabStatusProps> = ({
 					<p>
 						{t('lab.changelabstatusto', {
 							code: labCode,
-							status: t('lab.statuses.' + status.toLowerCase()),
+							status: t(`lab.statuses.${status.toLowerCase()}`),
 						})}
 						. {t('common.continue')}
 					</p>

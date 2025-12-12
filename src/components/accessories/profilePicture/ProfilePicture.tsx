@@ -16,7 +16,7 @@ import {
 import { GridCloseIcon } from '@mui/x-data-grid';
 import classNames from 'classnames';
 import { isEmpty } from 'lodash';
-import React, {
+import {
 	type ChangeEvent,
 	type FunctionComponent,
 	useCallback,
@@ -61,7 +61,7 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
 	useEffect(() => {
 		if (preLoadedPicture) {
 			setPicture({
-				preview: 'data:image/jpeg;base64,' + preLoadedPicture,
+				preview: `data:image/jpeg;base64,${preLoadedPicture}`,
 				original: preLoadedPicture,
 			});
 		}
@@ -78,7 +78,7 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
 			setFromFileSystem(false);
 			openCropper();
 		}
-	}, [fromFileSystem, pictureToResize, showModal]);
+	}, [fromFileSystem, pictureToResize, showModal, openCropper]);
 
 	const pictureInputRef = useRef<HTMLInputElement>(null);
 
@@ -111,7 +111,7 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
 			preprocessImage(setPicture, value, setShowError);
 			closeCropper();
 		},
-		[setPicture],
+		[closeCropper],
 	);
 
 	const confirmWebcamPicture = useCallback(
@@ -120,7 +120,7 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
 			closeModal();
 		},
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-		[setPicture],
+		[closeModal],
 	);
 
 	const handleChange = useCallback(
@@ -128,7 +128,7 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
 			setFromFileSystem(true);
 			extractPictureFromSelection(setPictureToResize)(e);
 		},
-		[setPictureToResize],
+		[],
 	);
 
 	const handleReset = () => {
@@ -142,7 +142,7 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
 			removePicture();
 			resetCallback();
 		}
-	}, [shouldReset, resetCallback]);
+	}, [shouldReset, resetCallback, removePicture]);
 
 	return (
 		<div data-cy="profile-picture" className="profilePicture">
@@ -239,30 +239,28 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
 						<Webcam mirrored onResizeConfirm={confirmWebcamPicture} />
 					)}
 					{!showWebcam && (
-						<>
-							<DialogActions className="dialog__actions">
-								<Button
-									onClick={() => {
-										closeModal();
-										choosePicture();
-									}}
-									color="primary"
-									variant="contained"
-									startIcon={<AddPhotoAlternateIcon />}
-									data-cy="dialod-choose-photo-button"
-								>
-									{t('picture.upload')}
-								</Button>
-								<Button
-									onClick={openWebcam}
-									color="primary"
-									variant="contained"
-									startIcon={<PhotoCameraIcon />}
-								>
-									{t('picture.useWebcam')}
-								</Button>
-							</DialogActions>
-						</>
+						<DialogActions className="dialog__actions">
+							<Button
+								onClick={() => {
+									closeModal();
+									choosePicture();
+								}}
+								color="primary"
+								variant="contained"
+								startIcon={<AddPhotoAlternateIcon />}
+								data-cy="dialod-choose-photo-button"
+							>
+								{t('picture.upload')}
+							</Button>
+							<Button
+								onClick={openWebcam}
+								color="primary"
+								variant="contained"
+								startIcon={<PhotoCameraIcon />}
+							>
+								{t('picture.useWebcam')}
+							</Button>
+						</DialogActions>
 					)}
 				</DialogContent>
 			</Dialog>

@@ -68,7 +68,7 @@ export const priceSlice = createSlice({
 			.addCase(thunks.deletePriceList.pending, (state) => {
 				state.deletePriceList = ApiResponse.loading();
 			})
-			.addCase(thunks.deletePriceList.fulfilled, (state, action) => {
+			.addCase(thunks.deletePriceList.fulfilled, (state, _action) => {
 				state.deletePriceList.status = 'SUCCESS';
 			})
 			.addCase(thunks.deletePriceList.rejected, (state, action) => {

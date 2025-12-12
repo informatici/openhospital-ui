@@ -332,7 +332,7 @@ export class BillsApi extends BaseAPI {
 		};
 
 		if (patientCode != null) {
-			query['patient_code'] = patientCode;
+			query.patient_code = patientCode;
 		}
 
 		return this.request<Array<BillDTO>>(
@@ -448,7 +448,7 @@ export class BillsApi extends BaseAPI {
 		};
 
 		if (patientCode != null) {
-			query['patient_code'] = patientCode;
+			query.patient_code = patientCode;
 		}
 
 		return this.request<Array<BillPaymentsDTO>>(

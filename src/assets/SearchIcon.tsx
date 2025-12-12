@@ -1,4 +1,4 @@
-import React, { type FunctionComponent } from 'react';
+import type { FunctionComponent } from 'react';
 
 interface IProps {
 	width: string;
@@ -14,6 +14,7 @@ const SearchIcon: FunctionComponent<IProps> = ({ width, height }) => (
 		xmlns="http://www.w3.org/2000/svg"
 		xmlnsXlink="http://www.w3.org/1999/xlink"
 	>
+		<title>Search</title>
 		<defs>
 			<polygon
 				id="path-1"

@@ -2,7 +2,7 @@ import { dischargeTypesDTO } from '../fixtures/dischargeTypesDTO';
 
 export const dischargeTypesRoutes = (server) => {
 	server.namespace('/dischargetypes', () => {
-		server.get('/').intercept((req, res) => {
+		server.get('/').intercept((_req, res) => {
 			res.status(200).json(dischargeTypesDTO);
 		});
 		server.post('/').intercept((req, res) => {

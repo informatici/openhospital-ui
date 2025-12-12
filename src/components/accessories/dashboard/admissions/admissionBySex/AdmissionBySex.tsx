@@ -29,7 +29,7 @@ export const AdmissionsBySex: FC<TDashboardComponentProps & IOwnProps> = ({
 
 	const { total, success, status, data, csvData } = useAdmBySexData();
 
-	const [displaySize, setDisplaySize] = useState<{
+	const [_displaySize, setDisplaySize] = useState<{
 		width: number;
 		height: number;
 	}>();

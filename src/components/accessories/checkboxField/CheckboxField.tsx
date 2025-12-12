@@ -1,5 +1,5 @@
 import { Checkbox, FormControlLabel } from '@mui/material';
-import React, { type FunctionComponent, useEffect, useState } from 'react';
+import { type FunctionComponent, useEffect, useState } from 'react';
 import './styles.scss';
 import type { IProps } from './types';
 
@@ -17,7 +17,7 @@ const CheckboxField: FunctionComponent<IProps> = ({
 		setValue(checked);
 	}, [checked]);
 
-	const handleChange = (event: any, value: boolean) => {
+	const handleChange = (_event: any, value: boolean) => {
 		onChange(value);
 		setValue(value);
 	};

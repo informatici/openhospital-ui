@@ -90,7 +90,7 @@ export const BillsRecap: FC = () => {
 	useEffect(() => {
 		dispatch(searchBills(filter as TFilterValues));
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [dispatch]);
+	}, [dispatch, filter]);
 
 	useEffect(() => {
 		dispatch(getBillsByYear(+year.value));
@@ -119,7 +119,7 @@ export const BillsRecap: FC = () => {
 				},
 				title: {
 					display: true,
-					text: title + ' ' + chosenYear,
+					text: `${title} ${chosenYear}`,
 					padding: {
 						top: 0,
 						bottom: 20,
@@ -221,13 +221,13 @@ export const BillsRecap: FC = () => {
 			],
 		};
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [summaryCurrentYear]);
+	}, [summaryCurrentYear, t]);
 
 	const getOptionsFromYears = (years: number[]) => {
 		return years.map((item) => {
 			return {
-				label: item + '',
-				value: item + '',
+				label: `${item}`,
+				value: `${item}`,
 			};
 		});
 	};
@@ -309,7 +309,7 @@ export const BillsRecap: FC = () => {
 						label={t('bill.year')}
 						isValid={false}
 						errorText={''}
-						onBlur={(e: any, value: any) => {
+						onBlur={(_e: any, value: any) => {
 							setYear({ value: value, label: value });
 						}}
 						options={getOptionsFromYears(yearList)}

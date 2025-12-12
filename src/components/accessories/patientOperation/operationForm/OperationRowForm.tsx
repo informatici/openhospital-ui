@@ -153,130 +153,128 @@ const OperationRowForm: FC<OperationRowProps> = ({
 	];
 
 	return (
-		<>
-			<div className="patientOperationForm">
-				<h5 className="formInsertMode">
-					{creationMode
-						? t('operation.newoperation')
-						: t('operation.editoperation') +
-							': ' +
-							renderDate(formik.values.opDate)}
-				</h5>
-				<form
-					className="patientOperationForm__form"
-					onSubmit={formik.handleSubmit}
-				>
-					<div className="row start-sm center-xs">
-						<div className="fullWidth patientOperationForm__item">
-							<DateField
-								fieldName="opDate"
-								fieldValue={formik.values.opDate}
-								disableFuture={true}
-								theme="regular"
-								format="dd/MM/yyyy"
-								isValid={isValid('opDate')}
-								errorText={getErrorText('opDate')}
-								label={t('operation.opDate')}
-								onChange={dateFieldHandleOnChange('opDate')}
-								disabled={isLoading}
-								required={FIELD_VALIDATION.REQUIRED}
-							/>
-						</div>
-						<div className="fullWidth patientOperationForm__item">
-							<AutocompleteField
-								fieldName="operation"
-								fieldValue={formik.values.operation}
-								label={t('operation.operation')}
-								isValid={isValid('operation')}
-								errorText={getErrorText('operation')}
-								onBlur={onBlurCallback('operation')}
-								options={renderOptions(operationList)}
-								loading={operationStatus === 'LOADING'}
-								disabled={isLoading}
-							/>
-						</div>
+		<div className="patientOperationForm">
+			<h5 className="formInsertMode">
+				{creationMode
+					? t('operation.newoperation')
+					: t('operation.editoperation') +
+						': ' +
+						renderDate(formik.values.opDate)}
+			</h5>
+			<form
+				className="patientOperationForm__form"
+				onSubmit={formik.handleSubmit}
+			>
+				<div className="row start-sm center-xs">
+					<div className="fullWidth patientOperationForm__item">
+						<DateField
+							fieldName="opDate"
+							fieldValue={formik.values.opDate}
+							disableFuture={true}
+							theme="regular"
+							format="dd/MM/yyyy"
+							isValid={isValid('opDate')}
+							errorText={getErrorText('opDate')}
+							label={t('operation.opDate')}
+							onChange={dateFieldHandleOnChange('opDate')}
+							disabled={isLoading}
+							required={FIELD_VALIDATION.REQUIRED}
+						/>
 					</div>
+					<div className="fullWidth patientOperationForm__item">
+						<AutocompleteField
+							fieldName="operation"
+							fieldValue={formik.values.operation}
+							label={t('operation.operation')}
+							isValid={isValid('operation')}
+							errorText={getErrorText('operation')}
+							onBlur={onBlurCallback('operation')}
+							options={renderOptions(operationList)}
+							loading={operationStatus === 'LOADING'}
+							disabled={isLoading}
+						/>
+					</div>
+				</div>
 
-					<div className="row start-sm center-xs">
-						{!opd && (
-							<div className="patientOperationForm__item">
-								<TextField
-									field={formik.getFieldProps('transUnit')}
-									theme="regular"
-									label={t('operation.transUnit')}
-									isValid={isValid('transUnit')}
-									errorText={getErrorText('transUnit')}
-									onBlur={formik.handleBlur}
-									type="number"
-									disabled={isLoading}
-								/>
-							</div>
-						)}
-					</div>
-					{!hideResultField && (
-						<div className="row start-sm center-xs">
-							<div className="fullWidth patientOperationForm__item">
-								<SelectField
-									fieldName="opResult"
-									fieldValue={formik.values.opResult}
-									label={t('operation.opResult')}
-									isValid={isValid('opResult')}
-									errorText={getErrorText('opResult')}
-									onBlur={onBlurCallback('opResult')}
-									options={operationResultOptions}
-									disabled={isLoading}
-								/>
-							</div>
+				<div className="row start-sm center-xs">
+					{!opd && (
+						<div className="patientOperationForm__item">
+							<TextField
+								field={formik.getFieldProps('transUnit')}
+								theme="regular"
+								label={t('operation.transUnit')}
+								isValid={isValid('transUnit')}
+								errorText={getErrorText('transUnit')}
+								onBlur={formik.handleBlur}
+								type="number"
+								disabled={isLoading}
+							/>
 						</div>
 					)}
+				</div>
+				{!hideResultField && (
 					<div className="row start-sm center-xs">
 						<div className="fullWidth patientOperationForm__item">
-							<TextField
-								field={formik.getFieldProps('remarks')}
-								theme="regular"
-								label={t('operation.remarks')}
-								multiline={true}
-								type="text"
-								isValid={isValid('remarks')}
-								errorText={getErrorText('remarks')}
-								onBlur={formik.handleBlur}
-								rows={5}
+							<SelectField
+								fieldName="opResult"
+								fieldValue={formik.values.opResult}
+								label={t('operation.opResult')}
+								isValid={isValid('opResult')}
+								errorText={getErrorText('opResult')}
+								onBlur={onBlurCallback('opResult')}
+								options={operationResultOptions}
 								disabled={isLoading}
-								maxLength={250}
 							/>
 						</div>
 					</div>
-
-					<div className="patientOperationForm__buttonSet">
-						<div className="submit_button">
-							<Button type="submit" variant="contained" disabled={isLoading}>
-								{submitButtonLabel}
-							</Button>
-						</div>
-						<div className="reset_button">
-							<Button
-								type="reset"
-								variant="text"
-								disabled={isLoading}
-								onClick={() => setOpenResetConfirmation(true)}
-							>
-								{resetButtonLabel}
-							</Button>
-						</div>
+				)}
+				<div className="row start-sm center-xs">
+					<div className="fullWidth patientOperationForm__item">
+						<TextField
+							field={formik.getFieldProps('remarks')}
+							theme="regular"
+							label={t('operation.remarks')}
+							multiline={true}
+							type="text"
+							isValid={isValid('remarks')}
+							errorText={getErrorText('remarks')}
+							onBlur={formik.handleBlur}
+							rows={5}
+							disabled={isLoading}
+							maxLength={250}
+						/>
 					</div>
-					<ConfirmationDialog
-						isOpen={openResetConfirmation}
-						title={resetButtonLabel.toUpperCase()}
-						info={t('common.resetform')}
-						icon={warningIcon}
-						primaryButtonLabel={resetButtonLabel}
-						secondaryButtonLabel={t('common.discard')}
-						handlePrimaryButtonClick={handleResetConfirmation}
-						handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
-					/>
-				</form>
-			</div>
-		</>
+				</div>
+
+				<div className="patientOperationForm__buttonSet">
+					<div className="submit_button">
+						<Button type="submit" variant="contained" disabled={isLoading}>
+							{submitButtonLabel}
+						</Button>
+					</div>
+					<div className="reset_button">
+						<Button
+							type="reset"
+							variant="text"
+							disabled={isLoading}
+							onClick={() => setOpenResetConfirmation(true)}
+						>
+							{resetButtonLabel}
+						</Button>
+					</div>
+				</div>
+				<ConfirmationDialog
+					isOpen={openResetConfirmation}
+					title={resetButtonLabel.toUpperCase()}
+					info={t('common.resetform')}
+					icon={warningIcon}
+					primaryButtonLabel={resetButtonLabel}
+					secondaryButtonLabel={t('common.discard')}
+					handlePrimaryButtonClick={handleResetConfirmation}
+					handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
+				/>
+			</form>
+		</div>
 	);
 };
 

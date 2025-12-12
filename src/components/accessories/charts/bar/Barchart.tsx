@@ -1,4 +1,4 @@
-import React, { type FC } from 'react';
+import type { FC } from 'react';
 import { Bar } from 'react-chartjs-2';
 import './styles.scss';
 import type { IOwnProps } from './types';

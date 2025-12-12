@@ -12,11 +12,11 @@ const RouterTabs: FunctionComponent<IProps> = ({ config, defaultRoute }) => {
 	const tabs = useFilterPermission(config);
 	const currentPath: string | undefined = config
 		.map((item) => item.path)
-		.find((path) =>
+		.find((_path) =>
 			pathname.match(new RegExp(`^(${pathname})([/?].*)?$`, 'gi')),
 		);
 
-	const switchTab = (path: string) => {
+	const switchTab = (_path: string) => {
 		navigate(pathname);
 	};
 

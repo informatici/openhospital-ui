@@ -1,5 +1,5 @@
 import { TextField as MaterialComponent } from '@mui/material';
-import React, { type FunctionComponent } from 'react';
+import type { FunctionComponent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FIELD_VALIDATION } from '../../../types';
 import './styles.scss';
@@ -28,7 +28,7 @@ const TextField: FunctionComponent<IProps> = ({
 		<div style={{ position: 'relative' }}>
 			<MaterialComponent
 				id={field.name}
-				label={required === FIELD_VALIDATION.SUGGESTED ? label + ' **' : label}
+				label={required === FIELD_VALIDATION.SUGGESTED ? `${label} **` : label}
 				type={type || ''}
 				onChange={field.onChange}
 				onBlur={onBlur}

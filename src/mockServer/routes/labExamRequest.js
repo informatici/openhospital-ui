@@ -2,7 +2,7 @@ import { examRequestDTO } from '~/mockServer/fixtures/examRequestDTO';
 
 export const labExamRequestRoutes = (server) => {
 	server.namespace('/laboratories/examRequest', () => {
-		server.get('/patient/:id').intercept((req, res) => {
+		server.get('/patient/:id').intercept((_req, res) => {
 			res.status(200).json(examRequestDTO);
 		});
 		server.post('/').intercept((req, res) => {

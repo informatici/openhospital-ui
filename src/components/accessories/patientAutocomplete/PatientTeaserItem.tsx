@@ -1,6 +1,5 @@
 import { CakeOutlined } from '@mui/icons-material';
 import { SvgIcon } from '@mui/material';
-import React from 'react';
 import { ReactComponent as FemaleIcon } from '../../../assets/gender-female.svg';
 import { ReactComponent as MaleIcon } from '../../../assets/gender-male.svg';
 import { ReactComponent as TaxIcon } from '../../../assets/tax.svg';
@@ -46,7 +45,7 @@ const PatientTeaserItem = (patient: PatientDTO) => {
 							<FemaleIcon style={{ fontSize: 'small' }} />
 						</SvgIcon>
 					)}
-					{patient.firstName + ' ' + patient.secondName}
+					{`${patient.firstName} ${patient.secondName}`}
 				</span>
 				<span>
 					<SvgIcon className="small_icon">

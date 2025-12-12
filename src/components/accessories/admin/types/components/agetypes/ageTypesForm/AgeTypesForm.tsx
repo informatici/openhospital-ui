@@ -118,13 +118,13 @@ const AgeTypesForm: FC<IAgeTypesFormProps> = ({
 							</tr>
 						</thead>
 						<tbody>
-							{rows.map((fields, index) => (
+							{rows.map((field, index) => (
 								<AgeTypeFields
 									formik={formik}
 									getErrorText={getErrorText}
 									index={index}
 									isValid={isValid}
-									key={index}
+									key={field.code.value}
 								/>
 							))}
 						</tbody>

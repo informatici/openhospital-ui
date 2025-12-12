@@ -149,7 +149,7 @@ const DischargeForm: FC<DischargeProps> = ({
 			setFieldValue('bedDays', days);
 		},
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-		[setFieldValue, admission],
+		[setFieldValue, admission, formik.setFieldTouched, formik.validateField],
 	);
 
 	const isValid = (fieldName: string): boolean => {
@@ -199,143 +199,141 @@ const DischargeForm: FC<DischargeProps> = ({
 	);
 
 	return (
-		<>
-			<div className="patientAdmissionForm">
-				<form
-					className="patientAdmissionForm__form"
-					onSubmit={formik.handleSubmit}
-				>
-					<div className="row start-sm center-xs">
-						<div className="patientAdmissionForm__item">
-							<DateField
-								fieldName="disDate"
-								fieldValue={formik.values.disDate}
-								disableFuture={true}
-								theme="regular"
-								format="dd/MM/yyyy"
-								isValid={isValid('disDate')}
-								errorText={getErrorText('disDate')}
-								label={t('admission.disDate')}
-								onChange={dateFieldHandleOnChange('disDate')}
-								disabled={isLoading}
-							/>
-						</div>
-						<div className="patientAdmissionForm__item">
-							<TextField
-								field={formik.getFieldProps('bedDays')}
-								theme="regular"
-								label={t('admission.bedDays')}
-								isValid={isValid('bedDays')}
-								errorText={getErrorText('bedDays')}
-								onBlur={formik.handleBlur}
-								disabled={true}
-								type="number"
-							/>
-						</div>
+		<div className="patientAdmissionForm">
+			<form
+				className="patientAdmissionForm__form"
+				onSubmit={formik.handleSubmit}
+			>
+				<div className="row start-sm center-xs">
+					<div className="patientAdmissionForm__item">
+						<DateField
+							fieldName="disDate"
+							fieldValue={formik.values.disDate}
+							disableFuture={true}
+							theme="regular"
+							format="dd/MM/yyyy"
+							isValid={isValid('disDate')}
+							errorText={getErrorText('disDate')}
+							label={t('admission.disDate')}
+							onChange={dateFieldHandleOnChange('disDate')}
+							disabled={isLoading}
+						/>
 					</div>
-					<div className="row start-sm center-xs">
-						<div className="fullWidth patientAdmissionForm__item">
-							<AutocompleteField
-								fieldName="diseaseOut1"
-								fieldValue={formik.values.diseaseOut1}
-								label={t('admission.diseaseOut1')}
-								isValid={isValid('diseaseOut1')}
-								errorText={getErrorText('diseaseOut1')}
-								onBlur={onBlurCallback('diseaseOut1')}
-								options={renderOptions(diagnosisOutList)}
-								loading={diagnosisOutStatus === 'LOADING'}
-								disabled={isLoading}
-							/>
-						</div>
-						<div className="fullWidth patientAdmissionForm__item">
-							<AutocompleteField
-								fieldName="diseaseOut2"
-								fieldValue={formik.values.diseaseOut2}
-								label={t('admission.diseaseOut2')}
-								isValid={isValid('diseaseOut2')}
-								errorText={getErrorText('diseaseOut2')}
-								onBlur={onBlurCallback('diseaseOut2')}
-								options={renderOptions(diagnosisOutList)}
-								loading={diagnosisOutStatus === 'LOADING'}
-								disabled={isLoading}
-							/>
-						</div>
-						<div className="fullWidth patientAdmissionForm__item">
-							<AutocompleteField
-								fieldName="diseaseOut3"
-								fieldValue={formik.values.diseaseOut3}
-								label={t('admission.diseaseOut3')}
-								isValid={isValid('diseaseOut3')}
-								errorText={getErrorText('diseaseOut3')}
-								onBlur={onBlurCallback('diseaseOut3')}
-								options={renderOptions(diagnosisOutList)}
-								loading={diagnosisOutStatus === 'LOADING'}
-								disabled={isLoading}
-							/>
-						</div>
-						<div className="fullWidth patientAdmissionForm__item">
-							<AutocompleteField
-								fieldName="disType"
-								fieldValue={formik.values.disType}
-								label={t('admission.disType')}
-								isValid={isValid('disType')}
-								errorText={getErrorText('disType')}
-								onBlur={onBlurCallback('disType')}
-								options={renderOptions(dischargeTypes)}
-								loading={disTypeStatus === 'LOADING'}
-								disabled={isLoading}
-							/>
-						</div>
+					<div className="patientAdmissionForm__item">
+						<TextField
+							field={formik.getFieldProps('bedDays')}
+							theme="regular"
+							label={t('admission.bedDays')}
+							isValid={isValid('bedDays')}
+							errorText={getErrorText('bedDays')}
+							onBlur={formik.handleBlur}
+							disabled={true}
+							type="number"
+						/>
 					</div>
+				</div>
+				<div className="row start-sm center-xs">
+					<div className="fullWidth patientAdmissionForm__item">
+						<AutocompleteField
+							fieldName="diseaseOut1"
+							fieldValue={formik.values.diseaseOut1}
+							label={t('admission.diseaseOut1')}
+							isValid={isValid('diseaseOut1')}
+							errorText={getErrorText('diseaseOut1')}
+							onBlur={onBlurCallback('diseaseOut1')}
+							options={renderOptions(diagnosisOutList)}
+							loading={diagnosisOutStatus === 'LOADING'}
+							disabled={isLoading}
+						/>
+					</div>
+					<div className="fullWidth patientAdmissionForm__item">
+						<AutocompleteField
+							fieldName="diseaseOut2"
+							fieldValue={formik.values.diseaseOut2}
+							label={t('admission.diseaseOut2')}
+							isValid={isValid('diseaseOut2')}
+							errorText={getErrorText('diseaseOut2')}
+							onBlur={onBlurCallback('diseaseOut2')}
+							options={renderOptions(diagnosisOutList)}
+							loading={diagnosisOutStatus === 'LOADING'}
+							disabled={isLoading}
+						/>
+					</div>
+					<div className="fullWidth patientAdmissionForm__item">
+						<AutocompleteField
+							fieldName="diseaseOut3"
+							fieldValue={formik.values.diseaseOut3}
+							label={t('admission.diseaseOut3')}
+							isValid={isValid('diseaseOut3')}
+							errorText={getErrorText('diseaseOut3')}
+							onBlur={onBlurCallback('diseaseOut3')}
+							options={renderOptions(diagnosisOutList)}
+							loading={diagnosisOutStatus === 'LOADING'}
+							disabled={isLoading}
+						/>
+					</div>
+					<div className="fullWidth patientAdmissionForm__item">
+						<AutocompleteField
+							fieldName="disType"
+							fieldValue={formik.values.disType}
+							label={t('admission.disType')}
+							isValid={isValid('disType')}
+							errorText={getErrorText('disType')}
+							onBlur={onBlurCallback('disType')}
+							options={renderOptions(dischargeTypes)}
+							loading={disTypeStatus === 'LOADING'}
+							disabled={isLoading}
+						/>
+					</div>
+				</div>
 
-					<div className="row start-sm center-xs">
-						<div className="fullWidth patientAdmissionForm__item">
-							<TextField
-								field={formik.getFieldProps('note')}
-								theme="regular"
-								label={t('admission.note')}
-								multiline={true}
-								type="text"
-								isValid={isValid('note')}
-								errorText={getErrorText('note')}
-								onBlur={formik.handleBlur}
-								rows={5}
-								disabled={isLoading}
-								maxLength={65535}
-							/>
-						</div>
+				<div className="row start-sm center-xs">
+					<div className="fullWidth patientAdmissionForm__item">
+						<TextField
+							field={formik.getFieldProps('note')}
+							theme="regular"
+							label={t('admission.note')}
+							multiline={true}
+							type="text"
+							isValid={isValid('note')}
+							errorText={getErrorText('note')}
+							onBlur={formik.handleBlur}
+							rows={5}
+							disabled={isLoading}
+							maxLength={65535}
+						/>
 					</div>
+				</div>
 
-					<div className="patientAdmissionForm__buttonSet">
-						<div className="submit_button">
-							<Button type="submit" variant="contained" disabled={isLoading}>
-								{submitButtonLabel}
-							</Button>
-						</div>
-						<div className="reset_button">
-							<Button
-								type="reset"
-								variant="text"
-								disabled={isLoading}
-								onClick={() => setOpenResetConfirmation(true)}
-							>
-								{resetButtonLabel}
-							</Button>
-						</div>
+				<div className="patientAdmissionForm__buttonSet">
+					<div className="submit_button">
+						<Button type="submit" variant="contained" disabled={isLoading}>
+							{submitButtonLabel}
+						</Button>
 					</div>
-					<ConfirmationDialog
-						isOpen={openResetConfirmation}
-						title={resetButtonLabel.toUpperCase()}
-						info={t('common.resetform')}
-						icon={warningIcon}
-						primaryButtonLabel={resetButtonLabel}
-						secondaryButtonLabel={t('common.discard')}
-						handlePrimaryButtonClick={handleResetConfirmation}
-						handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
-					/>
-				</form>
-			</div>
-		</>
+					<div className="reset_button">
+						<Button
+							type="reset"
+							variant="text"
+							disabled={isLoading}
+							onClick={() => setOpenResetConfirmation(true)}
+						>
+							{resetButtonLabel}
+						</Button>
+					</div>
+				</div>
+				<ConfirmationDialog
+					isOpen={openResetConfirmation}
+					title={resetButtonLabel.toUpperCase()}
+					info={t('common.resetform')}
+					icon={warningIcon}
+					primaryButtonLabel={resetButtonLabel}
+					secondaryButtonLabel={t('common.discard')}
+					handlePrimaryButtonClick={handleResetConfirmation}
+					handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
+				/>
+			</form>
+		</div>
 	);
 };
 

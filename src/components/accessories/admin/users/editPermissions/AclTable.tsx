@@ -1,5 +1,5 @@
 import { Checkbox, Tooltip } from '@mui/material';
-import React, { type ChangeEvent, useCallback, useMemo } from 'react';
+import { type ChangeEvent, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { PermissionDTO } from '../../../../../generated';
 import { AclPermissionCheckbox } from './AclPermissionCheckbox';
@@ -51,7 +51,7 @@ export const AclTable = ({
 			crudKeys.filter((crudKey) => allColumnsChecked(crudKey)).length ===
 			crudKeys.length
 		);
-	}, [groupPermissions, permissions, allColumnsChecked]);
+	}, [allColumnsChecked, crudKeys.filter, crudKeys.length]);
 
 	const toggleCheckAllColumns = useCallback(
 		(crudKey: string) => (event: ChangeEvent<HTMLInputElement>) => {
@@ -100,7 +100,7 @@ export const AclTable = ({
 				onChange(crudPerms, PermissionActionEnum.REVOKE);
 			}
 		},
-		[groupPermissions, permissions],
+		[groupPermissions, permissions, crudKeys.map, onChange],
 	);
 
 	return (

@@ -1,5 +1,5 @@
 import { CircularProgress } from '@mui/material';
-import { type FC, Fragment, useEffect, useMemo, useRef, useState } from 'react';
+import { type FC, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Route, Routes, useLocation, useNavigate } from 'react-router';
 import { useAppDispatch, useAppSelector } from '~/libraries/hooks/redux';
@@ -262,17 +262,40 @@ export const Exams: FC = () => {
 			</>
 		);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [status, fields, data, filter, dispatch, labStore, showStatusChangeModal]);
+	}, [
+		status,
+		fields,
+		data,
+		filter,
+		dispatch,
+		labStore,
+		showStatusChangeModal,
+		canceledObjCode,
+		changeStatus,
+		deletedObjCode,
+		errorMessage,
+		handleResetFilter,
+		onCancel,
+		onDelete,
+		onEdit,
+		onExamStatusChangeClick,
+		onExamStatusChangeClose,
+		onPageChange,
+		onSubmit,
+		pageInfo?.page,
+		pageInfo?.totalPages,
+		selectedExamRow,
+		t,
+		updateLabErrorMsg,
+	]);
 
 	return (
-		<Fragment>
-			<div className="lab_labs">
-				<Routes>
-					<Route index element={ExamContent} />
-					<Route path={`/new`} element={<EditLaboratoryContent />} />
-					<Route path={`/:id/edit`} element={<EditLaboratoryContent />} />
-				</Routes>
-			</div>
-		</Fragment>
+		<div className="lab_labs">
+			<Routes>
+				<Route index element={ExamContent} />
+				<Route path={`/new`} element={<EditLaboratoryContent />} />
+				<Route path={`/:id/edit`} element={<EditLaboratoryContent />} />
+			</Routes>
+		</div>
 	);
 };

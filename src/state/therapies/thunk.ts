@@ -32,7 +32,7 @@ export const updateTherapy = createAsyncThunk(
 
 export const deleteTherapy = createAsyncThunk(
 	'therapies/deleteTherapy',
-	async (code: number | undefined, thunkApi) =>
+	async (_code: number | undefined, thunkApi) =>
 		thunkApi.rejectWithValue({
 			message: 'Delete feature not yet available!!!',
 		}),

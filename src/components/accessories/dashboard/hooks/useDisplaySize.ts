@@ -6,12 +6,9 @@ export const useDisplaySize = () => {
 		height: number;
 	}>();
 
-	const onSizeChange = useCallback(
-		(width: number, height: number) => {
-			setDisplaySize({ width: width - 1, height: height - 73 });
-		},
-		[setDisplaySize],
-	);
+	const onSizeChange = useCallback((width: number, height: number) => {
+		setDisplaySize({ width: width - 1, height: height - 73 });
+	}, []);
 
 	return { displaySize, onSizeChange };
 };

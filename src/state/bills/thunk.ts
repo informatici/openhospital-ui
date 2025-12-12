@@ -32,7 +32,7 @@ const getPayments = (bills: BillDTO[]): Observable<FullBillDTO[]> => {
 						billPaymentsDTO: payments,
 					} as any as FullBillDTO;
 				}),
-				catchError((error) => of({ billDTO: bill } as any as FullBillDTO)),
+				catchError((_error) => of({ billDTO: bill } as any as FullBillDTO)),
 			);
 		}),
 	);
@@ -56,7 +56,7 @@ const getItems = (bills: FullBillDTO[]): Observable<FullBillDTO[]> => {
 						billPaymentsDTO: fbill.billPayments,
 					} as any as FullBillDTO;
 				}),
-				catchError((error) => of({ ...fbill })),
+				catchError((_error) => of({ ...fbill })),
 			);
 		}),
 	);

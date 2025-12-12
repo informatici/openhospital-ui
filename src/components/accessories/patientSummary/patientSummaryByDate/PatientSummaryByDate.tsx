@@ -33,27 +33,23 @@ const PatientSummaryByDate = () => {
 	);
 
 	return (
-		<>
-			<div className="patientSummary_date">
-				{!isLoading ? (
-					<Table
-						rowData={renderSummary(summaryData, dateFields, labels, medicals)}
-						dateFields={dateFields}
-						tableHeader={header.date}
-						labelData={labels}
-						columnsOrder={order}
-						rowsPerPage={ORDER_BY_DATE_PAGE_SIZE}
-						isCollapsabile={true}
-						showEmptyCell={false}
-						detailsExcludedFields={['date']}
-					/>
-				) : (
-					<CircularProgress
-						style={{ marginLeft: '50%', position: 'relative' }}
-					/>
-				)}
-			</div>
-		</>
+		<div className="patientSummary_date">
+			{!isLoading ? (
+				<Table
+					rowData={renderSummary(summaryData, dateFields, labels, medicals)}
+					dateFields={dateFields}
+					tableHeader={header.date}
+					labelData={labels}
+					columnsOrder={order}
+					rowsPerPage={ORDER_BY_DATE_PAGE_SIZE}
+					isCollapsabile={true}
+					showEmptyCell={false}
+					detailsExcludedFields={['date']}
+				/>
+			) : (
+				<CircularProgress style={{ marginLeft: '50%', position: 'relative' }} />
+			)}
+		</div>
 	);
 };
 

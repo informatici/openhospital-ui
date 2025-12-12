@@ -37,7 +37,7 @@ export const handlePictureSelection =
 		setShowError: React.Dispatch<React.SetStateAction<string>>,
 	) =>
 	(e: ChangeEvent<HTMLInputElement>): void => {
-		const newPic = e.target.files && e.target.files[0];
+		const newPic = e.target.files?.[0];
 		if (newPic) {
 			const dataURLReader = new FileReader();
 			dataURLReader.onload = (e) => {
@@ -53,7 +53,7 @@ export const handlePictureSelection =
 export const extractPictureFromSelection =
 	(setPictureToResize: React.Dispatch<React.SetStateAction<string>>) =>
 	(e: ChangeEvent<HTMLInputElement>): void => {
-		const newPic = e.target.files && e.target.files[0];
+		const newPic = e.target.files?.[0];
 		if (newPic) {
 			const dataURLReader = new FileReader();
 			dataURLReader.onload = (e) => {
@@ -69,10 +69,10 @@ export const extractPictureFromSelection =
 export const getFileSize = (
 	file: File | null,
 	maxFileUpload: number,
-): boolean => (!file || file.size > maxFileUpload ? false : true);
+): boolean => !(!file || file.size > maxFileUpload);
 
 export const isValidSize = (file: Blob, maxFileUpload: number): boolean =>
-	file.size > maxFileUpload ? false : true;
+	!(file.size > maxFileUpload);
 
 export const preprocessImage = async (
 	setPicture: Dispatch<
@@ -90,7 +90,7 @@ export const preprocessImage = async (
 		pictureURI = picture;
 		pictureData = picture.split(',')[1];
 	} else {
-		pictureURI = 'data:image/jpeg;base64,' + picture;
+		pictureURI = `data:image/jpeg;base64,${picture}`;
 		pictureData = picture;
 	}
 	let file = await imageCompression.getFilefromDataUrl(picture, 'avatar');

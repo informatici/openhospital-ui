@@ -42,7 +42,7 @@ export const paymentsFilterInitialFields: TFields<PaymentsFilterFormFieldName> =
 			type: 'date',
 		},
 		toDate: {
-			value: new Date().getTime().toString(),
+			value: Date.now().toString(),
 			type: 'date',
 		},
 	};

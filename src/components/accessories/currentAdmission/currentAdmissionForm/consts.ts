@@ -4,7 +4,7 @@ import type { TFields } from '../../../../libraries/formDataHandling/types';
 import type { TCurrentAdmissionFieldName } from './types';
 
 export const initialFields = (
-	patient: AdmissionDTO | undefined,
+	_patient: AdmissionDTO | undefined,
 ): TFields<TCurrentAdmissionFieldName> => {
 	return {
 		ward: {

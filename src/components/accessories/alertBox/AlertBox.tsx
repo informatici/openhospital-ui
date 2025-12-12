@@ -4,7 +4,7 @@ import {
 	InfoRounded,
 	NewReleasesRounded,
 } from '@mui/icons-material';
-import React, { type FunctionComponent } from 'react';
+import type { FunctionComponent } from 'react';
 import { useStyles } from './consts';
 import type { IProps } from './types';
 

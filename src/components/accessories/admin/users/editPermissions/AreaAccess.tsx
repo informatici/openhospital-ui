@@ -1,5 +1,3 @@
-import React from 'react';
-
 import type { PermissionDTO } from '../../../../../generated';
 import { PermissionCheckbox } from './PermissionCheckbox';
 import type { PermissionActionEnum } from './permission.utils';
@@ -23,8 +21,8 @@ export const AreaAccess = ({
 				.filter(
 					(perm: PermissionDTO) => perm.name && /\.access$/.test(perm.name),
 				)
-				.map((perm, index) => (
-					<li key={index}>
+				.map((perm) => (
+					<li key={perm.name}>
 						<PermissionCheckbox
 							permission={perm}
 							groupPermissions={groupPermissions}

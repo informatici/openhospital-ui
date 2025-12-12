@@ -1,5 +1,5 @@
 import { Button as MaterialComponent } from '@mui/material';
-import React, { type FunctionComponent } from 'react';
+import type { FunctionComponent } from 'react';
 import './styles.scss';
 import type { IProps } from './types';
 

@@ -1,7 +1,7 @@
 import { Edit } from '@mui/icons-material';
 import { IconButton } from '@mui/material';
 import { isEmpty } from 'lodash';
-import React, { type FunctionComponent } from 'react';
+import type { FunctionComponent } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { AdmissionDTO } from '../../../../generated';
 import { renderDate } from '../../../../libraries/formatUtils/dataFormatting';

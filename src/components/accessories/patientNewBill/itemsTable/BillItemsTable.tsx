@@ -1,4 +1,4 @@
-import React, { type FC } from 'react';
+import type { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import Table from '../../table/Table';
 import { header, order } from './consts';

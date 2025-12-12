@@ -19,7 +19,7 @@ export const useAuthentication = () => {
 				// hydrate redux from session
 				dispatch(setAuthenticationSuccess(sessionData));
 			}
-		} catch (e) {
+		} catch (_e) {
 			if (userCredentials) {
 				// hydrate session from redux
 				const { username, token, permissions } = userCredentials;

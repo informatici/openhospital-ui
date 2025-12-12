@@ -2,7 +2,7 @@ import Link from '@mui/material/Link';
 import classNames from 'classnames';
 import { useFormik } from 'formik';
 import { get, has } from 'lodash';
-import { type FC, default as React, useCallback, useEffect } from 'react';
+import { type FC, useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router-dom';
 import { object, string } from 'yup';

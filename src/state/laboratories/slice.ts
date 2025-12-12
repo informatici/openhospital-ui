@@ -123,7 +123,7 @@ export const laboratorySlice = createSlice({
 			.addCase(thunks.updateLabStatus.pending, (state) => {
 				state.updateLab = ApiResponse.loading();
 			})
-			.addCase(thunks.updateLabStatus.fulfilled, (state, action) => {
+			.addCase(thunks.updateLabStatus.fulfilled, (state, _action) => {
 				state.updateLab.status = 'SUCCESS';
 			})
 			.addCase(thunks.updateLabStatus.rejected, (state, action) => {
@@ -143,7 +143,7 @@ export const laboratorySlice = createSlice({
 			.addCase(thunks.cancelLab.pending, (state) => {
 				state.cancelLab = ApiResponse.loading();
 			})
-			.addCase(thunks.cancelLab.fulfilled, (state, action) => {
+			.addCase(thunks.cancelLab.fulfilled, (state, _action) => {
 				state.cancelLab.status = 'SUCCESS';
 			})
 			.addCase(thunks.cancelLab.rejected, (state, action) => {
@@ -153,7 +153,7 @@ export const laboratorySlice = createSlice({
 			.addCase(thunks.deleteLab.pending, (state) => {
 				state.deleteLab = ApiResponse.loading();
 			})
-			.addCase(thunks.deleteLab.fulfilled, (state, action) => {
+			.addCase(thunks.deleteLab.fulfilled, (state, _action) => {
 				state.deleteLab.status = 'SUCCESS';
 			})
 			.addCase(thunks.deleteLab.rejected, (state, action) => {

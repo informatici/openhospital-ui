@@ -9,13 +9,23 @@ type TDashboardDownloadOptions = {
 export const DownloadOptions = React.forwardRef<
 	HTMLDivElement,
 	TDashboardDownloadOptions
->((props, ref) => {
+>((props, _ref) => {
 	const { actions, onClose } = props;
 
 	return (
 		<>
-			{actions.map((action) => {
-				return <MenuItem onClick={onClose}>{action.action}</MenuItem>;
+			{actions.map((action, index) => {
+				return (
+					<MenuItem
+						key={`action-${
+							// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
+							index
+						}`}
+						onClick={onClose}
+					>
+						{action.action}
+					</MenuItem>
+				);
 			})}
 		</>
 	);

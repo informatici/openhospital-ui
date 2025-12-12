@@ -332,34 +332,34 @@ export class StockMovementsApi extends BaseAPI {
 		const query: HttpQuery = {};
 
 		if (medCode != null) {
-			query['med_code'] = medCode;
+			query.med_code = medCode;
 		}
 		if (medType != null) {
-			query['med_type'] = medType;
+			query.med_type = medType;
 		}
 		if (wardId != null) {
-			query['ward_id'] = wardId;
+			query.ward_id = wardId;
 		}
 		if (movType != null) {
-			query['mov_type'] = movType;
+			query.mov_type = movType;
 		}
 		if (movFrom != null) {
-			query['mov_from'] = (movFrom as any).toISOString();
+			query.mov_from = (movFrom as any).toISOString();
 		}
 		if (movTo != null) {
-			query['mov_to'] = (movTo as any).toISOString();
+			query.mov_to = (movTo as any).toISOString();
 		}
 		if (lotPrepFrom != null) {
-			query['lot_prep_from'] = (lotPrepFrom as any).toISOString();
+			query.lot_prep_from = (lotPrepFrom as any).toISOString();
 		}
 		if (lotPrepTo != null) {
-			query['lot_prep_to'] = (lotPrepTo as any).toISOString();
+			query.lot_prep_to = (lotPrepTo as any).toISOString();
 		}
 		if (lotDueFrom != null) {
-			query['lot_due_from'] = (lotDueFrom as any).toISOString();
+			query.lot_due_from = (lotDueFrom as any).toISOString();
 		}
 		if (lotDueTo != null) {
-			query['lot_due_to'] = (lotDueTo as any).toISOString();
+			query.lot_due_to = (lotDueTo as any).toISOString();
 		}
 
 		return this.request<Array<MovementDTO>>(
@@ -507,34 +507,34 @@ export class StockMovementsApi extends BaseAPI {
 		const query: HttpQuery = {};
 
 		if (medCode != null) {
-			query['med_code'] = medCode;
+			query.med_code = medCode;
 		}
 		if (medType != null) {
-			query['med_type'] = medType;
+			query.med_type = medType;
 		}
 		if (wardId != null) {
-			query['ward_id'] = wardId;
+			query.ward_id = wardId;
 		}
 		if (movType != null) {
-			query['mov_type'] = movType;
+			query.mov_type = movType;
 		}
 		if (movFrom != null) {
-			query['mov_from'] = (movFrom as any).toISOString();
+			query.mov_from = (movFrom as any).toISOString();
 		}
 		if (movTo != null) {
-			query['mov_to'] = (movTo as any).toISOString();
+			query.mov_to = (movTo as any).toISOString();
 		}
 		if (lotPrepFrom != null) {
-			query['lot_prep_from'] = (lotPrepFrom as any).toISOString();
+			query.lot_prep_from = (lotPrepFrom as any).toISOString();
 		}
 		if (lotPrepTo != null) {
-			query['lot_prep_to'] = (lotPrepTo as any).toISOString();
+			query.lot_prep_to = (lotPrepTo as any).toISOString();
 		}
 		if (lotDueFrom != null) {
-			query['lot_due_from'] = (lotDueFrom as any).toISOString();
+			query.lot_due_from = (lotDueFrom as any).toISOString();
 		}
 		if (lotDueTo != null) {
-			query['lot_due_to'] = (lotDueTo as any).toISOString();
+			query.lot_due_to = (lotDueTo as any).toISOString();
 		}
 
 		return this.request<Array<MovementDTO>>(

@@ -45,7 +45,7 @@ export const getFromFields = (
 
 export const parseDate = (raw: string, withTimezone: boolean = true) => {
 	if (raw) {
-		var date = isNaN(+raw) ? new Date(raw) : new Date(+raw);
+		const date = Number.isNaN(+raw) ? new Date(raw) : new Date(+raw);
 		if (withTimezone) {
 			const timezonedDate = new Date(
 				date.getTime() - date.getTimezoneOffset() * 60000,
@@ -61,8 +61,6 @@ export const parseDate = (raw: string, withTimezone: boolean = true) => {
 };
 
 export const fixFilterDateFrom = (date: string | Date): string => {
-	let dateFrom: string;
-
 	if (typeof date === 'string') {
 		date = new Date(date);
 	}
@@ -71,9 +69,7 @@ export const fixFilterDateFrom = (date: string | Date): string => {
 	date.setUTCMinutes(0);
 	date.setUTCSeconds(0);
 
-	dateFrom = date.toISOString();
-
-	return dateFrom;
+	return date.toISOString();
 };
 
 export const removeTime = (date: string | Date): string => {
@@ -89,8 +85,6 @@ export const removeTime = (date: string | Date): string => {
 };
 
 export const fixFilterDateTo = (date: string | Date): string => {
-	let dateTo: string;
-
 	if (typeof date === 'string') {
 		date = new Date(date);
 	}
@@ -99,9 +93,7 @@ export const fixFilterDateTo = (date: string | Date): string => {
 	date.setUTCMinutes(59);
 	date.setUTCSeconds(0);
 
-	dateTo = date.toISOString();
-
-	return dateTo;
+	return date.toISOString();
 };
 
 export const formatAllFieldValues = (
@@ -116,7 +108,7 @@ export const formatAllFieldValues = (
 					acc[key] = isEmpty(values[key]) ? undefined : values[key] === 'true';
 					break;
 				case 'number': {
-					const int = parseInt(values[key]);
+					const int = parseInt(values[key], 10);
 					const float = parseFloat(values[key]);
 					acc[key] = int < float ? float : int;
 					break;
@@ -140,7 +132,8 @@ export const updateFields = (
 	return produce(fields, (draft: Record<string, any>) => {
 		Object.keys(values ?? {}).forEach((key) => {
 			if (draft[key as string]) {
-				return (draft[key as string].value = values![key as keyof PatientDTO]);
+				draft[key as string].value = values?.[key as keyof PatientDTO];
+				return;
 			}
 		});
 	});
@@ -151,10 +144,10 @@ export const updateTherapyFields = (
 	values: TherapyRowDTO | undefined,
 ): TFields => {
 	return produce(fields, (draft: Record<string, any>) => {
-		Object.keys(values!).forEach((key) => {
+		Object.keys(values ?? {}).forEach((key) => {
 			if (draft[key as string]) {
-				return (draft[key as string].value =
-					values![key as keyof TherapyRowDTO]);
+				draft[key as string].value = values?.[key as keyof TherapyRowDTO];
+				return;
 			}
 		});
 	});
@@ -165,18 +158,19 @@ export const updateLabFields = (
 	values: LaboratoryDTO | undefined,
 ): TFields => {
 	return produce(fields, (draft: Record<string, any>) => {
-		Object.keys(values!).forEach((key) => {
-			const value = values![key as keyof LaboratoryDTO];
+		Object.keys(values ?? {}).forEach((key) => {
+			const value = values?.[key as keyof LaboratoryDTO];
 			if (key === 'result') {
-				return (draft[key as string].value = value);
+				draft[key as string].value = value;
+				return;
 			}
 			if (draft[key as string]) {
-				return (draft[key as string].value =
+				draft[key as string].value =
 					typeof value === 'object'
 						? ((value as ExamDTO)?.code ?? '')
 						: moment(value).isValid()
 							? parseDate(value as string)
-							: value);
+							: value;
 			}
 		});
 	});
@@ -187,14 +181,21 @@ export const updateFilterFields = (
 	withTimezone: boolean = true,
 ): TFields => {
 	return produce(fields, (draft: Record<string, any>) => {
-		Object.keys(values!).forEach((key) => {
-			const value = values![key];
-			if (key === 'status') return (draft[key as string].value = value);
-			if (key === 'patientCode') return (draft[key as string].value = value);
+		Object.keys(values ?? {}).forEach((key) => {
+			const value = values?.[key];
+			if (key === 'status') {
+				draft[key as string].value = value;
+				return;
+			}
+			if (key === 'patientCode') {
+				draft[key as string].value = value;
+				return;
+			}
 			if (draft[key as string]) {
-				return (draft[key as string].value = moment(value).isValid()
+				draft[key as string].value = moment(value).isValid()
 					? parseDate(value as string, withTimezone)
-					: value);
+					: value;
+				return;
 			}
 		});
 	});
@@ -204,27 +205,27 @@ export const updateTriageFields = (
 	values: PatientExaminationDTO | undefined,
 ): TFields => {
 	return produce(fields, (draft: Record<string, any>) => {
-		Object.keys(values!).forEach((key) => {
-			const value = values![key as keyof PatientExaminationDTO];
+		Object.keys(values ?? {}).forEach((key) => {
+			const value = values?.[key as keyof PatientExaminationDTO];
 			if (
 				['pex_diuresis_desc', 'pex_bowel_desc', 'pex_auscultation'].includes(
 					key,
 				)
 			) {
-				return (draft[key as string].value = (
-					(value ?? '') as string
-				).toLowerCase());
+				draft[key as string].value = ((value ?? '') as string).toLowerCase();
+				return;
 			}
 			if (draft[key as string] && typeof value === 'number') {
-				return (draft[key as string].value = draft[key as string].value =
-					value);
+				draft[key as string].value = value;
+				return;
 			}
 			if (draft[key as string]) {
-				return (draft[key as string].value = parseFloat(value as string)
+				draft[key as string].value = parseFloat(value as string)
 					? value
 					: moment(value).isValid()
 						? parseDate(value as string)
-						: value);
+						: value;
+				return;
 			}
 		});
 	});
@@ -234,15 +235,16 @@ export const updateOpdFields = (
 	values: OpdDTO | undefined,
 ) => {
 	return produce(fields, (draft: Record<string, any>) => {
-		Object.keys(values!).forEach((key) => {
+		Object.keys(values ?? {}).forEach((key) => {
 			if (draft[key as string]) {
-				const value = values![key as keyof OpdDTO];
-				return (draft[key as string].value =
+				const value = values?.[key as keyof OpdDTO];
+				draft[key as string].value =
 					typeof value === 'object'
 						? ((value as DiseaseDTO)?.code ?? '')
 						: moment(value).isValid()
 							? parseDate(value as string)
-							: value);
+							: value;
+				return;
 			}
 		});
 	});
@@ -253,30 +255,37 @@ export const updateVisitFields = (
 	values: VisitDTO | undefined,
 ) => {
 	return produce(fields, (draft: Record<string, any>) => {
-		Object.keys(values!).forEach((key) => {
+		Object.keys(values ?? {}).forEach((key) => {
 			if (draft[key as string]) {
-				const value = values![key as keyof VisitDTO];
-				if (key === 'ward')
-					return (draft[key as string].value =
-						(value as WardDTO)?.code?.toString() ?? '');
+				const value = values?.[key as keyof VisitDTO];
+				if (key === 'ward') {
+					draft[key as string].value =
+						(value as WardDTO)?.code?.toString() ?? '';
+					return;
+				}
 
-				if (key === 'patient')
-					return (draft[key as string].value =
-						(value as PatientDTO)?.code?.toString() ?? '');
+				if (key === 'patient') {
+					draft[key as string].value =
+						(value as PatientDTO)?.code?.toString() ?? '';
+					return;
+				}
 
-				if (key === 'duration')
-					return (draft[key as string].value = value ?? '');
+				if (key === 'duration') {
+					draft[key as string].value = value ?? '';
+					return;
+				}
 
-				return (draft[key as string].value =
+				draft[key as string].value =
 					typeof value === 'object'
 						? ((key === 'patient'
 								? (value as PatientDTO)?.code?.toString()
 								: (value as WardDTO)?.code?.toString()) ?? '')
-						: typeof value == 'boolean'
+						: typeof value === 'boolean'
 							? value
 							: moment(value).isValid()
 								? parseDate(value as string)
-								: value);
+								: value;
+				return;
 			}
 		});
 	});
@@ -287,26 +296,32 @@ export const updateOperationRowFields = (
 	values: OperationRowDTO | undefined,
 ) => {
 	return produce(fields, (draft: Record<string, any>) => {
-		Object.keys(values!).forEach((key) => {
+		Object.keys(values ?? {}).forEach((key) => {
 			if (draft[key as string]) {
-				const value = values![key as keyof OperationRowDTO];
+				const value = values?.[key as keyof OperationRowDTO];
 
-				if (key === 'admission')
-					return (draft[key as string].value =
-						(value as AdmissionDTO)?.id?.toString() ?? '');
+				if (key === 'admission') {
+					draft[key as string].value =
+						(value as AdmissionDTO)?.id?.toString() ?? '';
+					return;
+				}
 
-				if (key === 'transUnit') return (draft[key as string].value = value);
+				if (key === 'transUnit') {
+					draft[key as string].value = value;
+					return;
+				}
 
-				return (draft[key as string].value =
+				draft[key as string].value =
 					typeof value === 'object'
 						? ((key === 'operation'
 								? (value as OperationDTO)?.code?.toString()
 								: (value as OpdDTO)?.code?.toString()) ?? '')
-						: typeof value == 'boolean'
+						: typeof value === 'boolean'
 							? value
 							: moment(value).isValid()
 								? parseDate(value as string)
-								: value);
+								: value;
+				return;
 			}
 		});
 	});
@@ -339,7 +354,7 @@ export const getBirthDateAndAge = (
 	switch (ageType) {
 		case 'agetype': {
 			const selectedAgeType = allAgeTypes?.find(
-				(at, i) => at.code === values.agetype,
+				(at, _i) => at.code === values.agetype,
 			);
 
 			if (selectedAgeType !== undefined) {

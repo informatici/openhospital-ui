@@ -1,5 +1,5 @@
 import classnames from 'classnames';
-import React, { type ReactNode, useState } from 'react';
+import { type ReactNode, useState } from 'react';
 import {
 	Accordion,
 	AccordionDetails,

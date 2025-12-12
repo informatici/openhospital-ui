@@ -91,7 +91,7 @@ export class UsersApi extends BaseAPI {
 		const query: HttpQuery = {};
 
 		if (groupId != null) {
-			query['group_id'] = groupId;
+			query.group_id = groupId;
 		}
 
 		return this.request<Array<UserDTO>>(

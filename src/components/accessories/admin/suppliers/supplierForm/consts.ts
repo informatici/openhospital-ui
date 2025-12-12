@@ -5,7 +5,7 @@ import type { SupplierFormFieldName } from '.';
 export const getInitialFields: (
 	supplier: SupplierDTO | undefined,
 ) => TFields<SupplierFormFieldName> = (supplier) => ({
-	supId: { type: 'number', value: `${supplier?.supId}` ?? '' },
+	supId: { type: 'number', value: `${supplier?.supId ?? ''}` },
 	supName: { type: 'text', value: supplier?.supName ?? '' },
 	supAddress: {
 		type: 'text',

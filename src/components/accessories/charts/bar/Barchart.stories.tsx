@@ -1,7 +1,6 @@
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
 import { Chart, registerables } from 'chart.js';
 import moment from 'moment';
-import React from 'react';
 import { Barchart } from './Barchart';
 
 Chart.register(...registerables);
@@ -28,7 +27,7 @@ Bar1.args = {
 		datasets: [
 			{
 				label: 'Data 1',
-				data: labels.map((e) => Math.random()),
+				data: labels.map((_e) => Math.random()),
 				backgroundColor: '#fabcde',
 			},
 		],

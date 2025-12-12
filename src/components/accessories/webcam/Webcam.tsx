@@ -29,16 +29,14 @@ const Webcam: React.FC<Props> = ({
 				onCapture(shot);
 			}
 		}
-	}, [ref, setImage, onCapture]);
+	}, [onCapture]);
 
 	return image ? (
-		<>
-			<ImageResize
-				imageToResize={image}
-				onConfirm={onResizeConfirm}
-				onReset={resetImage}
-			/>
-		</>
+		<ImageResize
+			imageToResize={image}
+			onConfirm={onResizeConfirm}
+			onReset={resetImage}
+		/>
 	) : (
 		<>
 			<Camera

@@ -122,13 +122,13 @@ export const EditGroup = () => {
 			setGroupPermissions(group.data.permissions ?? []);
 			setValues(group.data);
 		}
-	}, [group.data]);
+	}, [group.data, setValues]);
 
 	useEffect(() => {
 		return () => {
 			dispatch(getUserGroupReset());
 		};
-	}, []);
+	}, [dispatch]);
 
 	const handleCheckboxChange = useCallback(
 		(fieldName: string) => (value: boolean) => {

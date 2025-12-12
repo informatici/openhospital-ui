@@ -2,7 +2,7 @@ import { operationTypesDTO } from '../fixtures/operationTypeDTO';
 
 export const operationTypeRoutes = (server) => {
 	server.namespace('/operationtypes', () => {
-		server.get('/').intercept((req, res) => {
+		server.get('/').intercept((_req, res) => {
 			res.status(200).json(operationTypesDTO);
 		});
 		server.post('/').intercept((req, res) => {

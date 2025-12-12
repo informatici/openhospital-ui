@@ -1,5 +1,4 @@
 import { Checkbox, FormControlLabel } from '@mui/material';
-import React from 'react';
 import type { PermissionDTO } from '../../../../../generated';
 import { PermissionActionEnum } from './permission.utils';
 
@@ -24,7 +23,7 @@ export const PermissionCheckbox = ({
 			control={
 				<Checkbox
 					checked={checked}
-					onChange={(_ev, val) =>
+					onChange={(_ev, _val) =>
 						onChange(
 							[permission],
 							checked

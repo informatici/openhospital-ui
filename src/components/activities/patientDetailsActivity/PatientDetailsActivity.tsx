@@ -77,7 +77,9 @@ const PatientDetailsActivity = () => {
 		location.pathname.split('/')[location.pathname.split('/').length - 1];
 	const [expanded, setExpanded] = useState<string | false>(false);
 	const [userSection, setUserSection] = useState<IUserSection>(
-		(isNaN(parseInt(section)) ? section : 'admissions') as IUserSection,
+		(Number.isNaN(parseInt(section, 10))
+			? section
+			: 'admissions') as IUserSection,
 	);
 
 	const handleOnExpanded = (section: string) => {

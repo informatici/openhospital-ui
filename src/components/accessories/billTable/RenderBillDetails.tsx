@@ -7,7 +7,7 @@ import {
 	TableRow,
 } from '@mui/material';
 import { makeStyles, withStyles } from '@mui/styles';
-import React, { type FC } from 'react';
+import type { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { FullBillDTO } from '../../../generated';
 import { currencyFormat } from '../../../libraries/formatUtils/currencyFormatting';
@@ -110,21 +110,20 @@ const RenderBillDetails: FC<IBillProps> = ({
 							</TableRow>
 						</TableHead>
 						<TableBody>
-							{fullBill?.billItems &&
-								fullBill?.billItems.map((item, index) => (
-									<TableRow key={index}>
-										<Cell>{++index}</Cell>
-										<Cell component="td" scope="row">
-											{item.itemDescription}
-										</Cell>
-										<Cell component="td" scope="row">
-											{item.itemQuantity}
-										</Cell>
-										<Cell component="td" scope="row">
-											{currencyFormat(item.itemAmount)}
-										</Cell>
-									</TableRow>
-								))}
+							{fullBill?.billItems?.map((item, index) => (
+								<TableRow key={index}>
+									<Cell>{++index}</Cell>
+									<Cell component="td" scope="row">
+										{item.itemDescription}
+									</Cell>
+									<Cell component="td" scope="row">
+										{item.itemQuantity}
+									</Cell>
+									<Cell component="td" scope="row">
+										{currencyFormat(item.itemAmount)}
+									</Cell>
+								</TableRow>
+							))}
 						</TableBody>
 					</Table>
 				</TableRow>
@@ -150,21 +149,20 @@ const RenderBillDetails: FC<IBillProps> = ({
 							</TableRow>
 						</TableHead>
 						<TableBody>
-							{fullBill?.billPayments &&
-								fullBill?.billPayments.map((pay, index) => (
-									<TableRow key={++index}>
-										<Cell>{index}</Cell>
-										<Cell component="td" scope="row">
-											{pay.date ? renderDate(pay.date) : ''}
-										</Cell>
-										<Cell component="td" scope="row">
-											{currencyFormat(pay.amount)}
-										</Cell>
-										<Cell component="td" scope="row">
-											{pay.user}
-										</Cell>
-									</TableRow>
-								))}
+							{fullBill?.billPayments?.map((pay, index) => (
+								<TableRow key={++index}>
+									<Cell>{index}</Cell>
+									<Cell component="td" scope="row">
+										{pay.date ? renderDate(pay.date) : ''}
+									</Cell>
+									<Cell component="td" scope="row">
+										{currencyFormat(pay.amount)}
+									</Cell>
+									<Cell component="td" scope="row">
+										{pay.user}
+									</Cell>
+								</TableRow>
+							))}
 						</TableBody>
 					</Table>
 				</TableRow>

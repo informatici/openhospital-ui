@@ -109,7 +109,7 @@ const PatientExams: FC = () => {
 		setShouldResetForm(false);
 		lab.patientCode = patientData?.code;
 		lab.exam = exams?.find((item) => item.code === lab.exam);
-		lab.patName = patientData?.firstName + ' ' + patientData?.secondName;
+		lab.patName = `${patientData?.firstName} ${patientData?.secondName}`;
 		lab.sex = patientData?.sex;
 		lab.age = patientData?.age;
 		lab.labDate = parseDate(lab.labDate ?? '');

@@ -50,17 +50,17 @@ export const searchOpds = createAsyncThunk(
 				newPatient: isEmpty(query.newPatient) ? null : query.newPatient,
 				dateFrom: query.dateFrom ?? moment().add('-30', 'days').toISOString(),
 				dateTo: query.dateTo ?? moment().toISOString(),
-				ageFrom: isNaN(query.ageFrom) ? null : query.ageFrom,
-				ageTo: isNaN(query.ageTo) ? null : query.ageTo,
+				ageFrom: Number.isNaN(query.ageFrom) ? null : query.ageFrom,
+				ageTo: Number.isNaN(query.ageTo) ? null : query.ageTo,
 				diseaseCode: isEmpty(query.diseaseCode) ? null : query.diseaseCode,
 				diseaseTypeCode: isEmpty(query.diseaseTypeCode)
 					? null
 					: query.diseaseTypeCode,
-				patientCode: isNaN(query.patientCode) ? null : query.patientCode,
+				patientCode: Number.isNaN(query.patientCode) ? null : query.patientCode,
 				wardCode: isEmpty(query.wardCode) ? null : query.wardCode,
 				paged: !!query.paged,
-				page: isNaN(query.page) ? 0 : query.page,
-				size: isNaN(query.size) ? 80 : query.size,
+				page: Number.isNaN(query.page) ? 0 : query.page,
+				size: Number.isNaN(query.size) ? 80 : query.size,
 			}),
 		)
 			.toPromise()

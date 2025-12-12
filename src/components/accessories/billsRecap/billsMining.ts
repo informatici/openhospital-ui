@@ -137,7 +137,7 @@ export const computeBillSummary = (
 				.flatMap((item) => item.billItems)
 				.reduce(
 					(p, c) => {
-						const name: string = '#' + c?.itemDisplayCode;
+						const name: string = `#${c?.itemDisplayCode}`;
 						if (p && !Object.hasOwn(p, name)) {
 							(p as any)[name] = 0;
 						}
@@ -158,7 +158,7 @@ export const computeBillSummary = (
 				)
 				.flatMap((item) => item.billItems)
 				.reduce((p, c) => {
-					const name: string = '#' + c?.itemDisplayCode;
+					const name: string = `#${c?.itemDisplayCode}`;
 					if (p && !Object.hasOwn(p, name)) {
 						(p as any)[name] = 0;
 					}
@@ -176,8 +176,7 @@ export const computeBillSummary = (
 						+new Date(item.bill.date) <= +moment().endOf('year').toDate(),
 				)
 				.reduce((p, c) => {
-					const name: string =
-						'#' + c.bill?.patient?.code + ' ' + c.bill?.patName;
+					const name: string = `#${c.bill?.patient?.code} ${c.bill?.patName}`;
 					if (p && !Object.hasOwn(p, name)) {
 						(p as any)[name] = 0;
 					}
@@ -196,8 +195,7 @@ export const computeBillSummary = (
 						item.bill.status === 'O',
 				)
 				.reduce((p, c) => {
-					const name: string =
-						'#' + c.bill?.patient?.code + ' ' + c.bill?.patName;
+					const name: string = `#${c.bill?.patient?.code} ${c.bill?.patName}`;
 					if (p && !Object.hasOwn(p, name)) {
 						(p as any)[name] = 0;
 					}

@@ -1,7 +1,7 @@
 import { useFormik } from 'formik';
 import { get, has } from 'lodash';
 import moment from 'moment';
-import React, { type FunctionComponent, useCallback } from 'react';
+import { type FunctionComponent, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { object, string } from 'yup';
 import DateField from '../dateField/DateField';

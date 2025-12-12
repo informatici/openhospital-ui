@@ -101,7 +101,7 @@ const ExamForm: FC<IExamProps> = ({
 				return (
 					this.parent.procedure !== 1 ||
 					(!isEmpty(value) &&
-						(this.parent.rows as string[]).some((item) => item == value))
+						(this.parent.rows as string[]).some((item) => item === value))
 				);
 			},
 			message: t('exam.invalidDefaultResult'),
@@ -176,7 +176,7 @@ const ExamForm: FC<IExamProps> = ({
 			}
 			setFieldValue('defaultResult', '');
 		},
-		[handleBlur, setFieldValue],
+		[setFieldValue, formik.values.rows],
 	);
 
 	const handleDefaultResultChange = useCallback(
@@ -184,7 +184,7 @@ const ExamForm: FC<IExamProps> = ({
 			formik.setFieldValue('defaultResult', e.target.value);
 			formik.setFieldError('defaultResult', '');
 		},
-		[formik, dispatch],
+		[formik],
 	);
 
 	const cleanUp = useCallback(() => {

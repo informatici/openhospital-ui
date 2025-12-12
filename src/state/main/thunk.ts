@@ -64,7 +64,7 @@ export const setLogout =
 
 export const setForgotPasswordThunk = createAsyncThunk(
 	'main/setForgotPasswordThunk',
-	async (username: string, thunkApi) => ({
+	async (_username: string, _thunkApi) => ({
 		message: 'Password reset email sent',
 	}),
 );

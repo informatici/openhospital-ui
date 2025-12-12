@@ -59,7 +59,7 @@ const PatientOperationRowTable: FunctionComponent<IOwnProps> = ({
 			return {
 				id: item.id,
 				opDate: item.opDate ? renderDateTime(item.opDate) : '',
-				opResult: t('operation.result.' + (item.opResult ?? 'unknown')),
+				opResult: t(`operation.result.${item.opResult ?? 'unknown'}`),
 				remarks: item.remarks ?? '',
 				operation: item.operation?.description ?? '',
 				transUnit: item.transUnit,

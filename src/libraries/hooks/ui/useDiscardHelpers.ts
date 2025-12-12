@@ -28,7 +28,7 @@ export function useDiscardHelpers() {
 				setIsGoingBack(false);
 			}
 		},
-		[setOpenCancelConfirmation, blocker, isBlocking, setIsBlocking],
+		[blocker, isBlocking, isGoingBack],
 	);
 
 	const handleCancelConfirmation = useCallback(() => {
@@ -44,24 +44,13 @@ export function useDiscardHelpers() {
 		setTimeout(() => {
 			setOpenCancelConfirmation(false);
 		}, 500);
-	}, [
-		navigate,
-		setOpenCancelConfirmation,
-		blocker,
-		setIsBlocking,
-		isBlocking,
-		setIsGoingBack,
-		isGoingBack,
-	]);
+	}, [navigate, blocker, isBlocking, isGoingBack]);
 
-	const handleGoBack = useCallback(
-		(event: PopStateEvent) => {
-			event.preventDefault();
-			setIsGoingBack(true);
-			setOpenCancelConfirmation(true);
-		},
-		[setIsBlocking, setOpenCancelConfirmation],
-	);
+	const handleGoBack = useCallback((event: PopStateEvent) => {
+		event.preventDefault();
+		setIsGoingBack(true);
+		setOpenCancelConfirmation(true);
+	}, []);
 
 	useEffect(() => {
 		window.addEventListener('popstate', handleGoBack);

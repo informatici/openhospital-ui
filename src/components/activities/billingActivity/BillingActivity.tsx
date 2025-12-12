@@ -1,4 +1,4 @@
-import React, { type FC } from 'react';
+import type { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import AppHeader from '../../accessories/appHeader/AppHeader';
 import { BillTable } from '../../accessories/billTable/BillTable';

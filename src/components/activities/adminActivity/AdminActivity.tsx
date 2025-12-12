@@ -1,5 +1,5 @@
 import { useMediaQuery } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Outlet } from 'react-router';
 import { PATHS } from '../../../consts';

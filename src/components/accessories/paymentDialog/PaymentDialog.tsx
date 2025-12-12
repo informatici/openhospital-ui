@@ -8,7 +8,7 @@ import {
 } from '@mui/material';
 import { useFormik } from 'formik';
 import { get, has } from 'lodash';
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import NumberFormat, { type NumberFormatValues } from 'react-number-format';
 import { object, string } from 'yup';

@@ -3,16 +3,16 @@ import { operationsDTO } from '../fixtures/operationsDTO';
 
 export const operationRoutes = (server) => {
 	server.namespace('/operations', () => {
-		server.get('/').intercept((req, res) => {
+		server.get('/').intercept((_req, res) => {
 			res.status(200).json(operationsDTO);
 		});
-		server.get('/rows/search/admission').intercept((req, res) => {
+		server.get('/rows/search/admission').intercept((_req, res) => {
 			res.status(200).json(operationRowsDTO);
 		});
-		server.get('/rows/search/patient').intercept((req, res) => {
+		server.get('/rows/search/patient').intercept((_req, res) => {
 			res.status(200).json(operationRowsDTO);
 		});
-		server.get('/rows/search/opd').intercept((req, res) => {
+		server.get('/rows/search/opd').intercept((_req, res) => {
 			res.status(200).json(operationRowsDTO);
 		});
 		server.post('/rows').intercept((req, res) => {

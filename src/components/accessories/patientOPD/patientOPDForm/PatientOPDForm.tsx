@@ -175,7 +175,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
 			formik.setFieldTouched(fieldName);
 		},
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-		[setFieldValue],
+		[setFieldValue, formik.setFieldTouched],
 	);
 
 	const diseasesOptionsSelector = (state: IState) => {
@@ -324,7 +324,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
 				: opRowToEdit,
 		);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [operationCreationMode, opRowToEdit]);
+	}, [operationCreationMode, opRowToEdit, formik.values?.date]);
 
 	const handleUpdateOperationRow =
 		(value: OperationRowDTO, index: number) => () => {
@@ -373,7 +373,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
 						) : (
 							<>
 								<Edit fontSize="small" />
-								{t('opd.editopd') + ': ' + renderDate(formik.values.date)}
+								{`${t('opd.editopd')}: ${renderDate(formik.values.date)}`}
 							</>
 						)}
 					</AccordionSummary>
@@ -391,7 +391,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
 										<RadioGroup
 											aria-label="newpatient"
 											name="newpatient"
-											value={formik.values['newPatient']}
+											value={formik.values.newPatient}
 											onChange={(event) => {
 												formik.setFieldValue('newPatient', event.target.value);
 											}}
@@ -400,13 +400,13 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
 												value="R"
 												control={<Radio />}
 												label={t('opd.reattendance')}
-												checked={formik.values['newPatient'] === 'R'}
+												checked={formik.values.newPatient === 'R'}
 											/>
 											<FormControlLabel
 												value="N"
 												control={<Radio />}
 												label={t('opd.newattendance')}
-												checked={formik.values['newPatient'] === 'N'}
+												checked={formik.values.newPatient === 'N'}
 											/>
 										</RadioGroup>
 									</FormControl>

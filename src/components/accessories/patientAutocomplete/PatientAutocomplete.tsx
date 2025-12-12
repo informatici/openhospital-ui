@@ -29,7 +29,7 @@ const PatientAutocomplete: FC<IProps> = ({ onBlur, ...props }) => {
 		onBlur(e, value ?? undefined);
 	};
 
-	const onChange = (e: object, val: PatientDTO | null) => {
+	const onChange = (_e: object, val: PatientDTO | null) => {
 		setValue(val ?? undefined);
 	};
 
@@ -41,7 +41,7 @@ const PatientAutocomplete: FC<IProps> = ({ onBlur, ...props }) => {
 		);
 	}, [dispatch, inputValue]);
 
-	const handleOnInputChange = (event: any, value: string) => {
+	const handleOnInputChange = (_event: any, value: string) => {
 		if (value === '') setValue(undefined);
 		debounce(() => {
 			setInputValue(value);

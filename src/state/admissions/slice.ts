@@ -48,7 +48,7 @@ export const admissionSlice = createSlice({
 			.addCase(thunks.dischargePatient.pending, (state) => {
 				state.dischargePatient = ApiResponse.loading();
 			})
-			.addCase(thunks.dischargePatient.fulfilled, (state, action) => {
+			.addCase(thunks.dischargePatient.fulfilled, (state, _action) => {
 				state.dischargePatient.status = 'SUCCESS';
 			})
 			.addCase(thunks.dischargePatient.rejected, (state, action) => {

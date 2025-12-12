@@ -44,7 +44,7 @@ const BillItemPickerForm: FC<BillItemProps> = ({
 			if (itemType === ItemGroups.other.id) {
 				item.itemAmount = values?.itemAmount;
 				item.itemDescription = values?.itemDescription;
-				onSubmit(item, itemToEdit === undefined ? true : false);
+				onSubmit(item, itemToEdit === undefined);
 				return;
 			}
 			const priceDTO: PriceDTO | undefined = prices.find(
@@ -57,7 +57,7 @@ const BillItemPickerForm: FC<BillItemProps> = ({
 				item.itemId = priceDTO.item;
 				item.price = true;
 				item.priceId = priceDTO.id?.toString() ?? '';
-				onSubmit(item, itemToEdit === undefined ? true : false);
+				onSubmit(item, itemToEdit === undefined);
 			}
 		},
 		[itemToEdit, itemType, items, onSubmit, prices],
@@ -74,7 +74,7 @@ const BillItemPickerForm: FC<BillItemProps> = ({
 		values,
 	} = useItemFormik(fields, itemType, items, itemToEdit, handleFormSubmit);
 
-	const handleItemTypeChange = useCallback((e: any, value: string) => {
+	const handleItemTypeChange = useCallback((_e: any, value: string) => {
 		setItemType(value);
 	}, []);
 

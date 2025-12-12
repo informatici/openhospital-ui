@@ -1,4 +1,4 @@
-import React, { Fragment, type FunctionComponent } from 'react';
+import { Fragment, type FunctionComponent } from 'react';
 import './styles.scss';
 import type { IProps } from './types';
 

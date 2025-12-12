@@ -116,7 +116,7 @@ export const opdSlice = createSlice({
 			.addCase(thunks.deleteOpd.pending, (state) => {
 				state.deleteOpd = ApiResponse.loading();
 			})
-			.addCase(thunks.deleteOpd.fulfilled, (state, action) => {
+			.addCase(thunks.deleteOpd.fulfilled, (state, _action) => {
 				state.deleteOpd.status = 'SUCCESS';
 			})
 			.addCase(thunks.deleteOpd.rejected, (state, action) => {

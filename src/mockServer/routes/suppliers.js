@@ -2,7 +2,7 @@ import { supplierDTO } from '../fixtures/supplierDTO';
 
 export const suppliersRoutes = (server) => {
 	server.namespace('/suppliers', () => {
-		server.get('/').intercept((req, res) => {
+		server.get('/').intercept((_req, res) => {
 			res.status(200).json(supplierDTO);
 		});
 		server.post('/').intercept((req, res) => {

@@ -177,7 +177,7 @@ export const useFullBill = () => {
 			setBillItems([...(fullBill.billItems ?? [])]);
 			setBillPayments([...(fullBill.billPayments ?? [])]);
 		}
-	}, [creationMode, patient, pendings]);
+	}, [creationMode, pendings]);
 
 	const billTotal = useMemo(() => {
 		return billItems

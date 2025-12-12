@@ -83,7 +83,7 @@ export const operationSlice = createSlice({
 			.addCase(thunks.deleteOperation.pending, (state) => {
 				state.delete = ApiResponse.loading();
 			})
-			.addCase(thunks.deleteOperation.fulfilled, (state, action) => {
+			.addCase(thunks.deleteOperation.fulfilled, (state, _action) => {
 				state.delete.status = 'SUCCESS';
 			})
 			.addCase(thunks.deleteOperation.rejected, (state, action) => {
@@ -113,7 +113,7 @@ export const operationSlice = createSlice({
 			.addCase(thunks.deleteOperationRow.pending, (state) => {
 				state.deleteOperationRow = ApiResponse.loading();
 			})
-			.addCase(thunks.deleteOperationRow.fulfilled, (state, action) => {
+			.addCase(thunks.deleteOperationRow.fulfilled, (state, _action) => {
 				state.deleteOperationRow.status = 'SUCCESS';
 			})
 			.addCase(thunks.deleteOperationRow.rejected, (state, action) => {

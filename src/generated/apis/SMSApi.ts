@@ -116,7 +116,7 @@ export class SMSApi extends BaseAPI {
 		const query: HttpQuery = {};
 
 		if (split != null) {
-			query['split'] = split;
+			query.split = split;
 		}
 
 		return this.request<boolean>(

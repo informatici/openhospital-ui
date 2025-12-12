@@ -92,7 +92,7 @@ const Table: FunctionComponent<IProps> = ({
 	const [currentRow, setCurrentRow] = useState({} as any);
 	const [expanded, setExpanded] = useState(false);
 	const [filters, setFilters] = useState<Record<string, TFilterValues>>({});
-	const handleChangePage = (event: unknown, newPage: number) => {
+	const handleChangePage = (_event: unknown, newPage: number) => {
 		setPage(newPage);
 	};
 	const createSortHandler =
@@ -101,7 +101,7 @@ const Table: FunctionComponent<IProps> = ({
 		};
 
 	const handleRequestSort = (
-		event: React.MouseEvent<unknown>,
+		_event: React.MouseEvent<unknown>,
 		property: any,
 	) => {
 		const isAsc = orderBy === property && order === 'asc';
@@ -126,9 +126,7 @@ const Table: FunctionComponent<IProps> = ({
 						size="small"
 						disabled={disableAction(row, 'edit')}
 						onClick={
-							disableAction(row, 'edit')
-								? () => {}
-								: () => onEdit && onEdit(row)
+							disableAction(row, 'edit') ? () => {} : () => onEdit?.(row)
 						}
 					>
 						<Edit />
@@ -160,9 +158,7 @@ const Table: FunctionComponent<IProps> = ({
 						title={labels?.print?.tooltip ?? 'Print'}
 						disabled={disableAction(row, 'print')}
 						onClick={
-							disableAction(row, 'print')
-								? () => {}
-								: () => onPrint && onPrint(row)
+							disableAction(row, 'print') ? () => {} : () => onPrint?.(row)
 						}
 					>
 						<Print color="secondary" />
@@ -177,9 +173,7 @@ const Table: FunctionComponent<IProps> = ({
 						title={labels?.view?.tooltip ?? 'View details'}
 						disabled={disableAction(row, 'view')}
 						onClick={
-							disableAction(row, 'view')
-								? () => {}
-								: () => onView && onView(row)
+							disableAction(row, 'view') ? () => {} : () => onView?.(row)
 						}
 					>
 						<InfoOutlined color="primary" titleAccess={'View Details'} />
@@ -192,9 +186,7 @@ const Table: FunctionComponent<IProps> = ({
 						size="small"
 						title={labels?.pay?.tooltip ?? 'Add a payment'}
 						disabled={disableAction(row, 'pay')}
-						onClick={
-							disableAction(row, 'pay') ? () => {} : () => onPay && onPay(row)
-						}
+						onClick={disableAction(row, 'pay') ? () => {} : () => onPay?.(row)}
 					>
 						<MonetizationOn htmlColor="#00912c" />
 					</IconButton>
@@ -208,9 +200,7 @@ const Table: FunctionComponent<IProps> = ({
 						title={labels?.close?.tooltip ?? 'Close the bill'}
 						disabled={disableAction(row, 'close')}
 						onClick={
-							disableAction(row, 'close')
-								? () => {}
-								: () => onClose && onClose(row)
+							disableAction(row, 'close') ? () => {} : () => onClose?.(row)
 						}
 					>
 						<Archive htmlColor="#0373fc" />
@@ -240,9 +230,7 @@ const Table: FunctionComponent<IProps> = ({
 						size="small"
 						title={addTitle ?? labels?.add?.tooltip ?? 'Add'}
 						disabled={disableAction(row, 'add')}
-						onClick={
-							disableAction(row, 'add') ? () => {} : () => onAdd && onAdd(row)
-						}
+						onClick={disableAction(row, 'add') ? () => {} : () => onAdd?.(row)}
 					>
 						<Add />
 					</IconButton>
@@ -289,7 +277,7 @@ const Table: FunctionComponent<IProps> = ({
 			setCurrentRow(row);
 			setOpenConfirmation({ open: true, action });
 		},
-		[setOpenConfirmation, setCurrentRow],
+		[],
 	);
 
 	const closeConfirmationDialog = useCallback(() => {
@@ -386,7 +374,7 @@ const Table: FunctionComponent<IProps> = ({
 				manualFilter,
 			),
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-		[filterColumns, filters, manualFilter, rowData],
+		[filterColumns, filters, manualFilter, rowData, rawData, rowKey],
 	);
 
 	useEffect(() => {
@@ -394,7 +382,7 @@ const Table: FunctionComponent<IProps> = ({
 			onFilterChange(filters);
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [filters]);
+	}, [filters, manualFilter, onFilterChange]);
 
 	return (
 		<>
@@ -470,7 +458,7 @@ const Table: FunctionComponent<IProps> = ({
 								return (
 									<TableBodyRow
 										row={row}
-										coreRow={getCoreRow && getCoreRow(row)}
+										coreRow={getCoreRow?.(row)}
 										key={index}
 										rowIndex={index}
 										labelData={labelData}

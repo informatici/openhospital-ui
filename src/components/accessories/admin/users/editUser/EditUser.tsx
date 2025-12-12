@@ -40,7 +40,7 @@ export const EditUser = () => {
 			if (getUser.data) setUser(getUser.data);
 			else setUserNotFound(true);
 		}
-	}, [getUser.hasSucceeded, getUser.data, id]);
+	}, [getUser.hasSucceeded, getUser.data]);
 
 	const handleUpdate = (user: UserDTO) => {
 		dispatch(updateUser(user));

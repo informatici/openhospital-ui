@@ -1,7 +1,7 @@
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import React, { type FunctionComponent } from 'react';
+import type { FunctionComponent } from 'react';
 import Button from '../button/Button';
 import './styles.scss';
 import type { IProps } from './types';

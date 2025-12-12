@@ -97,8 +97,7 @@ const PatientOPD: FunctionComponent = () => {
 				opdValues.opdDTO.sex = patient?.sex;
 			}
 			opdValues.opdDTO.userID = userId;
-			opdValues.opdDTO.patientName =
-				patient?.firstName + ' ' + patient?.secondName;
+			opdValues.opdDTO.patientName = `${patient?.firstName} ${patient?.secondName}`;
 			const opdToSave = { ...opdToEdit.opdDTO, ...opdValues.opdDTO };
 			if (!creationMode && opdToEdit.opdDTO?.code) {
 				dispatch(

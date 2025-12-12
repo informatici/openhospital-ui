@@ -1,4 +1,3 @@
-import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 import { PATHS } from '../consts';
 import { isAuthenticated } from '../libraries/authUtils/isAuthenticated';

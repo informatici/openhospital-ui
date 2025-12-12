@@ -1,5 +1,5 @@
 import { isEmpty } from 'lodash';
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Navigate, useParams } from 'react-router';
 import checkIcon from '../../../assets/check-icon.png';
@@ -99,7 +99,7 @@ const EditPatientActivity = () => {
 			setOpenConfirmationMessage(false);
 			setActivityTransitionState('IDLE');
 		}
-	}, [dispatch, activityTransitionState, id]);
+	}, [activityTransitionState]);
 
 	useEffect(() => {
 		setOpenConfirmationMessage(hasSucceeded);

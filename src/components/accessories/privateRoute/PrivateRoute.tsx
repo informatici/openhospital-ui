@@ -1,4 +1,4 @@
-import React, { type FunctionComponent } from 'react';
+import type { FunctionComponent } from 'react';
 import { Navigate, Route, type RouteProps, useLocation } from 'react-router';
 import { isAuthenticated } from '../../../libraries/authUtils/isAuthenticated';
 import { useAuthentication } from '../../../libraries/authUtils/useAuthentication';

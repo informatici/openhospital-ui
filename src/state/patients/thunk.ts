@@ -15,7 +15,7 @@ export const searchPatient = createAsyncThunk(
 	'patients/searchPatient',
 	async (values: TValues, thunkApi) => {
 		if (values.id) {
-			return wrapper(() => api.getPatient({ code: parseInt(values.id) }))
+			return wrapper(() => api.getPatient({ code: parseInt(values.id, 10) }))
 				.toPromise()
 				.then((result) => (result ? [result] : []))
 				.catch((error) => thunkApi.rejectWithValue(error.response));
@@ -57,7 +57,7 @@ export const getPatients = createAsyncThunk(
 export const getPatient = createAsyncThunk(
 	'patients/getPatient',
 	async (id: string, thunkApi) =>
-		wrapper(() => api.getPatient({ code: parseInt(id) }))
+		wrapper(() => api.getPatient({ code: parseInt(id, 10) }))
 			.toPromise()
 			.catch((error) => thunkApi.rejectWithValue(error.response)),
 );

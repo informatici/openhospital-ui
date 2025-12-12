@@ -73,12 +73,12 @@ const GridLayoutContainer: FC = () => {
 	}, []);
 
 	useEffect(() => {
-		dispatch(getLayouts(userCredentials?.username!));
+		dispatch(getLayouts(userCredentials?.username ?? ''));
 		setMounted(true);
 	}, [dispatch, userCredentials]);
 
 	const onRetry = () => {
-		dispatch(getLayouts(userCredentials?.username!));
+		dispatch(getLayouts(userCredentials?.username ?? ''));
 	};
 
 	const onReset = () => {
@@ -100,7 +100,7 @@ const GridLayoutContainer: FC = () => {
 		return localBreakpoint;
 	};
 
-	const onLayoutChange = (newLayout: Layout[], allLayouts: Layouts) => {
+	const onLayoutChange = (_newLayout: Layout[], allLayouts: Layouts) => {
 		if (!canUpdateLayouts) {
 			setCanUpdateLayouts(true);
 			return;
@@ -117,7 +117,7 @@ const GridLayoutContainer: FC = () => {
 		if (!dashboardSetting) {
 			setting = {
 				configName: 'dashboard',
-				user: userCredentials?.username!,
+				user: userCredentials?.username,
 			} as UserSettingDTO;
 		} else {
 			setting = { ...dashboardSetting };
@@ -146,7 +146,7 @@ const GridLayoutContainer: FC = () => {
 		if (!dashboardSetting) {
 			setting = {
 				configName: 'dashboard',
-				user: userCredentials?.username!,
+				user: userCredentials?.username,
 			} as UserSettingDTO;
 		} else {
 			setting = { ...dashboardSetting };
@@ -264,7 +264,7 @@ const GridLayoutContainer: FC = () => {
 								breakpoints={defaultGridLayoutBreakpoints}
 								cols={defaultGridLayoutCols}
 							>
-								{layouts[getRealBreakpoint()].map((l, key) => {
+								{layouts[getRealBreakpoint()].map((l, _key) => {
 									const ldash = l.i as TDashboardComponent;
 
 									return (

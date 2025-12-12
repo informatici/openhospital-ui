@@ -36,7 +36,7 @@ export class ServerConfiguration<T extends { [key: string]: string }> {
 		let replacedUrl = this.url;
 		for (const key in this.variableConfiguration) {
 			if (Object.hasOwn(this.variableConfiguration, key)) {
-				const re = new RegExp('{' + key + '}', 'g');
+				const re = new RegExp(`{${key}}`, 'g');
 				replacedUrl = replacedUrl.replace(re, this.variableConfiguration[key]);
 			}
 		}

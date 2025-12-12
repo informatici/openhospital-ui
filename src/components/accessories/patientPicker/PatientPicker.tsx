@@ -54,7 +54,7 @@ const PatientPicker: FC<IProps> = ({
 	const inputRef = useRef<any>(null);
 	const [currentPage, setCurrentPage] = useState(currentPageConst);
 	const [patientsPerPage] = useState(itemsPerPageConst);
-	const handlePageChange = (event: any, value: number) => {
+	const handlePageChange = (_event: any, value: number) => {
 		setCurrentPage(value);
 	};
 	function getCurrentPatients(patients: PatientDTO[] | undefined) {
@@ -130,7 +130,7 @@ const PatientPicker: FC<IProps> = ({
 		if (hasFocus) {
 			inputRef.current.focus();
 		}
-	}, [value, hasFocus]);
+	}, [hasFocus]);
 
 	useEffect(() => {
 		const pat = patientData?.find((item) => item.code === fieldValue);
@@ -250,7 +250,7 @@ const PatientPicker: FC<IProps> = ({
 						<IconButton
 							edge="end"
 							color="inherit"
-							onClick={(event: any) => {
+							onClick={(_event: any) => {
 								handleClose();
 							}}
 							aria-label="close"

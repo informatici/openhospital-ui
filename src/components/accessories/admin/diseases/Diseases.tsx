@@ -37,7 +37,7 @@ export const Diseases = () => {
 		});
 	};
 
-	const handleViewChange = useCallback((event: any, value: any) => {
+	const handleViewChange = useCallback((_event: any, value: any) => {
 		if (!isEmpty(value)) {
 			setView(value);
 		}

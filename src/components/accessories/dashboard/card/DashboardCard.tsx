@@ -40,7 +40,7 @@ export const DashboardCard: React.FC<TDashboardCardProps> = ({
 			resizeObserver.observe(cardBodyRef.current);
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [cardBodyRef]);
+	}, [resizeObserver.observe, sizeChangeHandler]);
 
 	// Remove the observer on component unmount
 	useEffect(() => {
@@ -53,7 +53,7 @@ export const DashboardCard: React.FC<TDashboardCardProps> = ({
 			}
 		};
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [resizeObserver.disconnect, resizeObserver.unobserve, sizeChangeHandler]);
 
 	const getTitle = () => {
 		return title ? (

@@ -99,7 +99,7 @@ export class PatientVaccinesApi extends BaseAPI {
 		const query: HttpQuery = {};
 
 		if (oneWeek != null) {
-			query['oneWeek'] = oneWeek;
+			query.oneWeek = oneWeek;
 		}
 
 		return this.request<Array<PatientVaccineDTO>>(

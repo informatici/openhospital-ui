@@ -59,7 +59,7 @@ export const UsersTable = ({ headerActions, onEdit, onDelete }: IOwnProps) => {
 		return () => {
 			dispatch(deleteUserReset());
 		};
-	}, [update.status, dispatch]);
+	}, [dispatch, update.hasFailed, update.hasSucceeded]);
 
 	useEffect(() => {
 		if (deleteUser.hasFailed) {
@@ -72,7 +72,7 @@ export const UsersTable = ({ headerActions, onEdit, onDelete }: IOwnProps) => {
 		return () => {
 			dispatch(updateUserReset());
 		};
-	}, [deleteUser.status, dispatch]);
+	}, [dispatch, deleteUser.hasFailed, deleteUser.hasSucceeded]);
 
 	const header = ['userName', 'userGroupName', 'desc', 'deleted'];
 	const label = {
@@ -126,13 +126,13 @@ export const UsersTable = ({ headerActions, onEdit, onDelete }: IOwnProps) => {
 			dispatch(
 				updateUser({
 					...row,
-					userGroupName: data!.find((user) => user.userName === row.userName)!
-						.userGroupName,
+					userGroupName: data?.find((user) => user.userName === row.userName)
+						?.userGroupName,
 					deleted,
 				}),
 			);
 		},
-		[updateUser, data],
+		[data, dispatch],
 	);
 
 	const displayRowAction = useCallback(

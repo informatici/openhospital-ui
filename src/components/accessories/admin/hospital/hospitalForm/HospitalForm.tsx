@@ -77,7 +77,7 @@ const HospitalForm: FC<IHospitalFormProps> = ({
 		return () => {
 			dispatch(updateHospitalReset());
 		};
-	}, []);
+	}, [dispatch]);
 
 	return (
 		<div className="hospitalForm">

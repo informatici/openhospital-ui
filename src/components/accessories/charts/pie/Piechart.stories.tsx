@@ -1,7 +1,6 @@
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
 import { Chart, registerables } from 'chart.js';
 import moment from 'moment';
-import React from 'react';
 import { Piechart } from './Piechart';
 
 Chart.register(...registerables);
@@ -28,8 +27,8 @@ Pie1.args = {
 		datasets: [
 			{
 				label: 'Data 1',
-				data: labels.map((e, i) => Math.random()),
-				backgroundColor: labels.map((e) => '#feaedb'),
+				data: labels.map((_e, _i) => Math.random()),
+				backgroundColor: labels.map((_e) => '#feaedb'),
 			},
 		],
 	},

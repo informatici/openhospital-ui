@@ -113,26 +113,24 @@ export const DiseaseTable: FunctionComponent<IOwnProps> = ({
 
 					case 'SUCCESS':
 						return (
-							<>
-								<Table
-									rowData={formatDataToDisplay(filteredData ?? [])}
-									tableHeader={header}
-									labelData={label}
-									columnsOrder={order}
-									rowsPerPage={20}
-									onEdit={handleEdit}
-									showEmptyCell={false}
-									rowKey={'code'}
-									manualFilter={false}
-									isCollapsabile
-									filterColumns={filters}
-									rawData={(filteredData ?? []).map((disease) => ({
-										...disease,
-										diseaseType: disease.diseaseType.code,
-									}))}
-									headerActions={headerActions}
-								/>
-							</>
+							<Table
+								rowData={formatDataToDisplay(filteredData ?? [])}
+								tableHeader={header}
+								labelData={label}
+								columnsOrder={order}
+								rowsPerPage={20}
+								onEdit={handleEdit}
+								showEmptyCell={false}
+								rowKey={'code'}
+								manualFilter={false}
+								isCollapsabile
+								filterColumns={filters}
+								rawData={(filteredData ?? []).map((disease) => ({
+									...disease,
+									diseaseType: disease.diseaseType.code,
+								}))}
+								headerActions={headerActions}
+							/>
 						);
 					case 'SUCCESS_EMPTY':
 						return <InfoBox type="info" message={t('common.emptydata')} />;

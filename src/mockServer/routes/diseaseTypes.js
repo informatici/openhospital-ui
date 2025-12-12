@@ -2,7 +2,7 @@ import { diseaseTypesDTO } from '../fixtures/diseaseTypesDTO';
 
 export const diseaseTypeRoutes = (server) => {
 	server.namespace('/diseasetypes', () => {
-		server.get('/').intercept((req, res) => {
+		server.get('/').intercept((_req, res) => {
 			res.status(200).json(diseaseTypesDTO);
 		});
 		server.post('/').intercept((req, res) => {

@@ -1,5 +1,5 @@
 import Skeleton from '@mui/lab/Skeleton';
-import React, { Fragment, type FunctionComponent } from 'react';
+import { Fragment, type FunctionComponent } from 'react';
 
 const SkeletonLoader: FunctionComponent = () => {
 	return (

@@ -2,7 +2,7 @@ import { ageTypeDTO } from '../fixtures/ageTypeDTO';
 
 export const ageTypeRoutes = (server) => {
 	server.namespace('/agetypes', () => {
-		server.get('/').intercept((req, res) => {
+		server.get('/').intercept((_req, res) => {
 			res.status(200).json(ageTypeDTO);
 		});
 		server.put('/').intercept((req, res) => {

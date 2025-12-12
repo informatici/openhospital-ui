@@ -2,7 +2,7 @@ import { hospitalDTO } from '../fixtures/hospitalDTO';
 
 export const hospitalRoutes = (server) => {
 	server.namespace('/hospitals', () => {
-		server.get('/').intercept((req, res) => {
+		server.get('/').intercept((_req, res) => {
 			res.status(200).json(hospitalDTO);
 		});
 		server.get('/:code').intercept((req, res) => {

@@ -49,7 +49,7 @@ const SelectField: FunctionComponent<IProps> = ({
 			size="small"
 		>
 			<InputLabel id={fieldName} error={isValid}>
-				{required === FIELD_VALIDATION.SUGGESTED ? label + ' **' : label}
+				{required === FIELD_VALIDATION.SUGGESTED ? `${label} **` : label}
 			</InputLabel>
 			<Select
 				labelId={`${fieldName}-label`}
@@ -61,7 +61,7 @@ const SelectField: FunctionComponent<IProps> = ({
 					if (onChange !== undefined) onChange(e.target.value as string);
 				}}
 				onBlur={handleOnBlur}
-				label={required === FIELD_VALIDATION.SUGGESTED ? label + ' **' : label}
+				label={required === FIELD_VALIDATION.SUGGESTED ? `${label} **` : label}
 				error={isValid}
 			>
 				{isLoading && (

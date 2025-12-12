@@ -230,10 +230,10 @@ export class PatientsApi extends BaseAPI {
 		const query: HttpQuery = {};
 
 		if (page != null) {
-			query['page'] = page;
+			query.page = page;
 		}
 		if (size != null) {
-			query['size'] = size;
+			query.size = size;
 		}
 
 		return this.request<PagePatientDTO>(
@@ -332,16 +332,16 @@ export class PatientsApi extends BaseAPI {
 		const query: HttpQuery = {};
 
 		if (firstName != null) {
-			query['firstName'] = firstName;
+			query.firstName = firstName;
 		}
 		if (secondName != null) {
-			query['secondName'] = secondName;
+			query.secondName = secondName;
 		}
 		if (birthDate != null) {
-			query['birthDate'] = (birthDate as any).toISOString();
+			query.birthDate = (birthDate as any).toISOString();
 		}
 		if (address != null) {
-			query['address'] = address;
+			query.address = address;
 		}
 
 		return this.request<Array<PatientDTO>>(

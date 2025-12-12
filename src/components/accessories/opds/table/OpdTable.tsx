@@ -1,4 +1,4 @@
-import React, { type FC, useState } from 'react';
+import { type FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { OpdDTO } from '../../../../generated';
 import { renderDateTime } from '../../../../libraries/formatUtils/dataFormatting';

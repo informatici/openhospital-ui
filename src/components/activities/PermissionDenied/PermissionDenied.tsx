@@ -1,5 +1,5 @@
 import classnames from 'classnames';
-import React, { type FC } from 'react';
+import type { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import logo from '../../../assets/logo-color.svg';

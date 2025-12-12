@@ -3,7 +3,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import i18n from 'i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
-import React, { type FunctionComponent, useState } from 'react';
+import { type FunctionComponent, useState } from 'react';
 import { initReactI18next } from 'react-i18next';
 import './App.scss';
 import { LangContext } from './libraries/langContext/langContext';

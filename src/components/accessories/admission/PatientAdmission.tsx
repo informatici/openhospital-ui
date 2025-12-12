@@ -81,7 +81,7 @@ const PatientAdmission: FC = () => {
 
 	useEffect(() => {
 		if (patientCode && creationMode) {
-			dispatch(getLastOpd(parseInt(id!)));
+			dispatch(getLastOpd(parseInt(id!, 10)));
 		}
 	}, [dispatch, patientCode, creationMode, id]);
 
@@ -150,12 +150,12 @@ const PatientAdmission: FC = () => {
 			setShouldUpdateTable(true);
 			setShouldResetForm(true);
 		}
-	}, [dispatch, patient, activityTransitionState]);
+	}, [dispatch, activityTransitionState]);
 
 	useEffect(() => {
 		if (createStatus === 'SUCCESS' || updateStatus === 'SUCCESS') {
 			dispatch(getPatient(id!));
-			dispatch(getCurrentAdmission(parseInt(id!)));
+			dispatch(getCurrentAdmission(parseInt(id!, 10)));
 		}
 	}, [createStatus, dispatch, id, updateStatus]);
 
@@ -169,7 +169,7 @@ const PatientAdmission: FC = () => {
 	};
 
 	useEffect(() => {
-		dispatch(getCurrentAdmission(parseInt(id!)));
+		dispatch(getCurrentAdmission(parseInt(id!, 10)));
 		return () => {
 			dispatch(getCurrentAdmissionReset());
 		};

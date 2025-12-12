@@ -2,7 +2,7 @@ import { deliveryResultTypeDTO } from '../fixtures/deliveryResultTypeDTO';
 
 export const deliveryResultTypeRoutes = (server) => {
 	server.namespace('/deliveryresulttypes', () => {
-		server.get('/').intercept((req, res) => {
+		server.get('/').intercept((_req, res) => {
 			res.status(200).json(deliveryResultTypeDTO);
 		});
 		server.post('/').intercept((req, res) => {

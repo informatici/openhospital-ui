@@ -45,7 +45,7 @@ const AutocompleteField: FC<IProps> = ({
 	options_limit = 10,
 	maxLength,
 	optionsComparator = (option: DefaultOptionType, val: string | number) =>
-		option.value + '' === val + '',
+		`${option.value}` === `${val}`,
 }) => {
 	const [value, setValue] = useState('');
 	const [inputValue, setInputValue] = useState('');
@@ -84,7 +84,7 @@ const AutocompleteField: FC<IProps> = ({
 	);
 
 	useEffect(() => {
-		setValue(fieldValue + '');
+		setValue(`${fieldValue}`);
 	}, [fieldValue]);
 
 	const handleOnChange = (e: object, val: any | null) => {
@@ -96,7 +96,7 @@ const AutocompleteField: FC<IProps> = ({
 
 	const handleOnInputChange = (event: ChangeEvent<{}>, value: string) => {
 		setInputValue(value);
-		onInputChange && onInputChange(event, value);
+		onInputChange?.(event, value);
 	};
 
 	const optionLabel = (option: DefaultOptionType | string) => {
@@ -126,7 +126,7 @@ const AutocompleteField: FC<IProps> = ({
 			const isExisting = options.some((option) => inputValue === option.value);
 			if (inputValue !== '' && !isExisting) {
 				filtered.push({
-					label: t('common.addnewoption') + ' ' + inputValue,
+					label: `${t('common.addnewoption')} ${inputValue}`,
 					value: inputValue,
 				} as DefaultOptionType);
 			}

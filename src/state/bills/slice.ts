@@ -51,7 +51,7 @@ export const billSlice = createSlice({
 			.addCase(thunks.payBill.pending, (state) => {
 				state.payBill = ApiResponse.loading();
 			})
-			.addCase(thunks.payBill.fulfilled, (state, action) => {
+			.addCase(thunks.payBill.fulfilled, (state, _action) => {
 				state.payBill.status = 'SUCCESS';
 			})
 			.addCase(thunks.payBill.rejected, (state, action) => {
@@ -61,7 +61,7 @@ export const billSlice = createSlice({
 			.addCase(thunks.closeBill.pending, (state) => {
 				state.closeBill = ApiResponse.loading();
 			})
-			.addCase(thunks.closeBill.fulfilled, (state, action) => {
+			.addCase(thunks.closeBill.fulfilled, (state, _action) => {
 				state.closeBill.status = 'SUCCESS';
 			})
 			.addCase(thunks.closeBill.rejected, (state, action) => {
@@ -71,7 +71,7 @@ export const billSlice = createSlice({
 			.addCase(thunks.deleteBill.pending, (state) => {
 				state.delete = ApiResponse.loading();
 			})
-			.addCase(thunks.deleteBill.fulfilled, (state, action) => {
+			.addCase(thunks.deleteBill.fulfilled, (state, _action) => {
 				state.delete.status = 'SUCCESS';
 			})
 			.addCase(thunks.deleteBill.rejected, (state, action) => {
@@ -81,7 +81,7 @@ export const billSlice = createSlice({
 			.addCase(thunks.getBill.pending, (state) => {
 				state.getBill = ApiResponse.loading();
 			})
-			.addCase(thunks.getBill.fulfilled, (state, action) => {
+			.addCase(thunks.getBill.fulfilled, (state, _action) => {
 				state.getBill.status = 'SUCCESS';
 			})
 			.addCase(thunks.getBill.rejected, (state, action) => {

@@ -51,11 +51,11 @@ export const renderSummary = (
 			}
 			return obj[field];
 		});
-		if (item['type'] === 'OPD') {
-			obj['opdDate'] = item['date'];
+		if (item.type === 'OPD') {
+			obj.opdDate = item.date;
 		}
-		if (item['type'] === 'VISIT') {
-			obj['visitDate'] = item['date'];
+		if (item.type === 'VISIT') {
+			obj.visitDate = item.date;
 		}
 		return obj;
 	};

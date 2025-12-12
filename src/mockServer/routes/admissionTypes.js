@@ -2,7 +2,7 @@ import { admissionTypesDTO } from '../fixtures/admissionsTypesDTO';
 
 export const admissionTypesRoutes = (server) => {
 	server.namespace('/admissiontypes', () => {
-		server.get('/').intercept((req, res) => {
+		server.get('/').intercept((_req, res) => {
 			res.status(200).json(admissionTypesDTO);
 		});
 		server.post('/').intercept((req, res) => {

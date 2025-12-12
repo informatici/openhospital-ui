@@ -49,7 +49,7 @@ const Tabs: FunctionComponent<IProps> = ({ config }) => {
 				<div className="tabs mobile">
 					<select
 						value={currentIndex}
-						onChange={(e) => updateCurrentIndex(parseInt(e.target.value))}
+						onChange={(e) => updateCurrentIndex(parseInt(e.target.value, 10))}
 					>
 						{renderHeader(true)}
 					</select>

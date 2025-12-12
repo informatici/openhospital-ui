@@ -191,7 +191,7 @@ export function allowedDashboards(): TDashboardComponent[] {
 	let permissions: TPermission[] = [];
 	try {
 		permissions = getAuthenticationFromSession().permissions;
-	} catch (error) {
+	} catch (_error) {
 		//console.log(error);
 	}
 
@@ -269,23 +269,23 @@ export function toolboxDashboards(
 		const unknownDashboardLayout: Layouts = {
 			lg: generateLayout(
 				'lg',
-				unknownDashboard['lg'].length > 0 ? unknownDashboard['lg'] : [],
+				unknownDashboard.lg.length > 0 ? unknownDashboard.lg : [],
 			),
 			md: generateLayout(
 				'md',
-				unknownDashboard['md'].length > 0 ? unknownDashboard['md'] : [],
+				unknownDashboard.md.length > 0 ? unknownDashboard.md : [],
 			),
 			sm: generateLayout(
 				'sm',
-				unknownDashboard['sm'].length > 0 ? unknownDashboard['sm'] : [],
+				unknownDashboard.sm.length > 0 ? unknownDashboard.sm : [],
 			),
 			xs: generateLayout(
 				'xs',
-				unknownDashboard['xs'].length > 0 ? unknownDashboard['xs'] : [],
+				unknownDashboard.xs.length > 0 ? unknownDashboard.xs : [],
 			),
 			xxs: generateLayout(
 				'xxs',
-				unknownDashboard['xxs'].length > 0 ? unknownDashboard['xxs'] : [],
+				unknownDashboard.xxs.length > 0 ? unknownDashboard.xxs : [],
 			),
 		};
 
@@ -403,8 +403,6 @@ export function generateLayout(
 
 				break;
 			}
-
-			case 'lg':
 			default: {
 				dashboardLayout = {
 					i: dashboardKey,

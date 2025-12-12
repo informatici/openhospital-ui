@@ -20,7 +20,7 @@ export const EditHospital = () => {
 	const handleSubmit = (value: HospitalDTO) => {
 		dispatch(
 			updateHospital({
-				code: hospital!.code!,
+				code: hospital?.code ?? '',
 				hospitalDTO: { ...hospital, ...value },
 			}),
 		);

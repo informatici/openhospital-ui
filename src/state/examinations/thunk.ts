@@ -52,6 +52,6 @@ export const updateExamination = createAsyncThunk(
 
 export const deleteExamination = createAsyncThunk(
 	'examinations/deleteExamination',
-	async (id: number, thunkApi) =>
+	async (_id: number, thunkApi) =>
 		thunkApi.rejectWithValue({ message: 'Delete api not yet available !!!' }),
 );

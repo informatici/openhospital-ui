@@ -50,7 +50,7 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
 			<h6>{t('patient.usersections')}</h6>
 
 			<div
-				className={'patientDetails__main_menu__item ' + isActive('admissions')}
+				className={`patientDetails__main_menu__item ${isActive('admissions')}`}
 				onClick={() => {
 					changeUserSection('admissions');
 				}}
@@ -66,9 +66,7 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
 			</div>
 
 			<div
-				className={
-					'align__element patientDetails__main_menu__item ' + isActive('visits')
-				}
+				className={`align__element patientDetails__main_menu__item ${isActive('visits')}`}
 				onClick={() => {
 					changeUserSection('visits');
 				}}
@@ -79,9 +77,7 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
 			</div>
 
 			<div
-				className={
-					'align__element patientDetails__main_menu__item ' + isActive('triage')
-				}
+				className={`align__element patientDetails__main_menu__item ${isActive('triage')}`}
 				onClick={() => {
 					changeUserSection('triage');
 				}}
@@ -151,9 +147,7 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
 				</div>
 			</Permission>
 			<div
-				className={
-					'align__element patientDetails__main_menu__item ' + isActive('clinic')
-				}
+				className={`align__element patientDetails__main_menu__item ${isActive('clinic')}`}
 				onClick={() => {
 					changeUserSection('clinic');
 				}}

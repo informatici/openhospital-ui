@@ -36,7 +36,7 @@ export const handlePictureSelection =
 		maxFileUpload: number,
 	) =>
 	(e: ChangeEvent<HTMLInputElement>): void => {
-		const newPic = e.target.files && e.target.files[0];
+		const newPic = e.target.files?.[0];
 		if (getFileSize(newPic, maxFileUpload)) {
 			if (newPic) {
 				const dataURLReader = new FileReader();
@@ -50,7 +50,7 @@ export const handlePictureSelection =
 			}
 		} else {
 			setShowError(
-				'File is too big! (Max upload file is ' + maxFileUpload / 1000 + ' KB)',
+				`File is too big! (Max upload file is ${maxFileUpload / 1000} KB)`,
 			);
 			return;
 		}
@@ -59,7 +59,7 @@ export const handlePictureSelection =
 export const getFileSize = (
 	file: File | null,
 	maxFileUpload: number,
-): boolean => (!file || file.size > maxFileUpload ? false : true);
+): boolean => !(!file || file.size > maxFileUpload);
 
 export const preprocessImage = (
 	setPicture: Dispatch<
@@ -76,7 +76,7 @@ export const preprocessImage = (
 		pictureURI = picture;
 		pictureData = picture.split(',')[1];
 	} else {
-		pictureURI = 'data:image/jpeg;base64,' + picture;
+		pictureURI = `data:image/jpeg;base64,${picture}`;
 		pictureData = picture;
 	}
 

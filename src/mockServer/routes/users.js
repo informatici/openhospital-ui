@@ -12,7 +12,7 @@ export const userRoutes = (server) => {
 				userDesc: 'John Doe',
 			});
 		});
-		server.get('/settings').intercept((req, res) => {
+		server.get('/settings').intercept((_req, res) => {
 			res
 				.status(200)
 				.json([{ id: 1, configName: 'landing', configValue: '/' }]);
@@ -39,7 +39,7 @@ export const userRoutes = (server) => {
 					res.status(204);
 			}
 		});
-		server.get('/:username/settings/dashboard').intercept((req, res) => {
+		server.get('/:username/settings/dashboard').intercept((_req, res) => {
 			res.status(200).json(dashboardSettingDTO);
 		});
 		server.put('/settings/:code').intercept((req, res) => {

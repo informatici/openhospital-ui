@@ -10,7 +10,7 @@ const api = new UserSettingsApi(customConfiguration());
 
 export const getLayouts = createAsyncThunk(
 	'layouts/getLayouts',
-	async (userName: string, thunkApi) =>
+	async (_userName: string, thunkApi) =>
 		firstValueFrom(
 			wrapper(() => api.getUserSettingByUser({ configName: 'dashboard' })),
 		).catch((error) => thunkApi.rejectWithValue(error.response)),

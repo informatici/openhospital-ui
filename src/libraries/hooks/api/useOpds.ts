@@ -24,13 +24,13 @@ export const useOpds = () => {
 		setRange(value);
 	};
 
-	const handlePageChange = (event: unknown, value: number) => {
+	const handlePageChange = (_event: unknown, value: number) => {
 		setPage(value);
 	};
 
 	useEffect(() => {
 		setPage(0);
-	}, [size, range]);
+	}, []);
 
 	return {
 		pageInfo,

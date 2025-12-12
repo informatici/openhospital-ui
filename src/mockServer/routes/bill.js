@@ -42,11 +42,11 @@ export const billRoutes = (server) => {
 			);
 		});
 
-		server.get('/payments/:bill_id').intercept((req, res) => {
+		server.get('/payments/:bill_id').intercept((_req, res) => {
 			res.status(201).json(billPaymentsDTOs);
 		});
 
-		server.get('/items/:bill_id').intercept((req, res) => {
+		server.get('/items/:bill_id').intercept((_req, res) => {
 			res.status(201).json(billItemDTOs);
 		});
 

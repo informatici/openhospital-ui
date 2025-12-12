@@ -56,7 +56,7 @@ const PatientTriageTable: FunctionComponent<IOwnProps> = ({
 	);
 	useEffect(() => {
 		dispatch(examinationsByPatientId(patientCode));
-	}, [dispatch, patientCode, shouldUpdateTable]);
+	}, [dispatch, patientCode]);
 
 	const onEdit = (row: PatientExaminationDTO) => {
 		const pex = data.find((item) => item.pex_ID === row.pex_ID);
@@ -77,13 +77,13 @@ const PatientTriageTable: FunctionComponent<IOwnProps> = ({
 				pex_sat: item.pex_sat,
 				pex_diuresis: item.pex_diuresis,
 				pex_diuresis_desc: item.pex_diuresis_desc
-					? t('examination.' + item.pex_diuresis_desc)
+					? t(`examination.${item.pex_diuresis_desc}`)
 					: '',
 				pex_bowel_desc: item.pex_bowel_desc
-					? t('examination.' + item.pex_bowel_desc)
+					? t(`examination.${item.pex_bowel_desc}`)
 					: '',
 				pex_auscultation: item.pex_auscultation
-					? t('examination.' + item.pex_auscultation)
+					? t(`examination.${item.pex_auscultation}`)
 					: '',
 				pex_date: item.pex_date ? renderDate(item.pex_date) : '',
 				date: item.pex_date,

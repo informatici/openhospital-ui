@@ -2,7 +2,7 @@ import { examsDTO } from '../fixtures/examsDTO';
 
 export const examRoutes = (server) => {
 	server.namespace('/exams', () => {
-		server.get('/').intercept((req, res) => {
+		server.get('/').intercept((_req, res) => {
 			res.status(200).json(examsDTO);
 		});
 		server.post('/').intercept((req, res) => {

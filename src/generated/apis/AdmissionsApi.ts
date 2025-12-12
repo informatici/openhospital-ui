@@ -168,13 +168,13 @@ export class AdmissionsApi extends BaseAPI {
 		};
 
 		if (page != null) {
-			query['page'] = page;
+			query.page = page;
 		}
 		if (size != null) {
-			query['size'] = size;
+			query.size = size;
 		}
 		if (paged != null) {
-			query['paged'] = paged;
+			query.paged = paged;
 		}
 
 		return this.request<PageAdmissionDTO>(
@@ -240,13 +240,13 @@ export class AdmissionsApi extends BaseAPI {
 		const query: HttpQuery = {};
 
 		if (searchterms != null) {
-			query['searchterms'] = searchterms;
+			query.searchterms = searchterms;
 		}
 		if (admissionrange != null) {
-			query['admissionrange'] = admissionrange;
+			query.admissionrange = admissionrange;
 		}
 		if (dischargerange != null) {
-			query['dischargerange'] = dischargerange;
+			query.dischargerange = dischargerange;
 		}
 
 		return this.request<Array<AdmittedPatientDTO>>(
@@ -318,10 +318,10 @@ export class AdmissionsApi extends BaseAPI {
 		};
 
 		if (page != null) {
-			query['page'] = page;
+			query.page = page;
 		}
 		if (size != null) {
-			query['size'] = size;
+			query.size = size;
 		}
 
 		return this.request<PageAdmissionDTO>(

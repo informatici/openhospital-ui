@@ -8,14 +8,14 @@ import './styles.scss';
 import type { TBookingTransitionState } from './types';
 
 const PatientBooking = () => {
-	const dispatch = useAppDispatch();
+	const _dispatch = useAppDispatch();
 	const { t } = useTranslation();
 	const infoBoxRef = useRef<HTMLDivElement>(null);
 	const [shouldResetForm, setShouldResetForm] = useState(false);
 	const [bookingTransitionState, setActivityTransitionState] =
 		useState<TBookingTransitionState>('IDLE');
 
-	const { isLoading, hasFailed } = useAppSelector((state) => ({
+	const { isLoading, hasFailed } = useAppSelector((_state) => ({
 		isLoading: false,
 		hasSucceeded: true,
 		hasFailed: false,
@@ -32,9 +32,9 @@ const PatientBooking = () => {
 			// dispatch(createBookingReset());
 			setShouldResetForm(true);
 		}
-	}, [bookingTransitionState, dispatch]);
+	}, [bookingTransitionState]);
 
-	const onSubmit = (booking: any) => {
+	const onSubmit = (_booking: any) => {
 		setShouldResetForm(false);
 		// dispatch(createBooking(booking));
 	};

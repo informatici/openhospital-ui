@@ -73,7 +73,7 @@ const ExamForm: FC<ExamProps> = ({
 					label:
 						(item.description &&
 							item.description?.length > 30 &&
-							item.description.slice(0, 30) + '...') ||
+							`${item.description.slice(0, 30)}...`) ||
 						(item.description ?? ''),
 				};
 			});
@@ -122,8 +122,8 @@ const ExamForm: FC<ExamProps> = ({
 	);
 
 	useEffect(() => {
-		if (initialValues['exam'] !== '') {
-			setCurrentExamCode(initialValues['exam']);
+		if (initialValues.exam !== '') {
+			setCurrentExamCode(initialValues.exam);
 		}
 		if (labToEdit) {
 			formik.setFieldValue('result', labToEdit.result);
@@ -210,30 +210,29 @@ const ExamForm: FC<ExamProps> = ({
 	);
 
 	return (
-		<>
-			<div className="patientExamForm">
-				<h5 className="formInsertMode">
-					{creationMode
-						? t('lab.newlab')
-						: t('lab.editlab') + ': ' + renderDate(formik.values.labDate)}
-				</h5>
-				<form className="patientExamForm__form" onSubmit={formik.handleSubmit}>
-					<div className="row start-sm center-xs">
-						<div className="patientExamForm__item">
-							<DateField
-								fieldName="date"
-								fieldValue={formik.values.labDate}
-								disableFuture={false}
-								theme="regular"
-								format="dd/MM/yyyy"
-								isValid={isValid('date')}
-								errorText={getErrorText('date')}
-								label={t('lab.date')}
-								onChange={dateFieldHandleOnChange('labDate')}
-								disabled={isLoading}
-							/>
-						</div>
-						{/* <div className="patientExamForm__item">
+		<div className="patientExamForm">
+			<h5 className="formInsertMode">
+				{creationMode
+					? t('lab.newlab')
+					: `${t('lab.editlab')}: ${renderDate(formik.values.labDate)}`}
+			</h5>
+			<form className="patientExamForm__form" onSubmit={formik.handleSubmit}>
+				<div className="row start-sm center-xs">
+					<div className="patientExamForm__item">
+						<DateField
+							fieldName="date"
+							fieldValue={formik.values.labDate}
+							disableFuture={false}
+							theme="regular"
+							format="dd/MM/yyyy"
+							isValid={isValid('date')}
+							errorText={getErrorText('date')}
+							label={t('lab.date')}
+							onChange={dateFieldHandleOnChange('labDate')}
+							disabled={isLoading}
+						/>
+					</div>
+					{/* <div className="patientExamForm__item">
               <AutocompleteField
                 fieldName="material"
                 fieldValue={formik.values.material}
@@ -246,104 +245,103 @@ const ExamForm: FC<ExamProps> = ({
                 disabled={isLoading}
               />
             </div> */}
-						<div className="patientExamForm__item fullWidth">
-							<AutocompleteField
-								fieldName="exam"
-								fieldValue={formik.values.exam}
-								label={t('lab.exam')}
-								isValid={isValid('exam')}
-								errorText={getErrorText('exam')}
-								onBlur={onBlurCallback('exam')}
-								options={examOptionsSelector(examList)}
-								isLoading={examsLoading}
-								disabled={isLoading}
-							/>
-						</div>
+					<div className="patientExamForm__item fullWidth">
+						<AutocompleteField
+							fieldName="exam"
+							fieldValue={formik.values.exam}
+							label={t('lab.exam')}
+							isValid={isValid('exam')}
+							errorText={getErrorText('exam')}
+							onBlur={onBlurCallback('exam')}
+							options={examOptionsSelector(examList)}
+							isLoading={examsLoading}
+							disabled={isLoading}
+						/>
 					</div>
-					<div className="row start-sm center-xs bottom-sm">
-						<div className="fullWidth patientExamForm__item">
-							{currentExamProcedure === '3' && (
-								<TextField
-									multiline={true}
-									field={formik.getFieldProps('result')}
-									theme="regular"
-									label={t('lab.result')}
-									isValid={isValid('result')}
-									errorText={getErrorText('result')}
-									onBlur={formik.handleBlur}
-									type="text"
-									disabled={isLoading}
-								/>
-							)}
-							{currentExamProcedure === '2' && (
-								<ExamRowTable
-									title={t('lab.resultstitle')}
-									onChange={onBlurCallbackForTableRow()}
-									rows={examRows}
-									disabled={isLoading}
-								/>
-							)}
-							{currentExamProcedure === '1' && (
-								<AutocompleteField
-									fieldName="result"
-									fieldValue={formik.values.result}
-									label={t('lab.result')}
-									isValid={isValid('result')}
-									errorText={getErrorText('result')}
-									onBlur={onBlurCallback('result')}
-									options={examRows}
-									isLoading={examRowsLaoding}
-									disabled={currentExamCode === '' || isLoading}
-								/>
-							)}
-						</div>
-					</div>
-					<div className="row start-sm center-xs bottom-sm">
-						<div className="fullWidth patientExamForm__item">
+				</div>
+				<div className="row start-sm center-xs bottom-sm">
+					<div className="fullWidth patientExamForm__item">
+						{currentExamProcedure === '3' && (
 							<TextField
 								multiline={true}
-								field={formik.getFieldProps('note')}
+								field={formik.getFieldProps('result')}
 								theme="regular"
-								label={t('lab.note')}
-								isValid={isValid('note')}
-								errorText={getErrorText('note')}
+								label={t('lab.result')}
+								isValid={isValid('result')}
+								errorText={getErrorText('result')}
 								onBlur={formik.handleBlur}
 								type="text"
 								disabled={isLoading}
-								maxLength={255}
 							/>
-						</div>
-					</div>
-					<div className="patientExamForm__buttonSet">
-						<div className="submit_button">
-							<Button type="submit" variant="contained" disabled={isLoading}>
-								{submitButtonLabel}
-							</Button>
-						</div>
-						<div className="reset_button">
-							<Button
-								type="reset"
-								variant="text"
+						)}
+						{currentExamProcedure === '2' && (
+							<ExamRowTable
+								title={t('lab.resultstitle')}
+								onChange={onBlurCallbackForTableRow()}
+								rows={examRows}
 								disabled={isLoading}
-								onClick={() => setOpenResetConfirmation(true)}
-							>
-								{resetButtonLabel}
-							</Button>
-						</div>
+							/>
+						)}
+						{currentExamProcedure === '1' && (
+							<AutocompleteField
+								fieldName="result"
+								fieldValue={formik.values.result}
+								label={t('lab.result')}
+								isValid={isValid('result')}
+								errorText={getErrorText('result')}
+								onBlur={onBlurCallback('result')}
+								options={examRows}
+								isLoading={examRowsLaoding}
+								disabled={currentExamCode === '' || isLoading}
+							/>
+						)}
 					</div>
-					<ConfirmationDialog
-						isOpen={openResetConfirmation}
-						title={resetButtonLabel.toUpperCase()}
-						info={t('common.resetform')}
-						icon={warningIcon}
-						primaryButtonLabel={resetButtonLabel}
-						secondaryButtonLabel={t('common.discard')}
-						handlePrimaryButtonClick={handleResetConfirmation}
-						handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
-					/>
-				</form>
-			</div>
-		</>
+				</div>
+				<div className="row start-sm center-xs bottom-sm">
+					<div className="fullWidth patientExamForm__item">
+						<TextField
+							multiline={true}
+							field={formik.getFieldProps('note')}
+							theme="regular"
+							label={t('lab.note')}
+							isValid={isValid('note')}
+							errorText={getErrorText('note')}
+							onBlur={formik.handleBlur}
+							type="text"
+							disabled={isLoading}
+							maxLength={255}
+						/>
+					</div>
+				</div>
+				<div className="patientExamForm__buttonSet">
+					<div className="submit_button">
+						<Button type="submit" variant="contained" disabled={isLoading}>
+							{submitButtonLabel}
+						</Button>
+					</div>
+					<div className="reset_button">
+						<Button
+							type="reset"
+							variant="text"
+							disabled={isLoading}
+							onClick={() => setOpenResetConfirmation(true)}
+						>
+							{resetButtonLabel}
+						</Button>
+					</div>
+				</div>
+				<ConfirmationDialog
+					isOpen={openResetConfirmation}
+					title={resetButtonLabel.toUpperCase()}
+					info={t('common.resetform')}
+					icon={warningIcon}
+					primaryButtonLabel={resetButtonLabel}
+					secondaryButtonLabel={t('common.discard')}
+					handlePrimaryButtonClick={handleResetConfirmation}
+					handleSecondaryButtonClick={() => setOpenResetConfirmation(false)}
+				/>
+			</form>
+		</div>
 	);
 };
 

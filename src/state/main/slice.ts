@@ -64,7 +64,7 @@ export const mainSlice = createSlice({
 			.addCase(thunks.setForgotPasswordThunk.pending, (state) => {
 				state.forgotpassword = ApiResponse.loading();
 			})
-			.addCase(thunks.setForgotPasswordThunk.fulfilled, (state, action) => {
+			.addCase(thunks.setForgotPasswordThunk.fulfilled, (state, _action) => {
 				state.forgotpassword.status = 'SUCCESS';
 			})
 			.addCase(thunks.setForgotPasswordThunk.rejected, (state, action) => {

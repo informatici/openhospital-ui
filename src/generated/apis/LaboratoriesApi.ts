@@ -363,22 +363,22 @@ export class LaboratoriesApi extends BaseAPI {
 		};
 
 		if (examName != null) {
-			query['examName'] = examName;
+			query.examName = examName;
 		}
 		if (patientCode != null) {
-			query['patientCode'] = patientCode;
+			query.patientCode = patientCode;
 		}
 		if (status != null) {
-			query['status'] = status;
+			query.status = status;
 		}
 		if (page != null) {
-			query['page'] = page;
+			query.page = page;
 		}
 		if (size != null) {
-			query['size'] = size;
+			query.size = size;
 		}
 		if (paged != null) {
-			query['paged'] = paged;
+			query.paged = paged;
 		}
 
 		return this.request<PageLabWithRowsDTO>(

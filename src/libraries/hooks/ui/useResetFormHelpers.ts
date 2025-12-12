@@ -8,13 +8,13 @@ export function useResetFormHelpers(formik: ReturnType<typeof useFormik>) {
 		(value: boolean) => () => {
 			setOpenResetConfirmation(value);
 		},
-		[setOpenResetConfirmation],
+		[],
 	);
 
 	const handleResetConfirmation = useCallback(() => {
 		setOpenResetConfirmation(false);
 		formik.resetForm();
-	}, [formik.resetForm, setOpenResetConfirmation]);
+	}, [formik.resetForm]);
 
 	return {
 		openResetConfirmation,

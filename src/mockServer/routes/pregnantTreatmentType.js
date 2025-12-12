@@ -2,7 +2,7 @@ import { pregnantTreatmentTypeDTO } from '../fixtures/pregnantTreatmentDTO';
 
 export const pregnantTreatmentTypeRoutes = (server) => {
 	server.namespace('/pregnanttreatmenttypes', () => {
-		server.get('/').intercept((req, res) => {
+		server.get('/').intercept((_req, res) => {
 			res.status(200).json(pregnantTreatmentTypeDTO);
 		});
 		server.post('/').intercept((req, res) => {

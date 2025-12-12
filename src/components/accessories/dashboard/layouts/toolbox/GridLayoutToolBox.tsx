@@ -57,7 +57,7 @@ const GridLayoutToolbox: FC = () => {
 		if (!dashboardSetting) {
 			setting = {
 				configName: 'dashboard',
-				user: userCredentials?.username!,
+				user: userCredentials?.username,
 			} as UserSettingDTO;
 		} else {
 			setting = { ...dashboardSetting };
@@ -105,21 +105,18 @@ const GridLayoutToolbox: FC = () => {
 						</div>
 					)}
 
-					{!isEmptyLayout(toolbox) && (
-						<>
-							{toolbox[breakpoint]
-								? toolbox[breakpoint].map((layout) => {
-										return (
-											<GridLayoutToolboxItem
-												key={layout.i}
-												item={layout}
-												onTake={() => onItemPut(layout)}
-											/>
-										);
-									})
-								: ''}
-						</>
-					)}
+					{!isEmptyLayout(toolbox) &&
+						(toolbox[breakpoint]
+							? toolbox[breakpoint].map((layout) => {
+									return (
+										<GridLayoutToolboxItem
+											key={layout.i}
+											item={layout}
+											onTake={() => onItemPut(layout)}
+										/>
+									);
+								})
+							: '')}
 				</div>
 			</div>
 		</div>

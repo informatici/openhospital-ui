@@ -1,11 +1,6 @@
 import { useMediaQuery } from '@mui/material';
 import { DesktopDatePicker, MobileDatePicker } from '@mui/x-date-pickers';
-import React, {
-	type FunctionComponent,
-	useEffect,
-	useRef,
-	useState,
-} from 'react';
+import { type FunctionComponent, useEffect, useRef, useState } from 'react';
 import { FIELD_VALIDATION } from '../../../types';
 import './styles.scss';
 import type { IProps } from './types';
@@ -38,7 +33,7 @@ const DateField: FunctionComponent<IProps> = ({
 
 	useEffect(() => {
 		setAnchorEl(anchorElRef?.current);
-	}, [anchorElRef]);
+	}, []);
 
 	useEffect(() => {
 		// field value comes in timestamp string (eg. 2020-03-19T14:58:00.000Z)
@@ -58,7 +53,7 @@ const DateField: FunctionComponent<IProps> = ({
 				<DesktopDatePicker
 					format={format}
 					label={
-						required === FIELD_VALIDATION.SUGGESTED ? label + ' **' : label
+						required === FIELD_VALIDATION.SUGGESTED ? `${label} **` : label
 					}
 					disabled={disabled}
 					disableFuture={disableFuture}
@@ -90,7 +85,7 @@ const DateField: FunctionComponent<IProps> = ({
 				<MobileDatePicker
 					format={format}
 					label={
-						required === FIELD_VALIDATION.SUGGESTED ? label + ' **' : label
+						required === FIELD_VALIDATION.SUGGESTED ? `${label} **` : label
 					}
 					disabled={disabled}
 					disableFuture={disableFuture}

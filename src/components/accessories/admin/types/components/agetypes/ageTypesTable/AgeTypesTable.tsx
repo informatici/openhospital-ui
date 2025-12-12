@@ -58,21 +58,19 @@ const AgeTypesTable = (props: IOwnProps) => {
 
 					case 'SUCCESS':
 						return (
-							<>
-								<Table
-									rowData={formatDataToDisplay(data ?? [])}
-									tableHeader={header}
-									labelData={label}
-									columnsOrder={order}
-									rowsPerPage={20}
-									isCollapsabile={false}
-									showEmptyCell={false}
-									rawData={data}
-									manualFilter={false}
-									rowKey="code"
-									headerActions={headerActions}
-								/>
-							</>
+							<Table
+								rowData={formatDataToDisplay(data ?? [])}
+								tableHeader={header}
+								labelData={label}
+								columnsOrder={order}
+								rowsPerPage={20}
+								isCollapsabile={false}
+								showEmptyCell={false}
+								rawData={data}
+								manualFilter={false}
+								rowKey="code"
+								headerActions={headerActions}
+							/>
 						);
 					case 'SUCCESS_EMPTY':
 						return <InfoBox type="info" message={t('common.emptydata')} />;
