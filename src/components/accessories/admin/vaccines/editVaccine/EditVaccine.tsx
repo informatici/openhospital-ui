@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { Navigate, useLocation, useParams } from 'react-router';
+import { AdminActivityContent } from '~/components/activities/adminActivity';
 import { useAppDispatch, useAppSelector } from '~/libraries/hooks/redux';
 import { PATHS } from '../../../../../consts';
 import type { VaccineDTO } from '../../../../../generated';
@@ -23,13 +24,15 @@ export const EditVaccine = () => {
 	}
 
 	return (
-		<VaccineForm
-			creationMode={false}
-			onSubmit={handleSubmit}
-			isLoading={!!update.isLoading}
-			resetButtonLabel={t('common.reset')}
-			submitButtonLabel={t('vaccine.updateVaccine')}
-			fields={getInitialFields(state)}
-		/>
+		<AdminActivityContent title={t('vaccine.editVaccine')}>
+			<VaccineForm
+				creationMode={false}
+				onSubmit={handleSubmit}
+				isLoading={!!update.isLoading}
+				resetButtonLabel={t('common.reset')}
+				submitButtonLabel={t('vaccine.updateVaccine')}
+				fields={getInitialFields(state)}
+			/>
+		</AdminActivityContent>
 	);
 };

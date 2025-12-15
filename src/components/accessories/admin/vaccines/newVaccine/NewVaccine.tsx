@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import { AdminActivityContent } from '~/components/activities/adminActivity';
 import { useAppDispatch, useAppSelector } from '~/libraries/hooks/redux';
 import type { VaccineDTO } from '../../../../../generated';
 import { createVaccine } from '../../../../../state/vaccines';
@@ -15,13 +16,15 @@ export const NewVaccine = () => {
 	};
 
 	return (
-		<VaccineForm
-			creationMode
-			onSubmit={handleSubmit}
-			isLoading={!!create.isLoading}
-			resetButtonLabel={t('common.reset')}
-			submitButtonLabel={t('vaccine.saveVaccine')}
-			fields={getInitialFields(undefined)}
-		/>
+		<AdminActivityContent title={t('vaccine.addVaccine')}>
+			<VaccineForm
+				creationMode
+				onSubmit={handleSubmit}
+				isLoading={!!create.isLoading}
+				resetButtonLabel={t('common.reset')}
+				submitButtonLabel={t('vaccine.saveVaccine')}
+				fields={getInitialFields(undefined)}
+			/>
+		</AdminActivityContent>
 	);
 };

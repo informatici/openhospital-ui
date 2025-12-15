@@ -54,27 +54,15 @@ export const AdminRoutes = () => {
 		() => [
 			{
 				path: getPath(PATHS.admin_wards),
-				element: (
-					<AdminActivityContent title={t('nav.wards')}>
-						<Wards />
-					</AdminActivityContent>
-				),
+				element: <Wards />,
 			},
 			{
 				path: getPath(PATHS.admin_wards_new),
-				element: (
-					<AdminActivityContent title={t('ward.addWard')}>
-						<NewWard />
-					</AdminActivityContent>
-				),
+				element: <NewWard />,
 			},
 			{
 				path: getPath(PATHS.admin_wards_edit),
-				element: (
-					<AdminActivityContent title={t('ward.editWard')}>
-						<EditWard />
-					</AdminActivityContent>
-				),
+				element: <EditWard />,
 			},
 			{
 				path: getPath(PATHS.admin_diseases),
@@ -86,19 +74,11 @@ export const AdminRoutes = () => {
 			},
 			{
 				path: getPath(PATHS.admin_diseases_new),
-				element: (
-					<AdminActivityContent title={t('disease.addDisease')}>
-						<NewDisease />
-					</AdminActivityContent>
-				),
+				element: <NewDisease />,
 			},
 			{
 				path: getPath(PATHS.admin_diseases_edit),
-				element: (
-					<AdminActivityContent title={t('disease.editDisease')}>
-						<EditDisease />
-					</AdminActivityContent>
-				),
+				element: <EditDisease />,
 			},
 			{
 				path: getPath(PATHS.admin_exams),
@@ -110,19 +90,11 @@ export const AdminRoutes = () => {
 			},
 			{
 				path: getPath(PATHS.admin_exams_new),
-				element: (
-					<AdminActivityContent title={t('exam.addExam')}>
-						<NewExam />
-					</AdminActivityContent>
-				),
+				element: <NewExam />,
 			},
 			{
 				path: getPath(PATHS.admin_exams_edit),
-				element: (
-					<AdminActivityContent title={t('exam.editExam')}>
-						<EditExam />
-					</AdminActivityContent>
-				),
+				element: <EditExam />,
 			},
 			{
 				path: getPath(PATHS.admin_operations),
@@ -134,19 +106,11 @@ export const AdminRoutes = () => {
 			},
 			{
 				path: getPath(PATHS.admin_operations_new),
-				element: (
-					<AdminActivityContent title={t('operation.addOperation')}>
-						<NewOperation />
-					</AdminActivityContent>
-				),
+				element: <NewOperation />,
 			},
 			{
 				path: getPath(PATHS.admin_operations_edit),
-				element: (
-					<AdminActivityContent title={t('operation.editOperation')}>
-						<EditOperation />
-					</AdminActivityContent>
-				),
+				element: <EditOperation />,
 			},
 			{
 				path: getPath(PATHS.admin_vaccines),
@@ -158,19 +122,11 @@ export const AdminRoutes = () => {
 			},
 			{
 				path: getPath(PATHS.admin_vaccines_new),
-				element: (
-					<AdminActivityContent title={t('vaccine.addVaccine')}>
-						<NewVaccine />
-					</AdminActivityContent>
-				),
+				element: <NewVaccine />,
 			},
 			{
 				path: getPath(PATHS.admin_vaccines_edit),
-				element: (
-					<AdminActivityContent title={t('vaccine.editVaccine')}>
-						<EditVaccine />
-					</AdminActivityContent>
-				),
+				element: <EditVaccine />,
 			},
 			{
 				path: getPath(PATHS.admin_suppliers),
@@ -182,19 +138,11 @@ export const AdminRoutes = () => {
 			},
 			{
 				path: getPath(PATHS.admin_suppliers_new),
-				element: (
-					<AdminActivityContent title={t('supplier.addNewSupplier')}>
-						<NewSupplier />
-					</AdminActivityContent>
-				),
+				element: <NewSupplier />,
 			},
 			{
 				path: getPath(PATHS.admin_suppliers_edit),
-				element: (
-					<AdminActivityContent title={t('supplier.editSupplier')}>
-						<EditSupplier />
-					</AdminActivityContent>
-				),
+				element: <EditSupplier />,
 			},
 			{
 				path: getPath(PATHS.admin_users),
@@ -206,35 +154,19 @@ export const AdminRoutes = () => {
 			},
 			{
 				path: getPath(PATHS.admin_users_new),
-				element: (
-					<AdminActivityContent title={t('user.addUser')}>
-						<NewUser />
-					</AdminActivityContent>
-				),
+				element: <NewUser />,
 			},
 			{
 				path: getPath(PATHS.admin_usergroups_new),
-				element: (
-					<AdminActivityContent title={t('user.addGroup')}>
-						<NewGroup />
-					</AdminActivityContent>
-				),
+				element: <NewGroup />,
 			},
 			{
 				path: getPath(PATHS.admin_usergroups_edit),
-				element: (
-					<AdminActivityContent title={t('user.editGroup')}>
-						<EditGroup />
-					</AdminActivityContent>
-				),
+				element: <EditGroup />,
 			},
 			{
 				path: getPath(PATHS.admin_users_edit),
-				element: (
-					<AdminActivityContent title={t('nav.users')}>
-						<EditUser />
-					</AdminActivityContent>
-				),
+				element: <EditUser />,
 			},
 			{
 				path: getPath(PATHS.admin_types),
@@ -246,11 +178,7 @@ export const AdminRoutes = () => {
 			},
 			{
 				path: getPath(PATHS.admin_hospital_edit),
-				element: (
-					<AdminActivityContent title={t('hospital.editHospital')}>
-						<EditHospital />
-					</AdminActivityContent>
-				),
+				element: <EditHospital />,
 			},
 		],
 		[t],

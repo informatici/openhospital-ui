@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
+import { AdminActivityContent } from '~/components/activities/adminActivity';
 import { useAppDispatch } from '~/libraries/hooks/redux';
 import { PATHS } from '../../../../consts';
 import type { VaccineDTO } from '../../../../generated';
@@ -38,24 +39,26 @@ export const Vaccines = () => {
 	};
 
 	return (
-		<div data-cy="vaccines-table">
-			<VaccinesTable
-				onEdit={handleEdit}
-				onDelete={handleDelete}
-				headerActions={
-					<Button
-						onClick={() => {
-							navigate(PATHS.admin_vaccines_new);
-						}}
-						type="button"
-						variant="contained"
-						color="primary"
-						dataCy="add-new-vaccine"
-					>
-						{t('vaccine.addVaccine')}
-					</Button>
-				}
-			/>
-		</div>
+		<AdminActivityContent title={t('nav.vaccines')}>
+			<div data-cy="vaccines-table">
+				<VaccinesTable
+					onEdit={handleEdit}
+					onDelete={handleDelete}
+					headerActions={
+						<Button
+							onClick={() => {
+								navigate(PATHS.admin_vaccines_new);
+							}}
+							type="button"
+							variant="contained"
+							color="primary"
+							dataCy="add-new-vaccine"
+						>
+							{t('vaccine.addVaccine')}
+						</Button>
+					}
+				/>
+			</div>
+		</AdminActivityContent>
 	);
 };

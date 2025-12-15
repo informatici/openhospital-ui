@@ -3,6 +3,7 @@ import { isEmpty } from 'lodash';
 import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
+import { AdminActivityContent } from '~/components/activities/adminActivity';
 import { useAppDispatch, useAppSelector } from '~/libraries/hooks/redux';
 import { PATHS } from '../../../../consts';
 import type { DiseaseDTO } from '../../../../generated';
@@ -60,25 +61,39 @@ export const Diseases = () => {
 	);
 
 	return (
-		<div className={classes.diseases} data-cy="diseases-table">
-			<DiseaseTable
-				onEdit={handleEdit}
-				filterPredicate={predicate}
-				headerActions={
-					showFilter ? (
-						<div className={classes.header}>
-							<ToggleButtonGroup
-								className={classes.options}
-								value={view}
-								exclusive
-								onChange={handleViewChange}
-							>
-								{['enabled', 'disabled', 'all'].map((value) => (
-									<ToggleButton key={value} value={value} data-cy={value}>
-										<span>{t(`disease.${value}`)}</span>
-									</ToggleButton>
-								))}
-							</ToggleButtonGroup>
+		<AdminActivityContent title={t('nav.diseases')}>
+			<div className={classes.diseases} data-cy="diseases-table">
+				<DiseaseTable
+					onEdit={handleEdit}
+					filterPredicate={predicate}
+					headerActions={
+						showFilter ? (
+							<div className={classes.header}>
+								<ToggleButtonGroup
+									className={classes.options}
+									value={view}
+									exclusive
+									onChange={handleViewChange}
+								>
+									{['enabled', 'disabled', 'all'].map((value) => (
+										<ToggleButton key={value} value={value} data-cy={value}>
+											<span>{t(`disease.${value}`)}</span>
+										</ToggleButton>
+									))}
+								</ToggleButtonGroup>
+								<Button
+									onClick={() => {
+										navigate(PATHS.admin_diseases_new);
+									}}
+									dataCy="add-new-disease"
+									type="button"
+									variant="contained"
+									color="primary"
+								>
+									{t('disease.addDisease')}
+								</Button>
+							</div>
+						) : (
 							<Button
 								onClick={() => {
 									navigate(PATHS.admin_diseases_new);
@@ -90,22 +105,10 @@ export const Diseases = () => {
 							>
 								{t('disease.addDisease')}
 							</Button>
-						</div>
-					) : (
-						<Button
-							onClick={() => {
-								navigate(PATHS.admin_diseases_new);
-							}}
-							dataCy="add-new-disease"
-							type="button"
-							variant="contained"
-							color="primary"
-						>
-							{t('disease.addDisease')}
-						</Button>
-					)
-				}
-			/>
-		</div>
+						)
+					}
+				/>
+			</div>
+		</AdminActivityContent>
 	);
 };

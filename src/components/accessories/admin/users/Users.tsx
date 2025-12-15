@@ -2,6 +2,7 @@ import { Tab, Tabs } from '@mui/material';
 import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router';
+import { AdminActivityContent } from '~/components/activities/adminActivity';
 import { useAppDispatch } from '~/libraries/hooks/redux';
 import { deleteUser } from '~/state/users';
 import { PATHS } from '../../../../consts';
@@ -43,7 +44,7 @@ export const Users = () => {
 	);
 
 	return (
-		<>
+		<AdminActivityContent title={t('nav.users')}>
 			<Tabs
 				value={state?.tab ?? TabOptions.users}
 				onChange={(_, value) => setTab(value)}
@@ -86,6 +87,6 @@ export const Users = () => {
 					onEdit={handleEditGroup}
 				/>
 			)}
-		</>
+		</AdminActivityContent>
 	);
 };

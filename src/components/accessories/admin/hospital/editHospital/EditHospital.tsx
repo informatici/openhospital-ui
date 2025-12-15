@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
+import { AdminActivityContent } from '~/components/activities/adminActivity';
 import { useAppDispatch, useAppSelector } from '~/libraries/hooks/redux';
 import { updateHospital } from '~/state/hospital';
 import { PATHS } from '../../../../../consts';
@@ -33,12 +34,14 @@ export const EditHospital = () => {
 	}, [navigate, hospital]);
 
 	return (
-		<HospitalForm
-			onSubmit={handleSubmit}
-			isLoading={!!update.isLoading}
-			resetButtonLabel={t('common.reset')}
-			submitButtonLabel={t('hospital.updateHospital')}
-			fields={getInitialFields(hospital)}
-		/>
+		<AdminActivityContent title={t('hospital.editHospital')}>
+			<HospitalForm
+				onSubmit={handleSubmit}
+				isLoading={!!update.isLoading}
+				resetButtonLabel={t('common.reset')}
+				submitButtonLabel={t('hospital.updateHospital')}
+				fields={getInitialFields(hospital)}
+			/>
+		</AdminActivityContent>
 	);
 };

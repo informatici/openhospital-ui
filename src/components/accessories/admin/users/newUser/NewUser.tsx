@@ -12,6 +12,7 @@ import Button from '~/components/accessories/button/Button';
 import CheckboxField from '~/components/accessories/checkboxField/CheckboxField';
 import DiscardButton from '~/components/accessories/discardButton/DiscardButton';
 import ResetButton from '~/components/accessories/resetButton/resetButton';
+import { AdminActivityContent } from '~/components/activities/adminActivity';
 import type { UserDTO } from '~/generated/models/UserDTO';
 import type { UserGroupDTO } from '~/generated/models/UserGroupDTO';
 import { useAppDispatch, useAppSelector } from '~/libraries/hooks/redux';
@@ -88,150 +89,153 @@ export const NewUser = () => {
 	);
 
 	return (
-		<div className="newUserForm">
-			<div className="newUserForm__header">
-				<div className="newUserForm__actions">
-					<DiscardButton />
+		<AdminActivityContent title={t('user.addUser')}>
+			<div className="newUserForm">
+				<div className="newUserForm__header">
+					<div className="newUserForm__actions">
+						<DiscardButton />
+					</div>
 				</div>
-			</div>
-			<form className="newUserForm__form" onSubmit={handleSubmit}>
-				<div className="row start-sm center-xs">
-					<div className="newUserForm__item fullWidth">
-						<TextField
-							field={getFieldProps('userName')}
-							theme="regular"
-							label={t('user.username')}
-							isValid={!!touched.userName && !!errors.userName}
-							errorText={(touched.userName && errors.userName) || ''}
-							onBlur={handleBlur}
-							type="text"
-						/>
-					</div>
-					<div className="newUserForm__item halfWidth">
-						<TextField
-							field={getFieldProps('passwd')}
-							theme="regular"
-							label={t('user.password')}
-							isValid={!!touched.passwd && !!errors.passwd}
-							errorText={(touched.passwd && errors.passwd) || ''}
-							onBlur={handleBlur}
-							type="password"
-							// this below prevents from saving the password on the computer
-							InputProps={{ autoComplete: 'one-time-code' }}
-						/>
-					</div>
-					<div className="newUserForm__item halfWidth">
-						<TextField
-							field={getFieldProps('passwd2')}
-							theme="regular"
-							label={t('user.passwordRetype')}
-							isValid={!!touched.passwd2 && !!errors.passwd2}
-							errorText={(touched.passwd2 && errors.passwd2) || ''}
-							onBlur={handleBlur}
-							type="password"
-							// this below prevents from saving the password on the computer
-							InputProps={{ autoComplete: 'one-time-code' }}
-						/>
-					</div>
-					<hr />
-					<div className="newUserForm__item fullWidth">
-						<FormControl variant="outlined" className="autocomplete">
-							<Autocomplete
-								id="userGroupName"
-								options={
-									userGroupsTypeState.data?.filter((group) => !group.deleted) ??
-									[]
-								}
-								value={values.userGroupName}
-								disabled={userGroupsTypeState.isLoading || create.isLoading}
-								onBlur={() => setFieldTouched('userGroupName')}
-								onChange={(_ev: any, value: UserGroupDTO | null) => {
-									setFieldValue('userGroupName', value);
-								}}
-								renderInput={(params) => (
-									<MuiTextField
-										{...params}
-										name="userGroupName"
-										variant="outlined"
-										size="small"
-										error={!!(touched.userGroupName && errors.userGroupName)}
-										fullWidth
-										label={t('user.group')}
-									/>
-								)}
-								getOptionLabel={(option: UserGroupDTO) =>
-									option.code.toString() +
-									(option.desc ? ` - ${option.desc}` : '')
-								}
+				<form className="newUserForm__form" onSubmit={handleSubmit}>
+					<div className="row start-sm center-xs">
+						<div className="newUserForm__item fullWidth">
+							<TextField
+								field={getFieldProps('userName')}
+								theme="regular"
+								label={t('user.username')}
+								isValid={!!touched.userName && !!errors.userName}
+								errorText={(touched.userName && errors.userName) || ''}
+								onBlur={handleBlur}
+								type="text"
 							/>
-							{touched.userGroupName && errors.userGroupName && (
-								<FormHelperText error>
-									{
-										(errors.userGroupName?.code ||
-											errors.userGroupName) as ReactNode
+						</div>
+						<div className="newUserForm__item halfWidth">
+							<TextField
+								field={getFieldProps('passwd')}
+								theme="regular"
+								label={t('user.password')}
+								isValid={!!touched.passwd && !!errors.passwd}
+								errorText={(touched.passwd && errors.passwd) || ''}
+								onBlur={handleBlur}
+								type="password"
+								// this below prevents from saving the password on the computer
+								InputProps={{ autoComplete: 'one-time-code' }}
+							/>
+						</div>
+						<div className="newUserForm__item halfWidth">
+							<TextField
+								field={getFieldProps('passwd2')}
+								theme="regular"
+								label={t('user.passwordRetype')}
+								isValid={!!touched.passwd2 && !!errors.passwd2}
+								errorText={(touched.passwd2 && errors.passwd2) || ''}
+								onBlur={handleBlur}
+								type="password"
+								// this below prevents from saving the password on the computer
+								InputProps={{ autoComplete: 'one-time-code' }}
+							/>
+						</div>
+						<hr />
+						<div className="newUserForm__item fullWidth">
+							<FormControl variant="outlined" className="autocomplete">
+								<Autocomplete
+									id="userGroupName"
+									options={
+										userGroupsTypeState.data?.filter(
+											(group) => !group.deleted,
+										) ?? []
 									}
-								</FormHelperText>
-							)}
-						</FormControl>
+									value={values.userGroupName}
+									disabled={userGroupsTypeState.isLoading || create.isLoading}
+									onBlur={() => setFieldTouched('userGroupName')}
+									onChange={(_ev: any, value: UserGroupDTO | null) => {
+										setFieldValue('userGroupName', value);
+									}}
+									renderInput={(params) => (
+										<MuiTextField
+											{...params}
+											name="userGroupName"
+											variant="outlined"
+											size="small"
+											error={!!(touched.userGroupName && errors.userGroupName)}
+											fullWidth
+											label={t('user.group')}
+										/>
+									)}
+									getOptionLabel={(option: UserGroupDTO) =>
+										option.code.toString() +
+										(option.desc ? ` - ${option.desc}` : '')
+									}
+								/>
+								{touched.userGroupName && errors.userGroupName && (
+									<FormHelperText error>
+										{
+											(errors.userGroupName?.code ||
+												errors.userGroupName) as ReactNode
+										}
+									</FormHelperText>
+								)}
+							</FormControl>
+						</div>
+						<div className="newUserForm__item fullWidth">
+							<TextField
+								field={getFieldProps('desc')}
+								theme="regular"
+								label={t('user.description')}
+								isValid={!!touched.desc && !!errors.desc}
+								errorText={(touched.desc && errors.desc) || ''}
+								onBlur={handleBlur}
+								rows={3}
+								multiline
+							/>
+						</div>
+						<div className="newUserForm__item fullWidth">
+							<CheckboxField
+								fieldName={'deleted'}
+								checked={!!values.deleted}
+								label={t('common.deleted')}
+								onChange={handleCheckboxChange('deleted')}
+							/>
+						</div>
 					</div>
-					<div className="newUserForm__item fullWidth">
-						<TextField
-							field={getFieldProps('desc')}
-							theme="regular"
-							label={t('user.description')}
-							isValid={!!touched.desc && !!errors.desc}
-							errorText={(touched.desc && errors.desc) || ''}
-							onBlur={handleBlur}
-							rows={3}
-							multiline
-						/>
+					<div className="newUserForm__buttonSet">
+						<div className="submit_button">
+							<Button
+								type="submit"
+								variant="contained"
+								disabled={!!create.isLoading || !isValid || !dirty}
+							>
+								{t('common.save')}
+							</Button>
+						</div>
+						<div className="reset_button">
+							<ResetButton formik={formik as any} />
+						</div>
 					</div>
-					<div className="newUserForm__item fullWidth">
-						<CheckboxField
-							fieldName={'deleted'}
-							checked={!!values.deleted}
-							label={t('common.deleted')}
-							onChange={handleCheckboxChange('deleted')}
-						/>
-					</div>
-				</div>
-				<div className="newUserForm__buttonSet">
-					<div className="submit_button">
-						<Button
-							type="submit"
-							variant="contained"
-							disabled={!!create.isLoading || !isValid || !dirty}
-						>
-							{t('common.save')}
-						</Button>
-					</div>
-					<div className="reset_button">
-						<ResetButton formik={formik as any} />
-					</div>
-				</div>
-				<ConfirmationDialog
-					isOpen={create.hasSucceeded}
-					title={t('user.createdSuccessTitle')}
-					icon={checkIcon}
-					info={t('user.createdSuccessMessage')}
-					primaryButtonLabel="Ok"
-					handlePrimaryButtonClick={() => {
-						navigate(PATHS.admin_users, { replace: true });
-					}}
-					handleSecondaryButtonClick={() => ({})}
-				/>
-				<ConfirmationDialog
-					isOpen={create.hasFailed}
-					title={t('errors.internalerror')}
-					icon={warningIcon}
-					info={create.error?.message.toString()}
-					primaryButtonLabel="Ok"
-					handlePrimaryButtonClick={() => {
-						dispatch(createUserReset(), { replace: true });
-					}}
-					handleSecondaryButtonClick={() => ({})}
-				/>
-			</form>
-		</div>
+					<ConfirmationDialog
+						isOpen={create.hasSucceeded}
+						title={t('user.createdSuccessTitle')}
+						icon={checkIcon}
+						info={t('user.createdSuccessMessage')}
+						primaryButtonLabel="Ok"
+						handlePrimaryButtonClick={() => {
+							navigate(PATHS.admin_users, { replace: true });
+						}}
+						handleSecondaryButtonClick={() => ({})}
+					/>
+					<ConfirmationDialog
+						isOpen={create.hasFailed}
+						title={t('errors.internalerror')}
+						icon={warningIcon}
+						info={create.error?.message.toString()}
+						primaryButtonLabel="Ok"
+						handlePrimaryButtonClick={() => {
+							dispatch(createUserReset(), { replace: true });
+						}}
+						handleSecondaryButtonClick={() => ({})}
+					/>
+				</form>
+			</div>
+		</AdminActivityContent>
 	);
 };

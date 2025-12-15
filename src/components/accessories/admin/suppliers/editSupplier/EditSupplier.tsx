@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate, useParams } from 'react-router';
+import { AdminActivityContent } from '~/components/activities/adminActivity';
 import { useAppDispatch, useAppSelector } from '~/libraries/hooks/redux';
 import { PATHS } from '../../../../../consts';
 import type { SupplierDTO } from '../../../../../generated';
@@ -27,13 +28,15 @@ export const EditSupplier = () => {
 	}, [id, navigate, state]);
 
 	return (
-		<SupplierForm
-			creationMode={false}
-			onSubmit={handleSubmit}
-			isLoading={!!update.isLoading}
-			resetButtonLabel={t('common.reset')}
-			submitButtonLabel={t('supplier.updateSupplier')}
-			fields={getInitialFields(state)}
-		/>
+		<AdminActivityContent title={t('supplier.editSupplier')}>
+			<SupplierForm
+				creationMode={false}
+				onSubmit={handleSubmit}
+				isLoading={!!update.isLoading}
+				resetButtonLabel={t('common.reset')}
+				submitButtonLabel={t('supplier.updateSupplier')}
+				fields={getInitialFields(state)}
+			/>
+		</AdminActivityContent>
 	);
 };

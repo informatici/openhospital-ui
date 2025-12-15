@@ -1,9 +1,10 @@
 import { CircularProgress } from '@mui/material';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
 import { Navigate } from 'react-router-dom';
+import { AdminActivityContent } from '~/components/activities/adminActivity';
 import { useAppDispatch, useAppSelector } from '~/libraries/hooks/redux';
-
 import { PATHS } from '../../../../../consts';
 import type { UserDTO } from '../../../../../generated';
 import { getUserGroups } from '../../../../../state/usergroups';
@@ -16,6 +17,7 @@ import {
 import { EditUserForm } from './EditUserForm';
 
 export const EditUser = () => {
+	const { t } = useTranslation();
 	const dispatch = useAppDispatch();
 	const { id } = useParams();
 	const [user, setUser] = useState<UserDTO | null>();
@@ -59,19 +61,18 @@ export const EditUser = () => {
 			<CircularProgress style={{ marginLeft: '50%', position: 'relative' }} />
 		);
 	}
-	if (!user) {
-		console.log('user not found');
-	}
 
 	return (
-		<EditUserForm
-			groups={groups.data?.filter((group) => !group.deleted)}
-			initialValues={user}
-			onSubmit={handleUpdate}
-			isLoading={isLoading}
-			hasSucceeded={hasSucceeded}
-			hasFailed={hasFailed}
-			error={error}
-		/>
+		<AdminActivityContent title={t('nav.users')}>
+			<EditUserForm
+				groups={groups.data?.filter((group) => !group.deleted)}
+				initialValues={user}
+				onSubmit={handleUpdate}
+				isLoading={isLoading}
+				hasSucceeded={hasSucceeded}
+				hasFailed={hasFailed}
+				error={error}
+			/>
+		</AdminActivityContent>
 	);
 };

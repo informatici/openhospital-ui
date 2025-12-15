@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
+import { AdminActivityContent } from '~/components/activities/adminActivity';
 import { useAppDispatch } from '~/libraries/hooks/redux';
 import { PATHS } from '../../../../consts';
 import type { WardDTO } from '../../../../generated';
@@ -33,24 +34,26 @@ export const Wards = () => {
 	};
 
 	return (
-		<div className={classes.wards} data-cy="wards-table">
-			<WardTable
-				onEdit={handleEdit}
-				onDelete={handleDelete}
-				headerActions={
-					<Button
-						onClick={() => {
-							navigate(PATHS.admin_wards_new);
-						}}
-						type="button"
-						variant="contained"
-						color="primary"
-						dataCy="add-new-ward"
-					>
-						{t('ward.addWard')}
-					</Button>
-				}
-			/>
-		</div>
+		<AdminActivityContent title={t('nav.wards')}>
+			<div className={classes.wards} data-cy="wards-table">
+				<WardTable
+					onEdit={handleEdit}
+					onDelete={handleDelete}
+					headerActions={
+						<Button
+							onClick={() => {
+								navigate(PATHS.admin_wards_new);
+							}}
+							type="button"
+							variant="contained"
+							color="primary"
+							dataCy="add-new-ward"
+						>
+							{t('ward.addWard')}
+						</Button>
+					}
+				/>
+			</div>
+		</AdminActivityContent>
 	);
 };

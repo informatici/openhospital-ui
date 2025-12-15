@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
+import { AdminActivityContent } from '~/components/activities/adminActivity';
 import { useAppDispatch } from '~/libraries/hooks/redux';
 import { PATHS } from '../../../../consts';
 import type { ExamDTO } from '../../../../generated';
@@ -23,24 +24,26 @@ export const Exams = () => {
 	};
 
 	return (
-		<div className={classes.exams} data-cy="exams-table">
-			<ExamsTable
-				headerActions={
-					<Button
-						onClick={() => {
-							navigate(PATHS.admin_exams_new);
-						}}
-						type="button"
-						variant="contained"
-						color="primary"
-						dataCy="add-new-exam"
-					>
-						{t('exam.addExam')}
-					</Button>
-				}
-				onDelete={handleDelete}
-				onEdit={handleEdit}
-			/>
-		</div>
+		<AdminActivityContent title={t('nav.exams')}>
+			<div className={classes.exams} data-cy="exams-table">
+				<ExamsTable
+					headerActions={
+						<Button
+							onClick={() => {
+								navigate(PATHS.admin_exams_new);
+							}}
+							type="button"
+							variant="contained"
+							color="primary"
+							dataCy="add-new-exam"
+						>
+							{t('exam.addExam')}
+						</Button>
+					}
+					onDelete={handleDelete}
+					onEdit={handleEdit}
+				/>
+			</div>
+		</AdminActivityContent>
 	);
 };

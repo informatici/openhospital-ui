@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
+import { AdminActivityContent } from '~/components/activities/adminActivity';
 import { useAppDispatch } from '~/libraries/hooks/redux';
 import { getOperationTypes } from '~/state/types/operations';
 import { PATHS } from '../../../../consts';
@@ -39,24 +40,26 @@ export const Operations = () => {
 	};
 
 	return (
-		<div className={classes.operations} data-cy="operations-table">
-			<OperationTable
-				onEdit={handleEdit}
-				onDelete={handleDelete}
-				headerActions={
-					<Button
-						onClick={() => {
-							navigate(PATHS.admin_operations_new);
-						}}
-						type="button"
-						variant="contained"
-						color="primary"
-						dataCy="add-new-operation"
-					>
-						{t('operation.addOperation')}
-					</Button>
-				}
-			/>
-		</div>
+		<AdminActivityContent title={t('nav.operations')}>
+			<div className={classes.operations} data-cy="operations-table">
+				<OperationTable
+					onEdit={handleEdit}
+					onDelete={handleDelete}
+					headerActions={
+						<Button
+							onClick={() => {
+								navigate(PATHS.admin_operations_new);
+							}}
+							type="button"
+							variant="contained"
+							color="primary"
+							dataCy="add-new-operation"
+						>
+							{t('operation.addOperation')}
+						</Button>
+					}
+				/>
+			</div>
+		</AdminActivityContent>
 	);
 };

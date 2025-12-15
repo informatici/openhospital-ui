@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import CheckboxField from '~/components/accessories/checkboxField/CheckboxField';
 import DiscardButton from '~/components/accessories/discardButton/DiscardButton';
 import ResetButton from '~/components/accessories/resetButton/resetButton';
+import { AdminActivityContent } from '~/components/activities/adminActivity';
 import { useAppDispatch, useAppSelector } from '~/libraries/hooks/redux';
 import checkIcon from '../../../../../assets/check-icon.png';
 import { PATHS } from '../../../../../consts';
@@ -67,81 +68,83 @@ export const NewGroup = () => {
 	);
 
 	return (
-		<div className="newGroupForm">
-			<div className="newGroupForm__header">
-				<div className="newGroupForm__actions">
-					<DiscardButton />
-				</div>
-			</div>
-			<form className="newGroupForm__form" onSubmit={handleSubmit}>
-				<div className="row start-sm center-xs">
-					<div className="newGroupForm__item fullWidth">
-						<TextField
-							field={getFieldProps('code')}
-							theme="regular"
-							label={t('user.code')}
-							isValid={!!touched.code && !!errors.code}
-							errorText={(touched.code && errors.code) || ''}
-							onBlur={handleBlur}
-							type="text"
-						/>
-					</div>
-					<div className="newGroupForm__item fullWidth">
-						<TextField
-							field={getFieldProps('desc')}
-							theme="regular"
-							label={t('user.desc')}
-							isValid={!!touched.desc && !!errors.desc}
-							errorText={(touched.desc && errors.desc) || ''}
-							onBlur={handleBlur}
-						/>
-					</div>
-					<div className="newGroupForm__item fullWidth">
-						<CheckboxField
-							fieldName={'deleted'}
-							checked={!!values.deleted}
-							label={t('common.deleted')}
-							onChange={handleCheckboxChange('deleted')}
-						/>
+		<AdminActivityContent title={t('user.addGroup')}>
+			<div className="newGroupForm">
+				<div className="newGroupForm__header">
+					<div className="newGroupForm__actions">
+						<DiscardButton />
 					</div>
 				</div>
-				<div className="newGroupForm__item fullWidth">
-					<p>{t('user.groupPermissionsOnlyOnUpdate')}</p>
-					{create.hasFailed && (
-						<div className="info-box-container">
-							<InfoBox
-								type="error"
-								message={t(create.error?.message ?? 'common.somethingwrong')}
+				<form className="newGroupForm__form" onSubmit={handleSubmit}>
+					<div className="row start-sm center-xs">
+						<div className="newGroupForm__item fullWidth">
+							<TextField
+								field={getFieldProps('code')}
+								theme="regular"
+								label={t('user.code')}
+								isValid={!!touched.code && !!errors.code}
+								errorText={(touched.code && errors.code) || ''}
+								onBlur={handleBlur}
+								type="text"
 							/>
 						</div>
-					)}
-				</div>
-				<div className="newGroupForm__buttonSet">
-					<div className="submit_button">
-						<Button
-							type="submit"
-							variant="contained"
-							disabled={!!create.isLoading || !isValid || !dirty}
-						>
-							{t('common.save')}
-						</Button>
+						<div className="newGroupForm__item fullWidth">
+							<TextField
+								field={getFieldProps('desc')}
+								theme="regular"
+								label={t('user.desc')}
+								isValid={!!touched.desc && !!errors.desc}
+								errorText={(touched.desc && errors.desc) || ''}
+								onBlur={handleBlur}
+							/>
+						</div>
+						<div className="newGroupForm__item fullWidth">
+							<CheckboxField
+								fieldName={'deleted'}
+								checked={!!values.deleted}
+								label={t('common.deleted')}
+								onChange={handleCheckboxChange('deleted')}
+							/>
+						</div>
 					</div>
-					<div className="reset_button">
-						<ResetButton formik={formik as any} />
+					<div className="newGroupForm__item fullWidth">
+						<p>{t('user.groupPermissionsOnlyOnUpdate')}</p>
+						{create.hasFailed && (
+							<div className="info-box-container">
+								<InfoBox
+									type="error"
+									message={t(create.error?.message ?? 'common.somethingwrong')}
+								/>
+							</div>
+						)}
 					</div>
-				</div>
-			</form>
-			<ConfirmationDialog
-				isOpen={create.hasSucceeded}
-				title={t('user.groupCreated')}
-				icon={checkIcon}
-				info={t('user.groupCreateSuccess')}
-				primaryButtonLabel="Ok"
-				handlePrimaryButtonClick={() => {
-					navigate(PATHS.admin_users, { state: { tab: TabOptions.groups } });
-				}}
-				handleSecondaryButtonClick={() => ({})}
-			/>
-		</div>
+					<div className="newGroupForm__buttonSet">
+						<div className="submit_button">
+							<Button
+								type="submit"
+								variant="contained"
+								disabled={!!create.isLoading || !isValid || !dirty}
+							>
+								{t('common.save')}
+							</Button>
+						</div>
+						<div className="reset_button">
+							<ResetButton formik={formik as any} />
+						</div>
+					</div>
+				</form>
+				<ConfirmationDialog
+					isOpen={create.hasSucceeded}
+					title={t('user.groupCreated')}
+					icon={checkIcon}
+					info={t('user.groupCreateSuccess')}
+					primaryButtonLabel="Ok"
+					handlePrimaryButtonClick={() => {
+						navigate(PATHS.admin_users, { state: { tab: TabOptions.groups } });
+					}}
+					handleSecondaryButtonClick={() => ({})}
+				/>
+			</div>
+		</AdminActivityContent>
 	);
 };

@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { Navigate, useLocation, useParams } from 'react-router';
+import { AdminActivityContent } from '~/components/activities/adminActivity';
 import { useAppDispatch, useAppSelector } from '~/libraries/hooks/redux';
 import { PATHS } from '../../../../../consts';
 import type { OperationDTO } from '../../../../../generated';
@@ -28,13 +29,15 @@ export const EditOperation = () => {
 	}
 
 	return (
-		<OperationForm
-			creationMode={false}
-			onSubmit={handleSubmit}
-			isLoading={!!update.isLoading}
-			resetButtonLabel={t('common.reset')}
-			submitButtonLabel={t('operation.updateOperation')}
-			fields={getInitialFields(state)}
-		/>
+		<AdminActivityContent title={t('operation.editOperation')}>
+			<OperationForm
+				creationMode={false}
+				onSubmit={handleSubmit}
+				isLoading={!!update.isLoading}
+				resetButtonLabel={t('common.reset')}
+				submitButtonLabel={t('operation.updateOperation')}
+				fields={getInitialFields(state)}
+			/>
+		</AdminActivityContent>
 	);
 };

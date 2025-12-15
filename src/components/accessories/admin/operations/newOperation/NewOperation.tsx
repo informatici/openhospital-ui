@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import { AdminActivityContent } from '~/components/activities/adminActivity';
 import { useAppDispatch, useAppSelector } from '~/libraries/hooks/redux';
 import type { OperationDTO } from '../../../../../generated';
 import { createOperation } from '../../../../../state/operations';
@@ -15,13 +16,15 @@ export const NewOperation = () => {
 	};
 
 	return (
-		<OperationForm
-			creationMode
-			onSubmit={handleSubmit}
-			isLoading={!!create.isLoading}
-			resetButtonLabel={t('common.reset')}
-			submitButtonLabel={t('operation.saveOperation')}
-			fields={getInitialFields(undefined)}
-		/>
+		<AdminActivityContent title={t('operation.addOperation')}>
+			<OperationForm
+				creationMode
+				onSubmit={handleSubmit}
+				isLoading={!!create.isLoading}
+				resetButtonLabel={t('common.reset')}
+				submitButtonLabel={t('operation.saveOperation')}
+				fields={getInitialFields(undefined)}
+			/>
+		</AdminActivityContent>
 	);
 };

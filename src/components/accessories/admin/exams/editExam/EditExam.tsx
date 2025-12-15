@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Navigate, useLocation, useParams } from 'react-router';
+import { AdminActivityContent } from '~/components/activities/adminActivity';
 import { useAppDispatch, useAppSelector } from '~/libraries/hooks/redux';
 import { PATHS } from '../../../../../consts';
 import type { ExamDTO } from '../../../../../generated';
@@ -42,13 +43,15 @@ export const EditExam = () => {
 	}
 
 	return (
-		<ExamForm
-			creationMode={false}
-			onSubmit={handleSubmit}
-			isLoading={!!update.isLoading}
-			resetButtonLabel={t('common.reset')}
-			submitButtonLabel={t('exam.updateExam')}
-			fields={getInitialFields(state, examRows)}
-		/>
+		<AdminActivityContent title={t('exam.editExam')}>
+			<ExamForm
+				creationMode={false}
+				onSubmit={handleSubmit}
+				isLoading={!!update.isLoading}
+				resetButtonLabel={t('common.reset')}
+				submitButtonLabel={t('exam.updateExam')}
+				fields={getInitialFields(state, examRows)}
+			/>
+		</AdminActivityContent>
 	);
 };

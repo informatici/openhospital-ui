@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-
+import { AdminActivityContent } from '~/components/activities/adminActivity';
 import { useAppDispatch, useAppSelector } from '~/libraries/hooks/redux';
 import type { ExamDTO } from '../../../../../generated';
 import { createExam } from '../../../../../state/exams';
@@ -18,13 +18,15 @@ export const NewExam = () => {
 	};
 
 	return (
-		<ExamForm
-			creationMode
-			onSubmit={handleSubmit}
-			isLoading={!!create.isLoading}
-			resetButtonLabel={t('common.reset')}
-			submitButtonLabel={t('supplier.saveSupplier')}
-			fields={getInitialFields(undefined, undefined)}
-		/>
+		<AdminActivityContent title={t('exam.addExam')}>
+			<ExamForm
+				creationMode
+				onSubmit={handleSubmit}
+				isLoading={!!create.isLoading}
+				resetButtonLabel={t('common.reset')}
+				submitButtonLabel={t('supplier.saveSupplier')}
+				fields={getInitialFields(undefined, undefined)}
+			/>
+		</AdminActivityContent>
 	);
 };

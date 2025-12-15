@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import { AdminActivityContent } from '~/components/activities/adminActivity';
 import { useAppDispatch, useAppSelector } from '~/libraries/hooks/redux';
 import type { SupplierDTO } from '../../../../../generated';
 import { createSupplier } from '../../../../../state/suppliers';
@@ -15,13 +16,15 @@ export const NewSupplier = () => {
 	};
 
 	return (
-		<SupplierForm
-			creationMode
-			onSubmit={handleSubmit}
-			isLoading={!!create.isLoading}
-			resetButtonLabel={t('common.reset')}
-			submitButtonLabel={t('supplier.saveSupplier')}
-			fields={getInitialFields(undefined)}
-		/>
+		<AdminActivityContent title={t('supplier.addNewSupplier')}>
+			<SupplierForm
+				creationMode
+				onSubmit={handleSubmit}
+				isLoading={!!create.isLoading}
+				resetButtonLabel={t('common.reset')}
+				submitButtonLabel={t('supplier.saveSupplier')}
+				fields={getInitialFields(undefined)}
+			/>
+		</AdminActivityContent>
 	);
 };

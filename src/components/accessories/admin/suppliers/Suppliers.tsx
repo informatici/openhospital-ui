@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
+import { AdminActivityContent } from '~/components/activities/adminActivity';
 import { useAppDispatch } from '~/libraries/hooks/redux';
 import { deleteSupplier } from '~/state/suppliers';
 import { PATHS } from '../../../../consts';
@@ -23,21 +24,23 @@ export const Suppliers = () => {
 	};
 
 	return (
-		<SuppliersTable
-			onEdit={handleEdit}
-			onDelete={handleDelete}
-			headerActions={
-				<Button
-					onClick={() => {
-						navigate(PATHS.admin_suppliers_new);
-					}}
-					type="button"
-					variant="contained"
-					color="primary"
-				>
-					{t('supplier.addSupplier')}
-				</Button>
-			}
-		/>
+		<AdminActivityContent title={t('nav.suppliers')}>
+			<SuppliersTable
+				onEdit={handleEdit}
+				onDelete={handleDelete}
+				headerActions={
+					<Button
+						onClick={() => {
+							navigate(PATHS.admin_suppliers_new);
+						}}
+						type="button"
+						variant="contained"
+						color="primary"
+					>
+						{t('supplier.addSupplier')}
+					</Button>
+				}
+			/>
+		</AdminActivityContent>
 	);
 };

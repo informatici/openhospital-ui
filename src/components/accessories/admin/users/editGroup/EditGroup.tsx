@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import CheckboxField from '~/components/accessories/checkboxField/CheckboxField';
 import DiscardButton from '~/components/accessories/discardButton/DiscardButton';
 import ResetButton from '~/components/accessories/resetButton/resetButton';
+import { AdminActivityContent } from '~/components/activities/adminActivity';
 import type { PermissionDTO } from '~/generated/models/PermissionDTO';
 import type { UserGroupDTO } from '~/generated/models/UserGroupDTO';
 import { useAppDispatch, useAppSelector } from '~/libraries/hooks/redux';
@@ -153,7 +154,7 @@ export const EditGroup = () => {
 		);
 
 	return (
-		<>
+		<AdminActivityContent title={t('user.editGroup')}>
 			{group.isLoading ||
 			group.status === 'IDLE' ||
 			permissions.status === 'IDLE' ||
@@ -280,6 +281,6 @@ export const EditGroup = () => {
 					/>
 				</div>
 			)}
-		</>
+		</AdminActivityContent>
 	);
 };
