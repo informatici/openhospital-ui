@@ -8,7 +8,7 @@ import Button from '../../../../button/Button';
 import AgeTypesTable from './ageTypesTable';
 import './styles.scss';
 
-const AgeTypes = () => {
+export const AgeTypes = () => {
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 
@@ -43,5 +43,3 @@ const AgeTypes = () => {
 		</>
 	);
 };
-
-export default AgeTypes;

@@ -14,7 +14,7 @@ import Button from '../../../../button/Button';
 import OperationTypesTable from './operationTypesTable';
 import './styles.scss';
 
-const OperationTypes = () => {
+export const OperationTypes = () => {
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 
@@ -67,5 +67,3 @@ const OperationTypes = () => {
 		</>
 	);
 };
-
-export default OperationTypes;

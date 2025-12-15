@@ -14,7 +14,7 @@ import Button from '../../../../button/Button';
 import MedicalTypesTable from './medicalTypesTable';
 import './styles.scss';
 
-const MedicalTypes = () => {
+export const MedicalTypes = () => {
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 
@@ -64,5 +64,3 @@ const MedicalTypes = () => {
 		</>
 	);
 };
-
-export default MedicalTypes;

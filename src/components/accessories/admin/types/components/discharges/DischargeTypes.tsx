@@ -14,7 +14,7 @@ import Button from '../../../../button/Button';
 import DischargeTypesTable from './dischargeTypesTable';
 import './styles.scss';
 
-const DischargeTypes = () => {
+export const DischargeTypes = () => {
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 
@@ -67,5 +67,3 @@ const DischargeTypes = () => {
 		</>
 	);
 };
-
-export default DischargeTypes;

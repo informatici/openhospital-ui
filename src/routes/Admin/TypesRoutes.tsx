@@ -1,188 +1,253 @@
-import type { ReactNode } from 'react';
-import { Route, Routes } from 'react-router';
-import AgeTypes, {
-	EditAgeTypes,
-} from '~/components/accessories/admin/types/components/agetypes';
-import AdmissionTypes, {
-	EditAdmissionType,
-	NewAdmissionType,
-} from '../../components/accessories/admin/types/components/admissions';
-import DeliveryTypes, {
-	EditDeliveryType,
-	NewDeliveryType,
-} from '../../components/accessories/admin/types/components/deliveries';
-import DeliveryResultType, {
-	EditDeliveryResultType,
-	NewDeliveryResultType,
-} from '../../components/accessories/admin/types/components/deliveryresulttypes';
-import DischargeTypes, {
-	EditDischargeType,
-	NewDischargeType,
-} from '../../components/accessories/admin/types/components/discharges';
-import DiseaseTypes, {
-	EditDiseaseType,
-	NewDiseaseType,
-} from '../../components/accessories/admin/types/components/diseases';
-import ExamTypes, {
-	EditExamType,
-	NewExamType,
-} from '../../components/accessories/admin/types/components/exams';
-import MedicalTypes, {
-	EditMedicalType,
-	NewMedicalType,
-} from '../../components/accessories/admin/types/components/medicals';
-import OperationTypes, {
-	EditOperationType,
-	NewOperationType,
-} from '../../components/accessories/admin/types/components/operations';
-import PregnantTreatmentType, {
-	EditPregnantTreatmentType,
-	NewPregnantTreatmentType,
-} from '../../components/accessories/admin/types/components/pregnanttreatmenttypes';
-import VaccineTypes, {
-	EditVaccineType,
-	NewVaccineType,
-} from '../../components/accessories/admin/types/components/vaccines';
-import Empty from '../../components/accessories/admin/types/Empty';
+import { Route, type RouteObject, Routes } from 'react-router';
 import TypesAdmin from '../../components/accessories/admin/types/TypesAdmin';
 import NotFound from '../../components/activities/notFound/NotFound';
 
-const TypesRoutes = () => {
-	const routes: { element: ReactNode; path: string }[] = [
-		{
-			path: 'vaccines',
-			element: <VaccineTypes />,
-		},
-		{
-			path: 'vaccines/new',
-			element: <NewVaccineType />,
-		},
-		{
-			path: 'vaccines/:code/edit',
-			element: <EditVaccineType />,
-		},
-		{
-			path: 'exams',
-			element: <ExamTypes />,
-		},
-		{
-			path: 'exams/new',
-			element: <NewExamType />,
-		},
-		{
-			path: 'exams/:code/edit',
-			element: <EditExamType />,
-		},
-		{
-			path: 'admissions',
-			element: <AdmissionTypes />,
-		},
-		{
-			path: 'admissions/new',
-			element: <NewAdmissionType />,
-		},
-		{
-			path: 'admissions/:code/edit',
-			element: <EditAdmissionType />,
-		},
-		{
-			path: 'diseases',
-			element: <DiseaseTypes />,
-		},
-		{
-			path: 'diseases/new',
-			element: <NewDiseaseType />,
-		},
-		{
-			path: 'diseases/:code/edit',
-			element: <EditDiseaseType />,
-		},
-		{
-			path: 'operations',
-			element: <OperationTypes />,
-		},
-		{
-			path: 'operations/new',
-			element: <NewOperationType />,
-		},
-		{
-			path: 'operations/:code/edit',
-			element: <EditOperationType />,
-		},
-		{
-			path: 'discharges',
-			element: <DischargeTypes />,
-		},
-		{
-			path: 'discharges/new',
-			element: <NewDischargeType />,
-		},
-		{
-			path: 'discharges/:code/edit',
-			element: <EditDischargeType />,
-		},
-		{
-			path: 'deliveries',
-			element: <DeliveryTypes />,
-		},
-		{
-			path: 'deliveries/new',
-			element: <NewDeliveryType />,
-		},
-		{
-			path: 'deliveries/:code/edit',
-			element: <EditDeliveryType />,
-		},
-		{
-			path: 'medicals',
-			element: <MedicalTypes />,
-		},
-		{
-			path: 'medicals/new',
-			element: <NewMedicalType />,
-		},
-		{
-			path: 'medicals/:code/edit',
-			element: <EditMedicalType />,
-		},
-		{
-			path: 'pregnanttreatmenttypes',
-			element: <PregnantTreatmentType />,
-		},
-		{
-			path: 'pregnanttreatmenttypes/new',
-			element: <NewPregnantTreatmentType />,
-		},
-		{
-			path: 'pregnanttreatmenttypes/:code/edit',
-			element: <EditPregnantTreatmentType />,
-		},
-		{
-			path: 'deliveryresulttypes',
-			element: <DeliveryResultType />,
-		},
-		{
-			path: 'deliveryresulttypes/new',
-			element: <NewDeliveryResultType />,
-		},
-		{
-			path: 'deliveryresulttypes/:code/edit',
-			element: <EditDeliveryResultType />,
-		},
-		{
-			path: 'ages',
-			element: <AgeTypes />,
-		},
-		{
-			path: 'ages/edit',
-			element: <EditAgeTypes />,
-		},
-	];
+export const TYPES_ROUTES: RouteObject[] = [
+	{
+		path: '',
+		lazy: async () =>
+			import('../../components/accessories/admin/types').then((module) => ({
+				Component: module.Empty,
+			})),
+	},
+	{
+		path: 'vaccines',
+		lazy: async () =>
+			import('../../components/accessories/admin/types/components').then(
+				(module) => ({ Component: module.VaccineTypes }),
+			),
+	},
+	{
+		path: 'vaccines/new',
+		lazy: async () =>
+			import('../../components/accessories/admin/types/components').then(
+				(module) => ({ Component: module.NewVaccineType }),
+			),
+	},
+	{
+		path: 'vaccines/:code/edit',
+		lazy: async () =>
+			import('../../components/accessories/admin/types/components').then(
+				(module) => ({ Component: module.EditVaccineType }),
+			),
+	},
+	{
+		path: 'exams',
+		lazy: async () =>
+			import('../../components/accessories/admin/types/components').then(
+				(module) => ({ Component: module.ExamTypes }),
+			),
+	},
+	{
+		path: 'exams/new',
+		lazy: async () =>
+			import('../../components/accessories/admin/types/components').then(
+				(module) => ({ Component: module.NewExamType }),
+			),
+	},
+	{
+		path: 'exams/:code/edit',
+		lazy: async () =>
+			import('../../components/accessories/admin/types/components').then(
+				(module) => ({ Component: module.EditExamType }),
+			),
+	},
+	{
+		path: 'admissions',
+		lazy: async () =>
+			import('../../components/accessories/admin/types/components').then(
+				(module) => ({ Component: module.AdmissionTypes }),
+			),
+	},
+	{
+		path: 'admissions/new',
+		lazy: async () =>
+			import('../../components/accessories/admin/types/components').then(
+				(module) => ({ Component: module.NewAdmissionType }),
+			),
+	},
+	{
+		path: 'admissions/:code/edit',
+		lazy: async () =>
+			import('../../components/accessories/admin/types/components').then(
+				(module) => ({ Component: module.EditAdmissionType }),
+			),
+	},
+	{
+		path: 'diseases',
+		lazy: async () =>
+			import('../../components/accessories/admin/types/components').then(
+				(module) => ({ Component: module.DiseaseTypes }),
+			),
+	},
+	{
+		path: 'diseases/new',
+		lazy: async () =>
+			import('../../components/accessories/admin/types/components').then(
+				(module) => ({ Component: module.NewDiseaseType }),
+			),
+	},
+	{
+		path: 'diseases/:code/edit',
+		lazy: async () =>
+			import('../../components/accessories/admin/types/components').then(
+				(module) => ({ Component: module.EditDiseaseType }),
+			),
+	},
+	{
+		path: 'operations',
+		lazy: async () =>
+			import('../../components/accessories/admin/types/components').then(
+				(module) => ({ Component: module.OperationTypes }),
+			),
+	},
+	{
+		path: 'operations/new',
+		lazy: async () =>
+			import('../../components/accessories/admin/types/components').then(
+				(module) => ({ Component: module.NewOperationType }),
+			),
+	},
+	{
+		path: 'operations/:code/edit',
+		lazy: async () =>
+			import('../../components/accessories/admin/types/components').then(
+				(module) => ({ Component: module.EditOperationType }),
+			),
+	},
+	{
+		path: 'discharges',
+		lazy: async () =>
+			import('../../components/accessories/admin/types/components').then(
+				(module) => ({ Component: module.DischargeTypes }),
+			),
+	},
+	{
+		path: 'discharges/new',
+		lazy: async () =>
+			import('../../components/accessories/admin/types/components').then(
+				(module) => ({ Component: module.NewDischargeType }),
+			),
+	},
+	{
+		path: 'discharges/:code/edit',
+		lazy: async () =>
+			import('../../components/accessories/admin/types/components').then(
+				(module) => ({ Component: module.EditDischargeType }),
+			),
+	},
+	{
+		path: 'deliveries',
+		lazy: async () =>
+			import('../../components/accessories/admin/types/components').then(
+				(module) => ({ Component: module.DeliveryTypes }),
+			),
+	},
+	{
+		path: 'deliveries/new',
+		lazy: async () =>
+			import('../../components/accessories/admin/types/components').then(
+				(module) => ({ Component: module.NewDeliveryType }),
+			),
+	},
+	{
+		path: 'deliveries/:code/edit',
+		lazy: async () =>
+			import('../../components/accessories/admin/types/components').then(
+				(module) => ({ Component: module.EditDeliveryType }),
+			),
+	},
+	{
+		path: 'medicals',
+		lazy: async () =>
+			import('../../components/accessories/admin/types/components').then(
+				(module) => ({ Component: module.MedicalTypes }),
+			),
+	},
+	{
+		path: 'medicals/new',
+		lazy: async () =>
+			import('../../components/accessories/admin/types/components').then(
+				(module) => ({ Component: module.NewMedicalType }),
+			),
+	},
+	{
+		path: 'medicals/:code/edit',
+		lazy: async () =>
+			import('../../components/accessories/admin/types/components').then(
+				(module) => ({ Component: module.EditMedicalType }),
+			),
+	},
+	{
+		path: 'pregnanttreatmenttypes',
+		lazy: async () =>
+			import('../../components/accessories/admin/types/components').then(
+				(module) => ({ Component: module.PregnantTreatmentType }),
+			),
+	},
+	{
+		path: 'pregnanttreatmenttypes/new',
+		lazy: async () =>
+			import('../../components/accessories/admin/types/components').then(
+				(module) => ({ Component: module.NewPregnantTreatmentType }),
+			),
+	},
+	{
+		path: 'pregnanttreatmenttypes/:code/edit',
+		lazy: async () =>
+			import('../../components/accessories/admin/types/components').then(
+				(module) => ({ Component: module.EditPregnantTreatmentType }),
+			),
+	},
+	{
+		path: 'deliveryresulttypes',
+		lazy: async () =>
+			import('../../components/accessories/admin/types/components').then(
+				(module) => ({ Component: module.DeliveryResultTypes }),
+			),
+	},
+	{
+		path: 'deliveryresulttypes/new',
+		lazy: async () =>
+			import('../../components/accessories/admin/types/components').then(
+				(module) => ({ Component: module.NewDeliveryResultType }),
+			),
+	},
+	{
+		path: 'deliveryresulttypes/:code/edit',
+		lazy: async () =>
+			import('../../components/accessories/admin/types/components').then(
+				(module) => ({ Component: module.EditDeliveryResultType }),
+			),
+	},
+	{
+		path: 'ages',
+		lazy: async () =>
+			import(
+				'../../components/accessories/admin/types/components/agetypes'
+			).then((module) => ({ Component: module.AgeTypes })),
+	},
+	{
+		path: 'ages/edit',
+		lazy: async () =>
+			import(
+				'../../components/accessories/admin/types/components/agetypes'
+			).then((module) => ({ Component: module.EditAgeTypes })),
+	},
+	{
+		path: '*',
+		lazy: async () =>
+			import('../../components/activities/notFound/NotFound').then(
+				(module) => ({ Component: module.NotFound }),
+			),
+	},
+];
 
+const TypesRoutes = () => {
+	const routes: any[] = [];
 	return (
 		<Routes>
 			<Route element={<TypesAdmin />}>
-				<Route index element={<Empty />} />
 				{routes.map((route) => (
 					<Route key={route.path} path={route.path} element={route.element} />
 				))}

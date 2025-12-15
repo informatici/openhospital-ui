@@ -14,7 +14,7 @@ import Button from '../../../../button/Button';
 import DeliveryResultTypeTable from './deliveryResultTypeTable';
 import './styles.scss';
 
-const DelevyResultType = () => {
+export const DeliveryResultTypes = () => {
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 
@@ -67,5 +67,3 @@ const DelevyResultType = () => {
 		</>
 	);
 };
-
-export default DelevyResultType;

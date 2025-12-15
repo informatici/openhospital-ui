@@ -14,7 +14,7 @@ import Button from '../../../../button/Button';
 import ExamTypesTable from './examTypesTable';
 import './styles.scss';
 
-const ExamTypes = () => {
+export const ExamTypes = () => {
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 
@@ -64,5 +64,3 @@ const ExamTypes = () => {
 		</>
 	);
 };
-
-export default ExamTypes;

@@ -5,7 +5,7 @@ import logo from '../../../assets/logo-color.svg';
 import Footer from '../../accessories/footer/Footer';
 import type { IProps } from './types';
 
-const NotFound: FC<IProps> = ({ backRoute }) => {
+export const NotFound: FC<IProps> = ({ backRoute }) => {
 	const { t } = useTranslation();
 	return (
 		<div className="login">

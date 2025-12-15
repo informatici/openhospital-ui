@@ -1,6 +1,4 @@
-import DischargeTypes from './DischargeTypes';
-
-export default DischargeTypes;
+export * from './DischargeTypes';
 export * from './dischargeTypesForm';
 export * from './dischargeTypesTable';
 export * from './editDischargeType';

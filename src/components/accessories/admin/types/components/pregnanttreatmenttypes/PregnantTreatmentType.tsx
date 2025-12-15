@@ -14,7 +14,7 @@ import Button from '../../../../button/Button';
 import PregnantTreatmentTableType from './pregnantTreatmentTableType';
 import './styles.scss';
 
-const PregnantTreatmentType = () => {
+export const PregnantTreatmentType = () => {
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 
@@ -73,5 +73,3 @@ const PregnantTreatmentType = () => {
 		</>
 	);
 };
-
-export default PregnantTreatmentType;

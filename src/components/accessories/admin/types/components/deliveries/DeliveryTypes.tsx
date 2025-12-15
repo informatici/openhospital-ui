@@ -14,7 +14,7 @@ import Button from '../../../../button/Button';
 import DeliveryTypesTable from './deliveryTypesTable';
 import './styles.scss';
 
-const DeliveryTypes = () => {
+export const DeliveryTypes = () => {
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 
@@ -67,5 +67,3 @@ const DeliveryTypes = () => {
 		</>
 	);
 };
-
-export default DeliveryTypes;

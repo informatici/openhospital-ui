@@ -14,7 +14,7 @@ import Button from '../../../../button/Button';
 import './styles.scss';
 import VaccineTypesTable from './vaccineTypesTable';
 
-const VaccineTypes = () => {
+export const VaccineTypes = () => {
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 
@@ -64,5 +64,3 @@ const VaccineTypes = () => {
 		</>
 	);
 };
-
-export default VaccineTypes;

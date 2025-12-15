@@ -14,7 +14,7 @@ import Button from '../../../../button/Button';
 import AdmissionTypesTable from './admissionTypesTable';
 import './styles.scss';
 
-const AdmissionTypes = () => {
+export const AdmissionTypes = () => {
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 
@@ -74,5 +74,3 @@ const AdmissionTypes = () => {
 		</>
 	);
 };
-
-export default AdmissionTypes;

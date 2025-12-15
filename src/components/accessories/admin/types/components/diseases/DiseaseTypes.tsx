@@ -14,7 +14,7 @@ import Button from '../../../../button/Button';
 import DiseaseTypesTable from './diseaseTypesTable';
 import './styles.scss';
 
-const DiseaseTypes = () => {
+export const DiseaseTypes = () => {
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 
@@ -64,5 +64,3 @@ const DiseaseTypes = () => {
 		</>
 	);
 };
-
-export default DiseaseTypes;
