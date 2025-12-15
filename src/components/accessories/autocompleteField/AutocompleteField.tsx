@@ -1,5 +1,5 @@
-import { Autocomplete } from '@mui/lab';
 import {
+	Autocomplete,
 	createFilterOptions,
 	debounce,
 	type FilterOptionsState,

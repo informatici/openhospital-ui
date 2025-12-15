@@ -1,4 +1,4 @@
-import jwtDecode from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 import {
 	REFRESH_TOKEN_EXPIRATION_TIMEOUT,
 	TOKEN_EXPIRATION_TIMEOUT,

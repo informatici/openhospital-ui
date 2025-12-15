@@ -1,6 +1,6 @@
 import { CalendarTodaySharp } from '@mui/icons-material';
-import { type DateRange, ToggleButton, ToggleButtonGroup } from '@mui/lab';
-import { IconButton } from '@mui/material';
+import type { DateRange } from '@mui/lab';
+import { IconButton, ToggleButton, ToggleButtonGroup } from '@mui/material';
 import { isEmpty } from 'lodash';
 import moment from 'moment';
 import { type FC, useCallback, useEffect, useState } from 'react';

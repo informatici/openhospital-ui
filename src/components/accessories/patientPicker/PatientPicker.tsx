@@ -16,8 +16,7 @@ import { useTranslation } from 'react-i18next';
 import './styles.scss';
 
 import { Search } from '@mui/icons-material';
-import { Pagination } from '@mui/lab';
-import { TextField as MaterialComponent } from '@mui/material';
+import { TextField as MaterialComponent, Pagination } from '@mui/material';
 import { GridCloseIcon } from '@mui/x-data-grid';
 import { useFormik } from 'formik';
 import { get, has } from 'lodash';
@@ -171,10 +170,9 @@ const PatientPicker: FC<IProps> = ({
 							{t('common.results')}: <strong>{patientData?.length}</strong>
 						</div>
 						<div className="searchPatient__results_list">
-							{getCurrentPatients(patientData)?.map((patient, index) => (
-								<div onClick={() => handleClick(patient)}>
+							{getCurrentPatients(patientData)?.map((patient) => (
+								<div key={patient.code} onClick={() => handleClick(patient)}>
 									<PatientSearchItem
-										key={index}
 										patient={patient}
 										hideAdditionalInformation={true}
 									/>

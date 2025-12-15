@@ -1,4 +1,4 @@
-import { ToggleButton, ToggleButtonGroup } from '@mui/lab';
+import { ToggleButton, ToggleButtonGroup } from '@mui/material';
 import { isEmpty } from 'lodash';
 import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';

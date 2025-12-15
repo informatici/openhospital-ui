@@ -1,4 +1,4 @@
-import produce from 'immer';
+import { produce } from 'immer';
 import { set } from 'lodash';
 import { AUTH_KEY } from '../../consts';
 import type { Middleware, RequestOpts } from '../../generated';
