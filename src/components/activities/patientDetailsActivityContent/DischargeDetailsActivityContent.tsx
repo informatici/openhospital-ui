@@ -4,7 +4,7 @@ import { PatientSummary } from '../../accessories/patientSummary/PatientSummary'
 import { usePatient } from '../../activities/patientDetailsActivity/PatientDetailsActivity';
 import './styles.scss';
 
-const DischargeDetailsActivityContent = () => {
+export const DischargeDetailsActivityContent = () => {
 	const status = usePatient();
 	return status?.toString() === PatientDTOStatusEnum.O ? (
 		<PatientSummary />

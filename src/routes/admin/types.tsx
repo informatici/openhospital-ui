@@ -1,6 +1,5 @@
-import { Route, type RouteObject, Routes } from 'react-router';
-import TypesAdmin from '../../components/accessories/admin/types/TypesAdmin';
-import NotFound from '../../components/activities/notFound/NotFound';
+import type { RouteObject } from 'react-router';
+import TypesAdmin from '~/components/accessories/admin/types/TypesAdmin';
 
 export const TYPES_ROUTES: RouteObject[] = [
 	{
@@ -243,18 +242,4 @@ export const TYPES_ROUTES: RouteObject[] = [
 	},
 ];
 
-const TypesRoutes = () => {
-	const routes: any[] = [];
-	return (
-		<Routes>
-			<Route element={<TypesAdmin />}>
-				{routes.map((route) => (
-					<Route key={route.path} path={route.path} element={route.element} />
-				))}
-			</Route>
-			<Route path="*" element={<NotFound />} />
-		</Routes>
-	);
-};
-
-export default TypesRoutes;
+export { TypesAdmin };

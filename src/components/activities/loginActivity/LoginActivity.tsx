@@ -17,10 +17,11 @@ import { setAuthentication } from '../../../state/main';
 import Button from '../../accessories/button/Button';
 import Footer from '../../accessories/footer/Footer';
 import TextField from '../../accessories/textField/TextField';
+import { RedirectAfterLogin } from './RedirectAfterLogin';
 import './styles.scss';
 import type { IValues } from './types';
 
-const LoginActivity: FC = () => {
+export const LoginActivity: FC = () => {
 	useAuthentication();
 	const { t } = useTranslation();
 	const dispatch = useAppDispatch();
@@ -72,87 +73,92 @@ const LoginActivity: FC = () => {
 	) as HospitalDTO;
 
 	return (
-		<div className="login">
-			<div className="container login__background">
-				<img
-					src={logo}
-					alt="Open Hospital"
-					className="login__logo"
-					width="150px"
-				/>
-				<div className="login__title">
-					{hospital?.description ?? t('login.signin')}
-				</div>
-				<div data-cy="login-panel" className="login__panel">
-					<form className="login__panel__form" onSubmit={formik.handleSubmit}>
-						<div className="login__panel__textField">
-							<TextField
-								field={formik.getFieldProps('username')}
-								theme="regular"
-								label={t('login.username')}
-								isValid={isValid('username')}
-								errorText={getErrorText('username')}
-								onBlur={formik.handleBlur}
-							/>
-						</div>
-						<div className="login__panel__textField">
-							<TextField
-								field={formik.getFieldProps('password')}
-								theme="regular"
-								label={t('login.password')}
-								type={state.isPasswordVisible ? 'text' : 'password'}
-								isValid={isValid('password')}
-								errorText={getErrorText('password')}
-								onBlur={formik.handleBlur}
-								InputProps={{
-									endAdornment: (
-										<InputAdornment position="end">
-											<div
-												className="login__passwordToggler"
-												onClick={() =>
-													setState({
-														isPasswordVisible: !state.isPasswordVisible,
-													})
-												}
-											>
-												<RemoveRedEye />
-											</div>
-										</InputAdornment>
-									),
-								}}
-							/>
-						</div>
-						<div
-							data-cy="login-invalid-credentials"
-							className={classNames('login__invalidCredentials', {
-								hidden: status !== 'FAIL',
-							})}
-						>
-							{errorMessage}
-						</div>
-						<div className="login__buttonContainer">
-							<Button
-								type="submit"
-								variant="contained"
-								color="primary"
-								disabled={status === 'LOADING'}
-							>
-								{t('login.login')}
-							</Button>
-						</div>
-					</form>
-					<div>
-						<RouterLink to="/forgot">
-							<Link className="login__panel__resetPassword" component="button">
-								{t('login.forgotpassword')}
-							</Link>
-						</RouterLink>
+		<RedirectAfterLogin>
+			<div className="login">
+				<div className="container login__background">
+					<img
+						src={logo}
+						alt="Open Hospital"
+						className="login__logo"
+						width="150px"
+					/>
+					<div className="login__title">
+						{hospital?.description ?? t('login.signin')}
 					</div>
-					&emsp;
+					<div data-cy="login-panel" className="login__panel">
+						<form className="login__panel__form" onSubmit={formik.handleSubmit}>
+							<div className="login__panel__textField">
+								<TextField
+									field={formik.getFieldProps('username')}
+									theme="regular"
+									label={t('login.username')}
+									isValid={isValid('username')}
+									errorText={getErrorText('username')}
+									onBlur={formik.handleBlur}
+								/>
+							</div>
+							<div className="login__panel__textField">
+								<TextField
+									field={formik.getFieldProps('password')}
+									theme="regular"
+									label={t('login.password')}
+									type={state.isPasswordVisible ? 'text' : 'password'}
+									isValid={isValid('password')}
+									errorText={getErrorText('password')}
+									onBlur={formik.handleBlur}
+									InputProps={{
+										endAdornment: (
+											<InputAdornment position="end">
+												<div
+													className="login__passwordToggler"
+													onClick={() =>
+														setState({
+															isPasswordVisible: !state.isPasswordVisible,
+														})
+													}
+												>
+													<RemoveRedEye />
+												</div>
+											</InputAdornment>
+										),
+									}}
+								/>
+							</div>
+							<div
+								data-cy="login-invalid-credentials"
+								className={classNames('login__invalidCredentials', {
+									hidden: status !== 'FAIL',
+								})}
+							>
+								{errorMessage}
+							</div>
+							<div className="login__buttonContainer">
+								<Button
+									type="submit"
+									variant="contained"
+									color="primary"
+									disabled={status === 'LOADING'}
+								>
+									{t('login.login')}
+								</Button>
+							</div>
+						</form>
+						<div>
+							<RouterLink to="/forgot">
+								<Link
+									className="login__panel__resetPassword"
+									component="button"
+								>
+									{t('login.forgotpassword')}
+								</Link>
+							</RouterLink>
+						</div>
+						&emsp;
+					</div>
 				</div>
+				<Footer />
 			</div>
-			<Footer />
-		</div>
+		</RedirectAfterLogin>
 	);
 };
 

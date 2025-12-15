@@ -1,24 +1,9 @@
-import {
-	Box,
-	DialogContent,
-	DialogTitle,
-	IconButton,
-	type Theme,
-} from '@mui/material';
+import { Box, DialogContent, DialogTitle, IconButton } from '@mui/material';
 import Modal from '@mui/material/Modal';
-import { makeStyles } from '@mui/styles';
 import { GridCloseIcon } from '@mui/x-data-grid';
 import type { FC } from 'react';
 import './styles.scss';
 import type { ICustomModal } from './types';
-
-const useStyles = makeStyles((theme: Theme) => ({
-	paper: {
-		position: 'absolute',
-		backgroundColor: theme.palette.background.paper,
-		boxShadow: theme.shadows[5],
-	},
-}));
 
 export const CustomModal: FC<ICustomModal> = ({
 	title,
@@ -27,18 +12,22 @@ export const CustomModal: FC<ICustomModal> = ({
 	open,
 	onClose,
 }) => {
-	const classes = useStyles();
 	return (
 		<Modal
 			aria-labelledby={title}
 			aria-describedby={description}
 			open={open}
 			onClose={onClose}
-			BackdropProps={{
-				timeout: 200,
-			}}
+			slotProps={{ backdrop: { timeout: 200 } }}
 		>
-			<div className={`${classes.paper} custom__modal`}>
+			<Box
+				sx={(theme) => ({
+					position: 'absolute',
+					backgroundColor: theme.palette.background.paper,
+					boxShadow: theme.shadows[5],
+				})}
+				className="custom__modal"
+			>
 				<DialogTitle>
 					<Box display="flex" alignItems="center">
 						<Box flexGrow={1}>
@@ -53,7 +42,7 @@ export const CustomModal: FC<ICustomModal> = ({
 					</Box>
 				</DialogTitle>
 				<DialogContent>{content}</DialogContent>
-			</div>
+			</Box>
 		</Modal>
 	);
 };

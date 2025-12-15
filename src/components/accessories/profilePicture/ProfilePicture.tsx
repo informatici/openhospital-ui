@@ -53,10 +53,15 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
 	const [pictureToResize, setPictureToResize] = useState('');
 	const { t } = useTranslation();
 
-	const handleCloseError = () => {
+	const handleCloseError = useCallback(() => {
 		removePicture();
 		setShowError('');
-	};
+	}, []);
+
+	const openWebcam = () => setShowWebcam(true);
+	const closeWebcam = () => setShowWebcam(false);
+	const openCropper = () => setShowCropper(true);
+	const closeCropper = () => setShowCropper(false);
 
 	useEffect(() => {
 		if (preLoadedPicture) {
@@ -78,7 +83,7 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
 			setFromFileSystem(false);
 			openCropper();
 		}
-	}, [fromFileSystem, pictureToResize, showModal, openCropper]);
+	}, [fromFileSystem, pictureToResize, showModal]);
 
 	const pictureInputRef = useRef<HTMLInputElement>(null);
 
@@ -89,11 +94,6 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
 		setShowModal(false);
 		closeWebcam();
 	};
-
-	const openWebcam = () => setShowWebcam(true);
-	const closeWebcam = () => setShowWebcam(false);
-	const openCropper = () => setShowCropper(true);
-	const closeCropper = () => setShowCropper(false);
 
 	const removePicture = () => {
 		setPictureToResize('');
@@ -106,30 +106,20 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
 		}
 	};
 
-	const handleCropped = useCallback(
-		(value: string) => {
-			preprocessImage(setPicture, value, setShowError);
-			closeCropper();
-		},
-		[closeCropper],
-	);
+	const handleCropped = (value: string) => {
+		preprocessImage(setPicture, value, setShowError);
+		closeCropper();
+	};
 
-	const confirmWebcamPicture = useCallback(
-		(image: string) => {
-			preprocessImage(setPicture, image, setShowError);
-			closeModal();
-		},
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-		[closeModal],
-	);
+	const confirmWebcamPicture = (image: string) => {
+		preprocessImage(setPicture, image, setShowError);
+		closeModal();
+	};
 
-	const handleChange = useCallback(
-		() => (e: ChangeEvent<HTMLInputElement>) => {
-			setFromFileSystem(true);
-			extractPictureFromSelection(setPictureToResize)(e);
-		},
-		[],
-	);
+	const handleChange = () => (e: ChangeEvent<HTMLInputElement>) => {
+		setFromFileSystem(true);
+		extractPictureFromSelection(setPictureToResize)(e);
+	};
 
 	const handleReset = () => {
 		closeCropper();
@@ -142,7 +132,7 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
 			removePicture();
 			resetCallback();
 		}
-	}, [shouldReset, resetCallback, removePicture]);
+	}, [shouldReset, resetCallback]);
 
 	return (
 		<div data-cy="profile-picture" className="profilePicture">

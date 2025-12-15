@@ -15,7 +15,7 @@ const appSelector = createSelector(
 	(userCredentials) => ({ userCredentials }),
 );
 
-const Dashboard = () => {
+export const Dashboard = () => {
 	const { t } = useTranslation();
 
 	const { userCredentials } = useAppSelector(appSelector);

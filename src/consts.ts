@@ -21,7 +21,7 @@ export const PATHS = {
 	dashboard: '/dashboard',
 	admin: '/admin',
 	admin_types_base: '/admin/types',
-	admin_types: '/admin/types/*',
+	admin_types: '/admin/types',
 	admin_vaccines_types: '/admin/types/vaccines',
 	admin_vaccines_types_new: '/admin/types/vaccines/new',
 	admin_vaccines_types_edit: '/admin/types/vaccines/:code/edit',

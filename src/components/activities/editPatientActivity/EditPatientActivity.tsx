@@ -23,7 +23,7 @@ import { initialFields } from '../newPatientActivity/consts';
 import './styles.scss';
 import type { TActivityTransitionState } from './types';
 
-const EditPatientActivity = () => {
+export const EditPatientActivity = () => {
 	const dispatch = useAppDispatch();
 	const { id } = useParams<{ id: string }>();
 	const { t } = useTranslation();

@@ -14,7 +14,7 @@ type TypeOption = {
 
 const DEFAULT_TYPE_OPTION: TypeOption = { label: '', value: '' };
 
-const TypesAdmin = () => {
+export const TypesAdmin = () => {
 	const { t } = useTranslation();
 	const location = useLocation();
 	const navigate = useNavigate();

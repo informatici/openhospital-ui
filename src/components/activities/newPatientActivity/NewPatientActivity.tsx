@@ -1,4 +1,4 @@
-import { type FunctionComponent, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Navigate, useNavigate } from 'react-router';
 import { useAppDispatch, useAppSelector } from '~/libraries/hooks/redux';
@@ -21,9 +21,7 @@ import { initialFields } from './consts';
 import './styles.scss';
 import type { IOwnProps, TActivityTransitionState } from './types';
 
-const NewPatientActivity: FunctionComponent<IOwnProps> = ({
-	dashboardRoute,
-}) => {
+export function NewPatientActivity({ dashboardRoute }: IOwnProps) {
 	const { t } = useTranslation();
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
@@ -147,6 +145,4 @@ const NewPatientActivity: FunctionComponent<IOwnProps> = ({
 				</div>
 			);
 	}
-};
-
-export default NewPatientActivity;
+}

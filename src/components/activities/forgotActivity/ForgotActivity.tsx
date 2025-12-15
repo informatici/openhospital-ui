@@ -20,7 +20,7 @@ import TextField from '../../accessories/textField/TextField';
 import './styles.scss';
 import type { IValues } from './types';
 
-const ForgotActivity: FC = () => {
+export const ForgotActivity: FC = () => {
 	const { t } = useTranslation();
 	const dispatch = useAppDispatch();
 

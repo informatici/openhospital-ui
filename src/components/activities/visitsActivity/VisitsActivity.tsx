@@ -9,7 +9,7 @@ import { HospitalInfo } from '../../accessories/hospitalInfo/HospitalInfo';
 import { Opds } from '../../accessories/opds/Opds';
 import './styles.scss';
 
-const VisitsActivity: FC = () => {
+export const VisitsActivity: FC = () => {
 	const { t } = useTranslation();
 
 	const breadcrumbMap = {

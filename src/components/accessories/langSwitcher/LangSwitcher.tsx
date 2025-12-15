@@ -1,6 +1,7 @@
 import i18n from 'i18next';
 import { isEmpty } from 'lodash';
-import React, { useContext } from 'react';
+import type React from 'react';
+import { useContext } from 'react';
 import availableLanguages from '../../../customization/available-languages.json';
 import { LangContext } from '../../../libraries/langContext/langContext';
 import './styles.scss';

@@ -23,7 +23,7 @@ import './styles.scss';
 import type { TValues } from './types';
 import { useIsSearchById } from './useIsSearchById';
 
-const SearchPatientActivity = () => {
+export const SearchPatientActivity = () => {
 	const { t } = useTranslation();
 	const dispatch = useAppDispatch();
 

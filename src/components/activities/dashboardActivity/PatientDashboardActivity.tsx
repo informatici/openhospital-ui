@@ -1,4 +1,4 @@
-import { type FC, useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Navigate } from 'react-router';
 import { useAppSelector } from '~/libraries/hooks/redux';
@@ -11,12 +11,9 @@ import AppHeader from '../../accessories/appHeader/AppHeader';
 import Footer from '../../accessories/footer/Footer';
 import LargeButton from '../../accessories/largeButton/LargeButton';
 import './styles.scss';
-import type { IOwnProps, TActivityTransitionState } from './types';
+import type { TActivityTransitionState } from './types';
 
-const PatientDashboardActivity: FC<IOwnProps> = ({
-	newPatientRoute,
-	searchPatientRoute,
-}) => {
+export const PatientDashboardActivity = () => {
 	const { t } = useTranslation();
 
 	const { userCredentials } = useAppSelector((state) => ({
@@ -34,9 +31,9 @@ const PatientDashboardActivity: FC<IOwnProps> = ({
 
 	switch (activityTransitionState) {
 		case 'TO_NEW_PATIENT':
-			return <Navigate to={newPatientRoute} />;
+			return <Navigate to={PATHS.patients_new} />;
 		case 'TO_SEARCH_PATIENT':
-			return <Navigate to={searchPatientRoute} />;
+			return <Navigate to={PATHS.patients_search} />;
 		default:
 			return (
 				<div data-cy="dashboard-activity" className="dashboard">

@@ -1,4 +1,5 @@
-import { createTheme, ThemeProvider } from '@mui/material';
+import { CssBaseline } from '@mui/material';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import i18n from 'i18next';
@@ -49,6 +50,7 @@ const App = () => {
 		<div className="App">
 			<LocalizationProvider dateAdapter={AdapterDateFns}>
 				<ThemeProvider theme={pickerTheme}>
+					<CssBaseline />
 					<LangContext.Provider value={{ changeLang }}>
 						<MainRouter />
 					</LangContext.Provider>
