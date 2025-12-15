@@ -1,4 +1,4 @@
-import { type FunctionComponent, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch, useAppSelector } from '~/libraries/hooks/redux';
 import checkIcon from '../../../assets/check-icon.png';
@@ -22,7 +22,7 @@ import PatientVisitForm from './patientVisitForm/PatientVisitForm';
 import PatientVisitTable from './patientVisitTable/PatientVisitTable';
 import type { TActivityTransitionState } from './types';
 
-const PatientVisit: FunctionComponent = () => {
+const PatientVisit = () => {
 	const { t } = useTranslation();
 	const dispatch = useAppDispatch();
 

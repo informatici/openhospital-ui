@@ -1,8 +1,7 @@
-import type { FunctionComponent } from 'react';
 import isfLogo from '../../../assets/isf-logo.png';
 import './styles.scss';
 
-const Footer: FunctionComponent = () => {
+const Footer = () => {
 	return (
 		<div className="footer">
 			<div className="footer__infoBox">

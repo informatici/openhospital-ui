@@ -1,6 +1,7 @@
 import { isEmpty } from 'lodash';
 import { type FC, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { PatientDetailsActivityContent } from '~/components/activities/patientDetailsActivityContent/PatientDetailsActivityContent';
 import { useAppDispatch, useAppSelector } from '~/libraries/hooks/redux';
 import checkIcon from '../../../assets/check-icon.png';
 import type { OpdDTO, OperationRowDTO } from '../../../generated';
@@ -30,7 +31,7 @@ interface IOwnProps {
 	onSuccess?: () => void;
 }
 
-const PatientOperation: FC<IOwnProps> = ({ opd, onSuccess }) => {
+export const PatientOperation: FC<IOwnProps> = ({ opd, onSuccess }) => {
 	const { t } = useTranslation();
 	const dispatch = useAppDispatch();
 	const infoBoxRef = useRef<HTMLDivElement>(null);
@@ -134,7 +135,7 @@ const PatientOperation: FC<IOwnProps> = ({ opd, onSuccess }) => {
 		return opRowFields(
 			creationMode
 				? {
-						opDate: opd?.date!,
+						opDate: opd?.date,
 						prescriber: '',
 						opResult: '',
 					}
@@ -144,59 +145,61 @@ const PatientOperation: FC<IOwnProps> = ({ opd, onSuccess }) => {
 	}, [creationMode, opRowToEdit, opd?.date]);
 
 	return (
-		<div className="patientOperation">
-			<Permission
-				require={creationMode ? 'operations.create' : 'operations.update'}
-			>
-				<OperationRowForm
-					fields={fields}
-					onSubmit={onSubmit}
-					creationMode={creationMode}
-					submitButtonLabel={
-						creationMode ? t('common.save') : t('common.update')
-					}
-					resetButtonLabel={t('common.reset')}
-					shouldResetForm={shouldResetForm}
-					resetFormCallback={resetFormCallback}
-					isLoading={changeStatus === 'LOADING'}
-				/>
-				{changeStatus === 'FAIL' && (
-					<div ref={infoBoxRef} className="info-box-container">
-						<InfoBox
-							type="error"
-							message={errorMessage ?? t('common.somethingwrong')}
-						/>
-					</div>
-				)}
-				<ConfirmationDialog
-					isOpen={changeStatus === 'SUCCESS'}
-					title={
-						creationMode ? t('operation.rowcreated') : t('operation.rowupdated')
-					}
-					icon={checkIcon}
-					info={
-						creationMode
-							? t('operation.rowcreatesuccess')
-							: t('operation.rowupdatesuccess', { code: opRowToEdit.id })
-					}
-					primaryButtonLabel="Ok"
-					handlePrimaryButtonClick={() =>
-						setActivityTransitionState('TO_RESET')
-					}
-					handleSecondaryButtonClick={() => ({})}
-				/>
-			</Permission>
-
-			<Permission require="operations.read">
-				{!opd && (
-					<PatientOperationTable
-						onEdit={onEdit}
-						shouldUpdateTable={shouldUpdateTable}
+		<PatientDetailsActivityContent title={t('patient.operation')}>
+			<div className="patientOperation">
+				<Permission
+					require={creationMode ? 'operations.create' : 'operations.update'}
+				>
+					<OperationRowForm
+						fields={fields}
+						onSubmit={onSubmit}
+						creationMode={creationMode}
+						submitButtonLabel={
+							creationMode ? t('common.save') : t('common.update')
+						}
+						resetButtonLabel={t('common.reset')}
+						shouldResetForm={shouldResetForm}
+						resetFormCallback={resetFormCallback}
+						isLoading={changeStatus === 'LOADING'}
 					/>
-				)}
-			</Permission>
-		</div>
+					{changeStatus === 'FAIL' && (
+						<div ref={infoBoxRef} className="info-box-container">
+							<InfoBox
+								type="error"
+								message={errorMessage ?? t('common.somethingwrong')}
+							/>
+						</div>
+					)}
+					<ConfirmationDialog
+						isOpen={changeStatus === 'SUCCESS'}
+						title={
+							creationMode
+								? t('operation.rowcreated')
+								: t('operation.rowupdated')
+						}
+						icon={checkIcon}
+						info={
+							creationMode
+								? t('operation.rowcreatesuccess')
+								: t('operation.rowupdatesuccess', { code: opRowToEdit.id })
+						}
+						primaryButtonLabel="Ok"
+						handlePrimaryButtonClick={() =>
+							setActivityTransitionState('TO_RESET')
+						}
+						handleSecondaryButtonClick={() => ({})}
+					/>
+				</Permission>
+
+				<Permission require="operations.read">
+					{!opd && (
+						<PatientOperationTable
+							onEdit={onEdit}
+							shouldUpdateTable={shouldUpdateTable}
+						/>
+					)}
+				</Permission>
+			</div>
+		</PatientDetailsActivityContent>
 	);
 };
-
-export default PatientOperation;

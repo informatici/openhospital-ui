@@ -1,6 +1,5 @@
-import type React from 'react';
+import type { PropsWithChildren } from 'react';
 
-export interface IProps {
+export interface IProps extends PropsWithChildren {
 	title: string;
-	content: React.ComponentType;
 }

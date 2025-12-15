@@ -1,5 +1,6 @@
 import { type FC, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { PatientDetailsActivityContent } from '~/components/activities/patientDetailsActivityContent/PatientDetailsActivityContent';
 import { useAppDispatch, useAppSelector } from '~/libraries/hooks/redux';
 import checkIcon from '../../../assets/check-icon.png';
 import type { TherapyRowDTO } from '../../../generated';
@@ -25,7 +26,7 @@ import TherapyForm from './therapyForm/TherapyForm';
 
 export type TherapyTransitionState = 'IDLE' | 'TO_RESET';
 
-const PatientTherapy: FC = () => {
+export const PatientTherapy: FC = () => {
 	const { t } = useTranslation();
 	const dispatch = useAppDispatch();
 	const infoBoxRef = useRef<HTMLDivElement>(null);
@@ -129,69 +130,72 @@ const PatientTherapy: FC = () => {
 	};
 
 	return (
-		<div className="patientTherapy">
-			<Permission
-				require={creationMode ? 'therapies.create' : 'therapies.update'}
-			>
-				<TherapyForm
-					fields={
-						creationMode
-							? initialFields
-							: updateTherapyFields(initialFields, therapyToEdit)
-					}
-					onSubmit={onSubmit}
-					creationMode={creationMode}
-					submitButtonLabel={
-						creationMode ? t('therapy.savetherapy') : t('therapy.updatetherapy')
-					}
-					resetButtonLabel={t('common.reset')}
-					shouldResetForm={shouldResetForm}
-					resetFormCallback={resetFormCallback}
-					isLoading={status === 'LOADING'}
-				/>
-				{status === 'FAIL' && (
-					<div ref={infoBoxRef} className="info-box-container">
-						<InfoBox type="error" message={errorMessage} />
-					</div>
-				)}
+		<PatientDetailsActivityContent title={t('patient.therapy')}>
+			<div className="patientTherapy">
+				<Permission
+					require={creationMode ? 'therapies.create' : 'therapies.update'}
+				>
+					<TherapyForm
+						fields={
+							creationMode
+								? initialFields
+								: updateTherapyFields(initialFields, therapyToEdit)
+						}
+						onSubmit={onSubmit}
+						creationMode={creationMode}
+						submitButtonLabel={
+							creationMode
+								? t('therapy.savetherapy')
+								: t('therapy.updatetherapy')
+						}
+						resetButtonLabel={t('common.reset')}
+						shouldResetForm={shouldResetForm}
+						resetFormCallback={resetFormCallback}
+						isLoading={status === 'LOADING'}
+					/>
+					{status === 'FAIL' && (
+						<div ref={infoBoxRef} className="info-box-container">
+							<InfoBox type="error" message={errorMessage} />
+						</div>
+					)}
 
-				<ConfirmationDialog
-					isOpen={status === 'SUCCESS'}
-					title={creationMode ? t('therapy.created') : t('therapy.updated')}
-					icon={checkIcon}
-					info={
-						creationMode
-							? t('therapy.createsuccess')
-							: t('therapy.updatesuccess', { code: therapyToEdit.therapyID })
-					}
-					primaryButtonLabel="Ok"
-					handlePrimaryButtonClick={() =>
-						setActivityTransitionState('TO_RESET')
-					}
-					handleSecondaryButtonClick={() => ({})}
-				/>
-			</Permission>
-			<Permission require="therapies.read">
-				<PatientTherapyTable
-					handleDelete={onDelete}
-					handleEdit={onEdit}
-					shouldUpdateTable={shouldUpdateTable}
-				/>
-			</Permission>
-			<Permission require="therapies.delete">
-				<ConfirmationDialog
-					isOpen={deleteStatus === 'SUCCESS'}
-					title={t('common.delete')}
-					icon={checkIcon}
-					info={t('common.deletesuccess', { code: deletedObjCode })}
-					primaryButtonLabel={t('common.ok')}
-					handlePrimaryButtonClick={() =>
-						setActivityTransitionState('TO_RESET')
-					}
-					handleSecondaryButtonClick={() => {}}
-				/>
-			</Permission>
-		</div>
+					<ConfirmationDialog
+						isOpen={status === 'SUCCESS'}
+						title={creationMode ? t('therapy.created') : t('therapy.updated')}
+						icon={checkIcon}
+						info={
+							creationMode
+								? t('therapy.createsuccess')
+								: t('therapy.updatesuccess', { code: therapyToEdit.therapyID })
+						}
+						primaryButtonLabel="Ok"
+						handlePrimaryButtonClick={() =>
+							setActivityTransitionState('TO_RESET')
+						}
+						handleSecondaryButtonClick={() => ({})}
+					/>
+				</Permission>
+				<Permission require="therapies.read">
+					<PatientTherapyTable
+						handleDelete={onDelete}
+						handleEdit={onEdit}
+						shouldUpdateTable={shouldUpdateTable}
+					/>
+				</Permission>
+				<Permission require="therapies.delete">
+					<ConfirmationDialog
+						isOpen={deleteStatus === 'SUCCESS'}
+						title={t('common.delete')}
+						icon={checkIcon}
+						info={t('common.deletesuccess', { code: deletedObjCode })}
+						primaryButtonLabel={t('common.ok')}
+						handlePrimaryButtonClick={() =>
+							setActivityTransitionState('TO_RESET')
+						}
+						handleSecondaryButtonClick={() => {}}
+					/>
+				</Permission>
+			</div>
+		</PatientDetailsActivityContent>
 	);
 };
-export default PatientTherapy;

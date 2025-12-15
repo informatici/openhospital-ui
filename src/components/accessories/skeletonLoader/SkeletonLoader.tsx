@@ -1,7 +1,7 @@
 import { Skeleton } from '@mui/material';
-import { Fragment, type FunctionComponent } from 'react';
+import { Fragment } from 'react';
 
-const SkeletonLoader: FunctionComponent = () => {
+const SkeletonLoader = () => {
 	return (
 		<Fragment>
 			<Skeleton animation="wave" />

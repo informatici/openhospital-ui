@@ -1,6 +1,7 @@
 import { CircularProgress } from '@mui/material';
 import { type FC, useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { PatientDetailsActivityContent } from '~/components/activities/patientDetailsActivityContent/PatientDetailsActivityContent';
 import { useAppDispatch, useAppSelector } from '~/libraries/hooks/redux';
 import checkIcon from '../../../assets/check-icon.png';
 import {
@@ -40,7 +41,7 @@ import PatientExamsTable from './patientExamsTable/PatientExamsTable';
 import './styles.scss';
 import type { TherapyTransitionState } from './types';
 
-const PatientExams: FC = () => {
+export const PatientExams: FC = () => {
 	const { t } = useTranslation();
 	const dispatch = useAppDispatch();
 	const infoBoxRef = useRef<HTMLDivElement>(null);
@@ -172,110 +173,112 @@ const PatientExams: FC = () => {
 	};
 
 	return (
-		<div className="patientExam">
-			<Permission
-				require={creationMode ? 'laboratories.create' : 'laboratories.update'}
-			>
-				{creationMode && (
-					<ExamRequestForm
-						fields={initialRequestFields}
-						patient={patientData}
-						handleSuccess={onSuccess}
-					/>
-				)}
-				{labStore.getLabWithRowsByCode.status !== 'LOADING' &&
-					!creationMode && (
-						<ExamForm
-							fields={
-								creationMode
-									? initialFields
-									: updateLabFields(initialFields, labToEdit)
-							}
-							onSubmit={onSubmit}
-							creationMode={creationMode}
-							labWithRowsToEdit={labWithRows}
-							submitButtonLabel={
-								creationMode ? t('common.save') : t('common.update')
-							}
-							resetButtonLabel={t('common.reset')}
-							shouldResetForm={shouldResetForm}
-							resetFormCallback={resetFormCallback}
-							isLoading={
-								labStore.createLab.status === 'LOADING' ||
-								labStore.updateLab.status === 'LOADING'
-							}
+		<PatientDetailsActivityContent title={t('patient.laboratory')}>
+			<div className="patientExam">
+				<Permission
+					require={creationMode ? 'laboratories.create' : 'laboratories.update'}
+				>
+					{creationMode && (
+						<ExamRequestForm
+							fields={initialRequestFields}
+							patient={patientData}
+							handleSuccess={onSuccess}
 						/>
 					)}
-				<ConfirmationDialog
-					isOpen={
-						labStore.createLab.status === 'SUCCESS' ||
-						labStore.updateLab.status === 'SUCCESS'
-					}
-					title={creationMode ? t('lab.created') : t('lab.updated')}
-					icon={checkIcon}
-					info={
-						creationMode
-							? t('lab.createsuccess')
-							: t('lab.updatesuccess', { code: labToEdit.code })
-					}
-					primaryButtonLabel="Ok"
-					handlePrimaryButtonClick={() =>
-						setActivityTransitionState('TO_RESET')
-					}
-					handleSecondaryButtonClick={() => ({})}
-				/>
-			</Permission>
-			{labStore.deleteLab.status === 'LOADING' && (
-				<CircularProgress style={{ marginLeft: '50%', position: 'relative' }} />
-			)}
+					{labStore.getLabWithRowsByCode.status !== 'LOADING' &&
+						!creationMode && (
+							<ExamForm
+								fields={
+									creationMode
+										? initialFields
+										: updateLabFields(initialFields, labToEdit)
+								}
+								onSubmit={onSubmit}
+								creationMode={creationMode}
+								labWithRowsToEdit={labWithRows}
+								submitButtonLabel={
+									creationMode ? t('common.save') : t('common.update')
+								}
+								resetButtonLabel={t('common.reset')}
+								shouldResetForm={shouldResetForm}
+								resetFormCallback={resetFormCallback}
+								isLoading={
+									labStore.createLab.status === 'LOADING' ||
+									labStore.updateLab.status === 'LOADING'
+								}
+							/>
+						)}
+					<ConfirmationDialog
+						isOpen={
+							labStore.createLab.status === 'SUCCESS' ||
+							labStore.updateLab.status === 'SUCCESS'
+						}
+						title={creationMode ? t('lab.created') : t('lab.updated')}
+						icon={checkIcon}
+						info={
+							creationMode
+								? t('lab.createsuccess')
+								: t('lab.updatesuccess', { code: labToEdit.code })
+						}
+						primaryButtonLabel="Ok"
+						handlePrimaryButtonClick={() =>
+							setActivityTransitionState('TO_RESET')
+						}
+						handleSecondaryButtonClick={() => ({})}
+					/>
+				</Permission>
+				{labStore.deleteLab.status === 'LOADING' && (
+					<CircularProgress
+						style={{ marginLeft: '50%', position: 'relative' }}
+					/>
+				)}
 
-			{(labStore.createLab.status === 'FAIL' ||
-				labStore.updateLab.status === 'FAIL' ||
-				labStore.getLabWithRowsByCode.status === 'FAIL' ||
-				labStore.deleteLab.status === 'FAIL') && (
-				<div ref={infoBoxRef} className="info-box-container">
-					<InfoBox type="error" message={errorMessage} />
-				</div>
-			)}
+				{(labStore.createLab.status === 'FAIL' ||
+					labStore.updateLab.status === 'FAIL' ||
+					labStore.getLabWithRowsByCode.status === 'FAIL' ||
+					labStore.deleteLab.status === 'FAIL') && (
+					<div ref={infoBoxRef} className="info-box-container">
+						<InfoBox type="error" message={errorMessage} />
+					</div>
+				)}
 
-			<Permission require="laboratories.read">
-				<PatientExamRequestsTable
-					shouldUpdateTable={shouldUpdateRequestsTable}
-					handleCancel={onCancel}
-					handleEdit={onEdit}
-				/>
-				<PatientExamsTable
-					handleEdit={onEdit}
-					handleDelete={onDelete}
-					shouldUpdateTable={shouldUpdateTable}
-				/>
-				<ConfirmationDialog
-					isOpen={labStore.deleteLab.status === 'SUCCESS'}
-					title={t('lab.deleted')}
-					icon={checkIcon}
-					info={t('common.deletesuccess', { code: deletedObjCode })}
-					primaryButtonLabel={t('common.ok')}
-					handlePrimaryButtonClick={() =>
-						setActivityTransitionState('TO_RESET')
-					}
-					handleSecondaryButtonClick={() => {}}
-				/>
+				<Permission require="laboratories.read">
+					<PatientExamRequestsTable
+						shouldUpdateTable={shouldUpdateRequestsTable}
+						handleCancel={onCancel}
+						handleEdit={onEdit}
+					/>
+					<PatientExamsTable
+						handleEdit={onEdit}
+						handleDelete={onDelete}
+						shouldUpdateTable={shouldUpdateTable}
+					/>
+					<ConfirmationDialog
+						isOpen={labStore.deleteLab.status === 'SUCCESS'}
+						title={t('lab.deleted')}
+						icon={checkIcon}
+						info={t('common.deletesuccess', { code: deletedObjCode })}
+						primaryButtonLabel={t('common.ok')}
+						handlePrimaryButtonClick={() =>
+							setActivityTransitionState('TO_RESET')
+						}
+						handleSecondaryButtonClick={() => {}}
+					/>
 
-				<ConfirmationDialog
-					isOpen={labStore.cancelLab.status === 'SUCCESS'}
-					title={t('lab.canceled')}
-					icon={checkIcon}
-					info={t('lab.cancelsuccess', { code: canceledObjCode })}
-					primaryButtonLabel={t('common.ok')}
-					handlePrimaryButtonClick={() => {
-						setActivityTransitionState('TO_RESET');
-						window.location.reload();
-					}}
-					handleSecondaryButtonClick={() => {}}
-				/>
-			</Permission>
-		</div>
+					<ConfirmationDialog
+						isOpen={labStore.cancelLab.status === 'SUCCESS'}
+						title={t('lab.canceled')}
+						icon={checkIcon}
+						info={t('lab.cancelsuccess', { code: canceledObjCode })}
+						primaryButtonLabel={t('common.ok')}
+						handlePrimaryButtonClick={() => {
+							setActivityTransitionState('TO_RESET');
+							window.location.reload();
+						}}
+						handleSecondaryButtonClick={() => {}}
+					/>
+				</Permission>
+			</div>
+		</PatientDetailsActivityContent>
 	);
 };
-
-export default PatientExams;

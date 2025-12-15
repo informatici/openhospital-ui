@@ -1,5 +1,6 @@
-import { type FunctionComponent, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { PatientDetailsActivityContent } from '~/components/activities/patientDetailsActivityContent/PatientDetailsActivityContent';
 import { useAppDispatch, useAppSelector } from '~/libraries/hooks/redux';
 import checkIcon from '../../../assets/check-icon.png';
 import type { OpdWithOperationRowDTO } from '../../../generated';
@@ -24,7 +25,7 @@ import PatientOPDForm from './patientOPDForm/PatientOPDForm';
 import PatientOPDTable from './patientOPDTable/PatientOPDTable';
 import type { TActivityTransitionState } from './types';
 
-const PatientOPD: FunctionComponent = () => {
+export const PatientOPD = () => {
 	const { t } = useTranslation();
 	const dispatch = useAppDispatch();
 	const infoBoxRef = useRef<HTMLDivElement>(null);
@@ -138,55 +139,55 @@ const PatientOPD: FunctionComponent = () => {
 	};
 
 	return (
-		<div className="patientOpd">
-			<Permission require={creationMode ? 'opds.create' : 'opds.update'}>
-				<PatientExtraData />
-				<PatientOPDForm
-					fields={
-						creationMode
-							? initialFields
-							: updateOpdFields(initialFields, opdToEdit.opdDTO)
-					}
-					creationMode={creationMode}
-					onSubmit={onSubmit}
-					submitButtonLabel={
-						creationMode ? t('opd.saveopd') : t('opd.updateopd')
-					}
-					resetButtonLabel={t('common.reset')}
-					isLoading={changeStatus === 'LOADING'}
-					shouldResetForm={shouldResetForm}
-					resetFormCallback={resetFormCallback}
-					operationRowsToEdit={!creationMode ? opdToEdit.operationRows : []}
-				/>
-				{changeStatus === 'FAIL' && (
-					<div ref={infoBoxRef}>
-						<InfoBox type="error" message={errorMessage} />
-					</div>
-				)}
-				<ConfirmationDialog
-					isOpen={changeStatus === 'SUCCESS'}
-					title={creationMode ? t('opd.created') : t('opd.updated')}
-					icon={checkIcon}
-					info={
-						creationMode
-							? t('opd.createsuccess')
-							: t('opd.updatesuccess', { code: opdToEdit.opdDTO?.code })
-					}
-					primaryButtonLabel="Ok"
-					handlePrimaryButtonClick={() =>
-						setActivityTransitionState('TO_RESET')
-					}
-					handleSecondaryButtonClick={() => ({})}
-				/>
-			</Permission>
-			<Permission require="opds.read">
-				<PatientOPDTable
-					handleEdit={onEdit}
-					shouldUpdateTable={shouldUpdateTable}
-				/>
-			</Permission>
-		</div>
+		<PatientDetailsActivityContent title={t('patient.visits')}>
+			<div className="patientOpd">
+				<Permission require={creationMode ? 'opds.create' : 'opds.update'}>
+					<PatientExtraData />
+					<PatientOPDForm
+						fields={
+							creationMode
+								? initialFields
+								: updateOpdFields(initialFields, opdToEdit.opdDTO)
+						}
+						creationMode={creationMode}
+						onSubmit={onSubmit}
+						submitButtonLabel={
+							creationMode ? t('opd.saveopd') : t('opd.updateopd')
+						}
+						resetButtonLabel={t('common.reset')}
+						isLoading={changeStatus === 'LOADING'}
+						shouldResetForm={shouldResetForm}
+						resetFormCallback={resetFormCallback}
+						operationRowsToEdit={!creationMode ? opdToEdit.operationRows : []}
+					/>
+					{changeStatus === 'FAIL' && (
+						<div ref={infoBoxRef}>
+							<InfoBox type="error" message={errorMessage} />
+						</div>
+					)}
+					<ConfirmationDialog
+						isOpen={changeStatus === 'SUCCESS'}
+						title={creationMode ? t('opd.created') : t('opd.updated')}
+						icon={checkIcon}
+						info={
+							creationMode
+								? t('opd.createsuccess')
+								: t('opd.updatesuccess', { code: opdToEdit.opdDTO?.code })
+						}
+						primaryButtonLabel="Ok"
+						handlePrimaryButtonClick={() =>
+							setActivityTransitionState('TO_RESET')
+						}
+						handleSecondaryButtonClick={() => ({})}
+					/>
+				</Permission>
+				<Permission require="opds.read">
+					<PatientOPDTable
+						handleEdit={onEdit}
+						shouldUpdateTable={shouldUpdateTable}
+					/>
+				</Permission>
+			</div>
+		</PatientDetailsActivityContent>
 	);
 };
-
-export default PatientOPD;

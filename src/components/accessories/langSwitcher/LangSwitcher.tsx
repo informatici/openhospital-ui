@@ -1,6 +1,6 @@
 import i18n from 'i18next';
 import { isEmpty } from 'lodash';
-import React, { type FunctionComponent, useContext } from 'react';
+import React, { useContext } from 'react';
 import availableLanguages from '../../../customization/available-languages.json';
 import { LangContext } from '../../../libraries/langContext/langContext';
 import './styles.scss';
@@ -20,7 +20,7 @@ const fallbackLanguages: Record<string, string> = {
 	zh: '中国人',
 };
 
-const LangSwitcher: FunctionComponent = () => {
+const LangSwitcher = () => {
 	const currentLang = i18n.language;
 	const { changeLang } = useContext(LangContext);
 

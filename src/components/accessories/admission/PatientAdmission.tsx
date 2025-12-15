@@ -2,6 +2,7 @@ import { isEmpty } from 'lodash';
 import { type FC, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
+import PatientDetailsActivityContent from '~/components/activities/patientDetailsActivityContent/PatientDetailsActivityContent';
 import { useAppDispatch, useAppSelector } from '~/libraries/hooks/redux';
 import { getPatient } from '~/state/patients';
 import checkIcon from '../../../assets/check-icon.png';
@@ -27,7 +28,7 @@ import './styles.scss';
 import type { AdmissionTransitionState } from './types';
 import { useFields } from './useFields';
 
-const PatientAdmission: FC = () => {
+export const PatientAdmission: FC = () => {
 	const { t } = useTranslation();
 	const dispatch = useAppDispatch();
 	const canCreate = usePermission('admissions.create');
@@ -186,60 +187,67 @@ const PatientAdmission: FC = () => {
 	};
 
 	return (
-		<div className="patientAdmission">
-			{patient?.status === PatientDTOStatusEnum.I && (
-				<InfoBox type="info" message={t('admission.patientalreadyadmitted')} />
-			)}
-			{!showForm && currentAdmission && (
-				<CurrentAdmission onEditChange={onCurrentAdmissionChange} />
-			)}
-			{showForm && (creationMode ? canCreate : canUpdate) && (
-				<AdmissionForm
-					fields={fields}
-					onSubmit={onSubmit}
-					creationMode={creationMode}
-					submitButtonLabel={
-						admissionToEdit ? t('common.update') : t('common.save')
-					}
-					resetButtonLabel={t('common.reset')}
-					shouldResetForm={shouldResetForm}
-					resetFormCallback={resetFormCallback}
-					admitted={!isEmpty(admissionToEdit?.disType)}
-					isLoading={
-						createStatus === 'LOADING' ||
-						updateStatus === 'LOADING' ||
-						lastOpdStatus === 'LOADING'
-					}
+		<PatientDetailsActivityContent title={t('patient.admissions')}>
+			<div className="patientAdmission">
+				{patient?.status === PatientDTOStatusEnum.I && (
+					<InfoBox
+						type="info"
+						message={t('admission.patientalreadyadmitted')}
+					/>
+				)}
+				{!showForm && currentAdmission && (
+					<CurrentAdmission onEditChange={onCurrentAdmissionChange} />
+				)}
+				{showForm && (creationMode ? canCreate : canUpdate) && (
+					<AdmissionForm
+						fields={fields}
+						onSubmit={onSubmit}
+						creationMode={creationMode}
+						submitButtonLabel={
+							admissionToEdit ? t('common.update') : t('common.save')
+						}
+						resetButtonLabel={t('common.reset')}
+						shouldResetForm={shouldResetForm}
+						resetFormCallback={resetFormCallback}
+						admitted={!isEmpty(admissionToEdit?.disType)}
+						isLoading={
+							createStatus === 'LOADING' ||
+							updateStatus === 'LOADING' ||
+							lastOpdStatus === 'LOADING'
+						}
+					/>
+				)}
+				{(createStatus === 'FAIL' || updateStatus === 'FAIL') && (
+					<div ref={infoBoxRef} className="info-box-container">
+						<InfoBox type="error" message={errorMessage} />
+					</div>
+				)}
+
+				<PatientAdmissionTable
+					handleEdit={onEdit}
+					shouldUpdateTable={shouldUpdateTable}
 				/>
-			)}
-			{(createStatus === 'FAIL' || updateStatus === 'FAIL') && (
-				<div ref={infoBoxRef} className="info-box-container">
-					<InfoBox type="error" message={errorMessage} />
-				</div>
-			)}
 
-			<PatientAdmissionTable
-				handleEdit={onEdit}
-				shouldUpdateTable={shouldUpdateTable}
-			/>
-
-			<ConfirmationDialog
-				isOpen={
-					(createStatus === 'SUCCESS' || updateStatus === 'SUCCESS') &&
-					!isEditingCurrent
-				}
-				title={creationMode ? t('admission.created') : t('admission.updated')}
-				icon={checkIcon}
-				info={
-					creationMode
-						? t('admission.createsuccess')
-						: t('admission.updatesuccess')
-				}
-				primaryButtonLabel="Ok"
-				handlePrimaryButtonClick={() => setActivityTransitionState('TO_RESET')}
-				handleSecondaryButtonClick={() => ({})}
-			/>
-		</div>
+				<ConfirmationDialog
+					isOpen={
+						(createStatus === 'SUCCESS' || updateStatus === 'SUCCESS') &&
+						!isEditingCurrent
+					}
+					title={creationMode ? t('admission.created') : t('admission.updated')}
+					icon={checkIcon}
+					info={
+						creationMode
+							? t('admission.createsuccess')
+							: t('admission.updatesuccess')
+					}
+					primaryButtonLabel="Ok"
+					handlePrimaryButtonClick={() =>
+						setActivityTransitionState('TO_RESET')
+					}
+					handleSecondaryButtonClick={() => ({})}
+				/>
+			</div>
+		</PatientDetailsActivityContent>
 	);
 };
 

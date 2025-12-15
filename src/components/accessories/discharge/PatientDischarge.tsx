@@ -1,5 +1,6 @@
 import { type FC, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import PatientDetailsActivityContent from '~/components/activities/patientDetailsActivityContent/PatientDetailsActivityContent';
 import { useAppDispatch, useAppSelector } from '~/libraries/hooks/redux';
 import { getPatient } from '~/state/patients';
 import checkIcon from '../../../assets/check-icon.png';
@@ -20,7 +21,7 @@ import './styles.scss';
 import type { AdmissionTransitionState } from './types';
 import { useFields } from './useFields';
 
-const PatientDischarge: FC = () => {
+export const PatientDischarge: FC = () => {
 	const { t } = useTranslation();
 	const dispatch = useAppDispatch();
 	const infoBoxRef = useRef<HTMLDivElement>(null);
@@ -109,52 +110,54 @@ const PatientDischarge: FC = () => {
 	}, [patient, dispatch]);
 
 	return (
-		<div className="patientAdmission">
-			{currentAdmissionStatus === 'SUCCESS' && (
-				<>
-					<CurrentAdmission />
-					<DischargeForm
-						fields={fields}
-						onSubmit={onSubmit}
-						submitButtonLabel={t('common.save')}
-						resetButtonLabel={t('common.reset')}
-						shouldResetForm={shouldResetForm}
-						resetFormCallback={resetFormCallback}
-						isLoading={dischargeStatus === 'LOADING'}
-						admission={currentAdmission}
-					/>
-				</>
-			)}
-			{currentAdmissionStatus === 'SUCCESS_EMPTY' && (
-				<div ref={infoBoxRef} className="info-box-container">
-					<InfoBox type="info" message={t('admission.patientnotadmitted')} />
-				</div>
-			)}
-			{(dischargeStatus === 'FAIL' || currentAdmissionStatus === 'FAIL') && (
-				<div ref={infoBoxRef} className="info-box-container">
-					<InfoBox type="error" message={errorMessage} />
-				</div>
-			)}
+		<PatientDetailsActivityContent title={t('patient.discharge')}>
+			<div className="patientAdmission">
+				{currentAdmissionStatus === 'SUCCESS' && (
+					<>
+						<CurrentAdmission />
+						<DischargeForm
+							fields={fields}
+							onSubmit={onSubmit}
+							submitButtonLabel={t('common.save')}
+							resetButtonLabel={t('common.reset')}
+							shouldResetForm={shouldResetForm}
+							resetFormCallback={resetFormCallback}
+							isLoading={dischargeStatus === 'LOADING'}
+							admission={currentAdmission}
+						/>
+					</>
+				)}
+				{currentAdmissionStatus === 'SUCCESS_EMPTY' && (
+					<div ref={infoBoxRef} className="info-box-container">
+						<InfoBox type="info" message={t('admission.patientnotadmitted')} />
+					</div>
+				)}
+				{(dischargeStatus === 'FAIL' || currentAdmissionStatus === 'FAIL') && (
+					<div ref={infoBoxRef} className="info-box-container">
+						<InfoBox type="error" message={errorMessage} />
+					</div>
+				)}
 
-			<ConfirmationDialog
-				isOpen={dischargeStatus === 'SUCCESS'}
-				title={
-					dischargeStatus === 'SUCCESS'
-						? t('admission.discharged')
-						: t('admission.notdischarged')
-				}
-				icon={checkIcon}
-				info={
-					dischargeStatus === 'SUCCESS'
-						? t('admission.dischargesuccess')
-						: t('admission.dischargefailed')
-				}
-				primaryButtonLabel="Ok"
-				handlePrimaryButtonClick={() => setActivityTransitionState('TO_RESET')}
-				handleSecondaryButtonClick={() => ({})}
-			/>
-		</div>
+				<ConfirmationDialog
+					isOpen={dischargeStatus === 'SUCCESS'}
+					title={
+						dischargeStatus === 'SUCCESS'
+							? t('admission.discharged')
+							: t('admission.notdischarged')
+					}
+					icon={checkIcon}
+					info={
+						dischargeStatus === 'SUCCESS'
+							? t('admission.dischargesuccess')
+							: t('admission.dischargefailed')
+					}
+					primaryButtonLabel="Ok"
+					handlePrimaryButtonClick={() =>
+						setActivityTransitionState('TO_RESET')
+					}
+					handleSecondaryButtonClick={() => ({})}
+				/>
+			</div>
+		</PatientDetailsActivityContent>
 	);
 };
-
-export default PatientDischarge;

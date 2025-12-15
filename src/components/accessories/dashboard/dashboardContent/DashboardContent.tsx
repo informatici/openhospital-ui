@@ -1,5 +1,4 @@
 import { CircularProgress } from '@mui/material';
-import type { FunctionComponent } from 'react';
 import { Navigate } from 'react-router';
 import { useAppDispatch, useAppSelector } from '~/libraries/hooks/redux';
 import { PATHS } from '../../../../consts';
@@ -9,7 +8,7 @@ import GridLayoutToolbox from '../layouts/toolbox/GridLayoutToolBox';
 import { DashboardFilter } from './filter/DashboardFilter';
 import './styles.scss';
 
-export const DashboardContent: FunctionComponent = () => {
+export const DashboardContent = () => {
 	const dispatch = useAppDispatch();
 	const handlePeriodChange = (value: string[]) => {
 		dispatch(setDashboardPeriod(value));
