@@ -7,7 +7,7 @@ import { usePermissions } from './usePermissions';
  */
 export const usePermission = (name: TPermission): boolean => {
 	const permissions = usePermissions();
-	if (process.env.REACT_APP_ENABLE_PERMISSIONS === 'false') {
+	if (import.meta.env.VITE_APP_ENABLE_PERMISSIONS === 'false') {
 		return true;
 	}
 	return permissions.includes(name);

@@ -70,7 +70,7 @@ export const MainRouter: React.FC = () => {
 				<Route path="*" element={<NotFound />} />
 			</Route>,
 		),
-		{ basename: process.env.PUBLIC_URL },
+		{ basename: import.meta.env.PUBLIC_URL },
 	);
 
 	return <RouterProvider router={router} />;

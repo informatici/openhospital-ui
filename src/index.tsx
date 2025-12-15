@@ -7,7 +7,7 @@ import { makeServer } from './mockServer/server';
 import * as serviceWorker from './serviceWorker';
 import { store } from './state/store';
 
-if (process.env.REACT_APP_USE_MOCK_API === 'true') {
+if (import.meta.env.VITE_APP_USE_MOCK_API === 'true') {
 	console.log('Using mocked api');
 	makeServer();
 }
