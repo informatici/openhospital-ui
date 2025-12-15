@@ -39,4 +39,6 @@ const resources = {
 	am: { translation: _.merge(am, custom_am) },
 };
 
+export * from './types';
+
 export default resources;
