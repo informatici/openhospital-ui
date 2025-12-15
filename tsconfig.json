@@ -3,7 +3,7 @@
 		"types": ["vite/client"],
 		"target": "ES2023",
 		"useDefineForClassFields": true,
-		"lib": ["ES2022", "DOM", "DOM.Iterable"],
+		"lib": ["ES2023", "DOM", "DOM.Iterable"],
 		"module": "ESNext",
 		"skipLibCheck": true,
 
@@ -15,9 +15,8 @@
 		"noEmit": true,
 		"jsx": "react-jsx",
 
-		"baseUrl": ".",
 		"paths": {
-			"~/*": ["src/*"]
+			"~/*": ["./src/*"]
 		},
 		"strict": true,
 		"noUnusedLocals": true,

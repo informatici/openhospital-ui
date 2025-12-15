@@ -59,18 +59,24 @@ export const MainRouter: React.FC = () => {
 				<Route element={<Private />}>
 					<Route path={`${PATHS.dashboard}`} element={<Dashboard />} />
 					<Route path={`${PATHS.visits}`} element={<VisitsActivity />} />
-					<Route
-						path={`${PATHS.laboratory}/*`}
-						element={<LaboratoryActivity />}
-					/>
-					<Route path={`${PATHS.patients}/*`} element={<PatientsRoutes />} />
-					<Route path={`${PATHS.admin}/*`} element={<RequiredAdminAccess />} />
+					<Route path={PATHS.laboratory}>
+						<Route path={'*'} element={<LaboratoryActivity />} />
+					</Route>
+					<Route path={PATHS.patients}>
+						<Route path={'*'} element={<PatientsRoutes />} />
+					</Route>
+					<Route path={PATHS.admin}>
+						<Route path={'*'} element={<RequiredAdminAccess />} />
+					</Route>
 				</Route>
 
 				<Route path="*" element={<NotFound />} />
 			</Route>,
 		),
-		{ basename: import.meta.env.PUBLIC_URL },
+		{
+			basename: import.meta.env.PUBLIC_URL,
+			future: { v7_relativeSplatPath: true },
+		},
 	);
 
 	return <RouterProvider router={router} />;

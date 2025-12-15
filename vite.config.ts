@@ -21,5 +21,8 @@ export default defineConfig(() => {
 			}),
 			svgr(),
 		],
+		define: {
+			global: 'globalThis',
+		},
 	};
 });

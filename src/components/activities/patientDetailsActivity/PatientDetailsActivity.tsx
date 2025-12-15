@@ -272,7 +272,7 @@ const PatientDetailsActivity = () => {
 															className="patientDetails_status_button"
 															onClick={() => {
 																setUserSection('discharge');
-																navigate('discharge', {
+																navigate('/discharge', {
 																	replace: true,
 																});
 															}}
@@ -290,7 +290,7 @@ const PatientDetailsActivity = () => {
 															className="patientDetails_status_button"
 															onClick={() => {
 																setUserSection('admissions');
-																navigate('admissions', {
+																navigate('/admissions', {
 																	replace: true,
 																});
 															}}

@@ -30,7 +30,7 @@ const SideMenu = () => {
 
 	const changeAdminSection = useCallback(
 		(section: IAdminSection) => {
-			navigate(`${section}`);
+			navigate(`${PATHS.admin}/${section}`);
 		},
 		[navigate],
 	);

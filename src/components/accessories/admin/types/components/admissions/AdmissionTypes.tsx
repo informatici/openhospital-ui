@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import { useAppDispatch } from '~/libraries/hooks/redux';
@@ -27,20 +27,27 @@ const AdmissionTypes = () => {
 		};
 	}, [dispatch]);
 
-	const handleEdit = (row: AdmissionTypeDTO) => {
-		navigate(
-			PATHS.admin_admissions_types_edit.replace(':code', row.code ?? ''),
-			{
-				state: row,
-			},
-		);
-	};
+	const handleEdit = useCallback(
+		(row: AdmissionTypeDTO) => {
+			navigate(
+				PATHS.admin_admissions_types_edit.replace(':code', row.code ?? ''),
+				{
+					state: row,
+				},
+			);
+		},
+		[navigate],
+	);
 
-	const handleDelete = (row: AdmissionTypeDTO) => {
-		dispatch(deleteAdmissionType(row.code ?? ''));
-	};
+	const handleDelete = useCallback(
+		(row: AdmissionTypeDTO) => {
+			dispatch(deleteAdmissionType(row.code ?? ''));
+		},
+		[dispatch],
+	);
 
 	const { t } = useTranslation();
+
 	return (
 		<>
 			<h3 data-cy="sub-activity-title">{t('admissionTypes.title')}</h3>

@@ -11,7 +11,8 @@ import {
 import type React from 'react';
 import { type FunctionComponent, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
+import { PATHS } from '~/consts';
 import Arrow from '../../../assets/arrow-w.svg';
 import { Permission } from '../../../libraries/permissionUtils/Permission';
 import './styles.scss';
@@ -28,6 +29,8 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
 }) => {
 	const { t } = useTranslation();
 
+	const { id } = useParams();
+
 	const navigate = useNavigate();
 
 	const isActive = (value: string) => {
@@ -37,9 +40,14 @@ const InPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
 	const changeUserSection = useCallback(
 		(section: IUserSection) => {
 			setUserSection(section);
-			navigate(`${section}`, { replace: true });
+			navigate(
+				`${PATHS.patients_details_id.replace(':id', id ?? '')}/${section}`,
+				{
+					replace: true,
+				},
+			);
 		},
-		[navigate, setUserSection],
+		[navigate, setUserSection, id],
 	);
 
 	return (

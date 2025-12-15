@@ -8,6 +8,7 @@ import {
 	Fragment,
 	useCallback,
 	useEffect,
+	useEffectEvent,
 	useMemo,
 	useRef,
 } from 'react';
@@ -89,32 +90,36 @@ const ExamForm: FC<IExamProps> = ({
 
 	const initialValues = getFromFields(fields, 'value');
 
-	const validationSchema = object({
-		code: string().required(t('common.required')),
-		description: string().required(t('common.required')),
-		examtype: string().required(t('common.required')),
-		rows: array().of(string().required(t('common.required'))),
-		defaultResult: string().test({
-			name: 'procedure-1',
-			exclusive: true,
-			test: function (value) {
-				return (
-					this.parent.procedure !== 1 ||
-					(!isEmpty(value) &&
-						(this.parent.rows as string[]).some((item) => item === value))
-				);
-			},
-			message: t('exam.invalidDefaultResult'),
-		}),
-		procedure: number()
-			.test({
-				name: 'onetwothree',
-				exclusive: true,
-				test: (value) => [1, 2, 3].includes(value),
-				message: t('exam.validateProcedureMinMax'),
-			})
-			.required(t('common.required')),
-	});
+	const validationSchema = useMemo(
+		() =>
+			object({
+				code: string().required(t('common.required')),
+				description: string().required(t('common.required')),
+				examtype: string().required(t('common.required')),
+				rows: array().of(string().required(t('common.required'))),
+				defaultResult: string().test({
+					name: 'procedure-1',
+					exclusive: true,
+					test: function (value) {
+						return (
+							this.parent.procedure !== 1 ||
+							(!isEmpty(value) &&
+								(this.parent.rows as string[]).some((item) => item === value))
+						);
+					},
+					message: t('exam.invalidDefaultResult'),
+				}),
+				procedure: number()
+					.test({
+						name: 'onetwothree',
+						exclusive: true,
+						test: (value) => [1, 2, 3].includes(value ?? 0),
+						message: t('exam.validateProcedureMinMax'),
+					})
+					.required(t('common.required')),
+			}),
+		[t],
+	);
 
 	const formik = useFormik({
 		initialValues,
@@ -132,28 +137,34 @@ const ExamForm: FC<IExamProps> = ({
 
 	const { setFieldValue, handleBlur } = formik;
 
-	const isValid = (fieldName: string): boolean => {
-		return has(formik.touched, fieldName) && has(formik.errors, fieldName);
-	};
+	const isValid = useCallback(
+		(fieldName: string): boolean => {
+			return has(formik.touched, fieldName) && has(formik.errors, fieldName);
+		},
+		[formik.errors, formik.touched],
+	);
 
-	const getErrorText = (fieldName: string): string => {
-		return has(formik.touched, fieldName)
-			? (get(formik.errors, fieldName) as string)
-			: '';
-	};
+	const getErrorText = useCallback(
+		(fieldName: string): string => {
+			return has(formik.touched, fieldName)
+				? (get(formik.errors, fieldName) as string)
+				: '';
+		},
+		[formik.errors, formik.touched],
+	);
 
 	const addExamRow = useCallback(() => {
-		formik.setFieldValue('rows', [...formik.values.rows, '']);
-	}, [formik]);
+		setFieldValue('rows', [...formik.values.rows, '']);
+	}, [setFieldValue, formik.values.rows]);
 
 	const removeExamRow = useCallback(
 		(index: number) => () => {
-			formik.setFieldValue(
+			setFieldValue(
 				'rows',
 				(formik.values.rows as string[]).toSpliced(index, 1),
 			);
 		},
-		[formik],
+		[setFieldValue, formik.values.rows],
 	);
 
 	const onBlurCallback = useCallback(
@@ -187,21 +198,21 @@ const ExamForm: FC<IExamProps> = ({
 		[formik],
 	);
 
-	const cleanUp = useCallback(() => {
+	const onCleanup = useEffectEvent(() => {
 		if (creationMode) {
 			dispatch(createExamReset());
 		} else {
 			dispatch(updateExamReset());
 		}
-	}, [creationMode, dispatch]);
+	});
 
 	useEffect(() => {
 		dispatch(getExamTypes());
-	}, [dispatch]);
+	}, []);
 
 	useEffect(() => {
-		return cleanUp;
-	}, [cleanUp]);
+		return onCleanup;
+	}, []);
 
 	return (
 		<div className="examForm">

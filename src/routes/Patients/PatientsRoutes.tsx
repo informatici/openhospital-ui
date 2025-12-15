@@ -24,7 +24,9 @@ export const PatientsRoutes: FC = () => (
 			element={<NewPatientActivity dashboardRoute={PATHS.patients} />}
 		/>
 		<Route path="search" element={<SearchPatientActivity />} />
-		<Route path="details/:id/*" element={<PatientDetailsRoutes />} />
+		<Route path="details/:id">
+			<Route path="*" element={<PatientDetailsRoutes />} />
+		</Route>
 		<Route path="details/:id/edit" element={<EditPatientActivity />} />
 		<Route path="*" element={<NotFound />} />
 	</Routes>
