@@ -34,7 +34,7 @@ services:
       dockerfile: ./docker/Dockerfile.frontend
     environment: *ui-env
     ports:
-      - 3030:3000
+      - 3030:5173
     volumes:
       - ./:/oh
       - /oh/node_modules

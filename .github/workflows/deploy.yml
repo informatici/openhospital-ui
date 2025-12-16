@@ -39,7 +39,7 @@ jobs:
         with:
           record: false
           start: npm start
-          wait-on: "http://localhost:3000"
+          wait-on: "http://localhost:5173"
   deploy:
     needs: e2e
     runs-on: ubuntu-latest

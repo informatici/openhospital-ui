@@ -3,7 +3,7 @@ import plugin from './cypress/plugins';
 
 export default defineConfig({
 	e2e: {
-		baseUrl: 'http://localhost:3000',
+		baseUrl: 'http://localhost:5173',
 		setupNodeEvents(on, config) {
 			plugin(on, config);
 		},

@@ -65,7 +65,7 @@
 		"preview": "vite preview",
 		"build": "vite build",
 		"test": "vite test",
-		"e2e": "start-server-and-test http://localhost:3000 cypress:open",
+		"e2e": "start-server-and-test http://localhost:5173 cypress:open",
 		"cypress:open": "cypress open",
 		"build:staging": "env-cmd -f .env.staging npm run build",
 		"build:prod": "env-cmd -f .env.prod npm run build",
