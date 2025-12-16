@@ -20,3 +20,11 @@ export function badRequest<T extends JsonBodyType>(response: T) {
 export function notFound<T extends JsonBodyType>(response: T) {
 	return HttpResponse.json(response, { status: 404 });
 }
+
+export function unauthorized<T extends JsonBodyType>(response: T) {
+	return HttpResponse.json(response, { status: 401 });
+}
+
+export function noContent() {
+	return HttpResponse.json(null, { status: 204 });
+}

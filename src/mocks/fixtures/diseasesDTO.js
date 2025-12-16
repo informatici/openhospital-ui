@@ -1,6 +1,6 @@
 export const diseasesDTO = [
 	{
-		code: 88,
+		code: '88',
 		description: 'Abortions',
 		diseaseType: {
 			code: 'MP',
@@ -11,7 +11,7 @@ export const diseasesDTO = [
 		ipdOutInclude: true,
 	},
 	{
-		code: 74,
+		code: '74',
 		description: 'Disease DR8',
 		diseaseType: {
 			code: 'CH',
@@ -22,7 +22,7 @@ export const diseasesDTO = [
 		ipdOutInclude: false,
 	},
 	{
-		code: 22,
+		code: '22',
 		description: 'Fake disease',
 		diseaseType: {
 			code: 'FK',
@@ -33,7 +33,7 @@ export const diseasesDTO = [
 		ipdOutInclude: false,
 	},
 	{
-		code: 23,
+		code: '23',
 		description: 'Something Else',
 		diseaseType: {
 			code: 'FK',

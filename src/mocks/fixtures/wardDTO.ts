@@ -1,4 +1,6 @@
-export const wards = [
+import type { WardDTO } from '~/generated';
+
+export const wards: WardDTO[] = [
 	{
 		code: 'C',
 		description: 'CHILDREN WARDS',

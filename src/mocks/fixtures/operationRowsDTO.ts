@@ -1,8 +1,9 @@
+import type { OperationRowDTO } from '~/generated';
 import { admissionDTO } from './admissionDTO';
 import opdDTO from './opdDTO';
 import { operationsDTO } from './operationsDTO';
 
-export const operationRowsDTO = [
+export const operationRowsDTO: OperationRowDTO[] = [
 	{
 		id: 10,
 		opDate: '2021-08-05T15:19:44.000Z',
