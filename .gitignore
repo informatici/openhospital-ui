@@ -27,3 +27,7 @@ yarn-error.log*
 # IntelliJ
 .idea
 *.iml
+
+
+# Generated files
+src/__generated__

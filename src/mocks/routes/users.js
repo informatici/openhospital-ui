@@ -1,4 +1,4 @@
-import { dashboardSettingDTO } from '~/mockServer/fixtures/dashboardSettingDTO';
+import { dashboardSettingDTO } from '~/mocks/fixtures/dashboardSettingDTO';
 import permissionList from '../fixtures/permissionList';
 import { usersDTO } from '../fixtures/usersDTO';
 

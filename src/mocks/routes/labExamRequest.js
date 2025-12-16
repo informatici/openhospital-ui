@@ -1,4 +1,4 @@
-import { examRequestDTO } from '~/mockServer/fixtures/examRequestDTO';
+import { examRequestDTO } from '~/mocks/fixtures/examRequestDTO';
 
 export const labExamRequestRoutes = (server) => {
 	server.namespace('/laboratories/examRequest', () => {

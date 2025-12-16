@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
 import 'cypress-file-upload';
-import permissionList from '../../src/mockServer/fixtures/permissionList';
+import permissionList from '../../src/mocks/fixtures/permissionList';
 
 Cypress.Commands.add('dataCy', (value) => {
 	return cy.get(`[data-cy=${value}]`);

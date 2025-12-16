@@ -19,8 +19,8 @@ x-mariadb: &mariadb-env
 x-ui: &ui-env
   <<: *repository-args
   PUBLIC_URL: /
-  VITE_APP_USE_MOCK_API:
-  VITE_APP_BASE_PATH: http://localhost:8080
+  VITE_USE_MOCK_API:
+  VITE_BASE_PATH: http://localhost:8080
 x-pg-admin: &pg-admin-env
   PMA_HOST: "database"
   PMA_PORT: 3306

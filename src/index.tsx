@@ -1,26 +1,29 @@
 import React from 'react';
-import { createRoot } from 'react-dom/client';
+import { type Container, createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import App from './App';
 import './index.css';
-import { makeServer } from './mockServer/server';
+import { enableMocking } from './mocks';
+import { makeServer } from './mocks/server';
 import * as serviceWorker from './serviceWorker';
 import { store } from './state/store';
 
-if (import.meta.env.VITE_APP_USE_MOCK_API === 'true') {
+if (import.meta.env.VITE_USE_MOCK_API === 'true') {
 	console.log('Using mocked api');
 	makeServer();
 }
 
 const container = document.getElementById('root');
-const root = createRoot(container!);
-root.render(
-	<React.StrictMode>
-		<Provider store={store}>
-			<App />
-		</Provider>
-	</React.StrictMode>,
-);
+const root = createRoot(container as Container);
+enableMocking().then(() => {
+	root.render(
+		<React.StrictMode>
+			<Provider store={store}>
+				<App />
+			</Provider>
+		</React.StrictMode>,
+	);
+});
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
