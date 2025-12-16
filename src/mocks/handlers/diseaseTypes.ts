@@ -12,7 +12,7 @@ export const diseaseTypes = [
 				badRequest({ message: 'Fail to create disease type' }),
 			);
 		}
-		return response(200).json(body);
+		return response(201).json(body);
 	}),
 	http.put('/diseasetypes', async ({ request, response }) => {
 		const body = await request.json();

@@ -1,4 +1,4 @@
-import { http } from '../utils';
+import { http, unauthorized } from '../utils';
 
 export const auth = [
 	http.post('/auth/login', async ({ request, response }) => {
@@ -6,7 +6,7 @@ export const auth = [
 		const username = body.username;
 
 		return username === 'fail'
-			? response(401)
+			? response.untyped(unauthorized({ message: 'Invalid credentials' }))
 			: response(200).json({
 					username: 'John Doe',
 					token:
@@ -14,6 +14,6 @@ export const auth = [
 				});
 	}),
 	http.post('/auth/logout', ({ response }) => {
-		return response(200);
+		return response(200).empty();
 	}),
 ];

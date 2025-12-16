@@ -4,14 +4,8 @@ import { Provider } from 'react-redux';
 import App from './App';
 import './index.css';
 import { enableMocking } from './mocks';
-import { makeServer } from './mocks/server';
 import * as serviceWorker from './serviceWorker';
 import { store } from './state/store';
-
-if (import.meta.env.VITE_USE_MOCK_API === 'true') {
-	console.log('Using mocked api');
-	makeServer();
-}
 
 const container = document.getElementById('root');
 const root = createRoot(container as Container);

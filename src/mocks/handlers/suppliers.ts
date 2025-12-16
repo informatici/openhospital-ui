@@ -7,17 +7,17 @@ export const suppliers = [
 	}),
 	http.post('/suppliers', async ({ request, response }) => {
 		const body = await request.json();
-		if (body.supId === 'FAIL') {
+		if (body.supId?.toString() === 'FAIL') {
 			return response.untyped(
 				badRequest({ message: 'Fail to create supplier' }),
 			);
 		}
 		body.supId = 100;
-		return response(200).json(body);
+		return response(201).json(body);
 	}),
 	http.put('/suppliers', async ({ request, response }) => {
 		const body = await request.json();
-		if (body.supId === 'FAIL') {
+		if (body.supId?.toString() === 'FAIL') {
 			return response.untyped(
 				badRequest({ message: 'Fail to update supplier' }),
 			);

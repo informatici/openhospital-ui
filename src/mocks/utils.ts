@@ -1,8 +1,11 @@
 import { HttpResponse, type JsonBodyType } from 'msw';
 import { createOpenApiHttp } from 'openapi-msw';
 import type { paths } from '~/__generated__/openapi';
+import { BASE_PATH } from '~/generated';
 
-export const http = createOpenApiHttp<paths>();
+export const http = createOpenApiHttp<paths>({
+	baseUrl: BASE_PATH,
+});
 
 export async function enableMocking() {
 	if (import.meta.env.VITE_USE_MOCK_API !== 'true') {

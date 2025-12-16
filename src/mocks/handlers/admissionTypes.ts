@@ -12,7 +12,7 @@ export const admissionTypes = [
 				badRequest({ message: 'Fail to create admission type' }),
 			);
 		}
-		return response(200).json(body);
+		return response(201).json(body);
 	}),
 	http.put('/admissiontypes', async ({ request, response }) => {
 		const body = await request.json();

@@ -12,7 +12,7 @@ export const vaccineTypes = [
 				badRequest({ message: 'Fail to create vaccine type' }),
 			);
 		}
-		return response(200).json(body);
+		return response(201).json(body);
 	}),
 	http.put('/vaccinetypes', async ({ request, response }) => {
 		const body = await request.json();

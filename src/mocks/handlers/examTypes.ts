@@ -12,7 +12,7 @@ export const examTypes = [
 				badRequest({ message: 'Fail to create exam type' }),
 			);
 		}
-		return response(200).json(body);
+		return response(201).json(body);
 	}),
 	http.put('/examtypes/{code}', async ({ request, response }) => {
 		const body = await request.json();

@@ -12,7 +12,7 @@ export const dischargeTypes = [
 				badRequest({ message: 'Fail to create discharge type' }),
 			);
 		}
-		return response(200).json(body);
+		return response(201).json(body);
 	}),
 	http.put('/dischargetypes', async ({ request, response }) => {
 		const body = await request.json();

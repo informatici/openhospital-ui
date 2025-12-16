@@ -1,17 +1,17 @@
-import patientExaminationDTO from '../fixtures/patientExaminationDTO';
-import { badRequest, http } from '../utils';
+import { patientExaminationDTO } from '../fixtures/patientExaminationDTO';
+import { badRequest, http, noContent } from '../utils';
 
 export const examinations = [
 	http.post('/examinations', async ({ request, response }) => {
 		const body = await request.json();
-		if (body.patientCode === 'fail') {
+		if ((body.patientCode as any) === 'fail') {
 			return response.untyped(badRequest({}));
 		}
 		return response(201).json(body);
 	}),
-	http.put('/examinations/{code}', async ({ request, response }) => {
+	http.put('/examinations/{id}', async ({ request, response }) => {
 		const body = await request.json();
-		if (body.patientCode === 'fail') {
+		if ((body.patientCode as any) === 'fail') {
 			return response.untyped(badRequest({}));
 		}
 		return response(200).json(body);
@@ -37,7 +37,7 @@ export const examinations = [
 				return response.untyped(badRequest({}));
 			}
 			if (patId === '2') {
-				return response(204);
+				return response.untyped(noContent());
 			}
 			return response(200).json([
 				patientExaminationDTO,

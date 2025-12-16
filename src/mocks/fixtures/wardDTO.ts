@@ -15,6 +15,7 @@ export const wards: WardDTO[] = [
 		male: true,
 		female: true,
 		opd: true,
+		visitDuration: 30,
 	},
 	{
 		code: 'F',
@@ -29,6 +30,7 @@ export const wards: WardDTO[] = [
 		pharmacy: true,
 		male: true,
 		female: true,
+		visitDuration: 30,
 	},
 	{
 		code: 'I',
@@ -43,6 +45,7 @@ export const wards: WardDTO[] = [
 		pharmacy: true,
 		male: true,
 		female: true,
+		visitDuration: 30,
 	},
 	{
 		code: 'M',
@@ -58,5 +61,6 @@ export const wards: WardDTO[] = [
 		male: false,
 		female: true,
 		opd: true,
+		visitDuration: 30,
 	},
 ];

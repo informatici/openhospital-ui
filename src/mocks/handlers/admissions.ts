@@ -1,5 +1,6 @@
+import type { AdmissionDTO } from '~/generated';
 import { admissionDTO } from '../fixtures/admissionDTO';
-import { badRequest, http } from '../utils';
+import { badRequest, http, noContent } from '../utils';
 
 const dischargeProps = {
 	disDate: '2021-08-27T10:19:44.000Z',
@@ -44,7 +45,10 @@ export const admissionsHandlers = [
 		return response(200).json(body);
 	}),
 	http.get('/admissions', async ({ response }) => {
-		return response(200).json({ data: admissions, pageInfo: {} });
+		return response(200).json({
+			data: admissions as AdmissionDTO[],
+			pageInfo: {},
+		});
 	}),
 	http.get(
 		'/admissions/patient/{patientCode}',
@@ -54,9 +58,9 @@ export const admissionsHandlers = [
 				return response.untyped(badRequest({}));
 			}
 			if (code === '21266') {
-				return response(204);
+				return response.untyped(noContent());
 			}
-			return response(200).json(admissions);
+			return response(200).json(admissions as AdmissionDTO[]);
 		},
 	),
 	http.get('/admissions/current', async ({ request, response }) => {
@@ -66,7 +70,7 @@ export const admissionsHandlers = [
 			return response.untyped(badRequest({}));
 		}
 		if (code === '21266') {
-			return response(204);
+			return response.untyped(noContent());
 		}
 		return response(200).json({ ...admissionDTO, id: 0 });
 	}),
@@ -75,10 +79,13 @@ export const admissionsHandlers = [
 		if (body.note === 'fail') {
 			return response.untyped(badRequest(null));
 		}
-		return response(200).json(null);
+		return response(200).json(true);
 	}),
 	http.get('/admissions/discharges', async ({ response }) => {
 		// Note: original code has req.jsonBody() but it's a GET, so no body. Assuming no fail case for GET.
-		return response(200).json({ data: admissions, pageInfo: {} });
+		return response(200).json({
+			data: admissions as AdmissionDTO[],
+			pageInfo: {},
+		});
 	}),
 ];

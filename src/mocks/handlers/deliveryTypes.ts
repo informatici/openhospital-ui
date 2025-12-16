@@ -12,7 +12,7 @@ export const deliveryTypes = [
 				badRequest({ message: 'Fail to create delivery type' }),
 			);
 		}
-		return response(200).json(body);
+		return response(201).json(body);
 	}),
 	http.put('/deliverytypes', async ({ request, response }) => {
 		const body = await request.json();

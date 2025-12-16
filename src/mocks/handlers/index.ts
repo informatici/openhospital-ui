@@ -4,33 +4,33 @@ import { admissionTypes } from './admissionTypes';
 import { ageTypes } from './ageTypes';
 import { auth } from './auth';
 import { bills } from './bills';
-import { deliveryResultType } from './deliveryResultType';
+import { deliveryResultTypes } from './deliveryResultTypes';
 import { deliveryTypes } from './deliveryTypes';
 import { dischargeTypes } from './dischargeTypes';
 import { diseases } from './diseases';
 import { diseaseTypes } from './diseaseTypes';
 import { examinations } from './examinations';
-import { examRow } from './examRow';
+import { examRows } from './examRows';
 import { exams } from './exams';
 import { examTypes } from './examTypes';
-import { hospital } from './hospital';
-import { lab } from './lab';
+import { hospitals } from './hospitals';
 import { labExamRequest } from './labExamRequest';
+import { laboratories } from './labs';
 import { medicals } from './medicals';
 import { medicalTypes } from './medicalTypes';
-import { opd } from './opd';
+import { opds } from './opds';
 import { operations } from './operations';
 import { operationTypes } from './operationTypes';
 import { patients } from './patients';
-import { permission } from './permission';
-import { pregnantTreatmentType } from './pregnantTreatmentType';
+import { permissions } from './permissions';
+import { pregnantTreatmentTypes } from './pregnantTreatmentTypes';
 import { prices } from './prices';
 import { settings } from './settings';
 import { suppliers } from './suppliers';
 import { therapies } from './therapies';
 import { userGroups } from './userGroups';
 import { users } from './users';
-import { vaccine } from './vaccine';
+import { vaccines } from './vaccines';
 import { vaccineTypes } from './vaccineTypes';
 import { visits } from './visits';
 import { wardsHandlers } from './wards';
@@ -41,33 +41,33 @@ export const handlers: Parameters<typeof setupWorker> = [
 	...ageTypes,
 	...auth,
 	...bills,
-	...deliveryResultType,
+	...deliveryResultTypes,
 	...deliveryTypes,
 	...diseaseTypes,
 	...dischargeTypes,
 	...diseases,
-	...examRow,
+	...examRows,
 	...examinations,
 	...examTypes,
 	...exams,
-	...hospital,
-	...lab,
+	...hospitals,
+	...laboratories,
 	...labExamRequest,
 	...medicalTypes,
 	...medicals,
-	...opd,
+	...opds,
 	...operationTypes,
 	...operations,
 	...patients,
-	...permission,
-	...pregnantTreatmentType,
+	...permissions,
+	...pregnantTreatmentTypes,
 	...prices,
 	...settings,
 	...suppliers,
 	...therapies,
 	...userGroups,
 	...users,
-	...vaccine,
+	...vaccines,
 	...vaccineTypes,
 	...visits,
 	...wardsHandlers,

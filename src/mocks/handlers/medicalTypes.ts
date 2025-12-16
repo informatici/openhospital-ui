@@ -1,4 +1,4 @@
-import medicalTypesDTO from '../fixtures/medicalTypesDTO';
+import { medicalTypesDTO } from '../fixtures/medicalTypesDTO';
 import { badRequest, http } from '../utils';
 
 export const medicalTypes = [
@@ -12,7 +12,7 @@ export const medicalTypes = [
 				badRequest({ message: 'Fail to create medical type' }),
 			);
 		}
-		return response(200).json(body);
+		return response(201).json(body);
 	}),
 	http.put('/medicaltypes', async ({ request, response }) => {
 		const body = await request.json();

@@ -1,5 +1,5 @@
 import type { PermissionDTO } from '../../generated';
-import permissionList from './permissionList';
+import { permissionList } from './permissionList';
 
 export const permissionDTO: PermissionDTO[] = Array.from(permissionList).map(
 	(permissionName, i) => ({

@@ -24,7 +24,7 @@ export const diseases = [
 		const body = await request.json();
 		return body.code === 'FAIL'
 			? response.untyped(badRequest({ message: 'Fail to create disease' }))
-			: response(200).json(body);
+			: response(201).json(body);
 	}),
 	http.put('/diseases', async ({ request, response }) => {
 		const body = await request.json();
