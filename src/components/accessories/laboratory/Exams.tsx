@@ -162,16 +162,7 @@ export const Exams: FC = () => {
 		}
 	}, [changeStatus, dispatch, filter]);
 
-	/**
-	 * I commented the following lignes because they were causing issue with filter.
-	 * They should be removed.
-	 *
-	 * useEffect(() => {
-	 *   dispatch(searchLabs(getFromFields(fields, "value")));
-	 *   dispatch(getExams());
-	 * }, []);
-	 */
-
+	// biome-ignore lint/correctness/useExhaustiveDependencies: Skip functions that change on every render
 	const ExamContent = useMemo(() => {
 		return (
 			<>
@@ -274,14 +265,6 @@ export const Exams: FC = () => {
 		changeStatus,
 		deletedObjCode,
 		errorMessage,
-		handleResetFilter,
-		onCancel,
-		onDelete,
-		onEdit,
-		onExamStatusChangeClick,
-		onExamStatusChangeClose,
-		onPageChange,
-		onSubmit,
 		pageInfo?.page,
 		pageInfo?.totalPages,
 		selectedExamRow,

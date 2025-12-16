@@ -8,7 +8,15 @@
 	},
 	"files": {
 		"ignoreUnknown": false,
-		"includes": ["**", "!public/**/*.js", "!scripts/**/*.js"]
+		"includes": [
+			"**",
+			"!public/**/*.js",
+			"!scripts/**/*.js",
+			"!src/generated",
+			"!src/__generated__",
+			"!!dist",
+			"!!build"
+		]
 	},
 	"css": {
 		"parser": {
@@ -24,17 +32,20 @@
 		"rules": {
 			"recommended": true,
 			"suspicious": {
+				"recommended": true,
 				"noExplicitAny": "off",
 				"noArrayIndexKey": "off",
 				"noThenProperty": "off",
 				"noAssignInExpressions": "off"
 			},
 			"a11y": {
+				"recommended": true,
 				"noStaticElementInteractions": "off",
 				"useKeyWithClickEvents": "off"
 			},
 			"correctness": {
-				"useExhaustiveDependencies": "off"
+				"recommended": true,
+				"useExhaustiveDependencies": "warn"
 			}
 		},
 		"domains": {

@@ -39,7 +39,7 @@ const OHFeedback: FC = () => {
 	return (
 		<div className="feedback">
 			<a href="# " id="feedback-button" title="Feedback">
-				<Tooltip title={t('common.feedback')!} aria-label="feedback">
+				<Tooltip title={t('common.feedback')} aria-label="feedback">
 					<Feedback />
 				</Tooltip>
 			</a>

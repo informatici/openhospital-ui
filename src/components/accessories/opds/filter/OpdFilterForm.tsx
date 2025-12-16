@@ -36,6 +36,11 @@ import TextField from '../../textField/TextField';
 import './styles.scss';
 import type { IOpdFilterProps, TFilterValues } from './types';
 
+const mapToOptions = (value: DiseaseTypeDTO | DiseaseDTO | WardDTO) => ({
+	value: value.code ?? '',
+	label: value.description ?? '',
+});
+
 export const OpdFilterForm: FC<IOpdFilterProps> = ({
 	fields,
 	onSubmit,
@@ -114,18 +119,18 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({
 					if (!this.parent.ageTo) {
 						return true;
 					}
-					return +this.parent.ageTo - +value >= 0;
+					return +this.parent.ageTo - (value ?? 0) >= 0;
 				},
 			})
 			.test({
 				name: 'minAgeFrom',
 				message: t('opd.belowminage'),
-				test: (value) => !value || (value && value >= 0),
+				test: (value) => !value || value >= 0,
 			})
 			.test({
 				name: 'maxAgeFrom',
 				message: t('opd.abovemaxage'),
-				test: (value) => !value || (value && value <= 200),
+				test: (value) => !value || value <= 200,
 			}),
 		ageTo: number()
 			.test({
@@ -135,18 +140,18 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({
 					if (!this.parent.ageFrom) {
 						return true;
 					}
-					return +value - +this.parent.ageFrom >= 0;
+					return (value ?? 0) - +this.parent.ageFrom >= 0;
 				},
 			})
 			.test({
 				name: 'minAgeTo',
 				message: t('opd.belowminage'),
-				test: (value) => !value || (value && value >= 0),
+				test: (value) => !value || value >= 0,
 			})
 			.test({
 				name: 'maxAgeTo',
 				message: t('opd.abovemaxage'),
-				test: (value) => !value || (value && value <= 200),
+				test: (value) => !value || value <= 200,
 			}),
 	});
 
@@ -172,14 +177,12 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({
 		handleResetFilter();
 		formik.resetForm();
 	};
-	const mapToOptions = (value: DiseaseTypeDTO | DiseaseDTO | WardDTO) => ({
-		value: value.code ?? '',
-		label: value.description ?? '',
-	});
+
 	const diseases = useAppSelector((state: IState) => {
 		return state.diseases.diseasesOpd.data ?? [];
 	});
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies: mapToOptions is a stable function
 	const diseaseOptions = useMemo(() => {
 		return isEmpty(diseaseTypeCode)
 			? diseases.map((e) => mapToOptions(e))
@@ -196,6 +199,7 @@ export const OpdFilterForm: FC<IOpdFilterProps> = ({
 		return state.wards.allWards.data?.filter((e) => e.opd) ?? [];
 	});
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies: mapToOptions is a stable function
 	const wardOptions = useMemo(() => {
 		return wards.map((e) => mapToOptions(e));
 	}, [wards, mapToOptions]);

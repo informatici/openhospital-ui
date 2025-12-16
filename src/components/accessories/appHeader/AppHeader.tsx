@@ -74,7 +74,7 @@ const AppHeader: FunctionComponent<IOwnProps> = ({ breadcrumbMap }) => {
 							&nbsp;
 							<strong className="user-name">{username}</strong>
 						</span>
-						<Tooltip title={t('login.signout')!} aria-label="sign out">
+						<Tooltip title={t('login.signout')} aria-label="sign out">
 							<ExitToAppIcon
 								className="userInfo__toolbar_icon"
 								id="signout_icon"

@@ -15,11 +15,7 @@ interface IOwnProps {
 	handleEdit: (row: PatientExaminationDTO) => void;
 }
 
-const PatientTriageTable: FunctionComponent<IOwnProps> = ({
-	shouldUpdateTable,
-	handleDelete,
-	handleEdit,
-}) => {
+const PatientTriageTable: FunctionComponent<IOwnProps> = ({ handleEdit }) => {
 	const { t } = useTranslation();
 	const canUpdate = usePermission('examinations.update');
 	const label = {

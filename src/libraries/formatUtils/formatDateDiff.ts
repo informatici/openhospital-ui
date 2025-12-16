@@ -23,7 +23,7 @@ export const formatDateDiff = (date1: string, date2: string, labels: any[]) => {
 	];
 	var out = [];
 
-	for (var i = 0; i < intervals.length; i++) {
+	for (let i = 0; i < intervals.length; i++) {
 		const diff = a.diff(b, intervals[i]);
 		b.add(diff, intervals[i]);
 		if (diff > 0) {

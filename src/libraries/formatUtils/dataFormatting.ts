@@ -51,18 +51,24 @@ export const unformatRenderDate = (value: string) => {
 };
 
 export const combineData: any = (data: any) => {
-	return Object.entries(data).reduce(
-		(r, [k, v]) => ({
-			...r,
+	return Object.entries(data).reduce((acc, [k, v]) => {
+		const value = acc;
+		return {
+			...value,
 			[k]: v,
-		}),
-		{},
-	);
+		};
+	}, {});
 };
 
 export const sortAndSlice: any = (data: any) => {
 	return Object.entries(data)
 		.sort(([, a], [, b]) => (b as number) - +(a as number))
 		.slice(0, 10)
-		.reduce((r, [k, v]) => ({ ...r, [k]: v }), {});
+		.reduce((acc, [k, v]) => {
+			const value = acc;
+			return {
+				...value,
+				[k]: v,
+			};
+		}, {});
 };

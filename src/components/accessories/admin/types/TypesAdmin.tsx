@@ -72,7 +72,7 @@ export const TypesAdmin = () => {
 				setSelectedOption(DEFAULT_TYPE_OPTION);
 			}
 		}
-	}, [location, typeOptions, typeFromUrl]);
+	}, [location, typeFromUrl]);
 
 	const handleTypeChange = useCallback(
 		(value: string) => {

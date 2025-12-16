@@ -32,7 +32,7 @@ const createDebouncedAsyncThunk = <Returned, ThunkArg = void>(
 	wait: number = 300,
 	options?: DebounceSettings,
 	// eslint-disable-next-line @typescript-eslint/ban-types
-): AsyncThunk<Returned, ThunkArg, {}> => {
+): AsyncThunk<Returned, ThunkArg, object> => {
 	const { maxWait = 500, leading = false } = options ?? {};
 	let timer = 0;
 	let maxTimer = 0;

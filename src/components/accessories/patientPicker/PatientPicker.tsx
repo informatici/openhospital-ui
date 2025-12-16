@@ -43,7 +43,6 @@ const PatientPicker: FC<IProps> = ({
 	errorText,
 	onBlur,
 	label,
-	theme,
 	initialValue,
 	enableFocus = true,
 }) => {

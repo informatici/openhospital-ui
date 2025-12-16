@@ -3,7 +3,7 @@ import type { LaboratoryDTOStatusEnum } from '../../../generated';
 export type ChangeLabStatusProps = {
 	status: LaboratoryDTOStatusEnum;
 	labCode: string;
-	onClick: Function;
+	onClick: () => void;
 	isOpen?: boolean;
-	onClose?: Function;
+	onClose?: () => void;
 };

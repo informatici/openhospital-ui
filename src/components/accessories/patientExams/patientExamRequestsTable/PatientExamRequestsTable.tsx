@@ -18,7 +18,6 @@ interface IOwnProps {
 
 const PatientExamRequestsTable: FunctionComponent<IOwnProps> = ({
 	shouldUpdateTable,
-	handleEdit,
 	handleCancel,
 }) => {
 	const { t } = useTranslation();

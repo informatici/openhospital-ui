@@ -28,23 +28,23 @@ const RouterTabs: FunctionComponent<IProps> = ({ config, defaultRoute }) => {
 
 	const renderHeader = (mobile = false): React.ReactElement[] => {
 		if (!mobile) {
-			return tabs.map((item, index) => {
-				const path = item.path!;
-				return tabs.length === 1 ? (
-					<></>
-				) : (
-					<div
-						className={classNames('tab', { active: path === currentPath })}
-						key={index}
-						onClick={() => switchTab(path)}
-					>
-						<span>{item.label}</span>
-					</div>
-				);
-			});
+			return tabs
+				.map((item, index) => {
+					const path = item.path ?? '';
+					return tabs.length === 1 ? null : (
+						<div
+							className={classNames('tab', { active: path === currentPath })}
+							key={index}
+							onClick={() => switchTab(path)}
+						>
+							<span>{item.label}</span>
+						</div>
+					);
+				})
+				.filter(Boolean) as React.ReactElement[];
 		} else {
 			return tabs.map((item, index) => {
-				const path = item.path!;
+				const path = item.path;
 				return (
 					<option
 						className={classNames('tab', { active: path === currentPath })}

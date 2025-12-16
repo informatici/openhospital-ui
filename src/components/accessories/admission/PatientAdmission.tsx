@@ -82,7 +82,7 @@ export const PatientAdmission: FC = () => {
 
 	useEffect(() => {
 		if (patientCode && creationMode) {
-			dispatch(getLastOpd(parseInt(id!, 10)));
+			dispatch(getLastOpd(parseInt(id ?? '', 10)));
 		}
 	}, [dispatch, patientCode, creationMode, id]);
 
@@ -156,9 +156,9 @@ export const PatientAdmission: FC = () => {
 	useEffect(() => {
 		if (createStatus === 'SUCCESS' || updateStatus === 'SUCCESS') {
 			dispatch(getPatient(id ?? ''));
-			dispatch(getCurrentAdmission(parseInt(id!, 10)));
+			dispatch(getCurrentAdmission(parseInt(id ?? '', 10)));
 		}
-	}, [createStatus, dispatch, id, updateStatus]);
+	}, [createStatus, id, updateStatus, dispatch]);
 
 	const resetFormCallback = () => {
 		setCreationMode(true);
@@ -170,7 +170,9 @@ export const PatientAdmission: FC = () => {
 	};
 
 	useEffect(() => {
-		dispatch(getCurrentAdmission(parseInt(id!, 10)));
+		if (id) {
+			dispatch(getCurrentAdmission(parseInt(id, 10)));
+		}
 		return () => {
 			dispatch(getCurrentAdmissionReset());
 		};

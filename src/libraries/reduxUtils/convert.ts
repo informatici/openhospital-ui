@@ -49,7 +49,6 @@ export const renderSummary = (
 			} else if (item[field]) {
 				obj[field] = item[field];
 			}
-			return obj[field];
 		});
 		if (item.type === 'OPD') {
 			obj.opdDate = item.date;

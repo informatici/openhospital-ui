@@ -208,7 +208,7 @@ const ExamForm: FC<IExamProps> = ({
 
 	useEffect(() => {
 		dispatch(getExamTypes());
-	}, []);
+	}, [dispatch]);
 
 	useEffect(() => {
 		return onCleanup;

@@ -21,8 +21,8 @@ export const RedirectAfterLogin: React.FC<IRedirectAfterLogin> = ({
 	const status = useMemo(
 		() =>
 			['SUCCESS', 'FAIL'].includes(state.settings.status ?? '')
-				? state.authentication.status!
-				: state.settings.status!,
+				? state.authentication.status
+				: state.settings.status,
 		[state.settings.status, state.authentication.status],
 	);
 

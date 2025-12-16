@@ -1,13 +1,12 @@
-import { type FC, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch, useAppSelector } from '~/libraries/hooks/redux';
 import logo from '../../../assets/logo-color.svg';
 import type { HospitalDTO } from '../../../generated';
 import { getHospital } from '../../../state/hospital';
 import './styles.scss';
-import type { TProps } from './types';
 
-export const HospitalInfo: FC<TProps> = () => {
+export const HospitalInfo = () => {
 	const dispatch = useAppDispatch();
 	const { t } = useTranslation();
 	useEffect(() => {

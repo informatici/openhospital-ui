@@ -53,6 +53,7 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
 	const [pictureToResize, setPictureToResize] = useState('');
 	const { t } = useTranslation();
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies: Skip state setter dependency
 	const handleCloseError = useCallback(() => {
 		removePicture();
 		setShowError('');
@@ -78,6 +79,7 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
 		}
 	}, [onChange, picture.original]);
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies: Skip state setter dependency
 	useEffect(() => {
 		if (!showModal && !isEmpty(pictureToResize) && fromFileSystem) {
 			setFromFileSystem(false);
@@ -127,6 +129,7 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
 		pictureInputRef.current?.click();
 	};
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies: Skip state setter dependency
 	useEffect(() => {
 		if (shouldReset && resetCallback) {
 			removePicture();

@@ -88,8 +88,8 @@ export const layoutSlice = createSlice({
 				state.saveLayouts.status = isEmpty(action.payload)
 					? 'SUCCESS_EMPTY'
 					: 'SUCCESS';
-				state.layouts = action.payload.layout!;
-				state.toolbox = action.payload.toolbox!;
+				state.layouts = action.payload.layout;
+				state.toolbox = action.payload.toolbox;
 				state.getLayouts.data = action.payload.data;
 				state.saveLayouts.data = action.payload.data;
 			})

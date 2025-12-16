@@ -4,9 +4,8 @@ import {
 } from '@mui/material';
 import type { FunctionComponent } from 'react';
 import './styles.scss';
-import type { IProps } from './types';
 
-const Pagination: FunctionComponent<IProps & PaginationProps> = ({
+const Pagination: FunctionComponent<PaginationProps> = ({
 	...paginationProps
 }) => {
 	return (

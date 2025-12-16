@@ -96,15 +96,18 @@ const TherapyForm: FC<TherapyProps> = ({
 
 	const { setFieldValue, resetForm } = formik;
 
-	const computeEndDate = (startDate: any) => {
-		const endDate = moment(startDate)
-			.add(-1, 'days')
-			.add(parseInt(formik.values.nbDays, 10), 'days')
-			.add(parseInt(formik.values.nbWeeks, 10), 'weeks')
-			.add(parseInt(formik.values.nbMonths, 10), 'months');
-		setFieldValue('endDate', endDate.toISOString());
-		formik.validateField('endDate');
-	};
+	const computeEndDate = useCallback(
+		(startDate: any) => {
+			const endDate = moment(startDate)
+				.add(-1, 'days')
+				.add(parseInt(formik.values.nbDays, 10), 'days')
+				.add(parseInt(formik.values.nbWeeks, 10), 'weeks')
+				.add(parseInt(formik.values.nbMonths, 10), 'months');
+			setFieldValue('endDate', endDate.toISOString());
+			formik.validateField('endDate');
+		},
+		[formik.values, formik.validateField, setFieldValue],
+	);
 
 	const handleBlur = useCallback(
 		(fieldName: TherapyFormFieldName) => (e: React.FocusEvent<any>) => {

@@ -42,7 +42,7 @@ export const setAuthentication = createAsyncThunk(
 
 export const setLogout =
 	() =>
-	(dispatch: Dispatch<IAction<void, {}>>): void => {
+	(dispatch: Dispatch<IAction<void, object>>): void => {
 		dispatch(setLogoutLoading());
 		SessionStorage.clear();
 		loginApi.logout().subscribe(
