@@ -48,11 +48,7 @@ const ExamRequestForm: FC<ExamRequestProps> = ({
 	const initialValues = getFromFields(fields, 'value');
 	const validationSchema = object({
 		exam: string().required(t('common.required')),
-		patientId: string().when('patient', {
-			is: patient,
-			then: string().required(t('common.required')),
-			otherwise: string(),
-		}),
+		patientId: string(),
 	});
 	const examOptionsSelector = (exams: ExamDTO[] | undefined) => {
 		if (exams) {

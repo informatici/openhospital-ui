@@ -21,7 +21,6 @@ const ImageResize: React.FC<Props> = ({
 }) => {
 	const [imageRef, setImageRef] = useState<HTMLImageElement | null>(null);
 	const [crop, setCrop] = useState<Crop>({
-		aspect: 1,
 		x: 50,
 		y: 50,
 		width: 300,
@@ -65,13 +64,18 @@ const ImageResize: React.FC<Props> = ({
 	return (
 		<>
 			<ImageCrop
-				src={imageToResize}
+				aspect={1}
 				crop={crop}
 				className="image_resize"
-				onImageLoaded={(img) => setImageRef(img)}
 				onChange={(newCrop) => setCrop(newCrop)}
 				// onComplete={(finalCrop) => onCropComplete(finalCrop)}
-			/>
+			>
+				<img
+					src={imageToResize}
+					onLoad={(e) => setImageRef(e.currentTarget)}
+					alt="To resize"
+				/>
+			</ImageCrop>
 			<div className="image_resize_button_wrappers">
 				<Button
 					type={'button'}

@@ -10,7 +10,7 @@ import { useFormik } from 'formik';
 import { get, has } from 'lodash';
 import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import NumberFormat, { type NumberFormatValues } from 'react-number-format';
+import { type NumberFormatValues, NumericFormat } from 'react-number-format';
 import { object, string } from 'yup';
 import { currencyFormat } from '../../../libraries/formatUtils/currencyFormatting';
 import { renderDate } from '../../../libraries/formatUtils/dataFormatting';
@@ -137,7 +137,7 @@ export const PaymentDialog = ({
 								onChange={dateFieldHandleOnChange('paymentDate')}
 							/>
 						</div>
-						<NumberFormat
+						<NumericFormat
 							name="paymentAmount"
 							value={formik.getFieldProps('paymentAmount').value}
 							onBlur={formik.getFieldProps('paymentAmount').onBlur}
@@ -148,8 +148,8 @@ export const PaymentDialog = ({
 							isAllowed={withValueLimit}
 							type="text"
 							thousandSeparator={' '}
-							errorText={getErrorText('paymentAmount')}
-							isValid={isValid('paymentAmount')}
+							helperText={getErrorText('paymentAmount')}
+							error={!isValid('paymentAmount')}
 							variant="outlined"
 							label={t('bill.paymentamount')}
 							allowNegative={false}

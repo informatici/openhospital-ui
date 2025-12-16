@@ -338,6 +338,7 @@ const Table: FunctionComponent<IProps> = ({
 				</TableCell>
 			);
 		}
+		return;
 	};
 	const handleDelete = () => {
 		if (onDelete) onDelete(currentRow);

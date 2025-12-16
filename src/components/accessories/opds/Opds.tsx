@@ -105,6 +105,8 @@ export const Opds: FC = () => {
 								/>
 							</Permission>
 						);
+					default:
+						return null;
 				}
 			})()}
 		</div>

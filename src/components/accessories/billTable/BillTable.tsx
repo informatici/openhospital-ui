@@ -61,7 +61,7 @@ export const BillTable: FC<IBillTableProps> = ({ fields }) => {
 				return (
 					differenceInSeconds(
 						new Date(this.parent.fromDate),
-						new Date(value),
+						new Date(value ?? Date.now()),
 					) >= 0
 				);
 			},
@@ -367,6 +367,9 @@ export const BillTable: FC<IBillTableProps> = ({ fields }) => {
 								</div>
 							</>
 						);
+
+					default:
+						return null;
 				}
 			})()}
 		</div>

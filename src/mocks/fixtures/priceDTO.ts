@@ -4,11 +4,6 @@ export const priceDTO: PriceDTO[] = [
 	{
 		id: 17549,
 		list: {
-			createdBy: null,
-			createdDate: 1631629033000,
-			lastModifiedBy: null,
-			lastModifiedDate: 1631629033000,
-			active: 1,
 			id: 0,
 			code: 'LIST001',
 			name: 'Basic',
@@ -25,11 +20,6 @@ export const priceDTO: PriceDTO[] = [
 	{
 		id: 17550,
 		list: {
-			createdBy: null,
-			createdDate: 1631629033000,
-			lastModifiedBy: null,
-			lastModifiedDate: 1631629033000,
-			active: 1,
 			id: 0,
 			code: 'LIST001',
 			name: 'Basic',
@@ -46,11 +36,6 @@ export const priceDTO: PriceDTO[] = [
 	{
 		id: 17551,
 		list: {
-			createdBy: null,
-			createdDate: 1631629033000,
-			lastModifiedBy: null,
-			lastModifiedDate: 1631629033000,
-			active: 1,
 			id: 0,
 			code: 'LIST001',
 			name: 'Basic',
@@ -67,11 +52,6 @@ export const priceDTO: PriceDTO[] = [
 	{
 		id: 17562,
 		list: {
-			createdBy: null,
-			createdDate: 1631629033000,
-			lastModifiedBy: null,
-			lastModifiedDate: 1631629033000,
-			active: 1,
 			id: 0,
 			code: 'LIST001',
 			name: 'Basic',
@@ -88,11 +68,6 @@ export const priceDTO: PriceDTO[] = [
 	{
 		id: 17560,
 		list: {
-			createdBy: null,
-			createdDate: 1631629033000,
-			lastModifiedBy: null,
-			lastModifiedDate: 1631629033000,
-			active: 1,
 			id: 0,
 			code: 'LIST001',
 			name: 'Basic',
@@ -109,11 +84,6 @@ export const priceDTO: PriceDTO[] = [
 	{
 		id: 17552,
 		list: {
-			createdBy: null,
-			createdDate: 1631629033000,
-			lastModifiedBy: null,
-			lastModifiedDate: 1631629033000,
-			active: 1,
 			id: 0,
 			code: 'LIST001',
 			name: 'Basic',
@@ -130,11 +100,6 @@ export const priceDTO: PriceDTO[] = [
 	{
 		id: 17553,
 		list: {
-			createdBy: null,
-			createdDate: 1631629033000,
-			lastModifiedBy: null,
-			lastModifiedDate: 1631629033000,
-			active: 1,
 			id: 0,
 			code: 'LIST001',
 			name: 'Basic',

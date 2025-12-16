@@ -77,7 +77,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
 				message: t('examination.ap.lessthanmax'),
 				test: function (value) {
 					if (!isEmpty(value) && !isEmpty(this.parent.pex_ap_max)) {
-						return this.parent.pex_ap_max >= value;
+						return this.parent.pex_ap_max >= (value ?? 0);
 					}
 					return true;
 				},
@@ -90,7 +90,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
 				message: t('examination.ap.morethanmin'),
 				test: function (value) {
 					if (!isEmpty(value) && !isEmpty(this.parent.pex_ap_min)) {
-						return this.parent.pex_ap_min <= value;
+						return this.parent.pex_ap_min <= (value ?? 0);
 					}
 					return true;
 				},

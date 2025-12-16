@@ -1,6 +1,6 @@
 import { CheckOutlined } from '@mui/icons-material';
 import { CircularProgress } from '@mui/material';
-import { type ReactNode, useCallback, useEffect, useRef } from 'react';
+import { type ReactNode, useCallback, useEffect, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { TActions } from '~/components/accessories/table/types';
 import { useAppDispatch, useAppSelector } from '~/libraries/hooks/redux';
@@ -109,28 +109,34 @@ export const UsersTable = ({ headerActions, onEdit, onDelete }: IOwnProps) => {
 		(state) => state.users.userList,
 	);
 
-	const formatDataToDisplay = (data: UserDTO[]) => {
-		return data.map((item) => {
-			return {
-				userName: item.userName ?? '',
-				userGroupName: item.userGroupName?.code ?? '',
-				desc: item.desc ?? '',
-				passwd: item.passwd ?? '',
-				deleted: item.deleted ? <CheckOutlined fontSize="small" /> : '',
-			};
-		});
-	};
+	const formattedData = useMemo(() => {
+		return (
+			data?.map((item) => {
+				return {
+					userName: item.userName ?? '',
+					userGroupName: item.userGroupName?.code ?? '',
+					desc: item.desc ?? '',
+					passwd: item.passwd ?? '',
+					deleted: item.deleted ? <CheckOutlined fontSize="small" /> : '',
+				};
+			}) ?? []
+		);
+	}, [data]);
 
 	const handleUpdate = useCallback(
 		(deleted: boolean) => (row: UserDTO) => {
-			dispatch(
-				updateUser({
-					...row,
-					userGroupName: data?.find((user) => user.userName === row.userName)
-						?.userGroupName,
-					deleted,
-				}),
-			);
+			const group = data?.find(
+				(user) => user.userName === row.userName,
+			)?.userGroupName;
+			if (group) {
+				dispatch(
+					updateUser({
+						...row,
+						userGroupName: group,
+						deleted,
+					}),
+				);
+			}
 		},
 		[data, dispatch],
 	);
@@ -174,7 +180,7 @@ export const UsersTable = ({ headerActions, onEdit, onDelete }: IOwnProps) => {
 									</div>
 								)}
 								<Table
-									rowData={formatDataToDisplay(data ?? [])}
+									rowData={formattedData}
 									tableHeader={header}
 									labelData={label}
 									columnsOrder={order}

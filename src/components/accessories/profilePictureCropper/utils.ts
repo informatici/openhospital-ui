@@ -37,7 +37,7 @@ export const handlePictureSelection =
 	) =>
 	(e: ChangeEvent<HTMLInputElement>): void => {
 		const newPic = e.target.files?.[0];
-		if (getFileSize(newPic, maxFileUpload)) {
+		if (newPic && getFileSize(newPic, maxFileUpload)) {
 			if (newPic) {
 				const dataURLReader = new FileReader();
 				dataURLReader.onload = (e) => {

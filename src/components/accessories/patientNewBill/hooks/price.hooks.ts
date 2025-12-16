@@ -11,7 +11,7 @@ export const usePriceLists = () => {
 	);
 
 	useEffect(() => {
-		dispatch(getPriceLists);
+		dispatch(getPriceLists());
 	}, [dispatch]);
 
 	return priceLists;

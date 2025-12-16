@@ -59,11 +59,7 @@ export const SearchPatientActivity = () => {
 	};
 
 	const validationSchema = object({
-		id: number().when(['firstName', 'secondName', 'birthDate', 'address'], {
-			is: (firstName, secondName, birthDate, address) =>
-				!firstName && !secondName && !birthDate && !address,
-			then: number().required(),
-		}),
+		id: number(),
 	});
 
 	const formik = useFormik({

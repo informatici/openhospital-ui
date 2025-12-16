@@ -1,14 +1,12 @@
-import type { TFunction } from 'react-i18next';
 import { boolean, object, ref, string } from 'yup';
 import type { UserGroupDTO } from '../../../../../generated';
-import type { FormProps } from './NewUser';
 // min 5 characters, 1 upper case letter, 1 lower case letter, 1 numeric digit.
 export const passwordRules = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}$/;
 
 export const userNameRules = /^[a-z0-9-._]+$/;
 
-export const userSchema = (t: TFunction<'translation'>) =>
-	object().shape<FormProps>({
+export const userSchema = (t: (key: string) => string) =>
+	object().shape({
 		userName: string()
 			.min(2)
 			.max(50)

@@ -70,7 +70,10 @@ export const PaymentsTable: FC<IPaymentsTableProps> = ({ fields }) => {
 			message: t('bill.validatetodate'),
 			test: function (value) {
 				return (
-					differenceInDays(new Date(this.parent.fromDate), new Date(value)) >= 0
+					differenceInDays(
+						new Date(this.parent.fromDate),
+						new Date(value ?? Date.now()),
+					) >= 0
 				);
 			},
 		}),
@@ -220,6 +223,8 @@ export const PaymentsTable: FC<IPaymentsTableProps> = ({ fields }) => {
 								</div>
 							</>
 						);
+					default:
+						return;
 				}
 			})()}
 		</div>

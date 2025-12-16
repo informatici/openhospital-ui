@@ -1,6 +1,6 @@
 import type { BillItemsDTO } from '~/generated/models';
 
-const billItemDTO: BillItemsDTO = {
+export const billItemDTO: BillItemsDTO = {
 	id: 0,
 	price: true,
 	billId: 10,

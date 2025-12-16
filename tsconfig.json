@@ -32,5 +32,13 @@
 		"resolveJsonModule": true
 	},
 	"include": ["src"],
-	"exclude": ["cypress.config.ts", "cypress", "node_modules"]
+	"exclude": [
+		"cypress.config.ts",
+		"cypress",
+		"node_modules",
+		"dist",
+		"build",
+		"src/generated",
+		"src/generated/runtime.ts"
+	]
 }

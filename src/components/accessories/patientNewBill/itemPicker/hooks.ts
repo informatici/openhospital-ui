@@ -59,7 +59,7 @@ export const useItemFormik = (
 					message: t('common.lessthan', { value: '1' }),
 					test: (value) => {
 						if (itemType === ItemGroups.medical.id) return true;
-						return !(value > 1);
+						return !((value ?? 0) > 1);
 					},
 				})
 				.min(1, t('common.greaterthan', { value: '1' })),

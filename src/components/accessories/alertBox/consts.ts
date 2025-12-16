@@ -1,14 +1,10 @@
-import type { Theme } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+import type { SxProps, Theme } from '@mui/material';
 
-export const useStyles = makeStyles<
-	Theme,
-	{ type: 'error' | 'warning' | 'info' | 'success' }
->((theme) => ({
-	root: (props) => ({
+export const makeStyles = (type: 'error' | 'warning' | 'info' | 'success') => ({
+	root: (theme: Theme) => ({
 		display: 'flex',
-		border: `0.5px solid ${theme.palette[props.type].main}`,
-		borderLeft: `8px solid ${theme.palette[props.type].main}`,
+		border: `0.5px solid ${theme.palette[type].main}`,
+		borderLeft: `8px solid ${theme.palette[type].main}`,
 		borderRadius: 1,
 		margin: '20px 0px',
 		boxShadow: `0 1px 2px 0px black`,
@@ -21,19 +17,19 @@ export const useStyles = makeStyles<
 		flexDirection: 'column',
 		justifyContent: 'space-between',
 	},
-	title: (props) => ({
+	title: ((theme: Theme) => ({
 		...theme.typography.h6,
-		color: theme.palette[props.type].main,
-	}),
-	content: {
+		color: theme.palette[type].main,
+	})) as SxProps,
+	content: ((theme: Theme) => ({
 		flexGrow: 1,
 		...theme.typography.caption,
-	},
-	icon: (props) => ({
-		color: theme.palette[props.type].main,
+	})) as SxProps,
+	icon: (theme: Theme) => ({
+		color: theme.palette[type].main,
 		display: 'flex',
 		alignItems: 'center',
 		padding: 8,
 		height: "'100%'",
 	}),
-}));
+});

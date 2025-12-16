@@ -1,8 +1,8 @@
 import type { RefObject } from 'react';
-import type { Data } from 'react-csv/components/CommonPropTypes';
+import type { CommonPropTypes } from 'react-csv/components/CommonPropTypes';
 
 export interface IOwnProps {
-	csvData: string | Data;
+	csvData: string | CommonPropTypes['data'];
 	graphRef: RefObject<any>;
 	title?: string;
 }

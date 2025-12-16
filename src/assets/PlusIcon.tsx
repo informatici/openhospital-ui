@@ -1,4 +1,4 @@
-const PlusIcon = (): JSX.Element => (
+const PlusIcon = () => (
 	<svg
 		width="44px"
 		height="43px"

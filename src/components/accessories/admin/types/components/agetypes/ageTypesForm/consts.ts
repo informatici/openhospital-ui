@@ -22,7 +22,7 @@ export const validateRange = (
 	ranges.forEach((ageType, index) => {
 		if (index > 0) {
 			const prev = ranges.at(index - 1);
-			if (ageType.from <= prev?.to) {
+			if (ageType.from <= (prev?.to ?? 0)) {
 				validationErrors.push(
 					t
 						? t('ageTypes.somerangesareoverlapped')

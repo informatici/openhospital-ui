@@ -106,7 +106,7 @@ const BookingForm: FC<TBookingProps> = ({
 	};
 
 	const filtrerUnavailableDates = (date: Date | null) => {
-		return unAvailables.includes(date?.getDate());
+		return unAvailables.includes(date?.getDate() ?? 0);
 	};
 	const renderWrappedDay = (
 		date: any,

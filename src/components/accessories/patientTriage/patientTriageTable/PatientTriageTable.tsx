@@ -1,5 +1,5 @@
 import { CircularProgress } from '@mui/material';
-import { type FunctionComponent, useEffect } from 'react';
+import { type FunctionComponent, useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch, useAppSelector } from '~/libraries/hooks/redux';
 import type { PatientExaminationDTO } from '../../../../generated';
@@ -15,7 +15,9 @@ interface IOwnProps {
 	handleEdit: (row: PatientExaminationDTO) => void;
 }
 
-const PatientTriageTable: FunctionComponent<IOwnProps> = ({ handleEdit }) => {
+const PatientTriageTable: FunctionComponent<IOwnProps> = ({
+	handleEdit: onEdit,
+}) => {
 	const { t } = useTranslation();
 	const canUpdate = usePermission('examinations.update');
 	const label = {
@@ -54,10 +56,16 @@ const PatientTriageTable: FunctionComponent<IOwnProps> = ({ handleEdit }) => {
 		dispatch(examinationsByPatientId(patientCode));
 	}, [dispatch, patientCode]);
 
-	const onEdit = (row: PatientExaminationDTO) => {
-		const pex = data.find((item) => item.pex_ID === row.pex_ID);
-		handleEdit(pex ?? '');
-	};
+	const handleEdit = useCallback(
+		(row: PatientExaminationDTO) => {
+			const pex = data.find((item) => item.pex_ID === row.pex_ID);
+			if (pex) {
+				onEdit(pex);
+			}
+		},
+		[data, onEdit],
+	);
+
 	const formatDataToDisplay = (data: PatientExaminationDTO[]) => {
 		return data.map((item) => {
 			return {
@@ -120,7 +128,7 @@ const PatientTriageTable: FunctionComponent<IOwnProps> = ({ handleEdit }) => {
 								labelData={label}
 								columnsOrder={order}
 								rowsPerPage={5}
-								onEdit={canUpdate ? onEdit : undefined}
+								onEdit={canUpdate ? handleEdit : undefined}
 								isCollapsabile={true}
 								showEmptyCell={false}
 							/>

@@ -1,6 +1,6 @@
 import type { BillPaymentsDTO } from '~/generated/models';
 
-const billPaymentsDTO: BillPaymentsDTO = {
+export const billPaymentsDTO: BillPaymentsDTO = {
 	id: 0,
 	billId: 10,
 	date: new Date().toISOString(),

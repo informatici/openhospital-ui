@@ -1,9 +1,7 @@
-import type { TFunction } from 'react-i18next';
 import { boolean, object, string } from 'yup';
-import type { UserGroupDTO } from '../../../../../generated';
 
-export const userGroupSchema = (t: TFunction<'translation'>) =>
-	object().shape<UserGroupDTO>({
+export const userGroupSchema = (t: (key: string) => string) =>
+	object().shape({
 		code: string().min(2).required(t('user.validateGroupCode')),
 		desc: string(),
 		deleted: boolean(),

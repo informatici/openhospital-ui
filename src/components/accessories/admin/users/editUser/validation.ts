@@ -1,17 +1,11 @@
-import type { TFunction } from 'react-i18next';
 import { boolean, object, ref, string } from 'yup';
-import type { UserDTO, UserGroupDTO } from '../../../../../generated';
+import type { UserGroupDTO } from '../../../../../generated';
 
 // min 5 characters, 1 upper case letter, 1 lower case letter, 1 numeric digit.
 export const passwordRules = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}$/;
 
-export const userSchema = (t: TFunction<'translation'>) =>
-	object().shape<
-		Pick<UserDTO, 'userGroupName' | 'deleted' | 'desc'> & {
-			passwd: string | undefined;
-			passwd2: string | undefined;
-		}
-	>({
+export const userSchema = (t: (key: string) => string) =>
+	object().shape({
 		userGroupName: object<UserGroupDTO>({
 			code: string().required(t('user.validateUserNeedsGroup')),
 			desc: string(),

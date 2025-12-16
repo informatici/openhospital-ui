@@ -6,7 +6,7 @@ import {
 	type Layouts,
 	Responsive,
 	WidthProvider,
-} from 'react-grid-layout/legacy';
+} from 'react-grid-layout';
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch, useAppSelector } from '~/libraries/hooks/redux';
 import type { UserSettingDTO } from '../../../../../generated';
