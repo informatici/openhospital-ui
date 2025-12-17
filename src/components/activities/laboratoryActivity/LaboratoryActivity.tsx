@@ -10,7 +10,7 @@ import { HospitalInfo } from '../../accessories/hospitalInfo/HospitalInfo';
 import { Exams } from '../../accessories/laboratory/Exams';
 import './styles.scss';
 
-const LaboratoryActivity: FC = () => {
+export const LaboratoryActivity: FC = () => {
 	const { t } = useTranslation();
 	const location = useLocation();
 	const breadcrumbMap = useMemo(() => {

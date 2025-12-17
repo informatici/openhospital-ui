@@ -55,6 +55,15 @@ const router = createBrowserRouter([
 					),
 			},
 			{
+				path: 'laboratory',
+				lazy: async () =>
+					import(
+						'../components/activities/laboratoryActivity/LaboratoryActivity'
+					).then((module) => ({
+						Component: module.LaboratoryActivity,
+					})),
+			},
+			{
 				path: 'admin',
 				lazy: async () =>
 					import('./admin').then((module) => ({

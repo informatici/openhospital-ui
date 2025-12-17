@@ -44,20 +44,6 @@ export const laboratories = [
 			);
 		},
 	),
-	http.get('/laboratories/{code}', async ({ params, response }) => {
-		const code = params.code;
-		if (code === '1000') {
-			return response.untyped(badRequest({}));
-		}
-		if (code === '2000') {
-			return response.untyped(noContent());
-		}
-		const lab = laboratoryDTO.find((e) => e.code === +code);
-		if (isEmpty(lab)) {
-			return response.untyped(notFound({}));
-		}
-		return response(200).json(lab);
-	}),
 	http.get('/laboratories/exams/{code}', async ({ params, response }) => {
 		const code = params.code;
 		if (code === '1000') {
@@ -72,16 +58,15 @@ export const laboratories = [
 		}
 		return response(200).json(lab);
 	}),
-	http.get('/laboratories/exams', async ({ request, response }) => {
-		const url = new URL(request.url);
-		const code = url.searchParams.get('patientCode');
+	http.get('/laboratories/exams', async ({ query, response }) => {
+		const code = query.get('patientCode');
 		if (code === '1000') {
 			return response.untyped(badRequest({}));
 		}
 		if (code === '200000') {
 			return response.untyped(noContent());
 		}
-		const page = url.searchParams.get('page');
+		const page = query.get('page');
 		const pageNum = page ? parseInt(page, 10) : 0;
 		return response(200).json({
 			data: labWithRowsDTO,
@@ -117,5 +102,19 @@ export const laboratories = [
 	}),
 	http.get('/laboratories/materials', async ({ response }) => {
 		return response(200).json(materialsDTO);
+	}),
+	http.get('/laboratories/{code}', async ({ params, response }) => {
+		const code = params.code;
+		if (code === '1000') {
+			return response.untyped(badRequest({}));
+		}
+		if (code === '2000') {
+			return response.untyped(noContent());
+		}
+		const lab = laboratoryDTO.find((e) => e.code === +code);
+		if (isEmpty(lab)) {
+			return response.untyped(notFound({ message: 'Exam lab not found' }));
+		}
+		return response(200).json(lab);
 	}),
 ];
