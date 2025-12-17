@@ -11,7 +11,7 @@ export const laboratories = [
 		async ({ params, response }) => {
 			const patId = params.patId;
 			if (patId === '1000') {
-				return response.untyped(badRequest({}));
+				return response.untyped(badRequest({ message: 'Request failed' }));
 			}
 			if (patId === '2000') {
 				return response.untyped(noContent());
@@ -30,7 +30,7 @@ export const laboratories = [
 		async ({ params, response }) => {
 			const patId = params.patId;
 			if (patId === '1000') {
-				return response.untyped(badRequest({}));
+				return response.untyped(badRequest({ message: 'Request failed' }));
 			}
 			if (patId === '2000') {
 				return response.untyped(noContent());
@@ -47,21 +47,21 @@ export const laboratories = [
 	http.get('/laboratories/exams/{code}', async ({ params, response }) => {
 		const code = params.code;
 		if (code === '1000') {
-			return response.untyped(badRequest({}));
+			return response.untyped(badRequest({ message: 'Request failed' }));
 		}
 		if (code === '2000') {
 			return response.untyped(noContent());
 		}
 		const lab = labWithRowsDTO.find((e) => e.laboratoryDTO?.code === +code);
 		if (isEmpty(lab)) {
-			return response.untyped(notFound({}));
+			return response.untyped(notFound({ message: 'Not found' }));
 		}
 		return response(200).json(lab);
 	}),
 	http.get('/laboratories/exams', async ({ query, response }) => {
 		const code = query.get('patientCode');
 		if (code === '1000') {
-			return response.untyped(badRequest({}));
+			return response.untyped(badRequest({ message: 'Request failed' }));
 		}
 		if (code === '200000') {
 			return response.untyped(noContent());
@@ -79,7 +79,7 @@ export const laboratories = [
 	http.post('/laboratories', async ({ request, response }) => {
 		const body = await request.json();
 		if (body.laboratoryDTO?.note === 'ERROR') {
-			return response.untyped(badRequest({}));
+			return response.untyped(badRequest({ message: 'Request failed' }));
 		}
 		return response(201).json(true);
 	}),
@@ -89,14 +89,14 @@ export const laboratories = [
 	http.delete('/laboratories/{code}', async ({ params, response }) => {
 		const code = params.code;
 		if (code === '-1') {
-			return response.untyped(badRequest({}));
+			return response.untyped(badRequest({ message: 'Request failed' }));
 		}
 		return response.untyped(noContent());
 	}),
 	http.put('/laboratories/{code}', async ({ params, response }) => {
 		const code = params.code;
 		if (code === '-1') {
-			return response.untyped(badRequest({}));
+			return response.untyped(badRequest({ message: 'Request failed' }));
 		}
 		return response(200).json(true);
 	}),
@@ -106,7 +106,7 @@ export const laboratories = [
 	http.get('/laboratories/{code}', async ({ params, response }) => {
 		const code = params.code;
 		if (code === '1000') {
-			return response.untyped(badRequest({}));
+			return response.untyped(badRequest({ message: 'Request failed' }));
 		}
 		if (code === '2000') {
 			return response.untyped(noContent());

@@ -6,14 +6,14 @@ export const opds = [
 	http.post('/opds', async ({ request, response }) => {
 		const body = await request.json();
 		if (body.note === 'fail') {
-			return response.untyped(badRequest({}));
+			return response.untyped(badRequest({ message: 'Request failed' }));
 		}
 		return response(201).json(body);
 	}),
 	http.post('/opds/rows', async ({ request, response }) => {
 		const body = await request.json();
 		if (body.opdDTO?.note === 'fail') {
-			return response.untyped(badRequest({}));
+			return response.untyped(badRequest({ message: 'Request failed' }));
 		}
 		const operationRows =
 			body.operationRows?.map((item) => {
@@ -31,7 +31,7 @@ export const opds = [
 	http.put('/opds/{code}', async ({ params, request, response }) => {
 		const code = params.code;
 		if (code === '100') {
-			return response.untyped(badRequest({}));
+			return response.untyped(badRequest({ message: 'Request failed' }));
 		}
 		const body = await request.json();
 		return response(200).json(body);
@@ -39,7 +39,7 @@ export const opds = [
 	http.put('/opds/rows/{code}', async ({ params, request, response }) => {
 		const code = params.code;
 		if (code === '100') {
-			return response.untyped(badRequest({}));
+			return response.untyped(badRequest({ message: 'Request failed' }));
 		}
 		const body = await request.json();
 		const operationRows =
@@ -58,7 +58,7 @@ export const opds = [
 	http.get('/opds/patient/{pcode}', async ({ params, response }) => {
 		const pcode = params.pcode;
 		if (pcode === '1000') {
-			return response.untyped(badRequest({}));
+			return response.untyped(badRequest({ message: 'Request failed' }));
 		}
 		if (pcode === '200000') {
 			return response.untyped(noContent());
@@ -73,18 +73,17 @@ export const opds = [
 	http.get('/opds/last/{patientCode}', async ({ params, response }) => {
 		const patientCode = params.patientCode;
 		if (patientCode === '1000') {
-			return response.untyped(badRequest({}));
+			return response.untyped(badRequest({ message: 'Request failed' }));
 		}
 		if (patientCode === '200000') {
 			return response.untyped(noContent());
 		}
 		return response(200).json(opdDTO);
 	}),
-	http.get('/opds/search', async ({ request, response }) => {
-		const url = new URL(request.url);
-		const code = url.searchParams.get('patientCode');
+	http.get('/opds/search', async ({ query, response }) => {
+		const code = query.get('patientCode');
 		if (code === '1000') {
-			return response.untyped(badRequest({}));
+			return response.untyped(badRequest({ message: 'Request failed' }));
 		}
 		if (code === '200000') {
 			return response.untyped(noContent());
@@ -116,7 +115,7 @@ export const opds = [
 	http.delete('/opds/{code}', async ({ params, response }) => {
 		const code = params.code;
 		if (code === 'fail') {
-			return response.untyped(badRequest({}));
+			return response.untyped(badRequest({ message: 'Request failed' }));
 		}
 		return response(200).json(true);
 	}),

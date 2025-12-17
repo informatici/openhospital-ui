@@ -9,7 +9,7 @@ export const hospitals = [
 	http.get('/hospitals/{code}' as any, async ({ params, response }) => {
 		const code = params.code;
 		if (code === '1') {
-			return response.untyped(badRequest({}));
+			return response.untyped(badRequest({ message: 'Request failed' }));
 		}
 		if (code === '2') {
 			return response.untyped(noContent());

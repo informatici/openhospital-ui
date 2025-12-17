@@ -35,12 +35,6 @@ export const bills = [
 			}),
 		);
 	}),
-	http.get('/bills/payments/{bill_id}', ({ response }) => {
-		return response(200).json(billPaymentsDTOs);
-	}),
-	http.get('/bills/items/{bill_id}', ({ response }) => {
-		return response(200).json(billItemDTOs);
-	}),
 	http.get('/bills/payments', async ({ query, response }) => {
 		const code = query.get('patient_code') || '0';
 		return response(200).json(
@@ -49,6 +43,12 @@ export const bills = [
 				return +code === 0 || bill?.patient?.code === +code;
 			}),
 		);
+	}),
+	http.get('/bills/payments/{bill_id}', ({ response }) => {
+		return response(200).json(billPaymentsDTOs);
+	}),
+	http.get('/bills/items/{bill_id}', ({ response }) => {
+		return response(200).json(billItemDTOs);
 	}),
 	http.delete('/bills/{id}', async ({ params, response }) => {
 		const code = params.id;

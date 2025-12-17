@@ -33,14 +33,14 @@ export const admissionsHandlers = [
 	http.post('/admissions', async ({ request, response }) => {
 		const body = await request.json();
 		if (body.admDate === 'fail') {
-			return response.untyped(badRequest({}));
+			return response.untyped(badRequest({ message: 'Request failed' }));
 		}
 		return response(201).json(body);
 	}),
 	http.put('/admissions', async ({ request, response }) => {
 		const body = await request.json();
 		if (body.note === 'fail') {
-			return response.untyped(badRequest({}));
+			return response.untyped(badRequest({ message: 'Request failed' }));
 		}
 		return response(200).json(body);
 	}),
@@ -55,7 +55,7 @@ export const admissionsHandlers = [
 		async ({ params, response }) => {
 			const code = params.patientCode;
 			if (code === '10000') {
-				return response.untyped(badRequest({}));
+				return response.untyped(badRequest({ message: 'Request failed' }));
 			}
 			if (code === '21266') {
 				return response.untyped(noContent());
@@ -63,11 +63,10 @@ export const admissionsHandlers = [
 			return response(200).json(admissions as AdmissionDTO[]);
 		},
 	),
-	http.get('/admissions/current', async ({ request, response }) => {
-		const url = new URL(request.url);
-		const code = url.searchParams.get('patientCode');
+	http.get('/admissions/current', async ({ query, response }) => {
+		const code = query.get('patientCode');
 		if (code === '50') {
-			return response.untyped(badRequest({}));
+			return response.untyped(badRequest({ message: 'Request failed' }));
 		}
 		if (code === '21266') {
 			return response.untyped(noContent());
@@ -77,7 +76,7 @@ export const admissionsHandlers = [
 	http.post('/admissions/discharge', async ({ request, response }) => {
 		const body = await request.json();
 		if (body.note === 'fail') {
-			return response.untyped(badRequest(null));
+			return response.untyped(badRequest({ message: 'Request failed' }));
 		}
 		return response(200).json(true);
 	}),
