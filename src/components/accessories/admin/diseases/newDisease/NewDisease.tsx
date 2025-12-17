@@ -1,5 +1,5 @@
-import { useTranslation } from 'react-i18next';
 import { AdminActivityContent } from '~/components/activities/adminActivity';
+import { useTranslation } from '~/libraries/hooks';
 import { useAppDispatch, useAppSelector } from '~/libraries/hooks/redux';
 import type { DiseaseDTO } from '../../../../../generated';
 import { createDisease } from '../../../../../state/diseases';

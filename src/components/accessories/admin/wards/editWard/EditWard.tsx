@@ -1,5 +1,6 @@
-import { useTranslation } from 'react-i18next';
 import { Navigate, useLocation, useParams } from 'react-router';
+import { AdminActivityContent } from '~/components/activities/adminActivity';
+import { useTranslation } from '~/libraries/hooks';
 import { useAppDispatch, useAppSelector } from '~/libraries/hooks/redux';
 import { PATHS } from '../../../../../consts';
 import type { WardDTO } from '../../../../../generated';
@@ -23,13 +24,15 @@ export const EditWard = () => {
 	}
 
 	return (
-		<WardForm
-			creationMode={false}
-			onSubmit={handleSubmit}
-			isLoading={!!update.isLoading}
-			resetButtonLabel={t('common.reset')}
-			submitButtonLabel={t('ward.updateWard')}
-			fields={getInitialFields(state)}
-		/>
+		<AdminActivityContent title={t('ward.updateWard')}>
+			<WardForm
+				creationMode={false}
+				onSubmit={handleSubmit}
+				isLoading={!!update.isLoading}
+				resetButtonLabel={t('common.reset')}
+				submitButtonLabel={t('ward.updateWard')}
+				fields={getInitialFields(state)}
+			/>
+		</AdminActivityContent>
 	);
 };
