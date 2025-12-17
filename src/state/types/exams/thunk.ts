@@ -1,4 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { firstValueFrom } from 'rxjs';
 import { wrapper } from '~/libraries/apiUtils/wrapper';
 import { type ExamTypeDTO, ExamTypesApi } from '../../../generated';
 import { customConfiguration } from '../../../libraries/apiUtils/configuration';
@@ -8,32 +9,31 @@ const api = new ExamTypesApi(customConfiguration());
 export const getExamTypes = createAsyncThunk(
 	'examTypes/getExamTypes',
 	async (_, thunkApi) =>
-		wrapper(() => api.getExamTypes())
-			.toPromise()
-			.catch((error) => thunkApi.rejectWithValue(error.response)),
+		firstValueFrom(wrapper(() => api.getExamTypes())).catch((error) =>
+			thunkApi.rejectWithValue(error.response),
+		),
 );
 
 export const createExamType = createAsyncThunk(
 	'examTypes/createExamType',
 	async (examTypeDTO: ExamTypeDTO, thunkApi) =>
-		wrapper(() => api.newExamType({ examTypeDTO }))
-			.toPromise()
-			.catch((error) => thunkApi.rejectWithValue(error.response)),
+		firstValueFrom(wrapper(() => api.newExamType({ examTypeDTO }))).catch(
+			(error) => thunkApi.rejectWithValue(error.response),
+		),
 );
 
 export const updateExamType = createAsyncThunk(
 	'examTypes/updateExamType',
 	async (payload: { code: string; examTypeDTO: ExamTypeDTO }, thunkApi) =>
-		wrapper(() => api.updateExamType(payload))
-			.toPromise()
-			.catch((error) => thunkApi.rejectWithValue(error.response)),
+		firstValueFrom(wrapper(() => api.updateExamType(payload))).catch((error) =>
+			thunkApi.rejectWithValue(error.response),
+		),
 );
 
 export const deleteExamType = createAsyncThunk(
 	'examTypes/deleteExamType',
 	async (code: string, thunkApi) =>
-		wrapper(() => api.deleteExamType({ code }))
-			.toPromise()
+		firstValueFrom(wrapper(() => api.deleteExamType({ code })))
 			.then(() => ({ code }))
 			.catch((error) => thunkApi.rejectWithValue(error.response)),
 );

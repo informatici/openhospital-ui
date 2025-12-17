@@ -1,4 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { firstValueFrom } from 'rxjs';
 import { wrapper } from '~/libraries/apiUtils/wrapper';
 import { TherapiesApi, type TherapyRowDTO } from '../../generated';
 import { customConfiguration } from '../../libraries/apiUtils/configuration';
@@ -8,24 +9,25 @@ const api = new TherapiesApi(customConfiguration());
 export const getTherapiesByPatientId = createAsyncThunk(
 	'therapies/getTherapiesByPatientId',
 	async (codePatient: number | undefined, thunkApi) =>
-		wrapper(() => api.getTherapyRows({ codePatient: codePatient ?? -1 }))
-			.toPromise()
-			.catch((error) => thunkApi.rejectWithValue(error.response)),
+		firstValueFrom(
+			wrapper(() => api.getTherapyRows({ codePatient: codePatient ?? -1 })),
+		).catch((error) => thunkApi.rejectWithValue(error.response)),
 );
 
 export const createTherapy = createAsyncThunk(
 	'therapies/createTherapy',
 	async (therapyRowDTO: TherapyRowDTO, thunkApi) =>
-		wrapper(() => api.newTherapy({ therapyRowDTO }))
-			.toPromise()
-			.catch((error) => thunkApi.rejectWithValue(error.response)),
+		firstValueFrom(wrapper(() => api.newTherapy({ therapyRowDTO }))).catch(
+			(error) => thunkApi.rejectWithValue(error.response),
+		),
 );
 
 export const updateTherapy = createAsyncThunk(
 	'therapies/updateTherapy',
 	async (therapyRowDTO: TherapyRowDTO, thunkApi) =>
-		wrapper(() => api.replaceTherapies({ therapyRowDTO: [therapyRowDTO] }))
-			.toPromise()
+		firstValueFrom(
+			wrapper(() => api.replaceTherapies({ therapyRowDTO: [therapyRowDTO] })),
+		)
 			.then(() => therapyRowDTO)
 			.catch((error) => thunkApi.rejectWithValue(error.response)),
 );

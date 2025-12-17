@@ -1,4 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { firstValueFrom } from 'rxjs';
 import { wrapper } from '~/libraries/apiUtils/wrapper';
 import { type SupplierDTO, SuppliersApi } from '../../generated';
 import { customConfiguration } from '../../libraries/apiUtils/configuration';
@@ -8,31 +9,31 @@ const api = new SuppliersApi(customConfiguration());
 export const getSuppliers = createAsyncThunk(
 	'suppliers/getSuppliers',
 	async (excludeDeleted: boolean | undefined, thunkApi) =>
-		wrapper(() => api.getSuppliers({ excludeDeleted }))
-			.toPromise()
-			.catch((error) => thunkApi.rejectWithValue(error.response)),
+		firstValueFrom(wrapper(() => api.getSuppliers({ excludeDeleted }))).catch(
+			(error) => thunkApi.rejectWithValue(error.response),
+		),
 );
 
 export const createSupplier = createAsyncThunk(
 	'suppliers/createSupplier',
 	async (supplierDTO: SupplierDTO, thunkApi) =>
-		wrapper(() => api.saveSupplier({ supplierDTO }))
-			.toPromise()
-			.catch((error) => thunkApi.rejectWithValue(error.response)),
+		firstValueFrom(wrapper(() => api.saveSupplier({ supplierDTO }))).catch(
+			(error) => thunkApi.rejectWithValue(error.response),
+		),
 );
 
 export const updateSupplier = createAsyncThunk(
 	'suppliers/updateSupplier',
 	async (supplierDTO: SupplierDTO, thunkApi) =>
-		wrapper(() => api.updateSupplier({ supplierDTO }))
-			.toPromise()
-			.catch((error) => thunkApi.rejectWithValue(error.response)),
+		firstValueFrom(wrapper(() => api.updateSupplier({ supplierDTO }))).catch(
+			(error) => thunkApi.rejectWithValue(error.response),
+		),
 );
 
 export const deleteSupplier = createAsyncThunk(
 	'suppliers/deleteSupplier',
 	async (id: number, thunkApi) =>
-		wrapper(() => api.deleteSupplier({ id }))
-			.toPromise()
-			.catch((error) => thunkApi.rejectWithValue(error.response)),
+		firstValueFrom(wrapper(() => api.deleteSupplier({ id }))).catch((error) =>
+			thunkApi.rejectWithValue(error.response),
+		),
 );

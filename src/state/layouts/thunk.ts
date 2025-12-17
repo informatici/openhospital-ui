@@ -19,17 +19,18 @@ export const getLayouts = createAsyncThunk(
 export const saveLayouts = createDebouncedAsyncThunk(
 	'layouts/saveLayouts',
 	async (setting: UserSettingDTO, thunkApi) =>
-		wrapper(() =>
-			setting.id > 0
-				? api.updateUserSettings({
-						id: setting.id,
-						userSettingDTO: setting,
-					})
-				: api.newUserSettings({
-						userSettingDTO: setting,
-					}),
+		firstValueFrom(
+			wrapper(() =>
+				setting.id > 0
+					? api.updateUserSettings({
+							id: setting.id,
+							userSettingDTO: setting,
+						})
+					: api.newUserSettings({
+							userSettingDTO: setting,
+						}),
+			),
 		)
-			.toPromise()
 			.then((data) => ({ ...decodeLayoutConfig(setting.configValue), data }))
 			.catch((error) => thunkApi.rejectWithValue(error.response)),
 );

@@ -1,4 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { firstValueFrom } from 'rxjs';
 import { wrapper } from '~/libraries/apiUtils/wrapper';
 import {
 	GetMedicalsSortByEnum,
@@ -12,35 +13,35 @@ const api = new MedicalsApi(customConfiguration());
 export const getMedicals = createAsyncThunk(
 	'medicals/getMedicals',
 	async (_, thunkApi) =>
-		wrapper(() =>
-			api.getMedicals({
-				sortBy: GetMedicalsSortByEnum.Name,
-			}),
-		)
-			.toPromise()
-			.catch((error) => thunkApi.rejectWithValue(error.response)),
+		firstValueFrom(
+			wrapper(() =>
+				api.getMedicals({
+					sortBy: GetMedicalsSortByEnum.Name,
+				}),
+			),
+		).catch((error) => thunkApi.rejectWithValue(error.response)),
 );
 
 export const createMedical = createAsyncThunk(
 	'medicals/createMedical',
 	async (medicalDTO: MedicalDTO, thunkApi) =>
-		wrapper(() => api.newMedical({ medicalDTO }))
-			.toPromise()
-			.catch((error) => thunkApi.rejectWithValue(error.response)),
+		firstValueFrom(wrapper(() => api.newMedical({ medicalDTO }))).catch(
+			(error) => thunkApi.rejectWithValue(error.response),
+		),
 );
 
 export const updateMedical = createAsyncThunk(
 	'medicals/updateMedical',
 	async (medicalDTO: MedicalDTO, thunkApi) =>
-		wrapper(() => api.updateMedical({ medicalDTO }))
-			.toPromise()
-			.catch((error) => thunkApi.rejectWithValue(error.response)),
+		firstValueFrom(wrapper(() => api.updateMedical({ medicalDTO }))).catch(
+			(error) => thunkApi.rejectWithValue(error.response),
+		),
 );
 
 export const deleteMedical = createAsyncThunk(
 	'medicals/deleteMedical',
 	async (code: number, thunkApi) =>
-		wrapper(() => api.deleteMedical({ code }))
-			.toPromise()
-			.catch((error) => thunkApi.rejectWithValue(error.response)),
+		firstValueFrom(wrapper(() => api.deleteMedical({ code }))).catch((error) =>
+			thunkApi.rejectWithValue(error.response),
+		),
 );

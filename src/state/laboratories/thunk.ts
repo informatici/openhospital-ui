@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import moment from 'moment';
+import { firstValueFrom } from 'rxjs';
 import { wrapper } from '~/libraries/apiUtils/wrapper';
 import {
 	LaboratoriesApi,
@@ -14,29 +15,28 @@ const api = new LaboratoriesApi(customConfiguration());
 export const searchLabs = createAsyncThunk(
 	'laboratories/searchLabs',
 	async (query: any, thunkApi) =>
-		wrapper(() =>
-			api.getLaboratoryForPrint({
-				dateFrom: query.dateFrom ?? moment().add('-30', 'days').toISOString(),
-				dateTo: query.dateTo ?? moment().toISOString(),
-				examName: query.examName,
-				patientCode: !Number.isNaN(query.patientCode)
-					? query.patientCode
-					: undefined,
-				status: query.status ?? undefined,
-				paged: query.paged,
-				page: query.page,
-				size: query.size,
-			}),
-		)
-			.toPromise()
-			.catch((error) => thunkApi.rejectWithValue(error.response)),
+		firstValueFrom(
+			wrapper(() =>
+				api.getLaboratoryForPrint({
+					dateFrom: query.dateFrom ?? moment().add('-30', 'days').toISOString(),
+					dateTo: query.dateTo ?? moment().toISOString(),
+					examName: query.examName,
+					patientCode: !Number.isNaN(query.patientCode)
+						? query.patientCode
+						: undefined,
+					status: query.status ?? undefined,
+					paged: query.paged,
+					page: query.page,
+					size: query.size,
+				}),
+			),
+		).catch((error) => thunkApi.rejectWithValue(error.response)),
 );
 
 export const getLabsByPatientId = createAsyncThunk(
 	'laboratories/getLabsByPatientId',
 	async (patId: number | undefined, thunkApi) =>
-		wrapper(() => api.getLaboratory1({ patId: patId ?? -1 }))
-			.toPromise()
+		firstValueFrom(wrapper(() => api.getLaboratory1({ patId: patId ?? -1 })))
 			.then((result) =>
 				(result ?? []).map((item) =>
 					item.laboratoryDTO ? item : { laboratoryDTO: item },
@@ -48,40 +48,39 @@ export const getLabsByPatientId = createAsyncThunk(
 export const getLabsRequestByPatientId = createAsyncThunk(
 	'laboratories/getLabsRequestByPatientId',
 	async (patId: number | undefined, thunkApi) =>
-		wrapper(() => api.getLaboratoryExamRequest1({ patId: patId ?? -1 }))
-			.toPromise()
-			.catch((error) => thunkApi.rejectWithValue(error.response)),
+		firstValueFrom(
+			wrapper(() => api.getLaboratoryExamRequest1({ patId: patId ?? -1 })),
+		).catch((error) => thunkApi.rejectWithValue(error.response)),
 );
 
 export const getLabByCode = createAsyncThunk(
 	'laboratories/getLabByCode',
 	async (patId: number | undefined, thunkApi) =>
-		wrapper(() => api.getLaboratory1({ patId: patId ?? -1 }))
-			.toPromise()
-			.catch((error) => thunkApi.rejectWithValue(error.response)),
+		firstValueFrom(
+			wrapper(() => api.getLaboratory1({ patId: patId ?? -1 })),
+		).catch((error) => thunkApi.rejectWithValue(error.response)),
 );
 
 export const getLabWithRowsByCode = createAsyncThunk(
 	'laboratories/getLabWithRowsByCode',
 	async (code: number | undefined, thunkApi) =>
-		wrapper(() => api.getExamWithRowsById({ code: code ?? -1 }))
-			.toPromise()
-			.catch((error) => thunkApi.rejectWithValue(error.response)),
+		firstValueFrom(
+			wrapper(() => api.getExamWithRowsById({ code: code ?? -1 })),
+		).catch((error) => thunkApi.rejectWithValue(error.response)),
 );
 
 export const getMaterials = createAsyncThunk(
 	'laboratories/getMaterials',
 	async (_, thunkApi) =>
-		wrapper(() => api.getMaterials())
-			.toPromise()
-			.catch((error) => thunkApi.rejectWithValue(error.response)),
+		firstValueFrom(wrapper(() => api.getMaterials())).catch((error) =>
+			thunkApi.rejectWithValue(error.response),
+		),
 );
 
 export const createLab = createAsyncThunk(
 	'laboratories/createLab',
 	async (labWithRowsDTO: LabWithRowsDTO, thunkApi) =>
-		wrapper(() => api.newLaboratory({ labWithRowsDTO }))
-			.toPromise()
+		firstValueFrom(wrapper(() => api.newLaboratory({ labWithRowsDTO })))
 			.then(() => labWithRowsDTO)
 			.catch((error) => thunkApi.rejectWithValue(error.response)),
 );
@@ -89,8 +88,7 @@ export const createLab = createAsyncThunk(
 export const createLabRequest = createAsyncThunk(
 	'laboratories/createLabRequest',
 	async (laboratoryDTO: LaboratoryDTO, thunkApi) =>
-		wrapper(() => api.newExamRequest({ laboratoryDTO }))
-			.toPromise()
+		firstValueFrom(wrapper(() => api.newExamRequest({ laboratoryDTO })))
 			.then(() => laboratoryDTO)
 			.catch((error) => thunkApi.rejectWithValue(error.response)),
 );
@@ -98,8 +96,7 @@ export const createLabRequest = createAsyncThunk(
 export const updateLab = createAsyncThunk(
 	'laboratories/updateLab',
 	async (payload: UpdateLaboratoryRequest, thunkApi) =>
-		wrapper(() => api.updateLaboratory(payload))
-			.toPromise()
+		firstValueFrom(wrapper(() => api.updateLaboratory(payload)))
 			.then(() => ({ ...payload.labWithRowsDTO }))
 			.catch((error) => thunkApi.rejectWithValue(error.response)),
 );
@@ -107,23 +104,23 @@ export const updateLab = createAsyncThunk(
 export const updateLabStatus = createAsyncThunk(
 	'laboratories/updateLabStatus',
 	async (payload: { code: number; status: string }, thunkApi) =>
-		wrapper(() => api.updateExamRequest(payload))
-			.toPromise()
-			.catch((error) => thunkApi.rejectWithValue(error.response)),
+		firstValueFrom(wrapper(() => api.updateExamRequest(payload))).catch(
+			(error) => thunkApi.rejectWithValue(error.response),
+		),
 );
 
 export const deleteLab = createAsyncThunk(
 	'laboratories/deleteLab',
 	async (code: number | undefined, thunkApi) =>
-		wrapper(() => api.deleteExam({ code: code ?? -1 }))
-			.toPromise()
-			.catch((error) => thunkApi.rejectWithValue(error.response)),
+		firstValueFrom(wrapper(() => api.deleteExam({ code: code ?? -1 }))).catch(
+			(error) => thunkApi.rejectWithValue(error.response),
+		),
 );
 
 export const cancelLab = createAsyncThunk(
 	'laboratories/cancelLab',
 	async (code: number | undefined, thunkApi) =>
-		wrapper(() => api.deleteExamRequest({ code: code ?? -1 }))
-			.toPromise()
-			.catch((error) => thunkApi.rejectWithValue(error.response)),
+		firstValueFrom(
+			wrapper(() => api.deleteExamRequest({ code: code ?? -1 })),
+		).catch((error) => thunkApi.rejectWithValue(error.response)),
 );

@@ -72,10 +72,9 @@ export const setForgotPasswordThunk = createAsyncThunk(
 export const getUserSettings = createAsyncThunk(
 	'main/getUserSettings',
 	async (_, thunkApi) =>
-		userSettingsApi
-			.getUserSettings()
-			.toPromise()
-			.catch((error) => thunkApi.rejectWithValue(error.response)),
+		firstValueFrom(userSettingsApi.getUserSettings()).catch((error) =>
+			thunkApi.rejectWithValue(error.response),
+		),
 );
 
 export const refreshToken = createAsyncThunk(

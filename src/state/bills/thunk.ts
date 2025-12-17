@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { forkJoin, type Observable, of } from 'rxjs';
+import { firstValueFrom, forkJoin, type Observable, of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { wrapper } from '~/libraries/apiUtils/wrapper';
 import type { TFilterValues } from '../../components/accessories/billTable/types';
@@ -67,130 +67,130 @@ const getItems = (bills: FullBillDTO[]): Observable<FullBillDTO[]> => {
 export const newBill = createAsyncThunk(
 	'bills/newBill',
 	async (fullBillDTO: FullBillDTO, thunkApi) =>
-		wrapper(() => api.newBill({ fullBillDTO }))
-			.toPromise()
-			.catch((error) => thunkApi.rejectWithValue(error.response)),
+		firstValueFrom(wrapper(() => api.newBill({ fullBillDTO }))).catch((error) =>
+			thunkApi.rejectWithValue(error.response),
+		),
 );
 
 export const updateBill = createAsyncThunk(
 	'bills/updateBill',
 	async (payload: UpdateBillRequest, thunkApi) =>
-		wrapper(() => api.updateBill(payload))
-			.toPromise()
-			.catch((error) => thunkApi.rejectWithValue(error.response)),
+		firstValueFrom(wrapper(() => api.updateBill(payload))).catch((error) =>
+			thunkApi.rejectWithValue(error.response),
+		),
 );
 
 export const getBill = createAsyncThunk(
 	'bills/getBill',
 	async (id: number, thunkApi) =>
-		wrapper(() => api.getBill({ id }))
-			.toPromise()
-			.catch((error) => thunkApi.rejectWithValue(error.response)),
+		firstValueFrom(wrapper(() => api.getBill({ id }))).catch((error) =>
+			thunkApi.rejectWithValue(error.response),
+		),
 );
 
 export const getPendingBills = createAsyncThunk(
 	'bills/getPendingBills',
 	async (patientCode: number, thunkApi) =>
-		wrapper(() => api.getPendingBills({ patientCode }))
-			.pipe(
-				switchMap((bills) => getPayments(bills)),
-				catchError(() => of([])),
-			)
-			.pipe(
-				switchMap((payments) => getItems(payments)),
-				catchError(() => of([])),
-			)
-			.toPromise()
-			.catch((error) => thunkApi.rejectWithValue(error.response)),
+		firstValueFrom(
+			wrapper(() => api.getPendingBills({ patientCode }))
+				.pipe(
+					switchMap((bills) => getPayments(bills)),
+					catchError(() => of([])),
+				)
+				.pipe(
+					switchMap((payments) => getItems(payments)),
+					catchError(() => of([])),
+				),
+		).catch((error) => thunkApi.rejectWithValue(error.response)),
 );
 
 export const searchBills = createAsyncThunk(
 	'bills/searchBills',
 	async (filter: TFilterValues, thunkApi) =>
-		wrapper(() =>
-			api.searchBills({
-				datefrom: filter.fromDate,
-				dateto: filter.toDate,
-				patientCode: filter.patientCode,
-			}),
-		)
-			.pipe(
-				switchMap((bills) => getPayments(bills)),
-				catchError(() => of([])),
+		firstValueFrom(
+			wrapper(() =>
+				api.searchBills({
+					datefrom: filter.fromDate,
+					dateto: filter.toDate,
+					patientCode: filter.patientCode,
+				}),
 			)
-			.pipe(
-				switchMap((payments) => getItems(payments)),
-				catchError(() => of([])),
-			)
-			.toPromise()
-			.catch((error) => thunkApi.rejectWithValue(error.response)),
+				.pipe(
+					switchMap((bills) => getPayments(bills)),
+					catchError(() => of([])),
+				)
+				.pipe(
+					switchMap((payments) => getItems(payments)),
+					catchError(() => of([])),
+				),
+		).catch((error) => thunkApi.rejectWithValue(error.response)),
 );
 
 export const searchPayments = createAsyncThunk(
 	'bills/searchPayments',
 	async (filter: TFilterValues, thunkApi) =>
-		wrapper(() =>
-			api.searchBillsPayments({
-				datefrom: filter.fromDate,
-				dateto: filter.toDate,
-				patientCode: filter.patientCode,
-			}),
-		)
-			.toPromise()
-			.catch((error) => thunkApi.rejectWithValue(error.response)),
+		firstValueFrom(
+			wrapper(() =>
+				api.searchBillsPayments({
+					datefrom: filter.fromDate,
+					dateto: filter.toDate,
+					patientCode: filter.patientCode,
+				}),
+			),
+		).catch((error) => thunkApi.rejectWithValue(error.response)),
 );
 
 export const deleteBill = createAsyncThunk(
 	'bills/deleteBill',
 	async (id: number | undefined, thunkApi) =>
-		wrapper(() =>
-			api.deleteBill({
-				id: id ?? -1,
-			}),
-		)
-			.toPromise()
-			.catch((error) => thunkApi.rejectWithValue(error.response)),
+		firstValueFrom(
+			wrapper(() =>
+				api.deleteBill({
+					id: id ?? -1,
+				}),
+			),
+		).catch((error) => thunkApi.rejectWithValue(error.response)),
 );
 
 export const payBill = createAsyncThunk(
 	'bills/payBill',
 	async (payload: BillPaymentsDTO, thunkApi) =>
-		wrapper(() =>
-			api.updateBill({
-				id: payload.billId,
-				fullBillDTO: { billPayments: [payload] } as any,
-			}),
-		)
-			.toPromise()
-			.catch((error) => thunkApi.rejectWithValue(error.response)),
+		firstValueFrom(
+			wrapper(() =>
+				api.updateBill({
+					id: payload.billId,
+					fullBillDTO: { billPayments: [payload] } as any,
+				}),
+			),
+		).catch((error) => thunkApi.rejectWithValue(error.response)),
 );
 
 export const closeBill = createAsyncThunk(
 	'bills/closeBill',
 	async ({ id, bill }: { id: number; bill: BillDTO }, thunkApi) =>
-		wrapper(() => api.updateBill({ id, fullBillDTO: { bill: bill } as any }))
-			.toPromise()
-			.catch((error) => thunkApi.rejectWithValue(error.response)),
+		firstValueFrom(
+			wrapper(() => api.updateBill({ id, fullBillDTO: { bill: bill } as any })),
+		).catch((error) => thunkApi.rejectWithValue(error.response)),
 );
 
 export const getBillsByYear = createAsyncThunk(
 	'bills/getBillsByYear',
 	async (year: number, thunkApi) =>
-		wrapper(() =>
-			api.searchBills({
-				datefrom: new Date(year, 0, 1).toISOString(),
-				dateto: new Date(year, 11, 31).toISOString(),
-				patientCode: 0,
-			}),
-		)
-			.pipe(
-				switchMap((bills) => getPayments(bills)),
-				catchError(() => of([])),
+		firstValueFrom(
+			wrapper(() =>
+				api.searchBills({
+					datefrom: new Date(year, 0, 1).toISOString(),
+					dateto: new Date(year, 11, 31).toISOString(),
+					patientCode: 0,
+				}),
 			)
-			.pipe(
-				switchMap((payments) => getItems(payments)),
-				catchError(() => of([])),
-			)
-			.toPromise()
-			.catch((error) => thunkApi.rejectWithValue(error.response)),
+				.pipe(
+					switchMap((bills) => getPayments(bills)),
+					catchError(() => of([])),
+				)
+				.pipe(
+					switchMap((payments) => getItems(payments)),
+					catchError(() => of([])),
+				),
+		).catch((error) => thunkApi.rejectWithValue(error.response)),
 );
