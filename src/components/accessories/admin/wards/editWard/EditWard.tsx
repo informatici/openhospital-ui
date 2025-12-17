@@ -4,7 +4,7 @@ import { useTranslation } from '~/libraries/hooks';
 import { useAppDispatch, useAppSelector } from '~/libraries/hooks/redux';
 import { PATHS } from '../../../../../consts';
 import type { WardDTO } from '../../../../../generated';
-import { updateWard } from '../../../../../state/ward';
+import { updateWard } from '../../../../../state/wards';
 import { getInitialFields } from '../wardForm/consts';
 import WardForm from '../wardForm/WardForm';
 

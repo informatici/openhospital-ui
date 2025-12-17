@@ -25,7 +25,7 @@ import { userGroupSlice } from './usergroups';
 import { userSlice } from './users';
 import { vaccineSlice } from './vaccines';
 import { visitSlice } from './visits';
-import { wardSlice } from './ward';
+import { wardSlice } from './wards';
 
 const reducer = combineReducers({
 	main: mainSlice.reducer,

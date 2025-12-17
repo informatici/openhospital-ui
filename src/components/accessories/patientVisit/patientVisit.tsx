@@ -13,7 +13,7 @@ import {
 	updateVisit,
 	updateVisitReset,
 } from '../../../state/visits';
-import { getWards } from '../../../state/ward';
+import { getWards } from '../../../state/wards';
 import type { IState } from '../../../types';
 import ConfirmationDialog from '../confirmationDialog/ConfirmationDialog';
 import InfoBox from '../infoBox/InfoBox';

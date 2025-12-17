@@ -7,7 +7,7 @@ import { Permission } from '../../../libraries/permissionUtils/Permission';
 import { getDiseasesOpd } from '../../../state/diseases';
 import { searchOpds } from '../../../state/opds';
 import { getDiseaseTypes } from '../../../state/types/diseases';
-import { getWards } from '../../../state/ward';
+import { getWards } from '../../../state/wards';
 import InfoBox from '../infoBox/InfoBox';
 import Pagination from '../pagination/Pagination';
 import { initialFilter, initialFilterFields } from './consts';

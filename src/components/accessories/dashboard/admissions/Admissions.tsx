@@ -5,7 +5,7 @@ import { useAppDispatch } from '~/libraries/hooks/redux';
 import { getAgeTypes } from '~/state/types/ageTypes';
 import { getAdmissions } from '../../../../state/admissions';
 import { getAdmissionTypes } from '../../../../state/types/admissions';
-import { getWards } from '../../../../state/ward';
+import { getWards } from '../../../../state/wards';
 import { Barchart } from '../../charts/bar/Barchart';
 import { Piechart } from '../../charts/pie/Piechart';
 import { DataSummary } from '../summary/DataSummary';

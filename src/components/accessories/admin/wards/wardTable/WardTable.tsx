@@ -11,7 +11,7 @@ import type { WardDTO } from '~/generated/models/WardDTO';
 import { useAppDispatch, useAppSelector } from '~/libraries/hooks/redux';
 import checkIcon from '../../../../../assets/check-icon.png';
 import { scrollToElement } from '../../../../../libraries/uiUtils/scrollToElement';
-import { deleteWardReset, getWards } from '../../../../../state/ward';
+import { deleteWardReset, getWards } from '../../../../../state/wards';
 import ConfirmationDialog from '../../../confirmationDialog/ConfirmationDialog';
 import InfoBox from '../../../infoBox/InfoBox';
 import type { TFilterField } from '../../../table/filter/types';

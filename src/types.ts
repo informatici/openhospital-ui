@@ -24,7 +24,7 @@ import type { IUserGroupState } from './state/usergroups/types';
 import type { IUserState } from './state/users/types';
 import type { IVaccineState } from './state/vaccines/types';
 import type { IVisitState } from './state/visits/types';
-import type { IWardState } from './state/ward/types';
+import type { IWardState } from './state/wards/types';
 
 export interface IState {
 	main: IMainState;

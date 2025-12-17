@@ -14,7 +14,7 @@ import {
 	formatAllFieldValues,
 	getFromFields,
 } from '../../../../../libraries/formDataHandling/functions';
-import { createWardReset, updateWardReset } from '../../../../../state/ward';
+import { createWardReset, updateWardReset } from '../../../../../state/wards';
 import Button from '../../../button/Button';
 import CheckboxField from '../../../checkboxField/CheckboxField';
 import ConfirmationDialog from '../../../confirmationDialog/ConfirmationDialog';

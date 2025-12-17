@@ -5,7 +5,7 @@ import { AdminActivityContent } from '~/components/activities/adminActivity';
 import { useAppDispatch } from '~/libraries/hooks/redux';
 import { PATHS } from '../../../../consts';
 import type { WardDTO } from '../../../../generated';
-import { deleteWard, deleteWardReset, getWards } from '../../../../state/ward';
+import { deleteWard, deleteWardReset, getWards } from '../../../../state/wards';
 import Button from '../../button/Button';
 import classes from './Wards.module.scss';
 import WardTable from './wardTable';

@@ -52,7 +52,7 @@ import {
 	getOperations,
 	updateOperationRowReset,
 } from '../../../../state/operations';
-import { getWards } from '../../../../state/ward';
+import { getWards } from '../../../../state/wards';
 import type { IState } from '../../../../types';
 import AutocompleteField from '../../autocompleteField/AutocompleteField';
 import Button from '../../button/Button';

@@ -2,7 +2,7 @@ import { AdminActivityContent } from '~/components/activities/adminActivity';
 import { useTranslation } from '~/libraries/hooks';
 import { useAppDispatch, useAppSelector } from '~/libraries/hooks/redux';
 import type { WardDTO } from '../../../../../generated';
-import { createWard } from '../../../../../state/ward';
+import { createWard } from '../../../../../state/wards';
 import { getInitialFields } from '../wardForm/consts';
 import WardForm from '../wardForm/WardForm';
 

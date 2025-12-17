@@ -26,7 +26,7 @@ import {
 } from '../../../../state/diseases';
 import { getAdmissionTypes } from '../../../../state/types/admissions';
 import { getDischargeTypes } from '../../../../state/types/discharges';
-import { getWards } from '../../../../state/ward';
+import { getWards } from '../../../../state/wards';
 import type { IState } from '../../../../types';
 import AutocompleteField from '../../autocompleteField/AutocompleteField';
 import Button from '../../button/Button';

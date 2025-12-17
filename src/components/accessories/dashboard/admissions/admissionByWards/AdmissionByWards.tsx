@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useAppDispatch } from '~/libraries/hooks/redux';
 import { useAdmByAdmWardData } from '../../../../../libraries/dashboardUtils/admissions/useAdmByWardData';
 import { getAdmissions } from '../../../../../state/admissions';
-import { getWards } from '../../../../../state/ward';
+import { getWards } from '../../../../../state/wards';
 import { Barchart } from '../../../charts/bar/Barchart';
 import DataDownloadButton from '../../../dataDownloadButton/DataDownloadButton';
 import { DashboardCard } from '../../card/DashboardCard';
