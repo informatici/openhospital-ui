@@ -1,8 +1,8 @@
 import { CakeOutlined } from '@mui/icons-material';
 import { SvgIcon } from '@mui/material';
-import { ReactComponent as FemaleIcon } from '../../../assets/gender-female.svg';
-import { ReactComponent as MaleIcon } from '../../../assets/gender-male.svg';
-import { ReactComponent as TaxIcon } from '../../../assets/tax.svg';
+import FemaleIcon from '../../../assets/gender-female.svg?react';
+import MaleIcon from '../../../assets/gender-male.svg?react';
+import TaxIcon from '../../../assets/tax.svg?react';
 import type { PatientDTO } from '../../../generated';
 import { renderDate } from '../../../libraries/formatUtils/dataFormatting';
 import { ProfilePicture } from '../profilePicture/ProfilePicture';
