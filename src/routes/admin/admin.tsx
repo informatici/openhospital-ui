@@ -1,6 +1,7 @@
 import { Navigate, type RouteObject } from 'react-router';
 import AdminActivity from '../../components/activities/adminActivity';
 import { PATHS } from '../../consts';
+import { TYPES_ROUTES } from './types';
 
 const getPath = (from: string) => from.replace(`${PATHS.admin}/`, '');
 
@@ -181,8 +182,8 @@ export const ADMIN_ROUTES: RouteObject[] = [
 		lazy: async () =>
 			import('./types').then((module) => ({
 				Component: module.TypesAdmin,
-				children: module.TYPES_ROUTES,
 			})),
+		children: TYPES_ROUTES,
 	},
 	{
 		path: getPath(PATHS.admin_hospital_edit),
