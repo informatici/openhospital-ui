@@ -63,7 +63,7 @@
 		"start": "vite dev",
 		"dev": "vite",
 		"preview": "vite preview",
-		"build": "vite build",
+		"build": "tsc --noEmit && vite build",
 		"test": "vite test",
 		"e2e": "start-server-and-test http://localhost:5173 cypress:open",
 		"cypress:open": "cypress open",
@@ -71,7 +71,8 @@
 		"build:prod": "env-cmd -f .env.prod npm run build",
 		"build:gh-pages": "env-cmd -f .env.gh-pages npm run build",
 		"build:api": "openapi-generator-cli generate -i api/oh.yaml -g typescript-rxjs -c openapi-generator.config.json -o src/generated/",
-		"codegen": "bun codegen.ts",
+		"openapi-ts": "bun codegen.ts",
+		"codegen": "bun build:api && bun openapi-ts",
 		"clear": "rm -rf ./.cache ./dist ./build",
 		"convert": "convert-resources --path-generated src/resources/old",
 		"storybook": "storybook dev -p 6006 -s public",
@@ -79,7 +80,8 @@
 		"tsc": "tsc --noEmit",
 		"check": "biome check --write",
 		"format": "biome format --write",
-		"lint": "biome lint --write"
+		"lint": "biome lint",
+		"postinstall": "npm run build:api"
 	},
 	"eslintConfig": {
 		"extends": "react-app",

@@ -30,4 +30,5 @@ yarn-error.log*
 
 
 # Generated files
+src/generated
 src/__generated__
