@@ -29,6 +29,26 @@ jobs:
       - name: Testing...
         run: npm test
 
+  type-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Installing...
+        run: npm i
+      - name: Type Checking...
+        run: npm run tsc
+  
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Installing...
+        run: npm i
+      - name: Linting...
+        run: npm run lint
+
   e2e:
     runs-on: ubuntu-latest
 
