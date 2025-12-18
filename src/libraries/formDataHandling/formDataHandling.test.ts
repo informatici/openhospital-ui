@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest';
 import { formatAllFieldValues, getFromFields } from './functions';
 import type { TFields } from './types';
 

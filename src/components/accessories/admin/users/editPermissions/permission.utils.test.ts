@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest';
 import type { PermissionDTO } from '../../../../../generated';
 import { permissionsToCrud } from './permission.utils';
 

@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest';
 import { passwordRules, userNameRules } from './validation';
 
 describe('password rules', () => {
