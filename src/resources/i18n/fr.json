@@ -192,6 +192,7 @@
     "agetype": "Type d'âge",
     "agerange": "Tranche d'âge",
     "age": "Age",
+    "neonatalage": "Âge néonatal",
     "anamnesis": "Anamnèse",
     "allergies": "Allergies",
     "savechanges": "Enregistrer les modifications",
@@ -215,6 +216,11 @@
       "d3": "Adolescence",
       "d4": "Adulte",
       "d5": "Personne âgée"
+    },
+    "ageunits": {
+      "day": "Jour(s)",
+      "week": "Semaine(s)",
+      "month": "Mois"
     },
     "operation": "Opération",
     "updated": "Mis à jour du patient",

@@ -7001,13 +7001,13 @@ components:
           format: int32
           description: lock
           example: 0
-        pharmacy:
+        opd:
           type: boolean
         male:
           type: boolean
         female:
           type: boolean
-        opd:
+        pharmacy:
           type: boolean
       required:
       - beds
@@ -7049,6 +7049,21 @@ components:
           type: string
           description: Age type
           example: null
+        ageDays:
+          type: integer
+          format: int32
+          description: Age in days (used when ageUnit = DAY)
+          example: 12
+        ageWeeks:
+          type: integer
+          format: int32
+          description: Age in weeks (used when ageUnit = WEEK)
+          example: 3
+        ageMonths:
+          type: integer
+          format: int32
+          description: Age in months (used when ageUnit = MONTH)
+          example: 8
         sex:
           type: string
           description: Sex
@@ -7890,11 +7905,11 @@ components:
           description: physical exam made by doctor
           example: "The patient appears alert, oriented to person, place, and time,\
             \ and in no acute distress. Well-nourished and well-hydrated."
+        fhu:
+          type: string
         yprog:
           type: integer
           format: int32
-        fhu:
-          type: string
       required:
       - admDate
       - admitted

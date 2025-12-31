@@ -1,4 +1,4 @@
-import { Tooltip } from "@mui/material";
+import { ButtonGroup, Tooltip } from "@mui/material";
 import { useFormik } from "formik";
 import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { useCommune } from "libraries/hooks/useCommune";
@@ -84,6 +84,18 @@ const PatientDataForm: FunctionComponent<TProps> = ({
                 },
               })
           : string(),
+      ageDays:
+        ageType === "neonatalAge"
+          ? number().required(t("common.required")).min(0).max(200)
+          : string(),
+      ageWeeks:
+        ageType === "neonatalAge"
+          ? number().required(t("common.required")).min(0).max(200)
+          : string(),
+      ageMonths:
+        ageType === "neonatalAge"
+          ? number().required(t("common.required")).min(0).max(200)
+          : string(),
       sex: string().required(t("common.required")),
       telephone: string().matches(
         /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/,
@@ -125,6 +137,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
     { value: "age", label: t("patient.age") },
     { value: "agetype", label: t("patient.agetype") },
     { value: "birthDate", label: t("patient.birthdate") },
+    { value: "neonatalAge", label: t("patient.neonatalage") },
   ];
 
   const formik = useFormik({
@@ -132,6 +145,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
     validationSchema,
     enableReinitialize: true,
     onSubmit: (values) => {
+      console.log("test");
       const formattedValues = formatAllFieldValues(fields, values);
       const { birthDate, age } = getBirthDateAndAge(
         ageType,
@@ -142,7 +156,6 @@ const PatientDataForm: FunctionComponent<TProps> = ({
         },
         allAgeTypes
       );
-
       onSubmit({
         ...formattedValues,
         blobPhoto: isEmpty(formattedValues.blobPhoto)
@@ -540,6 +553,47 @@ const PatientDataForm: FunctionComponent<TProps> = ({
                     : FIELD_VALIDATION.REQUIRED
                 }
               />
+            </div>
+          )}
+          {ageType === "neonatalAge" && (
+            <div className="patientDataForm__item">
+              <ButtonGroup
+                className="patientDataForm__neonatalAgeFields"
+                aria-label="Age unit group"
+              >
+                <TextField
+                  field={formik.getFieldProps("ageDays")}
+                  theme="regular"
+                  label={t("patient.ageunits.day")}
+                  isValid={isValid("ageDays")}
+                  errorText={getErrorText("ageDays")}
+                  onBlur={formik.handleBlur}
+                  type="number"
+                  disabled={isLoading}
+                />
+
+                <TextField
+                  field={formik.getFieldProps("ageWeeks")}
+                  theme="regular"
+                  label={t("patient.ageunits.week")}
+                  isValid={isValid("ageWeeks")}
+                  errorText={getErrorText("ageWeeks")}
+                  onBlur={formik.handleBlur}
+                  type="number"
+                  disabled={isLoading}
+                />
+
+                <TextField
+                  field={formik.getFieldProps("ageMonths")}
+                  theme="regular"
+                  label={t("patient.ageunits.month")}
+                  isValid={isValid("ageMonths")}
+                  errorText={getErrorText("ageMonths")}
+                  onBlur={formik.handleBlur}
+                  type="number"
+                  disabled={isLoading}
+                />
+              </ButtonGroup>
             </div>
           )}
 

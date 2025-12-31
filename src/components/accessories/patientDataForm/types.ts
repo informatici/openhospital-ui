@@ -7,7 +7,7 @@ interface IOwnProps {
   mode: "create" | "edit";
 }
 
-export type TAgeFieldName = "age" | "agetype" | "birthDate";
+export type TAgeFieldName = "age" | "agetype" | "birthDate" | "neonatalAge";
 
 export type TProps = IForm<TPatientDataFormFieldName, PatientDTO> & IOwnProps;
 
@@ -23,6 +23,9 @@ export type TPatientDataFormFieldName =
   | "secondName"
   | "birthDate"
   | "age"
+  | "ageDays"
+  | "ageWeeks"
+  | "ageMonths"
   | "agetype"
   | "sex"
   | "address"

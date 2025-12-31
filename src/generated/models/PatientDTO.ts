@@ -58,6 +58,24 @@ export interface PatientDTO {
      */
     agetype?: string;
     /**
+     * Age in days (used when ageUnit = DAY)
+     * @type {number}
+     * @memberof PatientDTO
+     */
+    ageDays?: number;
+    /**
+     * Age in weeks (used when ageUnit = WEEK)
+     * @type {number}
+     * @memberof PatientDTO
+     */
+    ageWeeks?: number;
+    /**
+     * Age in months (used when ageUnit = MONTH)
+     * @type {number}
+     * @memberof PatientDTO
+     */
+    ageMonths?: number;
+    /**
      * Sex
      * @type {string}
      * @memberof PatientDTO

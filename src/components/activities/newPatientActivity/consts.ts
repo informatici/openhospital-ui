@@ -99,6 +99,18 @@ export const initialFields: TFields<TPatientDataFormFieldName> = {
     value: "28",
     type: "number",
   },
+  ageDays: {
+    value: "",
+    type: "number",
+  },
+  ageWeeks: {
+    value: "",
+    type: "number",
+  },
+  ageMonths: {
+    value: "",
+    type: "number",
+  },
   agetype: {
     value: "",
     type: "text",
