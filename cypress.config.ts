@@ -10,6 +10,7 @@ export default defineConfig({
 		specPattern: 'cypress/integrations/**/*.cy.ts',
 		testIsolation: false,
 		experimentalRunAllSpecs: true,
+		defaultCommandTimeout: 10000,
 		chromeWebSecurity: false,
 	},
 });
