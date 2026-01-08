@@ -82,6 +82,7 @@ describe('EditPatientActivity spec', () => {
 	it('should show a confirmation dialog when the call is successful', () => {
 		cy.byId('firstName').clear().type('Marcelo');
 		cy.dataCy('patient-data-submit-button').click();
+
 		cy.dataCy('dialog-info').contains('The patient was edit successfully.');
 	});
 
