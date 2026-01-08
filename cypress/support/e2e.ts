@@ -33,5 +33,4 @@ Cypress.Commands.add('authenticate', (url: string) => {
 			}
 		},
 	});
-	cy.wait(2000);
 });
