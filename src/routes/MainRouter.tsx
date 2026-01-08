@@ -4,9 +4,6 @@ import { RouterProvider } from 'react-router';
 import { useAppDispatch, useAppSelector } from '~/libraries/hooks/redux';
 import { getUserSettings } from '../state/main';
 import { router } from './router';
-import { routerNoLazy } from './router-no-lazy';
-
-const isTestMode = import.meta.env.MODE === 'test';
 
 export const MainRouter: React.FC = () => {
 	const dispatch = useAppDispatch();
@@ -19,5 +16,5 @@ export const MainRouter: React.FC = () => {
 		}
 	}, [dispatch, status]);
 
-	return <RouterProvider router={isTestMode ? routerNoLazy : router} />;
+	return <RouterProvider router={router} />;
 };
