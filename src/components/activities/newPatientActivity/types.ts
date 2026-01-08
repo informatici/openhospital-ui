@@ -1,9 +1,5 @@
 import type { TUserCredentials } from '../../../state/main/types';
 
-export interface IOwnProps {
-	dashboardRoute: string;
-}
-
 export interface IStateProps {
 	userCredentials: TUserCredentials;
 	isLoading: boolean;

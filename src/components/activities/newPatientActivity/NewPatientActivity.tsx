@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Navigate, useNavigate } from 'react-router';
+import { useNavigate } from 'react-router';
 import { useAppDispatch, useAppSelector } from '~/libraries/hooks/redux';
 import checkIcon from '../../../assets/check-icon.png';
 import { PATHS } from '../../../consts';
@@ -19,9 +19,9 @@ import InfoBox from '../../accessories/infoBox/InfoBox';
 import PatientDataForm from '../../accessories/patientDataForm/PatientDataForm';
 import { initialFields } from './consts';
 import './styles.scss';
-import type { IOwnProps, TActivityTransitionState } from './types';
+import type { TActivityTransitionState } from './types';
 
-export function NewPatientActivity({ dashboardRoute }: IOwnProps) {
+export function NewPatientActivity() {
 	const { t } = useTranslation();
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
@@ -71,6 +71,9 @@ export function NewPatientActivity({ dashboardRoute }: IOwnProps) {
 					replace: true,
 				});
 			}
+			if (activityTransitionState === 'TO_DASHBOARD') {
+				navigate('/dashboard', { replace: true });
+			}
 		}
 	}, [activityTransitionState, dispatch, navigate, patient?.code]);
 
@@ -89,60 +92,55 @@ export function NewPatientActivity({ dashboardRoute }: IOwnProps) {
 		scrollToElement(null);
 	};
 
-	switch (activityTransitionState) {
-		case 'TO_DASHBOARD':
-			return <Navigate to={dashboardRoute} />;
-		default:
-			return (
-				<div className="newPatient">
-					<AppHeader
-						userCredentials={userCredentials}
-						breadcrumbMap={breadcrumbMap}
-					/>
-					<div className="newPatient__background">
-						<div className="newPatient__content">
-							<div className="newPatient__title">{t('nav.newpatient')}</div>
-							<Permission require="patients.create">
-								<PatientDataForm
-									fields={initialFields}
-									onSubmit={onSubmit}
-									submitButtonLabel={t('common.submit')}
-									resetButtonLabel={t('common.clearall')}
-									isLoading={isLoading}
-									shouldResetForm={shouldResetForm}
-									resetFormCallback={resetFormCallback}
-									mode={'create'}
-								/>
-								<div ref={infoBoxRef}>
-									{hasFailed && <InfoBox type="error" message={errorMessage} />}
-								</div>
-								<ExtendedConfirmationDialog
-									isOpen={hasSucceeded}
-									title={t('patient.created')}
-									icon={checkIcon}
-									info={t('common.patientregistrationsuccessfull')}
-									items={[
-										{
-											label: t('common.gohome'),
-											onClick: () => setActivityTransitionState('TO_DASHBOARD'),
-										},
-										{
-											label: t('patient.createother'),
-											onClick: () =>
-												setActivityTransitionState('TO_NEW_PATIENT_RESET'),
-										},
-										{
-											label: t('common.gotopatientactivities'),
-											onClick: () =>
-												setActivityTransitionState('TO_PATIENT_DASHBOARD'),
-										},
-									]}
-								/>
-							</Permission>
+	return (
+		<div className="newPatient">
+			<AppHeader
+				userCredentials={userCredentials}
+				breadcrumbMap={breadcrumbMap}
+			/>
+			<div className="newPatient__background">
+				<div className="newPatient__content">
+					<div className="newPatient__title">{t('nav.newpatient')}</div>
+					<Permission require="patients.create">
+						<PatientDataForm
+							fields={initialFields}
+							onSubmit={onSubmit}
+							submitButtonLabel={t('common.submit')}
+							resetButtonLabel={t('common.clearall')}
+							isLoading={isLoading}
+							shouldResetForm={shouldResetForm}
+							resetFormCallback={resetFormCallback}
+							mode={'create'}
+						/>
+						<div ref={infoBoxRef}>
+							{hasFailed && <InfoBox type="error" message={errorMessage} />}
 						</div>
-					</div>
-					<Footer />
+						<ExtendedConfirmationDialog
+							isOpen={hasSucceeded}
+							title={t('patient.created')}
+							icon={checkIcon}
+							info={t('common.patientregistrationsuccessfull')}
+							items={[
+								{
+									label: t('common.gohome'),
+									onClick: () => setActivityTransitionState('TO_DASHBOARD'),
+								},
+								{
+									label: t('patient.createother'),
+									onClick: () =>
+										setActivityTransitionState('TO_NEW_PATIENT_RESET'),
+								},
+								{
+									label: t('common.gotopatientactivities'),
+									onClick: () =>
+										setActivityTransitionState('TO_PATIENT_DASHBOARD'),
+								},
+							]}
+						/>
+					</Permission>
 				</div>
-			);
-	}
+			</div>
+			<Footer />
+		</div>
+	);
 }

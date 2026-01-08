@@ -19,7 +19,8 @@ describe.skip('Patient Details / Visit - Inpatient', () => {
 
 	it('Should make it possible for the user to fill out the form to add a new visit for an inpatient', () => {
 		cy.byId('ward').focus().type('FEMALE WARDS').blur();
-		cy.byId('date').focus().type('03052022').blur();
+		cy.get('.MuiInputAdornment-root').click();
+		cy.get('.MuiPickersDay-root').contains('1').first().click();
 		cy.byId('duration').focus().type('100').blur();
 		cy.byId('service').focus().type('Some service').blur();
 	});
@@ -53,7 +54,8 @@ describe('Patient Details / Visit - Outpatient', () => {
 	});
 
 	it('Should make it possible for the user to fill out the form to add a new visit for an outpatient', () => {
-		cy.byId('date').focus().type('01012021').blur();
+		cy.get('.MuiInputAdornment-root').click();
+		cy.get('.MuiPickersDay-root').contains('1').first().click();
 		cy.byId('disease').focus().type('Abortions').blur();
 		cy.byId('note').focus().type('fail').blur();
 	});

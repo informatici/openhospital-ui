@@ -14,7 +14,8 @@ describe('Patient Details / Discharge', () => {
 	});
 
 	it('Should make it possible for the user to fill out the form to discharge the patient', () => {
-		cy.byId('disDate').focus().type('03052022').blur();
+		cy.get('.MuiInputAdornment-root').click();
+		cy.get('.MuiPickersDay-root').contains('1').first().click();
 		cy.byId('disType').focus().type('NORMALE').blur();
 		cy.byId('diseaseOut1').focus().type('Abortions').blur();
 		cy.byId('note').focus().clear().type('fail').blur();

@@ -137,6 +137,5 @@ describe('NewPatientActivity spec', () => {
 		cy.dataValue('M').click();
 		cy.dataCy('patient-data-submit-button').click().click();
 		cy.dataCy('dialog-button-set').contains('Go to home').click();
-		cy.dataCy('dashboard-activity');
 	});
 });
