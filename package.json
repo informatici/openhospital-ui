@@ -137,7 +137,7 @@
 		"cypress": "^15.7.1",
 		"cypress-file-upload": "^5.0.8",
 		"eslint-plugin-cypress": "^5.2.0",
-		"msw": "^2.12.4",
+		"msw": "^2.12.7",
 		"openapi-msw": "^2.0.0",
 		"openapi-typescript": "^7.10.1",
 		"prop-types": "^15.8.1",
