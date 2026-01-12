@@ -38,7 +38,7 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           record: false
-          start: npm start
+          start: npm run start:ci
           wait-on: "http://localhost:5173"
   deploy:
     needs: e2e
@@ -55,7 +55,7 @@ jobs:
         run: npm run clear && npm run build:gh-pages
       - run: git add --force build
       - run: git commit -m 'new build'
-      # we could use the same repo but we keep it in case we later change the remote repo for github pages 
-      - run: git remote add oh-ui-pages https://github.com/informatici/openhospital-ui.git 
+      # we could use the same repo but we keep it in case we later change the remote repo for github pages
+      - run: git remote add oh-ui-pages https://github.com/informatici/openhospital-ui.git
       - run: echo "HASH_COMMIT=$(git subtree split --prefix build develop)" >> $GITHUB_ENV
       - run: git push oh-ui-pages $HASH_COMMIT:gh-pages --force
