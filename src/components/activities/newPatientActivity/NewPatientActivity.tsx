@@ -72,7 +72,7 @@ export function NewPatientActivity() {
 				});
 			}
 			if (activityTransitionState === 'TO_DASHBOARD') {
-				navigate('/dashboard', { replace: true });
+				navigate('/dashboard');
 			}
 		}
 	}, [activityTransitionState, dispatch, navigate, patient?.code]);

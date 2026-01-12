@@ -107,7 +107,6 @@ describe('NewPatientActivity spec', () => {
 	});
 
 	it('should show a confirmation dialog when the call is successful', () => {
-		cy.wait(2000);
 		cy.get('.dateField button').click();
 		cy.get('.MuiPickersDay-today').click();
 		cy.byId('firstName').clear().type('Antonio Carlos');
@@ -128,7 +127,6 @@ describe('NewPatientActivity spec', () => {
 	});
 
 	it('should redirect the user to the DashboardActivity on Dashboard button click', () => {
-		cy.wait(2000);
 		cy.get('.dateField button').click();
 		cy.get('.MuiPickersDay-today').click();
 		cy.byId('firstName').type('Antonio Carlos');

@@ -15,13 +15,11 @@ describe('Patient Details / Exams', () => {
 
 	// Exam request test
 	it('should make it possible for the user to fill out the form to request an exam', () => {
-		cy.byId("'exam'").focus().type('1.3');
-		cy.contains('1.3 Differential').click();
-		cy.byId("'exam'").blur();
+		cy.byId("'exam'").eq(0).focus().type('1.3 Differential').blur();
 	});
 
 	it('should display an success info box if the exam creation call succeed', () => {
-		cy.get("[class='submit_button']").click();
+		cy.get("[class='submit_button']").eq(0).click();
 		cy.dataCy('dialog-title').contains('Request an exam');
 		cy.dataCy('dialog-return-button').click();
 	});

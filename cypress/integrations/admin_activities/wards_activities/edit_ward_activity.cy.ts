@@ -10,7 +10,7 @@ describe('Edit Ward Activity specs', () => {
 
 	it('should show ward creation form', () => {
 		cy.get('button[title="Edit"]').first().click();
-		cy.dataCy('activity-title').contains('Edit Ward');
+		cy.dataCy('activity-title').contains('Update Ward');
 	});
 
 	it('should fail to edit the ward', () => {
