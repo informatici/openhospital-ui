@@ -1,4 +1,4 @@
-import type { ExamRowDTO } from '~/generated';
+import type { ExamRowDTO } from '../../generated';
 
 export const examRowsDTO: ExamRowDTO[] = [
 	{

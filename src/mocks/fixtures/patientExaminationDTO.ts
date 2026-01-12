@@ -1,4 +1,4 @@
-import type { PatientExaminationDTO } from '~/generated';
+import type { PatientExaminationDTO } from '../../generated';
 
 export const patientExaminationDTO: PatientExaminationDTO = {
 	pex_ID: Math.floor(Math.random() * 100 + 1),

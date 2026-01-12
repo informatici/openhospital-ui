@@ -1,4 +1,4 @@
-import type { OperationTypeDTO } from '~/generated';
+import type { OperationTypeDTO } from '../../generated';
 
 export const operationTypesDTO: OperationTypeDTO[] = [
 	{

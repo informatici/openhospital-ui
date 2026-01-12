@@ -1,4 +1,4 @@
-import type { MedicalTypeDTO } from '~/generated';
+import type { MedicalTypeDTO } from '../../generated';
 
 export const medicalTypesDTO: MedicalTypeDTO[] = [
 	{ code: 'K', description: 'Chemical' },

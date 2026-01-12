@@ -1,4 +1,4 @@
-import type { OpdDTO } from '~/generated';
+import type { OpdDTO } from '../../generated';
 import { diseasesDTO } from './diseasesDTO';
 import { patientDTO } from './patientDTO';
 import { wards } from './wardDTO';

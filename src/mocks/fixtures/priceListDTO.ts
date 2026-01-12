@@ -1,4 +1,4 @@
-import type { PriceListDTO } from '~/generated/models';
+import type { PriceListDTO } from '../../generated/models';
 
 export const priceListDTO: PriceListDTO[] = [
 	{

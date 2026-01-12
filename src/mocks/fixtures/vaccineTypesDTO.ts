@@ -1,4 +1,4 @@
-import type { VaccineTypeDTO } from '~/generated/models';
+import type { VaccineTypeDTO } from '../../generated/models';
 
 const vaccineTypesDTO: VaccineTypeDTO[] = [
 	{ code: 'C', description: 'Child' },

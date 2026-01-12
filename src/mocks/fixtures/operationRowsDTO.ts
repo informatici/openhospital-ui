@@ -1,4 +1,4 @@
-import type { OperationRowDTO } from '~/generated';
+import type { OperationRowDTO } from '../../generated';
 import { admissionDTO } from './admissionDTO';
 import { opdDTO } from './opdDTO';
 import { operationsDTO } from './operationsDTO';

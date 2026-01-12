@@ -2,7 +2,7 @@ import {
 	type LaboratoryDTO,
 	LaboratoryDTOInOutPatientEnum,
 	LaboratoryDTOStatusEnum,
-} from '~/generated';
+} from '../../generated';
 
 export const laboratoryDTO: LaboratoryDTO[] = [
 	{

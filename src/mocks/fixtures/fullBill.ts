@@ -1,4 +1,4 @@
-import type { FullBillDTO } from '~/generated';
+import type { FullBillDTO } from '../../generated';
 import { billDTO } from './billDTO';
 import { billItemDTO } from './billItemDTO';
 import { billPaymentsDTO } from './billPaymentsDTO';

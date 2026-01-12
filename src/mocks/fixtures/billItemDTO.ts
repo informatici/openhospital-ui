@@ -1,4 +1,4 @@
-import type { BillItemsDTO } from '~/generated/models';
+import type { BillItemsDTO } from '../../generated/models';
 
 export const billItemDTO: BillItemsDTO = {
 	id: 0,

@@ -88,10 +88,9 @@ const SideMenu = () => {
 			))}
 			<h6 className={classes.label}>{t('nav.hospital')}</h6>
 			<MenuItem
-				dataCy="hospital-infos"
+				data-cy="hospital-infos"
 				icon={<LocalHospitalSharp fontSize="small" />}
 				label={t(`nav.hospitalInfo`)}
-				onClick={() => {}}
 				expandedContent={
 					<div className={classes.hospitalData}>
 						{hospital.data &&

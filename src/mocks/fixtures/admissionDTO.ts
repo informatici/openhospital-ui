@@ -6,7 +6,7 @@ import {
 	PatientDTOMotherEnum,
 	PatientDTOParentTogetherEnum,
 	PatientDTOSexEnum,
-} from '~/generated/models';
+} from '../../generated/models';
 
 export const admissionDTO: AdmissionDTO = {
 	id: 202,

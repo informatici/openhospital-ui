@@ -1,4 +1,4 @@
-import type { HospitalDTO } from '~/generated';
+import type { HospitalDTO } from '../../generated';
 
 export const hospitalDTO: HospitalDTO = {
 	code: 'STLUKE',

@@ -1,4 +1,4 @@
-import type { VisitDTO } from '~/generated/models';
+import type { VisitDTO } from '../../generated/models';
 import patientDTO from './patientDTO';
 import { wards } from './wardDTO';
 

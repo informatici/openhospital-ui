@@ -1,4 +1,4 @@
-import type { PregnantTreatmentTypeDTO } from '~/generated/models';
+import type { PregnantTreatmentTypeDTO } from '../../generated/models';
 
 export const pregnantTreatmentTypeDTO: PregnantTreatmentTypeDTO[] = [
 	{

@@ -1,4 +1,4 @@
-import type { SupplierDTO } from '~/generated/models';
+import type { SupplierDTO } from '../../generated/models';
 
 export const supplierDTO: SupplierDTO[] = [
 	{

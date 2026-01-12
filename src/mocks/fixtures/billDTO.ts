@@ -1,5 +1,5 @@
 import moment from 'moment';
-import type { BillDTO } from '~/generated/models';
+import type { BillDTO } from '../../generated/models';
 import patientDTO, { patientDTO2 } from './patientDTO';
 
 export const billDTO: BillDTO = {

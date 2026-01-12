@@ -1,4 +1,4 @@
-import type { LaboratoryDTO } from '~/generated';
+import type { LaboratoryDTO } from '../../generated';
 
 export const laboratoryForPrintDTO: LaboratoryDTO[] = [
 	{

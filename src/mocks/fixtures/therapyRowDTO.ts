@@ -1,4 +1,4 @@
-import type { TherapyRowDTO } from '~/generated/models';
+import type { TherapyRowDTO } from '../../generated/models';
 import patientDTO from './patientDTO';
 
 export const therapyRowDTO: TherapyRowDTO = {

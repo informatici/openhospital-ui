@@ -1,4 +1,4 @@
-import type { DischargeTypeDTO } from '~/generated';
+import type { DischargeTypeDTO } from '../../generated';
 
 export const dischargeTypesDTO: DischargeTypeDTO[] = [
 	{

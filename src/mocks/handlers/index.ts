@@ -36,6 +36,7 @@ import { visits } from './visits';
 import { wardsHandlers } from './wards';
 
 export const handlers: Parameters<typeof setupWorker> = [
+	...hospitals,
 	...admissionTypes,
 	...admissionsHandlers,
 	...ageTypes,
@@ -50,7 +51,6 @@ export const handlers: Parameters<typeof setupWorker> = [
 	...examinations,
 	...examTypes,
 	...exams,
-	...hospitals,
 	...laboratories,
 	...labExamRequest,
 	...medicalTypes,

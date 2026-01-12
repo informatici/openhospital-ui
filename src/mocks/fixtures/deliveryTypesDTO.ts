@@ -1,4 +1,4 @@
-import type { DeliveryTypeDTO } from '~/generated';
+import type { DeliveryTypeDTO } from '../../generated';
 
 export const deliveryTypesDTO: DeliveryTypeDTO[] = [
 	{ code: 'C', description: 'DELIVERY ASSISTED BY CESARIAN SECTION' },

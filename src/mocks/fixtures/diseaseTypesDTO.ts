@@ -1,4 +1,4 @@
-import type { DiseaseTypeDTO } from '~/generated';
+import type { DiseaseTypeDTO } from '../../generated';
 
 export const diseaseTypesDTO: DiseaseTypeDTO[] = [
 	{

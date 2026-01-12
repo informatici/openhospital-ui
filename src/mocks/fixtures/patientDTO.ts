@@ -7,7 +7,7 @@ import {
 	PatientDTOParentTogetherEnum,
 	PatientDTOSexEnum,
 	PatientDTOStatusEnum,
-} from '~/generated';
+} from '../../generated';
 
 export const patientDTO: PatientDTO = {
 	code: 1,

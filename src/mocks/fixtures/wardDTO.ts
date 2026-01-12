@@ -1,4 +1,4 @@
-import type { WardDTO } from '~/generated';
+import type { WardDTO } from '../../generated';
 
 export const wards: WardDTO[] = [
 	{

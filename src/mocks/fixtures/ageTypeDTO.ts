@@ -1,4 +1,4 @@
-import type { AgeTypeDTO } from '~/generated/models';
+import type { AgeTypeDTO } from '../../generated/models';
 
 export const ageTypeDTO: AgeTypeDTO[] = [
 	{

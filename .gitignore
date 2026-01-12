@@ -32,3 +32,7 @@ yarn-error.log*
 # Generated files
 src/generated
 src/__generated__
+
+# Cypress videos and screenshots
+cypress/videos
+cypress/screenshots

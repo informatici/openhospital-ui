@@ -1,4 +1,4 @@
-import { type OperationDTO, OperationDTOOpeForEnum } from '~/generated';
+import { type OperationDTO, OperationDTOOpeForEnum } from '../../generated';
 
 export const operationsDTO: OperationDTO[] = [
 	{

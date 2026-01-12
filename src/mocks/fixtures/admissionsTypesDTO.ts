@@ -1,4 +1,4 @@
-import type { AdmissionTypeDTO } from '~/generated/models';
+import type { AdmissionTypeDTO } from '../../generated/models';
 
 export const admissionTypesDTO: AdmissionTypeDTO[] = [
 	{

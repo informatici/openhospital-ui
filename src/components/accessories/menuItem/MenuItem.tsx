@@ -1,5 +1,5 @@
 import classnames from 'classnames';
-import { type ReactNode, useState } from 'react';
+import { type ComponentProps, type ReactNode, useState } from 'react';
 import {
 	Accordion,
 	AccordionDetails,
@@ -8,14 +8,12 @@ import {
 import classes from './MenuItem.module.scss';
 import './styles.scss';
 
-interface IOwnProps {
+interface IOwnProps extends ComponentProps<'div'> {
 	icon: ReactNode;
 	trailingIcon?: ReactNode;
 	label: string;
 	selected?: boolean;
 	expandedContent?: ReactNode;
-	dataCy?: string;
-	onClick: () => void;
 }
 
 export const MenuItem = ({
@@ -24,15 +22,18 @@ export const MenuItem = ({
 	label,
 	selected,
 	expandedContent,
-	dataCy,
-	onClick,
+	className,
+	...props
 }: IOwnProps) => {
 	const [expanded, setExpanded] = useState(false);
 	const menu = (
 		<div
-			data-cy={dataCy}
-			className={classnames(classes.menuItem, selected ? classes.active : null)}
-			onClick={onClick}
+			{...props}
+			className={classnames(
+				classes.menuItem,
+				selected ? classes.active : null,
+				className,
+			)}
 		>
 			{icon}
 			<span className={classes.label}>{label}</span>

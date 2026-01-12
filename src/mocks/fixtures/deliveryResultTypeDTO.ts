@@ -1,4 +1,4 @@
-import type { DeliveryResultTypeDTO } from '~/generated/models';
+import type { DeliveryResultTypeDTO } from '../../generated/models';
 
 export const deliveryResultTypeDTO: DeliveryResultTypeDTO[] = [
 	{
