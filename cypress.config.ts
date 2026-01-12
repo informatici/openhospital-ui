@@ -1,6 +1,6 @@
+import path from 'node:path';
 import { defineConfig } from 'cypress';
 import vitePreprocessor from 'cypress-vite';
-import path from 'path';
 import plugin from './cypress/plugins';
 
 export default defineConfig({

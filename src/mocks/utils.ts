@@ -2,6 +2,7 @@ import { HttpResponse, type JsonBodyType } from 'msw';
 import { createOpenApiHttp } from 'openapi-msw';
 import type { paths } from '~/__generated__/openapi';
 import { BASE_PATH } from '~/generated';
+import { makeServer } from './server';
 
 export const http = createOpenApiHttp<paths>({
 	baseUrl: BASE_PATH,
@@ -12,9 +13,11 @@ export async function enableMocking() {
 		return;
 	}
 
-	const { worker } = await import('~/mocks');
+	//const { worker } = await import('~/mocks'); // For MSW
 
-	await worker.start();
+	//await worker.start(); // For MSW
+
+	makeServer(); // For PollyJS
 }
 
 export function badRequest<T extends JsonBodyType>(response: T) {
