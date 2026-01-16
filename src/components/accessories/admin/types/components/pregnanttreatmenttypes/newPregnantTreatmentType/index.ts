@@ -1,1 +1,1 @@
-export * from "./NewPregnantTreatmentType";
+export * from './NewPregnantTreatmentType';

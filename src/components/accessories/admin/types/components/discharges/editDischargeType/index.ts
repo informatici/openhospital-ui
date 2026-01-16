@@ -1,1 +1,1 @@
-export * from "./EditDischargeType";
+export * from './EditDischargeType';

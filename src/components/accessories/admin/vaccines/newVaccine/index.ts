@@ -1,1 +1,1 @@
-export * from "./NewVaccine";
+export * from './NewVaccine';

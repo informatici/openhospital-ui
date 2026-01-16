@@ -1,35 +1,35 @@
 export type TFieldAddress =
-  | "value"
-  | "type"
-  | "isEnabled"
-  | "isVisible"
-  | "options";
+	| 'value'
+	| 'type'
+	| 'isEnabled'
+	| 'isVisible'
+	| 'options';
 
 export type TFieldType =
-  | "text"
-  | "number"
-  | "date"
-  | "select"
-  | "decimal"
-  | "boolean";
+	| 'text'
+	| 'number'
+	| 'date'
+	| 'select'
+	| 'decimal'
+	| 'boolean';
 
 export type TFieldFormattedValue = string | number | any;
 
 export interface IForm<T extends string, U> {
-  fields: TFields<T>;
-  onSubmit: (param: U) => void;
-  submitButtonLabel: string;
-  resetButtonLabel: string;
-  isLoading: boolean;
+	fields: TFields<T>;
+	onSubmit: (param: U) => void;
+	submitButtonLabel: string;
+	resetButtonLabel: string;
+	isLoading: boolean;
 }
 
 export interface IFieldContent {
-  value: string;
-  type: TFieldType;
-  isEnabled?: boolean;
-  isVisible?: boolean;
-  isArray?: boolean;
-  options?: Array<{ label: string; value: string }>;
+	value: string;
+	type: TFieldType;
+	isEnabled?: boolean;
+	isVisible?: boolean;
+	isArray?: boolean;
+	options?: Array<{ label: string; value: string }>;
 }
 
 export type TFields<T extends string = string> = Record<T, IFieldContent>;

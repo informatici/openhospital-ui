@@ -1,20 +1,20 @@
-import { PermissionDTO } from "../../../../../generated";
+import type { PermissionDTO } from '../../../../../generated';
 
 export enum PermissionActionEnum {
-  ASSIGN = "assign",
-  REVOKE = "revoke",
+	ASSIGN = 'assign',
+	REVOKE = 'revoke',
 }
 
 export type PermissionActionType = {
-  action: PermissionActionEnum;
-  permissions: PermissionDTO[];
+	action: PermissionActionEnum;
+	permissions: PermissionDTO[];
 };
 
 export enum Crud {
-  CREATE = "create",
-  READ = "read",
-  UPDATE = "update",
-  DELETE = "delete",
+	CREATE = 'create',
+	READ = 'read',
+	UPDATE = 'update',
+	DELETE = 'delete',
 }
 
 /**
@@ -31,58 +31,58 @@ export enum Crud {
  *
  */
 export const permissionsToCrud = (
-  permissions: PermissionDTO[]
+	permissions: PermissionDTO[],
 ): Map<string, Record<Crud, PermissionDTO>> => {
-  let permissionNames = new Map();
-  for (let i = 0; i < permissions.length; i++) {
-    const matches =
-      permissions[i].name &&
-      /([a-z]+)\.(create|read|update|delete)$/.exec(permissions[i].name || "");
-    // no match: skip
-    if (!matches) continue;
-    const [, key, access] = matches;
+	const permissionNames = new Map();
+	for (let i = 0; i < permissions.length; i++) {
+		const matches =
+			permissions[i].name &&
+			/([a-z]+)\.(create|read|update|delete)$/.exec(permissions[i].name || '');
+		// no match: skip
+		if (!matches) continue;
+		const [, key, access] = matches;
 
-    if (!!permissionNames.get(key)?.[access]) {
-      throw new Error(`duplicate permission ${key}.${access}`);
-    }
+		if (permissionNames.get(key)?.[access]) {
+			throw new Error(`duplicate permission ${key}.${access}`);
+		}
 
-    permissionNames.set(key, {
-      ...permissionNames.get(key),
-      [access]: permissions[i],
-    });
-  }
-  return permissionNames;
+		permissionNames.set(key, {
+			...permissionNames.get(key),
+			[access]: permissions[i],
+		});
+	}
+	return permissionNames;
 };
 
 export const comparePermissions = (
-  allPermissions: PermissionDTO[],
-  initialPermissions: PermissionDTO[],
-  stackedPermissions: PermissionDTO[]
+	allPermissions: PermissionDTO[],
+	initialPermissions: PermissionDTO[],
+	stackedPermissions: PermissionDTO[],
 ): Array<PermissionActionType> => {
-  let changedPermissions: Array<PermissionActionType> = [];
-  for (const permission of allPermissions) {
-    const initialPermission = initialPermissions.find(
-      ({ id }) => permission.id === id
-    );
-    const stackedPermission = stackedPermissions.find(
-      ({ id }) => permission.id === id
-    );
+	let changedPermissions: Array<PermissionActionType> = [];
+	for (const permission of allPermissions) {
+		const initialPermission = initialPermissions.find(
+			({ id }) => permission.id === id,
+		);
+		const stackedPermission = stackedPermissions.find(
+			({ id }) => permission.id === id,
+		);
 
-    if (!!initialPermission && !!stackedPermission) {
-      continue;
-    }
+		if (!!initialPermission && !!stackedPermission) {
+			continue;
+		}
 
-    if (initialPermission !== stackedPermission) {
-      changedPermissions = [
-        ...changedPermissions,
-        {
-          action: stackedPermission
-            ? PermissionActionEnum.ASSIGN
-            : PermissionActionEnum.REVOKE,
-          permissions: [permission],
-        },
-      ];
-    }
-  }
-  return changedPermissions;
+		if (initialPermission !== stackedPermission) {
+			changedPermissions = [
+				...changedPermissions,
+				{
+					action: stackedPermission
+						? PermissionActionEnum.ASSIGN
+						: PermissionActionEnum.REVOKE,
+					permissions: [permission],
+				},
+			];
+		}
+	}
+	return changedPermissions;
 };

@@ -1,3 +1,3 @@
-import { ExamsTable } from "./ExamsTable";
+import { ExamsTable } from './ExamsTable';
 
 export default ExamsTable;

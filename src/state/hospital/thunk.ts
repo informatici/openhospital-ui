@@ -1,25 +1,25 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import { wrapper } from "libraries/apiUtils/wrapper";
-import { HospitalDTO, HospitalsApi } from "../../generated";
-import { customConfiguration } from "../../libraries/apiUtils/configuration";
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { firstValueFrom } from 'rxjs';
+import { wrapper } from '~/libraries/apiUtils/wrapper';
+import { type HospitalDTO, HospitalsApi } from '../../generated';
+import { customConfiguration } from '../../libraries/apiUtils/configuration';
 
 const api = new HospitalsApi(customConfiguration(false));
 
 const securedApi = new HospitalsApi(customConfiguration());
 
 export const getHospital = createAsyncThunk(
-  "hospitals/getHospital",
-  async (_, thunkApi) =>
-    api
-      .getHospital()
-      .toPromise()
-      .catch((error) => thunkApi.rejectWithValue(error.response))
+	'hospitals/getHospital',
+	async (_, thunkApi) =>
+		firstValueFrom(api.getHospital()).catch((error) =>
+			thunkApi.rejectWithValue(error.response),
+		),
 );
 
 export const updateHospital = createAsyncThunk(
-  "hospitals/updateHospital",
-  async (payload: { code: string; hospitalDTO: HospitalDTO }, thunkApi) =>
-    wrapper(() => securedApi.updateHospital(payload))
-      .toPromise()
-      .catch((error) => thunkApi.rejectWithValue(error.response))
+	'hospitals/updateHospital',
+	async (payload: { code: string; hospitalDTO: HospitalDTO }, thunkApi) =>
+		firstValueFrom(wrapper(() => securedApi.updateHospital(payload))).catch(
+			(error) => thunkApi.rejectWithValue(error.response),
+		),
 );

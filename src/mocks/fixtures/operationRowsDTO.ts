@@ -1,0 +1,37 @@
+import type { OperationRowDTO } from '../../generated';
+import { admissionDTO } from './admissionDTO';
+import { opdDTO } from './opdDTO';
+import { operationsDTO } from './operationsDTO';
+
+export const operationRowsDTO: OperationRowDTO[] = [
+	{
+		id: 10,
+		opDate: '2021-08-05T15:19:44.000Z',
+		opResult: 'success',
+		remarks: 'RAS',
+		prescriber: 'john018',
+		transUnit: 44,
+		operation: operationsDTO[0],
+		opd: opdDTO,
+	},
+	{
+		id: 8,
+		opDate: '2022-02-05T15:19:44.000Z',
+		opResult: 'success',
+		remarks: 'All is OK',
+		prescriber: 'john018',
+		transUnit: 18,
+		operation: operationsDTO[1],
+		admission: admissionDTO,
+	},
+	{
+		id: 14,
+		opDate: '2021-10-05T08:14:44.000Z',
+		opResult: 'failure',
+		remarks: 'Some strange behaviours',
+		prescriber: 'john018',
+		transUnit: 12,
+		operation: operationsDTO[3],
+		admission: admissionDTO,
+	},
+];

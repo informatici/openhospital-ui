@@ -1,13 +1,13 @@
-import { DiseaseTypeDTO } from "../../../../../../../generated";
-import { TFields } from "../../../../../../../libraries/formDataHandling/types";
+import type { DiseaseTypeDTO } from '../../../../../../../generated';
+import type { TFields } from '../../../../../../../libraries/formDataHandling/types';
 
 export interface IDiseaseTypeFormProps {
-  fields: TFields<DiseaseTypeFormFieldName>;
-  onSubmit: (adm: DiseaseTypeDTO) => void;
-  creationMode: boolean;
-  submitButtonLabel: string;
-  resetButtonLabel: string;
-  isLoading: boolean;
+	fields: TFields<DiseaseTypeFormFieldName>;
+	onSubmit: (adm: DiseaseTypeDTO) => void;
+	creationMode: boolean;
+	submitButtonLabel: string;
+	resetButtonLabel: string;
+	isLoading: boolean;
 }
 
-export type DiseaseTypeFormFieldName = "code" | "description";
+export type DiseaseTypeFormFieldName = 'code' | 'description';

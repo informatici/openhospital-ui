@@ -1,5 +1,5 @@
 export type SummaryFieldType = {
-  type: string;
-  dateField: string;
-  noteField?: string;
+	type: string;
+	dateField: string;
+	noteField?: string;
 };

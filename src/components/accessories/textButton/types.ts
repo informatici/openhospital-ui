@@ -1,5 +1,5 @@
-import { PropsWithChildren } from "react";
+import type { PropsWithChildren } from 'react';
 
 export interface IProps extends PropsWithChildren {
-  onClick: () => void;
+	onClick: () => void;
 }

@@ -1,3 +1,3 @@
 export interface IProps {
-  backRoute?: string;
+	backRoute?: string;
 }

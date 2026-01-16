@@ -1,3 +1,3 @@
-import MedicalTypesTable from "./MedicalTypesTable";
+import MedicalTypesTable from './MedicalTypesTable';
 
 export default MedicalTypesTable;

@@ -1,1 +1,1 @@
-export * from "./AdminActivityContent";
+export * from './AdminActivityContent';

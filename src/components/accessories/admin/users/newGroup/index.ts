@@ -1,1 +1,1 @@
-export { NewGroup } from "./NewGroup";
+export { NewGroup } from './NewGroup';

@@ -1,3 +1,3 @@
 export interface IValues {
-  username: string;
+	username: string;
 }

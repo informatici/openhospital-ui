@@ -1,4 +1,4 @@
-import { MOBILE_BREAKPOINT } from "../../consts";
+import { MOBILE_BREAKPOINT } from '../../consts';
 
 /**
  * Check if width is less than breakpoint
@@ -6,8 +6,8 @@ import { MOBILE_BREAKPOINT } from "../../consts";
  * @param breakpoint - defaults to MOBILE_BREAKPOINT
  */
 export const isMobile = (
-  width: number,
-  breakpoint = MOBILE_BREAKPOINT
+	width: number,
+	breakpoint = MOBILE_BREAKPOINT,
 ): boolean => width < breakpoint;
 
 /**
@@ -16,6 +16,6 @@ export const isMobile = (
  * @param breakpoint - defaults to MOBILE_BREAKPOINT
  */
 export const isDesktop = (
-  width: number,
-  breakpoint = MOBILE_BREAKPOINT
+	width: number,
+	breakpoint = MOBILE_BREAKPOINT,
 ): boolean => width >= breakpoint;

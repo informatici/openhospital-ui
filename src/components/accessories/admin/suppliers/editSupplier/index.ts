@@ -1,1 +1,1 @@
-export * from "./EditSupplier";
+export * from './EditSupplier';

@@ -1,79 +1,79 @@
-import { DateRange } from "@mui/lab/DateRangePicker";
-import moment from "moment";
-import { useMemo, useState } from "react";
-import { getCachedPeriod } from "./consts";
-import { TPeriodType, TViewType } from "./types";
+import type { DateRange } from '@mui/lab/DateRangePicker';
+import moment from 'moment';
+import { useMemo, useState } from 'react';
+import { getCachedPeriod } from './consts';
+import type { TPeriodType, TViewType } from './types';
 
 export const usePeriodOptions = () => {
-  const cachedPeriod = getCachedPeriod();
-  const [view, setView] = useState<TViewType>("range");
-  const [selection, setSelection] = useState<TPeriodType>("current");
-  const [dateRange, setDateRange] = useState<DateRange<Date>>([
-    new Date(cachedPeriod[0]),
-    new Date(cachedPeriod[1]),
-  ]);
+	const cachedPeriod = getCachedPeriod();
+	const [view, setView] = useState<TViewType>('range');
+	const [selection, setSelection] = useState<TPeriodType>('current');
+	const [dateRange, setDateRange] = useState<DateRange<Date>>([
+		new Date(cachedPeriod[0]),
+		new Date(cachedPeriod[1]),
+	]);
 
-  /**
-   * We will discuss about the logic behind range
-   */
-  const range = useMemo(() => {
-    let value: moment.Moment[] = [];
+	/**
+	 * We will discuss about the logic behind range
+	 */
+	const range = useMemo(() => {
+		let value: moment.Moment[] = [];
 
-    if (view !== "range") {
-      switch (selection) {
-        case "current":
-          value = [moment().startOf(view), moment().endOf(view)];
-          break;
-        case "previous":
-          value = [
-            moment().add(-1, view).startOf(view),
-            moment().add(-1, view).endOf(view),
-          ];
-          break;
-        case "last2":
-          value = [
-            moment().add(-2, view).startOf(view),
-            moment().add(-1, view).endOf(view),
-          ];
-          break;
-        case "last3":
-          value = [
-            moment().add(-3, view).startOf(view),
-            moment().add(-1, view).endOf(view),
-          ];
-          break;
-        default:
-          value = [
-            moment(dateRange[0]?.toISOString()).startOf("day"),
-            moment(dateRange[1]?.toISOString()).endOf("day"),
-          ];
-      }
-      if (view === "week") {
-        value = [value[0].add(1, "day"), value[1].add(1, "day")];
-      }
-    } else {
-      value = [
-        moment(dateRange[0]?.toISOString()).startOf("day"),
-        moment(dateRange[1]?.toISOString()).endOf("day"),
-      ];
-    }
-    return [value[0].toISOString(), value[1].toISOString()];
-  }, [selection, dateRange, view]);
+		if (view !== 'range') {
+			switch (selection) {
+				case 'current':
+					value = [moment().startOf(view), moment().endOf(view)];
+					break;
+				case 'previous':
+					value = [
+						moment().add(-1, view).startOf(view),
+						moment().add(-1, view).endOf(view),
+					];
+					break;
+				case 'last2':
+					value = [
+						moment().add(-2, view).startOf(view),
+						moment().add(-1, view).endOf(view),
+					];
+					break;
+				case 'last3':
+					value = [
+						moment().add(-3, view).startOf(view),
+						moment().add(-1, view).endOf(view),
+					];
+					break;
+				default:
+					value = [
+						moment(dateRange[0]?.toISOString()).startOf('day'),
+						moment(dateRange[1]?.toISOString()).endOf('day'),
+					];
+			}
+			if (view === 'week') {
+				value = [value[0].add(1, 'day'), value[1].add(1, 'day')];
+			}
+		} else {
+			value = [
+				moment(dateRange[0]?.toISOString()).startOf('day'),
+				moment(dateRange[1]?.toISOString()).endOf('day'),
+			];
+		}
+		return [value[0].toISOString(), value[1].toISOString()];
+	}, [selection, dateRange, view]);
 
-  const period = useMemo(() => {
-    return `${moment(range[0]).format("yyyy-MM-DD")} - ${moment(
-      range[1]
-    ).format("yyyy-MM-DD")}`;
-  }, [range]);
+	const period = useMemo(() => {
+		return `${moment(range[0]).format('yyyy-MM-DD')} - ${moment(
+			range[1],
+		).format('yyyy-MM-DD')}`;
+	}, [range]);
 
-  return {
-    view,
-    setView,
-    dateRange,
-    setDateRange,
-    range,
-    period,
-    selection,
-    setSelection,
-  };
+	return {
+		view,
+		setView,
+		dateRange,
+		setDateRange,
+		range,
+		period,
+		selection,
+		setSelection,
+	};
 };

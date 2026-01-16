@@ -1,2 +1,2 @@
-export * from "./DischargeTypeForm";
-export * from "./types";
+export * from './DischargeTypeForm';
+export * from './types';

@@ -1,3 +1,3 @@
-import { VaccinesTable } from "./VaccinesTable";
+import { VaccinesTable } from './VaccinesTable';
 
 export default VaccinesTable;

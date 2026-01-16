@@ -1,9 +1,9 @@
-import { MedicalDTO } from "../../generated";
-import { ApiResponse } from "../types";
+import type { MedicalDTO } from '../../generated';
+import type { ApiResponse } from '../types';
 
 export type IMedicalState = {
-  medicalsOrderByName: ApiResponse<Array<MedicalDTO>>;
-  create: ApiResponse<MedicalDTO>;
-  update: ApiResponse<MedicalDTO>;
-  delete: ApiResponse<void>;
+	medicalsOrderByName: ApiResponse<Array<MedicalDTO>>;
+	create: ApiResponse<MedicalDTO>;
+	update: ApiResponse<MedicalDTO>;
+	delete: ApiResponse<void>;
 };

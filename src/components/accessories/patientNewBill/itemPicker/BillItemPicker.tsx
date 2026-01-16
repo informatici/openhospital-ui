@@ -1,195 +1,192 @@
-import { FormControlLabel, Radio, RadioGroup } from "@mui/material";
-
-import { PriceDTO } from "generated/models/PriceDTO";
-import React, { FC, useCallback, useEffect, useMemo, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { formatAllFieldValues } from "../../../../libraries/formDataHandling/functions";
-import AutocompleteField from "../../autocompleteField/AutocompleteField";
-import SmallButton from "../../smallButton/SmallButton";
-import TextField from "../../textField/TextField";
-import { ItemGroups } from "../consts";
-import { useItemPrices } from "../hooks/price.hooks";
-import { useItemFormik } from "./hooks";
-import "./styles.scss";
-import { BillItemProps } from "./types";
+import { FormControlLabel, Radio, RadioGroup } from '@mui/material';
+import { type FC, useCallback, useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import type { PriceDTO } from '~/generated/models/PriceDTO';
+import { formatAllFieldValues } from '../../../../libraries/formDataHandling/functions';
+import AutocompleteField from '../../autocompleteField/AutocompleteField';
+import SmallButton from '../../smallButton/SmallButton';
+import TextField from '../../textField/TextField';
+import { ItemGroups } from '../consts';
+import { useItemPrices } from '../hooks/price.hooks';
+import { useItemFormik } from './hooks';
+import './styles.scss';
+import type { BillItemProps } from './types';
 
 const BillItemPickerForm: FC<BillItemProps> = ({
-  onSubmit,
-  resetFormCallback,
-  shouldResetForm,
-  itemToEdit,
-  items,
-  fields,
+	onSubmit,
+	itemToEdit,
+	items,
+	fields,
 }) => {
-  const { t } = useTranslation();
+	const { t } = useTranslation();
 
-  const [itemType, setItemType] = useState(ItemGroups.medical.id);
+	const [itemType, setItemType] = useState(ItemGroups.medical.id);
 
-  const { prices, examsOptions, medicalsOptions, surgeriesOptions } =
-    useItemPrices();
+	const { prices, examsOptions, medicalsOptions, surgeriesOptions } =
+		useItemPrices();
 
-  useEffect(() => {
-    if (itemToEdit) {
-      setItemType(itemToEdit?.groupId);
-    }
-  }, [itemToEdit]);
+	useEffect(() => {
+		if (itemToEdit) {
+			setItemType(itemToEdit?.groupId);
+		}
+	}, [itemToEdit]);
 
-  const handleFormSubmit = useCallback(
-    (values: Record<string, any>) => {
-      const id =
-        itemToEdit === undefined
-          ? (items.map((e) => e.id).sort()[items.length - 1] ?? 0) + 1
-          : itemToEdit?.id;
-      let item: any = { id: id };
-      item.itemQuantity = values?.itemQuantity;
-      if (itemType === ItemGroups.other.id) {
-        item.itemAmount = values?.itemAmount;
-        item.itemDescription = values?.itemDescription;
-        onSubmit(item, itemToEdit === undefined ? true : false);
-        return;
-      }
-      let priceDTO: PriceDTO | undefined = prices.find(
-        (e) => e?.item === values?.itemId
-      );
+	const handleFormSubmit = useCallback(
+		(values: Record<string, any>) => {
+			const id =
+				itemToEdit === undefined
+					? (items.map((e) => e.id).sort()[items.length - 1] ?? 0) + 1
+					: itemToEdit?.id;
+			const item: any = { id: id };
+			item.itemQuantity = values?.itemQuantity;
+			if (itemType === ItemGroups.other.id) {
+				item.itemAmount = values?.itemAmount;
+				item.itemDescription = values?.itemDescription;
+				onSubmit(item, itemToEdit === undefined);
+				return;
+			}
+			const priceDTO: PriceDTO | undefined = prices.find(
+				(e) => e?.item === values?.itemId,
+			);
 
-      if (priceDTO) {
-        item.itemAmount = priceDTO.price;
-        item.itemDescription = priceDTO.description;
-        item.itemId = priceDTO.item;
-        item.price = true;
-        item.priceId = priceDTO.id?.toString() ?? "";
-        onSubmit(item, itemToEdit === undefined ? true : false);
-      }
-    },
-    [itemToEdit, itemType, items, onSubmit, prices]
-  );
+			if (priceDTO) {
+				item.itemAmount = priceDTO.price;
+				item.itemDescription = priceDTO.description;
+				item.itemId = priceDTO.item;
+				item.price = true;
+				item.priceId = priceDTO.id?.toString() ?? '';
+				onSubmit(item, itemToEdit === undefined);
+			}
+		},
+		[itemToEdit, itemType, items, onSubmit, prices],
+	);
 
-  const {
-    getErrorText,
-    getFieldProps,
-    onBlurCallback,
-    handleBlur,
-    isValid,
-    isFormValid,
-    handleSubmit,
-    values,
-  } = useItemFormik(fields, itemType, items, itemToEdit, handleFormSubmit);
+	const {
+		getErrorText,
+		getFieldProps,
+		onBlurCallback,
+		handleBlur,
+		isValid,
+		isFormValid,
+		handleSubmit,
+		values,
+	} = useItemFormik(fields, itemType, items, itemToEdit, handleFormSubmit);
 
-  const handleItemTypeChange = useCallback((e: any, value: string) => {
-    setItemType(value);
-  }, []);
+	const handleItemTypeChange = useCallback((_e: any, value: string) => {
+		setItemType(value);
+	}, []);
 
-  const options = useMemo(() => {
-    return (
-      (itemType === ItemGroups.medical.id && medicalsOptions) ||
-      (itemType === ItemGroups.exam.id && examsOptions) ||
-      (itemType === ItemGroups.surgery.id && surgeriesOptions) ||
-      []
-    );
-  }, [examsOptions, itemType, medicalsOptions, surgeriesOptions]);
+	const options = useMemo(() => {
+		return (
+			(itemType === ItemGroups.medical.id && medicalsOptions) ||
+			(itemType === ItemGroups.exam.id && examsOptions) ||
+			(itemType === ItemGroups.surgery.id && surgeriesOptions) ||
+			[]
+		);
+	}, [examsOptions, itemType, medicalsOptions, surgeriesOptions]);
 
-  return (
-    <form
-      className="itemPicker"
-      onSubmit={(e) => {
-        e.preventDefault();
-        handleSubmit(e);
-      }}
-    >
-      <div id="first">
-        <RadioGroup
-          aria-label="gender"
-          name="itemType"
-          value={itemType}
-          row
-          onChange={handleItemTypeChange}
-        >
-          <FormControlLabel
-            value={ItemGroups.medical.id}
-            className={itemType === ItemGroups.medical.id ? "checked" : ""}
-            control={<Radio />}
-            label={t("bill.medical")}
-            labelPlacement="top"
-          />
-          <FormControlLabel
-            value={ItemGroups.exam.id}
-            className={itemType === ItemGroups.exam.id ? "checked" : ""}
-            control={<Radio />}
-            label={t("bill.exam")}
-            labelPlacement="top"
-          />
-          <FormControlLabel
-            value={ItemGroups.surgery.id}
-            className={itemType === ItemGroups.surgery.id ? "checked" : ""}
-            control={<Radio />}
-            label={t("bill.surgery")}
-            labelPlacement="top"
-          />
-          <FormControlLabel
-            value={ItemGroups.other.id}
-            className={itemType === ItemGroups.other.id ? "checked" : ""}
-            control={<Radio />}
-            label={t("bill.other")}
-            labelPlacement="top"
-          />
-        </RadioGroup>
-      </div>
-      <div id="second">
-        {itemType !== ItemGroups.other.id && (
-          <AutocompleteField
-            fieldName="itemId"
-            fieldValue={values.itemId}
-            label={t("bill.item")}
-            isValid={isValid("itemId")}
-            errorText={getErrorText("itemId")}
-            onBlur={onBlurCallback("itemId")}
-            options={options}
-            isLoading={false}
-          />
-        )}
-        {itemType === ItemGroups.other.id && (
-          <>
-            <TextField
-              theme="regular"
-              field={getFieldProps("itemDescription")}
-              isValid={isValid("itemDescription")}
-              errorText={getErrorText("itemDescription")}
-              onBlur={handleBlur}
-              label={t("bill.item")}
-              type="text"
-            />
-            <TextField
-              theme="regular"
-              field={getFieldProps("itemAmount")}
-              isValid={isValid("itemAmount")}
-              errorText={getErrorText("itemAmount")}
-              onBlur={handleBlur}
-              label={t("bill.amount")}
-              type="number"
-            />
-          </>
-        )}
-        <TextField
-          theme="regular"
-          field={getFieldProps("itemQuantity")}
-          isValid={isValid("itemQuantity")}
-          errorText={getErrorText("itemQuantity")}
-          onBlur={handleBlur}
-          label={t("bill.quantity")}
-          type="number"
-        />
-      </div>
-      <SmallButton
-        disabled={!isFormValid}
-        onClick={(e) => {
-          e.preventDefault();
-          handleFormSubmit(formatAllFieldValues(fields, values));
-        }}
-      >
-        {t("button.save")}
-      </SmallButton>
-    </form>
-  );
+	return (
+		<form
+			className="itemPicker"
+			onSubmit={(e) => {
+				e.preventDefault();
+				handleSubmit(e);
+			}}
+		>
+			<div id="first">
+				<RadioGroup
+					aria-label="gender"
+					name="itemType"
+					value={itemType}
+					row
+					onChange={handleItemTypeChange}
+				>
+					<FormControlLabel
+						value={ItemGroups.medical.id}
+						className={itemType === ItemGroups.medical.id ? 'checked' : ''}
+						control={<Radio />}
+						label={t('bill.medical')}
+						labelPlacement="top"
+					/>
+					<FormControlLabel
+						value={ItemGroups.exam.id}
+						className={itemType === ItemGroups.exam.id ? 'checked' : ''}
+						control={<Radio />}
+						label={t('bill.exam')}
+						labelPlacement="top"
+					/>
+					<FormControlLabel
+						value={ItemGroups.surgery.id}
+						className={itemType === ItemGroups.surgery.id ? 'checked' : ''}
+						control={<Radio />}
+						label={t('bill.surgery')}
+						labelPlacement="top"
+					/>
+					<FormControlLabel
+						value={ItemGroups.other.id}
+						className={itemType === ItemGroups.other.id ? 'checked' : ''}
+						control={<Radio />}
+						label={t('bill.other')}
+						labelPlacement="top"
+					/>
+				</RadioGroup>
+			</div>
+			<div id="second">
+				{itemType !== ItemGroups.other.id && (
+					<AutocompleteField
+						fieldName="itemId"
+						fieldValue={values.itemId}
+						label={t('bill.item')}
+						isValid={isValid('itemId')}
+						errorText={getErrorText('itemId')}
+						onBlur={onBlurCallback('itemId')}
+						options={options}
+						isLoading={false}
+					/>
+				)}
+				{itemType === ItemGroups.other.id && (
+					<>
+						<TextField
+							theme="regular"
+							field={getFieldProps('itemDescription')}
+							isValid={isValid('itemDescription')}
+							errorText={getErrorText('itemDescription')}
+							onBlur={handleBlur}
+							label={t('bill.item')}
+							type="text"
+						/>
+						<TextField
+							theme="regular"
+							field={getFieldProps('itemAmount')}
+							isValid={isValid('itemAmount')}
+							errorText={getErrorText('itemAmount')}
+							onBlur={handleBlur}
+							label={t('bill.amount')}
+							type="number"
+						/>
+					</>
+				)}
+				<TextField
+					theme="regular"
+					field={getFieldProps('itemQuantity')}
+					isValid={isValid('itemQuantity')}
+					errorText={getErrorText('itemQuantity')}
+					onBlur={handleBlur}
+					label={t('bill.quantity')}
+					type="number"
+				/>
+			</div>
+			<SmallButton
+				disabled={!isFormValid}
+				onClick={(e) => {
+					e.preventDefault();
+					handleFormSubmit(formatAllFieldValues(fields, values));
+				}}
+			>
+				{t('button.save')}
+			</SmallButton>
+		</form>
+	);
 };
 
 export default BillItemPickerForm;

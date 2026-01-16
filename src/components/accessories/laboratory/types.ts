@@ -1,9 +1,9 @@
-import { LaboratoryDTOStatusEnum } from "../../../generated";
+import type { LaboratoryDTOStatusEnum } from '../../../generated';
 
 export type ChangeLabStatusProps = {
-  status: LaboratoryDTOStatusEnum;
-  labCode: string;
-  onClick: Function;
-  isOpen?: boolean;
-  onClose?: Function;
+	status: LaboratoryDTOStatusEnum;
+	labCode: string;
+	onClick: () => void;
+	isOpen?: boolean;
+	onClose?: () => void;
 };
