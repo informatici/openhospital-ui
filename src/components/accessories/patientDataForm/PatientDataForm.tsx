@@ -1,6 +1,8 @@
+import { Tooltip } from "@mui/material";
 import { useFormik } from "formik";
-import { get, has } from "lodash";
-import { isEmpty } from "lodash";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
+import { get, has, isEmpty } from "lodash";
+import moment from "moment";
 import React, {
   FunctionComponent,
   useCallback,
@@ -8,33 +10,35 @@ import React, {
   useMemo,
   useState,
 } from "react";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
+import { getAgeTypes } from "state/types/ageTypes";
 import { number, object, string } from "yup";
+import warningIcon from "../../../assets/warning-icon.png";
+import { formCustomization } from "../../../customization/formCustomization";
 import {
   formatAllFieldValues,
   getBirthDateAndAge,
   getFromFields,
   isFieldSuggested,
 } from "../../../libraries/formDataHandling/functions";
-import warningIcon from "../../../assets/warning-icon.png";
+import {
+  createPatientReset,
+  getCities,
+  getPatientReset,
+  updatePatientReset,
+} from "../../../state/patients";
+import { FIELD_VALIDATION, IState } from "../../../types";
+import AutocompleteField from "../autocompleteField/AutocompleteField";
+import Button from "../button/Button";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
 import DateField from "../dateField/DateField";
 import { ProfilePicture } from "../profilePicture/ProfilePicture";
 import SelectField from "../selectField/SelectField";
-import Button from "../button/Button";
 import TextField from "../textField/TextField";
 import "./styles.scss";
-import { TAgeFieldName, TAgeType, TProps } from "./types";
-import { useTranslation } from "react-i18next";
-import { Tooltip } from "@material-ui/core";
-import { formCustomization } from "../../../customization/formCustomization";
-import { FIELD_VALIDATION, IState } from "../../../types";
-import moment from "moment";
+import { TAgeFieldName, TProps } from "./types";
 import { useCityOptions } from "./useCityOptions";
-import AutocompleteField from "../autocompleteField/AutocompleteField";
-import { useDispatch, useSelector } from "react-redux";
-import { getAgeTypes } from "../../../state/ageTypes/actions";
-import { getCities } from "../../../state/patients/actions";
-import { useNavigate } from "react-router-dom";
 
 const PatientDataForm: FunctionComponent<TProps> = ({
   fields,
@@ -48,7 +52,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
   mode = "create",
 }) => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [ageType, setAgeType] = useState("birthDate" as TAgeFieldName);
 
   const validationSchema = useMemo(() => {
@@ -77,30 +81,32 @@ const PatientDataForm: FunctionComponent<TProps> = ({
           : string(),
       sex: string().required(t("common.required")),
       telephone: string().matches(
-        /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/,
+        /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/,
         t("common.incorrectformat")
       ),
     });
-  }, [ageType]);
+  }, [ageType, t]);
 
   useEffect(() => {
     dispatch(getAgeTypes());
-  }, []);
+  }, [dispatch]);
 
   const initialValues = getFromFields(fields, "value");
-  const cities = useSelector((state: IState) => state.patients.getCities.data);
+  const cities = useAppSelector(
+    (state: IState) => state.patients.getCities.data
+  );
   const options = getFromFields(fields, "options");
   const cityOptions = useCityOptions(cities);
 
-  const ageRangeOptions = useSelector((state: IState) =>
-    state.ageTypes.getAllAgeTypes.data?.map((e) => ({
+  const ageRangeOptions = useAppSelector((state: IState) =>
+    state.types.ageTypes.getAll.data?.map((e) => ({
       value: e.code ?? "",
       label: e.code ? t("patient.agetypes." + e.code) : "",
     }))
   );
 
-  const allAgeTypes = useSelector(
-    (state: IState) => state.ageTypes.getAllAgeTypes.data
+  const allAgeTypes = useAppSelector(
+    (state: IState) => state.types.ageTypes.getAll.data
   );
 
   const ageTypeOptions = [
@@ -167,7 +173,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
       setFieldValue(fieldName, value);
       formik.setFieldTouched(fieldName);
     },
-    [setFieldValue]
+    [setFieldValue, formik]
   );
 
   const onBlurCallback = useCallback(
@@ -192,6 +198,18 @@ const PatientDataForm: FunctionComponent<TProps> = ({
   useEffect(() => {
     dispatch(getCities());
   }, [dispatch, shouldResetForm]);
+
+  useEffect(() => {
+    return () => {
+      if (mode === "create") {
+        dispatch(createPatientReset());
+      } else {
+        dispatch(updatePatientReset());
+      }
+      dispatch(getPatientReset());
+    };
+  }, [dispatch]);
+
   const navigate = useNavigate();
 
   const handleCancelEdit = () => {
@@ -200,7 +218,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
   };
 
   return (
-    <div className="patientDataForm">
+    <div data-cy="patient-data-form" className="patientDataForm">
       <div className="patientDataForm__profilePictureContainer">
         <ProfilePicture
           isEditable={!isLoading}
@@ -303,7 +321,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               required={FIELD_VALIDATION.SUGGESTED}
             />
           </div>
-          {ageType == "agetype" && (
+          {ageType === "agetype" && (
             <div className="patientDataForm__item">
               <SelectField
                 fieldName="agetype"
@@ -323,7 +341,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               />
             </div>
           )}
-          {ageType == "age" && (
+          {ageType === "age" && (
             <div className="patientDataForm__item">
               <TextField
                 field={formik.getFieldProps("age")}
@@ -552,7 +570,12 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 
         <div className="patientDataForm__buttonSet">
           <div className="submit_button">
-            <Button type="submit" variant="contained" disabled={isLoading}>
+            <Button
+              type="submit"
+              variant="contained"
+              disabled={isLoading}
+              dataCy="patient-data-submit-button"
+            >
               {submitButtonLabel}
             </Button>
           </div>
@@ -562,14 +585,15 @@ const PatientDataForm: FunctionComponent<TProps> = ({
               variant="text"
               disabled={isLoading}
               onClick={() => setOpenResetConfirmation(true)}
+              dataCy="patient-data-cancel-button"
             >
-              {mode == "create" && resetButtonLabel}
-              {mode == "edit" && t("common.cancel")}
+              {mode === "create" && resetButtonLabel}
+              {mode === "edit" && t("common.cancel")}
             </Button>
           </div>
         </div>
 
-        {mode == "create" && (
+        {mode === "create" && (
           <ConfirmationDialog
             isOpen={openResetConfirmation}
             title={resetButtonLabel.toUpperCase()}
@@ -582,7 +606,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
           />
         )}
 
-        {mode == "edit" && (
+        {mode === "edit" && (
           <ConfirmationDialog
             isOpen={openResetConfirmation}
             title={t("common.cancel").toUpperCase()}

@@ -1,13 +1,11 @@
 import React, { FC } from "react";
+import { useTranslation } from "react-i18next";
 import AppHeader from "../../accessories/appHeader/AppHeader";
 import Footer from "../../accessories/footer/Footer";
-import { useTranslation } from "react-i18next";
 import "./styles.scss";
 
+import { useAppSelector } from "libraries/hooks/redux";
 import SkeletonLoader from "../../accessories/skeletonLoader/SkeletonLoader";
-import { useSelector } from "react-redux";
-import { IState } from "../../../types";
-import { TUserCredentials } from "../../../state/main/types";
 
 const NewBillingActivity: FC = () => {
   const { t } = useTranslation();
@@ -16,7 +14,7 @@ const NewBillingActivity: FC = () => {
     [t("nav.billing")]: "/billing",
     [t("nav.newbill")]: "/billing/new",
   };
-  const userCredentials = useSelector<IState, TUserCredentials>(
+  const userCredentials = useAppSelector(
     (state) => state.main.authentication.data
   );
   return (

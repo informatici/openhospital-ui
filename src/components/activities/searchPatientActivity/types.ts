@@ -1,6 +1,6 @@
 import { PatientDTO } from "../../../generated";
 import { TUserCredentials } from "../../../state/main/types";
-import { IAction, TAPIResponseStatus } from "../../../state/types";
+import { TAPIResponseStatus } from "../../../state/types";
 
 export interface IStateProps {
   userCredentials: TUserCredentials;
@@ -13,13 +13,6 @@ export interface IPatientSearchItemProps {
   getPatientSuccessCallback?: (patient: PatientDTO) => void;
   hideAdditionalInformation?: boolean;
 }
-
-export interface IDispatchProps {
-  searchPatient: (values: TValues) => void;
-  getPatientSuccess: (patient: PatientDTO) => IAction<PatientDTO, {}>;
-}
-
-export type TProps = IStateProps & IDispatchProps;
 
 export type TValues = {
   id: string;

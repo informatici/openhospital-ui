@@ -1,4 +1,4 @@
-import { MedicalDTO, PatientDTO, TherapyRowDTO } from "../../../generated";
+import { TherapyRowDTO } from "../../../generated";
 
 export interface IStateProps {
   isLoading: boolean;

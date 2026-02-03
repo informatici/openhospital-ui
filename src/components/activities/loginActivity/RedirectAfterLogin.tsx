@@ -1,8 +1,8 @@
+import { useAppSelector } from "libraries/hooks/redux";
 import React, { useMemo } from "react";
-import { useSelector } from "react-redux";
 import { Navigate, useLocation } from "react-router";
 import { useLandingPageRoute } from "../../../libraries/hooks/useLandingPageRoute";
-import { IState } from "../../../types";
+import { IMainState } from "../../../state/main";
 import { IRedirectAfterLogin } from "./types";
 
 export const RedirectAfterLogin: React.FC<IRedirectAfterLogin> = ({
@@ -15,14 +15,14 @@ export const RedirectAfterLogin: React.FC<IRedirectAfterLogin> = ({
     [landingPageRoute, location]
   );
 
-  const state = useSelector<IState, IState>((state) => state);
+  const state: IMainState = useAppSelector((state) => state.main);
 
   const status = useMemo(
     () =>
-      ["SUCCESS", "FAIL"].includes(state.main.settings.status!)
-        ? state.main.authentication.status!
-        : state.main.settings.status!,
-    [state.main.settings.status, state.main.authentication.status]
+      ["SUCCESS", "FAIL"].includes(state.settings.status!)
+        ? state.authentication.status!
+        : state.settings.status!,
+    [state.settings.status, state.authentication.status]
   );
 
   if (status === "SUCCESS") {

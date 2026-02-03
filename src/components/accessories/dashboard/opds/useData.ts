@@ -1,24 +1,21 @@
+import { useAppSelector } from "libraries/hooks/redux";
 import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
-import { AgeTypeDTO, OpdDTO } from "../../../../generated";
-import { TAPIResponseStatus } from "../../../../state/types";
-import { IState } from "../../../../types";
 
 export const useData = () => {
   const { t } = useTranslation();
-  const opds = useSelector<IState, OpdDTO[]>(
+  const opds = useAppSelector(
     (state) => state.opds.searchOpds.data?.data ?? []
   );
-  const ageTypes = useSelector<IState, AgeTypeDTO[]>(
-    (state) => state.ageTypes.getAllAgeTypes.data ?? []
+  const ageTypes = useAppSelector(
+    (state) => state.types.ageTypes.getAll.data ?? []
   );
-  const ageTypeStatus = useSelector<IState, TAPIResponseStatus>(
-    (state) => state.ageTypes.getAllAgeTypes.status ?? "IDLE"
+  const ageTypeStatus = useAppSelector(
+    (state) => state.types.ageTypes.getAll.status ?? "IDLE"
   );
-  const opdStatus = useSelector<IState, TAPIResponseStatus>(
+  const opdStatus = useAppSelector(
     (state) => state.opds.searchOpds.status ?? "IDLE"
   );
-  const success = useSelector<IState, boolean>((state) =>
+  const success = useAppSelector((state) =>
     ["SUCCESS", "SUCCESS_EMPTY"].includes(state.opds.searchOpds.status ?? "")
   );
   const sexLabels = [t("common.male"), t("common.female")];

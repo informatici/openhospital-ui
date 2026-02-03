@@ -1,3 +1,4 @@
+import { PropsWithChildren } from "react";
 import { TDashboardComponent } from "../layouts/types";
 
 export type TDashboardCardProps = {
@@ -7,7 +8,7 @@ export type TDashboardCardProps = {
   subtitle?: string;
   cardRef?: React.RefObject<any>;
   sizeChangeHandler?: (width: number, height: number) => void;
-};
+} & PropsWithChildren;
 
 export type TDashboardDownloadProps = {
   action: JSX.Element;

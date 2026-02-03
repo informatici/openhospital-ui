@@ -1,44 +1,34 @@
-import moment from "moment";
-import React, {
-  FC,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
-import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
-import { FullBillDTO } from "../../../generated";
-import { getBillsByYear, searchBills } from "../../../state/bills/actions";
-import { IState } from "../../../types";
-import { IBillSummary } from "../../activities/billingActivity/types";
-import { TFilterValues } from "../billTable/types";
 import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
   ArcElement,
+  BarElement,
+  CategoryScale,
+  Chart as ChartJS,
+  Legend,
+  LinearScale,
+  LineElement,
+  PointElement,
   Title,
   Tooltip,
-  Legend,
-  PointElement,
-  LineElement,
 } from "chart.js";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
+import moment from "moment";
+import React, { FC, useCallback, useEffect, useMemo, useState } from "react";
 import { Bar, Doughnut, Line, Pie } from "react-chartjs-2";
+import { useTranslation } from "react-i18next";
+import { getBillsByYear, searchBills } from "../../../state/bills";
+import { IBillSummary } from "../../activities/billingActivity/types";
+import { TFilterValues } from "../billTable/types";
 
 import { computeBillSummary } from "./billsMining";
 
-import "./styles.scss";
-import { TUserCredentials } from "../../../state/main/types";
+import { CircularProgress } from "@mui/material";
 import { union } from "lodash";
-import { monthList, yearList } from "./consts";
 import { currencyFormat } from "../../../libraries/formatUtils/currencyFormatting";
-import SelectField from "../selectField/SelectField";
-import { CircularProgress } from "@material-ui/core";
 import { useWindowWidth } from "../../../libraries/hooks/useWindowsWidth";
 import { isMobile } from "../../../libraries/uiUtils/screenUtils";
+import SelectField from "../selectField/SelectField";
+import { monthList, yearList } from "./consts";
+import "./styles.scss";
 
 ChartJS.register(
   CategoryScale,
@@ -60,7 +50,7 @@ export const BillsRecap: FC = () => {
   );
   const width = useWindowWidth();
   const [summaryByYear, summaryByYearChange] = useState({} as IBillSummary);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [year, setYear] = useState(() => {
     return {
       value: new Date().getFullYear().toString(),
@@ -68,19 +58,19 @@ export const BillsRecap: FC = () => {
     };
   });
 
-  const currentData = useSelector<IState, FullBillDTO[]>((state) => {
+  const currentData = useAppSelector((state) => {
     return state.bills.searchBills.data ?? [];
   });
 
-  const dataByYear = useSelector<IState, FullBillDTO[]>((state) => {
+  const dataByYear = useAppSelector((state) => {
     return state.bills.getBillsByYear.data ?? [];
   });
 
-  const dataByYearIsLoading = useSelector<IState, boolean>((state) => {
+  const dataByYearIsLoading = useAppSelector((state) => {
     return state.bills.getBillsByYear.status === "LOADING";
   });
 
-  const userCredentials = useSelector<IState, TUserCredentials>(
+  const userCredentials = useAppSelector(
     (state) => state.main.authentication.data
   );
 
@@ -101,6 +91,7 @@ export const BillsRecap: FC = () => {
 
   useEffect(() => {
     dispatch(searchBills(filter as TFilterValues));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
   useEffect(() => {
@@ -191,7 +182,7 @@ export const BillsRecap: FC = () => {
         ],
       };
     },
-    [summaryCurrentYear]
+    [summaryCurrentYear, t]
   );
 
   const paymentsVariationsData = useMemo(() => {
@@ -209,7 +200,7 @@ export const BillsRecap: FC = () => {
         {
           label: t("bill.payments"),
           data:
-            labels.length != 0
+            labels.length !== 0
               ? labels.map(
                   (item) => summaryCurrentYear.paymentsByMonthsOfYear[item] ?? 0
                 )
@@ -220,7 +211,7 @@ export const BillsRecap: FC = () => {
         {
           label: t("bill.debts"),
           data:
-            labels.length != 0
+            labels.length !== 0
               ? labels.map(
                   (item) => summaryCurrentYear.debtsByMonthsOfYear[item] ?? 0
                 )
@@ -230,6 +221,7 @@ export const BillsRecap: FC = () => {
         },
       ],
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [summaryCurrentYear]);
 
   const getOptionsFromYears = (years: number[]) => {
@@ -240,7 +232,6 @@ export const BillsRecap: FC = () => {
       };
     });
   };
-  const infoBoxRef = useRef<HTMLDivElement>(null);
 
   return (
     <div className="bills__recap">

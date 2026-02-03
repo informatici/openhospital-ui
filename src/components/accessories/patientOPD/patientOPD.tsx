@@ -1,34 +1,32 @@
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { FunctionComponent, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
-import { IState } from "../../../types";
-import { initialFields } from "./consts";
+import checkIcon from "../../../assets/check-icon.png";
 import { OpdWithOperationRowDTO } from "../../../generated";
+import { updateOpdFields } from "../../../libraries/formDataHandling/functions";
+import { Permission } from "../../../libraries/permissionUtils/Permission";
+import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
+import { getDiseasesOpd } from "../../../state/diseases";
 import {
   createOpdReset,
-  createOpdWithOperationsRows,
-  updateOpdWithOperationRows,
-  deleteOpd,
+  createOpdWithOperationsRow,
+  deleteOpdReset,
   updateOpdReset,
-} from "../../../state/opds/actions";
-import { getDiseasesOpd } from "../../../state/diseases/actions";
-import PatientOPDForm from "./patientOPDForm/PatientOPDForm";
-import { TActivityTransitionState } from "./types";
-import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
-import InfoBox from "../infoBox/InfoBox";
+  updateOpdWithOperationRow,
+} from "../../../state/opds";
+import { deleteOperationRowReset } from "../../../state/operations";
+import { IState } from "../../../types";
 import ConfirmationDialog from "../confirmationDialog/ConfirmationDialog";
-import checkIcon from "../../../assets/check-icon.png";
-import PatientOPDTable from "./patientOPDTable/PatientOPDTable";
-import { updateOpdFields } from "../../../libraries/formDataHandling/functions";
+import InfoBox from "../infoBox/InfoBox";
 import { PatientExtraData } from "../patientExtraData/patientExtraData";
-import { Permission } from "../../../libraries/permissionUtils/Permission";
-
-import { initialFields as operationFields } from "../patientOperation/consts";
-import { deleteOperationRowReset } from "../../../state/operations/actions";
+import { initialFields } from "./consts";
+import PatientOPDForm from "./patientOPDForm/PatientOPDForm";
+import PatientOPDTable from "./patientOPDTable/PatientOPDTable";
+import { TActivityTransitionState } from "./types";
 
 const PatientOPD: FunctionComponent = () => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const infoBoxRef = useRef<HTMLDivElement>(null);
 
   const [shouldResetForm, setShouldResetForm] = useState(false);
@@ -37,7 +35,7 @@ const PatientOPD: FunctionComponent = () => {
   const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
   const [opdToEdit, setOpdToEdit] = useState({} as OpdWithOperationRowDTO);
   const [creationMode, setCreationMode] = useState(true);
-  const changeStatus = useSelector<IState, string | undefined>((state) => {
+  const changeStatus = useAppSelector((state) => {
     /*
       Apart from "IDLE" create and update cannot reach "LOADING", "SUCCESS" and "FAIL" 
       status at the same time,
@@ -48,7 +46,7 @@ const PatientOPD: FunctionComponent = () => {
       : state.opds.updateOpd.status;
   });
 
-  const errorMessage = useSelector<IState, string>(
+  const errorMessage = useAppSelector(
     (state) =>
       state.opds.createOpd.error?.message ||
       state.opds.updateOpd.error?.message ||
@@ -66,16 +64,19 @@ const PatientOPD: FunctionComponent = () => {
     dispatch(createOpdReset());
     dispatch(updateOpdReset());
     dispatch(getDiseasesOpd());
+
+    return () => {
+      dispatch(deleteOpdReset());
+    };
   }, [dispatch]);
 
-  const patient = useSelector(
+  const patient = useAppSelector(
     (state: IState) => state.patients.selectedPatient.data
   );
 
-  const userId = useSelector(
+  const userId = useAppSelector(
     (state: IState) => state.main.authentication.data?.username
   );
-  const [deletedObjCode, setDeletedObjCode] = useState("");
 
   useEffect(() => {
     if (activityTransitionState === "TO_RESET") {
@@ -101,14 +102,17 @@ const PatientOPD: FunctionComponent = () => {
       const opdToSave = { ...opdToEdit.opdDTO, ...opdValues.opdDTO };
       if (!creationMode && opdToEdit.opdDTO?.code) {
         dispatch(
-          updateOpdWithOperationRows(opdToEdit.opdDTO?.code, {
-            opdDTO: opdToSave,
-            operationRows: opdValues.operationRows,
-          } as OpdWithOperationRowDTO)
+          updateOpdWithOperationRow({
+            code: opdToEdit.opdDTO?.code,
+            opdWithOperationRowDTO: {
+              opdDTO: opdToSave,
+              operationRows: opdValues.operationRows,
+            } as OpdWithOperationRowDTO,
+          })
         );
       } else {
         dispatch(
-          createOpdWithOperationsRows({
+          createOpdWithOperationsRow({
             opdDTO: { ...opdToSave, code: 0 },
             operationRows: opdValues.operationRows,
           })
@@ -132,11 +136,6 @@ const PatientOPD: FunctionComponent = () => {
     setOpdToEdit(row);
     setCreationMode(false);
     scrollToElement(null);
-  };
-
-  const onDelete = (code: number | undefined) => {
-    setDeletedObjCode(code?.toString() ?? "");
-    dispatch(deleteOpd(code));
   };
 
   return (

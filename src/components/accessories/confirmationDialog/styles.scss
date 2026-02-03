@@ -29,6 +29,7 @@
   display: flex;
   flex-direction: row-reverse;
   margin-bottom: 10px;
+  gap: 2px;
   @include susy-media($smartphone_small) {
     display: block;
   }

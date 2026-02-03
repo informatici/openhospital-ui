@@ -1,25 +1,32 @@
-import React, { FunctionComponent, useState } from "react";
+import { createSelector } from "@reduxjs/toolkit";
+import { Chart, registerables } from "chart.js";
+import { useAppSelector } from "libraries/hooks/redux";
+import React from "react";
 import { useTranslation } from "react-i18next";
-import { connect } from "react-redux";
-import { IState } from "../../../types";
+import { Permission } from "../../../libraries/permissionUtils/Permission";
 import AppHeader from "../appHeader/AppHeader";
 import Footer from "../footer/Footer";
 import { DashboardContent } from "./dashboardContent/DashboardContent";
 import "./styles.scss";
-import { IStateProps, TProps } from "./types";
-import { Chart, registerables } from "chart.js";
-import { Permission } from "../../../libraries/permissionUtils/Permission";
 
 Chart.register(...registerables);
 
-const Dashboard: FunctionComponent<TProps> = ({ userCredentials }) => {
+const appSelector = createSelector(
+  (state) => state.main.authentication.data,
+  (userCredentials) => ({ userCredentials })
+);
+
+const Dashboard = () => {
   const { t } = useTranslation();
+
+  const { userCredentials } = useAppSelector(appSelector);
+
   const breadcrumbMap = {
     [t("nav.dashboard")]: "",
   };
 
   return (
-    <div className="dashboard">
+    <div data-cy="dashboard" className="dashboard">
       <AppHeader
         userCredentials={userCredentials}
         breadcrumbMap={breadcrumbMap}
@@ -34,8 +41,4 @@ const Dashboard: FunctionComponent<TProps> = ({ userCredentials }) => {
   );
 };
 
-const mapStateToProps = (state: IState): IStateProps => ({
-  userCredentials: state.main.authentication.data,
-});
-
-export default connect(mapStateToProps)(Dashboard);
+export default Dashboard;

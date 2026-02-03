@@ -1,7 +1,7 @@
-import React from "react";
-import { IPropsSummary, IProps } from "./types";
-import "./styles.scss";
 import classNames from "classnames";
+import React, { PropsWithChildren } from "react";
+import "./styles.scss";
+import { IProps, IPropsSummary } from "./types";
 
 import Arrow from "../../../assets/arrow-w.svg";
 
@@ -17,7 +17,7 @@ export const AccordionSummary: React.FC<IPropsSummary> = ({
   );
 };
 
-export const AccordionDetails: React.FC = ({ children }) => {
+export const AccordionDetails: React.FC<PropsWithChildren> = ({ children }) => {
   return <div className="accordion_details">{children}</div>;
 };
 

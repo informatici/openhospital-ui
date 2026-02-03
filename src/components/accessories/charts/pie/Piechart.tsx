@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { Pie } from "react-chartjs-2";
-import { IOwnProps } from "./types";
 import "./styles.scss";
+import { IOwnProps } from "./types";
 
 export const Piechart: FC<IOwnProps> = ({ data, title, height, width }) => {
   const defaultWidth = "325px";

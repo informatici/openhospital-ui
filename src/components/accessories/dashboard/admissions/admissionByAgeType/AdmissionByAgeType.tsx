@@ -1,20 +1,20 @@
-import { FC, useEffect, useRef, useState } from "react";
-import { TDashboardComponentProps } from "../../layouts/types";
+import { useAppDispatch } from "libraries/hooks/redux";
+import React, { FC, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch } from "react-redux";
-import React from "react";
-import { DashboardCard } from "../../card/DashboardCard";
-import { Barchart } from "../../../charts/bar/Barchart";
-import { DataSummary } from "../../summary/DataSummary";
-import { TDashboardCardOptionActions } from "../../card/types";
-import { Skeleton } from "@material-ui/lab";
-import { getAdmissions } from "../../../../../state/admissions/actions";
-import { getAgeTypes } from "../../../../../state/ageTypes/actions";
-import { IOwnProps } from "../types";
 import { useAdmByAgeTypeData } from "../../../../../libraries/dashboardUtils/admissions/useAdmByAgeTypeData";
+import { getAdmissions } from "../../../../../state/admissions";
+import { Barchart } from "../../../charts/bar/Barchart";
 import DataDownloadButton from "../../../dataDownloadButton/DataDownloadButton";
+import { DashboardCard } from "../../card/DashboardCard";
+import { TDashboardCardOptionActions } from "../../card/types";
+import { TDashboardComponentProps } from "../../layouts/types";
+import { DataSummary } from "../../summary/DataSummary";
+import { IOwnProps } from "../types";
 
+import { Skeleton } from "@mui/material";
+import { getAgeTypes } from "state/types/ageTypes";
 import "../../card/styles.scss";
+import { useDisplaySize } from "../../hooks";
 
 export const AdmissionsByAgeType: FC<TDashboardComponentProps & IOwnProps> = ({
   onRemove,
@@ -22,7 +22,7 @@ export const AdmissionsByAgeType: FC<TDashboardComponentProps & IOwnProps> = ({
   period,
 }) => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const cardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -31,17 +31,12 @@ export const AdmissionsByAgeType: FC<TDashboardComponentProps & IOwnProps> = ({
 
   useEffect(() => {
     dispatch(getAdmissions({ admissionrange: period }));
-  }, [period]);
+  }, [period, dispatch]);
 
   const { total, success, status, ageTypeStatus, data, csvData } =
     useAdmByAgeTypeData();
 
-  const [displaySize, setDisplaySize] =
-    useState<{ width: number; height: number }>();
-
-  const onSizeChange = (width: number, height: number) => {
-    setDisplaySize({ width: width - 1, height: height - 73 });
-  };
+  const { displaySize, onSizeChange } = useDisplaySize();
 
   const downloadOptions = (
     <DataDownloadButton
@@ -74,11 +69,7 @@ export const AdmissionsByAgeType: FC<TDashboardComponentProps & IOwnProps> = ({
           actions={actions}
           sizeChangeHandler={onSizeChange}
         >
-          <Barchart
-            data={data}
-            width={displaySize?.width ? `${displaySize.width}px` : "320px"}
-            height={displaySize?.height ? `${displaySize.height}px` : "320px"}
-          />
+          <Barchart data={data} width={"100%"} height={"calc(100% - 75px)"} />
           <DataSummary
             label={t("admission.admregistered")}
             value={total.toString()}

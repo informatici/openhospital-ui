@@ -1,48 +1,37 @@
-import { useMemo, useState } from "react";
+import { useAppSelector } from "libraries/hooks/redux";
 import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
-import {
-  AdmissionDTO,
-  WardDTO,
-  AdmissionTypeDTO,
-  AgeTypeDTO,
-} from "../../../../generated";
 import { colorGen } from "../../../../libraries/uiUtils/colorGenerator";
-import { TAPIResponseStatus } from "../../../../state/types";
-import { IState } from "../../../../types";
 
 export const useData = () => {
   const { t } = useTranslation();
-  const discharges = useSelector<IState, AdmissionDTO[]>(
+  const discharges = useAppSelector(
     (state) =>
       state.admissions.getDischarges.data?.data?.filter(
         (e) => e?.disDate !== undefined
       ) ?? []
   );
-  const wards = useSelector<IState, WardDTO[]>(
-    (state) => state.wards.allWards.data ?? []
+  const wards = useAppSelector((state) => state.wards.allWards.data ?? []);
+  const dischargeTypes = useAppSelector(
+    (state) => state.types.discharges.getAll.data ?? []
   );
-  const dischargeTypes = useSelector<IState, AdmissionTypeDTO[]>(
-    (state) => state.dischargeTypes.allDischargeTypes.data ?? []
+  const ageTypes = useAppSelector(
+    (state) => state.types.ageTypes.getAll.data ?? []
   );
-  const ageTypes = useSelector<IState, AgeTypeDTO[]>(
-    (state) => state.ageTypes.getAllAgeTypes.data ?? []
+  const ageTypeStatus = useAppSelector(
+    (state) => state.types.ageTypes.getAll.status ?? "IDLE"
   );
-  const ageTypeStatus = useSelector<IState, TAPIResponseStatus>(
-    (state) => state.ageTypes.getAllAgeTypes.status ?? "IDLE"
+  const dischargeTypeStatus = useAppSelector(
+    (state) => state.types.discharges.getAll.status ?? "IDLE"
   );
-  const dischargeTypeStatus = useSelector<IState, TAPIResponseStatus>(
-    (state) => state.dischargeTypes.allDischargeTypes.status ?? "IDLE"
-  );
-  const admissionStatus = useSelector<IState, TAPIResponseStatus>(
+  const admissionStatus = useAppSelector(
     (state) => state.admissions.getDischarges.status ?? "IDLE"
   );
-  const success = useSelector<IState, boolean>((state) =>
+  const success = useAppSelector((state) =>
     ["SUCCESS", "SUCCESS_EMPTY"].includes(
       state.admissions.getDischarges.status ?? ""
     )
   );
-  const wardStatus = useSelector<IState, TAPIResponseStatus>(
+  const wardStatus = useAppSelector(
     (state) => state.wards.allWards.status ?? "IDLE"
   );
   const sexLabels = [t("common.male"), t("common.female")];

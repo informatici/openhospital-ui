@@ -1,9 +1,9 @@
-import React, { FunctionComponent, useEffect } from "react";
-import { TextField as MaterialComponent } from "@material-ui/core";
+import { TextField as MaterialComponent } from "@mui/material";
+import React, { FunctionComponent } from "react";
+import { useTranslation } from "react-i18next";
+import { FIELD_VALIDATION } from "../../../types";
 import "./styles.scss";
 import { IProps } from "./types";
-import { FIELD_VALIDATION } from "../../../types";
-import { useTranslation } from "react-i18next";
 
 const TextField: FunctionComponent<IProps> = ({
   field,
@@ -44,6 +44,7 @@ const TextField: FunctionComponent<IProps> = ({
         disabled={disabled}
         InputProps={InputProps}
         inputProps={{ maxLength }}
+        InputLabelProps={{ shrink: !!field.value }}
         required={required === FIELD_VALIDATION.REQUIRED}
       />
       {maxLength && maxLength > 0 && (

@@ -1,10 +1,9 @@
-import { Button, Fade, IconButton, Menu } from "@material-ui/core";
-import { TDashboardCardOptionActions } from "./types";
-import { useState } from "react";
-import React from "react";
-import { Close, Fullscreen, GetApp } from "@material-ui/icons";
-import { DownloadOptions } from "./DashboardDownloadOptions";
+import { Close, Fullscreen, GetApp } from "@mui/icons-material";
+import { Fade, IconButton, Menu } from "@mui/material";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { DownloadOptions } from "./DashboardDownloadOptions";
+import { TDashboardCardOptionActions } from "./types";
 
 type TDashboardCardOptionProps = { actions: TDashboardCardOptionActions };
 export const DashboardCardActions = React.forwardRef<
@@ -41,7 +40,6 @@ export const DashboardCardActions = React.forwardRef<
 
           <Menu
             ref={ref}
-            getContentAnchorEl={null}
             anchorEl={anchorEl}
             id="Download-menu"
             className="Download-menu"
@@ -53,7 +51,10 @@ export const DashboardCardActions = React.forwardRef<
             transformOrigin={{ horizontal: "left", vertical: "top" }}
             TransitionComponent={Fade}
           >
-            <DownloadOptions actions={actions.onDownload} />
+            <DownloadOptions
+              actions={actions.onDownload}
+              onClose={handleClose}
+            />
           </Menu>
         </>
       )}

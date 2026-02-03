@@ -1,6 +1,6 @@
 import React, { FC, Fragment } from "react";
-import { IProps } from "./types";
 import "./styles.scss";
+import { IProps } from "./types";
 
 const ManageBillingActivityContent: FC<IProps> = ({ content }) => {
   const Content = content;

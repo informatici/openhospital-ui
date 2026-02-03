@@ -1,9 +1,9 @@
-import { Skeleton } from "@material-ui/lab";
+import { Skeleton } from "@mui/material";
+import { useAppDispatch } from "libraries/hooks/redux";
 import React, { FC, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch } from "react-redux";
-import { getAgeTypes } from "../../../../state/ageTypes/actions";
-import { searchOpds } from "../../../../state/opds/actions";
+import { getAgeTypes } from "state/types/ageTypes";
+import { searchOpds } from "../../../../state/opds";
 import { Barchart } from "../../charts/bar/Barchart";
 import { Piechart } from "../../charts/pie/Piechart";
 import { DataSummary } from "../summary/DataSummary";
@@ -13,7 +13,7 @@ import { useData } from "./useData";
 
 export const Opds: FC<IOwnProps> = ({ period }) => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(
       searchOpds({
@@ -23,15 +23,8 @@ export const Opds: FC<IOwnProps> = ({ period }) => {
     );
     dispatch(getAgeTypes());
   }, [dispatch, period]);
-  const {
-    ageTypeStatus,
-    opdStatus,
-    dataByAgeType,
-    dataBySex,
-    success,
-    total,
-    opds,
-  } = useData();
+  const { ageTypeStatus, opdStatus, dataByAgeType, dataBySex, success, total } =
+    useData();
 
   return (
     <>

@@ -1,12 +1,16 @@
+import SelectField from "components/accessories/selectField/SelectField";
 import { useFormik } from "formik";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { get, has } from "lodash";
+import moment from "moment";
 import React, { FC, useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router";
 import { object, string } from "yup";
+import checkIcon from "../../../../assets/check-icon.png";
 import warningIcon from "../../../../assets/warning-icon.png";
+import { PATHS } from "../../../../consts";
 import {
-  ExamDTO,
   LaboratoryDTO,
   LaboratoryDTOInOutPatientEnum,
   LaboratoryDTOStatusEnum,
@@ -17,33 +21,27 @@ import {
   getFromFields,
   parseDate,
 } from "../../../../libraries/formDataHandling/functions";
-import { getExamRows, getExams } from "../../../../state/exams/actions";
+import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
+import { getExamRows, getExams } from "../../../../state/exams";
+import {
+  createLab,
+  createLabReset,
+  deleteLabReset,
+  getMaterials,
+  updateLab,
+  updateLabReset,
+} from "../../../../state/laboratories";
 import { IState } from "../../../../types";
 import AutocompleteField from "../../autocompleteField/AutocompleteField";
+import Button from "../../button/Button";
 import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
 import DateField from "../../dateField/DateField";
-import Button from "../../button/Button";
-import TextField from "../../textField/TextField";
-import checkIcon from "../../../../assets/check-icon.png";
-import "./styles.scss";
-import moment from "moment";
-import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
-import PatientPicker from "../../patientPicker/PatientPicker";
-import { ExamProps, ExamTransitionState } from "./type";
-import { scrollToElement } from "../../../../libraries/uiUtils/scrollToElement";
-import {
-  createLabReset,
-  updateLabReset,
-  deleteLabReset,
-  updateLab,
-  createLab,
-  getMaterials,
-} from "../../../../state/laboratories/actions";
-import { ILaboratoriesState } from "../../../../state/laboratories/types";
-import ExamRowTable from "../../patientExams/examRowTable/ExamRowTable";
 import InfoBox from "../../infoBox/InfoBox";
-import { useNavigate } from "react-router";
-import { PATHS } from "../../../../consts";
+import ExamRowTable from "../../patientExams/examRowTable/ExamRowTable";
+import PatientPicker from "../../patientPicker/PatientPicker";
+import TextField from "../../textField/TextField";
+import "./styles.scss";
+import { ExamProps, ExamTransitionState } from "./type";
 
 const ExamForm: FC<ExamProps> = ({
   fields,
@@ -52,7 +50,7 @@ const ExamForm: FC<ExamProps> = ({
   handleReset,
 }) => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [currentExamCode, setCurrentExamCode] = useState("");
   const [currentExamProcedure, setCurrentExamProcedure] = useState("");
@@ -82,16 +80,14 @@ const ExamForm: FC<ExamProps> = ({
       setShouldResetForm(true);
       handleReset();
     }
-  }, [dispatch, activityTransitionState]);
+  }, [dispatch, activityTransitionState, handleReset]);
 
-  const patient = useSelector(
+  const patient = useAppSelector(
     (state: IState) => state.patients.selectedPatient.data
   );
 
-  const labStore = useSelector<IState, ILaboratoriesState>(
-    (state: IState) => state.laboratories
-  );
-  const errorMessage = useSelector<IState>(
+  const labStore = useAppSelector((state: IState) => state.laboratories);
+  const errorMessage = useAppSelector(
     (state) =>
       labStore.createLab.error?.message ||
       labStore.updateLab.error?.message ||
@@ -99,7 +95,7 @@ const ExamForm: FC<ExamProps> = ({
       t("common.somethingwrong")
   ) as string;
 
-  const exams = useSelector((state: IState) => state.exams.examList.data);
+  const exams = useAppSelector((state: IState) => state.exams.examList.data);
 
   const onSubmit = (lab: LaboratoryDTO, rows: string[]) => {
     setShouldResetForm(false);
@@ -132,27 +128,18 @@ const ExamForm: FC<ExamProps> = ({
     lab.material = "Undefined";
 
     if (!creationMode && labToEdit.code) {
-      dispatch(updateLab(labToEdit.code, labWithRowsDTO));
+      dispatch(updateLab({ code: labToEdit.code, labWithRowsDTO }));
     } else {
       dispatch(createLab(labWithRowsDTO));
     }
   };
 
-  const resetFormCallback = () => {
+  const resetFormCallback = useCallback(() => {
     setShouldResetForm(false);
     dispatch(createLabReset());
     dispatch(updateLabReset());
     setActivityTransitionState("IDLE");
-    scrollToElement(null);
-  };
-
-  const rowTableHeaders: Array<{
-    label: string;
-    align: "left" | "right" | "center" | "justify";
-  }> = [
-    { label: t("lab.resultrow"), align: "left" },
-    { label: t("lab.value"), align: "right" },
-  ];
+  }, [dispatch]);
 
   const validationSchema = object({
     labDate: string()
@@ -180,35 +167,20 @@ const ExamForm: FC<ExamProps> = ({
   const initialValues = getFromFields(fields, "value");
   const [rowsData, setRowsData] = useState([...labToEditRows]);
 
-  const examOptionsSelector = (exams: ExamDTO[] | undefined) => {
-    if (exams) {
-      return exams.map((item) => {
-        return {
-          value: item.code ?? "",
-          label:
-            (item.description &&
-              item.description?.length > 30 &&
-              item.description.slice(0, 30) + "...") ||
-            (item.description ?? ""),
-        };
-      });
-    } else return [];
-  };
+  const examOptions = useAppSelector((state: IState) => {
+    return (state.exams.examList.data ?? []).map((item) => {
+      return {
+        value: item.code ?? "",
+        label:
+          (item.description &&
+            item.description?.length > 30 &&
+            item.description.slice(0, 30) + "...") ||
+          (item.description ?? ""),
+      };
+    });
+  });
 
-  const materialsOptionsSelector = (materials: string[] | undefined) => {
-    if (materials) {
-      return materials.map((item) => {
-        let label = item ? t(item) : "";
-        return {
-          value: item ?? "",
-          label:
-            (label.length > 30 && label.slice(0, 30) + "...") || (label ?? ""),
-        };
-      });
-    } else return [];
-  };
-
-  const examList = useSelector((state: IState) => state.exams.examList.data);
+  const examList = useAppSelector((state: IState) => state.exams.examList.data);
 
   const examRowOptionsSelector = (state: IState) => {
     if (state.exams.examRowsByExamCode.data) {
@@ -221,7 +193,7 @@ const ExamForm: FC<ExamProps> = ({
     } else return [];
   };
 
-  const examRows = useSelector((state: IState) =>
+  const examRows = useAppSelector((state: IState) =>
     examRowOptionsSelector(state)
   );
 
@@ -246,13 +218,16 @@ const ExamForm: FC<ExamProps> = ({
       setFieldValue(fieldName, value);
       formik.setFieldTouched(fieldName);
     },
-    [setFieldValue]
+    [formik, setFieldValue]
   );
+
   useEffect(() => {
     if (initialValues["exam"] !== "") {
       setCurrentExamCode(initialValues["exam"]);
     }
-  }, [initialValues]);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (currentExamCode) {
@@ -288,6 +263,7 @@ const ExamForm: FC<ExamProps> = ({
           setFieldValue(fieldName, value);
           if (fieldName === "exam") {
             setCurrentExamCode(value);
+            setFieldValue("result", "");
           }
 
           // Clear rowsData variable for exam status validation
@@ -302,16 +278,25 @@ const ExamForm: FC<ExamProps> = ({
     [setFieldValue, handleBlur]
   );
 
-  const onBlurCallbackForTableRow = useCallback(
-    () => (value: string) => {
-      setRowsData((rowObjs: string[]) => {
-        if (!rowObjs.includes(value)) {
-          rowObjs.push(value);
-        } else rowObjs = rowObjs.filter((e) => e !== value);
-        return rowObjs;
-      });
+  const handleExamChange = useCallback(
+    (value: string) => {
+      setFieldValue("exam", value);
+      formik.setFieldTouched("exam");
+      setCurrentExamCode(value);
+      setFieldValue("result", "");
     },
-    []
+    [setFieldValue, handleBlur]
+  );
+
+  const onBlurCallbackForTableRow = useCallback(
+    (value: string, checked: boolean) => {
+      if (checked && !rowsData.includes(value)) {
+        setRowsData((prevState) => [...prevState, value]);
+      } else {
+        setRowsData((prevState) => prevState.filter((row) => row !== value));
+      }
+    },
+    [rowsData]
   );
 
   const [openResetConfirmation, setOpenResetConfirmation] = useState(false);
@@ -333,11 +318,11 @@ const ExamForm: FC<ExamProps> = ({
     }
   }, [shouldResetForm, resetForm, resetFormCallback]);
 
-  const examRowsLaoding = useSelector(
+  const examRowsLaoding = useAppSelector(
     (state: IState) => state.exams.examRowsByExamCode.status === "LOADING"
   );
 
-  const examsLoading = useSelector(
+  const examsLoading = useAppSelector(
     (state: IState) => state.exams.examList.status === "LOADING"
   );
 
@@ -399,14 +384,15 @@ const ExamForm: FC<ExamProps> = ({
               />
             </div> */}
             <div className="patientExamForm__item">
-              <AutocompleteField
+              <SelectField
                 fieldName="exam"
                 fieldValue={formik.values.exam}
                 label={t("lab.exam")}
                 isValid={isValid("exam")}
                 errorText={getErrorText("exam")}
                 onBlur={onBlurCallback("exam")}
-                options={examOptionsSelector(examList)}
+                onChange={handleExamChange}
+                options={examOptions}
                 isLoading={examsLoading}
                 disabled={isLoading}
               />
@@ -430,8 +416,7 @@ const ExamForm: FC<ExamProps> = ({
               {currentExamProcedure === "2" && (
                 <ExamRowTable
                   title={t("lab.resultstitle")}
-                  headerData={rowTableHeaders}
-                  onBlur={onBlurCallbackForTableRow()}
+                  onChange={onBlurCallbackForTableRow}
                   rows={examRows}
                   disabled={isLoading}
                 />

@@ -1,14 +1,13 @@
+import { CircularProgress } from "@mui/material";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { FunctionComponent, useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { VisitDTO } from "../../../../generated";
-import { getVisits } from "../../../../state/visits/actions";
-import { IState } from "../../../../types";
-import Table from "../../table/Table";
-import { CircularProgress } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
-import InfoBox from "../../infoBox/InfoBox";
+import { VisitDTO } from "../../../../generated";
 import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 import { usePermission } from "../../../../libraries/permissionUtils/usePermission";
+import { getVisits } from "../../../../state/visits";
+import InfoBox from "../../infoBox/InfoBox";
+import Table from "../../table/Table";
 interface IOwnProps {
   shouldUpdateTable: boolean;
   handleEdit: (row: any) => void;
@@ -30,22 +29,18 @@ const PatientVisitTable: FunctionComponent<IOwnProps> = ({
     ward: t("visit.ward"),
   };
   const order = ["date", "duration"];
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const infoBoxRef = useRef<HTMLDivElement>(null);
 
-  const data = useSelector<IState, VisitDTO[]>(
-    (state) => state.visits.getVisits.data ?? []
-  );
-  const visitStatus = useSelector<IState, string | undefined>(
-    (state) => state.visits.getVisits.status
-  );
+  const data = useAppSelector((state) => state.visits.getVisits.data ?? []);
+  const visitStatus = useAppSelector((state) => state.visits.getVisits.status);
 
-  const errorMessage = useSelector<IState>(
+  const errorMessage = useAppSelector(
     (state) =>
       state.visits.getVisits.error?.message || t("common.somethingwrong")
   ) as string;
 
-  const patientCode = useSelector<IState, number | undefined>(
+  const patientCode = useAppSelector(
     (state) => state.patients.selectedPatient.data?.code
   );
   useEffect(() => {

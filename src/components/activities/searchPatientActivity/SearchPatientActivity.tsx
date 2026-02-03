@@ -1,26 +1,16 @@
-import Button from "@material-ui/core/Button";
+import Button from "@mui/material/Button";
 import { useFormik } from "formik";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import { get, has } from "lodash";
-import React, {
-  FunctionComponent,
-  useCallback,
-  useEffect,
-  useRef,
-} from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { connect, useDispatch, useSelector } from "react-redux";
-import { number, object, string } from "yup";
+import { searchPatient, searchPatientsReset } from "state/patients";
+import { number, object } from "yup";
 import SearchIcon from "../../../assets/SearchIcon";
 import { PATHS } from "../../../consts";
 import { formatAllFieldValues } from "../../../libraries/formDataHandling/functions";
 import { Permission } from "../../../libraries/permissionUtils/Permission";
 import { scrollToElement } from "../../../libraries/uiUtils/scrollToElement";
-import {
-  searchPatient,
-  getPatientSuccess,
-  searchPatientReset,
-} from "../../../state/patients/actions";
-import { IState } from "../../../types";
 import AppHeader from "../../accessories/appHeader/AppHeader";
 import DateField from "../../accessories/dateField/DateField";
 import Footer from "../../accessories/footer/Footer";
@@ -29,18 +19,19 @@ import TextField from "../../accessories/textField/TextField";
 import { initialFields } from "./consts";
 import PatientSearchItem from "./PatientSearchItem";
 import "./styles.scss";
-import { IDispatchProps, IStateProps, TValues, TProps } from "./types";
+import { TValues } from "./types";
 import { useIsSearchById } from "./useIsSearchById";
 
-const SearchPatientActivity: FunctionComponent<TProps> = ({
-  userCredentials,
-  patientSearchResults,
-  searchPatient,
-  searchStatus,
-  getPatientSuccess,
-}) => {
+const SearchPatientActivity = () => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
+
+  const { userCredentials, patientSearchResults, searchStatus } =
+    useAppSelector((state) => ({
+      userCredentials: state.main.authentication.data,
+      patientSearchResults: state.patients.searchResults.data,
+      searchStatus: state.patients.searchResults.status || "IDLE",
+    }));
 
   const breadcrumbMap = {
     [t("nav.patients")]: PATHS.patients,
@@ -48,10 +39,10 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
   };
 
   useEffect(() => {
-    dispatch(searchPatientReset());
+    dispatch(searchPatientsReset());
   }, [dispatch]);
 
-  const errorMessage = useSelector<IState>(
+  const errorMessage = useAppSelector(
     (state) =>
       state.patients.searchResults.error?.message || t("common.somethingwrong")
   ) as string;
@@ -81,7 +72,7 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
       const formattedValues = formatAllFieldValues(initialFields, values);
       // First scroll to show searching message
       scrollToElement(resultsRef.current);
-      searchPatient(formattedValues as TValues);
+      dispatch(searchPatient(formattedValues as TValues));
     },
   });
 
@@ -104,6 +95,8 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
 
   const isSearchById = useIsSearchById(formik);
 
+  const RESULTS_DATA_CY = "search-patient-results";
+
   const renderSearchResults = (): JSX.Element | undefined => {
     switch (searchStatus) {
       case "IDLE":
@@ -116,18 +109,14 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
 
       case "SUCCESS":
         return (
-          <div className="searchPatient__results">
+          <div data-cy={RESULTS_DATA_CY} className="searchPatient__results">
             <div className="searchPatient__results_count">
               {t("common.results")}:{" "}
               <strong>{patientSearchResults?.length}</strong>
             </div>
             <div className="searchPatient__results_list">
               {patientSearchResults?.map((patient, index) => (
-                <PatientSearchItem
-                  key={index}
-                  patient={patient}
-                  getPatientSuccessCallback={getPatientSuccess}
-                />
+                <PatientSearchItem key={index} patient={patient} />
               ))}
             </div>
           </div>
@@ -135,14 +124,14 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
 
       case "SUCCESS_EMPTY":
         return (
-          <div className="searchPatient__results">
+          <div data-cy={RESULTS_DATA_CY} className="searchPatient__results">
             <InfoBox type="info" message={t("common.searchnotfound")} />
           </div>
         );
 
       default:
         return (
-          <div className="searchPatient__results">
+          <div data-cy={RESULTS_DATA_CY} className="searchPatient__results">
             <InfoBox type="error" message={errorMessage} />
           </div>
         );
@@ -157,7 +146,7 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
   );
 
   return (
-    <div className="searchPatient">
+    <div data-cy="search-patient" className="searchPatient">
       <AppHeader
         userCredentials={userCredentials}
         breadcrumbMap={breadcrumbMap}
@@ -167,6 +156,7 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
           <div className="searchPatient__title">{t("nav.searchpatient")}</div>
           <Permission require="patients.read">
             <form
+              data-cy="search-patient-panel"
               className="searchPatient__panel"
               onSubmit={formik.handleSubmit}
             >
@@ -263,18 +253,4 @@ const SearchPatientActivity: FunctionComponent<TProps> = ({
   );
 };
 
-const mapStateToProps = (state: IState): IStateProps => ({
-  userCredentials: state.main.authentication.data,
-  patientSearchResults: state.patients.searchResults.data,
-  searchStatus: state.patients.searchResults.status || "IDLE",
-});
-
-const mapDispatchToProps: IDispatchProps = {
-  searchPatient,
-  getPatientSuccess,
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SearchPatientActivity);
+export default SearchPatientActivity;

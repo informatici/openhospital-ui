@@ -1,14 +1,13 @@
+import { CircularProgress } from "@mui/material";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { FunctionComponent, useEffect } from "react";
-import Table from "../../table/Table";
 import { useTranslation } from "react-i18next";
-import InfoBox from "../../infoBox/InfoBox";
-import { CircularProgress } from "@material-ui/core";
-import { useDispatch, useSelector } from "react-redux";
-import { IState } from "../../../../types";
 import { AdmissionDTO } from "../../../../generated";
-import { getPatientAdmissions } from "../../../../state/admissions/actions";
 import { renderDateTime } from "../../../../libraries/formatUtils/dataFormatting";
 import { usePermission } from "../../../../libraries/permissionUtils/usePermission";
+import { getPatientAdmissions } from "../../../../state/admissions";
+import InfoBox from "../../infoBox/InfoBox";
+import Table from "../../table/Table";
 
 interface IOwnProps {
   shouldUpdateTable: boolean;
@@ -42,9 +41,9 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
   };
   const order = ["admDate", "disDate"];
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const data = useSelector<IState, AdmissionDTO[]>((state) =>
+  const data = useAppSelector((state) =>
     state.admissions.getPatientAdmissions.data
       ? state.admissions.getPatientAdmissions.data.filter(
           (e) => state.admissions.currentAdmissionByPatientId.data?.id !== e.id
@@ -52,7 +51,7 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
       : []
   );
 
-  const patientCode = useSelector<IState, number | undefined>(
+  const patientCode = useAppSelector(
     (state) => state.patients.selectedPatient.data?.code
   );
 
@@ -85,16 +84,16 @@ const PatientAdmissionTable: FunctionComponent<IOwnProps> = ({
       };
     });
   };
-  const status = useSelector<IState, string | undefined>(
+  const status = useAppSelector(
     (state) => state.admissions.getPatientAdmissions.status
   );
 
-  const errorMessage = useSelector<IState>(
+  const errorMessage = useAppSelector(
     (state) =>
       state.admissions.getPatientAdmissions.error?.message ||
       t("common.somethingwrong")
   ) as string;
-  const createAdmissionStatus = useSelector<IState>(
+  const createAdmissionStatus = useAppSelector(
     (state) => state.admissions.createAdmission.status
   );
 

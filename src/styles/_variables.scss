@@ -7,6 +7,7 @@ $c-gray: #444444;
 $c-grey-medium: #808080;
 $c-grey-light: #77869e;
 $c-grey-lighter: #c0c0c0;
+$c-dark: rgba(48, 49, 51);
 
 $c-error-light: #ff8a65;
 
@@ -30,6 +31,9 @@ $medium: (
 );
 $medium-up: (
   min-width: 768px,
+);
+$medium-down: (
+  max-width: 767px,
 );
 $large: (
   min-width: 1025px,

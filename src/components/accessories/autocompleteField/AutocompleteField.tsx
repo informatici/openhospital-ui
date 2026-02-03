@@ -1,22 +1,23 @@
-import { debounce, FormControl, FormHelperText } from "@material-ui/core";
-import TextField from "@material-ui/core/TextField";
+import { Autocomplete } from "@mui/lab";
+import {
+  createFilterOptions,
+  debounce,
+  FilterOptionsState,
+  FormControl,
+  FormHelperText,
+} from "@mui/material";
+import TextField from "@mui/material/TextField";
+import _ from "lodash";
 import React, {
-  Fragment,
+  ChangeEvent,
   FC,
   useCallback,
   useEffect,
   useState,
-  ChangeEvent,
 } from "react";
-import { DefaultOptionType, IProps } from "./types";
-import "./styles.scss";
 import { useTranslation } from "react-i18next";
-import {
-  Autocomplete,
-  createFilterOptions,
-  FilterOptionsState,
-} from "@material-ui/lab";
-import _ from "lodash";
+import "./styles.scss";
+import { DefaultOptionType, IProps } from "./types";
 
 const AutocompleteField: FC<IProps> = ({
   fieldName,
@@ -50,8 +51,7 @@ const AutocompleteField: FC<IProps> = ({
   const { t } = useTranslation();
 
   const getFullObject = (val: string | number) => {
-    const res =
-      options?.find((el) => optionsComparator(el, val)) || val || null;
+    const res = options?.find((el) => optionsComparator(el, val)) || val || "";
     return res;
   };
 
@@ -74,6 +74,7 @@ const AutocompleteField: FC<IProps> = ({
     }
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const debounceUpdate = useCallback(
     debounce((value: any) => {
       setValue(value);
@@ -107,16 +108,6 @@ const AutocompleteField: FC<IProps> = ({
     }
     // Regular option
     return option.label;
-  };
-
-  const isSelected = (option: DefaultOptionType, v: DefaultOptionType) => {
-    return option.value === v.value;
-  };
-
-  const rendOption = (option: DefaultOptionType | string, props: any) => {
-    return (
-      <Fragment>{typeof option === "string" ? option : option.label}</Fragment>
-    );
   };
 
   const filter = createFilterOptions<DefaultOptionType>({
@@ -161,8 +152,7 @@ const AutocompleteField: FC<IProps> = ({
         onInputChange={handleOnInputChange}
         getOptionLabel={getOptionLabel ? getOptionLabel : optionLabel}
         value={getFullObject(value)}
-        getOptionSelected={getOptionSelected ? getOptionSelected : isSelected}
-        renderOption={renderOption ? renderOption : rendOption}
+        renderOption={renderOption ? renderOption : undefined}
         onChange={handleOnChange}
         onBlur={handleOnBlur}
         renderInput={(params) => (

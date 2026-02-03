@@ -1,12 +1,12 @@
 import React, { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { OpdDTO } from "../../../../generated";
+import { renderDateTime } from "../../../../libraries/formatUtils/dataFormatting";
 import { CustomModal } from "../../customModal/CustomModal";
 import SkeletonLoader from "../../skeletonLoader/SkeletonLoader";
 import Table from "../../table/Table";
-import { IOpdTableProps } from "./types";
 import "./styles.scss";
-import { renderDateTime } from "../../../../libraries/formatUtils/dataFormatting";
+import { IOpdTableProps } from "./types";
 
 export const OpdTable: FC<IOpdTableProps> = ({ data }) => {
   const { t } = useTranslation();

@@ -1,11 +1,11 @@
 import React, { Fragment, FunctionComponent } from "react";
-import "./styles.scss";
+import { useTranslation } from "react-i18next";
 import PatientDetailsContent from "../../../components/activities/patientDetailsActivityContent/PatientDetailsActivityContent";
 import { PatientDTOStatusEnum } from "../../../generated/models/PatientDTO";
-import { usePatient } from "../../activities/patientDetailsActivity/PatientDetailsActivity";
 import PatientDischarge from "../../accessories/discharge/PatientDischarge";
 import PatientSummary from "../../accessories/patientSummary/PatientSummary";
-import { useTranslation } from "react-i18next";
+import { usePatient } from "../../activities/patientDetailsActivity/PatientDetailsActivity";
+import "./styles.scss";
 
 const DischargeDetailsActivityContent: FunctionComponent = () => {
   const { t } = useTranslation();
@@ -14,7 +14,7 @@ const DischargeDetailsActivityContent: FunctionComponent = () => {
     <Fragment>
       <div className="patientDetails__content_header"></div>
       <div className="patientDetails__content_body">
-        {status.toString() === PatientDTOStatusEnum.O ? (
+        {status?.toString() === PatientDTOStatusEnum.O ? (
           <PatientDetailsContent
             title={t("patient.summary")}
             content={PatientSummary}

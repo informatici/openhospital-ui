@@ -1,9 +1,9 @@
-import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { Chart, registerables } from "chart.js";
+import React from "react";
 
-import { Piechart } from "./Piechart";
 import moment from "moment";
+import { Piechart } from "./Piechart";
 
 Chart.register(...registerables);
 

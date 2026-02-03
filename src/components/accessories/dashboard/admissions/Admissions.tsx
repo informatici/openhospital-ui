@@ -1,11 +1,11 @@
-import { Skeleton } from "@material-ui/lab";
+import { Skeleton } from "@mui/material";
+import { useAppDispatch } from "libraries/hooks/redux";
 import React, { FC, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
-import { getAdmissions } from "../../../../state/admissions/actions";
-import { getAdmissionTypes } from "../../../../state/admissionTypes/actions";
-import { getAgeTypes } from "../../../../state/ageTypes/actions";
-import { getWards } from "../../../../state/ward/actions";
+import { getAgeTypes } from "state/types/ageTypes";
+import { getAdmissions } from "../../../../state/admissions";
+import { getAdmissionTypes } from "../../../../state/types/admissions";
+import { getWards } from "../../../../state/ward";
 import { Barchart } from "../../charts/bar/Barchart";
 import { Piechart } from "../../charts/pie/Piechart";
 import { DataSummary } from "../summary/DataSummary";
@@ -15,7 +15,7 @@ import { useData } from "./useData";
 
 export const Admissions: FC<IOwnProps> = ({ period }) => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(
       getAdmissions({
@@ -25,10 +25,12 @@ export const Admissions: FC<IOwnProps> = ({ period }) => {
     dispatch(getAgeTypes());
     dispatch(getAdmissionTypes());
     dispatch(getWards());
-  }, [dispatch]);
+  }, [dispatch, period]);
+
   useEffect(() => {
     dispatch(getAdmissions({ admissionrange: period }));
-  }, [period]);
+  }, [period, dispatch]);
+
   const {
     admissionStatus,
     admissionTypeStatus,

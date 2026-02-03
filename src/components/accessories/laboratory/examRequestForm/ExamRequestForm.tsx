@@ -1,13 +1,11 @@
-import { FC, useCallback, useEffect, useRef, useState } from "react";
-import { useTranslation } from "react-i18next";
-import React from "react";
+import { Button } from "@mui/material";
 import { useFormik } from "formik";
-import {
-  formatAllFieldValues,
-  getFromFields,
-  parseDate,
-} from "../../../../libraries/formDataHandling/functions";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
+import { get, has } from "lodash";
+import React, { FC, useCallback, useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { object, string } from "yup";
+import checkIcon from "../../../../assets/check-icon.png";
 import {
   ExamDTO,
   LaboratoryDTO,
@@ -15,25 +13,23 @@ import {
   LaboratoryDTOStatusEnum,
   PatientDTO,
 } from "../../../../generated";
-import { useDispatch, useSelector } from "react-redux";
-import { IState } from "../../../../types";
+import {
+  formatAllFieldValues,
+  getFromFields,
+  parseDate,
+} from "../../../../libraries/formDataHandling/functions";
 import {
   createLabRequest,
   createLabRequestReset,
-} from "../../../../state/laboratories/actions";
-import PatientPicker from "../../patientPicker/PatientPicker";
-import { get, has } from "lodash";
+} from "../../../../state/laboratories";
+import { IState } from "../../../../types";
 import AutocompleteField from "../../autocompleteField/AutocompleteField";
-import { ILaboratoriesState } from "../../../../state/laboratories/types";
-import { Button } from "@material-ui/core";
-import { ControlPoint } from "@material-ui/icons";
-import { ExamRequestProps } from "./types";
-import "./styles.scss";
-import InfoBox from "../../infoBox/InfoBox";
-import { ExamTransitionState } from "../examForm/type";
-import { TAPIResponseStatus } from "../../../../state/types";
 import ConfirmationDialog from "../../confirmationDialog/ConfirmationDialog";
-import checkIcon from "../../../../assets/check-icon.png";
+import InfoBox from "../../infoBox/InfoBox";
+import PatientPicker from "../../patientPicker/PatientPicker";
+import { ExamTransitionState } from "../examForm/type";
+import "./styles.scss";
+import { ExamRequestProps } from "./types";
 
 const ExamRequestForm: FC<ExamRequestProps> = ({
   fields,
@@ -41,12 +37,11 @@ const ExamRequestForm: FC<ExamRequestProps> = ({
   handleSuccess,
 }) => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [patientData, setPatientData] = useState({} as PatientDTO);
-  const exams = useSelector((state: IState) => state.exams.examList.data);
-  const [currentExamCode, setCurrentExamCode] = useState("");
+  const exams = useAppSelector((state: IState) => state.exams.examList.data);
   const infoBoxRef = useRef<HTMLDivElement>(null);
-  const selectedPatient = useSelector(
+  const selectedPatient = useAppSelector(
     (state: IState) => state.patients.selectedPatient.data
   );
   const initialValues = getFromFields(fields, "value");
@@ -73,16 +68,13 @@ const ExamRequestForm: FC<ExamRequestProps> = ({
     } else return [];
   };
 
-  const examList = useSelector((state: IState) => state.exams.examList.data);
+  const examList = useAppSelector((state: IState) => state.exams.examList.data);
 
-  const labStore = useSelector<IState, ILaboratoriesState>(
-    (state: IState) => state.laboratories
+  const labStore = useAppSelector((state: IState) => state.laboratories);
+
+  const createLabRequestStatus = useAppSelector(
+    (state: IState) => state.laboratories.createLabRequest.status
   );
-
-  const createLabRequestStatus = useSelector<
-    IState,
-    TAPIResponseStatus | undefined
-  >((state: IState) => state.laboratories.createLabRequest.status);
 
   const [shouldResetForm, setShouldResetForm] = useState(false);
   const [activityTransitionState, setActivityTransitionState] =
@@ -98,14 +90,14 @@ const ExamRequestForm: FC<ExamRequestProps> = ({
       dispatch(createLabRequestReset());
       setShouldResetForm(true);
     }
-  }, [dispatch, activityTransitionState]);
+  }, [dispatch, activityTransitionState, handleSuccess]);
 
   const onClose = () => {
     if (handleSuccess) handleSuccess(true);
     setActivityTransitionState("TO_RESET");
   };
 
-  const errorMessage = useSelector<IState>(
+  const errorMessage = useAppSelector(
     (state) =>
       labStore.createLabRequest.error?.message || t("common.somethingwrong")
   ) as string;
@@ -142,11 +134,11 @@ const ExamRequestForm: FC<ExamRequestProps> = ({
     },
   });
 
-  const resetFormCallback = () => {
+  const resetFormCallback = useCallback(() => {
     setShouldResetForm(false);
     dispatch(createLabRequestReset());
     setActivityTransitionState("IDLE");
-  };
+  }, [dispatch]);
 
   const { setFieldValue, handleBlur, resetForm } = formik;
 
@@ -154,7 +146,6 @@ const ExamRequestForm: FC<ExamRequestProps> = ({
     if (shouldResetForm) {
       resetForm();
       resetFormCallback();
-      setCurrentExamCode("");
     }
   }, [shouldResetForm, resetForm, resetFormCallback]);
 
@@ -177,9 +168,6 @@ const ExamRequestForm: FC<ExamRequestProps> = ({
         handleBlur(e);
         if (typeof value === "string") {
           setFieldValue(fieldName, value);
-          if (fieldName === "exam") {
-            setCurrentExamCode(value);
-          }
         } else {
           setFieldValue(fieldName, value?.code ?? "");
           setPatientData(value as PatientDTO);
@@ -188,7 +176,7 @@ const ExamRequestForm: FC<ExamRequestProps> = ({
     [setFieldValue, handleBlur]
   );
 
-  const examsLoading = useSelector(
+  const examsLoading = useAppSelector(
     (state: IState) => state.exams.examList.status === "LOADING"
   );
 

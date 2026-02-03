@@ -1,23 +1,21 @@
+import { CircularProgress } from "@mui/material";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { FunctionComponent } from "react";
-import { DashboardFilter } from "./filter/DashboardFilter";
-import GridLayoutToolbox from "../layouts/toolbox/GridLayoutToolBox";
-import GridLayoutContainer from "../layouts/container/GridLayoutContainer";
-import { setDashboardPeriod } from "../../../../state/dashboard/actions";
-import { useDispatch, useSelector } from "react-redux";
-import "./styles.scss";
-import { IState } from "../../../../types";
-import { TAPIResponseStatus } from "../../../../state/types";
-import { CircularProgress } from "@material-ui/core";
 import { Navigate } from "react-router";
 import { PATHS } from "../../../../consts";
+import { setDashboardPeriod } from "../../../../state/dashboard";
+import GridLayoutContainer from "../layouts/container/GridLayoutContainer";
+import GridLayoutToolbox from "../layouts/toolbox/GridLayoutToolBox";
+import { DashboardFilter } from "./filter/DashboardFilter";
+import "./styles.scss";
 
 export const DashboardContent: FunctionComponent = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const handlePeriodChange = (value: string[]) => {
     dispatch(setDashboardPeriod(value));
   };
 
-  const authUserStatus = useSelector<IState, TAPIResponseStatus>(
+  const authUserStatus = useAppSelector(
     (state) => state.main.authentication.status ?? "IDLE"
   );
 

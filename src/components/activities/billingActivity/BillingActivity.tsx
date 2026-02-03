@@ -1,23 +1,21 @@
 import React, { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
-import { TUserCredentials } from "../../../state/main/types";
-import { IState } from "../../../types";
 import AppHeader from "../../accessories/appHeader/AppHeader";
+import { BillTable } from "../../accessories/billTable/BillTable";
 import Footer from "../../accessories/footer/Footer";
 import "./styles.scss";
-import { BillTable } from "../../accessories/billTable/BillTable";
 
 import { PaymentsTable } from "../../accessories/paymentsTable/PaymentsTable";
+import RouterTabs from "../../accessories/tabs/RouterTabs";
+import ManageBillingActivityContent from "../manageBillingActivityContent/ManageBillingActivityContent";
 import {
   FilterBillsInitialFields,
   paymentsFilterInitialFields,
 } from "./consts";
-import RouterTabs from "../../accessories/tabs/RouterTabs";
-import ManageBillingActivityContent from "../manageBillingActivityContent/ManageBillingActivityContent";
 
-import { TTabConfig } from "../../accessories/tabs/types";
+import { useAppSelector } from "../../../libraries/hooks/redux";
 import { BillsRecap } from "../../accessories/billsRecap/BillsRecap";
+import { TTabConfig } from "../../accessories/tabs/types";
 
 const BillingActivity: FC = () => {
   const { t } = useTranslation();
@@ -54,7 +52,7 @@ const BillingActivity: FC = () => {
   const getRouteConfig = () => {
     return billingConfigs;
   };
-  const userCredentials = useSelector<IState, TUserCredentials>(
+  const userCredentials = useAppSelector(
     (state) => state.main.authentication.data
   );
 

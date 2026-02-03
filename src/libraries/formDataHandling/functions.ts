@@ -1,5 +1,10 @@
 import { produce } from "immer";
+import { isEmpty } from "lodash";
 import moment from "moment";
+import {
+  TAgeFieldName,
+  TAgeType,
+} from "../../components/accessories/patientDataForm/types";
 import { IFormCustomizationProps } from "../../customization/formCustomization/type";
 import {
   AdmissionDTO,
@@ -17,17 +22,23 @@ import {
   WardDTO,
 } from "../../generated";
 import { TFieldAddress, TFieldFormattedValue, TFields } from "./types";
-import {
-  TAgeFieldName,
-  TAgeType,
-} from "../../components/accessories/patientDataForm/types";
 
 export const getFromFields = (
   fields: TFields,
   fieldAddress: TFieldAddress
 ): Record<string, any> => {
   return Object.keys(fields).reduce((acc: Record<string, any>, key) => {
-    acc[key] = fields[key][fieldAddress];
+    if (fields[key].type === "number" && fields[key][fieldAddress] === null) {
+      acc[key] = "";
+      return acc;
+    }
+    if (fieldAddress === "value") {
+      acc[key] = fields[key].isArray
+        ? JSON.parse(fields[key][fieldAddress])
+        : fields[key][fieldAddress];
+    } else {
+      acc[key] = fields[key][fieldAddress];
+    }
     return acc;
   }, {});
 };
@@ -101,6 +112,9 @@ export const formatAllFieldValues = (
   return Object.keys(fields).reduce(
     (acc: Record<string, TFieldFormattedValue>, key) => {
       switch (fields[key].type) {
+        case "boolean":
+          acc[key] = isEmpty(values[key]) ? undefined : values[key] === "true";
+          break;
         case "number":
           const int = parseInt(values[key]);
           const float = parseFloat(values[key]);
@@ -324,10 +338,10 @@ export const getBirthDateAndAge = (
   switch (ageType) {
     case "agetype":
       let selectedAgeType = allAgeTypes?.find(
-        (at, i) => at.code == values.agetype
+        (at, i) => at.code === values.agetype
       );
 
-      if (selectedAgeType != undefined) {
+      if (selectedAgeType !== undefined) {
         let averageAge = Math.round(
           selectedAgeType.from && selectedAgeType.to
             ? (selectedAgeType.from + selectedAgeType.to) / 2

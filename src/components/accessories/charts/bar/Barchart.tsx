@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { Bar } from "react-chartjs-2";
-import { IOwnProps } from "./types";
 import "./styles.scss";
+import { IOwnProps } from "./types";
 
 export const Barchart: FC<IOwnProps> = ({ data, title, width, height }) => {
   const defaultHeight = "320px";

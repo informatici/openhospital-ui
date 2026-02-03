@@ -1,7 +1,10 @@
 import { ExamDTO, ExamRowDTO } from "../../generated";
-import { IApiResponse } from "../types";
+import { ApiResponse } from "../types";
 
 export type IExamState = {
-  examList: IApiResponse<Array<ExamDTO>>;
-  examRowsByExamCode: IApiResponse<Array<ExamRowDTO>>;
+  examList: ApiResponse<Array<ExamDTO>>;
+  examCreate: ApiResponse<ExamDTO>;
+  examUpdate: ApiResponse<ExamDTO>;
+  examDelete: ApiResponse<boolean>;
+  examRowsByExamCode: ApiResponse<Array<ExamRowDTO>>;
 };

@@ -1,6 +1,6 @@
 import React, { FC } from "react";
-import { IOwnProps } from "./types";
 import "./styles.scss";
+import { IOwnProps } from "./types";
 
 /**
  * This component can be use in combination with charts in order to show summarize(total for example) values

@@ -1,8 +1,8 @@
+import CheckIcon from "@mui/icons-material/Check";
+import ClearIcon from "@mui/icons-material/Clear";
 import React, { useCallback, useState } from "react";
-import ImageCrop, { Crop } from "react-image-crop";
 import { useTranslation } from "react-i18next";
-import CheckIcon from "@material-ui/icons/Check";
-import ClearIcon from "@material-ui/icons/Clear";
+import ImageCrop, { Crop } from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
 import Button from "../button/Button";
 import "./styles.scss";
@@ -76,7 +76,7 @@ const ImageResize: React.FC<Props> = ({
           type={"button"}
           onClick={onReset}
           variant="contained"
-          color="default"
+          color="inherit"
         >
           <ClearIcon />
           {t("picture.useWebcamAgain")}

@@ -1,8 +1,7 @@
-import { BillItemFormFieldName } from "./itemPicker/types";
-import { TFields } from "../../../libraries/formDataHandling/types";
-import { makeStyles } from "@material-ui/core";
+import { Theme } from "@mui/material";
+import { makeStyles } from "@mui/styles";
 
-export const useStyles = makeStyles((theme) => ({
+export const useStyles = makeStyles((theme: Theme) => ({
   backdrop: {
     zIndex: theme.zIndex.drawer + 1,
     color: "#fff",

@@ -1,19 +1,19 @@
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { CustomModal } from "../../customModal/CustomModal";
-import Table from "../../table/Table";
-import { IExamTableProps, multipleResultsLabel } from "./types";
-import "./styles.scss";
-import { renderDateTime } from "../../../../libraries/formatUtils/dataFormatting";
-import { LaboratoryDetails } from "../LaboratoryDetails";
-import { useDispatch, useSelector } from "react-redux";
-import { getLabWithRowsByCode } from "../../../../state/laboratories/actions";
-import { IState } from "../../../../types";
-import InfoBox from "../../infoBox/InfoBox";
-import { usePermission } from "../../../../libraries/permissionUtils/usePermission";
 import { LabWithRowsDTO, LaboratoryDTOStatusEnum } from "../../../../generated";
+import { renderDateTime } from "../../../../libraries/formatUtils/dataFormatting";
+import { usePermission } from "../../../../libraries/permissionUtils/usePermission";
+import { getLabWithRowsByCode } from "../../../../state/laboratories";
+import { IState } from "../../../../types";
+import { CustomModal } from "../../customModal/CustomModal";
+import InfoBox from "../../infoBox/InfoBox";
 import { LabelBadge } from "../../labelBadge/LabelBadge";
+import Table from "../../table/Table";
 import { TActions } from "../../table/types";
+import { LaboratoryDetails } from "../LaboratoryDetails";
+import "./styles.scss";
+import { IExamTableProps, multipleResultsLabel } from "./types";
 
 export const statusLabel = (status: LaboratoryDTOStatusEnum) => {
   status = status.toUpperCase() as LaboratoryDTOStatusEnum;
@@ -41,34 +41,34 @@ export const ExamTable: FC<IExamTableProps> = ({
   handleCancel,
 }) => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const canUpdate = usePermission("exams.update");
   const canDelete = usePermission("exams.delete");
-  const deleteStatus = useSelector<IState, any>(
+  const deleteStatus = useAppSelector(
     (state: IState) => state.laboratories.deleteLab.status
   );
-  const deleteErrorMessage = useSelector(
+  const deleteErrorMessage = useAppSelector(
     (state: IState) => state.laboratories.deleteLab.error?.message
   );
 
-  const header = ["id", "date", "patName", "exam", "result", "status"];
+  const header = ["code", "date", "patName", "exam", "result", "status"];
   const dateFields = ["date"];
   const label = {
-    id: t("lab.code"),
+    code: t("lab.code"),
     date: t("lab.date"),
     patName: t("lab.patient"),
     exam: t("lab.exam"),
     result: t("lab.result"),
     status: t("lab.status"),
   };
-  const order = ["id", "date", "patName", "exam", "result", "status"];
+  const order = ["code", "date", "patName", "exam", "result", "status"];
 
   const formatDataToDisplay = (data: LabWithRowsDTO[]) => {
     let results: any = [];
     if (data && data.length > 0)
       results = data.map((e) => {
         return {
-          id: e.laboratoryDTO?.code ?? "",
+          code: e.laboratoryDTO?.code ?? "",
           date: renderDateTime(e.laboratoryDTO?.labDate ?? ""),
           patName: e.laboratoryDTO?.patName ?? "",
           exam:

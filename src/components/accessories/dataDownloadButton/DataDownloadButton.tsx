@@ -1,20 +1,19 @@
-import React, { FunctionComponent, useState } from "react";
-import { IOwnProps } from "./types";
-import "./styles.scss";
-import { CSVLink } from "react-csv";
-import { IconButton, ListItemIcon, Typography } from "@material-ui/core";
 import {
   DescriptionOutlined,
   ImageOutlined,
   SaveAlt as SaveAltIcon,
   ViewHeadlineOutlined,
-} from "@material-ui/icons";
-import { Menu, MenuItem } from "@material-ui/core";
-import { useTranslation } from "react-i18next";
+} from "@mui/icons-material";
+import { IconButton, ListItemIcon, Menu, MenuItem, Typography } from "@mui/material";
+import React, { FunctionComponent, useState } from "react";
 import {
   exportComponentAsPDF,
   exportComponentAsPNG,
 } from "react-component-export-image";
+import { CSVLink } from "react-csv";
+import { useTranslation } from "react-i18next";
+import "./styles.scss";
+import { IOwnProps } from "./types";
 
 const DataDownloadButton: FunctionComponent<IOwnProps> = ({
   csvData,

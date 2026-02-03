@@ -1,7 +1,7 @@
+import { Button as MaterialComponent } from "@mui/material";
 import React, { FunctionComponent } from "react";
-import { Button as MaterialComponent } from "@material-ui/core";
-import { IProps } from "./types";
 import "./styles.scss";
+import { IProps } from "./types";
 
 const Button: FunctionComponent<IProps> = ({
   children,
@@ -9,17 +9,20 @@ const Button: FunctionComponent<IProps> = ({
   color = "primary",
   variant,
   disabled,
+  dataCy,
   onClick,
+  className,
 }) => {
   return (
     <MaterialComponent
-      className="button"
+      className={"button " + className ?? ""}
       type={type}
       color={color}
       variant={variant}
       disableElevation
       disabled={disabled}
       onClick={onClick}
+      data-cy={dataCy}
     >
       {children}
     </MaterialComponent>

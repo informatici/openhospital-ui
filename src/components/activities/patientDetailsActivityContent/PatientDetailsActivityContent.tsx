@@ -1,6 +1,6 @@
 import React, { Fragment, FunctionComponent } from "react";
-import { IProps } from "./types";
 import "./styles.scss";
+import { IProps } from "./types";
 
 const PatientDetailsActivityContent: FunctionComponent<IProps> = ({
   title,

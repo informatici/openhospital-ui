@@ -1,11 +1,11 @@
-import { IconButton } from "@material-ui/core";
-import { Edit } from "@material-ui/icons";
+import { Edit } from "@mui/icons-material";
+import { IconButton } from "@mui/material";
+import { isEmpty } from "lodash";
 import React, { FunctionComponent } from "react";
 import { useTranslation } from "react-i18next";
 import { AdmissionDTO } from "../../../../generated";
-import "../styles.scss";
-import { isEmpty } from "lodash";
 import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
+import "../styles.scss";
 
 interface IOwnProps {
   onEdit?: () => void;

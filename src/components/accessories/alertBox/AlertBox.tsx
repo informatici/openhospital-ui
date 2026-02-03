@@ -1,12 +1,12 @@
-import React, { FunctionComponent } from "react";
-import { IProps } from "./types";
-import { useStyles } from "./consts";
 import {
   CheckCircleRounded,
   HighlightOffRounded,
   InfoRounded,
   NewReleasesRounded,
-} from "@material-ui/icons";
+} from "@mui/icons-material";
+import React, { FunctionComponent } from "react";
+import { useStyles } from "./consts";
+import { IProps } from "./types";
 
 export const AlertBox: FunctionComponent<IProps> = ({
   type,

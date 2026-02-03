@@ -1,15 +1,14 @@
+import { CircularProgress } from "@mui/material";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
 import React, { FunctionComponent, useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { LaboratoryDTO } from "../../../../generated";
-import { IState } from "../../../../types";
-import Table from "../../table/Table";
 import { useTranslation } from "react-i18next";
-import { CircularProgress } from "@material-ui/core";
-import InfoBox from "../../infoBox/InfoBox";
-import { getLabsRequestByPatientId } from "../../../../state/laboratories/actions";
+import { LaboratoryDTO } from "../../../../generated";
 import { renderDateTime } from "../../../../libraries/formatUtils/dataFormatting";
 import { usePermission } from "../../../../libraries/permissionUtils/usePermission";
+import { getLabsRequestByPatientId } from "../../../../state/laboratories";
+import InfoBox from "../../infoBox/InfoBox";
 import { statusLabel } from "../../laboratory/table/ExamTable";
+import Table from "../../table/Table";
 
 interface IOwnProps {
   shouldUpdateTable: boolean;
@@ -23,7 +22,6 @@ const PatientExamRequestsTable: FunctionComponent<IOwnProps> = ({
   handleCancel,
 }) => {
   const { t } = useTranslation();
-  const canUpdate = usePermission("laboratories.update");
   const canCancel = usePermission("laboratories.delete");
   const infoBoxRef = useRef<HTMLDivElement>(null);
 
@@ -40,21 +38,21 @@ const PatientExamRequestsTable: FunctionComponent<IOwnProps> = ({
   };
   const order = ["date", "exam", "status"];
 
-  const dispatch = useDispatch();
-  const data = useSelector<IState, LaboratoryDTO[]>((state) =>
+  const dispatch = useAppDispatch();
+  const data = useAppSelector((state) =>
     state.laboratories.labsRequestByPatientId.data
       ? state.laboratories.labsRequestByPatientId.data
       : []
   );
 
-  const patientCode = useSelector<IState, number | undefined>(
+  const patientCode = useAppSelector(
     (state) => state.patients.selectedPatient.data?.code
   );
 
   useEffect(() => {
     if (shouldUpdateTable || patientCode)
       dispatch(getLabsRequestByPatientId(patientCode));
-  }, [patientCode, shouldUpdateTable]);
+  }, [dispatch, patientCode, shouldUpdateTable]);
 
   const formatDataToDisplay = (data: LaboratoryDTO[]) => {
     return data.map((item) => {
@@ -69,21 +67,15 @@ const PatientExamRequestsTable: FunctionComponent<IOwnProps> = ({
     });
   };
 
-  const labRequestStatus = useSelector<IState, string | undefined>(
+  const labRequestStatus = useAppSelector(
     (state) => state.laboratories.labsRequestByPatientId.status
   );
 
-  const errorMessage = useSelector<IState>(
+  const errorMessage = useAppSelector(
     (state) =>
       state.laboratories.labsRequestByPatientId.error?.message ||
       t("common.somethingwrong")
   ) as string;
-
-  const onEdit = (row: any) => {
-    if (handleEdit) {
-      handleEdit(data?.find((item) => item.code === row.code));
-    }
-  };
 
   const onCancel = (row: any) => {
     if (handleCancel) {

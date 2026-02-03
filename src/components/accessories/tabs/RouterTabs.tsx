@@ -1,7 +1,6 @@
 import classNames from "classnames";
 import React, { Fragment, FunctionComponent, useEffect } from "react";
-import { Routes } from "react-router";
-import { useNavigate, useLocation } from "react-router";
+import { Routes, useLocation, useNavigate } from "react-router";
 import PrivateRoute from "../privateRoute/PrivateRoute";
 import { useFilterPermission } from "./hooks/useFilterPermission";
 import "./styles.scss";
@@ -31,7 +30,7 @@ const RouterTabs: FunctionComponent<IProps> = ({ config, defaultRoute }) => {
     if (!mobile) {
       return tabs.map((item, index) => {
         const path = item.path!;
-        return tabs.length == 1 ? (
+        return tabs.length === 1 ? (
           <></>
         ) : (
           <div

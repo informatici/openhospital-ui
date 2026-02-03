@@ -11,7 +11,7 @@ import { usePermission } from "./usePermission";
  */
 export const withPermission =
   (permission: TPermission, Fallback: React.ComponentType = PermissionDenied) =>
-  (Component: React.ComponentType): React.ComponentType =>
+  (Component: React.ComponentType<any>): React.ComponentType<any> =>
   ({ children, ...props }) => {
     const hasPermission = usePermission(permission);
 

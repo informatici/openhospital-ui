@@ -1,14 +1,14 @@
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setAuthenticationSuccess } from "../../state/main/actions";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
+import { setAuthenticationSuccess } from "../../state/main";
 import { IState } from "../../types";
 import { getAuthenticationFromSession } from "./getAuthenticationFromSession";
 import { saveAuthenticationDataToSession } from "./saveAuthenticationDataToSession";
 import { savePermissionDataToSession } from "./savePermissionDataToSession";
 
 export const useAuthentication = () => {
-  const dispatch = useDispatch();
-  const userCredentials = useSelector(
+  const dispatch = useAppDispatch();
+  const userCredentials = useAppSelector(
     (state: IState) => state.main.authentication.data
   );
 

@@ -1,3 +1,0 @@
-export const GET_HOSPITAL_LOADING = "hospital/GET_HOSPITAL_LOADING";
-export const GET_HOSPITAL_SUCCESS = "hospital/GET_HOSPITAL_SUCCESS";
-export const GET_HOSPITAL_FAIL = "hospital/GET_HOSPITAL_FAIL";

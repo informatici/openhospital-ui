@@ -1,4 +1,4 @@
-import { AdmissionDTO, PatientDTO } from "../../../../generated";
+import { AdmissionDTO } from "../../../../generated";
 import { parseDate } from "../../../../libraries/formDataHandling/functions";
 import { TFields } from "../../../../libraries/formDataHandling/types";
 import { TCurrentAdmissionFieldName } from "./types";

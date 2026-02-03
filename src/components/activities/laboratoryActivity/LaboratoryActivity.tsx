@@ -1,11 +1,9 @@
+import { useAppSelector } from "libraries/hooks/redux";
 import React, { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
 import { useLocation } from "react-router";
 import { PATHS } from "../../../consts";
 import { Permission } from "../../../libraries/permissionUtils/Permission";
-import { TUserCredentials } from "../../../state/main/types";
-import { IState } from "../../../types";
 import AppHeader from "../../accessories/appHeader/AppHeader";
 import Footer from "../../accessories/footer/Footer";
 import { HospitalInfo } from "../../accessories/hospitalInfo/HospitalInfo";
@@ -29,9 +27,9 @@ const LaboratoryActivity: FC = () => {
     return {
       [t("nav.laboratory")]: PATHS.laboratory,
     };
-  }, [location]);
+  }, [location.pathname, t]);
 
-  const userCredentials = useSelector<IState, TUserCredentials>(
+  const userCredentials = useAppSelector(
     (state) => state.main.authentication.data
   );
 

@@ -9,7 +9,7 @@
 
 .App {
   & > div {
-    height: 100vh;
+    min-height: 100vh;
   }
 
   [class*="Form"],
@@ -20,5 +20,9 @@
     @media print {
       display: none !important;
     }
+  }
+
+  .info-box-container {
+    margin: 15px 0px;
   }
 }

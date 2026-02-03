@@ -171,7 +171,7 @@ export function removeDoubles(input1: Layouts, input2: Layouts): Layouts {
 
   Object.keys(input1).forEach((breakpoint) => {
     let breakpointConfig = input1[breakpoint].filter((layout) => {
-      return !input2[breakpoint].some((layout1) => layout1.i == layout.i);
+      return !input2[breakpoint].some((layout1) => layout1.i === layout.i);
     });
 
     cleanInput[breakpoint] = breakpointConfig;
@@ -211,7 +211,7 @@ export function isEmptyLayout(input: Layouts): boolean {
     nbWidgets += input[breakpoint] ? input[breakpoint].length : 0;
   });
 
-  return nbWidgets == 0;
+  return nbWidgets === 0;
 }
 
 /**
@@ -332,7 +332,7 @@ export function generateLayout(
   breakpoint: LayoutBreakpoints,
   dashboards?: string[]
 ): Layout[] {
-  if (!dashboards || dashboards.length == 0) {
+  if (!dashboards || dashboards.length === 0) {
     dashboards = allowedDashboards();
   }
 
@@ -345,8 +345,8 @@ export function generateLayout(
           i: dashboardKey,
           w: 6,
           h: 3,
-          x: index % 2 == 0 ? 0 : 6,
-          y: index % 2 == 0 ? 0 : 2,
+          x: index % 2 === 0 ? 0 : 6,
+          y: index % 2 === 0 ? 0 : 2,
           minW: 4,
           minH: 3,
           //maxW: 12,
@@ -361,8 +361,8 @@ export function generateLayout(
           i: dashboardKey,
           w: 6,
           h: 3,
-          x: index % 2 == 0 ? 0 : 6,
-          y: index % 2 == 0 ? 0 : 2,
+          x: index % 2 === 0 ? 0 : 6,
+          y: index % 2 === 0 ? 0 : 2,
           minW: 6,
           minH: 3,
           //maxW: 12,
@@ -377,8 +377,8 @@ export function generateLayout(
           i: dashboardKey,
           w: 6,
           h: 3,
-          x: index % 2 == 0 ? 0 : 6,
-          y: index % 2 == 0 ? 0 : 2,
+          x: index % 2 === 0 ? 0 : 6,
+          y: index % 2 === 0 ? 0 : 2,
           minW: 6,
           minH: 3,
           //maxW: 2,
@@ -394,7 +394,7 @@ export function generateLayout(
           w: 12,
           h: 3,
           x: 0,
-          y: index % 2 == 0 ? 0 : 2,
+          y: index % 2 === 0 ? 0 : 2,
           minW: 12,
           minH: 3,
           //maxW: 2,
@@ -410,8 +410,8 @@ export function generateLayout(
           i: dashboardKey,
           w: 4,
           h: 3,
-          x: index % 3 == 0 ? 8 : index % 2 == 0 ? 0 : 4,
-          y: index % 2 == 0 ? 0 : 2,
+          x: index % 3 === 0 ? 8 : index % 2 === 0 ? 0 : 4,
+          y: index % 2 === 0 ? 0 : 2,
           minW: 3,
           minH: 3,
           //maxW: 12,

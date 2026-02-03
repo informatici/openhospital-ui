@@ -1,5 +1,0 @@
-export const GET_AGETYPES_LOADING = "admissions/GET_AGETYPES_LOADING";
-export const GET_AGETYPES_SUCCESS = "admissions/GET_AGETYPES_SUCCESS";
-export const GET_AGETYPES_FAIL = "admissions/GET_AGETYPES_FAIL";
-export const GET_AGETYPES_SUCCESS_EMPTY =
-  "admissions/GET_AGETYPES_SUCCESS_EMPTY";

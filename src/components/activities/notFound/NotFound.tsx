@@ -1,8 +1,8 @@
 import React, { FC } from "react";
-import Footer from "../../accessories/footer/Footer";
-import logo from "../../../assets/logo-color.svg";
-import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
+import logo from "../../../assets/logo-color.svg";
+import Footer from "../../accessories/footer/Footer";
 import { IProps } from "./types";
 
 const NotFound: FC<IProps> = ({ backRoute }) => {

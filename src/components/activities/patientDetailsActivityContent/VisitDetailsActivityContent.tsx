@@ -1,8 +1,8 @@
 import React, { Fragment, FunctionComponent } from "react";
-import "./styles.scss";
-import PatientOPD from "../../accessories/patientOPD/patientOPD";
-import PatientDetailsContent from "../../../components/activities/patientDetailsActivityContent/PatientDetailsActivityContent";
 import { useTranslation } from "react-i18next";
+import PatientDetailsContent from "../../../components/activities/patientDetailsActivityContent/PatientDetailsActivityContent";
+import PatientOPD from "../../accessories/patientOPD/patientOPD";
+import "./styles.scss";
 
 const VisitDetailsActivityContent: FunctionComponent = () => {
   const { t } = useTranslation();

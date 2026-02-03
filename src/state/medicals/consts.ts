@@ -1,3 +1,0 @@
-export const GET_MEDICAL_LOADING = "opds/GET_MEDICAL_LOADING";
-export const GET_MEDICAL_SUCCESS = "opds/GET_MEDICAL_SUCCESS";
-export const GET_MEDICAL_FAIL = "opds/GET_MEDICAL_FAIL";

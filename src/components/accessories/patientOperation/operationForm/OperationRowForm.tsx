@@ -1,17 +1,17 @@
 import { useFormik } from "formik";
+import { useAppSelector } from "libraries/hooks/redux";
 import { get, has } from "lodash";
 import moment from "moment";
 import React, { FC, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
 import { number, object, string } from "yup";
 import warningIcon from "../../../../assets/warning-icon.png";
 import { OperationDTO } from "../../../../generated";
-import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 import {
   formatAllFieldValues,
   getFromFields,
 } from "../../../../libraries/formDataHandling/functions";
+import { renderDate } from "../../../../libraries/formatUtils/dataFormatting";
 import { FIELD_VALIDATION, IState } from "../../../../types";
 import AutocompleteField from "../../autocompleteField/AutocompleteField";
 import Button from "../../button/Button";
@@ -32,10 +32,11 @@ const OperationRowForm: FC<OperationRowProps> = ({
   shouldResetForm,
   resetFormCallback,
   hideResultField,
+  opd,
 }) => {
   const { t } = useTranslation();
 
-  const operationList = useSelector(
+  const operationList = useAppSelector(
     (state: IState) => state.operations.operationList.data
   );
 
@@ -51,9 +52,6 @@ const OperationRowForm: FC<OperationRowProps> = ({
   };
 
   const initialValues = getFromFields(fields, "value");
-  const currentAdmission = useSelector(
-    (state: IState) => state.admissions.currentAdmissionByPatientId.data
-  );
 
   const validationSchema = object({
     operation: string().required(t("common.required")),
@@ -85,6 +83,10 @@ const OperationRowForm: FC<OperationRowProps> = ({
         (item) => item.code === formattedValues.operation
       );
 
+      if (opd) {
+        formattedValues.transUnit = 0;
+      }
+
       onSubmit(formattedValues);
     },
   });
@@ -97,7 +99,7 @@ const OperationRowForm: FC<OperationRowProps> = ({
       formik.setFieldTouched(fieldName);
       formik.validateField(fieldName);
     },
-    [setFieldValue]
+    [formik, setFieldValue]
   );
 
   const isValid = (fieldName: string): boolean => {
@@ -134,7 +136,7 @@ const OperationRowForm: FC<OperationRowProps> = ({
     }
   }, [shouldResetForm, resetForm, resetFormCallback]);
 
-  const operationStatus = useSelector(
+  const operationStatus = useAppSelector(
     (state: IState) => state.operations.operationList.status
   );
 
@@ -169,6 +171,21 @@ const OperationRowForm: FC<OperationRowProps> = ({
         >
           <div className="row start-sm center-xs">
             <div className="fullWidth patientOperationForm__item">
+              <DateField
+                fieldName="opDate"
+                fieldValue={formik.values.opDate}
+                disableFuture={true}
+                theme="regular"
+                format="dd/MM/yyyy"
+                isValid={isValid("opDate")}
+                errorText={getErrorText("opDate")}
+                label={t("operation.opDate")}
+                onChange={dateFieldHandleOnChange("opDate")}
+                disabled={isLoading}
+                required={FIELD_VALIDATION.REQUIRED}
+              />
+            </div>
+            <div className="fullWidth patientOperationForm__item">
               <AutocompleteField
                 fieldName="operation"
                 fieldValue={formik.values.operation}
@@ -184,33 +201,20 @@ const OperationRowForm: FC<OperationRowProps> = ({
           </div>
 
           <div className="row start-sm center-xs">
-            <div className="patientOperationForm__item">
-              <DateField
-                fieldName="opDate"
-                fieldValue={formik.values.opDate}
-                disableFuture={true}
-                theme="regular"
-                format="dd/MM/yyyy"
-                isValid={isValid("opDate")}
-                errorText={getErrorText("opDate")}
-                label={t("operation.opDate")}
-                onChange={dateFieldHandleOnChange("opDate")}
-                disabled={isLoading}
-                required={FIELD_VALIDATION.REQUIRED}
-              />
-            </div>
-            <div className="patientOperationForm__item">
-              <TextField
-                field={formik.getFieldProps("transUnit")}
-                theme="regular"
-                label={t("operation.transUnit")}
-                isValid={isValid("transUnit")}
-                errorText={getErrorText("transUnit")}
-                onBlur={formik.handleBlur}
-                type="number"
-                disabled={isLoading}
-              />
-            </div>
+            {!opd && (
+              <div className="patientOperationForm__item">
+                <TextField
+                  field={formik.getFieldProps("transUnit")}
+                  theme="regular"
+                  label={t("operation.transUnit")}
+                  isValid={isValid("transUnit")}
+                  errorText={getErrorText("transUnit")}
+                  onBlur={formik.handleBlur}
+                  type="number"
+                  disabled={isLoading}
+                />
+              </div>
+            )}
           </div>
           {!hideResultField && (
             <div className="row start-sm center-xs">

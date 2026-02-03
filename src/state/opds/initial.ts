@@ -1,10 +1,11 @@
 import { IOpdState } from "./types";
+import { ApiResponse } from "../types";
 
 export const initial: IOpdState = {
-  createOpd: { status: "IDLE" },
-  updateOpd: { status: "IDLE" },
-  getOpds: { status: "IDLE", data: [] },
-  lastOpd: { status: "IDLE", data: undefined },
-  searchOpds: { status: "IDLE" },
-  deleteOpd: { status: "IDLE" },
+  createOpd: new ApiResponse({ status: "IDLE" }),
+  updateOpd: new ApiResponse({ status: "IDLE" }),
+  getOpds: new ApiResponse({ status: "IDLE", data: [] }),
+  lastOpd: new ApiResponse({ status: "IDLE" }),
+  searchOpds: new ApiResponse({ status: "IDLE" }),
+  deleteOpd: new ApiResponse({ status: "IDLE" }),
 };

@@ -8,7 +8,10 @@ interface IOperationRowProps {
   resetButtonLabel: string;
   isLoading: boolean;
   shouldResetForm: boolean;
-  opdId?: number;
+  /**
+   * Set to true if the operation row is in opd context
+   */
+  opd?: boolean;
   admissionId?: number;
   creationMode: boolean;
   resetFormCallback: () => void;

@@ -1,11 +1,11 @@
-import { Skeleton } from "@material-ui/lab";
+import { Skeleton } from "@mui/material";
+import { useAppDispatch } from "libraries/hooks/redux";
 import React, { FC, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
-import { getDischarges } from "../../../../state/admissions/actions";
-import { getAgeTypes } from "../../../../state/ageTypes/actions";
-import { getDischargeTypes } from "../../../../state/dischargeTypes/actions";
-import { getWards } from "../../../../state/ward/actions";
+import { getAgeTypes } from "state/types/ageTypes";
+import { getDischarges } from "../../../../state/admissions";
+import { getDischargeTypes } from "../../../../state/types/discharges";
+import { getWards } from "../../../../state/ward";
 import { Barchart } from "../../charts/bar/Barchart";
 import { Piechart } from "../../charts/pie/Piechart";
 import { DataSummary } from "../summary/DataSummary";
@@ -15,7 +15,7 @@ import { useData } from "./useData";
 
 export const Discharges: FC<IOwnProps> = ({ period }) => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const {
     admissionStatus,
     dischargeTypeStatus,
@@ -38,11 +38,11 @@ export const Discharges: FC<IOwnProps> = ({ period }) => {
     dispatch(getAgeTypes());
     dispatch(getDischargeTypes());
     dispatch(getWards());
-  }, [dispatch]);
+  }, [dispatch, period]);
 
   useEffect(() => {
     dispatch(getDischarges({ dischargerange: period }));
-  }, [period]);
+  }, [period, dispatch]);
 
   return (
     <>

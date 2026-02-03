@@ -1,7 +1,7 @@
 import { UserSettingDTO } from "../../generated";
 import { LoginResponse } from "../../generated/models/LoginResponse";
 import { TPermission } from "../../types";
-import { IApiResponse } from "../types";
+import { ApiResponse } from "../types";
 
 export type TUserCredentials = LoginResponse | undefined;
 
@@ -10,8 +10,8 @@ export interface IAuthentication extends LoginResponse {
 }
 
 export interface IMainState {
-  authentication: IApiResponse<IAuthentication>;
-  logout: IApiResponse<void>;
-  forgotpassword: IApiResponse<void>;
-  settings: IApiResponse<UserSettingDTO[]>;
+  authentication: ApiResponse<IAuthentication>;
+  logout: ApiResponse<void>;
+  forgotpassword: ApiResponse<void>;
+  settings: ApiResponse<UserSettingDTO[]>;
 }

@@ -1,13 +1,12 @@
 import {
-  makeStyles,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
-  withStyles,
-} from "@material-ui/core";
+} from "@mui/material";
+import { makeStyles, withStyles } from "@mui/styles";
 import React, { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { FullBillDTO } from "../../../generated";

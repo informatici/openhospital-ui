@@ -19,5 +19,15 @@ export const hospitalRoutes = (server) => {
           res.status(200).json(hospitalDTO);
       }
     });
+    server.put("/:code").intercept((req, res) => {
+      const body = req.jsonBody();
+      switch (body.description) {
+        case "FAIL":
+          res.status(400).json({ message: "Invalid payload" });
+          break;
+        default:
+          res.status(200).json(body);
+      }
+    });
   });
 };

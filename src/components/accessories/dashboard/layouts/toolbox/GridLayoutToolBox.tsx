@@ -1,13 +1,13 @@
-import { FC } from "react";
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { IState } from "../../../../../types";
+import { Add } from "@mui/icons-material";
+import { Button } from "@mui/material";
+import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
+import React, { FC } from "react";
+import { Layout } from "react-grid-layout";
 import { useTranslation } from "react-i18next";
-import {
-  TGridLayoutToolboxItemProps,
-  TDashboardComponent,
-  LayoutBreakpoints,
-} from "../types";
+import { UserSettingDTO } from "../../../../../generated";
+import { saveLayouts } from "../../../../../state/layouts";
+import { IState } from "../../../../../types";
+import InfoBox from "../../../infoBox/InfoBox";
 import {
   addWidget,
   encodeLayout,
@@ -16,38 +16,30 @@ import {
   removeDuplicates,
   removeWidget,
 } from "../consts";
-import { Button } from "@material-ui/core";
-import { Add } from "@material-ui/icons";
-import { Layout, Layouts } from "react-grid-layout";
-import { saveLayouts } from "../../../../../state/layouts/actions";
+import {
+  LayoutBreakpoints,
+  TDashboardComponent,
+  TGridLayoutToolboxItemProps,
+} from "../types";
 import "./styles.scss";
-import { UserSettingDTO } from "../../../../../generated";
-import { TUserCredentials } from "../../../../../state/main/types";
-import InfoBox from "../../../infoBox/InfoBox";
 
 const GridLayoutToolbox: FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
 
-  const userCredentials = useSelector<IState, TUserCredentials>(
+  const userCredentials = useAppSelector(
     (state) => state.main.authentication.data
   );
 
-  const breakpoint = useSelector<IState, string>(
-    (state) => state.layouts.breakpoint
-  );
+  const breakpoint = useAppSelector((state) => state.layouts.breakpoint);
 
-  const layouts = useSelector<IState, Layouts>(
-    (state: IState) => state.layouts.layouts
-  );
+  const layouts = useAppSelector((state: IState) => state.layouts.layouts);
 
-  const dashboardSetting = useSelector<IState, UserSettingDTO | undefined>(
+  const dashboardSetting = useAppSelector(
     (state) => state.layouts.getLayouts.data
   );
 
-  const toolbox = useSelector<IState, Layouts>(
-    (state: IState) => state.layouts.toolbox
-  );
+  const toolbox = useAppSelector((state: IState) => state.layouts.toolbox);
 
   const onItemPut = (item: Layout) => {
     let layoutsTmp = removeDuplicates({
@@ -88,7 +80,7 @@ const GridLayoutToolbox: FC = () => {
         <Button
           className="Toolbox-item-button"
           variant="contained"
-          color="default"
+          color="inherit"
           endIcon={<Add />}
           onClick={() => onTake()}
         >

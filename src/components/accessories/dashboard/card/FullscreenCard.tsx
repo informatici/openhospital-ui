@@ -1,18 +1,15 @@
-import { Dialog, Fab } from "@material-ui/core";
+import { Dialog, Fab } from "@mui/material";
+import { GridCloseIcon } from "@mui/x-data-grid";
+import { useAppSelector } from "libraries/hooks/redux";
 import React, { FC } from "react";
-import { TFullscreenCardProps } from "./types";
-import { useSelector } from "react-redux";
-import { IState } from "../../../../types";
 import { DashboardWidget } from "../layouts/item/GridLayoutItem";
-import { GridCloseIcon } from "@material-ui/data-grid";
+import { TFullscreenCardProps } from "./types";
 
 export const FullscreenCard: FC<TFullscreenCardProps> = ({
   dashboard,
   onClose,
 }) => {
-  const period = useSelector<IState, string[]>(
-    (state) => state.dashboard.period
-  );
+  const period = useAppSelector((state) => state.dashboard.period);
 
   return (
     <Dialog fullScreen open={dashboard !== undefined} onClose={onClose}>

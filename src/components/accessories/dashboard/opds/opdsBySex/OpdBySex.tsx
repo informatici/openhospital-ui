@@ -1,19 +1,19 @@
-import { FC, useEffect, useRef, useState } from "react";
-import { TDashboardComponentProps } from "../../layouts/types";
-import { IOwnProps } from "../types";
+import { Skeleton } from "@mui/material";
+import { useAppDispatch } from "libraries/hooks/redux";
+import React, { FC, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch } from "react-redux";
-import { searchOpds } from "../../../../../state/opds/actions";
-import { TDashboardCardOptionActions } from "../../card/types";
-import React from "react";
-import { DashboardCard } from "../../card/DashboardCard";
+import { searchOpds } from "../../../../../state/opds";
 import { Piechart } from "../../../charts/pie/Piechart";
+import { DashboardCard } from "../../card/DashboardCard";
+import { TDashboardCardOptionActions } from "../../card/types";
+import { TDashboardComponentProps } from "../../layouts/types";
 import { DataSummary } from "../../summary/DataSummary";
-import { Skeleton } from "@material-ui/lab";
+import { IOwnProps } from "../types";
 
-import "../../card/styles.scss";
 import { useOpdBySexData } from "../../../../../libraries/dashboardUtils/opds/useOpdBySexData";
 import DataDownloadButton from "../../../dataDownloadButton/DataDownloadButton";
+import "../../card/styles.scss";
+import { useDisplaySize } from "../../hooks";
 
 export const OpdBySex: FC<TDashboardComponentProps & IOwnProps> = ({
   onRemove,
@@ -21,7 +21,7 @@ export const OpdBySex: FC<TDashboardComponentProps & IOwnProps> = ({
   period,
 }) => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const opdbysexcardref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -30,12 +30,7 @@ export const OpdBySex: FC<TDashboardComponentProps & IOwnProps> = ({
 
   const { status, data, success, total, csvData } = useOpdBySexData();
 
-  const [displaySize, setDisplaySize] =
-    useState<{ width: number; height: number }>();
-
-  const onSizeChange = (width: number, height: number) => {
-    setDisplaySize({ width: width - 1, height: height - 73 });
-  };
+  const { displaySize, onSizeChange } = useDisplaySize();
 
   const downloadOptions = (
     <DataDownloadButton
@@ -66,11 +61,7 @@ export const OpdBySex: FC<TDashboardComponentProps & IOwnProps> = ({
           actions={actions}
           sizeChangeHandler={onSizeChange}
         >
-          <Piechart
-            data={data}
-            width={displaySize?.width ? `${displaySize.width}px` : "320px"}
-            height={displaySize?.height ? `${displaySize.height}px` : "320px"}
-          />
+          <Piechart data={data} width={"100%"} height={"calc(100% - 75px)"} />
           <DataSummary
             label={t("opd.opdregistered")}
             value={total.toString()}

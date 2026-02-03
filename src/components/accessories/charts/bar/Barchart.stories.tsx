@@ -1,8 +1,8 @@
-import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { Chart, registerables } from "chart.js";
-import { Barchart } from "./Barchart";
 import moment from "moment";
+import React from "react";
+import { Barchart } from "./Barchart";
 
 Chart.register(...registerables);
 

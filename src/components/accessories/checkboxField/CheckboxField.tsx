@@ -1,13 +1,14 @@
+import { Checkbox, FormControlLabel } from "@mui/material";
 import React, { FunctionComponent, useEffect, useState } from "react";
-import { IProps } from "./types";
 import "./styles.scss";
-import { Checkbox, FormControlLabel } from "@material-ui/core";
+import { IProps } from "./types";
 const CheckboxField: FunctionComponent<IProps> = ({
   fieldName,
   checked,
   disabled,
   label,
   onChange,
+  indeterminate,
 }) => {
   const [value, setValue] = useState<boolean>(false);
 
@@ -28,6 +29,7 @@ const CheckboxField: FunctionComponent<IProps> = ({
           checked={value}
           onChange={handleChange}
           name={fieldName}
+          indeterminate={indeterminate}
         />
       }
       label={label}

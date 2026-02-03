@@ -1,19 +1,17 @@
-import React, { FunctionComponent, useCallback } from "react";
 import {
-  LocalHotel,
-  LocalHospital,
-  Healing,
   ArtTrack,
   Colorize,
+  Healing,
+  LocalHospital,
+  LocalHotel,
   Pageview,
-} from "@material-ui/icons";
-import Arrow from "../../../assets/arrow-w.svg";
-import { IUserSection } from "./types";
-import "./styles.scss";
+} from "@mui/icons-material";
+import React, { FunctionComponent, useCallback } from "react";
 import { useTranslation } from "react-i18next";
-import { useLocation, useNavigate } from "react-router";
-import { BASE_PATH } from "../../../generated";
-import { usePermission } from "../../../libraries/permissionUtils/usePermission";
+import { useNavigate } from "react-router";
+import Arrow from "../../../assets/arrow-w.svg";
+import "./styles.scss";
+import { IUserSection } from "./types";
 
 interface IOwnProps {
   setUserSection: React.Dispatch<React.SetStateAction<IUserSection>>;
@@ -30,7 +28,6 @@ const OutPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
     return value === userSection ? "active" : "default";
   };
 
-  const { pathname } = useLocation();
   const navigate = useNavigate();
 
   const changeUserSection = useCallback(
@@ -38,11 +35,14 @@ const OutPatientDashboardMenu: FunctionComponent<IOwnProps> = ({
       setUserSection(section);
       navigate(`${section}`, { replace: true });
     },
-    [navigate, pathname, setUserSection]
+    [navigate, setUserSection]
   );
 
   return (
-    <div className="patientDetails__main_menu">
+    <div
+      data-cy="patient-details-main-menu"
+      className="patientDetails__main_menu"
+    >
       <h6>{t("patient.usersections")}</h6>
 
       <div

@@ -1,9 +1,9 @@
 import { TherapyRowDTO } from "../../generated";
-import { IApiResponse } from "../types";
+import { ApiResponse } from "../types";
 
 export type ITherapiesState = {
-  createTherapy: IApiResponse<TherapyRowDTO>;
-  updateTherapy: IApiResponse<TherapyRowDTO>;
-  therapiesByPatientId: IApiResponse<Array<TherapyRowDTO>>;
-  deleteTherapy: IApiResponse<TherapyRowDTO>;
+  createTherapy: ApiResponse<TherapyRowDTO>;
+  updateTherapy: ApiResponse<TherapyRowDTO>;
+  therapiesByPatientId: ApiResponse<Array<TherapyRowDTO>>;
+  deleteTherapy: ApiResponse<TherapyRowDTO>;
 };

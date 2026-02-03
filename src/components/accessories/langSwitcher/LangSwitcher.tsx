@@ -1,10 +1,9 @@
-import React, { FunctionComponent, useContext } from "react";
 import i18n from "i18next";
+import { isEmpty } from "lodash";
+import React, { FunctionComponent, useContext } from "react";
+import availableLanguages from "../../../customization/available-languages.json";
 import { LangContext } from "../../../libraries/langContext/langContext";
 import "./styles.scss";
-import { useTranslation } from "react-i18next";
-import availableLanguages from "../../../customization/available-languages.json";
-import { isEmpty } from "lodash";
 
 const fallbackLanguages: Record<string, string> = {
   en: "English",

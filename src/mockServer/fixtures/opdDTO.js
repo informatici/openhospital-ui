@@ -1,4 +1,4 @@
-import { diseaseDTO } from "./diseaseDTO";
+import { diseasesDTO } from "./diseasesDTO";
 import patientDTO from "./patientDTO";
 import { wards } from "./wardDTO";
 
@@ -12,9 +12,9 @@ const opdDTO = {
   sex: "M",
   note: "out patient consultation",
   prog_year: 18,
-  disease: diseaseDTO,
-  disease2: diseaseDTO,
-  disease3: diseaseDTO,
+  disease: diseasesDTO[0],
+  disease2: diseasesDTO[1],
+  disease3: diseasesDTO[0],
   ward: wards[0],
   newPatient: "N",
   referralFrom: "R",
@@ -22,7 +22,7 @@ const opdDTO = {
   ageType: "d0",
   lock: 0,
   userID: "admin",
-  prescription: "Paracetamol 500mg tablets - 1 box"
+  prescription: "Paracetamol 500mg tablets - 1 box",
 };
 
 export default opdDTO;

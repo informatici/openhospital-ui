@@ -1,18 +1,21 @@
+import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
+import AddRoundedIcon from "@mui/icons-material/AddRounded";
+import DeleteRoundedIcon from "@mui/icons-material/Clear";
+import EditRoundedIcon from "@mui/icons-material/EditRounded";
+import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
 import {
+  Box,
+  Button,
   Dialog,
+  DialogActions,
   DialogContent,
   DialogContentText,
-  DialogActions,
-  Button,
   DialogTitle,
   IconButton,
-  Box,
-} from "@material-ui/core";
-import DeleteRoundedIcon from "@material-ui/icons/Clear";
-import EditRoundedIcon from "@material-ui/icons/EditRounded";
-import AddRoundedIcon from "@material-ui/icons/AddRounded";
-import PhotoCameraIcon from "@material-ui/icons/PhotoCamera";
-import AddPhotoAlternateIcon from "@material-ui/icons/AddPhotoAlternate";
+} from "@mui/material";
+import { GridCloseIcon } from "@mui/x-data-grid";
+import classNames from "classnames";
+import { isEmpty } from "lodash";
 import React, {
   ChangeEvent,
   FunctionComponent,
@@ -22,19 +25,12 @@ import React, {
   useState,
 } from "react";
 import { useTranslation } from "react-i18next";
-import Webcam from "../../accessories/webcam/Webcam";
 import profilePicturePlaceholder from "../../../assets/profilePicturePlaceholder.png";
+import Webcam from "../../accessories/webcam/Webcam";
+import { ProfilePictureCropper } from "../profilePictureCropper/ProfilePictureCropper";
 import "./styles.scss";
 import { IProps } from "./types";
-import {
-  extractPictureFromSelection,
-  handlePictureSelection,
-  preprocessImage,
-} from "./utils";
-import classNames from "classnames";
-import { GridCloseIcon } from "@material-ui/data-grid";
-import { ProfilePictureCropper } from "../profilePictureCropper/ProfilePictureCropper";
-import { isEmpty } from "lodash";
+import { extractPictureFromSelection, preprocessImage } from "./utils";
 
 export const ProfilePicture: FunctionComponent<IProps> = ({
   isEditable,
@@ -82,7 +78,7 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
       setFromFileSystem(false);
       openCropper();
     }
-  }, [pictureToResize]);
+  }, [fromFileSystem, pictureToResize, showModal]);
 
   const pictureInputRef = useRef<HTMLInputElement>(null);
 
@@ -123,6 +119,7 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
       preprocessImage(setPicture, image, setShowError);
       closeModal();
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [setPicture]
   );
 
@@ -148,7 +145,7 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
   }, [shouldReset, resetCallback]);
 
   return (
-    <div className="profilePicture">
+    <div data-cy="profile-picture" className="profilePicture">
       <ProfilePictureCropper
         open={showCropper}
         onSave={handleCropped}
@@ -156,6 +153,7 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
         picture={pictureToResize}
       />
       <input
+        data-cy="profile-picture-input"
         id="profilePicture_input"
         ref={pictureInputRef}
         style={{ display: "none" }}
@@ -175,14 +173,14 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
             className="profilePicture_hoverButton profilePicture_editIcon"
             onClick={isEditable ? openModal : () => {}}
           >
-            <EditRoundedIcon fontSize="default" style={{ color: "white" }} />
+            <EditRoundedIcon fontSize="inherit" style={{ color: "white" }} />
           </div>
         ) : (
           <div
             className="profilePicture_hoverButton profilePicture_addIcon"
             onClick={isEditable ? openModal : () => {}}
           >
-            <AddRoundedIcon fontSize="default" style={{ color: "white" }} />
+            <AddRoundedIcon fontSize="inherit" style={{ color: "white" }} />
           </div>
         )}
       </div>
@@ -190,6 +188,7 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
         <div className="profilePicture_buttons">
           {picture.original ? (
             <div
+              data-cy="remove-profile-picture"
               className="profilePicture_button profilePicture_removeIcon"
               onClick={removePicture}
             >
@@ -250,6 +249,7 @@ export const ProfilePicture: FunctionComponent<IProps> = ({
                   color="primary"
                   variant="contained"
                   startIcon={<AddPhotoAlternateIcon />}
+                  data-cy="dialod-choose-photo-button"
                 >
                   {t("picture.upload")}
                 </Button>

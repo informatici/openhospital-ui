@@ -32,17 +32,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v4
       # https://github.com/cypress-io/github-action
       - name: Cypress run
-        uses: cypress-io/github-action@v2
+        uses: cypress-io/github-action@v6
         with:
           record: false
           start: npm start
-          spec: cypress/integration/**/*
-          env: host=localhost,port=3000
           wait-on: "http://localhost:3000"
-
   deploy:
     needs: e2e
     runs-on: ubuntu-latest
@@ -58,6 +55,7 @@ jobs:
         run: npm run clear && npm run build:gh-pages
       - run: git add --force build
       - run: git commit -m 'new build'
-      - run: git remote add intesys-oh https://github.com/intesys/openhospital-ui.git 
+      # we could use the same repo but we keep it in case we later change the remote repo for github pages 
+      - run: git remote add oh-ui-pages https://github.com/informatici/openhospital-ui.git 
       - run: echo "HASH_COMMIT=$(git subtree split --prefix build develop)" >> $GITHUB_ENV
-      - run: git push intesys-oh $HASH_COMMIT:gh-pages --force
+      - run: git push oh-ui-pages $HASH_COMMIT:gh-pages --force
