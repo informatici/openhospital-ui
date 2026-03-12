@@ -1,7 +1,7 @@
-import { HospitalDTO } from "../../generated";
-import { ApiResponse } from "../types";
+import type { HospitalDTO } from '../../generated';
+import type { ApiResponse } from '../types';
 
 export type IHospitalState = {
-  getHospital: ApiResponse<HospitalDTO>;
-  updateHospital: ApiResponse<HospitalDTO>;
+	getHospital: ApiResponse<HospitalDTO>;
+	updateHospital: ApiResponse<HospitalDTO>;
 };

@@ -1,3 +1,3 @@
-export { Exams } from "./Exams";
-export { NewExam } from "./newExam";
-export { EditExam } from "./editExam";
+export { Exams } from './Exams';
+export { EditExam } from './editExam';
+export { NewExam } from './newExam';

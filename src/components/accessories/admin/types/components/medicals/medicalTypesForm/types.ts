@@ -1,13 +1,13 @@
-import { MedicalTypeDTO } from "../../../../../../../generated";
-import { TFields } from "../../../../../../../libraries/formDataHandling/types";
+import type { MedicalTypeDTO } from '../../../../../../../generated';
+import type { TFields } from '../../../../../../../libraries/formDataHandling/types';
 
 export interface IMedicalTypeFormProps {
-  fields: TFields<MedicalTypeFormFieldName>;
-  onSubmit: (adm: MedicalTypeDTO) => void;
-  creationMode: boolean;
-  submitButtonLabel: string;
-  resetButtonLabel: string;
-  isLoading: boolean;
+	fields: TFields<MedicalTypeFormFieldName>;
+	onSubmit: (adm: MedicalTypeDTO) => void;
+	creationMode: boolean;
+	submitButtonLabel: string;
+	resetButtonLabel: string;
+	isLoading: boolean;
 }
 
-export type MedicalTypeFormFieldName = "code" | "description";
+export type MedicalTypeFormFieldName = 'code' | 'description';

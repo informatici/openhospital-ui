@@ -1,11 +1,11 @@
-import {
-  IStorageWrite,
-  IStorageRead,
-  IStorageRemove,
-  IStorageClear,
-  IStorage,
-} from "./types";
-import { STORAGE_NOT_AVAILABLE } from "./consts";
+import { STORAGE_NOT_AVAILABLE } from './consts';
+import type {
+	IStorage,
+	IStorageClear,
+	IStorageRead,
+	IStorageRemove,
+	IStorageWrite,
+} from './types';
 
 /**
  * Safe localStorage and sessinStorage
@@ -20,61 +20,69 @@ import { STORAGE_NOT_AVAILABLE } from "./consts";
  */
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const write = (storage?: Storage): IStorageWrite => (key, value) => {
-  if (!storage) {
-    console.warn(STORAGE_NOT_AVAILABLE);
-    return;
-  }
-  try {
-    const _value = JSON.stringify(value);
-    storage.setItem(key, _value);
-  } catch {
-    console.error(`Can't write in storage`);
-  }
-};
+const write =
+	(storage?: Storage): IStorageWrite =>
+	(key, value) => {
+		if (!storage) {
+			console.warn(STORAGE_NOT_AVAILABLE);
+			return;
+		}
+		try {
+			const _value = JSON.stringify(value);
+			storage.setItem(key, _value);
+		} catch {
+			console.error(`Can't write in storage`);
+		}
+	};
 
-const read = (storage?: Storage): IStorageRead => (key: string): any => {
-  if (!storage) {
-    console.warn(STORAGE_NOT_AVAILABLE);
-    return null;
-  }
-  const value = storage.getItem(key);
-  try {
-    if (value) {
-      return JSON.parse(value);
-    }
-    return value;
-  } catch {
-    return value;
-  }
-};
+const read =
+	(storage?: Storage): IStorageRead =>
+	(key: string): any => {
+		if (!storage) {
+			console.warn(STORAGE_NOT_AVAILABLE);
+			return null;
+		}
+		const value = storage.getItem(key);
+		try {
+			if (value) {
+				return JSON.parse(value);
+			}
+			return value;
+		} catch {
+			return value;
+		}
+	};
 
-const remove = (storage: Storage): IStorageRemove => (key) => {
-  if (!storage) {
-    console.warn(STORAGE_NOT_AVAILABLE);
-    return;
-  }
-  storage.removeItem(key);
-};
+const remove =
+	(storage: Storage): IStorageRemove =>
+	(key) => {
+		if (!storage) {
+			console.warn(STORAGE_NOT_AVAILABLE);
+			return;
+		}
+		storage.removeItem(key);
+	};
 
-const clear = (storage: Storage): IStorageClear => () => {
-  if (!storage) {
-    console.warn(STORAGE_NOT_AVAILABLE);
-    return;
-  }
-  storage.clear();
-};
+const clear =
+	(storage: Storage): IStorageClear =>
+	() => {
+		if (!storage) {
+			console.warn(STORAGE_NOT_AVAILABLE);
+			return;
+		}
+		storage.clear();
+	};
 
 export const LocalStorage: IStorage = {
-  write: write(window.localStorage),
-  read: read(window.localStorage),
-  remove: remove(window.localStorage),
-  clear: clear(window.localStorage),
+	write: write(window.localStorage),
+	read: read(window.localStorage),
+	remove: remove(window.localStorage),
+	clear: clear(window.localStorage),
 };
 
 export const SessionStorage = {
-  write: write(window.sessionStorage),
-  read: read(window.sessionStorage),
-  remove: remove(window.sessionStorage),
-  clear: clear(window.sessionStorage),
+	write: write(window.sessionStorage),
+	read: read(window.sessionStorage),
+	remove: remove(window.sessionStorage),
+	clear: clear(window.sessionStorage),
 };

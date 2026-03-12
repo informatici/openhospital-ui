@@ -1,14 +1,14 @@
-import { IForm } from "../../../../libraries/formDataHandling/types";
+import type { IForm } from '../../../../libraries/formDataHandling/types';
 
 interface IOwnProps {
-  shouldResetForm: boolean;
-  resetFormCallback: () => void;
-  addOperationCallback?: () => void;
+	shouldResetForm: boolean;
+	resetFormCallback: () => void;
+	addOperationCallback?: () => void;
 }
 export type TProps = IForm<TPatientVisitFormFieldName, any> & IOwnProps;
 
 export type TPatientVisitFormFieldName =
-  | "date"
-  | "ward"
-  | "duration"
-  | "service";
+	| 'date'
+	| 'ward'
+	| 'duration'
+	| 'service';

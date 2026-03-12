@@ -1,1 +1,1 @@
-export type TBookingTransitionState = "IDLE" | "TO_RESET";
+export type TBookingTransitionState = 'IDLE' | 'TO_RESET';

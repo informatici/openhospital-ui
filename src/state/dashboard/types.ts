@@ -1,4 +1,4 @@
 export type IDashboardState = {
-  period: string[];
-  resetPeriod: boolean;
+	period: string[];
+	resetPeriod: boolean;
 };

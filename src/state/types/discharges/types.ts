@@ -1,9 +1,9 @@
-import { DischargeTypeDTO } from "../../../generated";
-import { ApiResponse } from "../../types";
+import type { DischargeTypeDTO } from '../../../generated';
+import type { ApiResponse } from '../../types';
 
 export type IDischargeTypesState = {
-  getAll: ApiResponse<Array<DischargeTypeDTO>>;
-  create: ApiResponse<DischargeTypeDTO>;
-  update: ApiResponse<DischargeTypeDTO>;
-  delete: ApiResponse<boolean>;
+	getAll: ApiResponse<Array<DischargeTypeDTO>>;
+	create: ApiResponse<DischargeTypeDTO>;
+	update: ApiResponse<DischargeTypeDTO>;
+	delete: ApiResponse<boolean>;
 };

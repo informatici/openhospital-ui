@@ -1,3 +1,3 @@
-import OperationTypesTable from "./OperationTypesTable";
+import OperationTypesTable from './OperationTypesTable';
 
 export default OperationTypesTable;

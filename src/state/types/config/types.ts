@@ -1,5 +1,5 @@
 export type ITypeConfigsState = {
-  mode: TypeMode;
+	mode: TypeMode;
 };
 
-export type TypeMode = "edit" | "manage";
+export type TypeMode = 'edit' | 'manage';

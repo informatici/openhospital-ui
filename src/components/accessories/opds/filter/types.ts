@@ -1,43 +1,43 @@
-import { TFields } from "../../../../libraries/formDataHandling/types";
+import type { TFields } from '../../../../libraries/formDataHandling/types';
 
 export interface IOpdFilterProps {
-  fields: TFields<OpdFilterFormFieldName>;
-  onSubmit: (values: any) => void;
-  handleResetFilter: () => void;
+	fields: TFields<OpdFilterFormFieldName>;
+	onSubmit: (values: any) => void;
+	handleResetFilter: () => void;
 }
-export type IStatus = "" | "A" | "R";
-export type ISex = "" | "F" | "M" | "U";
+export type IStatus = '' | 'A' | 'R';
+export type ISex = '' | 'F' | 'M' | 'U';
 
 export type TFilterValues = {
-  dateFrom?: string;
-  dateTo?: string;
-  ageFrom?: number;
-  ageTo?: number;
-  diseaseCode?: string;
-  diseaseTypeCode?: string;
-  sex?: ISex;
-  newPatient?: IStatus;
-  patientCode?: number;
-  page?: number;
-  size?: number;
-  wardCode?: string;
+	dateFrom?: string;
+	dateTo?: string;
+	ageFrom?: number;
+	ageTo?: number;
+	diseaseCode?: string;
+	diseaseTypeCode?: string;
+	sex?: ISex;
+	newPatient?: IStatus;
+	patientCode?: number;
+	page?: number;
+	size?: number;
+	wardCode?: string;
 };
 
 export type TOpdFilterValues = Record<OpdFilterFormFieldName, string>;
 
 export type OpdFilterFormFieldName =
-  | "dateFrom"
-  | "dateTo"
-  | "ageFrom"
-  | "ageTo"
-  | "newPatient"
-  | "patientCode"
-  | "diseaseCode"
-  | "diseaseTypeCode"
-  | "sex"
-  | "wardCode";
+	| 'dateFrom'
+	| 'dateTo'
+	| 'ageFrom'
+	| 'ageTo'
+	| 'newPatient'
+	| 'patientCode'
+	| 'diseaseCode'
+	| 'diseaseTypeCode'
+	| 'sex'
+	| 'wardCode';
 
 export interface IFilterAction {
-  type: "update";
-  payload: any;
+	type: 'update';
+	payload: any;
 }

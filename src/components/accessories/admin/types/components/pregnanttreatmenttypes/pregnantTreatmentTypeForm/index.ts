@@ -1,2 +1,2 @@
-export * from "./PregnantTreatmentTypeForm";
-export * from "./types";
+export * from './PregnantTreatmentTypeForm';
+export * from './types';

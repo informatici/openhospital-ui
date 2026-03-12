@@ -1,27 +1,27 @@
-import moment from "moment";
-import { TFields } from "../../../libraries/formDataHandling/types";
-import { OperationRowFormFieldName } from "./operationForm/types";
+import moment from 'moment';
+import type { TFields } from '../../../libraries/formDataHandling/types';
+import type { OperationRowFormFieldName } from './operationForm/types';
 
 export const initialFields: TFields<OperationRowFormFieldName> = {
-  transUnit: {
-    value: "0",
-    type: "number",
-  },
-  opDate: {
-    value: moment().toISOString(),
-    type: "date",
-  },
-  opResult: {
-    value: "unknown",
-    type: "text",
-  },
-  operation: {
-    value: "",
-    type: "text",
-    options: [],
-  },
-  remarks: {
-    value: "",
-    type: "text",
-  },
+	transUnit: {
+		value: '0',
+		type: 'number',
+	},
+	opDate: {
+		value: moment().toISOString(),
+		type: 'date',
+	},
+	opResult: {
+		value: 'unknown',
+		type: 'text',
+	},
+	operation: {
+		value: '',
+		type: 'text',
+		options: [],
+	},
+	remarks: {
+		value: '',
+		type: 'text',
+	},
 };

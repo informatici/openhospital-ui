@@ -1,9 +1,9 @@
-import { TFields } from "../../../libraries/formDataHandling/types";
+import type { TFields } from '../../../libraries/formDataHandling/types';
 
 export interface IPaymentsTableProps {
-  fields: TFields<PaymentsFilterFormFieldName>;
+	fields: TFields<PaymentsFilterFormFieldName>;
 }
 
 export type TPaymentsFilterValues = Record<PaymentsFilterFormFieldName, string>;
 
-export type PaymentsFilterFormFieldName = "fromDate" | "toDate" | "patientCode";
+export type PaymentsFilterFormFieldName = 'fromDate' | 'toDate' | 'patientCode';

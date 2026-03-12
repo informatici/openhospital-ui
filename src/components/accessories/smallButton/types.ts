@@ -1,7 +1,7 @@
-import { PropsWithChildren } from "react";
+import type { PropsWithChildren } from 'react';
 
 export interface IProps extends PropsWithChildren {
-  type?: "button" | "submit" | "reset" | undefined;
-  disabled?: boolean;
-  onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+	type?: 'button' | 'submit' | 'reset' | undefined;
+	disabled?: boolean;
+	onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }

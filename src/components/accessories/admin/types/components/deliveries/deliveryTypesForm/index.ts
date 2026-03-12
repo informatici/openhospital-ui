@@ -1,2 +1,2 @@
-export * from "./DeliveryTypeForm";
-export * from "./types";
+export * from './DeliveryTypeForm';
+export * from './types';

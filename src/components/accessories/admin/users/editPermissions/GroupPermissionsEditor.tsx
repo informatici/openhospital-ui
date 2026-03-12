@@ -1,47 +1,48 @@
-import React from "react";
-
-import { useTranslation } from "react-i18next";
-import { PermissionDTO } from "../../../../../generated";
-import { AclTable } from "./AclTable";
-import { AreaAccess } from "./AreaAccess";
-import { PermissionActionEnum, PermissionActionType } from "./permission.utils";
+import { useTranslation } from 'react-i18next';
+import type { PermissionDTO } from '../../../../../generated';
+import { AclTable } from './AclTable';
+import { AreaAccess } from './AreaAccess';
+import type {
+	PermissionActionEnum,
+	PermissionActionType,
+} from './permission.utils';
 
 interface IProps {
-  permissions: PermissionDTO[];
-  groupPermissions: PermissionDTO[];
-  setDirty: (v: boolean) => void;
-  update: (pa: PermissionActionType) => void;
+	permissions: PermissionDTO[];
+	groupPermissions: PermissionDTO[];
+	setDirty: (v: boolean) => void;
+	update: (pa: PermissionActionType) => void;
 }
 export const GroupPermissionsEditor = ({
-  permissions,
-  groupPermissions,
-  setDirty,
-  update,
+	permissions,
+	groupPermissions,
+	setDirty,
+	update,
 }: IProps) => {
-  const handleChange = (
-    newPermissions: PermissionDTO[],
-    action: PermissionActionEnum
-  ) => {
-    setDirty(true);
-    update({ permissions: newPermissions, action });
-  };
+	const handleChange = (
+		newPermissions: PermissionDTO[],
+		action: PermissionActionEnum,
+	) => {
+		setDirty(true);
+		update({ permissions: newPermissions, action });
+	};
 
-  const { t } = useTranslation();
+	const { t } = useTranslation();
 
-  return (
-    <>
-      <h2>{t("permission.accessarea")}</h2>
-      <AreaAccess
-        permissions={permissions}
-        groupPermissions={groupPermissions}
-        onChange={handleChange}
-      />
-      <h2>{t("permission.accesscontrollist")}</h2>
-      <AclTable
-        permissions={permissions}
-        groupPermissions={groupPermissions}
-        onChange={handleChange}
-      />
-    </>
-  );
+	return (
+		<>
+			<h2>{t('permission.accessarea')}</h2>
+			<AreaAccess
+				permissions={permissions}
+				groupPermissions={groupPermissions}
+				onChange={handleChange}
+			/>
+			<h2>{t('permission.accesscontrollist')}</h2>
+			<AclTable
+				permissions={permissions}
+				groupPermissions={groupPermissions}
+				onChange={handleChange}
+			/>
+		</>
+	);
 };

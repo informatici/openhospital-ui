@@ -1,1 +1,1 @@
-export * from "./EditPregnantTreatmentType";
+export * from './EditPregnantTreatmentType';

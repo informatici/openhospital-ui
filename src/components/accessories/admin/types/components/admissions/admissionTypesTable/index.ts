@@ -1,3 +1,3 @@
-import AdmissionTypesTable from "./AdmissionTypesTable";
+import AdmissionTypesTable from './AdmissionTypesTable';
 
 export default AdmissionTypesTable;

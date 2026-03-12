@@ -1,13 +1,13 @@
-import { AdmissionTypeDTO } from "../../../../../../../generated";
-import { TFields } from "../../../../../../../libraries/formDataHandling/types";
+import type { AdmissionTypeDTO } from '../../../../../../../generated';
+import type { TFields } from '../../../../../../../libraries/formDataHandling/types';
 
 export interface IAdmissionTypeFormProps {
-  fields: TFields<AdmissionTypeFormFieldName>;
-  onSubmit: (adm: AdmissionTypeDTO) => void;
-  creationMode: boolean;
-  submitButtonLabel: string;
-  resetButtonLabel: string;
-  isLoading: boolean;
+	fields: TFields<AdmissionTypeFormFieldName>;
+	onSubmit: (adm: AdmissionTypeDTO) => void;
+	creationMode: boolean;
+	submitButtonLabel: string;
+	resetButtonLabel: string;
+	isLoading: boolean;
 }
 
-export type AdmissionTypeFormFieldName = "code" | "description";
+export type AdmissionTypeFormFieldName = 'code' | 'description';

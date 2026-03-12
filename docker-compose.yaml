@@ -19,8 +19,8 @@ x-mariadb: &mariadb-env
 x-ui: &ui-env
   <<: *repository-args
   PUBLIC_URL: /
-  REACT_APP_USE_MOCK_API:
-  REACT_APP_BASE_PATH: http://localhost:8080
+  VITE_USE_MOCK_API:
+  VITE_BASE_PATH: http://localhost:8080
 x-pg-admin: &pg-admin-env
   PMA_HOST: "database"
   PMA_PORT: 3306
@@ -34,7 +34,7 @@ services:
       dockerfile: ./docker/Dockerfile.frontend
     environment: *ui-env
     ports:
-      - 3030:3000
+      - 3030:5173
     volumes:
       - ./:/oh
       - /oh/node_modules

@@ -1,1 +1,1 @@
-export { EditGroup } from "./EditGroup";
+export { EditGroup } from './EditGroup';

@@ -1,7 +1,7 @@
-import React from "react";
-import { PermissionDenied } from "../../components/accessories/permissionDenied/PermissionDenied";
-import { TPermission } from "../../types";
-import { usePermission } from "./usePermission";
+import type React from 'react';
+import { PermissionDenied } from '../../components/accessories/permissionDenied/PermissionDenied';
+import type { TPermission } from '../../types';
+import { usePermission } from './usePermission';
 
 /**
  * Render children only if user has permission
@@ -10,14 +10,14 @@ import { usePermission } from "./usePermission";
  * @returns children or Fallback
  */
 export const withPermission =
-  (permission: TPermission, Fallback: React.ComponentType = PermissionDenied) =>
-  (Component: React.ComponentType<any>): React.ComponentType<any> =>
-  ({ children, ...props }) => {
-    const hasPermission = usePermission(permission);
+	(permission: TPermission, Fallback: React.ComponentType = PermissionDenied) =>
+	(Component: React.ComponentType<any>): React.ComponentType<any> =>
+	({ children, ...props }) => {
+		const hasPermission = usePermission(permission);
 
-    return hasPermission ? (
-      <Component {...props}>{children}</Component>
-    ) : (
-      <Fallback {...props} />
-    );
-  };
+		return hasPermission ? (
+			<Component {...props}>{children}</Component>
+		) : (
+			<Fallback {...props} />
+		);
+	};

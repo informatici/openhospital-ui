@@ -1,3 +1,3 @@
 export interface IFormCustomizationProps {
-  suggestedFields: Array<string>;
+	suggestedFields: Array<string>;
 }

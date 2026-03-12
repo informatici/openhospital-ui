@@ -1,28 +1,30 @@
-import { useAppDispatch, useAppSelector } from "libraries/hooks/redux";
-import React from "react";
-import { useTranslation } from "react-i18next";
-import { WardDTO } from "../../../../../generated";
-import { createWard } from "../../../../../state/ward";
-import WardForm from "../wardForm/WardForm";
-import { getInitialFields } from "../wardForm/consts";
+import { AdminActivityContent } from '~/components/activities/adminActivity';
+import { useTranslation } from '~/libraries/hooks';
+import { useAppDispatch, useAppSelector } from '~/libraries/hooks/redux';
+import type { WardDTO } from '../../../../../generated';
+import { createWard } from '../../../../../state/wards';
+import { getInitialFields } from '../wardForm/consts';
+import WardForm from '../wardForm/WardForm';
 
 export const NewWard = () => {
-  const dispatch = useAppDispatch();
-  const { t } = useTranslation();
-  const create = useAppSelector((state) => state.wards.create);
+	const dispatch = useAppDispatch();
+	const { t } = useTranslation();
+	const create = useAppSelector((state) => state.wards.create);
 
-  const handleSubmit = (value: WardDTO) => {
-    dispatch(createWard(value));
-  };
+	const handleSubmit = (value: WardDTO) => {
+		dispatch(createWard(value));
+	};
 
-  return (
-    <WardForm
-      creationMode
-      onSubmit={handleSubmit}
-      isLoading={!!create.isLoading}
-      resetButtonLabel={t("common.reset")}
-      submitButtonLabel={t("ward.saveWard")}
-      fields={getInitialFields(undefined)}
-    />
-  );
+	return (
+		<AdminActivityContent title={t('ward.addWard')}>
+			<WardForm
+				creationMode
+				onSubmit={handleSubmit}
+				isLoading={!!create.isLoading}
+				resetButtonLabel={t('common.reset')}
+				submitButtonLabel={t('ward.saveWard')}
+				fields={getInitialFields(undefined)}
+			/>
+		</AdminActivityContent>
+	);
 };

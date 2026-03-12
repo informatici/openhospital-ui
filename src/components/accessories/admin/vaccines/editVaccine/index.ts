@@ -1,1 +1,1 @@
-export * from "./EditVaccine";
+export * from './EditVaccine';

@@ -1,21 +1,21 @@
 import {
-  AsyncThunk,
-  AsyncThunkPayloadCreator,
-  createAsyncThunk,
-} from "@reduxjs/toolkit";
+	type AsyncThunk,
+	type AsyncThunkPayloadCreator,
+	createAsyncThunk,
+} from '@reduxjs/toolkit';
 
 type DebounceSettings = {
-  /**
-   * The maximum time `payloadCreator` is allowed to be delayed before
-   * it's invoked.
-   * @defaultValue `0`
-   */
-  maxWait?: number;
-  /**
-   * Specify invoking on the leading edge of the timeout.
-   * @defaultValue `false`
-   */
-  leading?: boolean;
+	/**
+	 * The maximum time `payloadCreator` is allowed to be delayed before
+	 * it's invoked.
+	 * @defaultValue `0`
+	 */
+	maxWait?: number;
+	/**
+	 * Specify invoking on the leading edge of the timeout.
+	 * @defaultValue `false`
+	 */
+	leading?: boolean;
 };
 
 /**
@@ -27,50 +27,50 @@ type DebounceSettings = {
  * @param options - the options object
  */
 const createDebouncedAsyncThunk = <Returned, ThunkArg = void>(
-  typePrefix: string,
-  payloadCreator: AsyncThunkPayloadCreator<Returned, ThunkArg>,
-  wait: number = 300,
-  options?: DebounceSettings
-  // eslint-disable-next-line @typescript-eslint/ban-types
-): AsyncThunk<Returned, ThunkArg, {}> => {
-  const { maxWait = 500, leading = false } = options ?? {};
-  let timer = 0;
-  let maxTimer = 0;
-  let resolve: ((value: boolean) => void) | undefined;
-  const invoke = (): void => {
-    window.clearTimeout(maxTimer);
-    maxTimer = 0;
-    if (resolve) {
-      resolve(true);
-      resolve = undefined;
-    }
-  };
-  const cancel = (): void => {
-    if (resolve) {
-      resolve(false);
-      resolve = undefined;
-    }
-  };
-  return createAsyncThunk<Returned, ThunkArg>(
-    typePrefix,
-    payloadCreator as never,
-    {
-      condition() {
-        const immediate = leading && !timer;
-        window.clearTimeout(timer);
-        timer = window.setTimeout(() => {
-          invoke();
-          timer = 0;
-        }, wait);
-        if (immediate) return true;
-        cancel();
-        if (maxWait && !maxTimer) maxTimer = window.setTimeout(invoke, maxWait);
-        return new Promise<boolean>((res) => {
-          resolve = res;
-        });
-      },
-    }
-  );
+	typePrefix: string,
+	payloadCreator: AsyncThunkPayloadCreator<Returned, ThunkArg>,
+	wait: number = 300,
+	options?: DebounceSettings,
+	// eslint-disable-next-line @typescript-eslint/ban-types
+): AsyncThunk<Returned, ThunkArg, object> => {
+	const { maxWait = 500, leading = false } = options ?? {};
+	let timer = 0;
+	let maxTimer = 0;
+	let resolve: ((value: boolean) => void) | undefined;
+	const invoke = (): void => {
+		window.clearTimeout(maxTimer);
+		maxTimer = 0;
+		if (resolve) {
+			resolve(true);
+			resolve = undefined;
+		}
+	};
+	const cancel = (): void => {
+		if (resolve) {
+			resolve(false);
+			resolve = undefined;
+		}
+	};
+	return createAsyncThunk<Returned, ThunkArg>(
+		typePrefix,
+		payloadCreator as never,
+		{
+			condition() {
+				const immediate = leading && !timer;
+				window.clearTimeout(timer);
+				timer = window.setTimeout(() => {
+					invoke();
+					timer = 0;
+				}, wait);
+				if (immediate) return true;
+				cancel();
+				if (maxWait && !maxTimer) maxTimer = window.setTimeout(invoke, maxWait);
+				return new Promise<boolean>((res) => {
+					resolve = res;
+				});
+			},
+		},
+	);
 };
 
 export default createDebouncedAsyncThunk;

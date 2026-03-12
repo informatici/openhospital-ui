@@ -1,390 +1,409 @@
-import { produce } from "immer";
-import { isEmpty } from "lodash";
-import moment from "moment";
-import {
-  TAgeFieldName,
-  TAgeType,
-} from "../../components/accessories/patientDataForm/types";
-import { IFormCustomizationProps } from "../../customization/formCustomization/type";
-import {
-  AdmissionDTO,
-  AgeTypeDTO,
-  DiseaseDTO,
-  ExamDTO,
-  LaboratoryDTO,
-  OpdDTO,
-  OperationDTO,
-  OperationRowDTO,
-  PatientDTO,
-  PatientExaminationDTO,
-  TherapyRowDTO,
-  VisitDTO,
-  WardDTO,
-} from "../../generated";
-import { TFieldAddress, TFieldFormattedValue, TFields } from "./types";
+import { produce } from 'immer';
+import { isEmpty } from 'lodash';
+import moment from 'moment';
+import type {
+	TAgeFieldName,
+	TAgeType,
+} from '../../components/accessories/patientDataForm/types';
+import type { IFormCustomizationProps } from '../../customization/formCustomization/type';
+import type {
+	AdmissionDTO,
+	AgeTypeDTO,
+	DiseaseDTO,
+	ExamDTO,
+	LaboratoryDTO,
+	OpdDTO,
+	OperationDTO,
+	OperationRowDTO,
+	PatientDTO,
+	PatientExaminationDTO,
+	TherapyRowDTO,
+	VisitDTO,
+	WardDTO,
+} from '../../generated';
+import type { TFieldAddress, TFieldFormattedValue, TFields } from './types';
 
 export const getFromFields = (
-  fields: TFields,
-  fieldAddress: TFieldAddress
+	fields: TFields,
+	fieldAddress: TFieldAddress,
 ): Record<string, any> => {
-  return Object.keys(fields).reduce((acc: Record<string, any>, key) => {
-    if (fields[key].type === "number" && fields[key][fieldAddress] === null) {
-      acc[key] = "";
-      return acc;
-    }
-    if (fieldAddress === "value") {
-      acc[key] = fields[key].isArray
-        ? JSON.parse(fields[key][fieldAddress])
-        : fields[key][fieldAddress];
-    } else {
-      acc[key] = fields[key][fieldAddress];
-    }
-    return acc;
-  }, {});
+	return Object.keys(fields).reduce((acc: Record<string, any>, key) => {
+		if (fields[key].type === 'number' && fields[key][fieldAddress] === null) {
+			acc[key] = '';
+			return acc;
+		}
+		if (fieldAddress === 'value') {
+			acc[key] = fields[key].isArray
+				? JSON.parse(fields[key][fieldAddress])
+				: fields[key][fieldAddress];
+		} else {
+			acc[key] = fields[key][fieldAddress];
+		}
+		return acc;
+	}, {});
 };
 
 export const parseDate = (raw: string, withTimezone: boolean = true) => {
-  if (raw) {
-    var date = isNaN(+raw) ? new Date(raw) : new Date(+raw);
-    if (withTimezone) {
-      const timezonedDate = new Date(
-        date.getTime() - date.getTimezoneOffset() * 60000
-      );
-      timezonedDate.setUTCHours(0);
-      return timezonedDate.toISOString();
-    }
-    date.setUTCHours(0);
-    return date.toISOString();
-  } else {
-    return "";
-  }
+	if (raw) {
+		const date = Number.isNaN(+raw) ? new Date(raw) : new Date(+raw);
+		if (withTimezone) {
+			const timezonedDate = new Date(
+				date.getTime() - date.getTimezoneOffset() * 60000,
+			);
+			timezonedDate.setUTCHours(0);
+			return timezonedDate.toISOString();
+		}
+		date.setUTCHours(0);
+		return date.toISOString();
+	} else {
+		return '';
+	}
 };
 
 export const fixFilterDateFrom = (date: string | Date): string => {
-  let dateFrom: string;
+	if (typeof date === 'string') {
+		date = new Date(date);
+	}
 
-  if (typeof date === "string") {
-    date = new Date(date);
-  }
+	date.setUTCHours(0);
+	date.setUTCMinutes(0);
+	date.setUTCSeconds(0);
 
-  date.setUTCHours(0);
-  date.setUTCMinutes(0);
-  date.setUTCSeconds(0);
-
-  dateFrom = date.toISOString();
-
-  return dateFrom;
+	return date.toISOString();
 };
 
 export const removeTime = (date: string | Date): string => {
-  if (date instanceof Date) {
-    date.setUTCHours(0);
-    date.setUTCMinutes(0);
-    date.setUTCSeconds(0);
+	if (date instanceof Date) {
+		date.setUTCHours(0);
+		date.setUTCMinutes(0);
+		date.setUTCSeconds(0);
 
-    date = date.toISOString();
-  }
+		date = date.toISOString();
+	}
 
-  return date.split("T")[0];
+	return date.split('T')[0];
 };
 
 export const fixFilterDateTo = (date: string | Date): string => {
-  let dateTo: string;
+	if (typeof date === 'string') {
+		date = new Date(date);
+	}
 
-  if (typeof date === "string") {
-    date = new Date(date);
-  }
+	date.setUTCHours(23);
+	date.setUTCMinutes(59);
+	date.setUTCSeconds(0);
 
-  date.setUTCHours(23);
-  date.setUTCMinutes(59);
-  date.setUTCSeconds(0);
-
-  dateTo = date.toISOString();
-
-  return dateTo;
+	return date.toISOString();
 };
 
 export const formatAllFieldValues = (
-  fields: TFields,
-  values: Record<string, string>,
-  withTimezone: boolean = true
+	fields: TFields,
+	values: Record<string, string>,
+	withTimezone: boolean = true,
 ): Record<string, TFieldFormattedValue> => {
-  return Object.keys(fields).reduce(
-    (acc: Record<string, TFieldFormattedValue>, key) => {
-      switch (fields[key].type) {
-        case "boolean":
-          acc[key] = isEmpty(values[key]) ? undefined : values[key] === "true";
-          break;
-        case "number":
-          const int = parseInt(values[key]);
-          const float = parseFloat(values[key]);
-          acc[key] = int < float ? float : int;
-          break;
-        case "date":
-          acc[key] = parseDate(values[key], withTimezone);
-          break;
-        default:
-          acc[key] = values[key];
-      }
-      return acc;
-    },
-    {}
-  );
+	return Object.keys(fields).reduce(
+		(acc: Record<string, TFieldFormattedValue>, key) => {
+			switch (fields[key].type) {
+				case 'boolean':
+					acc[key] = isEmpty(values[key]) ? undefined : values[key] === 'true';
+					break;
+				case 'number': {
+					const int = parseInt(values[key], 10);
+					const float = parseFloat(values[key]);
+					acc[key] = int < float ? float : int;
+					break;
+				}
+				case 'date':
+					acc[key] = parseDate(values[key], withTimezone);
+					break;
+				default:
+					acc[key] = values[key];
+			}
+			return acc;
+		},
+		{},
+	);
 };
 
 export const updateFields = (
-  fields: TFields,
-  values: PatientDTO | undefined
+	fields: TFields,
+	values: PatientDTO | undefined,
 ): TFields => {
-  return produce(fields, (draft: Record<string, any>) => {
-    Object.keys(values ?? {}).forEach((key) => {
-      if (draft[key as string]) {
-        return (draft[key as string].value = values![key as keyof PatientDTO]);
-      }
-    });
-  });
+	return produce(fields, (draft: Record<string, any>) => {
+		Object.keys(values ?? {}).forEach((key) => {
+			if (draft[key as string]) {
+				draft[key as string].value = values?.[key as keyof PatientDTO];
+				return;
+			}
+		});
+	});
 };
 
 export const updateTherapyFields = (
-  fields: TFields,
-  values: TherapyRowDTO | undefined
+	fields: TFields,
+	values: TherapyRowDTO | undefined,
 ): TFields => {
-  return produce(fields, (draft: Record<string, any>) => {
-    Object.keys(values!).forEach((key) => {
-      if (draft[key as string]) {
-        return (draft[key as string].value =
-          values![key as keyof TherapyRowDTO]);
-      }
-    });
-  });
+	return produce(fields, (draft: Record<string, any>) => {
+		Object.keys(values ?? {}).forEach((key) => {
+			if (draft[key as string]) {
+				draft[key as string].value = values?.[key as keyof TherapyRowDTO];
+				return;
+			}
+		});
+	});
 };
 
 export const updateLabFields = (
-  fields: TFields,
-  values: LaboratoryDTO | undefined
+	fields: TFields,
+	values: LaboratoryDTO | undefined,
 ): TFields => {
-  return produce(fields, (draft: Record<string, any>) => {
-    Object.keys(values!).forEach((key) => {
-      let value = values![key as keyof LaboratoryDTO];
-      if (key === "result") {
-        return (draft[key as string].value = value);
-      }
-      if (draft[key as string]) {
-        return (draft[key as string].value =
-          typeof value === "object"
-            ? (value as ExamDTO)?.code ?? ""
-            : moment(value).isValid()
-            ? parseDate(value as string)
-            : value);
-      }
-    });
-  });
+	return produce(fields, (draft: Record<string, any>) => {
+		Object.keys(values ?? {}).forEach((key) => {
+			const value = values?.[key as keyof LaboratoryDTO];
+			if (key === 'result') {
+				draft[key as string].value = value;
+				return;
+			}
+			if (draft[key as string]) {
+				draft[key as string].value =
+					typeof value === 'object'
+						? ((value as ExamDTO)?.code ?? '')
+						: moment(value).isValid()
+							? parseDate(value as string)
+							: value;
+			}
+		});
+	});
 };
 export const updateFilterFields = (
-  fields: TFields,
-  values: any,
-  withTimezone: boolean = true
+	fields: TFields,
+	values: any,
+	withTimezone: boolean = true,
 ): TFields => {
-  return produce(fields, (draft: Record<string, any>) => {
-    Object.keys(values!).forEach((key) => {
-      let value = values![key];
-      if (key === "status") return (draft[key as string].value = value);
-      if (key === "patientCode") return (draft[key as string].value = value);
-      if (draft[key as string]) {
-        return (draft[key as string].value = moment(value).isValid()
-          ? parseDate(value as string, withTimezone)
-          : value);
-      }
-    });
-  });
+	return produce(fields, (draft: Record<string, any>) => {
+		Object.keys(values ?? {}).forEach((key) => {
+			const value = values?.[key];
+			if (key === 'status') {
+				draft[key as string].value = value;
+				return;
+			}
+			if (key === 'patientCode') {
+				draft[key as string].value = value;
+				return;
+			}
+			if (draft[key as string]) {
+				draft[key as string].value = moment(value).isValid()
+					? parseDate(value as string, withTimezone)
+					: value;
+				return;
+			}
+		});
+	});
 };
 export const updateTriageFields = (
-  fields: TFields,
-  values: PatientExaminationDTO | undefined
+	fields: TFields,
+	values: PatientExaminationDTO | undefined,
 ): TFields => {
-  return produce(fields, (draft: Record<string, any>) => {
-    Object.keys(values!).forEach((key) => {
-      let value = values![key as keyof PatientExaminationDTO];
-      if (
-        ["pex_diuresis_desc", "pex_bowel_desc", "pex_auscultation"].includes(
-          key
-        )
-      ) {
-        return (draft[key as string].value = (
-          (value ?? "") as string
-        ).toLowerCase());
-      }
-      if (draft[key as string] && typeof value === "number") {
-        return (draft[key as string].value = draft[key as string].value =
-          value);
-      }
-      if (draft[key as string]) {
-        return (draft[key as string].value = parseFloat(value as string)
-          ? value
-          : moment(value).isValid()
-          ? parseDate(value as string)
-          : value);
-      }
-    });
-  });
+	return produce(fields, (draft: Record<string, any>) => {
+		Object.keys(values ?? {}).forEach((key) => {
+			const value = values?.[key as keyof PatientExaminationDTO];
+			if (
+				['pex_diuresis_desc', 'pex_bowel_desc', 'pex_auscultation'].includes(
+					key,
+				)
+			) {
+				draft[key as string].value = ((value ?? '') as string).toLowerCase();
+				return;
+			}
+			if (draft[key as string] && typeof value === 'number') {
+				draft[key as string].value = value;
+				return;
+			}
+			if (draft[key as string]) {
+				draft[key as string].value = parseFloat(value as string)
+					? value
+					: moment(value).isValid()
+						? parseDate(value as string)
+						: value;
+				return;
+			}
+		});
+	});
 };
 export const updateOpdFields = (
-  fields: TFields,
-  values: OpdDTO | undefined
+	fields: TFields,
+	values: OpdDTO | undefined,
 ) => {
-  return produce(fields, (draft: Record<string, any>) => {
-    Object.keys(values!).forEach((key) => {
-      if (draft[key as string]) {
-        const value = values![key as keyof OpdDTO];
-        return (draft[key as string].value =
-          typeof value === "object"
-            ? (value as DiseaseDTO)?.code ?? ""
-            : moment(value).isValid()
-            ? parseDate(value as string)
-            : value);
-      }
-    });
-  });
+	return produce(fields, (draft: Record<string, any>) => {
+		Object.keys(values ?? {}).forEach((key) => {
+			if (draft[key as string]) {
+				const value = values?.[key as keyof OpdDTO];
+				draft[key as string].value =
+					typeof value === 'object'
+						? ((value as DiseaseDTO)?.code ?? '')
+						: moment(value).isValid()
+							? parseDate(value as string)
+							: value;
+				return;
+			}
+		});
+	});
 };
 
 export const updateVisitFields = (
-  fields: TFields,
-  values: VisitDTO | undefined
+	fields: TFields,
+	values: VisitDTO | undefined,
 ) => {
-  return produce(fields, (draft: Record<string, any>) => {
-    Object.keys(values!).forEach((key) => {
-      if (draft[key as string]) {
-        const value = values![key as keyof VisitDTO];
-        if (key === "ward")
-          return (draft[key as string].value =
-            (value as WardDTO)?.code?.toString() ?? "");
+	return produce(fields, (draft: Record<string, any>) => {
+		Object.keys(values ?? {}).forEach((key) => {
+			if (draft[key as string]) {
+				const value = values?.[key as keyof VisitDTO];
+				if (key === 'ward') {
+					draft[key as string].value =
+						(value as WardDTO)?.code?.toString() ?? '';
+					return;
+				}
 
-        if (key === "patient")
-          return (draft[key as string].value =
-            (value as PatientDTO)?.code?.toString() ?? "");
+				if (key === 'patient') {
+					draft[key as string].value =
+						(value as PatientDTO)?.code?.toString() ?? '';
+					return;
+				}
 
-        if (key === "duration")
-          return (draft[key as string].value = value ?? "");
+				if (key === 'duration') {
+					draft[key as string].value = value ?? '';
+					return;
+				}
 
-        return (draft[key as string].value =
-          typeof value === "object"
-            ? (key === "patient"
-                ? (value as PatientDTO)?.code?.toString()
-                : (value as WardDTO)?.code?.toString()) ?? ""
-            : typeof value == "boolean"
-            ? value
-            : moment(value).isValid()
-            ? parseDate(value as string)
-            : value);
-      }
-    });
-  });
+				draft[key as string].value =
+					typeof value === 'object'
+						? ((key === 'patient'
+								? (value as PatientDTO)?.code?.toString()
+								: (value as WardDTO)?.code?.toString()) ?? '')
+						: typeof value === 'boolean'
+							? value
+							: moment(value).isValid()
+								? parseDate(value as string)
+								: value;
+				return;
+			}
+		});
+	});
 };
 
 export const updateOperationRowFields = (
-  fields: TFields,
-  values: OperationRowDTO | undefined
+	fields: TFields,
+	values: OperationRowDTO | undefined,
 ) => {
-  return produce(fields, (draft: Record<string, any>) => {
-    Object.keys(values!).forEach((key) => {
-      if (draft[key as string]) {
-        const value = values![key as keyof OperationRowDTO];
+	return produce(fields, (draft: Record<string, any>) => {
+		Object.keys(values ?? {}).forEach((key) => {
+			if (draft[key as string]) {
+				const value = values?.[key as keyof OperationRowDTO];
 
-        if (key === "admission")
-          return (draft[key as string].value =
-            (value as AdmissionDTO)?.id?.toString() ?? "");
+				if (key === 'admission') {
+					draft[key as string].value =
+						(value as AdmissionDTO)?.id?.toString() ?? '';
+					return;
+				}
 
-        if (key === "transUnit") return (draft[key as string].value = value);
+				if (key === 'transUnit') {
+					draft[key as string].value = value;
+					return;
+				}
 
-        return (draft[key as string].value =
-          typeof value === "object"
-            ? (key === "operation"
-                ? (value as OperationDTO)?.code?.toString()
-                : (value as OpdDTO)?.code?.toString()) ?? ""
-            : typeof value == "boolean"
-            ? value
-            : moment(value).isValid()
-            ? parseDate(value as string)
-            : value);
-      }
-    });
-  });
+				draft[key as string].value =
+					typeof value === 'object'
+						? ((key === 'operation'
+								? (value as OperationDTO)?.code?.toString()
+								: (value as OpdDTO)?.code?.toString()) ?? '')
+						: typeof value === 'boolean'
+							? value
+							: moment(value).isValid()
+								? parseDate(value as string)
+								: value;
+				return;
+			}
+		});
+	});
 };
 
 export const differenceInDays = (dateFrom: Date, dateTo: Date) => {
-  return moment(dateTo)
-    .startOf("day")
-    .diff(moment(dateFrom).startOf("day"), "days");
+	return moment(dateTo)
+		.startOf('day')
+		.diff(moment(dateFrom).startOf('day'), 'days');
 };
 
 export const differenceInSeconds = (dateFrom: Date, dateTo: Date) => {
-  return moment(dateTo).diff(moment(dateFrom), "ms");
+	return moment(dateTo).diff(moment(dateFrom), 'ms');
 };
 
 export const isFieldSuggested = (
-  formCustomization: IFormCustomizationProps,
-  fieldName: string
+	formCustomization: IFormCustomizationProps,
+	fieldName: string,
 ) => {
-  return formCustomization.suggestedFields.includes(fieldName);
+	return formCustomization.suggestedFields.includes(fieldName);
 };
 
 export const getBirthDateAndAge = (
-  ageType: TAgeFieldName,
-  values: TAgeType,
-  allAgeTypes?: AgeTypeDTO[] | undefined
+	ageType: TAgeFieldName,
+	values: TAgeType,
+	allAgeTypes?: AgeTypeDTO[] | undefined,
 ): { birthDate: string; age: number } => {
-  let ageAndBirthDate: { birthDate: string; age: number };
+	let ageAndBirthDate: { birthDate: string; age: number };
 
-  switch (ageType) {
-    case "agetype":
-      let selectedAgeType = allAgeTypes?.find(
-        (at, i) => at.code === values.agetype
-      );
+	switch (ageType) {
+		case 'agetype': {
+			const selectedAgeType = allAgeTypes?.find(
+				(at, _i) => at.code === values.agetype,
+			);
 
-      if (selectedAgeType !== undefined) {
-        let averageAge = Math.round(
-          selectedAgeType.from && selectedAgeType.to
-            ? (selectedAgeType.from + selectedAgeType.to) / 2
-            : 0
-        );
+			if (selectedAgeType !== undefined) {
+				const averageAge = Math.round(
+					selectedAgeType.from && selectedAgeType.to
+						? (selectedAgeType.from + selectedAgeType.to) / 2
+						: 0,
+				);
 
-        let birthDate = new Date();
-        birthDate.setFullYear(birthDate.getFullYear() - averageAge);
+				const birthDate = new Date();
+				birthDate.setFullYear(birthDate.getFullYear() - averageAge);
 
-        ageAndBirthDate = {
-          birthDate: birthDate.toISOString(),
-          age: averageAge,
-        };
-      } else {
-        ageAndBirthDate = { birthDate: new Date().toISOString(), age: 0 };
-      }
-      break;
+				ageAndBirthDate = {
+					birthDate: birthDate.toISOString(),
+					age: averageAge,
+				};
+			} else {
+				ageAndBirthDate = { birthDate: new Date().toISOString(), age: 0 };
+			}
+			break;
+		}
 
-    case "birthDate":
-      let birthDate = values.birthDate
-        ? new Date(values.birthDate)
-        : new Date();
-      let timeDiff = Math.abs(Date.now() - birthDate.getTime());
-      let age = Math.floor(timeDiff / (1000 * 3600 * 24) / 365.25);
+		case 'birthDate': {
+			const birthDate = values.birthDate
+				? new Date(values.birthDate)
+				: new Date();
+			const timeDiff = Math.abs(Date.now() - birthDate.getTime());
+			const age = Math.floor(timeDiff / (1000 * 3600 * 24) / 365.25);
 
-      ageAndBirthDate = { birthDate: birthDate.toISOString(), age: age };
-      break;
+			ageAndBirthDate = { birthDate: birthDate.toISOString(), age: age };
+			break;
+		}
 
-    case "age":
-      let birthdate = new Date();
-      birthdate.setFullYear(birthdate.getFullYear() - (values.age ?? 0));
+		case 'age': {
+			const birthdate = new Date();
+			birthdate.setFullYear(birthdate.getFullYear() - (values.age ?? 0));
 
-      ageAndBirthDate = {
-        birthDate: birthdate.toISOString(),
-        age: values.age ?? 0,
-      };
-      break;
+			ageAndBirthDate = {
+				birthDate: birthdate.toISOString(),
+				age: values.age ?? 0,
+			};
+			break;
+		}
 
-    default:
-      // return current date if unable to determine the selected age type
-      ageAndBirthDate = { birthDate: new Date().toISOString(), age: 0 };
-      break;
-  }
+		default:
+			// return current date if unable to determine the selected age type
+			ageAndBirthDate = { birthDate: new Date().toISOString(), age: 0 };
+			break;
+	}
 
-  return ageAndBirthDate;
+	return ageAndBirthDate;
 };

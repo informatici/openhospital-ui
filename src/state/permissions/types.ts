@@ -1,6 +1,6 @@
-import { PermissionDTO } from "../../generated";
-import { ApiResponse } from "../types";
+import type { PermissionDTO } from '../../generated';
+import type { ApiResponse } from '../types';
 
 export type IPermissionsState = {
-  getAll: ApiResponse<Array<PermissionDTO>>;
+	getAll: ApiResponse<Array<PermissionDTO>>;
 };
