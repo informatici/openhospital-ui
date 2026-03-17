@@ -1,0 +1,10 @@
+{
+	"plugins": [
+		{
+			"label": "Smart Doc",
+			"path": "smart-doc",
+			"file": "http://localhost:4173/mf-manifest.json",
+			"type": "module"
+		}
+	]
+}

@@ -3,9 +3,10 @@ import { useEffect } from 'react';
 import { RouterProvider } from 'react-router';
 import { useAppDispatch, useAppSelector } from '~/libraries/hooks/redux';
 import { getUserSettings } from '../state/main';
-import { router } from './router';
+import { useAppRouter } from './router';
 
 export const MainRouter: React.FC = () => {
+	const router = useAppRouter();
 	const dispatch = useAppDispatch();
 	const status = useAppSelector(
 		(state) => state.main.authentication.status ?? '',
