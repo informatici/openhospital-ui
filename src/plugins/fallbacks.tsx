@@ -11,3 +11,15 @@ export function PluginErrorBoundary({ plugin }: { plugin: Remote }) {
 		</div>
 	);
 }
+
+export function PluginLoading({ plugin }: { plugin: Remote }) {
+	return (
+		<div>
+			<h2>Loading plugin: {plugin.name}</h2>
+			<p>
+				The plugin is currently loading. Please wait... If this takes too long,
+				there might be an issue with the plugin
+			</p>
+		</div>
+	);
+}

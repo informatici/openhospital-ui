@@ -1,6 +1,8 @@
+import BridgeReactPlugin from '@module-federation/bridge-react/plugin';
 import { createInstance } from '@module-federation/enhanced/runtime';
 import { isArray } from 'lodash';
 import z from 'zod';
+import { dependencies } from '../../package.json';
 import type { Remote } from './types';
 
 const schema = z.object({
@@ -40,6 +42,19 @@ export const createModuleFederationInstance = async () => {
 	const instance = createInstance({
 		name: 'mfe',
 		remotes,
+		plugins: [BridgeReactPlugin()],
+		shared: {
+			react: {
+				lib: () => import('react'),
+				strategy: 'loaded-first',
+				version: dependencies.react,
+			},
+			'react-dom': {
+				lib: () => import('react-dom'),
+				strategy: 'loaded-first',
+				version: dependencies['react-dom'],
+			},
+		},
 	});
 	return { mf: instance, remotes };
 };
