@@ -2,13 +2,13 @@ import BridgeReactPlugin from '@module-federation/bridge-react/plugin';
 import { createInstance } from '@module-federation/enhanced/runtime';
 import { isArray } from 'lodash';
 import z from 'zod';
-import { dependencies } from '../../package.json';
 import type { Remote } from './types';
 
 const schema = z.object({
 	label: z.string(),
 	path: z.string(),
 	file: z.string(),
+	cssUrl: z.string().optional(),
 	type: z.enum(['module']),
 });
 
@@ -27,6 +27,7 @@ export const loadRemotes = async () => {
 						type: item.type,
 						name: item.path,
 						entry: item.file,
+						cssUrl: item.cssUrl,
 					}) satisfies Remote,
 			);
 		}
@@ -46,13 +47,9 @@ export const createModuleFederationInstance = async () => {
 		shared: {
 			react: {
 				lib: () => import('react'),
-				strategy: 'loaded-first',
-				version: dependencies.react,
 			},
 			'react-dom': {
 				lib: () => import('react-dom'),
-				strategy: 'loaded-first',
-				version: dependencies['react-dom'],
 			},
 		},
 	});

@@ -1,5 +1,4 @@
 export * from './api';
-export * from './fallbacks';
+export * from './components';
 export * from './provider';
-export * from './render-plugin';
 export * from './types';

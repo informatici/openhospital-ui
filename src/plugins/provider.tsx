@@ -1,3 +1,4 @@
+import { lazyLoadComponentPlugin } from '@module-federation/bridge-react';
 import {
 	createInstance,
 	type ModuleFederation,
@@ -37,6 +38,7 @@ export function PluginsProvider({
 	children,
 }: PluginsProviderProps) {
 	useEffect(() => {
+		mf.registerPlugins([lazyLoadComponentPlugin()]);
 		mf.registerRemotes(remotes);
 	}, [mf, remotes]);
 

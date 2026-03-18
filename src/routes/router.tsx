@@ -78,11 +78,17 @@ export const useAppRouter = () => {
 						...remotes.map((remote) => ({
 							path: remote.name,
 							lazy: async () =>
-								import('../plugins/render-plugin').then(
-									({ RenderPluginApp }) => ({
-										Component: () => <RenderPluginApp plugin={remote} />,
-									}),
-								),
+								import('../plugins/components').then(({ RenderPluginApp }) => ({
+									Component: () => (
+										<RenderPluginApp
+											plugin={{
+												entry: 'app',
+												remote: remote.name,
+												cssUrl: remote.cssUrl,
+											}}
+										/>
+									),
+								})),
 						})),
 
 						{ path: '*', element: <NotFound /> },
