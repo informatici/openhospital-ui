@@ -12,6 +12,10 @@
     max-width: 100% !important;
     max-height: 100% !important;
   }
+
+  [class*="bridge-root-component-"] {
+    width: 100%;
+  }
 }
 
 .content {
