@@ -2,6 +2,7 @@ import BridgeReactPlugin from '@module-federation/bridge-react/plugin';
 import { createInstance } from '@module-federation/enhanced/runtime';
 import { isArray } from 'lodash';
 import z from 'zod';
+import { PLUGIN_BASE_URL } from './consts';
 import type { Remote } from './types';
 
 const schema = z.object({
@@ -26,8 +27,8 @@ export const loadRemotes = async () => {
 						label: item.label,
 						type: item.type,
 						name: item.path,
-						entry: item.file,
-						cssUrl: item.cssUrl,
+						entry: `${PLUGIN_BASE_URL}/plugins/${item.path}/${item.file}`,
+						cssUrl: `${PLUGIN_BASE_URL}/plugins/${item.path}/${item.cssUrl}`,
 					}) satisfies Remote,
 			);
 		}

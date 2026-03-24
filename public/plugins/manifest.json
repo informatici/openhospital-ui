@@ -3,15 +3,15 @@
 		{
 			"label": "Smart Doc",
 			"path": "smart-doc",
-			"file": "http://localhost:4173/mf-manifest.json",
-			"cssUrl": "http://localhost:4173/assets/style.css",
+			"file": "mf-manifest.json",
+			"cssUrl": "assets/style.css",
 			"type": "module"
 		},
 		{
 			"label": "NXGT",
 			"path": "mfe-remote-demo",
-			"file": "http://localhost:3173/mf-manifest.json",
-			"cssUrl": "http://localhost:3173/assets/style.css",
+			"file": "mf-manifest.json",
+			"cssUrl": "assets/style.css",
 			"type": "module"
 		}
 	]
