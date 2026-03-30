@@ -15,7 +15,7 @@ const schema = z.object({
 
 export const loadRemotes = async () => {
 	try {
-		const response = await fetch('/plugins/manifest.json');
+		const response = await fetch(`${PLUGIN_BASE_URL}/manifest.json`);
 		const metadata = (await response.json())?.plugins;
 		if (isArray(metadata)) {
 			const valid = metadata.filter(
@@ -27,8 +27,10 @@ export const loadRemotes = async () => {
 						label: item.label,
 						type: item.type,
 						name: item.path,
-						entry: `${PLUGIN_BASE_URL}/plugins/${item.path}/${item.file}`,
-						cssUrl: `${PLUGIN_BASE_URL}/plugins/${item.path}/${item.cssUrl}`,
+						entry: `${PLUGIN_BASE_URL}/${item.path}/${item.file}`,
+						cssUrl: item.cssUrl
+							? `${PLUGIN_BASE_URL}/${item.path}/${item.cssUrl}`
+							: undefined,
 					}) satisfies Remote,
 			);
 		}
