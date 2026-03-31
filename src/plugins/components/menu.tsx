@@ -1,18 +1,23 @@
-import { Button, Menu, MenuItem } from '@mui/material';
-import { type SyntheticEvent, useCallback, useState } from 'react';
+import { Menu, MenuItem } from '@mui/material';
+import {
+	type ComponentProps,
+	type SyntheticEvent,
+	useCallback,
+	useState,
+} from 'react';
 import { usePluginsContext } from '../provider';
 import type { Remote } from '../types';
 
 export type PluginMenuProps = {
 	onSelect?: (item: Remote) => void;
-};
+} & Omit<ComponentProps<'div'>, 'onClick' | 'onSelect'>;
 
-export function PluginMenu({ onSelect }: PluginMenuProps) {
+export function PluginMenu({ onSelect, ...props }: PluginMenuProps) {
 	const { remotes: items } = usePluginsContext();
 
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 	const open = Boolean(anchorEl);
-	const handleClick = (event: SyntheticEvent<HTMLButtonElement>) => {
+	const handleClick = (event: SyntheticEvent<HTMLDivElement>) => {
 		setAnchorEl(event.currentTarget);
 	};
 	const handleClose = useCallback(
@@ -25,15 +30,15 @@ export function PluginMenu({ onSelect }: PluginMenuProps) {
 
 	return (
 		<div>
-			<Button
+			<div
 				id="plugins-menu-button"
 				aria-controls={open ? 'plugins-menu' : undefined}
 				aria-haspopup="true"
-				aria-expanded={open ? 'true' : undefined}
 				onClick={handleClick}
+				{...props}
 			>
 				Plugins
-			</Button>
+			</div>
 			<Menu
 				id="plugins-menu"
 				anchorEl={anchorEl}
@@ -47,7 +52,7 @@ export function PluginMenu({ onSelect }: PluginMenuProps) {
 			>
 				{items.map((item) => (
 					<MenuItem key={item.name} onClick={handleClose(item)}>
-						{item.name}
+						{item.label}
 					</MenuItem>
 				))}
 			</Menu>

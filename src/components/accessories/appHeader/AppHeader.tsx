@@ -174,7 +174,10 @@ const AppHeader: FunctionComponent<IOwnProps> = ({ breadcrumbMap }) => {
 									{t('nav.laboratory')}
 								</div>
 							)}
-							<PluginMenu onSelect={(remote) => navigate(`/${remote.name}`)} />
+							<PluginMenu
+								className="appHeader__nav__item"
+								onSelect={(remote) => navigate(`/${remote.name}`)}
+							/>
 						</div>
 					</div>
 				</div>
