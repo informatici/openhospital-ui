@@ -11,6 +11,7 @@ const schema = z.object({
 	file: z.string(),
 	cssUrl: z.string().optional(),
 	type: z.enum(['module']),
+	location: z.enum(['patient', 'main']).default('main'),
 });
 
 export const loadRemotes = async () => {

@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '~/libraries/hooks/redux';
-import { usePluginsContext } from '~/plugins';
+import { PluginMenu } from '~/plugins';
 import logo from '../../../assets/logo-color.svg';
 import warningIcon from '../../../assets/warning-icon.png';
 import { PATHS } from '../../../consts';
@@ -60,8 +60,6 @@ const AppHeader: FunctionComponent<IOwnProps> = ({ breadcrumbMap }) => {
 	const canAccessLaboratory = usePermission('laboratories.access');
 	const canAccessDashboard = usePermission('dashboard.access');
 	const canAccessAdmin = usePermission('admin.access');
-
-	const { remotes } = usePluginsContext();
 
 	return (
 		<div
@@ -176,15 +174,7 @@ const AppHeader: FunctionComponent<IOwnProps> = ({ breadcrumbMap }) => {
 									{t('nav.laboratory')}
 								</div>
 							)}
-							{remotes.map((remote) => (
-								<div
-									key={remote.name}
-									className="appHeader__nav__item"
-									onClick={() => navigate(`/${remote.name}`)}
-								>
-									{remote.label}
-								</div>
-							))}
+							<PluginMenu onSelect={(remote) => navigate(`/${remote.name}`)} />
 						</div>
 					</div>
 				</div>
