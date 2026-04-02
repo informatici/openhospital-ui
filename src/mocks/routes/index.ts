@@ -22,6 +22,7 @@ export * from './operations';
 export * from './operationTypes';
 export * from './patients';
 export * from './permission';
+export * from './plugins';
 export * from './pregnantTreatmentType';
 export * from './prices';
 export * from './settings';

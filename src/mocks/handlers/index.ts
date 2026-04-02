@@ -23,6 +23,7 @@ import { operations } from './operations';
 import { operationTypes } from './operationTypes';
 import { patients } from './patients';
 import { permissions } from './permissions';
+import { plugins } from './plugins';
 import { pregnantTreatmentTypes } from './pregnantTreatmentTypes';
 import { prices } from './prices';
 import { settings } from './settings';
@@ -71,4 +72,5 @@ export const handlers: Parameters<typeof setupWorker> = [
 	...vaccineTypes,
 	...visits,
 	...wardsHandlers,
+	...plugins,
 ];

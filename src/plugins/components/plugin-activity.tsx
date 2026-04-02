@@ -33,7 +33,7 @@ export function PluginActivity({ plugin, children }: PluginActivityProps) {
 				breadcrumbMap={breadcrumbMap}
 			/>
 			<div className={classes.content}>
-				{plugin.cssUrl && <style>{`@import url('${plugin.cssUrl}');`}</style>}
+				{plugin.styles && <style>{`@import url('${plugin.styles}');`}</style>}
 				{children}
 			</div>
 			<Footer />

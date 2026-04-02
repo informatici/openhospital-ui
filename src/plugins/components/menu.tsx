@@ -5,6 +5,7 @@ import {
 	useCallback,
 	useState,
 } from 'react';
+import { useTranslation } from '~/libraries/hooks/useTranslation';
 import { usePluginsContext } from '../provider';
 import type { Remote } from '../types';
 
@@ -13,6 +14,8 @@ export type PluginMenuProps = {
 } & Omit<ComponentProps<'div'>, 'onClick' | 'onSelect'>;
 
 export function PluginMenu({ onSelect, ...props }: PluginMenuProps) {
+	const { t } = useTranslation();
+
 	const { remotes: items } = usePluginsContext();
 
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -28,6 +31,10 @@ export function PluginMenu({ onSelect, ...props }: PluginMenuProps) {
 		[onSelect],
 	);
 
+	if (!items.length) {
+		return null;
+	}
+
 	return (
 		<div>
 			<div
@@ -37,7 +44,7 @@ export function PluginMenu({ onSelect, ...props }: PluginMenuProps) {
 				onClick={handleClick}
 				{...props}
 			>
-				Plugins
+				{t('plugins.buttons.menu')}
 			</div>
 			<Menu
 				id="plugins-menu"

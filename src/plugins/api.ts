@@ -1,41 +1,32 @@
 import BridgeReactPlugin from '@module-federation/bridge-react/plugin';
 import { createInstance } from '@module-federation/enhanced/runtime';
-import { isArray } from 'lodash';
-import z from 'zod';
-import { PLUGIN_BASE_URL } from './consts';
+import { firstValueFrom } from 'rxjs';
+import { PluginsApi } from '~/generated';
+import { customConfiguration } from '~/libraries/apiUtils/configuration';
+import { PLUGIN_ASSETS_BASE_URL } from './consts';
 import type { Remote } from './types';
-
-const schema = z.object({
-	label: z.string(),
-	path: z.string(),
-	file: z.string(),
-	cssUrl: z.string().optional(),
-	type: z.enum(['module']),
-	location: z.enum(['patient', 'main']).default('main'),
-});
 
 export const loadRemotes = async () => {
 	try {
-		const response = await fetch(`${PLUGIN_BASE_URL}/manifest.json`);
-		const metadata = (await response.json())?.plugins;
-		if (isArray(metadata)) {
-			const valid = metadata.filter(
-				(item) => schema.safeParse(item).success,
-			) as z.infer<typeof schema>[];
-			return valid.map(
-				(item) =>
-					({
-						label: item.label,
-						type: item.type,
-						name: item.path,
-						entry: `${PLUGIN_BASE_URL}/${item.path}/${item.file}`,
-						cssUrl: item.cssUrl
-							? `${PLUGIN_BASE_URL}/${item.path}/${item.cssUrl}`
-							: undefined,
-					}) satisfies Remote,
-			);
-		}
-		return [];
+		const api = new PluginsApi(customConfiguration());
+		const plugins = (await firstValueFrom(api.listPlugins())).map((item) => ({
+			id: item.id,
+			...item.configuration?.bundle,
+		}));
+
+		return plugins.map(
+			(item) =>
+				({
+					label: item.label,
+					type: item.type,
+					location: item.location,
+					name: item.id,
+					entry: `${PLUGIN_ASSETS_BASE_URL}/${item.id}/${item.manifest}`,
+					styles: item.styles
+						? `${PLUGIN_ASSETS_BASE_URL}/${item.id}/${item.styles}`
+						: undefined,
+				}) as Remote,
+		);
 	} catch (error) {
 		console.error(error);
 		return [];
@@ -44,6 +35,7 @@ export const loadRemotes = async () => {
 
 export const createModuleFederationInstance = async () => {
 	const remotes = await loadRemotes();
+	console.log(remotes);
 	const instance = createInstance({
 		name: 'mfe',
 		remotes,

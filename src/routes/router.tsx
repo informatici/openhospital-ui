@@ -84,7 +84,7 @@ export const useAppRouter = () => {
 											plugin={{
 												entry: 'app',
 												remote: remote.name,
-												cssUrl: remote.cssUrl,
+												styles: remote.styles,
 											}}
 										/>
 									),
