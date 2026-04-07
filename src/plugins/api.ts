@@ -47,6 +47,9 @@ export const createModuleFederationInstance = async () => {
 			'react-dom': {
 				lib: () => import('react-dom'),
 			},
+			'react-router': {
+				lib: () => import('react-router'),
+			},
 		},
 	});
 	return { mf: instance, remotes };

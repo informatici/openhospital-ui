@@ -11,7 +11,7 @@ export const plugins: PluginDefinition[] = [
 				manifest: 'mf-manifest.json',
 				type: 'module',
 				location: 'main',
-				styles: 'assets/styles.css',
+				styles: 'assets/style.css',
 			},
 			permissions: [
 				{
