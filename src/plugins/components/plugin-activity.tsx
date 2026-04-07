@@ -8,9 +8,14 @@ import classes from './plugin-activity.module.scss';
 
 export type PluginActivityProps = {
 	plugin: PluginRenderProps;
+	showHeaderAndFooter?: boolean;
 } & PropsWithChildren;
 
-export function PluginActivity({ plugin, children }: PluginActivityProps) {
+export function PluginActivity({
+	plugin,
+	showHeaderAndFooter = true,
+	children,
+}: PluginActivityProps) {
 	const breadcrumbMap = {
 		[plugin.remote]: `/${plugin.remote}`,
 	};
@@ -28,15 +33,17 @@ export function PluginActivity({ plugin, children }: PluginActivityProps) {
 			data-cy={`plugin-activity-${plugin.remote}`}
 			className={classes.plugin}
 		>
-			<AppHeader
-				userCredentials={userCredentials}
-				breadcrumbMap={breadcrumbMap}
-			/>
+			{showHeaderAndFooter && (
+				<AppHeader
+					userCredentials={userCredentials}
+					breadcrumbMap={breadcrumbMap}
+				/>
+			)}
 			<div className={classes.content}>
 				{plugin.styles && <style>{`@import url('${plugin.styles}');`}</style>}
 				{children}
 			</div>
-			<Footer />
+			{showHeaderAndFooter && <Footer />}
 		</div>
 	);
 }

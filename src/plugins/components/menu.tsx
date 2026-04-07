@@ -5,6 +5,7 @@ import {
 	useCallback,
 	useState,
 } from 'react';
+import { PluginBundleLocationEnum } from '~/generated';
 import { useTranslation } from '~/libraries/hooks/useTranslation';
 import { usePluginsContext } from '../provider';
 import type { Remote } from '../types';
@@ -57,11 +58,13 @@ export function PluginMenu({ onSelect, ...props }: PluginMenuProps) {
 					},
 				}}
 			>
-				{items.map((item) => (
-					<MenuItem key={item.name} onClick={handleClose(item)}>
-						{item.label}
-					</MenuItem>
-				))}
+				{items
+					.filter((item) => item.location === PluginBundleLocationEnum.Main)
+					.map((item) => (
+						<MenuItem key={item.name} onClick={handleClose(item)}>
+							{item.label}
+						</MenuItem>
+					))}
 			</Menu>
 		</div>
 	);

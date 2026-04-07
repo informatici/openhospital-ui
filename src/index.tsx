@@ -10,19 +10,18 @@ import { store } from './state/store';
 
 const container = document.getElementById('root');
 const root = createRoot(container as Container);
-Promise.all([enableMocking(), createModuleFederationInstance()]).then(
-	([_, { mf, remotes }]) => {
-		root.render(
-			<React.StrictMode>
-				<PluginsProvider remotes={remotes} mf={mf}>
-					<Provider store={store}>
-						<App />
-					</Provider>
-				</PluginsProvider>
-			</React.StrictMode>,
-		);
-	},
-);
+await enableMocking();
+createModuleFederationInstance().then(({ mf, remotes }) => {
+	root.render(
+		<React.StrictMode>
+			<PluginsProvider remotes={remotes} mf={mf}>
+				<Provider store={store}>
+					<App />
+				</Provider>
+			</PluginsProvider>
+		</React.StrictMode>,
+	);
+});
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

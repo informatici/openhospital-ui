@@ -1,14 +1,17 @@
 import { useMemo } from 'react';
 import { Navigate } from 'react-router';
 import { createBrowserRouter } from 'react-router-dom';
+import { PluginBundleLocationEnum } from '~/generated/models/PluginBundle';
 import { usePluginsContext } from '~/plugins';
 import NotFound from '../components/activities/notFound/NotFound';
 import { Private } from '../components/Private';
 import { ADMIN_ROUTES } from './admin';
-import { PATIENT_ROUTES } from './patients';
+import { usePatientRoutes } from './patients';
 
 export const useAppRouter = () => {
 	const { remotes } = usePluginsContext();
+
+	const patientRoutes = usePatientRoutes();
 
 	const router = useMemo(
 		() =>
@@ -74,28 +77,34 @@ export const useAppRouter = () => {
 								})),
 							children: ADMIN_ROUTES,
 						},
-						...PATIENT_ROUTES,
-						...remotes.map((remote) => ({
-							path: remote.name,
-							lazy: async () =>
-								import('../plugins/components').then(({ RenderPluginApp }) => ({
-									Component: () => (
-										<RenderPluginApp
-											plugin={{
-												entry: 'app',
-												remote: remote.name,
-												styles: remote.styles,
-											}}
-										/>
+						...patientRoutes,
+						...remotes
+							.filter(
+								(remote) => remote.location === PluginBundleLocationEnum.Main,
+							)
+							.map((remote) => ({
+								path: remote.name,
+								lazy: async () =>
+									import('../plugins/components').then(
+										({ RenderPluginApp }) => ({
+											Component: () => (
+												<RenderPluginApp
+													plugin={{
+														entry: 'app',
+														remote: remote.name,
+														styles: remote.styles,
+													}}
+												/>
+											),
+										}),
 									),
-								})),
-						})),
+							})),
 
 						{ path: '*', element: <NotFound /> },
 					],
 				},
 			]),
-		[remotes.map],
+		[remotes.filter, patientRoutes],
 	);
 
 	return router;

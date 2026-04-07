@@ -1,4 +1,4 @@
-import type { PluginDefinition } from '~/generated';
+import { PluginBundleLocationEnum, type PluginDefinition } from '~/generated';
 
 export const plugins: PluginDefinition[] = [
 	{
@@ -10,7 +10,7 @@ export const plugins: PluginDefinition[] = [
 				label: 'Smart Doc',
 				manifest: 'mf-manifest.json',
 				type: 'module',
-				location: 'main',
+				location: PluginBundleLocationEnum.Main,
 				styles: 'assets/style.css',
 			},
 			permissions: [

@@ -10,7 +10,13 @@ import type { PluginRenderProps } from '../types';
 import { PluginErrorBoundary, PluginLoading } from './fallbacks';
 import PluginActivity from './plugin-activity';
 
-export function RenderPluginApp({ plugin }: { plugin: PluginRenderProps }) {
+export function RenderPluginApp({
+	plugin,
+	showHeaderAndFooter,
+}: {
+	plugin: PluginRenderProps;
+	showHeaderAndFooter?: boolean;
+}) {
 	const { mf } = usePluginsContext();
 	const App = createRemoteAppComponent({
 		loader: () => mf.loadRemote(`${plugin.remote}/${plugin.entry}`),
@@ -19,7 +25,7 @@ export function RenderPluginApp({ plugin }: { plugin: PluginRenderProps }) {
 	});
 
 	return (
-		<PluginActivity plugin={plugin}>
+		<PluginActivity plugin={plugin} showHeaderAndFooter={showHeaderAndFooter}>
 			<App memoryRouter={{ entryPath: '/' }} />
 		</PluginActivity>
 	);
