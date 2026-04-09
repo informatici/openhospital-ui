@@ -76,48 +76,7 @@ export default provider;
 
 ---
 
-### Vite Configuration
-
-#### 1. Standalone config (`vite.config.ts`)
-
-Used for local development and running the plugin as a standalone app.
-The `base` URL points to your local Vite preview server.
-
-```ts
-// vite.config.ts
-import { federation } from '@module-federation/vite';
-import react from '@vitejs/plugin-react';
-import { defineConfig } from 'vite';
-import { dependencies } from './package.json';
-
-export default defineConfig({
-  base: 'http://localhost:4173', // your local preview base
-
-  build: {
-    target: 'esnext',
-    minify: false,
-    cssCodeSplit: false,
-  },
-
-  plugins: [
-    federation({
-      name: 'my-plugin',           // must match the plugin id in plugins.yaml
-      filename: 'my-plugin.js',    // remote entry filename
-      exposes: {
-        './app': './src/export-app.tsx',
-      },
-      shared: {
-        react:     { singleton: true, requiredVersion: dependencies.react },
-        'react-dom': { singleton: true, requiredVersion: dependencies['react-dom'] },
-      },
-      manifest: true,              // generates mf-manifest.json — required by the host
-    }),
-    react(),
-  ],
-});
-```
-
-#### 2. Plugin build config (`vite.plugin.config.ts`)
+### Vite Configuration (`vite.plugin.config.ts`)
 
 Used to produce the deployable artifact that the Open Hospital API serves.
 Key differences from the standalone config:
@@ -237,7 +196,7 @@ sequenceDiagram
     API-->>Host: GET /plugins → returns plugin list including my-plugin
     Host->>Host: Loads mf-manifest.json, registers remote
     Host->>Host: Injects route /<my-plugin> or patient tab
-    Host->>Build: Lazy-loads my-plugin.js on navigation
+    Host->>Build: Lazy-loads my-plugin on navigation
 ```
 
 ---
@@ -248,7 +207,7 @@ sequenceDiagram
 - [ ] `vite.plugin.config.ts` sets `manifest: true`, correct `base` URL, and `outDir: dist/<plugin-id>`
 - [ ] `react`, `react-dom`, and (for patient plugins) `react-router` are declared as shared singletons
 - [ ] `dist/<plugin-id>/` is placed under `classpath:/plugins/` in the OH API
-- [ ] A plugin entry is added to `rsc/plugins.yaml` in the OH API (see [API documentation](../../openhospital-api/docs/plugins.md))
+- [ ] A plugin entry is added to `rsc/plugins.yaml` in the OH API (see [API documentation](https://github.com/uni2growcm/openhospital-api/docs/plugins.md))
 - [ ] The backend service behind the plugin exposes a health endpoint (e.g. `/actuator/health`) returning HTTP 2xx
 
 ---
@@ -264,8 +223,8 @@ flowchart TD
     A[src/index.tsx] -->|1. await enableMocking| B[MSW mock worker]
     A -->|2. createModuleFederationInstance| C[src/plugins/api.ts]
     C -->|GET /plugins| D[PluginsApi — OH REST API]
-    D -->|PluginDefinition[]| C
-    C -->|maps to Remote[]| E[createInstance — MF runtime]
+    D -->|PluginDefinitions| C
+    C -->|maps to Remotes| E[createInstance — MF runtime]
     E -->|mf + remotes| F[PluginsProvider — src/plugins/provider.tsx]
     F -->|context| G[React tree]
     G --> H[MainRouter]
@@ -285,14 +244,14 @@ flowchart TD
 **`src/index.tsx`**
 
 ```tsx
-await enableMocking();                               // 1. start MSW if in test mode
+await enableMocking();
 
 createModuleFederationInstance().then(({ mf, remotes }) => {
   root.render(
     <React.StrictMode>
-      <PluginsProvider remotes={remotes} mf={mf}>   // 2. MF context
-        <Provider store={store}>                      // 3. Redux store
-          <App />                                     // 4. i18n + theme + router
+      <PluginsProvider remotes={remotes} mf={mf}>
+        <Provider store={store}>
+          <App />
         </Provider>
       </PluginsProvider>
     </React.StrictMode>,
