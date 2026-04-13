@@ -1,6 +1,6 @@
 import XHRAdapter from '@pollyjs/adapter-xhr';
 import { Polly } from '@pollyjs/core';
-import { BASE_PATH } from '../generated/runtime';
+import { API_BASE_PATH } from '~/libraries/apiUtils/configuration';
 import * as routes from './routes';
 
 export function makeServer() {
@@ -11,7 +11,7 @@ export function makeServer() {
 		logLevel: 'WARN',
 	});
 	const { server } = polly;
-	server.host(BASE_PATH, () => {
+	server.host(API_BASE_PATH, () => {
 		Object.values(routes).forEach((route) => {
 			route(server);
 		});

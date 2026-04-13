@@ -10,8 +10,8 @@ import { store } from './state/store';
 
 const container = document.getElementById('root');
 const root = createRoot(container as Container);
-await enableMocking();
-createModuleFederationInstance().then(({ mf, remotes }) => {
+enableMocking().then(async () => {
+	const { mf, remotes } = await createModuleFederationInstance();
 	root.render(
 		<React.StrictMode>
 			<PluginsProvider remotes={remotes} mf={mf}>
