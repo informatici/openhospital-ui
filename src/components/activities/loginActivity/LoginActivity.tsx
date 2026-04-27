@@ -95,6 +95,9 @@ export const LoginActivity: FC = () => {
 									isValid={isValid('username')}
 									errorText={getErrorText('username')}
 									onBlur={formik.handleBlur}
+									inputProps={{
+										autoComplete: 'username',
+									}}
 								/>
 							</div>
 							<div className="login__panel__textField">
@@ -106,6 +109,9 @@ export const LoginActivity: FC = () => {
 									isValid={isValid('password')}
 									errorText={getErrorText('password')}
 									onBlur={formik.handleBlur}
+									inputProps={{
+										autoComplete: 'current-password',
+									}}
 									InputProps={{
 										endAdornment: (
 											<InputAdornment position="end">

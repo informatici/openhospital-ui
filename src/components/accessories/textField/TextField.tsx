@@ -19,6 +19,7 @@ const TextField: FunctionComponent<IProps> = ({
 	rows = 10,
 	required = FIELD_VALIDATION.IDLE,
 	maxLength,
+	inputProps,
 }) => {
 	const { t } = useTranslation();
 
@@ -43,7 +44,7 @@ const TextField: FunctionComponent<IProps> = ({
 				margin="dense"
 				disabled={disabled}
 				InputProps={InputProps}
-				inputProps={{ maxLength }}
+				inputProps={{ ...inputProps, maxLength }}
 				InputLabelProps={{ shrink: !!field.value }}
 				required={required === FIELD_VALIDATION.REQUIRED}
 			/>
