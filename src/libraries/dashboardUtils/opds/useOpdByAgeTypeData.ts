@@ -1,13 +1,15 @@
 import { useTranslation } from 'react-i18next';
 import { useAppSelector } from '~/libraries/hooks/redux';
 
+const EMPTY_DATA: never[] = [];
+
 export const useOpdByAgeTypeData = () => {
 	const { t } = useTranslation();
 	const opds = useAppSelector(
-		(state) => state.opds.searchOpds.data?.data ?? [],
+		(state) => state.opds.searchOpds.data?.data ?? EMPTY_DATA,
 	);
 	const ageTypes = useAppSelector(
-		(state) => state.types.ageTypes.getAll.data ?? [],
+		(state) => state.types.ageTypes.getAll.data ?? EMPTY_DATA,
 	);
 	const ageTypeStatus = useAppSelector(
 		(state) => state.types.ageTypes.getAll.status ?? 'IDLE',

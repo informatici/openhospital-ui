@@ -1,12 +1,16 @@
 import { useTranslation } from 'react-i18next';
 import { useAppSelector } from '~/libraries/hooks/redux';
 
+const EMPTY_DATA: never[] = [];
+
 export const useAdmByAdmWardData = () => {
 	const { t } = useTranslation();
 	const admissions = useAppSelector(
-		(state) => state.admissions.getAdmissions.data?.data ?? [],
+		(state) => state.admissions.getAdmissions.data?.data ?? EMPTY_DATA,
 	);
-	const wards = useAppSelector((state) => state.wards.allWards.data ?? []);
+	const wards = useAppSelector(
+		(state) => state.wards.allWards.data ?? EMPTY_DATA,
+	);
 	const wardStatus = useAppSelector(
 		(state) => state.wards.allWards.status ?? 'IDLE',
 	);

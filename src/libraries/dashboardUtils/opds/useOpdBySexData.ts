@@ -1,10 +1,12 @@
 import { useTranslation } from 'react-i18next';
 import { useAppSelector } from '~/libraries/hooks/redux';
 
+const EMPTY_DATA: never[] = [];
+
 export const useOpdBySexData = () => {
 	const { t } = useTranslation();
 	const opds = useAppSelector(
-		(state) => state.opds.searchOpds.data?.data ?? [],
+		(state) => state.opds.searchOpds.data?.data ?? EMPTY_DATA,
 	);
 	const status = useAppSelector(
 		(state) => state.opds.searchOpds.status ?? 'IDLE',
