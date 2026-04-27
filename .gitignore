@@ -39,3 +39,4 @@ cypress/screenshots
 
 # Extras
 .__mf__temp
+/.project

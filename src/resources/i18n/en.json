@@ -1226,51 +1226,6 @@
 		"cancelCreation": "Are you sure to cancel the exam type creation?",
 		"cancelUpdate": "Are you sure to cancel the exam type update?"
 	},
-	"settings": {
-		"code": "Code",
-		"category": "Category",
-		"value": "Value",
-		"defaultValue": "Default value",
-		"type": "Type",
-		"description": "Description",
-		"needRestart": "Need restart?",
-		"valueOptions": "Possible values",
-		"resetAll": "Reset all",
-		"confirmresetall": "All settings are going to be reset to default values. Do you want to continue?",
-		"resetAllSettings": "Reset all settings to default",
-		"reset": "Settings reset",
-		"updated": "Setting updated",
-		"successfullyReset": "Settings have been successfully reset",
-		"editdialogtitle": "Edit setting {{name}}",
-		"successfullyUpdated": "Setting successfully updated",
-		"categories": {
-			"all": "All",
-			"general": "General",
-			"gui": "GUI",
-			"application": "Application",
-			"telemetry": "Telemetry",
-			"security": "Security",
-			"pharmacy": "Pharmacy",
-			"accounting": "Accounting",
-			"imaging": "Imaging",
-			"reports": "Reports",
-			"integration": "Integration"
-		}
-	},
-	"radiology": {
-		"studies": {
-			"summary": "{count, plural, =0 {There are <0>not</0> studies for this patient} =1 {There is <0>1</0> study for this patient} other {There are <0>#</0> studies for this patient}}",
-			"last": "Latest study: {value}",
-			"date": "Date",
-			"title": "Title",
-			"series": "Series",
-			"viewSeries": "View series",
-			"institution": "Institution Name",
-			"referrencingPhysician": "Referrencing Physician",
-			"time": "Study Time",
-			"lastUpdate": "Last Update"
-		}
-	},
 	"plugins": {
 		"buttons": {
 			"menu": "Plugins"
