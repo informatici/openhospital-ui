@@ -51,10 +51,24 @@ export const DashboardFilter: FC<IOwnProps> = ({ onPeriodChange }) => {
 	);
 
 	const onIconClickHandler = useCallback(
-		(_event: any) => {
+		(event?: { stopPropagation?: () => void }) => {
+			event?.stopPropagation?.();
 			setOpen(!open);
 		},
 		[open],
+	);
+
+	const CalendarTrigger = useCallback(
+		() => (
+			<IconButton
+				className="filter__calendarButton"
+				aria-label="Choose date"
+				onClick={onIconClickHandler}
+			>
+				<CalendarTodaySharp />
+			</IconButton>
+		),
+		[onIconClickHandler],
 	);
 
 	const handleDateRangeChange = useCallback(
@@ -137,7 +151,7 @@ export const DashboardFilter: FC<IOwnProps> = ({ onPeriodChange }) => {
 					exclusive
 					onChange={handleSelectionChange}
 				>
-					<ToggleButton value="custom">
+					<ToggleButton value="custom" component="div">
 						<div className="filter__datefield">
 							<span>{period ?? 'Custom'}</span>
 							{view === 'range' ? (
@@ -148,16 +162,6 @@ export const DashboardFilter: FC<IOwnProps> = ({ onPeriodChange }) => {
 									format="dd/MM/YYY"
 									onClose={() => setOpen(false)}
 									onChange={handleDateRangeChange}
-									TextFieldComponent={(_props) => (
-										<IconButton
-											onClick={() => {
-												setOpen(!open);
-											}}
-										>
-											<CalendarTodaySharp />
-										</IconButton>
-									)}
-									open={open}
 								/>
 							) : (
 								<DateField
@@ -168,11 +172,7 @@ export const DashboardFilter: FC<IOwnProps> = ({ onPeriodChange }) => {
 									fieldValue={dateRange[0]?.toISOString() ?? ''}
 									format="dd/MM/YYY"
 									onChange={handleDateChange}
-									TextFieldComponent={(_props) => (
-										<IconButton onClick={onIconClickHandler}>
-											<CalendarTodaySharp />
-										</IconButton>
-									)}
+									TextFieldComponent={CalendarTrigger}
 									open={open}
 								/>
 							)}

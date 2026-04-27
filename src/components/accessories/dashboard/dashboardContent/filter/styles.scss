@@ -46,11 +46,20 @@
       justify-content: end;
     }
   }
-  filter__datefield {
+  .filter__datefield {
     display: flex;
     gap: 4px;
+    align-items: center;
     @include susy-media($smartphone) {
       flex-direction: column;
     }
+  }
+  .filter__calendarButton {
+    align-items: center;
+    color: inherit;
+    cursor: pointer;
+    display: inline-flex;
+    justify-content: center;
+    padding-left: 10px;
   }
 }
