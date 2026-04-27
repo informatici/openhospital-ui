@@ -4,17 +4,21 @@ import { Provider } from 'react-redux';
 import App from './App';
 import './index.css';
 import { enableMocking } from './mocks';
+import { createModuleFederationInstance, PluginsProvider } from './plugins';
 import * as serviceWorker from './serviceWorker';
 import { store } from './state/store';
 
 const container = document.getElementById('root');
 const root = createRoot(container as Container);
-enableMocking().then(() => {
+enableMocking().then(async () => {
+	const { mf, remotes } = await createModuleFederationInstance();
 	root.render(
 		<React.StrictMode>
-			<Provider store={store}>
-				<App />
-			</Provider>
+			<PluginsProvider remotes={remotes} mf={mf}>
+				<Provider store={store}>
+					<App />
+				</Provider>
+			</PluginsProvider>
 		</React.StrictMode>,
 	);
 });

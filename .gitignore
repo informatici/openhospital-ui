@@ -36,4 +36,7 @@ src/__generated__
 # Cypress videos and screenshots
 cypress/videos
 cypress/screenshots
+
+# Extras
+.__mf__temp
 /.project

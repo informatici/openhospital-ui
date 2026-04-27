@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '~/libraries/hooks/redux';
+import { PluginMenu } from '~/plugins';
 import logo from '../../../assets/logo-color.svg';
 import warningIcon from '../../../assets/warning-icon.png';
 import { PATHS } from '../../../consts';
@@ -173,6 +174,10 @@ const AppHeader: FunctionComponent<IOwnProps> = ({ breadcrumbMap }) => {
 									{t('nav.laboratory')}
 								</div>
 							)}
+							<PluginMenu
+								className="appHeader__nav__item"
+								onSelect={(remote) => navigate(`/${remote.name}`)}
+							/>
 						</div>
 					</div>
 				</div>

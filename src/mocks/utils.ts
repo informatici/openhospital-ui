@@ -10,14 +10,15 @@ export const http = createOpenApiHttp<paths>({
 
 export async function enableMocking() {
 	if (import.meta.env.VITE_USE_MOCK_API !== 'true') {
+		console.warn(
+			'Mocking is disabled. Set VITE_USE_MOCK_API to true to enable it.',
+		);
 		return;
 	}
 
-	//const { worker } = await import('~/mocks'); // For MSW
+	console.info('Enabling API mocking');
 
-	//await worker.start(); // For MSW
-
-	makeServer(); // For PollyJS
+	makeServer();
 }
 
 export function badRequest<T extends JsonBodyType>(response: T) {

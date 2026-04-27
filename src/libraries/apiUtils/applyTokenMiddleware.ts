@@ -14,11 +14,8 @@ export const applyTokenMiddleware: Middleware = {
 		) {
 			SessionStorage.clear();
 		}
-		if (!userCredentials) {
-			window.location.reload();
-		}
 		return produce(request, (draft) => {
-			if (userCredentials.token) {
+			if (userCredentials?.token) {
 				draft.headers = set(
 					draft.headers || {},
 					'Authorization',

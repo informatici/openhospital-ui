@@ -1225,5 +1225,10 @@
 		"updateSuccess": "The exam type has been updated successfully!",
 		"cancelCreation": "Are you sure to cancel the exam type creation?",
 		"cancelUpdate": "Are you sure to cancel the exam type update?"
+	},
+	"plugins": {
+		"buttons": {
+			"menu": "Plugins"
+		}
 	}
 }

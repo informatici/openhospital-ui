@@ -24,5 +24,8 @@ export default defineConfig(() => {
 		define: {
 			global: 'globalThis',
 		},
+		preview: {
+			port: 5174,
+		},
 	};
 });
