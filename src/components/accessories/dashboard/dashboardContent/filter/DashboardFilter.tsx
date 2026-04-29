@@ -51,8 +51,8 @@ export const DashboardFilter: FC<IOwnProps> = ({ onPeriodChange }) => {
 	);
 
 	const onIconClickHandler = useCallback(
-		(event?: { stopPropagation?: () => void }) => {
-			event?.stopPropagation?.();
+		(event: React.MouseEvent) => {
+			event.stopPropagation();
 			setOpen(!open);
 		},
 		[open],
