@@ -5,6 +5,8 @@ import { Private } from '../components/Private';
 import { ADMIN_ROUTES } from './admin';
 import { PATIENT_ROUTES } from './patients';
 
+const RouteHydrateFallback = () => null;
+
 export const router = createBrowserRouter([
 	{
 		path: '',
@@ -12,6 +14,7 @@ export const router = createBrowserRouter([
 	},
 	{
 		path: 'login',
+		HydrateFallback: RouteHydrateFallback,
 		lazy: async () =>
 			import('../components/activities/loginActivity/LoginActivity').then(
 				(module) => ({
@@ -21,6 +24,7 @@ export const router = createBrowserRouter([
 	},
 	{
 		path: 'forgot',
+		HydrateFallback: RouteHydrateFallback,
 		lazy: async () =>
 			import('../components/activities/forgotActivity/ForgotActivity').then(
 				(module) => ({
@@ -31,6 +35,7 @@ export const router = createBrowserRouter([
 	{
 		path: '*',
 		element: <Private />,
+		HydrateFallback: RouteHydrateFallback,
 		children: [
 			{
 				path: 'dashboard',

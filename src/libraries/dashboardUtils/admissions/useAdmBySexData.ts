@@ -1,10 +1,12 @@
 import { useTranslation } from 'react-i18next';
 import { useAppSelector } from '~/libraries/hooks/redux';
 
+const EMPTY_DATA: never[] = [];
+
 export const useAdmBySexData = () => {
 	const { t } = useTranslation();
 	const admissions = useAppSelector(
-		(state) => state.admissions.getAdmissions.data?.data ?? [],
+		(state) => state.admissions.getAdmissions.data?.data ?? EMPTY_DATA,
 	);
 	const status = useAppSelector(
 		(state) => state.admissions.getAdmissions.status ?? 'IDLE',

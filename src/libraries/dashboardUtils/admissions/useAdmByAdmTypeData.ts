@@ -2,13 +2,15 @@ import { useTranslation } from 'react-i18next';
 import { useAppSelector } from '~/libraries/hooks/redux';
 import { colorGen } from '../../uiUtils/colorGenerator';
 
+const EMPTY_DATA: never[] = [];
+
 export const useAdmByAdmTypeData = () => {
 	const { t } = useTranslation();
 	const admissions = useAppSelector(
-		(state) => state.admissions.getAdmissions.data?.data ?? [],
+		(state) => state.admissions.getAdmissions.data?.data ?? EMPTY_DATA,
 	);
 	const admissionTypes = useAppSelector(
-		(state) => state.types.admissions.getAll.data ?? [],
+		(state) => state.types.admissions.getAll.data ?? EMPTY_DATA,
 	);
 	const admissionTypeStatus = useAppSelector(
 		(state) => state.types.admissions.getAll.status ?? 'IDLE',

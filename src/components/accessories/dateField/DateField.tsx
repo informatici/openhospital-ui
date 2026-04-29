@@ -47,6 +47,7 @@ const DateField: FunctionComponent<IProps> = ({
 		<div ref={anchorElRef}>
 			{matches ? (
 				<DesktopDatePicker
+					enableAccessibleFieldDOMStructure={false}
 					format={format}
 					label={
 						required === FIELD_VALIDATION.SUGGESTED ? `${label} **` : label
@@ -79,6 +80,7 @@ const DateField: FunctionComponent<IProps> = ({
 				/>
 			) : (
 				<MobileDatePicker
+					enableAccessibleFieldDOMStructure={false}
 					format={format}
 					label={
 						required === FIELD_VALIDATION.SUGGESTED ? `${label} **` : label
