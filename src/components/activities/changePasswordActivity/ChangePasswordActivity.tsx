@@ -17,6 +17,12 @@ import TextField from '../../accessories/textField/TextField';
 import '../loginActivity/styles.scss';
 import type { IValues } from './types';
 
+// Mirrors the server-side password policy (GeneralData STRONGLENGTH default and
+// UserBrowsingManager.isPasswordStrong); the backend remains the source of truth.
+const MIN_PASSWORD_LENGTH = 6;
+const STRONG_PASSWORD_REGEX =
+	/^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[\\_$&+,:;=?@#|/'<>.^*()%!-])(?=\S+$).+$/;
+
 export const ChangePasswordActivity: FC = () => {
 	const { t } = useTranslation();
 	const dispatch = useAppDispatch();
@@ -32,7 +38,10 @@ export const ChangePasswordActivity: FC = () => {
 	};
 
 	const validationSchema = object({
-		newPassword: string().required(t('login.insertthepassword')),
+		newPassword: string()
+			.required(t('login.insertthepassword'))
+			.min(MIN_PASSWORD_LENGTH, t('changepassword.passwordtooshort'))
+			.matches(STRONG_PASSWORD_REGEX, t('changepassword.passwordnotstrong')),
 		repeatPassword: string()
 			.required(t('login.insertthepassword'))
 			.oneOf([ref('newPassword')], t('changepassword.passwordsdonotmatch')),

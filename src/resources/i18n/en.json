@@ -98,7 +98,9 @@
 		"repeatpassword": "Repeat new password",
 		"submit": "Change password",
 		"success": "Your password has been changed.",
-		"passwordsdonotmatch": "The passwords do not match"
+		"passwordsdonotmatch": "The passwords do not match",
+		"passwordtooshort": "Password too short",
+		"passwordnotstrong": "Use letter, number, symbol"
 	},
 	"dashboard": {
 		"welcomename": "Welcome",
