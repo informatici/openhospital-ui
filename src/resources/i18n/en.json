@@ -91,6 +91,15 @@
 		"takemeback": "Take me back to login",
 		"tryanotherusername": "Try another Username"
 	},
+	"changepassword": {
+		"title": "Change your password",
+		"description": "You must change your password before you can continue.",
+		"newpassword": "New password",
+		"repeatpassword": "Repeat new password",
+		"submit": "Change password",
+		"success": "Your password has been changed.",
+		"passwordsdonotmatch": "The passwords do not match"
+	},
 	"dashboard": {
 		"welcomename": "Welcome",
 		"newpatient": "New patient",

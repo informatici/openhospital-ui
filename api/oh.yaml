@@ -8257,6 +8257,9 @@ components:
           type: string
           description: User name
           example: admin
+        mustChangePassword:
+          type: boolean
+          description: Whether the user must change the password before using the application
     LoginRequest:
       type: object
       properties:

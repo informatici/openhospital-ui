@@ -18,6 +18,11 @@ export const mainSlice = createSlice({
 		) => {
 			state.authentication = ApiResponse.value(payload);
 		},
+		clearMustChangePassword: (state) => {
+			if (state.authentication.data) {
+				state.authentication.data.mustChangePassword = false;
+			}
+		},
 		setLogoutReset: (state) => {
 			state.logout = initial.logout;
 		},
@@ -85,6 +90,7 @@ export const mainSlice = createSlice({
 export const {
 	resetForgotPassword,
 	setAuthenticationSuccess,
+	clearMustChangePassword,
 	setLogoutLoading,
 	setLogoutSuccess,
 	setLogoutFailed,
