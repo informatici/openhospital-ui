@@ -23,7 +23,6 @@ export const ChangePasswordActivity: FC = () => {
 	const navigate = useNavigate();
 	const landingPageRoute = useLandingPageRoute();
 
-	const [isPasswordVisible] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 	const [errorMessage, setErrorMessage] = useState('');
 
@@ -92,7 +91,7 @@ export const ChangePasswordActivity: FC = () => {
 								field={formik.getFieldProps('newPassword')}
 								theme="regular"
 								label={t('changepassword.newpassword')}
-								type={isPasswordVisible ? 'text' : 'password'}
+								type="password"
 								isValid={isValid('newPassword')}
 								errorText={getErrorText('newPassword')}
 								onBlur={formik.handleBlur}
@@ -106,7 +105,7 @@ export const ChangePasswordActivity: FC = () => {
 								field={formik.getFieldProps('repeatPassword')}
 								theme="regular"
 								label={t('changepassword.repeatpassword')}
-								type={isPasswordVisible ? 'text' : 'password'}
+								type="password"
 								isValid={isValid('repeatPassword')}
 								errorText={getErrorText('repeatPassword')}
 								onBlur={formik.handleBlur}
