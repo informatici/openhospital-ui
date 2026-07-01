@@ -17,6 +17,7 @@ import type { IAction } from '../types';
 import { setLogoutFailed, setLogoutLoading, setLogoutSuccess } from './slice';
 
 const loginApi = new LoginApi(customConfiguration(false));
+const logoutApi = new LoginApi(customConfiguration());
 const usersApi = new UsersApi(customConfiguration());
 const userSettingsApi = new UserSettingsApi(customConfiguration());
 
@@ -44,8 +45,7 @@ export const setLogout =
 	() =>
 	(dispatch: Dispatch<IAction<void, object>>): void => {
 		dispatch(setLogoutLoading());
-		SessionStorage.clear();
-		loginApi.logout().subscribe(
+		logoutApi.logout().subscribe(
 			(payload) => {
 				dispatch(getPatientsReset());
 				dispatch(getLabsReset());
@@ -60,6 +60,9 @@ export const setLogout =
 				dispatch(setLogoutFailed(error?.response));
 			},
 		);
+		// cleared after subscribe so applyTokenMiddleware can attach the bearer
+		// token, allowing the API to revoke it
+		SessionStorage.clear();
 	};
 
 export const setForgotPasswordThunk = createAsyncThunk(
