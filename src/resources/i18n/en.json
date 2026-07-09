@@ -153,6 +153,11 @@
 		"emptylayout": "No displayed widget. Start by adding widgets"
 	},
 	"patient": {
+		"anonymize": {
+			"button": "Anonymize",
+			"title": "Anonymize patient",
+			"info": "This will irreversibly anonymize the personal data of this patient. The clinical records are kept and this action cannot be undone. Proceed?"
+		},
 		"address": "Address",
 		"birthdate": "Birth Date",
 		"bloodtype": "Blood type",

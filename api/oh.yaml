@@ -6075,6 +6075,29 @@ paths:
                 type: boolean
       security:
       - bearerAuth: []
+  /patients/{code}/personal-data:
+    delete:
+      tags:
+      - Patients
+      summary: GDPR Art. 17 — Right to erasure. Irreversibly anonymize a patient's
+        personal data.
+      operationId: anonymizePatient
+      parameters:
+      - name: code
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: boolean
+      security:
+      - bearerAuth: []
   /operations/rows/{code}:
     delete:
       tags:

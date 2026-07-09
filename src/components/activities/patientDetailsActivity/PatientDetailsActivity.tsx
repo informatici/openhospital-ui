@@ -12,12 +12,17 @@ import {
 	useParams,
 } from 'react-router';
 import { useAppDispatch, useAppSelector } from '~/libraries/hooks/redux';
+import warningIcon from '../../../assets/warning-icon.png';
 import { PATHS } from '../../../consts';
 import { PatientDTOStatusEnum } from '../../../generated';
 import { renderDate } from '../../../libraries/formatUtils/dataFormatting';
 import { Permission } from '../../../libraries/permissionUtils/Permission';
 import { scrollToElement } from '../../../libraries/uiUtils/scrollToElement';
-import { getPatient, getPatientReset } from '../../../state/patients';
+import {
+	anonymizePatient,
+	getPatient,
+	getPatientReset,
+} from '../../../state/patients';
 import {
 	Accordion,
 	AccordionDetails,
@@ -25,6 +30,7 @@ import {
 } from '../../accessories/accordion/Accordion';
 import AppHeader from '../../accessories/appHeader/AppHeader';
 import Button from '../../accessories/button/Button';
+import ConfirmationDialog from '../../accessories/confirmationDialog/ConfirmationDialog';
 import Footer from '../../accessories/footer/Footer';
 import { HospitalInfo } from '../../accessories/hospitalInfo/HospitalInfo';
 import { ProfilePicture } from '../../accessories/profilePicture/ProfilePicture';
@@ -72,6 +78,22 @@ const PatientDetailsActivity = () => {
 	const [activityTransitionState, setActivityTransitionState] =
 		useState<TActivityTransitionState>('IDLE');
 	const [isOpen, setIsOpen] = useState(false);
+	const [anonymizeOpen, setAnonymizeOpen] = useState(false);
+
+	const handleAnonymize = () => {
+		const code = patient.data?.code;
+		if (code === undefined) {
+			return;
+		}
+		dispatch(anonymizePatient({ code }))
+			.unwrap()
+			.then(() => {
+				setAnonymizeOpen(false);
+				dispatch(getPatient(String(code)));
+			})
+			.catch(() => setAnonymizeOpen(false));
+	};
+
 	const location = useLocation();
 	const section =
 		location.pathname.split('/')[location.pathname.split('/').length - 1];
@@ -261,6 +283,32 @@ const PatientDetailsActivity = () => {
 												</div>
 											</div>
 										</Permission>
+
+										<Permission require="patient.anonymize">
+											<div className="patientDetails__personalData_edit_button_wrapper">
+												<div className="patientDetails__personalData_edit_button">
+													<Button
+														type="button"
+														variant="contained"
+														color="secondary"
+														onClick={() => setAnonymizeOpen(true)}
+													>
+														<span>{t('patient.anonymize.button')}</span>
+													</Button>
+												</div>
+											</div>
+										</Permission>
+
+										<ConfirmationDialog
+											isOpen={anonymizeOpen}
+											title={t('patient.anonymize.title')}
+											icon={warningIcon}
+											info={t('patient.anonymize.info')}
+											primaryButtonLabel={t('patient.anonymize.button')}
+											secondaryButtonLabel={t('common.cancel')}
+											handlePrimaryButtonClick={handleAnonymize}
+											handleSecondaryButtonClick={() => setAnonymizeOpen(false)}
+										/>
 
 										<div className="patientDetails_status">
 											{patient?.data?.status === PatientDTOStatusEnum.I ? (
