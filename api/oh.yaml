@@ -6459,6 +6459,10 @@ components:
           type: string
           description: Current anamnesis
           maxLength: 255
+        anonymized:
+          type: boolean
+          description: Whether the patient has been anonymized (GDPR right to erasure)
+          readOnly: true
         status:
           type: string
           description: Status
