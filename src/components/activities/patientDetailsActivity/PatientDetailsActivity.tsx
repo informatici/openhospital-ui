@@ -290,7 +290,7 @@ const PatientDetailsActivity = () => {
 													<Button
 														type="button"
 														variant="contained"
-														color="secondary"
+														color="error"
 														onClick={() => setAnonymizeOpen(true)}
 													>
 														<span>{t('patient.anonymize.button')}</span>
