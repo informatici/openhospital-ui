@@ -16,8 +16,9 @@ type AuditRoute = {
 
 const auditEnabled = Boolean(Cypress.env('MOBILE_AUDIT'));
 const describeAudit = auditEnabled ? describe : describe.skip;
-const viewportFilter = Cypress.env('MOBILE_AUDIT_VIEWPORT');
+const viewportFilter = Cypress.env('MOBILE_AUDIT_VIEWPORT') || 'phone-modern';
 const routeFilter = Cypress.env('MOBILE_AUDIT_ROUTE');
+const maxAllowedHorizontalOverflow = 1;
 
 const viewports: AuditViewport[] = [
 	{ name: 'phone-small', width: 360, height: 740 },
@@ -78,7 +79,7 @@ const routes: AuditRoute[] = [
 ];
 
 const selectedViewports = viewports.filter((viewport) => {
-	return !viewportFilter || viewport.name === viewportFilter;
+	return viewportFilter === 'all' || viewport.name === viewportFilter;
 });
 
 const selectedRoutes = routes.filter((route) => {
@@ -94,22 +95,65 @@ const visitRoute = (route: AuditRoute) => {
 	cy.visit(route.path);
 };
 
-const logMobileMeasurements = () => {
+const assertPageFitsMobileViewport = () => {
 	cy.window().then((win) => {
 		const doc = win.document.documentElement;
 		const body = win.document.body;
 		const scrollWidth = Math.max(doc.scrollWidth, body.scrollWidth);
 		const clientWidth = doc.clientWidth;
-		const scrollHeight = Math.max(doc.scrollHeight, body.scrollHeight);
-		const clientHeight = doc.clientHeight;
 		const horizontalOverflow = scrollWidth - clientWidth;
-		const verticalOverflow = scrollHeight - clientHeight;
-		const bodyOverflow = win.getComputedStyle(body).overflow;
 
-		cy.log(`horizontal overflow: ${horizontalOverflow}px`);
-		cy.log(`vertical overflow: ${verticalOverflow}px`);
-		cy.log(`body overflow: ${bodyOverflow}`);
+		expect(
+			horizontalOverflow,
+			'page should not overflow horizontally on mobile',
+		).to.be.at.most(maxAllowedHorizontalOverflow);
 	});
+};
+
+const assertPageIsNotScrollLocked = () => {
+	cy.window().then((win) => {
+		const body = win.document.body;
+		const bodyOverflowY = win.getComputedStyle(body).overflowY;
+
+		expect(
+			body.classList.contains('disable-scroll'),
+			'body should not keep the mobile menu scroll lock',
+		).to.eq(false);
+		expect(
+			bodyOverflowY,
+			'body vertical scrolling should not be blocked',
+		).to.not.eq('hidden');
+	});
+};
+
+const assertPrimaryElementFitsMobileViewport = (selector: string) => {
+	cy.window().then((win) => {
+		cy.get(selector).then(($element) => {
+			const rect = $element[0].getBoundingClientRect();
+			const viewportWidth = win.innerWidth;
+
+			expect(
+				rect.left,
+				'primary content should not start off-screen',
+			).to.be.at.least(-maxAllowedHorizontalOverflow);
+			expect(
+				rect.right,
+				'primary content should not end off-screen',
+			).to.be.at.most(viewportWidth + maxAllowedHorizontalOverflow);
+		});
+	});
+};
+
+const assertMobileHeaderStartsClosed = () => {
+	cy.get('.appHeader').should('be.visible');
+	cy.get('.appHeader').should('not.have.class', 'open_menu');
+	cy.get('body').should('not.have.class', 'disable-scroll');
+};
+
+const assertMobileNavigationTriggerIsUsable = () => {
+	cy.dataCy('app-header-identified-trigger')
+		.should('be.visible')
+		.and('not.be.disabled');
 };
 
 describeAudit('Mobile baseline audit', () => {
@@ -120,10 +164,18 @@ describeAudit('Mobile baseline audit', () => {
 			});
 
 			selectedRoutes.forEach((route) => {
-				it(`captures ${route.name}`, () => {
+				it(`renders ${route.name} without basic mobile layout regressions`, () => {
 					visitRoute(route);
 					cy.get(route.selector, { timeout: 15000 }).should('be.visible');
-					logMobileMeasurements();
+					assertPageFitsMobileViewport();
+					assertPageIsNotScrollLocked();
+					assertPrimaryElementFitsMobileViewport(route.selector);
+
+					if (route.authenticated) {
+						assertMobileHeaderStartsClosed();
+						assertMobileNavigationTriggerIsUsable();
+					}
+
 					cy.screenshot(
 						`mobile-baseline/${viewport.name}/${route.order}-${route.name}`,
 						{
@@ -133,7 +185,32 @@ describeAudit('Mobile baseline audit', () => {
 				});
 			});
 
-			it('captures mobile menu navigation behavior', () => {
+			it('opens and closes the mobile menu with the header trigger', () => {
+				visitRoute({
+					order: '02',
+					name: 'dashboard',
+					path: '/dashboard',
+					selector: '[data-cy=dashboard]',
+					authenticated: true,
+				});
+
+				assertMobileHeaderStartsClosed();
+				assertMobileNavigationTriggerIsUsable();
+
+				cy.dataCy('app-header-identified-trigger').click();
+				cy.get('.appHeader').should('have.class', 'open_menu');
+				cy.get('body').should('have.class', 'disable-scroll');
+
+				cy.dataCy('app-header-identified-trigger').click();
+				cy.get('.appHeader').should('not.have.class', 'open_menu');
+				cy.get('body').should('not.have.class', 'disable-scroll');
+
+				cy.screenshot(`mobile-baseline/${viewport.name}/08-menu-toggle`, {
+					capture: 'viewport',
+				});
+			});
+
+			it('closes the mobile menu after navigation', () => {
 				visitRoute({
 					order: '02',
 					name: 'dashboard',
@@ -147,23 +224,11 @@ describeAudit('Mobile baseline audit', () => {
 				cy.get('body').should('have.class', 'disable-scroll');
 				cy.contains('.appHeader__nav__item', 'Patients').click();
 				cy.location('pathname').should('eq', '/patients');
-
-				cy.get('.appHeader').then(($header) => {
-					cy.log(
-						`menu remains open after navigation: ${$header.hasClass('open_menu')}`,
-					);
-				});
-
-				cy.get('body').then(($body) => {
-					cy.log(
-						`body remains scroll-locked after navigation: ${$body.hasClass(
-							'disable-scroll',
-						)}`,
-					);
-				});
+				cy.get('.appHeader').should('not.have.class', 'open_menu');
+				cy.get('body').should('not.have.class', 'disable-scroll');
 
 				cy.screenshot(
-					`mobile-baseline/${viewport.name}/08-menu-after-navigation`,
+					`mobile-baseline/${viewport.name}/09-menu-after-navigation`,
 					{
 						capture: 'viewport',
 					},
