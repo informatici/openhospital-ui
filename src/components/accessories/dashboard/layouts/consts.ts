@@ -67,6 +67,16 @@ export const defaultGridLayoutBreakpoints = {
 	xxs: 0,
 };
 
+export function getDefaultLayoutConfig(): Layouts {
+	return {
+		lg: generateLayout('lg'),
+		md: generateLayout('md'),
+		sm: generateLayout('sm'),
+		xs: generateLayout('xs'),
+		xxs: generateLayout('xxs'),
+	};
+}
+
 /**
  * Determine breakpoint to apply based on display size
  * @param width number

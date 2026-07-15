@@ -75,11 +75,10 @@ export const NewUser = () => {
 	}, [dispatch]);
 
 	useEffect(() => {
-		if (create.hasSucceeded) navigate(PATHS.admin_users);
 		return () => {
 			dispatch(createUserReset());
 		};
-	}, [create.hasSucceeded, dispatch, navigate]);
+	}, [dispatch]);
 
 	const handleCheckboxChange = useCallback(
 		(fieldName: string) => (value: boolean) => {

@@ -11,12 +11,10 @@ import {
 	MenuItem,
 	Typography,
 } from '@mui/material';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 import type React from 'react';
 import { type FunctionComponent, useState } from 'react';
-import {
-	exportComponentAsPDF,
-	exportComponentAsPNG,
-} from 'react-component-export-image';
 import { CSVLink } from 'react-csv';
 import { useTranslation } from 'react-i18next';
 import './styles.scss';
@@ -31,6 +29,7 @@ const DataDownloadButton: FunctionComponent<IOwnProps> = ({
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
 	const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+		event.stopPropagation();
 		setAnchorEl(event.currentTarget);
 	};
 	const handleClose = () => {
@@ -39,21 +38,56 @@ const DataDownloadButton: FunctionComponent<IOwnProps> = ({
 	const handleDownloadCSV = () => {
 		handleClose();
 	};
-	const handleDownloadPDF = () => {
-		handleClose();
-		exportComponentAsPDF(graphRef, {
-			fileName: title,
-			pdfOptions: { pdfFormat: 'a3', orientation: 'l' },
+	const exportCanvas = async () => {
+		if (!graphRef.current) return null;
+
+		return html2canvas(graphRef.current, {
+			backgroundColor: '#ffffff',
+			scrollY: -window.scrollY,
+			useCORS: true,
 		});
 	};
 
-	const handleDownloadPNG = () => {
+	const handleDownloadPDF = async () => {
 		handleClose();
-		exportComponentAsPNG(graphRef, { fileName: title });
+		const canvas = await exportCanvas();
+		if (!canvas) return;
+
+		const orientation = canvas.width > canvas.height ? 'l' : 'p';
+		const pdf = new jsPDF({
+			orientation,
+			unit: 'px',
+			format: [canvas.width, canvas.height],
+		});
+		pdf.addImage(
+			canvas.toDataURL('image/png'),
+			'PNG',
+			0,
+			0,
+			canvas.width,
+			canvas.height,
+		);
+		pdf.save(`${title ?? 'data'}.pdf`);
+	};
+
+	const handleDownloadPNG = async () => {
+		handleClose();
+		const canvas = await exportCanvas();
+		if (!canvas) return;
+
+		const link = document.createElement('a');
+		link.href = canvas.toDataURL('image/png');
+		link.download = `${title ?? 'data'}.png`;
+		document.body.appendChild(link);
+		link.click();
+		document.body.removeChild(link);
 	};
 
 	return (
-		<>
+		<div
+			className="dashboard-download-action"
+			onMouseDown={(event) => event.stopPropagation()}
+		>
 			<IconButton
 				aria-controls="download-menu"
 				aria-haspopup="true"
@@ -67,29 +101,35 @@ const DataDownloadButton: FunctionComponent<IOwnProps> = ({
 				keepMounted
 				open={Boolean(anchorEl)}
 				onClose={handleClose}
+				onClick={(event) => event.stopPropagation()}
 			>
-				<MenuItem onClick={handleDownloadCSV}>
-					<CSVLink data={csvData} filename={title ?? 'data'}>
+				<MenuItem>
+					<CSVLink
+						className="download-link"
+						data={csvData}
+						filename={title ?? 'data'}
+						onClick={handleDownloadCSV}
+					>
 						<ListItemIcon>
 							<ViewHeadlineOutlined fontSize="small" />
 						</ListItemIcon>
+						<Typography variant="inherit">{t('dashboard.csv')}</Typography>
 					</CSVLink>
-					<Typography variant="inherit">{t('dashboard.csv')}</Typography>
 				</MenuItem>
-				<MenuItem onClick={handleDownloadPDF}>
+				<MenuItem onClick={() => void handleDownloadPDF()}>
 					<ListItemIcon>
 						<DescriptionOutlined fontSize="small" />
 					</ListItemIcon>
 					<Typography variant="inherit">{t('dashboard.pdf')}</Typography>
 				</MenuItem>
-				<MenuItem onClick={handleDownloadPNG}>
+				<MenuItem onClick={() => void handleDownloadPNG()}>
 					<ListItemIcon>
 						<ImageOutlined fontSize="small" />
 					</ListItemIcon>
 					<Typography variant="inherit">{t('dashboard.png')}</Typography>
 				</MenuItem>
 			</Menu>
-		</>
+		</div>
 	);
 };
 
