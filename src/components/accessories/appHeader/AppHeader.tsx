@@ -4,9 +4,9 @@ import NavigateBefore from '@mui/icons-material/NavigateBefore';
 import { Tooltip, Typography } from '@mui/material';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import classNames from 'classnames';
-import { type FunctionComponent, useEffect, useState } from 'react';
+import { type FunctionComponent, useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '~/libraries/hooks/redux';
 import logo from '../../../assets/logo-color.svg';
@@ -40,12 +40,10 @@ const AppHeader: FunctionComponent<IOwnProps> = ({ breadcrumbMap }) => {
 	const hospital = useAppSelector(
 		(state) => state.hospital.getHospital.data,
 	) as HospitalDTO;
-	const openMenu = (isOpen: boolean) => {
-		isOpen
-			? document.body.classList.add('disable-scroll')
-			: document.body.classList.remove('disable-scroll');
-		setIsOpen(isOpen);
-	};
+	const openMenu = useCallback((open: boolean) => {
+		document.body.classList.toggle('disable-scroll', open);
+		setIsOpen(open);
+	}, []);
 	const [openLogoutConfirmation, setOpenLogoutConfirmation] = useState(false);
 	const showHelp = useShowHelp();
 	const handleLogout = () => {
@@ -53,6 +51,14 @@ const AppHeader: FunctionComponent<IOwnProps> = ({ breadcrumbMap }) => {
 		dispatch(setLogout());
 	};
 	const navigate = useNavigate();
+
+	// OH2-475: close the mobile menu (and restore body scrolling) on every route change, so tapping a
+	// nav item — or the logo/breadcrumb links — does not leave the overlay open with the body scroll-locked
+	const { pathname } = useLocation();
+	// biome-ignore lint/correctness/useExhaustiveDependencies: pathname is the intended trigger — the effect must re-run on navigation
+	useEffect(() => {
+		openMenu(false);
+	}, [pathname]);
 
 	const canAccessPatient = usePermission('patients.access');
 	const canAccessVisit = usePermission('opds.access');
