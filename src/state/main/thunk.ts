@@ -1,7 +1,12 @@
 import { createAsyncThunk, type Dispatch } from '@reduxjs/toolkit';
 import { concat, firstValueFrom } from 'rxjs';
-import { tap, toArray } from 'rxjs/operators';
-import { LoginApi, UserSettingsApi, UsersApi } from '../../generated';
+import { switchMap, tap, toArray } from 'rxjs/operators';
+import {
+	LoginApi,
+	type UserGroupDTO,
+	UserSettingsApi,
+	UsersApi,
+} from '../../generated';
 import { customConfiguration } from '../../libraries/apiUtils/configuration';
 import { saveAuthenticationDataToSession } from '../../libraries/authUtils/saveAuthenticationDataToSession';
 import { savePermissionDataToSession } from '../../libraries/authUtils/savePermissionDataToSession';
@@ -61,6 +66,24 @@ export const setLogout =
 			},
 		);
 	};
+
+export const changePassword = createAsyncThunk(
+	'main/changePassword',
+	async (payload: { password: string }, thunkApi) =>
+		firstValueFrom(
+			usersApi.retrieveProfileByCurrentLoggedInUser().pipe(
+				switchMap((profile) =>
+					usersApi.updateProfile({
+						userDTO: {
+							userName: profile.userName ?? '',
+							userGroupName: profile.userGroup as UserGroupDTO,
+							passwd: payload.password,
+						},
+					}),
+				),
+			),
+		).catch((error) => thunkApi.rejectWithValue(error.response)),
+);
 
 export const setForgotPasswordThunk = createAsyncThunk(
 	'main/setForgotPasswordThunk',

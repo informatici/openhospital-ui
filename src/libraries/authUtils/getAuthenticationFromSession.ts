@@ -4,7 +4,8 @@ import { SessionStorage } from '../storage/storage';
 
 export const getAuthenticationFromSession = (): IAuthentication => {
 	const { permissions } = SessionStorage.read(PERMISSION_KEY);
-	const { username, token } = SessionStorage.read(AUTH_KEY);
+	const { username, token, mustChangePassword, passwordExpired, passwordLeaseDays } =
+		SessionStorage.read(AUTH_KEY);
 
 	if (!(token && username && permissions)) {
 		throw new Error('unauthenticated');
@@ -14,5 +15,8 @@ export const getAuthenticationFromSession = (): IAuthentication => {
 		username,
 		permissions,
 		token,
+		mustChangePassword,
+		passwordExpired,
+		passwordLeaseDays,
 	};
 };

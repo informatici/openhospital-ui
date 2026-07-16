@@ -38,6 +38,15 @@ export const router = createBrowserRouter([
 		HydrateFallback: RouteHydrateFallback,
 		children: [
 			{
+				path: 'change-password',
+				lazy: async () =>
+					import(
+						'../components/activities/changePasswordActivity/ChangePasswordActivity'
+					).then((module) => ({
+						Component: module.ChangePasswordActivity,
+					})),
+			},
+			{
 				path: 'dashboard',
 				lazy: async () =>
 					import('../components/accessories/dashboard/Dashboard').then(

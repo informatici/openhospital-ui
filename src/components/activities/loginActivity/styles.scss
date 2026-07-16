@@ -38,11 +38,20 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 0px;
+    padding: 0px 0px 20px 0px;
     background-color: $c-white;
     border-radius: 10px;
     width: fit-content;
     box-shadow: 0 4px 8px 0 rgba(48, 49, 51, 0.1);
+
+    .login__panel__description {
+      max-width: 320px;
+      margin: 20px 20px 0px 20px;
+      text-align: center;
+      color: $c-black;
+      font-size: 14px;
+      line-height: 1.4;
+    }
 
     .login__panel__form {
       display: flex;
