@@ -91,6 +91,19 @@
 		"takemeback": "Retour au login",
 		"tryanotherusername": "Essayez un autre nom d'utilisateur"
 	},
+	"changepassword": {
+		"title": "Change your password",
+		"description": "You must change your password before you can continue.",
+		"expired": "Your password has expired after {{days}} days. Please choose a new password to continue.",
+		"adminreset": "Your password was assigned or reset by an administrator. Please choose a new password to continue.",
+		"newpassword": "New password",
+		"repeatpassword": "Repeat new password",
+		"submit": "Change password",
+		"success": "Your password has been changed.",
+		"passwordsdonotmatch": "The passwords do not match",
+		"passwordtooshort": "Password too short",
+		"passwordnotstrong": "Use letter, number, symbol"
+	},
 	"dashboard": {
 		"welcomename": "Bienvenue",
 		"newpatient": "Nouveau patient",
