@@ -94,6 +94,8 @@
 	"changepassword": {
 		"title": "Change your password",
 		"description": "You must change your password before you can continue.",
+		"expired": "Your password has expired after {{days}} days. Please choose a new password to continue.",
+		"adminreset": "Your password was assigned or reset by an administrator. Please choose a new password to continue.",
 		"newpassword": "New password",
 		"repeatpassword": "Repeat new password",
 		"submit": "Change password",

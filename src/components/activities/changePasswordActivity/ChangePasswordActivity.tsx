@@ -80,6 +80,14 @@ export const ChangePasswordActivity: FC = () => {
 		return has(formik.touched, fieldName) ? get(formik.errors, fieldName) : '';
 	};
 
+	// explain why the change is forced: a lease expiry (with the configured days) or an administrator reset.
+	// read from the session so the reason survives a page refresh (redux rehydration drops the extra fields).
+	const auth = SessionStorage.read(AUTH_KEY);
+	const description =
+		auth?.passwordExpired && auth?.passwordLeaseDays != null
+			? t('changepassword.expired', { days: auth.passwordLeaseDays })
+			: t('changepassword.adminreset');
+
 	return (
 		<div className="login">
 			<div className="container login__background">
@@ -91,9 +99,7 @@ export const ChangePasswordActivity: FC = () => {
 				/>
 				<div className="login__title">{t('changepassword.title')}</div>
 				<div data-cy="change-password-panel" className="login__panel">
-					<div className="login__panel__description">
-						{t('changepassword.description')}
-					</div>
+					<div className="login__panel__description">{description}</div>
 					<form className="login__panel__form" onSubmit={formik.handleSubmit}>
 						<div className="login__panel__textField">
 							<TextField
