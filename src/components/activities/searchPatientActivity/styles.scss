@@ -5,8 +5,10 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  position: absolute;
-  height: 100%;
+  // OH2-475: use natural flow instead of position:absolute + height:100% (which took the container
+  // out of flow, collapsed the parent and could leave overflowing content unreachable on mobile)
+  position: relative;
+  min-height: 100vh;
   width: 100%;
   background-color: $c-color-secondary;
 
