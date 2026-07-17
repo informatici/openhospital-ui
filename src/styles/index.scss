@@ -7,6 +7,15 @@
   box-sizing: border-box;
 }
 
+// OH2-478: flexboxgrid pins .container to a fixed width at each breakpoint
+// (e.g. 49rem at min-width 48em), which is wider than the viewport itself in
+// the 768-783px range and causes horizontal overflow on tablet-portrait. Clamp
+// the grid container so the core-workflow pages that use it never overflow on
+// mobile/tablet. Harmless on desktop, where the fixed widths stay below 100%.
+.container {
+  max-width: 100%;
+}
+
 .App {
   & > div {
     min-height: 100vh;
