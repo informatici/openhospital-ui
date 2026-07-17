@@ -60,6 +60,13 @@ const AppHeader: FunctionComponent<IOwnProps> = ({ breadcrumbMap }) => {
 		openMenu(false);
 	}, [pathname]);
 
+	// OH2-475: nav items close the menu explicitly too — navigating to the current route
+	// does not change the pathname, so the effect above would not fire
+	const navigateFromMenu = (path: string) => {
+		openMenu(false);
+		navigate(path);
+	};
+
 	const canAccessPatient = usePermission('patients.access');
 	const canAccessVisit = usePermission('opds.access');
 	const canAccessLaboratory = usePermission('laboratories.access');
@@ -142,7 +149,7 @@ const AppHeader: FunctionComponent<IOwnProps> = ({ breadcrumbMap }) => {
 							{canAccessDashboard && (
 								<div
 									className="appHeader__nav__item"
-									onClick={() => navigate(PATHS.dashboard)}
+									onClick={() => navigateFromMenu(PATHS.dashboard)}
 								>
 									{t('nav.dashboard')}
 								</div>
@@ -150,7 +157,7 @@ const AppHeader: FunctionComponent<IOwnProps> = ({ breadcrumbMap }) => {
 							{canAccessAdmin && (
 								<div
 									className="appHeader__nav__item"
-									onClick={() => navigate(PATHS.admin)}
+									onClick={() => navigateFromMenu(PATHS.admin)}
 								>
 									{t('nav.administration')}
 								</div>
@@ -158,7 +165,7 @@ const AppHeader: FunctionComponent<IOwnProps> = ({ breadcrumbMap }) => {
 							{canAccessPatient && (
 								<div
 									className="appHeader__nav__item"
-									onClick={() => navigate(PATHS.patients)}
+									onClick={() => navigateFromMenu(PATHS.patients)}
 								>
 									{t('nav.patients')}
 								</div>
@@ -166,7 +173,7 @@ const AppHeader: FunctionComponent<IOwnProps> = ({ breadcrumbMap }) => {
 							{canAccessVisit && (
 								<div
 									className="appHeader__nav__item"
-									onClick={() => navigate(PATHS.visits)}
+									onClick={() => navigateFromMenu(PATHS.visits)}
 								>
 									{t('nav.visits')}
 								</div>
@@ -174,7 +181,7 @@ const AppHeader: FunctionComponent<IOwnProps> = ({ breadcrumbMap }) => {
 							{canAccessLaboratory && (
 								<div
 									className="appHeader__nav__item"
-									onClick={() => navigate(PATHS.laboratory)}
+									onClick={() => navigateFromMenu(PATHS.laboratory)}
 								>
 									{t('nav.laboratory')}
 								</div>
