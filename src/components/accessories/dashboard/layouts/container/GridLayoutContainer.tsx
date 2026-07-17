@@ -192,6 +192,10 @@ const GridLayoutContainer: FC = () => {
 		t(state.layouts.saveLayouts.error?.message || 'dashboard.cantsaveconfig'),
 	);
 
+	// OH2-475: on phone widths the widgets stack full-width; disable drag/resize/drop there, since those
+	// interactions are awkward on touch and would only let the user break the single-column mobile layout
+	const isTouchLayout = localBreakpoint === 'xxs';
+
 	return (
 		<div ref={gridLayoutRef}>
 			{(getLayoutsStatus === 'LOADING' || resetLayoutsStatus === 'LOADING') && (
@@ -254,9 +258,9 @@ const GridLayoutContainer: FC = () => {
 								layouts={layouts}
 								onBreakpointChange={onBreakpointChange}
 								onLayoutChange={onLayoutChange}
-								isDraggable
-								isDroppable
-								isResizable
+								isDraggable={!isTouchLayout}
+								isDroppable={!isTouchLayout}
+								isResizable={!isTouchLayout}
 								measureBeforeMount={false}
 								useCSSTransforms={mounted}
 								draggableHandle=".DashboardCard-item-header"

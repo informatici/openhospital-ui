@@ -51,46 +51,11 @@ export const defaultLayoutConfig: Layouts = {
 	xxs: generateLayout('xxs'),
 };
 
-export const defaultGridLayoutCols: { [key: string]: number } = {
-	lg: 12,
-	md: 12,
-	sm: 12,
-	xs: 12,
-	xxs: 12,
-};
-
-export const defaultGridLayoutBreakpoints = {
-	lg: 1280,
-	md: 992,
-	sm: 760,
-	xs: 490,
-	xxs: 0,
-};
-
-/**
- * Determine breakpoint to apply based on display size
- * @param width number
- * @returns The breakpoint to be applied
- */
-export const getBreakpointFromWidth = (width: number): string => {
-	if (width >= defaultGridLayoutBreakpoints.lg) {
-		return 'lg';
-	}
-
-	if (width >= defaultGridLayoutBreakpoints.md) {
-		return 'md';
-	}
-
-	if (width >= defaultGridLayoutBreakpoints.sm) {
-		return 'sm';
-	}
-
-	if (width >= defaultGridLayoutBreakpoints.xs) {
-		return 'xs';
-	}
-
-	return 'md';
-};
+export {
+	defaultGridLayoutBreakpoints,
+	defaultGridLayoutCols,
+	getBreakpointFromWidth,
+} from './breakpoints';
 
 /**
  * Get dashboard label's translation key
