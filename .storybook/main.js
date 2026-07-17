@@ -1,20 +1,11 @@
-module.exports = {
-	stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
-
-	addons: [
-		'@storybook/addon-links',
-		'@storybook/addon-essentials',
-		'@storybook/addon-interactions',
-		'@storybook/preset-create-react-app',
-		'storybook-addon-material-ui',
-	],
-
+/** @type {import('@storybook/react-vite').StorybookConfig} */
+const config = {
+	stories: ['../src/**/*.stories.@(js|jsx|ts|tsx)'],
 	framework: {
-		name: '@storybook/react-webpack5',
+		name: '@storybook/react-vite',
 		options: {},
 	},
-
-	docs: {
-		autodocs: true,
-	},
+	staticDirs: ['../public'],
 };
+
+module.exports = config;
