@@ -1,0 +1,57 @@
+version: 2
+updates:
+
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: monday
+      time: "04:00"
+      timezone: Europe/Rome
+    open-pull-requests-limit: 10
+    commit-message:
+      prefix: "chore(deps)"
+    labels:
+      - dependencies
+    groups:
+      react:
+        patterns:
+          - "react"
+          - "react-dom"
+          - "@types/react"
+          - "@types/react-dom"
+
+      emotion:
+        patterns:
+          - "@emotion/*"
+
+      mui-core:
+        patterns:
+          - "@mui/material"
+          - "@mui/icons-material"
+          - "@mui/lab"
+          - "@mui/styled-engine-sc"
+
+      mui-x:
+        patterns:
+          - "@mui/x-*"
+
+      storybook:
+        patterns:
+          - "storybook"
+          - "@storybook/*"
+          - "storybook-addon-*"
+
+      react-router:
+        patterns:
+          - "react-router"
+          - "react-router-dom"
+
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: monthly
+    commit-message:
+      prefix: "chore(ci)"
+    labels:
+      - ci
