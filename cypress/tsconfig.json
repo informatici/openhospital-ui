@@ -1,19 +1,18 @@
 {
-  "include": ["**/*.ts", "../cypress.d.ts"],
-  "compilerOptions": {
-    "target": "es5",
-    "skipLibCheck": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "isolatedModules": true,
-    "resolveJsonModule": true,
-    "noEmit": true,
-    "esModuleInterop": true,
-    "allowJs": true,
-
-    "types": ["cypress", "node"]
-  }
+	"include": ["**/*.ts", "../cypress.d.ts"],
+	"compilerOptions": {
+		"target": "es2024",
+		"skipLibCheck": true,
+		"allowSyntheticDefaultImports": true,
+		"strict": true,
+		"forceConsistentCasingInFileNames": true,
+		"module": "es2022",
+		"moduleResolution": "node",
+		"isolatedModules": true,
+		"resolveJsonModule": true,
+		"noEmit": true,
+		"esModuleInterop": true,
+		"allowJs": true,
+		"types": ["cypress", "node"]
+	}
 }

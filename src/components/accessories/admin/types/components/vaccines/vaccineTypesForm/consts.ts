@@ -1,10 +1,10 @@
-import { VaccineTypeFormFieldName } from ".";
-import { VaccineTypeDTO } from "../../../../../../../generated";
-import { TFields } from "../../../../../../../libraries/formDataHandling/types";
+import type { VaccineTypeDTO } from '../../../../../../../generated';
+import type { TFields } from '../../../../../../../libraries/formDataHandling/types';
+import type { VaccineTypeFormFieldName } from '.';
 
 export const getInitialFields: (
-  vaccineType: VaccineTypeDTO | undefined
+	vaccineType: VaccineTypeDTO | undefined,
 ) => TFields<VaccineTypeFormFieldName> = (vaccineType) => ({
-  code: { type: "text", value: vaccineType?.code ?? "" },
-  description: { type: "text", value: vaccineType?.description ?? "" },
+	code: { type: 'text', value: vaccineType?.code ?? '' },
+	description: { type: 'text', value: vaccineType?.description ?? '' },
 });

@@ -1,1 +1,1 @@
-export { EditUser } from "./EditUser";
+export { EditUser } from './EditUser';

@@ -1,14 +1,14 @@
-import { TPermission } from "../../types";
-import { usePermissions } from "./usePermissions";
+import type { TPermission } from '../../types';
+import { usePermissions } from './usePermissions';
 
 /**
  * @param name requested permission
  * @returns boolean true if user has permission
  */
 export const usePermission = (name: TPermission): boolean => {
-  const permissions = usePermissions();
-  if (process.env.REACT_APP_ENABLE_PERMISSIONS === "false") {
-    return true;
-  }
-  return permissions.includes(name);
+	const permissions = usePermissions();
+	if (import.meta.env.VITE_ENABLE_PERMISSIONS === 'false') {
+		return true;
+	}
+	return permissions.includes(name);
 };

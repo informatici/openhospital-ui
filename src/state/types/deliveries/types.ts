@@ -1,9 +1,9 @@
-import { DeliveryTypeDTO } from "../../../generated";
-import { ApiResponse } from "../../types";
+import type { DeliveryTypeDTO } from '../../../generated';
+import type { ApiResponse } from '../../types';
 
 export type IDeliveryTypesState = {
-  getAll: ApiResponse<Array<DeliveryTypeDTO>>;
-  create: ApiResponse<DeliveryTypeDTO>;
-  update: ApiResponse<DeliveryTypeDTO>;
-  delete: ApiResponse<boolean>;
+	getAll: ApiResponse<Array<DeliveryTypeDTO>>;
+	create: ApiResponse<DeliveryTypeDTO>;
+	update: ApiResponse<DeliveryTypeDTO>;
+	delete: ApiResponse<boolean>;
 };

@@ -1,0 +1,20 @@
+import type { PollyServer } from '@pollyjs/core';
+import { examRequestDTO } from '../fixtures/examRequestDTO';
+
+export const labExamRequestRoutes = (server: PollyServer) => {
+	server.namespace('/laboratories/examRequest', () => {
+		server.get('/patient/:id').intercept((_req, res) => {
+			res.status(200).json(examRequestDTO);
+		});
+		server.post('/').intercept((req, res) => {
+			const body = req.jsonBody();
+			switch (body.code) {
+				case 'FAIL':
+					res.status(400).json({ message: 'Fail to create lab exam request' });
+					break;
+				default:
+					res.status(200).json(body);
+			}
+		});
+	});
+};

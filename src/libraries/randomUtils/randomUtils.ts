@@ -5,7 +5,7 @@
  * @returns Returns a list of random items
  */
 export function randomItems<T>(input: T[], nbItems: number): T[] {
-  const shuffledArray = input.sort(() => 0.5 - Math.random());
+	const shuffledArray = input.sort(() => 0.5 - Math.random());
 
-  return shuffledArray.slice(0, nbItems);
+	return shuffledArray.slice(0, nbItems);
 }

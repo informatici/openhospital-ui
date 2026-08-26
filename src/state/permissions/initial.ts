@@ -1,10 +1,10 @@
-import { PermissionDTO } from "../../generated";
-import { IPermissionsState } from "./types";
-import { ApiResponse } from "../types";
+import type { PermissionDTO } from '../../generated';
+import { ApiResponse } from '../types';
+import type { IPermissionsState } from './types';
 
 export const initial: IPermissionsState = {
-  getAll: new ApiResponse({
-    status: "IDLE",
-    data: new Array<PermissionDTO>(),
-  }),
+	getAll: new ApiResponse({
+		status: 'IDLE',
+		data: [] as PermissionDTO[],
+	}),
 };

@@ -1,9 +1,9 @@
-import { AdmissionTypeDTO } from "../../../generated";
-import { ApiResponse } from "../../types";
+import type { AdmissionTypeDTO } from '../../../generated';
+import type { ApiResponse } from '../../types';
 
 export type IAdmissionTypesState = {
-  getAll: ApiResponse<Array<AdmissionTypeDTO>>;
-  create: ApiResponse<AdmissionTypeDTO>;
-  update: ApiResponse<AdmissionTypeDTO>;
-  delete: ApiResponse<boolean>;
+	getAll: ApiResponse<Array<AdmissionTypeDTO>>;
+	create: ApiResponse<AdmissionTypeDTO>;
+	update: ApiResponse<AdmissionTypeDTO>;
+	delete: ApiResponse<boolean>;
 };

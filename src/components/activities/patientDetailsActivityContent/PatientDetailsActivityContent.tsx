@@ -1,22 +1,19 @@
-import React, { Fragment, FunctionComponent } from "react";
-import "./styles.scss";
-import { IProps } from "./types";
+import { Fragment, type FunctionComponent } from 'react';
+import './styles.scss';
+import type { IProps } from './types';
 
-const PatientDetailsActivityContent: FunctionComponent<IProps> = ({
-  title,
-  content,
+export const PatientDetailsActivityContent: FunctionComponent<IProps> = ({
+	title,
+	children,
 }) => {
-  const Content = content;
-  return (
-    <Fragment>
-      <div className="patientDetails__content_header">
-        <h3>{title}</h3>
-      </div>
-      <div className="patientDetails__content_body">
-        <Content />
-      </div>
-    </Fragment>
-  );
+	return (
+		<Fragment>
+			<div className="patientDetails__content_header">
+				<h3>{title}</h3>
+			</div>
+			<div className="patientDetails__content_body">{children}</div>
+		</Fragment>
+	);
 };
 
 export default PatientDetailsActivityContent;

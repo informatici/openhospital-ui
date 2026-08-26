@@ -31,7 +31,7 @@ Examples:
 
 ```
 	# .env.local
-	REACT_APP_USE_MOCK_API=
+	VITE_USE_MOCK_API=
 ```
 
 then `npm start`
@@ -40,8 +40,8 @@ then `npm start`
 
 ```
 	# .env.local
-	REACT_APP_USE_MOCK_API=
-	REACT_APP_BASE_PATH=http://localhost:8080/oh-api
+	VITE_USE_MOCK_API=
+	VITE_BASE_PATH=http://localhost:8080/oh-api
 ```
 
 then `docker-compose up database backend && npm start`

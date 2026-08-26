@@ -1,1 +1,1 @@
-export * from "./NewOperationType";
+export * from './NewOperationType';

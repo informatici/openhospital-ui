@@ -1,61 +1,62 @@
-import i18n from "i18next";
-import { isEmpty } from "lodash";
-import React, { FunctionComponent, useContext } from "react";
-import availableLanguages from "../../../customization/available-languages.json";
-import { LangContext } from "../../../libraries/langContext/langContext";
-import "./styles.scss";
+import i18n from 'i18next';
+import { isEmpty } from 'lodash';
+import type React from 'react';
+import { useContext } from 'react';
+import availableLanguages from '../../../customization/available-languages.json';
+import { LangContext } from '../../../libraries/langContext/langContext';
+import './styles.scss';
 
 const fallbackLanguages: Record<string, string> = {
-  en: "English",
-  it: "Italiano",
-  de: "Deutsch",
-  fr: "Français",
-  es: "Español",
-  pt: "Português",
-  ar: "عرب",
-  sw: "Svenska",
-  am: "አማርኛ",
-  cs: "čeština",
-  sq: "Shqiptar",
-  zh: "中国人",
+	en: 'English',
+	it: 'Italiano',
+	de: 'Deutsch',
+	fr: 'Français',
+	es: 'Español',
+	pt: 'Português',
+	ar: 'عرب',
+	sw: 'Svenska',
+	am: 'አማርኛ',
+	cs: 'čeština',
+	sq: 'Shqiptar',
+	zh: '中国人',
 };
 
-const LangSwitcher: FunctionComponent = () => {
-  const currentLang = i18n.language;
-  const { changeLang } = useContext(LangContext);
+const LangSwitcher = () => {
+	const currentLang = i18n.language;
+	const { changeLang } = useContext(LangContext);
 
-  const languages = isEmpty(availableLanguages.availableLanguages)
-    ? Object.keys(fallbackLanguages)
-    : availableLanguages.availableLanguages;
+	const languages = isEmpty(availableLanguages.availableLanguages)
+		? Object.keys(fallbackLanguages)
+		: availableLanguages.availableLanguages;
 
-  const renderOptions = (): JSX.Element[] => {
-    return languages.map((code: string) => (
-      <option key={code} value={code}>
-        {fallbackLanguages[code]}
-      </option>
-    ));
-  };
+	const renderOptions = (): React.ReactElement[] => {
+		return languages.map((code: string) => (
+			<option key={code} value={code}>
+				{fallbackLanguages[code]}
+			</option>
+		));
+	};
 
-  const getCurrentLang = () => {
-    var value = "";
-    languages.forEach((key: string) => {
-      if (currentLang === key || currentLang.split("-")[0] === key) {
-        value = key;
-      }
-    });
-    return value;
-  };
+	const getCurrentLang = () => {
+		var value = '';
+		languages.forEach((key: string) => {
+			if (currentLang === key || currentLang.split('-')[0] === key) {
+				value = key;
+			}
+		});
+		return value;
+	};
 
-  return (
-    <div className="langSwitcher">
-      <select
-        value={getCurrentLang()}
-        onChange={(e) => changeLang(e.target.value as string)}
-      >
-        {renderOptions()}
-      </select>
-    </div>
-  );
+	return (
+		<div className="langSwitcher">
+			<select
+				value={getCurrentLang()}
+				onChange={(e) => changeLang(e.target.value as string)}
+			>
+				{renderOptions()}
+			</select>
+		</div>
+	);
 };
 
 export default LangSwitcher;

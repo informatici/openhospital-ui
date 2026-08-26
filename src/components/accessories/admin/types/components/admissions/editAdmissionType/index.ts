@@ -1,1 +1,1 @@
-export * from "./EditAdmissionType";
+export * from './EditAdmissionType';

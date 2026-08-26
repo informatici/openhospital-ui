@@ -1,3 +1,3 @@
-import AgeTypesTable from "./AgeTypesTable";
+import AgeTypesTable from './AgeTypesTable';
 
 export default AgeTypesTable;

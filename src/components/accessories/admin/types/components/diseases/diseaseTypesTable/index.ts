@@ -1,3 +1,3 @@
-import DiseaseTypesTable from "./DiseaseTypesTable";
+import DiseaseTypesTable from './DiseaseTypesTable';
 
 export default DiseaseTypesTable;

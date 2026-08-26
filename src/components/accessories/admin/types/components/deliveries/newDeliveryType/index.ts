@@ -1,1 +1,1 @@
-export * from "./NewDeliveryType";
+export * from './NewDeliveryType';

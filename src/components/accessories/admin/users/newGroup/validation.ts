@@ -1,9 +1,7 @@
-import { object, string } from "yup";
-import { UserGroupDTO } from "../../../../../generated";
-import { TFunction } from "react-i18next";
+import { object, string } from 'yup';
 
-export const userGroupSchema = (t: TFunction<"translation">) =>
-  object().shape<UserGroupDTO>({
-    code: string().min(2).required(t("user.validateGroupCode")),
-    desc: string(),
-  });
+export const userGroupSchema = (t: (key: string) => string) =>
+	object().shape({
+		code: string().min(2).required(t('user.validateGroupCode')),
+		desc: string(),
+	});

@@ -1,27 +1,28 @@
-import { FieldInputProps } from "formik";
-import {
-  InputProps,
-  FilledInputProps,
-  OutlinedInputProps,
-} from "@mui/material";
-import { FIELD_VALIDATION } from "../../../types";
+import type {
+	FilledInputProps,
+	InputProps,
+	OutlinedInputProps,
+} from '@mui/material';
+import type { FieldInputProps } from 'formik';
+import type { FIELD_VALIDATION } from '../../../types';
 
 export interface IProps {
-  className?: string;
-  field: FieldInputProps<any>;
-  theme: "light" | "regular";
-  label: string;
-  type?: string;
-  multiline?: boolean;
-  isValid: boolean;
-  errorText: string;
-  onBlur: (e: any) => void;
-  disabled?: boolean;
-  InputProps?:
-    | Partial<InputProps>
-    | Partial<FilledInputProps>
-    | Partial<OutlinedInputProps>;
-  rows?: number;
-  required?: FIELD_VALIDATION;
-  maxLength?: number;
+	className?: string;
+	field: FieldInputProps<any>;
+	theme: 'light' | 'regular';
+	label: string;
+	type?: string;
+	multiline?: boolean;
+	isValid: boolean;
+	errorText: string;
+	onBlur: (e: any) => void;
+	disabled?: boolean;
+	InputProps?:
+		| Partial<InputProps>
+		| Partial<FilledInputProps>
+		| Partial<OutlinedInputProps>;
+	rows?: number;
+	required?: FIELD_VALIDATION;
+	maxLength?: number;
+	inputProps?: Record<string, unknown>;
 }

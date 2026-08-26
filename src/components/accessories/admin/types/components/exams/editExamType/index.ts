@@ -1,1 +1,1 @@
-export * from "./EditExamType";
+export * from './EditExamType';

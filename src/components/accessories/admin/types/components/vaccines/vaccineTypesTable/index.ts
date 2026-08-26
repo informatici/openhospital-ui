@@ -1,3 +1,3 @@
-import VaccineTypesTable from "./VaccineTypesTable";
+import VaccineTypesTable from './VaccineTypesTable';
 
 export default VaccineTypesTable;

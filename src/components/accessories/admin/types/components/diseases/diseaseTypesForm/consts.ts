@@ -1,10 +1,10 @@
-import { DiseaseTypeFormFieldName } from ".";
-import { DiseaseTypeDTO } from "../../../../../../../generated";
-import { TFields } from "../../../../../../../libraries/formDataHandling/types";
+import type { DiseaseTypeDTO } from '../../../../../../../generated';
+import type { TFields } from '../../../../../../../libraries/formDataHandling/types';
+import type { DiseaseTypeFormFieldName } from '.';
 
 export const getInitialFields: (
-  diseaseType: DiseaseTypeDTO | undefined
+	diseaseType: DiseaseTypeDTO | undefined,
 ) => TFields<DiseaseTypeFormFieldName> = (diseaseType) => ({
-  code: { type: "text", value: diseaseType?.code ?? "" },
-  description: { type: "text", value: diseaseType?.description ?? "" },
+	code: { type: 'text', value: diseaseType?.code ?? '' },
+	description: { type: 'text', value: diseaseType?.description ?? '' },
 });

@@ -1,3 +1,3 @@
-import ExamTypesTable from "./ExamTypesTable";
+import ExamTypesTable from './ExamTypesTable';
 
 export default ExamTypesTable;

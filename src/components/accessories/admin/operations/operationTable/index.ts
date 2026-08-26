@@ -1,3 +1,3 @@
-import { OperationTable } from "./OperationTable";
+import { OperationTable } from './OperationTable';
 
 export default OperationTable;

@@ -1,7 +1,7 @@
-import { ApiResponse } from "../../types";
-import { IAgeTypesState } from "./types";
+import { ApiResponse } from '../../types';
+import type { IAgeTypesState } from './types';
 
 export const initial: IAgeTypesState = {
-  getAll: new ApiResponse({ status: "IDLE", data: [] }),
-  update: new ApiResponse({ status: "IDLE", data: [] }),
+	getAll: new ApiResponse({ status: 'IDLE', data: [] }),
+	update: new ApiResponse({ status: 'IDLE', data: [] }),
 };

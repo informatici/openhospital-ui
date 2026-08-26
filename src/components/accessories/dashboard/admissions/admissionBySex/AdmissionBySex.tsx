@@ -1,81 +1,81 @@
-import { Skeleton } from "@mui/material";
-import { useAppDispatch } from "libraries/hooks/redux";
-import React, { FC, useEffect, useRef, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { useAdmBySexData } from "../../../../../libraries/dashboardUtils/admissions/useAdmBySexData";
-import { getAdmissions } from "../../../../../state/admissions";
-import { Piechart } from "../../../charts/pie/Piechart";
-import DataDownloadButton from "../../../dataDownloadButton/DataDownloadButton";
-import { DashboardCard } from "../../card/DashboardCard";
-import { TDashboardCardOptionActions } from "../../card/types";
-import { TDashboardComponentProps } from "../../layouts/types";
-import { DataSummary } from "../../summary/DataSummary";
-import { IOwnProps } from "../types";
+import { Skeleton } from '@mui/material';
+import { type FC, useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useAppDispatch } from '~/libraries/hooks/redux';
+import { useAdmBySexData } from '../../../../../libraries/dashboardUtils/admissions/useAdmBySexData';
+import { getAdmissions } from '../../../../../state/admissions';
+import { Piechart } from '../../../charts/pie/Piechart';
+import DataDownloadButton from '../../../dataDownloadButton/DataDownloadButton';
+import { DashboardCard } from '../../card/DashboardCard';
+import type { TDashboardCardOptionActions } from '../../card/types';
+import type { TDashboardComponentProps } from '../../layouts/types';
+import { DataSummary } from '../../summary/DataSummary';
+import type { IOwnProps } from '../types';
 
-import "../../card/styles.scss";
+import '../../card/styles.scss';
 
 export const AdmissionsBySex: FC<TDashboardComponentProps & IOwnProps> = ({
-  onRemove,
-  onFullScreenEnter,
-  period,
+	onRemove,
+	onFullScreenEnter,
+	period,
 }) => {
-  const { t } = useTranslation();
-  const dispatch = useAppDispatch();
-  const admissionbysexcardref = useRef<HTMLDivElement>(null);
+	const { t } = useTranslation();
+	const dispatch = useAppDispatch();
+	const admissionbysexcardref = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    dispatch(getAdmissions({ admissionrange: period }));
-  }, [dispatch, period]);
+	useEffect(() => {
+		dispatch(getAdmissions({ admissionrange: period }));
+	}, [dispatch, period]);
 
-  const { total, success, status, data, csvData } = useAdmBySexData();
+	const { total, success, status, data, csvData } = useAdmBySexData();
 
-  const [displaySize, setDisplaySize] = useState<{
-    width: number;
-    height: number;
-  }>();
+	const [_displaySize, setDisplaySize] = useState<{
+		width: number;
+		height: number;
+	}>();
 
-  const onSizeChange = (width: number, height: number) => {
-    setDisplaySize({ width: width - 1, height: height - 73 });
-  };
+	const onSizeChange = (width: number, height: number) => {
+		setDisplaySize({ width: width - 1, height: height - 73 });
+	};
 
-  const downloadOptions = (
-    <DataDownloadButton
-      csvData={csvData}
-      title={t("admission.admissionbysex").replace(/ /g, "-")}
-      graphRef={admissionbysexcardref}
-    />
-  );
+	const downloadOptions = (
+		<DataDownloadButton
+			csvData={csvData}
+			title={t('admission.admissionbysex').replace(/ /g, '-')}
+			graphRef={admissionbysexcardref}
+		/>
+	);
 
-  const actions: TDashboardCardOptionActions = {
-    onClose: onRemove ? () => onRemove() : undefined,
+	const actions: TDashboardCardOptionActions = {
+		onClose: onRemove ? () => onRemove() : undefined,
 
-    onExpand: onFullScreenEnter ? () => onFullScreenEnter() : undefined,
+		onExpand: onFullScreenEnter ? () => onFullScreenEnter() : undefined,
 
-    downloadButton: downloadOptions,
-  };
+		downloadButton: downloadOptions,
+	};
 
-  return (
-    <>
-      {status === "LOADING" && (
-        <div className="item">
-          <Skeleton />
-        </div>
-      )}
+	return (
+		<>
+			{status === 'LOADING' && (
+				<div className="item">
+					<Skeleton />
+				</div>
+			)}
 
-      {success && (
-        <DashboardCard
-          cardRef={admissionbysexcardref}
-          title={t("admission.admissionbysex")}
-          actions={actions}
-          sizeChangeHandler={onSizeChange}
-        >
-          <Piechart data={data} width={"100%"} height={"calc(100% - 75px)"} />
-          <DataSummary
-            label={t("admission.admregistered")}
-            value={total.toString()}
-          />
-        </DashboardCard>
-      )}
-    </>
-  );
+			{success && (
+				<DashboardCard
+					cardRef={admissionbysexcardref}
+					title={t('admission.admissionbysex')}
+					actions={actions}
+					sizeChangeHandler={onSizeChange}
+				>
+					<Piechart data={data} width={'100%'} height={'calc(100% - 75px)'} />
+					<DataSummary
+						label={t('admission.admregistered')}
+						value={total.toString()}
+					/>
+				</DashboardCard>
+			)}
+		</>
+	);
 };
