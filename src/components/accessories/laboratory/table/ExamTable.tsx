@@ -144,13 +144,13 @@ export const ExamTable: FC<IExamTableProps> = ({
 
 	const onCancel = (row: any) => {
 		if (handleCancel) {
-			handleCancel(row.id);
+			handleCancel(row.code);
 		}
 	};
 
 	const onDelete = (row: any) => {
 		const labExam = data.find(
-			(item) => item.laboratoryDTO?.code === row.id,
+			(item) => item.laboratoryDTO?.code === row.code,
 		)?.laboratoryDTO;
 
 		if (labExam) {
