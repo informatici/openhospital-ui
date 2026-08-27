@@ -129,14 +129,14 @@ export const ExamTable: FC<IExamTableProps> = ({
 		setOpen(false);
 	};
 	const handleView = (row: any) => {
-		dispatch(getLabWithRowsByCode(row.id));
+		dispatch(getLabWithRowsByCode(row.code));
 		handleOpen();
 	};
 
 	const onEdit = (row: any) => {
 		if (handleEdit !== undefined) {
 			handleEdit(
-				data.find((item) => item.laboratoryDTO?.code === row.id)
+				data.find((item) => item.laboratoryDTO?.code === row.code)
 					?.laboratoryDTO ?? {},
 			);
 		}
@@ -144,13 +144,13 @@ export const ExamTable: FC<IExamTableProps> = ({
 
 	const onCancel = (row: any) => {
 		if (handleCancel) {
-			handleCancel(row.id);
+			handleCancel(row.code);
 		}
 	};
 
 	const onDelete = (row: any) => {
 		const labExam = data.find(
-			(item) => item.laboratoryDTO?.code === row.id,
+			(item) => item.laboratoryDTO?.code === row.code,
 		)?.laboratoryDTO;
 
 		if (labExam) {
