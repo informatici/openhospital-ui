@@ -21,8 +21,6 @@ import {
 	type PatientDTO,
 } from '../../../../generated';
 import {
-	fixFilterDateFrom,
-	fixFilterDateTo,
 	formatAllFieldValues,
 	getFromFields,
 	removeTime,
@@ -34,6 +32,11 @@ import ConfirmationDialog from '../../confirmationDialog/ConfirmationDialog';
 import DateField from '../../dateField/DateField';
 import PatientPicker from '../../patientPicker/PatientPicker';
 import SelectField from '../../selectField/SelectField';
+import {
+	formatLocalFilterDateFrom,
+	formatLocalFilterDateTo,
+	isFutureLocalDate,
+} from './dateUtils';
 import './styles.scss';
 import type { IExamFilterProps, TFilterValues } from './types';
 
@@ -74,7 +77,7 @@ export const ExamFilterForm: FC<IExamFilterProps> = ({
 				message: t('lab.futuredatenotallow'),
 				test: (value) => {
 					if (!moment(value).isValid()) return true;
-					return differenceInSeconds(new Date(value), new Date()) <= 0;
+					return !isFutureLocalDate(value);
 				},
 			}),
 		dateTo: string()
@@ -102,7 +105,7 @@ export const ExamFilterForm: FC<IExamFilterProps> = ({
 				message: t('lab.futuredatenotallow'),
 				test: (value) => {
 					if (!moment(value).isValid()) return true;
-					return differenceInSeconds(new Date(value), new Date()) <= 0;
+					return !isFutureLocalDate(value);
 				},
 			}),
 		status: string(),
@@ -122,11 +125,11 @@ export const ExamFilterForm: FC<IExamFilterProps> = ({
 			) as TFilterValues;
 
 			if (formattedValues.dateFrom) {
-				formattedValues.dateFrom = fixFilterDateFrom(formattedValues.dateFrom);
+				formattedValues.dateFrom = formatLocalFilterDateFrom(values.dateFrom);
 			}
 
 			if (formattedValues.dateTo) {
-				formattedValues.dateTo = fixFilterDateTo(formattedValues.dateTo);
+				formattedValues.dateTo = formatLocalFilterDateTo(values.dateTo);
 			}
 
 			onSubmit(formattedValues);
