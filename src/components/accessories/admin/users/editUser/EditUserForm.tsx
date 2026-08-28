@@ -207,7 +207,8 @@ export const EditUserForm = ({
 				info={t('user.updatedSuccessMessage')}
 				primaryButtonLabel="Ok"
 				handlePrimaryButtonClick={() => {
-					navigate(PATHS.admin_users);
+					// replace (not push) so the dirty-form navigation guard does not prompt to discard after a successful save
+					navigate(PATHS.admin_users, { replace: true });
 				}}
 				handleSecondaryButtonClick={() => ({})}
 			/>
