@@ -680,6 +680,7 @@
 		"details": "Details",
 		"code": "Code",
 		"patient": "Patient",
+		"patientname": "Patient Name",
 		"years": "Year(s) old",
 		"inpatient": "Inpatient",
 		"outpatient": "Outpatient",

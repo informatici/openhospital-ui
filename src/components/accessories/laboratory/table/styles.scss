@@ -3,4 +3,8 @@
 
 .exams__table {
   padding: 20px 0px;
+
+  .table_header th.MuiTableCell-root {
+    padding: 5px;
+  }
 }
