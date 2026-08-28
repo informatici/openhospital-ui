@@ -65,7 +65,7 @@ export const router = createBrowserRouter([
 					),
 			},
 			{
-				path: 'laboratory',
+				path: 'laboratory/*',
 				lazy: async () =>
 					import(
 						'../components/activities/laboratoryActivity/LaboratoryActivity'
