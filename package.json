@@ -120,7 +120,7 @@
 	"devDependencies": {
 		"@biomejs/biome": "2.3.10",
 		"@msw/data": "^1.1.2",
-		"@openapitools/openapi-generator-cli": "2.39.1",
+		"@openapitools/openapi-generator-cli": "2.41.0",
 		"@pollyjs/adapter-xhr": "^6.0.6",
 		"@pollyjs/core": "^6.0.6",
 		"@storybook/react": "^10.5.2",
