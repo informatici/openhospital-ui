@@ -54,17 +54,34 @@ export const ExamTable: FC<IExamTableProps> = ({
 		(state: IState) => state.laboratories.deleteLab.error?.message,
 	);
 
-	const header = ['code', 'date', 'patName', 'exam', 'result', 'status'];
+	const header = [
+		'code',
+		'date',
+		'patientCode',
+		'patName',
+		'exam',
+		'result',
+		'status',
+	];
 	const dateFields = ['date'];
 	const label = {
 		code: t('lab.code'),
 		date: t('lab.date'),
-		patName: t('lab.patient'),
+		patientCode: t('opd.patientcode'),
+		patName: t('lab.patientname'),
 		exam: t('lab.exam'),
 		result: t('lab.result'),
 		status: t('lab.status'),
 	};
-	const order = ['code', 'date', 'patName', 'exam', 'result', 'status'];
+	const order = [
+		'code',
+		'date',
+		'patientCode',
+		'patName',
+		'exam',
+		'result',
+		'status',
+	];
 
 	const formatDataToDisplay = (data: LabWithRowsDTO[]) => {
 		let results: any = [];
