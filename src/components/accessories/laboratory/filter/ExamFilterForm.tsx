@@ -21,8 +21,6 @@ import {
 	type PatientDTO,
 } from '../../../../generated';
 import {
-	fixFilterDateFrom,
-	fixFilterDateTo,
 	formatAllFieldValues,
 	getFromFields,
 	removeTime,
@@ -34,6 +32,11 @@ import ConfirmationDialog from '../../confirmationDialog/ConfirmationDialog';
 import DateField from '../../dateField/DateField';
 import PatientPicker from '../../patientPicker/PatientPicker';
 import SelectField from '../../selectField/SelectField';
+import {
+	formatLocalFilterDateFrom,
+	formatLocalFilterDateTo,
+	isFutureLocalDate,
+} from './dateUtils';
 import './styles.scss';
 import type { IExamFilterProps, TFilterValues } from './types';
 
@@ -74,7 +77,7 @@ export const ExamFilterForm: FC<IExamFilterProps> = ({
 				message: t('lab.futuredatenotallow'),
 				test: (value) => {
 					if (!moment(value).isValid()) return true;
-					return differenceInSeconds(new Date(value), new Date()) <= 0;
+					return !isFutureLocalDate(value);
 				},
 			}),
 		dateTo: string()
@@ -102,7 +105,7 @@ export const ExamFilterForm: FC<IExamFilterProps> = ({
 				message: t('lab.futuredatenotallow'),
 				test: (value) => {
 					if (!moment(value).isValid()) return true;
-					return differenceInSeconds(new Date(value), new Date()) <= 0;
+					return !isFutureLocalDate(value);
 				},
 			}),
 		status: string(),
@@ -122,11 +125,11 @@ export const ExamFilterForm: FC<IExamFilterProps> = ({
 			) as TFilterValues;
 
 			if (formattedValues.dateFrom) {
-				formattedValues.dateFrom = fixFilterDateFrom(formattedValues.dateFrom);
+				formattedValues.dateFrom = formatLocalFilterDateFrom(values.dateFrom);
 			}
 
 			if (formattedValues.dateTo) {
-				formattedValues.dateTo = fixFilterDateTo(formattedValues.dateTo);
+				formattedValues.dateTo = formatLocalFilterDateTo(values.dateTo);
 			}
 
 			onSubmit(formattedValues);
@@ -157,14 +160,30 @@ export const ExamFilterForm: FC<IExamFilterProps> = ({
 	});
 
 	const dateFieldHandleOnChange = useCallback(
-		(fieldName: string) => (val: Date | null) => {
-			setFieldValue(fieldName, val);
+		(fieldName: string) => async (val: Date | null) => {
 			if (fieldName === 'dateFrom' || fieldName === 'dateTo') {
-				setFieldValue('month', '');
-				setFieldValue('year', '');
-				formik.setFieldTouched('dateTo');
-				formik.setFieldTouched('dateFrom');
+				const isCompleteDate =
+					val instanceof Date && !Number.isNaN(val.getTime());
+				const nextValues = {
+					...formik.values,
+					[fieldName]: val,
+					month: '',
+					year: '',
+				};
+
+				await formik.setValues(nextValues, isCompleteDate);
+				await formik.setTouched(
+					{
+						...formik.touched,
+						dateTo: isCompleteDate,
+						dateFrom: isCompleteDate,
+					},
+					false,
+				);
+				return;
 			}
+
+			setFieldValue(fieldName, val);
 
 			if (fieldName === 'month') {
 				const month = val?.getUTCMonth() ?? new Date().getUTCMonth();
@@ -264,6 +283,7 @@ export const ExamFilterForm: FC<IExamFilterProps> = ({
 										theme={'regular'}
 										fieldName="dateFrom"
 										fieldValue={removeTime(formik.values.dateFrom)}
+										preserveDraftInput={true}
 										disableFuture={true}
 										format="dd/MM/yyyy"
 										isValid={isValid('dateFrom')}
@@ -276,6 +296,7 @@ export const ExamFilterForm: FC<IExamFilterProps> = ({
 									<DateField
 										fieldName="dateTo"
 										fieldValue={removeTime(formik.values.dateTo)}
+										preserveDraftInput={true}
 										disableFuture={true}
 										theme="regular"
 										format="dd/MM/yyyy"
