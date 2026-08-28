@@ -8,6 +8,7 @@ import type { IProps } from './types';
 const DateField: FunctionComponent<IProps> = ({
 	fieldName,
 	fieldValue,
+	preserveDraftInput = false,
 	disableFuture,
 	disabled,
 	label,
@@ -25,6 +26,7 @@ const DateField: FunctionComponent<IProps> = ({
 	const [value, setValue] = useState<Date | null>(null);
 	const [anchorEl, setAnchorEl] = useState(null);
 	const anchorElRef = useRef(null);
+	const skipNextExternalSync = useRef(false);
 	const matches = useMediaQuery('(min-width:768px)');
 
 	useEffect(() => {
@@ -32,13 +34,29 @@ const DateField: FunctionComponent<IProps> = ({
 	}, []);
 
 	useEffect(() => {
+		if (preserveDraftInput && skipNextExternalSync.current) {
+			skipNextExternalSync.current = false;
+			return;
+		}
+
 		// field value comes in timestamp string (eg. 2020-03-19T14:58:00.000Z)
-		fieldValue === '' ? setValue(null) : setValue(new Date(fieldValue));
-	}, [fieldValue]);
+		if (fieldValue === '') {
+			setValue(null);
+			return;
+		}
+
+		const externalValue = new Date(fieldValue);
+		if (!Number.isNaN(externalValue.getTime())) {
+			setValue(externalValue);
+		}
+	}, [fieldValue, preserveDraftInput]);
 
 	const handleDateChange = (date: Date | null) => {
-		onChange(date);
+		// MUI fields keep an internal draft while the user edits date sections.
+		// Do not feed the same intermediate value back through the external prop.
+		skipNextExternalSync.current = preserveDraftInput;
 		setValue(date);
+		onChange(date);
 	};
 
 	const actualClassName = theme === 'light' ? 'dateField__light' : 'dateField';

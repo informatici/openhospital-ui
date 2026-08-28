@@ -160,14 +160,30 @@ export const ExamFilterForm: FC<IExamFilterProps> = ({
 	});
 
 	const dateFieldHandleOnChange = useCallback(
-		(fieldName: string) => (val: Date | null) => {
-			setFieldValue(fieldName, val);
+		(fieldName: string) => async (val: Date | null) => {
 			if (fieldName === 'dateFrom' || fieldName === 'dateTo') {
-				setFieldValue('month', '');
-				setFieldValue('year', '');
-				formik.setFieldTouched('dateTo');
-				formik.setFieldTouched('dateFrom');
+				const isCompleteDate =
+					val instanceof Date && !Number.isNaN(val.getTime());
+				const nextValues = {
+					...formik.values,
+					[fieldName]: val,
+					month: '',
+					year: '',
+				};
+
+				await formik.setValues(nextValues, isCompleteDate);
+				await formik.setTouched(
+					{
+						...formik.touched,
+						dateTo: isCompleteDate,
+						dateFrom: isCompleteDate,
+					},
+					false,
+				);
+				return;
 			}
+
+			setFieldValue(fieldName, val);
 
 			if (fieldName === 'month') {
 				const month = val?.getUTCMonth() ?? new Date().getUTCMonth();
@@ -267,6 +283,7 @@ export const ExamFilterForm: FC<IExamFilterProps> = ({
 										theme={'regular'}
 										fieldName="dateFrom"
 										fieldValue={removeTime(formik.values.dateFrom)}
+										preserveDraftInput={true}
 										disableFuture={true}
 										format="dd/MM/yyyy"
 										isValid={isValid('dateFrom')}
@@ -279,6 +296,7 @@ export const ExamFilterForm: FC<IExamFilterProps> = ({
 									<DateField
 										fieldName="dateTo"
 										fieldValue={removeTime(formik.values.dateTo)}
+										preserveDraftInput={true}
 										disableFuture={true}
 										theme="regular"
 										format="dd/MM/yyyy"
