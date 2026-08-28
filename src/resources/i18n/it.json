@@ -680,6 +680,7 @@
 		"details": "Dettagli",
 		"code": "Codice",
 		"patient": "Paziente",
+		"patientname": "Patient Name",
 		"years": "Età (in anni)",
 		"inpatient": "Paziente ricoverato",
 		"outpatient": "Paziente ambulatoriale",
