@@ -155,7 +155,7 @@
 		"vitest": "^4.1.10"
 	},
 	"volta": {
-		"node": "20.18.1"
+		"node": "22.23.2"
 	},
 	"msw": {
 		"workerDirectory": [
