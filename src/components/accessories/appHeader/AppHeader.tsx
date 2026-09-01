@@ -4,7 +4,12 @@ import NavigateBefore from '@mui/icons-material/NavigateBefore';
 import { Tooltip, Typography } from '@mui/material';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import classNames from 'classnames';
-import { type FunctionComponent, useCallback, useEffect, useState } from 'react';
+import {
+	type FunctionComponent,
+	useCallback,
+	useEffect,
+	useState,
+} from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';

@@ -12,7 +12,9 @@ describe('Mobile usability spec', () => {
 		cy.dataCy('app-header').should('have.class', 'open_menu');
 		cy.get('body').should('have.class', 'disable-scroll');
 
-		cy.get('.appHeader__nav__item').contains(/patients/i).click();
+		cy.get('.appHeader__nav__item')
+			.contains(/patients/i)
+			.click();
 
 		cy.url().should('include', '/patients');
 		cy.dataCy('app-header').should('not.have.class', 'open_menu');
@@ -27,7 +29,9 @@ describe('Mobile usability spec', () => {
 		cy.get('body').should('have.class', 'disable-scroll');
 
 		// same-route navigation: the pathname does not change, the menu must close anyway
-		cy.get('.appHeader__nav__item').contains(/patients/i).click();
+		cy.get('.appHeader__nav__item')
+			.contains(/patients/i)
+			.click();
 
 		cy.url().should('include', '/patients');
 		cy.dataCy('app-header').should('not.have.class', 'open_menu');
