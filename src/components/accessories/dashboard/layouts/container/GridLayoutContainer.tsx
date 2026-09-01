@@ -44,7 +44,13 @@ const GridLayoutContainer: FC = () => {
 
 	const [mounted, setMounted] = useState(false);
 	const [canUpdateLayouts, setCanUpdateLayouts] = useState(true);
-	const [localBreakpoint, setLocalBreakpoint] = useState<string>('md');
+	// starting at 'md' would let the first frame render as a desktop layout, so on a phone
+	// dragging and resizing flash on before the first breakpoint change turns them off
+	const [localBreakpoint, setLocalBreakpoint] = useState<string>(() =>
+		typeof window !== 'undefined'
+			? getBreakpointFromWidth(window.innerWidth)
+			: 'md',
+	);
 	const [fsDashboard, setFsDashboard] = useState<
 		TDashboardComponent | undefined
 	>(undefined);
