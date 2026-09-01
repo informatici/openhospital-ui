@@ -11,6 +11,6 @@ describe('Patient Details / Administrative flag', () => {
 	});
 
 	it('should show the reason the administration gave', () => {
-		cy.contains('Insurance to be verified');
+		cy.contains('Insurance still needs to be verified');
 	});
 });
