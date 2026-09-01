@@ -1,24 +1,27 @@
 import moment from 'moment';
-import {
-	fixFilterDateFrom,
-	fixFilterDateTo,
-} from '../../../libraries/formDataHandling/functions';
 import type { TFields } from '../../../libraries/formDataHandling/types';
 import type { ExamFormFieldName } from './examForm/type';
 import type { ExamRequestFormFieldName } from './examRequestForm/types';
+import {
+	formatLocalFilterDateFrom,
+	formatLocalFilterDateTo,
+} from './filter/dateUtils';
 import type { ExamFilterFormFieldName, TFilterValues } from './filter/types';
 
 export const initialFilterFields: TFields<ExamFilterFormFieldName> = {
-	dateFrom: { type: 'date', value: moment().startOf('month').toISOString() },
-	dateTo: { type: 'date', value: moment().toISOString() },
+	dateFrom: {
+		type: 'date',
+		value: moment().subtract(1, 'day').format('YYYY-MM-DD'),
+	},
+	dateTo: { type: 'date', value: moment().format('YYYY-MM-DD') },
 	examName: { type: 'text', value: '' },
 	patientCode: { type: 'number', value: '' },
 	status: { type: 'text', value: '' },
 };
 
 export const initialFilter: TFilterValues = {
-	dateFrom: fixFilterDateFrom(moment().subtract(1, 'years').toISOString()),
-	dateTo: fixFilterDateTo(moment().toISOString()),
+	dateFrom: formatLocalFilterDateFrom(moment().subtract(1, 'day').toDate()),
+	dateTo: formatLocalFilterDateTo(moment().toDate()),
 	status: '',
 	page: 0,
 	size: 80,

@@ -8,6 +8,7 @@ export const REFRESH_TOKEN_EXPIRATION_TIMEOUT = 0;
 export const PATHS = {
 	home: '/',
 	login: '/login',
+	change_password: '/change-password',
 	patients: '/patients',
 	patients_new: '/patients/new',
 	patients_search: '/patients/search',

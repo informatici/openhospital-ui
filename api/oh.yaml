@@ -8257,6 +8257,17 @@ components:
           type: string
           description: User name
           example: admin
+        mustChangePassword:
+          type: boolean
+          description: Whether the user must change the password before using the application
+        passwordExpired:
+          type: boolean
+          description: Whether the password change is required because the password lease has expired
+        passwordLeaseDays:
+          type: integer
+          format: int32
+          description: The configured password lease in days when the policy is active, null otherwise
+          example: 90
     LoginRequest:
       type: object
       properties:

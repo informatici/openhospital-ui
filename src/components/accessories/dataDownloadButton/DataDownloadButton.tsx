@@ -12,7 +12,7 @@ import {
 	Typography,
 } from '@mui/material';
 import html2canvas from 'html2canvas';
-import jsPDF from 'jspdf';
+import { jsPDF } from 'jspdf';
 import type React from 'react';
 import { type FunctionComponent, useState } from 'react';
 import { CSVLink } from 'react-csv';
@@ -38,49 +38,42 @@ const DataDownloadButton: FunctionComponent<IOwnProps> = ({
 	const handleDownloadCSV = () => {
 		handleClose();
 	};
-	const exportCanvas = async () => {
-		if (!graphRef.current) return null;
-
-		return html2canvas(graphRef.current, {
-			backgroundColor: '#ffffff',
-			scrollY: -window.scrollY,
-			useCORS: true,
+	// html2canvas + jsPDF are used directly: the previous react-component-export-image wrapper is
+	// unmaintained, pins a vulnerable jsPDF and relies on ReactDOM.findDOMNode, removed in React 19
+	const handleDownloadPDF = () => {
+		handleClose();
+		if (!graphRef.current) {
+			return;
+		}
+		html2canvas(graphRef.current).then((canvas) => {
+			const pdf = new jsPDF({ orientation: 'l', unit: 'px', format: 'a3' });
+			const ratio = Math.min(
+				pdf.internal.pageSize.getWidth() / canvas.width,
+				pdf.internal.pageSize.getHeight() / canvas.height,
+			);
+			pdf.addImage(
+				canvas.toDataURL('image/png'),
+				'PNG',
+				0,
+				0,
+				canvas.width * ratio,
+				canvas.height * ratio,
+			);
+			pdf.save(`${title ?? 'data'}.pdf`);
 		});
 	};
 
-	const handleDownloadPDF = async () => {
+	const handleDownloadPNG = () => {
 		handleClose();
-		const canvas = await exportCanvas();
-		if (!canvas) return;
-
-		const orientation = canvas.width > canvas.height ? 'l' : 'p';
-		const pdf = new jsPDF({
-			orientation,
-			unit: 'px',
-			format: [canvas.width, canvas.height],
+		if (!graphRef.current) {
+			return;
+		}
+		html2canvas(graphRef.current).then((canvas) => {
+			const link = document.createElement('a');
+			link.download = `${title ?? 'data'}.png`;
+			link.href = canvas.toDataURL('image/png');
+			link.click();
 		});
-		pdf.addImage(
-			canvas.toDataURL('image/png'),
-			'PNG',
-			0,
-			0,
-			canvas.width,
-			canvas.height,
-		);
-		pdf.save(`${title ?? 'data'}.pdf`);
-	};
-
-	const handleDownloadPNG = async () => {
-		handleClose();
-		const canvas = await exportCanvas();
-		if (!canvas) return;
-
-		const link = document.createElement('a');
-		link.href = canvas.toDataURL('image/png');
-		link.download = `${title ?? 'data'}.png`;
-		document.body.appendChild(link);
-		link.click();
-		document.body.removeChild(link);
 	};
 
 	return (
@@ -116,13 +109,13 @@ const DataDownloadButton: FunctionComponent<IOwnProps> = ({
 						<Typography variant="inherit">{t('dashboard.csv')}</Typography>
 					</CSVLink>
 				</MenuItem>
-				<MenuItem onClick={() => void handleDownloadPDF()}>
+				<MenuItem onClick={handleDownloadPDF}>
 					<ListItemIcon>
 						<DescriptionOutlined fontSize="small" />
 					</ListItemIcon>
 					<Typography variant="inherit">{t('dashboard.pdf')}</Typography>
 				</MenuItem>
-				<MenuItem onClick={() => void handleDownloadPNG()}>
+				<MenuItem onClick={handleDownloadPNG}>
 					<ListItemIcon>
 						<ImageOutlined fontSize="small" />
 					</ListItemIcon>
