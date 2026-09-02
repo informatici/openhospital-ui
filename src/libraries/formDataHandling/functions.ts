@@ -72,16 +72,18 @@ export const fixFilterDateFrom = (date: string | Date): string => {
 	return date.toISOString();
 };
 
-export const removeTime = (date: string | Date): string => {
-	if (date instanceof Date) {
-		date.setUTCHours(0);
-		date.setUTCMinutes(0);
-		date.setUTCSeconds(0);
+export const removeTime = (date: string | Date | null | undefined): string => {
+	if (date == null) return '';
 
-		date = date.toISOString();
-	}
+	if (typeof date === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(date)) return date;
 
-	return date.split('T')[0];
+	const parsedDate = date instanceof Date ? date : new Date(date);
+	if (Number.isNaN(parsedDate.getTime())) return parsedDate.toString();
+
+	const year = parsedDate.getFullYear();
+	const month = `${parsedDate.getMonth() + 1}`.padStart(2, '0');
+	const day = `${parsedDate.getDate()}`.padStart(2, '0');
+	return `${year}-${month}-${day}`;
 };
 
 export const fixFilterDateTo = (date: string | Date): string => {

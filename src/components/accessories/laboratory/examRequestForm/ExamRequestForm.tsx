@@ -55,11 +55,7 @@ const ExamRequestForm: FC<ExamRequestProps> = ({
 			return exams.map((item) => {
 				return {
 					value: item.code ?? '',
-					label:
-						(item.description &&
-							item.description?.length > 30 &&
-							`${item.description.slice(0, 30)}...`) ||
-						(item.description ?? ''),
+					label: item.description ?? '',
 				};
 			});
 		} else return [];

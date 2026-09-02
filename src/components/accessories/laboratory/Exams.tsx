@@ -23,6 +23,7 @@ import {
 	deleteLabReset,
 	searchLabs,
 	updateLabStatus,
+	updateLabStatusReset,
 } from '../../../state/laboratories';
 import type { IState } from '../../../types';
 import ConfirmationDialog from '../confirmationDialog/ConfirmationDialog';
@@ -109,14 +110,20 @@ export const Exams: FC = () => {
 		}
 	};
 
-	const onExamStatusChangeClick = () => {
-		if (selectedExamRow?.code) {
-			dispatch(
-				updateLabStatus({
-					code: selectedExamRow?.code,
-					status: LaboratoryDTOStatusEnum.Open,
-				}),
-			);
+	const onExamStatusChangeClick = async () => {
+		const examCode = selectedExamRow?.code;
+		if (examCode === undefined) return;
+
+		const action = await dispatch(
+			updateLabStatus({
+				code: examCode,
+				status: LaboratoryDTOStatusEnum.Open,
+			}),
+		);
+
+		if (updateLabStatus.fulfilled.match(action)) {
+			dispatch(updateLabStatusReset());
+			navigate(`${PATHS.laboratory}/${examCode}/edit`);
 		}
 	};
 
@@ -155,12 +162,6 @@ export const Exams: FC = () => {
 	const changeStatus = useAppSelector(
 		(state: IState) => state.laboratories.updateLab.status,
 	);
-
-	useEffect(() => {
-		if (changeStatus === 'SUCCESS') {
-			dispatch(searchLabs({ ...filter, paged: true }));
-		}
-	}, [changeStatus, dispatch, filter]);
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: Skip functions that change on every render
 	const ExamContent = useMemo(() => {

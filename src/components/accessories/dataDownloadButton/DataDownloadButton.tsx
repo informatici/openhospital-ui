@@ -11,12 +11,10 @@ import {
 	MenuItem,
 	Typography,
 } from '@mui/material';
+import html2canvas from 'html2canvas';
+import { jsPDF } from 'jspdf';
 import type React from 'react';
 import { type FunctionComponent, useState } from 'react';
-import {
-	exportComponentAsPDF,
-	exportComponentAsPNG,
-} from 'react-component-export-image';
 import { CSVLink } from 'react-csv';
 import { useTranslation } from 'react-i18next';
 import './styles.scss';
@@ -39,17 +37,42 @@ const DataDownloadButton: FunctionComponent<IOwnProps> = ({
 	const handleDownloadCSV = () => {
 		handleClose();
 	};
+	// html2canvas + jsPDF are used directly: the previous react-component-export-image wrapper is
+	// unmaintained, pins a vulnerable jsPDF and relies on ReactDOM.findDOMNode, removed in React 19
 	const handleDownloadPDF = () => {
 		handleClose();
-		exportComponentAsPDF(graphRef, {
-			fileName: title,
-			pdfOptions: { pdfFormat: 'a3', orientation: 'l' },
+		if (!graphRef.current) {
+			return;
+		}
+		html2canvas(graphRef.current).then((canvas) => {
+			const pdf = new jsPDF({ orientation: 'l', unit: 'px', format: 'a3' });
+			const ratio = Math.min(
+				pdf.internal.pageSize.getWidth() / canvas.width,
+				pdf.internal.pageSize.getHeight() / canvas.height,
+			);
+			pdf.addImage(
+				canvas.toDataURL('image/png'),
+				'PNG',
+				0,
+				0,
+				canvas.width * ratio,
+				canvas.height * ratio,
+			);
+			pdf.save(`${title ?? 'data'}.pdf`);
 		});
 	};
 
 	const handleDownloadPNG = () => {
 		handleClose();
-		exportComponentAsPNG(graphRef, { fileName: title });
+		if (!graphRef.current) {
+			return;
+		}
+		html2canvas(graphRef.current).then((canvas) => {
+			const link = document.createElement('a');
+			link.download = `${title ?? 'data'}.png`;
+			link.href = canvas.toDataURL('image/png');
+			link.click();
+		});
 	};
 
 	return (

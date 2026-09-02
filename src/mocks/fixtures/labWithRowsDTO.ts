@@ -89,4 +89,33 @@ export const labWithRowsDTO: LabWithRowsDTO[] = [
 		},
 		laboratoryRowList: ['RB', 'CH', 'RT'],
 	},
+	{
+		laboratoryDTO: {
+			code: 226,
+			material: 'angal.lab.blood.txt',
+			exam: {
+				code: '01.05',
+				description:
+					'1.5 Comprehensive Metabolic Panel including Glucose, Electrolytes and Renal Function',
+				procedure: 1,
+				defaultResult: 'NEGATIVE',
+				examtype: {
+					code: 'HB',
+					description: '1.Haematology',
+				},
+				lock: 1,
+			},
+			labDate: '2021-08-06T15:19:44.000Z',
+			result: 'NEGATIVE',
+			lock: 0,
+			note: 'Long description test for exam label truncation',
+			patientCode: 1,
+			patName: 'Antonio Carlos Jobim',
+			inOutPatient: LaboratoryDTOInOutPatientEnum.O,
+			age: 40,
+			sex: 'M',
+			status: LaboratoryDTOStatusEnum.Done,
+		},
+		laboratoryRowList: [],
+	},
 ];

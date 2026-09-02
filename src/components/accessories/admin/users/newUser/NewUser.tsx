@@ -75,7 +75,8 @@ export const NewUser = () => {
 	}, [dispatch]);
 
 	useEffect(() => {
-		if (create.hasSucceeded) navigate(PATHS.admin_users);
+		// OH2-469: navigate with replace so the unsaved-changes blocker does not prompt to discard after a successful create
+		if (create.hasSucceeded) navigate(PATHS.admin_users, { replace: true });
 		return () => {
 			dispatch(createUserReset());
 		};
@@ -217,7 +218,7 @@ export const NewUser = () => {
 						title={t('user.createdSuccessTitle')}
 						icon={checkIcon}
 						info={t('user.createdSuccessMessage')}
-						primaryButtonLabel="Ok"
+						primaryButtonLabel={t('common.ok')}
 						handlePrimaryButtonClick={() => {
 							navigate(PATHS.admin_users, { replace: true });
 						}}
@@ -228,7 +229,7 @@ export const NewUser = () => {
 						title={t('errors.internalerror')}
 						icon={warningIcon}
 						info={create.error?.message.toString()}
-						primaryButtonLabel="Ok"
+						primaryButtonLabel={t('common.ok')}
 						handlePrimaryButtonClick={() => {
 							dispatch(createUserReset(), { replace: true });
 						}}
