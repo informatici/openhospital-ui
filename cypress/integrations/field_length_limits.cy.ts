@@ -7,8 +7,8 @@ const PATIENT_START_PATH = '/patients/new';
 const SUPPLIER_START_PATH = '/admin/suppliers/new';
 const MEDICAL_TYPE_START_PATH = '/admin/types/medicals';
 const USER_START_PATH = '/admin/users/new';
-const HOSPITAL_START_PATH = '/admin/hospital/edit';
-const PATIENT_DETAILS_START_PATH = '/patients/details/1234563';
+const ADMIN_START_PATH = '/admin';
+const TRIAGE_START_PATH = '/patients/details/1234563/triage';
 
 const expectLimit = (fieldId: string, limit: number) => {
 	cy.byId(fieldId).should('have.attr', 'maxlength', `${limit}`);
@@ -18,7 +18,7 @@ describe('Field length limits specs', () => {
 	describe('Ward form', () => {
 		it('should render the ui', () => {
 			cy.authenticate(WARD_START_PATH);
-			cy.dataCy('activity-title').contains('Add Ward');
+			cy.byId('code').should('exist');
 		});
 
 		it('should limit every field to the length the API accepts', () => {
@@ -91,7 +91,7 @@ describe('Field length limits specs', () => {
 		it('should render the ui', () => {
 			cy.authenticate(MEDICAL_TYPE_START_PATH);
 			cy.dataCy('add-medical-type').click();
-			cy.dataCy('sub-medical-title').contains('New medical type');
+			cy.byId('code').should('exist');
 		});
 
 		it('should keep the single character the code column holds', () => {
@@ -104,7 +104,7 @@ describe('Field length limits specs', () => {
 	describe('User form', () => {
 		it('should render the ui', () => {
 			cy.authenticate(USER_START_PATH);
-			cy.dataCy('activity-title').contains('New user');
+			cy.byId('userName').should('exist');
 		});
 
 		it('should limit the user name and the description', () => {
@@ -123,15 +123,16 @@ describe('Field length limits specs', () => {
 
 	describe('Hospital form', () => {
 		it('should limit the currency code', () => {
-			cy.authenticate(HOSPITAL_START_PATH);
+			cy.authenticate(ADMIN_START_PATH);
+			cy.dataCy('hospital-infos').click();
+			cy.dataCy('edit-hospital').click();
 			expectLimit('currencyCod', FIELD_LENGTHS.HospitalDTO.currencyCod);
 		});
 	});
 
 	describe('Triage form', () => {
 		it('should limit the note to what the examination accepts', () => {
-			cy.authenticate(PATIENT_DETAILS_START_PATH);
-			cy.dataCy('patient-details-main-menu').contains('Triage').click();
+			cy.authenticate(TRIAGE_START_PATH);
 			expectLimit('pex_note', FIELD_LENGTHS.PatientExaminationDTO.pex_note);
 		});
 	});
