@@ -5,6 +5,7 @@ import type React from 'react';
 import { type FC, useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { number, object, string } from 'yup';
+import { FIELD_LENGTHS } from '~/consts';
 import { useAppSelector } from '~/libraries/hooks/redux';
 import warningIcon from '../../../../assets/warning-icon.png';
 import { renderDate } from '../../../../libraries/formatUtils/dataFormatting';
@@ -308,6 +309,7 @@ const TherapyForm: FC<TherapyProps> = ({
 							errorText={getErrorText('note')}
 							onBlur={formik.handleBlur}
 							disabled={isLoading}
+							maxLength={FIELD_LENGTHS.TherapyRowDTO.note}
 						/>
 					</div>
 				</div>

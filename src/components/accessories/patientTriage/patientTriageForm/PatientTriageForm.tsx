@@ -22,6 +22,7 @@ import DateField from '../../dateField/DateField';
 import SelectField from '../../selectField/SelectField';
 import TextField from '../../textField/TextField';
 import './styles.scss';
+import { FIELD_LENGTHS } from '~/consts';
 import type { TProps } from './types';
 
 const PatientTriageForm: FunctionComponent<TProps> = ({
@@ -381,7 +382,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
 							onBlur={formik.handleBlur}
 							multiline
 							disabled={isLoading}
-							maxLength={65535}
+							maxLength={FIELD_LENGTHS.PatientExaminationDTO.pex_note}
 						/>
 					</div>
 				</div>

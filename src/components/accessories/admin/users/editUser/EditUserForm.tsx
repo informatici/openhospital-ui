@@ -12,7 +12,7 @@ import CheckboxField from '~/components/accessories/checkboxField/CheckboxField'
 import DiscardButton from '~/components/accessories/discardButton/DiscardButton';
 import ResetButton from '~/components/accessories/resetButton/resetButton';
 import checkIcon from '../../../../../assets/check-icon.png';
-import { PATHS } from '../../../../../consts';
+import { FIELD_LENGTHS, PATHS } from '../../../../../consts';
 import type { UserDTO, UserGroupDTO } from '../../../../../generated';
 import Button from '../../../button/Button';
 import ConfirmationDialog from '../../../confirmationDialog/ConfirmationDialog';
@@ -138,6 +138,7 @@ export const EditUserForm = ({
 							type="password"
 							// this below prevents from saving the password on the computer
 							InputProps={{ autoComplete: 'one-time-code' }}
+							maxLength={FIELD_LENGTHS.UserDTO.passwd}
 						/>
 					</div>
 					<div className="editUserForm__item halfWidth">
@@ -151,6 +152,7 @@ export const EditUserForm = ({
 							type="password"
 							// this below prevents from saving the password on the computer
 							InputProps={{ autoComplete: 'one-time-code' }}
+							maxLength={FIELD_LENGTHS.UserDTO.passwd}
 						/>
 					</div>
 					<div className="editUserForm__item fullWidth">
@@ -163,6 +165,7 @@ export const EditUserForm = ({
 							isValid={!!touched.desc && !!errors.desc}
 							errorText={(touched.desc && errors.desc) || ''}
 							onBlur={handleBlur}
+							maxLength={FIELD_LENGTHS.UserDTO.desc}
 						/>
 					</div>
 					<div className="editUserForm__item fullWidth">

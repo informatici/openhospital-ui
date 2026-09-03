@@ -14,7 +14,7 @@ describe('Add medical type Activity specs', () => {
 	});
 
 	it('should fail to create a new medical type', () => {
-		cy.byId('code').type('FAIL');
+		cy.byId('code').type('F');
 		cy.byId('description').type('Medical type');
 		cy.dataCy('submit-form').click();
 		cy.dataCy('info-box').contains('Fail');

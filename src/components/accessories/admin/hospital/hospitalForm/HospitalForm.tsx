@@ -8,7 +8,7 @@ import DiscardButton from '~/components/accessories/discardButton/DiscardButton'
 import ResetButton from '~/components/accessories/resetButton/resetButton';
 import { useAppDispatch, useAppSelector } from '~/libraries/hooks/redux';
 import checkIcon from '../../../../../assets/check-icon.png';
-import { PATHS } from '../../../../../consts';
+import { FIELD_LENGTHS, PATHS } from '../../../../../consts';
 import {
 	formatAllFieldValues,
 	getFromFields,
@@ -98,6 +98,7 @@ const HospitalForm: FC<IHospitalFormProps> = ({
 							onBlur={formik.handleBlur}
 							type="text"
 							disabled={isLoading}
+							maxLength={FIELD_LENGTHS.HospitalDTO.description}
 						/>
 					</div>
 					<div className="hospitalForm__item halfWidth">
@@ -110,6 +111,7 @@ const HospitalForm: FC<IHospitalFormProps> = ({
 							onBlur={formik.handleBlur}
 							type="text"
 							disabled={isLoading}
+							maxLength={FIELD_LENGTHS.HospitalDTO.address}
 						/>
 					</div>
 					<div className="hospitalForm__item halfWidth">
@@ -122,6 +124,7 @@ const HospitalForm: FC<IHospitalFormProps> = ({
 							onBlur={formik.handleBlur}
 							type="text"
 							disabled={isLoading}
+							maxLength={FIELD_LENGTHS.HospitalDTO.city}
 						/>
 					</div>
 
@@ -135,6 +138,7 @@ const HospitalForm: FC<IHospitalFormProps> = ({
 							onBlur={formik.handleBlur}
 							type="text"
 							disabled={isLoading}
+							maxLength={FIELD_LENGTHS.HospitalDTO.telephone}
 						/>
 					</div>
 					<div className="hospitalForm__item halfWidth">
@@ -147,6 +151,7 @@ const HospitalForm: FC<IHospitalFormProps> = ({
 							onBlur={formik.handleBlur}
 							type="text"
 							disabled={isLoading}
+							maxLength={FIELD_LENGTHS.HospitalDTO.fax}
 						/>
 					</div>
 					<div className="hospitalForm__item halfWidth">
@@ -159,6 +164,7 @@ const HospitalForm: FC<IHospitalFormProps> = ({
 							onBlur={formik.handleBlur}
 							type="email"
 							disabled={isLoading}
+							maxLength={FIELD_LENGTHS.HospitalDTO.email}
 						/>
 					</div>
 					<div className="hospitalForm__item halfWidth">
@@ -171,6 +177,7 @@ const HospitalForm: FC<IHospitalFormProps> = ({
 							errorText={getErrorText('currencyCod')}
 							onBlur={formik.handleBlur}
 							disabled={isLoading}
+							maxLength={FIELD_LENGTHS.HospitalDTO.currencyCod}
 						/>
 					</div>
 				</div>

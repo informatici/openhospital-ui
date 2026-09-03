@@ -22,6 +22,7 @@ import DateField from '../../dateField/DateField';
 import TextField from '../../textField/TextField';
 import ExamRowTable from '../examRowTable/ExamRowTable';
 import './styles.scss';
+import { FIELD_LENGTHS } from '~/consts';
 import type { ExamProps } from './types';
 
 const ExamForm: FC<ExamProps> = ({
@@ -54,10 +55,12 @@ const ExamForm: FC<ExamProps> = ({
 		result: string().required(t('common.required')),
 		note: string().test({
 			name: 'maxLength',
-			message: t('common.maxlengthexceeded', { maxLength: 255 }),
+			message: t('common.maxlengthexceeded', {
+				maxLength: FIELD_LENGTHS.LaboratoryDTO.note,
+			}),
 			test: (value) => {
 				if (!value) return true;
-				return value.length <= 255;
+				return value.length <= FIELD_LENGTHS.LaboratoryDTO.note;
 			},
 		}),
 	});
@@ -305,7 +308,7 @@ const ExamForm: FC<ExamProps> = ({
 							onBlur={formik.handleBlur}
 							type="text"
 							disabled={isLoading}
-							maxLength={255}
+							maxLength={FIELD_LENGTHS.LaboratoryDTO.note}
 						/>
 					</div>
 				</div>

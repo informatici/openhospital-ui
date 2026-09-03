@@ -23,6 +23,7 @@ import ConfirmationDialog from '../../confirmationDialog/ConfirmationDialog';
 import DateField from '../../dateField/DateField';
 import TextField from '../../textField/TextField';
 import './styles.scss';
+import { FIELD_LENGTHS } from '~/consts';
 import type { TProps } from './types';
 
 const PatientVisitForm: FunctionComponent<TProps> = ({
@@ -174,6 +175,7 @@ const PatientVisitForm: FunctionComponent<TProps> = ({
 							onBlur={formik.handleBlur}
 							type="string"
 							disabled={isLoading}
+							maxLength={FIELD_LENGTHS.VisitDTO.service}
 						/>
 					</div>
 				</div>
