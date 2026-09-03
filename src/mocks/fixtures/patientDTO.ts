@@ -11,6 +11,8 @@ import {
 
 export const patientDTO: PatientDTO = {
 	code: 1,
+	consensusAdministrativeFlag: true,
+	consensusAdministrativeReason: 'Insurance still needs to be verified',
 	status: PatientDTOStatusEnum.I,
 	firstName: 'Antonio Carlos',
 	secondName: 'Jobim',

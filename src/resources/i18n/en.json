@@ -166,6 +166,8 @@
 		"emptylayout": "No displayed widget. Start by adding widgets"
 	},
 	"patient": {
+		"administrativeflag": "Administrative issue",
+		"administrativeflagmessage": "This patient has an administrative issue to be solved. Please check with the administration before providing further services.",
 		"address": "Address",
 		"birthdate": "Birth Date",
 		"bloodtype": "Blood type",

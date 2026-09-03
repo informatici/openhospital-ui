@@ -6451,6 +6451,14 @@ components:
           type: boolean
           description: Consensus service flag
           example: true
+        consensusAdministrativeFlag:
+          type: boolean
+          description: Consensus administrative flag
+          example: true
+        consensusAdministrativeReason:
+          type: string
+          description: Reason why the administration flagged the patient
+          maxLength: 255
       required:
       - age
       - bloodType
@@ -6855,6 +6863,13 @@ components:
         serviceFlag:
           type: boolean
           description: Service flag
+        administrativeFlag:
+          type: boolean
+          description: Administrative flag
+        administrativeReason:
+          type: string
+          description: Reason why the administration flagged the patient
+          maxLength: 255
         patientId:
           type: integer
           format: int32

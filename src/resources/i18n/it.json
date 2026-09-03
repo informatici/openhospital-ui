@@ -153,6 +153,8 @@
 		"emptylayout": "Nessun widget visualizzato. Inizia aggiungendo widget."
 	},
 	"patient": {
+		"administrativeflag": "Questione amministrativa",
+		"administrativeflagmessage": "Questo paziente ha una questione amministrativa da risolvere. Verificare con l'amministrazione prima di erogare altri servizi.",
 		"address": "Indirizzo",
 		"birthdate": "Data di nascita",
 		"bloodtype": "Gruppo Sanguigno",

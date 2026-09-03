@@ -258,6 +258,25 @@
     }
   }
 
+  .patientDetails__administrativeFlag {
+    margin: 20px;
+
+    // AlertBox is laid out for the wide content area: in this narrow column its gaps
+    // push the icon away from the text and wrap the title
+    > div {
+      column-gap: 12px;
+      padding: 12px;
+      margin: 0;
+    }
+    > div > div:first-child {
+      padding: 0;
+      align-items: flex-start;
+    }
+    // the default caption colour is meant for the light background
+    > div > div:nth-child(2) {
+      color: $c-white;
+    }
+  }
   .patientDetails_status {
     margin: 20px;
     .patientDetails_status_wrapper {
