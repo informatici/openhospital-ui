@@ -24,6 +24,7 @@ import InfoBox from '../infoBox/InfoBox';
 import TextField from '../textField/TextField';
 import { initialFields } from './consts';
 import './styles.scss';
+import { FIELD_LENGTHS } from '~/consts';
 import type { IOwnProps, TActivityTransitionState } from './types';
 
 export const PatientExtraData: FunctionComponent<IOwnProps> = ({
@@ -120,7 +121,8 @@ export const PatientExtraData: FunctionComponent<IOwnProps> = ({
 							onBlur={formik.handleBlur}
 							type="string"
 							disabled={isLoading}
-							maxLength={255}
+							maxLength={FIELD_LENGTHS.PatientDTO.anamnesis}
+							showRemaining
 						/>
 					) : (
 						<p className="item_content">
@@ -145,7 +147,8 @@ export const PatientExtraData: FunctionComponent<IOwnProps> = ({
 							onBlur={formik.handleBlur}
 							type="string"
 							disabled={isLoading}
-							maxLength={255}
+							maxLength={FIELD_LENGTHS.PatientDTO.allergies}
+							showRemaining
 						/>
 					) : (
 						<p className="item_content">
