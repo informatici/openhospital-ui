@@ -492,7 +492,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 							clearOnBlur={true}
 							selectOnFocus={true}
 							handleHomeEndKeys={true}
-							maxLength={50}
+							maxLength={FIELD_LENGTHS.PatientDTO.city}
 						/>
 					</div>
 

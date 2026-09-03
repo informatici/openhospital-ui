@@ -33,7 +33,7 @@ export const FIELD_LENGTHS = {
 	MedicalTypeDTO: { code: 1, description: 30 },
 	OpdDTO: { note: 65535, prescription: 255 },
 	OperationDTO: { code: 10, description: 50 },
-	OperationRowDTO: { prescriber: 150, opResult: 250, remarks: 250 },
+	OperationRowDTO: { remarks: 250 },
 	OperationTypeDTO: { code: 2, description: 50 },
 	PatientDTO: {
 		firstName: 50,
@@ -64,7 +64,7 @@ export const FIELD_LENGTHS = {
 	UserGroupDTO: { code: 50, desc: 128 },
 	VaccineDTO: { code: 10, description: 50 },
 	VaccineTypeDTO: { code: 1, description: 50 },
-	VisitDTO: { note: 65535, service: 45 },
+	VisitDTO: { service: 45 },
 	WardDTO: { code: 3, description: 50, telephone: 50, fax: 50, email: 50 },
 } as const;
 
