@@ -9,12 +9,15 @@ export function useDiscardHelpers() {
 	const [openCancelConfirmation, setOpenCancelConfirmation] = useState(false);
 
 	const blocker = useBlocker(({ historyAction }) => {
+		if (historyAction === 'REPLACE') {
+			return false;
+		}
 		if (openCancelConfirmation) {
 			return false;
 		}
 		setIsBlocking(true);
 		setOpenCancelConfirmation(true);
-		return historyAction !== 'REPLACE';
+		return true;
 	});
 
 	const handleCancelConfirmationDialog = useCallback(

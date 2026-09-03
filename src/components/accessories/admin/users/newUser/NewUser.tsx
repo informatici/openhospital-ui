@@ -75,12 +75,10 @@ export const NewUser = () => {
 	}, [dispatch]);
 
 	useEffect(() => {
-		// OH2-469: navigate with replace so the unsaved-changes blocker does not prompt to discard after a successful create
-		if (create.hasSucceeded) navigate(PATHS.admin_users, { replace: true });
 		return () => {
 			dispatch(createUserReset());
 		};
-	}, [create.hasSucceeded, dispatch, navigate]);
+	}, [dispatch]);
 
 	const handleCheckboxChange = useCallback(
 		(fieldName: string) => (value: boolean) => {

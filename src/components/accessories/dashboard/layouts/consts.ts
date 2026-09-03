@@ -57,6 +57,16 @@ export {
 	getBreakpointFromWidth,
 } from './breakpoints';
 
+export function getDefaultLayoutConfig(): Layouts {
+	return {
+		lg: generateLayout('lg'),
+		md: generateLayout('md'),
+		sm: generateLayout('sm'),
+		xs: generateLayout('xs'),
+		xxs: generateLayout('xxs'),
+	};
+}
+
 /**
  * Get dashboard label's translation key
  * @param dashboardKey Dashboard key

@@ -5,7 +5,7 @@ import type { Layout } from 'react-grid-layout';
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch, useAppSelector } from '~/libraries/hooks/redux';
 import type { UserSettingDTO } from '../../../../../generated';
-import { saveLayouts } from '../../../../../state/layouts';
+import { saveLayouts, setLayouts } from '../../../../../state/layouts';
 import type { IState } from '../../../../../types';
 import InfoBox from '../../../infoBox/InfoBox';
 import {
@@ -51,6 +51,8 @@ const GridLayoutToolbox: FC = () => {
 			...toolbox,
 			...removeWidget(toolbox, item),
 		});
+
+		dispatch(setLayouts({ layouts: layoutsTmp, toolbox: toolboxTmp }));
 
 		let setting: UserSettingDTO;
 
