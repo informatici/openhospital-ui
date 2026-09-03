@@ -46,6 +46,7 @@ describe('Field length limits specs', () => {
 			expectLimit('secondName', FIELD_LENGTHS.PatientDTO.secondName);
 			expectLimit('taxCode', FIELD_LENGTHS.PatientDTO.taxCode);
 			expectLimit('address', FIELD_LENGTHS.PatientDTO.address);
+			expectLimit('city', FIELD_LENGTHS.PatientDTO.city);
 			expectLimit('telephone', FIELD_LENGTHS.PatientDTO.telephone);
 			expectLimit('note', FIELD_LENGTHS.PatientDTO.note);
 		});
