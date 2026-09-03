@@ -245,6 +245,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 									: FIELD_VALIDATION.REQUIRED
 							}
 							maxLength={FIELD_LENGTHS.PatientDTO.firstName}
+							showRemaining
 						/>
 					</div>
 					<div className="patientDataForm__item">
@@ -262,6 +263,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 									: FIELD_VALIDATION.REQUIRED
 							}
 							maxLength={FIELD_LENGTHS.PatientDTO.secondName}
+							showRemaining
 						/>
 					</div>
 
@@ -280,6 +282,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 									: FIELD_VALIDATION.IDLE
 							}
 							maxLength={FIELD_LENGTHS.PatientDTO.taxCode}
+							showRemaining
 						/>
 					</div>
 				</div>
@@ -417,6 +420,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 									: FIELD_VALIDATION.IDLE
 							}
 							maxLength={FIELD_LENGTHS.PatientDTO.motherName}
+							showRemaining
 						/>
 					</div>
 
@@ -435,6 +439,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 									: FIELD_VALIDATION.IDLE
 							}
 							maxLength={FIELD_LENGTHS.PatientDTO.fatherName}
+							showRemaining
 						/>
 					</div>
 
@@ -474,6 +479,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 									: FIELD_VALIDATION.IDLE
 							}
 							maxLength={FIELD_LENGTHS.PatientDTO.address}
+							showRemaining
 						/>
 					</div>
 
@@ -493,6 +499,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 							selectOnFocus={true}
 							handleHomeEndKeys={true}
 							maxLength={FIELD_LENGTHS.PatientDTO.city}
+							showRemaining
 						/>
 					</div>
 
@@ -514,6 +521,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 											: FIELD_VALIDATION.IDLE
 									}
 									maxLength={FIELD_LENGTHS.PatientDTO.telephone}
+									showRemaining
 								/>
 							</div>
 						</Tooltip>
@@ -558,6 +566,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 									: FIELD_VALIDATION.IDLE
 							}
 							maxLength={FIELD_LENGTHS.PatientDTO.note}
+							showRemaining
 						/>
 					</div>
 				</div>

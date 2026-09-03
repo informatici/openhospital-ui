@@ -122,6 +122,7 @@ export const PatientExtraData: FunctionComponent<IOwnProps> = ({
 							type="string"
 							disabled={isLoading}
 							maxLength={FIELD_LENGTHS.PatientDTO.anamnesis}
+							showRemaining
 						/>
 					) : (
 						<p className="item_content">
@@ -147,6 +148,7 @@ export const PatientExtraData: FunctionComponent<IOwnProps> = ({
 							type="string"
 							disabled={isLoading}
 							maxLength={FIELD_LENGTHS.PatientDTO.allergies}
+							showRemaining
 						/>
 					) : (
 						<p className="item_content">

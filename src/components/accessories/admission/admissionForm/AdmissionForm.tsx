@@ -330,6 +330,7 @@ const AdmissionForm: FC<AdmissionProps> = ({
 							type="text"
 							disabled={isLoading}
 							maxLength={50}
+							showRemaining
 						/>
 					</div>
 				</div>
@@ -506,6 +507,7 @@ const AdmissionForm: FC<AdmissionProps> = ({
 							rows={5}
 							disabled={isLoading}
 							maxLength={FIELD_LENGTHS.AdmissionDTO.note}
+							showRemaining
 						/>
 					</div>
 				</div>

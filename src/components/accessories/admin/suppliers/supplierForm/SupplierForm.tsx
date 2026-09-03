@@ -220,6 +220,7 @@ const SupplierForm: FC<ISupplierFormProps> = ({
 							rows={3}
 							disabled={isLoading}
 							maxLength={FIELD_LENGTHS.SupplierDTO.supNote}
+							showRemaining
 						/>
 					</div>
 				</div>

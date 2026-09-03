@@ -43,6 +43,7 @@ const AutocompleteField: FC<IProps> = ({
 	handleHomeEndKeys,
 	options_limit = 10,
 	maxLength,
+	showRemaining = false,
 	optionsComparator = (option: DefaultOptionType, val: string | number) =>
 		`${option.value}` === `${val}`,
 }) => {
@@ -167,7 +168,7 @@ const AutocompleteField: FC<IProps> = ({
 							inputProps={{ ...params.inputProps, maxLength }}
 							fullWidth
 						/>
-						{maxLength && maxLength > 0 && (
+						{showRemaining && maxLength && maxLength > 0 && (
 							<div
 								style={{
 									bottom: '-9px',

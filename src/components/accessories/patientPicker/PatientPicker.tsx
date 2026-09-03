@@ -284,6 +284,7 @@ const PatientPicker: FC<IProps> = ({
 										type="text"
 										disabled={isLoading}
 										maxLength={FIELD_LENGTHS.PatientDTO.firstName}
+										showRemaining
 									/>
 								</div>
 								<div className="patientSearchForm__item">
@@ -297,6 +298,7 @@ const PatientPicker: FC<IProps> = ({
 										type="text"
 										disabled={isLoading}
 										maxLength={FIELD_LENGTHS.PatientDTO.secondName}
+										showRemaining
 									/>
 								</div>
 							</div>
@@ -312,6 +314,7 @@ const PatientPicker: FC<IProps> = ({
 										type="text"
 										disabled={isLoading}
 										maxLength={FIELD_LENGTHS.PatientDTO.address}
+										showRemaining
 									/>
 								</div>
 								<div className="patientSearchForm__item">

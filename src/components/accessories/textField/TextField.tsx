@@ -19,6 +19,7 @@ const TextField: FunctionComponent<IProps> = ({
 	rows = 10,
 	required = FIELD_VALIDATION.IDLE,
 	maxLength,
+	showRemaining = false,
 	inputProps,
 }) => {
 	const { t } = useTranslation();
@@ -48,7 +49,7 @@ const TextField: FunctionComponent<IProps> = ({
 				InputLabelProps={{ shrink: !!field.value }}
 				required={required === FIELD_VALIDATION.REQUIRED}
 			/>
-			{maxLength && maxLength > 0 && (
+			{showRemaining && maxLength && maxLength > 0 && (
 				<div
 					style={{
 						bottom: '-9px',
@@ -63,7 +64,7 @@ const TextField: FunctionComponent<IProps> = ({
 				>
 					<small>
 						{t('common.remainingchars', {
-							current: maxLength - field.value.length,
+							current: maxLength - (field.value?.length ?? 0),
 							max: maxLength,
 						})}
 					</small>
