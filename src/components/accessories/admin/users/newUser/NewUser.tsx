@@ -18,7 +18,7 @@ import type { UserGroupDTO } from '~/generated/models/UserGroupDTO';
 import { useAppDispatch, useAppSelector } from '~/libraries/hooks/redux';
 import checkIcon from '../../../../../assets/check-icon.png';
 import warningIcon from '../../../../../assets/warning-icon.png';
-import { PATHS } from '../../../../../consts';
+import { FIELD_LENGTHS, PATHS } from '../../../../../consts';
 import { getUserGroups } from '../../../../../state/usergroups';
 import { createUser, createUserReset } from '../../../../../state/users';
 import type { IState } from '../../../../../types';
@@ -106,6 +106,7 @@ export const NewUser = () => {
 								errorText={(touched.userName && errors.userName) || ''}
 								onBlur={handleBlur}
 								type="text"
+								maxLength={FIELD_LENGTHS.UserDTO.userName}
 							/>
 						</div>
 						<div className="newUserForm__item halfWidth">
@@ -119,6 +120,7 @@ export const NewUser = () => {
 								type="password"
 								// this below prevents from saving the password on the computer
 								InputProps={{ autoComplete: 'one-time-code' }}
+								maxLength={FIELD_LENGTHS.UserDTO.passwd}
 							/>
 						</div>
 						<div className="newUserForm__item halfWidth">
@@ -132,6 +134,7 @@ export const NewUser = () => {
 								type="password"
 								// this below prevents from saving the password on the computer
 								InputProps={{ autoComplete: 'one-time-code' }}
+								maxLength={FIELD_LENGTHS.UserDTO.passwd}
 							/>
 						</div>
 						<hr />
@@ -186,6 +189,7 @@ export const NewUser = () => {
 								onBlur={handleBlur}
 								rows={3}
 								multiline
+								maxLength={FIELD_LENGTHS.UserDTO.desc}
 							/>
 						</div>
 						<div className="newUserForm__item fullWidth">

@@ -10,7 +10,7 @@ import SelectField from '~/components/accessories/selectField/SelectField';
 import { useAppDispatch, useAppSelector } from '~/libraries/hooks/redux';
 import checkIcon from '../../../../assets/check-icon.png';
 import warningIcon from '../../../../assets/warning-icon.png';
-import { PATHS } from '../../../../consts';
+import { FIELD_LENGTHS, PATHS } from '../../../../consts';
 import {
 	type LaboratoryDTO,
 	LaboratoryDTOInOutPatientEnum,
@@ -155,10 +155,12 @@ const ExamForm: FC<ExamProps> = ({
 		result: string(),
 		note: string().test({
 			name: 'maxLength',
-			message: t('common.maxlengthexceeded', { maxLength: 255 }),
+			message: t('common.maxlengthexceeded', {
+				maxLength: FIELD_LENGTHS.LaboratoryDTO.note,
+			}),
 			test: (value) => {
 				if (!value) return true;
-				return value.length <= 255;
+				return value.length <= FIELD_LENGTHS.LaboratoryDTO.note;
 			},
 		}),
 	});
@@ -443,7 +445,7 @@ const ExamForm: FC<ExamProps> = ({
 								onBlur={formik.handleBlur}
 								type="text"
 								disabled={isLoading}
-								maxLength={255}
+								maxLength={FIELD_LENGTHS.LaboratoryDTO.note}
 							/>
 						</div>
 					</div>

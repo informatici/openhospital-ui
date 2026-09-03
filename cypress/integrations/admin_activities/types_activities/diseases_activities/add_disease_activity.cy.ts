@@ -14,7 +14,7 @@ describe('Add disease type Activity specs', () => {
 	});
 
 	it('should fail to create a new disease type', () => {
-		cy.byId('code').type('FAIL');
+		cy.byId('code').type('FA');
 		cy.byId('description').type('Disease type');
 		cy.dataCy('submit-form').click();
 		cy.dataCy('info-box').contains('Fail');

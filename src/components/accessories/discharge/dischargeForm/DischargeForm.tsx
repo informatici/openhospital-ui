@@ -26,6 +26,7 @@ import ConfirmationDialog from '../../confirmationDialog/ConfirmationDialog';
 import DateField from '../../dateField/DateField';
 import TextField from '../../textField/TextField';
 import './styles.scss';
+import { FIELD_LENGTHS } from '~/consts';
 import type { DischargeProps } from './types';
 
 const DischargeForm: FC<DischargeProps> = ({
@@ -300,7 +301,7 @@ const DischargeForm: FC<DischargeProps> = ({
 							onBlur={formik.handleBlur}
 							rows={5}
 							disabled={isLoading}
-							maxLength={65535}
+							maxLength={FIELD_LENGTHS.AdmissionDTO.note}
 						/>
 					</div>
 				</div>
