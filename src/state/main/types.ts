@@ -1,4 +1,4 @@
-import type { UserSettingDTO } from '../../generated';
+import type { PasswordPolicyDTO, UserSettingDTO } from '../../generated';
 import type { LoginResponse } from '../../generated/models/LoginResponse';
 import type { TPermission } from '../../types';
 import type { ApiResponse } from '../types';
@@ -14,4 +14,5 @@ export interface IMainState {
 	logout: ApiResponse<void>;
 	forgotpassword: ApiResponse<void>;
 	settings: ApiResponse<UserSettingDTO[]>;
+	passwordPolicy: ApiResponse<PasswordPolicyDTO>;
 }

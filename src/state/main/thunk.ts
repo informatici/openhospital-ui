@@ -100,6 +100,14 @@ export const getUserSettings = createAsyncThunk(
 		),
 );
 
+export const getPasswordPolicy = createAsyncThunk(
+	'main/getPasswordPolicy',
+	async (_, thunkApi) =>
+		firstValueFrom(loginApi.getPasswordPolicy()).catch((error) =>
+			thunkApi.rejectWithValue(error.response),
+		),
+);
+
 export const refreshToken = createAsyncThunk(
 	'main/refreshToken',
 	async (value: string, thunkApi) =>

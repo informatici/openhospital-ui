@@ -1,4 +1,5 @@
 import type { PollyServer } from '@pollyjs/core';
+import { passwordPolicyDTO } from '../fixtures/passwordPolicyDTO';
 
 const TOKEN =
 	'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJhZG1pbiIsImV4cCI6MTczOTE5MzU1MTAwMH0.D50o5x2gcVcASSwl7EOqmRUDGqIGfhisbXlkujQolrY';
@@ -38,6 +39,9 @@ export const authRoutes = (server: PollyServer) => {
 					});
 					break;
 			}
+		});
+		server.get('/password-policy').intercept((_req, res) => {
+			res.status(200).json(passwordPolicyDTO);
 		});
 		server.post('/logout').intercept((_req, res) => {
 			res.status(200);

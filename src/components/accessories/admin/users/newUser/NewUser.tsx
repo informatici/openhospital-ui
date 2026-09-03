@@ -16,6 +16,7 @@ import { AdminActivityContent } from '~/components/activities/adminActivity';
 import type { UserDTO } from '~/generated/models/UserDTO';
 import type { UserGroupDTO } from '~/generated/models/UserGroupDTO';
 import { useAppDispatch, useAppSelector } from '~/libraries/hooks/redux';
+import { usePasswordPolicy } from '~/libraries/hooks/usePasswordPolicy';
 import checkIcon from '../../../../../assets/check-icon.png';
 import warningIcon from '../../../../../assets/warning-icon.png';
 import { PATHS } from '../../../../../consts';
@@ -48,9 +49,11 @@ export const NewUser = () => {
 		(state: IState) => state.usergroups.groupList,
 	);
 
+	const passwordPolicy = usePasswordPolicy();
+
 	const formik = useFormik<FormProps>({
 		initialValues,
-		validationSchema: userSchema(t),
+		validationSchema: userSchema(t, passwordPolicy),
 		onSubmit: (values: FormProps) => {
 			const { passwd2: _, ...cleaned } = values;
 			dispatch(createUser(cleaned));
