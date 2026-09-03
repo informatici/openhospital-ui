@@ -1,8 +1,10 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { Chart, registerables } from 'chart.js';
 import { useTranslation } from 'react-i18next';
+import { Navigate } from 'react-router';
 import { useAppSelector } from '~/libraries/hooks/redux';
-import { Permission } from '../../../libraries/permissionUtils/Permission';
+import { useLandingPageRoute } from '../../../libraries/hooks/useLandingPageRoute';
+import { usePermission } from '../../../libraries/permissionUtils/usePermission';
 import AppHeader from '../appHeader/AppHeader';
 import Footer from '../footer/Footer';
 import { DashboardContent } from './dashboardContent/DashboardContent';
@@ -17,12 +19,18 @@ const appSelector = createSelector(
 
 export const Dashboard = () => {
 	const { t } = useTranslation();
+	const canAccessDashboard = usePermission('dashboard.access');
+	const landingPageRoute = useLandingPageRoute();
 
 	const { userCredentials } = useAppSelector(appSelector);
 
 	const breadcrumbMap = {
 		[t('nav.dashboard')]: '',
 	};
+
+	if (!canAccessDashboard) {
+		return <Navigate to={landingPageRoute} replace />;
+	}
 
 	return (
 		<div data-cy="dashboard" className="dashboard">
@@ -31,9 +39,7 @@ export const Dashboard = () => {
 				breadcrumbMap={breadcrumbMap}
 			/>
 			<div className="dashboard__background">
-				<Permission require="dashboard.access">
-					<DashboardContent />
-				</Permission>
+				<DashboardContent />
 			</div>
 			<Footer />
 		</div>

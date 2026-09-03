@@ -7,6 +7,7 @@ import type { FIELD_VALIDATION } from '../../../types';
 export interface IProps {
 	fieldName: string;
 	fieldValue: string;
+	preserveDraftInput?: boolean;
 	disableFuture?: boolean;
 	disabled?: boolean;
 	theme?: 'light' | 'regular';
