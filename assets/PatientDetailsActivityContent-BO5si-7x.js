@@ -1,0 +1,1 @@
+import{j as t,r as a}from"./index-CUBDO_ed.js";const i=({title:e,children:s})=>t.jsxs(a.Fragment,{children:[t.jsx("div",{className:"patientDetails__content_header",children:t.jsx("h3",{children:e})}),t.jsx("div",{className:"patientDetails__content_body",children:s})]});export{i as P};

@@ -1,0 +1,1 @@
+import{j as e,C as i}from"./index-CUBDO_ed.js";const r="_header_19l7r_1",s={header:r},n=({title:t,children:a})=>e.jsxs("div",{className:s.content,children:[e.jsx("div",{className:s.header,children:e.jsx("h2",{"data-cy":"activity-title",children:t})}),e.jsx(i,{require:"admin.access",children:a})]});export{n as A};

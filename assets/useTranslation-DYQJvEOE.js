@@ -1,0 +1,1 @@
+import{g as n,j as r,u as e,r as o}from"./index-CUBDO_ed.js";const u=n(r.jsx("path",{d:"M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"}));function i(){const{t}=e();return{t:o.useCallback((s,a)=>t(s,a),[t])}}export{u as C,i as u};
