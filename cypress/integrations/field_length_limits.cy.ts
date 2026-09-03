@@ -8,6 +8,10 @@ const SUPPLIER_START_PATH = '/admin/suppliers/new';
 const MEDICAL_TYPE_START_PATH = '/admin/types/medicals';
 const USER_START_PATH = '/admin/users/new';
 const ADMIN_START_PATH = '/admin';
+const VACCINE_TYPE_START_PATH = '/admin/types/vaccines';
+const DISEASE_TYPE_START_PATH = '/admin/types/diseases';
+const OPERATION_TYPE_START_PATH = '/admin/types/operations';
+const GROUP_WITHOUT_DESCRIPTION_PATH = '/admin/users/groups/edit/doc';
 const TRIAGE_START_PATH = '/patients/details/1234563/triage';
 
 const expectLimit = (fieldId: string, limit: number) => {
@@ -134,6 +138,45 @@ describe('Field length limits specs', () => {
 		it('should limit the note to what the examination accepts', () => {
 			cy.authenticate(TRIAGE_START_PATH);
 			expectLimit('pex_note', FIELD_LENGTHS.PatientExaminationDTO.pex_note);
+		});
+	});
+	describe('Type forms whose code column holds one or two characters', () => {
+		it('should limit the vaccine type code', () => {
+			cy.authenticate(VACCINE_TYPE_START_PATH);
+			cy.dataCy('add-vaccine-type').click();
+			expectLimit('code', FIELD_LENGTHS.VaccineTypeDTO.code);
+		});
+
+		it('should limit the disease type code', () => {
+			cy.authenticate(DISEASE_TYPE_START_PATH);
+			cy.dataCy('add-disease-type').click();
+			expectLimit('code', FIELD_LENGTHS.DiseaseTypeDTO.code);
+		});
+
+		it('should limit the operation type code', () => {
+			cy.authenticate(OPERATION_TYPE_START_PATH);
+			cy.dataCy('add-operation-type').click();
+			expectLimit('code', FIELD_LENGTHS.OperationTypeDTO.code);
+		});
+	});
+
+	describe('Remaining characters badge', () => {
+		it('should stay on the field that already showed it', () => {
+			cy.authenticate(SUPPLIER_START_PATH);
+			cy.get('[data-cy=remaining-chars]').should('have.length', 1);
+		});
+
+		it('should not follow a field that only gained a limit', () => {
+			cy.authenticate(WARD_START_PATH);
+			cy.byId('code').should('exist');
+			cy.get('[data-cy=remaining-chars]').should('not.exist');
+		});
+	});
+
+	describe('Group without a description', () => {
+		it('should render the form when the description the contract makes optional is absent', () => {
+			cy.authenticate(GROUP_WITHOUT_DESCRIPTION_PATH);
+			cy.byId('desc').should('exist');
 		});
 	});
 });
