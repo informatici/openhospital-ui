@@ -6,6 +6,8 @@ interface IOwnProps {
 	shouldResetForm: boolean;
 	resetFormCallback: () => void;
 	mode: 'create' | 'edit';
+	/** When the edited patient is anonymized (GDPR erasure) the personal-data fields are read-only. */
+	anonymized?: boolean;
 }
 
 export type TAgeFieldName = 'age' | 'agetype' | 'birthDate';
