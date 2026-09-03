@@ -47,7 +47,13 @@ const GridLayoutContainer: FC = () => {
 
 	const [mounted, setMounted] = useState(false);
 	const [canUpdateLayouts, setCanUpdateLayouts] = useState(true);
-	const [localBreakpoint, setLocalBreakpoint] = useState<string>('md');
+	// starting at 'md' would let the first frame render as a desktop layout, so on a phone
+	// dragging and resizing flash on before the first breakpoint change turns them off
+	const [localBreakpoint, setLocalBreakpoint] = useState<string>(() =>
+		typeof window !== 'undefined'
+			? getBreakpointFromWidth(window.innerWidth)
+			: 'md',
+	);
 	const [fsDashboard, setFsDashboard] = useState<
 		TDashboardComponent | undefined
 	>(undefined);
@@ -211,6 +217,10 @@ const GridLayoutContainer: FC = () => {
 	);
 	const hasNoAllowedWidgets = isEmptyLayout(layouts) && isEmptyLayout(toolbox);
 
+	// OH2-475: on phone widths the widgets stack full-width; disable drag/resize/drop there, since those
+	// interactions are awkward on touch and would only let the user break the single-column mobile layout
+	const isTouchLayout = localBreakpoint === 'xxs';
+
 	return (
 		<div ref={gridLayoutRef}>
 			{(getLayoutsStatus === 'LOADING' || resetLayoutsStatus === 'LOADING') && (
@@ -273,9 +283,9 @@ const GridLayoutContainer: FC = () => {
 								layouts={layouts}
 								onBreakpointChange={onBreakpointChange}
 								onLayoutChange={onLayoutChange}
-								isDraggable
-								isDroppable
-								isResizable
+								isDraggable={!isTouchLayout}
+								isDroppable={!isTouchLayout}
+								isResizable={!isTouchLayout}
 								measureBeforeMount={false}
 								useCSSTransforms={mounted}
 								draggableHandle=".DashboardCard-item-header"

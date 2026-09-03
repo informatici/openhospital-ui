@@ -29,6 +29,14 @@
           padding: 0px 0px 0px 10px;
         }
       }
+      // OH2-475: keep the period picker inside phone viewports instead of overflowing horizontally
+      @include susy-media($smartphone) {
+        flex-wrap: wrap;
+        max-width: 100%;
+        button {
+          padding: 5px 9px;
+        }
+      }
     }
   }
   .filter__actions {
