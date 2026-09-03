@@ -21,7 +21,7 @@ describe('Add medical type Activity specs', () => {
 	});
 
 	it('should successfully create a new medical type', () => {
-		cy.byId('code').clear().type('22');
+		cy.byId('code').clear().type('2');
 		cy.dataCy('submit-form').click();
 		cy.dataCy('dialog-info').contains(
 			'The medical type has been created successfully!',

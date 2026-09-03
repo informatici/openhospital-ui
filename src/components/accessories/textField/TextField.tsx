@@ -51,6 +51,7 @@ const TextField: FunctionComponent<IProps> = ({
 			/>
 			{showRemaining && maxLength && maxLength > 0 && (
 				<div
+					data-cy="remaining-chars"
 					style={{
 						bottom: '-9px',
 						transform: 'translate(14px, -6px) scale(0.75)',
