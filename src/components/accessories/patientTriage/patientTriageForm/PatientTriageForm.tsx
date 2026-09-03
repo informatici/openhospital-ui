@@ -383,6 +383,7 @@ const PatientTriageForm: FunctionComponent<TProps> = ({
 							multiline
 							disabled={isLoading}
 							maxLength={FIELD_LENGTHS.PatientExaminationDTO.pex_note}
+							showRemaining
 						/>
 					</div>
 				</div>

@@ -243,6 +243,7 @@ const OperationRowForm: FC<OperationRowProps> = ({
 							rows={5}
 							disabled={isLoading}
 							maxLength={FIELD_LENGTHS.OperationRowDTO.remarks}
+							showRemaining
 						/>
 					</div>
 				</div>

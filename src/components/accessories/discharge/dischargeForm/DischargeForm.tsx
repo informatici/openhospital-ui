@@ -302,6 +302,7 @@ const DischargeForm: FC<DischargeProps> = ({
 							rows={5}
 							disabled={isLoading}
 							maxLength={FIELD_LENGTHS.AdmissionDTO.note}
+							showRemaining
 						/>
 					</div>
 				</div>

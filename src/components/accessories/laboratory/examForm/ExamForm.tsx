@@ -446,6 +446,7 @@ const ExamForm: FC<ExamProps> = ({
 								type="text"
 								disabled={isLoading}
 								maxLength={FIELD_LENGTHS.LaboratoryDTO.note}
+								showRemaining
 							/>
 						</div>
 					</div>

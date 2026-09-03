@@ -472,6 +472,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
 										type="string"
 										disabled={isLoading}
 										maxLength={FIELD_LENGTHS.OpdDTO.note}
+										showRemaining
 									/>
 								</div>
 							</div>
@@ -530,6 +531,7 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
 										type="string"
 										disabled={isLoading}
 										maxLength={FIELD_LENGTHS.OpdDTO.prescription}
+										showRemaining
 									/>
 								</div>
 							</div>
