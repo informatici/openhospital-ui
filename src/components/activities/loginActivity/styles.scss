@@ -2,6 +2,10 @@
 @import "../../../../node_modules/susy/sass/susy";
 
 .login {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
   .login__background {
     display: flex;
     flex-direction: column;
@@ -12,7 +16,8 @@
     background-color: $c-color-secondary;
     @include susy-media($smartphone) {
       padding: 50px 0 100px 0;
-      min-height: 100%;
+      min-height: auto;
+      flex: 1;
     }
   }
 
