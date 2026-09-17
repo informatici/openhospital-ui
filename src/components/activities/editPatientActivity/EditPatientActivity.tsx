@@ -150,6 +150,7 @@ export const EditPatientActivity = () => {
 									shouldResetForm={shouldResetForm}
 									resetFormCallback={resetFormCallback}
 									mode={'edit'}
+									anonymized={patient.data?.anonymized}
 								/>
 								<div ref={infoBoxRef}>
 									{hasFailed && <InfoBox type="error" message={errorMessage} />}
