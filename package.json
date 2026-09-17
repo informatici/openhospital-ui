@@ -2,6 +2,7 @@
 	"name": "open-hospital",
 	"version": "0.1.0",
 	"private": true,
+	"license": "GPL-3.0",
 	"scripts": {
 		"transifex:source": "node scripts/transifex/syncSource.js",
 		"transifex:files": "node scripts/transifex/syncFiles.js",
@@ -28,6 +29,8 @@
 		"check": "biome check --write",
 		"format": "biome format --write",
 		"lint": "biome lint",
+		"license:check": "license-check-and-add check -f license-check-and-add-config.json",
+		"license:add": "license-check-and-add add -f license-check-and-add-config.json",
 		"postinstall": "npm run codegen"
 	},
 	"dependencies": {
@@ -142,6 +145,7 @@
 		"cypress-file-upload": "^5.0.8",
 		"cypress-vite": "^1.8.0",
 		"eslint-plugin-cypress": "^5.2.0",
+		"license-check-and-add": "^4.0.5",
 		"msw": "^2.12.7",
 		"openapi-msw": "^2.0.0",
 		"openapi-typescript": "^7.10.1",
