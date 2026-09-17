@@ -5765,6 +5765,20 @@ paths:
                   $ref: "#/components/schemas/BillItemsDTO"
       security:
       - bearerAuth: []
+  /auth/password-policy:
+    get:
+      tags:
+      - Login
+      operationId: getPasswordPolicy
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PasswordPolicyDTO"
+      security:
+      - bearerAuth: []
   /agetypes/{index}:
     get:
       tags:
@@ -8418,6 +8432,26 @@ components:
             $ref: "#/components/schemas/PatientExaminationDTO"
         pageInfo:
           $ref: "#/components/schemas/PageInfoDTO"
+    PasswordPolicyDTO:
+      type: object
+      description: "The password policy enforced by the server, so clients can validate\
+        \ passwords consistently"
+      properties:
+        strongPasswordEnabled:
+          type: boolean
+          description: Whether the strong-password policy (character requirements)
+            is enforced
+          example: true
+        minLength:
+          type: integer
+          format: int32
+          description: "The minimum password length, or 0 when no minimum-length policy\
+            \ is enforced"
+          example: 6
+        regex:
+          type: string
+          description: The regular expression a password must match when the strong-password
+            policy is enabled
     PageAdmissionDTO:
       type: object
       properties:
