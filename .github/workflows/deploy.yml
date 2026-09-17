@@ -46,7 +46,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: fregante/setup-git-user@v1
+      - uses: fregante/setup-git-user@v2
       - name: Installing...
         run: npm i
       - name: Building
