@@ -1,6 +1,7 @@
 import type { PollyServer } from '@pollyjs/core';
 import patientDTO, { patientDTO2 } from '../fixtures/patientDTO';
 import patientDTOOut from '../fixtures/patientDTOOut';
+import patientExportDTO from '../fixtures/patientExport';
 
 export const patientRoutes = (server: PollyServer) => {
 	server.namespace('/patients', () => {
@@ -13,6 +14,20 @@ export const patientRoutes = (server: PollyServer) => {
 				default:
 					res.status(201).json({ ...body, code: 1 });
 					break;
+			}
+		});
+
+		server.get('/:code/export').intercept((req, res) => {
+			const code = req.params.code;
+			switch (code) {
+				case '1234561':
+					res.status(400);
+					break;
+				default:
+					res.status(200).json({
+						...patientExportDTO,
+						patient: { ...patientDTO, code },
+					});
 			}
 		});
 
