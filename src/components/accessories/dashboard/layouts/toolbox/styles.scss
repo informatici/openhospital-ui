@@ -1,5 +1,6 @@
-@import "../../../../../styles/variables";
-@import "../../../../../../node_modules/susy/sass/susy";
+@use "sass:color";
+@use "../../../../../styles/variables" as *;
+@use "susy/sass/susy" as *;
 
 .side {
   overflow-y: auto;
@@ -17,17 +18,17 @@
     column-gap: 8px;
     width: 100%;
     padding: 10px;
-    background-color: lighten($c-gray, 5%);
+    background-color: color.adjust($c-gray, $lightness: 5%);
     border-radius: 8px;
     .side__header_avatar {
       height: 100%;
       border-radius: 100%;
       aspect-ratio: 1;
-      background-color: lighten($c-gray, 15%);
+      background-color: color.adjust($c-gray, $lightness: 15%);
     }
     & > div {
       span {
-        color: lighten($c-gray, 50%);
+        color: color.adjust($c-gray, $lightness: 50%);
         font-weight: bold;
         font-size: large;
       }
