@@ -1,5 +1,6 @@
-@import "./flexboxgrid";
-@import "./variables";
+@forward "./variables";
+@use "./flexboxgrid" as *;
+@use "./variables" as *;
 *,
 *:before,
 *:after {

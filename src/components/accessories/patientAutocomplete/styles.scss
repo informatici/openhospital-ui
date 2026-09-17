@@ -1,4 +1,4 @@
-@import "../../../styles/variables";
+@use "../../../styles/variables" as *;
 .autocomplete {
   width: 100%;
   margin-top: 8px !important;

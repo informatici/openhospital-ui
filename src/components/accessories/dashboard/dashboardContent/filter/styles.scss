@@ -1,5 +1,6 @@
-@import "../../../../../styles/variables";
-@import "../../../../../../node_modules/susy/sass/susy";
+@use "sass:color";
+@use "../../../../../styles/variables" as *;
+@use "susy/sass/susy" as *;
 
 .filter {
   display: flex;
@@ -12,7 +13,7 @@
     }
     .MuiFormControlLabel-label {
       font-size: 0.95rem;
-      color: lighten($color: $c-gray, $amount: 30);
+      color: color.adjust($c-gray, $lightness: 30%);
     }
   }
   .filter__main {
@@ -20,7 +21,7 @@
     gap: 16px 16px;
     flex-wrap: wrap;
     align-items: center;
-    box-shadow: 1px lighten($color: $c-gray, $amount: 10);
+    box-shadow: 1px color.adjust($c-gray, $lightness: 10%);
     column-gap: 8px;
     .options {
       button {
@@ -47,7 +48,7 @@
     & > span {
       display: flex;
       font-size: large;
-      color: lighten($color: $c-gray, $amount: 1);
+      color: color.adjust($c-gray, $lightness: 1%);
       text-transform: uppercase;
       justify-self: end;
       flex-grow: 1;
