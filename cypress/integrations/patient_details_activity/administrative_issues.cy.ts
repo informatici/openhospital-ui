@@ -14,4 +14,10 @@ describe('Patient Details / Administrative issues', () => {
 		cy.contains('Identity document still to be verified');
 		cy.contains('Registration form still to be signed');
 	});
+
+	it('should not warn when the patient has no open issue', () => {
+		cy.authenticate('/patients/details/1234563');
+		cy.dataCy('patient-details');
+		cy.contains('Administrative issues to be solved').should('not.exist');
+	});
 });
