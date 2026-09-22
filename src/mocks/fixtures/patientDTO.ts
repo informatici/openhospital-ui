@@ -11,8 +11,18 @@ import {
 
 export const patientDTO: PatientDTO = {
 	code: 1,
-	consensusAdministrativeFlag: true,
-	consensusAdministrativeReason: 'Insurance still needs to be verified',
+	administrativeIssues: [
+		{
+			id: 1,
+			reason: 'Identity document still to be verified',
+			fromDate: '2026-01-15T18:49:57',
+		},
+		{
+			id: 3,
+			reason: 'Registration form still to be signed',
+			fromDate: '2026-01-15T18:53:17',
+		},
+	],
 	status: PatientDTOStatusEnum.I,
 	firstName: 'Antonio Carlos',
 	secondName: 'Jobim',

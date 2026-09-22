@@ -242,15 +242,14 @@ const PatientDetailsActivity = () => {
 											</div>
 										</div>
 
-										{patient.data?.consensusAdministrativeFlag && (
+										{!!patient.data?.administrativeIssues?.length && (
 											<div className="patientDetails__administrativeFlag">
 												<AlertBox
 													type="warning"
-													title={t('patient.administrativeflag')}
-													message={
-														patient.data?.consensusAdministrativeReason ||
-														t('patient.administrativeflagmessage')
-													}
+													title={t('patient.administrativeissues')}
+													message={patient.data.administrativeIssues
+														.map((issue) => issue.reason)
+														.join('\n')}
 												/>
 											</div>
 										)}

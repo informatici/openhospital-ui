@@ -272,9 +272,10 @@
       padding: 0;
       align-items: flex-start;
     }
-    // the default caption colour is meant for the light background
+    // the default caption colour is meant for the light background; one reason per line
     > div > div:nth-child(2) {
       color: $c-white;
+      white-space: pre-line;
     }
   }
   .patientDetails_status {
