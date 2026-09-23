@@ -9,7 +9,7 @@ import DiscardButton from '~/components/accessories/discardButton/DiscardButton'
 import ResetButton from '~/components/accessories/resetButton/resetButton';
 import { useAppDispatch, useAppSelector } from '~/libraries/hooks/redux';
 import checkIcon from '../../../../../assets/check-icon.png';
-import { PATHS } from '../../../../../consts';
+import { FIELD_LENGTHS, PATHS } from '../../../../../consts';
 import {
 	formatAllFieldValues,
 	getFromFields,
@@ -146,6 +146,7 @@ const VaccineForm: FC<IVaccineFormProps> = ({
 							onBlur={formik.handleBlur}
 							type="text"
 							disabled={isLoading || !creationMode}
+							maxLength={FIELD_LENGTHS.VaccineDTO.code}
 						/>
 					</div>
 					<div className="vaccineForm__item">
@@ -171,6 +172,7 @@ const VaccineForm: FC<IVaccineFormProps> = ({
 							onBlur={formik.handleBlur}
 							type="text"
 							disabled={isLoading}
+							maxLength={FIELD_LENGTHS.VaccineDTO.description}
 						/>
 					</div>
 				</div>

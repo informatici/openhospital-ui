@@ -8,7 +8,7 @@ import DiscardButton from '~/components/accessories/discardButton/DiscardButton'
 import ResetButton from '~/components/accessories/resetButton/resetButton';
 import { useAppDispatch, useAppSelector } from '~/libraries/hooks/redux';
 import checkIcon from '../../../../../assets/check-icon.png';
-import { PATHS } from '../../../../../consts';
+import { FIELD_LENGTHS, PATHS } from '../../../../../consts';
 import {
 	formatAllFieldValues,
 	getFromFields,
@@ -135,6 +135,7 @@ const SupplierForm: FC<ISupplierFormProps> = ({
 							onBlur={formik.handleBlur}
 							type="text"
 							disabled={isLoading}
+							maxLength={FIELD_LENGTHS.SupplierDTO.supName}
 						/>
 					</div>
 					<div className="supplierForm__item halfWidth">
@@ -147,6 +148,7 @@ const SupplierForm: FC<ISupplierFormProps> = ({
 							onBlur={formik.handleBlur}
 							type="text"
 							disabled={isLoading}
+							maxLength={FIELD_LENGTHS.SupplierDTO.supAddress}
 						/>
 					</div>
 					<div className="supplierForm__item halfWidth">
@@ -159,6 +161,7 @@ const SupplierForm: FC<ISupplierFormProps> = ({
 							onBlur={formik.handleBlur}
 							type="text"
 							disabled={isLoading}
+							maxLength={FIELD_LENGTHS.SupplierDTO.supTaxcode}
 						/>
 					</div>
 
@@ -172,6 +175,7 @@ const SupplierForm: FC<ISupplierFormProps> = ({
 							onBlur={formik.handleBlur}
 							type="text"
 							disabled={isLoading}
+							maxLength={FIELD_LENGTHS.SupplierDTO.supPhone}
 						/>
 					</div>
 					<div className="supplierForm__item halfWidth">
@@ -184,6 +188,7 @@ const SupplierForm: FC<ISupplierFormProps> = ({
 							onBlur={formik.handleBlur}
 							type="text"
 							disabled={isLoading}
+							maxLength={FIELD_LENGTHS.SupplierDTO.supFax}
 						/>
 					</div>
 					<div className="supplierForm__item halfWidth">
@@ -196,6 +201,7 @@ const SupplierForm: FC<ISupplierFormProps> = ({
 							onBlur={formik.handleBlur}
 							type="email"
 							disabled={isLoading}
+							maxLength={FIELD_LENGTHS.SupplierDTO.supEmail}
 						/>
 					</div>
 				</div>
@@ -213,7 +219,8 @@ const SupplierForm: FC<ISupplierFormProps> = ({
 							onBlur={formik.handleBlur}
 							rows={3}
 							disabled={isLoading}
-							maxLength={1500}
+							maxLength={FIELD_LENGTHS.SupplierDTO.supNote}
+							showRemaining
 						/>
 					</div>
 				</div>

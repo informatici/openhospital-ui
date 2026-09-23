@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { object, ref, string } from 'yup';
 import { useAppDispatch } from '~/libraries/hooks/redux';
 import logo from '../../../assets/logo-color.svg';
-import { AUTH_KEY } from '../../../consts';
+import { AUTH_KEY, FIELD_LENGTHS } from '../../../consts';
 import { useLandingPageRoute } from '../../../libraries/hooks/useLandingPageRoute';
 import { SessionStorage } from '../../../libraries/storage/storage';
 import { changePassword, clearMustChangePassword } from '../../../state/main';
@@ -113,6 +113,7 @@ export const ChangePasswordActivity: FC = () => {
 								inputProps={{
 									autoComplete: 'new-password',
 								}}
+								maxLength={FIELD_LENGTHS.UserDTO.passwd}
 							/>
 						</div>
 						<div className="login__panel__textField">
@@ -127,6 +128,7 @@ export const ChangePasswordActivity: FC = () => {
 								inputProps={{
 									autoComplete: 'new-password',
 								}}
+								maxLength={FIELD_LENGTHS.UserDTO.passwd}
 							/>
 						</div>
 						<div

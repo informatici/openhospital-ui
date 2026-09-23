@@ -8,7 +8,7 @@ import ResetButton from '~/components/accessories/resetButton/resetButton';
 import { AdminActivityContent } from '~/components/activities/adminActivity';
 import { useAppDispatch, useAppSelector } from '~/libraries/hooks/redux';
 import checkIcon from '../../../../../assets/check-icon.png';
-import { PATHS } from '../../../../../consts';
+import { FIELD_LENGTHS, PATHS } from '../../../../../consts';
 import type { UserGroupDTO } from '../../../../../generated';
 import {
 	createUserGroup,
@@ -86,6 +86,7 @@ export const NewGroup = () => {
 								errorText={(touched.code && errors.code) || ''}
 								onBlur={handleBlur}
 								type="text"
+								maxLength={FIELD_LENGTHS.UserGroupDTO.code}
 							/>
 						</div>
 						<div className="newGroupForm__item fullWidth">
@@ -96,6 +97,7 @@ export const NewGroup = () => {
 								isValid={!!touched.desc && !!errors.desc}
 								errorText={(touched.desc && errors.desc) || ''}
 								onBlur={handleBlur}
+								maxLength={FIELD_LENGTHS.UserGroupDTO.desc}
 							/>
 						</div>
 						<div className="newGroupForm__item fullWidth">

@@ -8,7 +8,7 @@ import DiscardButton from '~/components/accessories/discardButton/DiscardButton'
 import ResetButton from '~/components/accessories/resetButton/resetButton';
 import { useAppDispatch, useAppSelector } from '~/libraries/hooks/redux';
 import checkIcon from '../../../../../../../assets/check-icon.png';
-import { PATHS } from '../../../../../../../consts';
+import { FIELD_LENGTHS, PATHS } from '../../../../../../../consts';
 import {
 	formatAllFieldValues,
 	getFromFields,
@@ -116,6 +116,7 @@ const PregnantTreatmentTypeForm: FC<IPregnantTreatmentTypeFormProps> = ({
 							onBlur={formik.handleBlur}
 							type="text"
 							disabled={isLoading || !creationMode}
+							maxLength={FIELD_LENGTHS.PregnantTreatmentTypeDTO.code}
 						/>
 					</div>
 					<div className="pregnantTreatmentTypesForm__item halfWidth">
@@ -128,6 +129,7 @@ const PregnantTreatmentTypeForm: FC<IPregnantTreatmentTypeFormProps> = ({
 							onBlur={formik.handleBlur}
 							type="text"
 							disabled={isLoading}
+							maxLength={FIELD_LENGTHS.PregnantTreatmentTypeDTO.description}
 						/>
 					</div>
 				</div>

@@ -10,7 +10,7 @@ import ResetButton from '~/components/accessories/resetButton/resetButton';
 import { OperationDTOOpeForEnum } from '~/generated/models/OperationDTO';
 import { useAppDispatch, useAppSelector } from '~/libraries/hooks/redux';
 import checkIcon from '../../../../../assets/check-icon.png';
-import { PATHS } from '../../../../../consts';
+import { FIELD_LENGTHS, PATHS } from '../../../../../consts';
 import {
 	formatAllFieldValues,
 	getFromFields,
@@ -163,6 +163,7 @@ const OperationForm: FC<IOperationProps> = ({
 							onBlur={formik.handleBlur}
 							type="text"
 							disabled={isLoading || !creationMode}
+							maxLength={FIELD_LENGTHS.OperationDTO.code}
 						/>
 					</div>
 					<div className="operationForm__item halfWidth">
@@ -191,6 +192,7 @@ const OperationForm: FC<IOperationProps> = ({
 							onBlur={formik.handleBlur}
 							type="text"
 							disabled={isLoading}
+							maxLength={FIELD_LENGTHS.OperationDTO.description}
 						/>
 					</div>
 					<div className="operationForm__item thirdWidth">
