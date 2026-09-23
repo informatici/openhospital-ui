@@ -91,6 +91,19 @@
 		"takemeback": "Retour au login",
 		"tryanotherusername": "Essayez un autre nom d'utilisateur"
 	},
+	"changepassword": {
+		"title": "",
+		"description": "",
+		"expired": "",
+		"adminreset": "",
+		"newpassword": "",
+		"repeatpassword": "",
+		"submit": "",
+		"success": "",
+		"passwordsdonotmatch": "",
+		"passwordtooshort": "",
+		"passwordnotstrong": ""
+	},
 	"dashboard": {
 		"welcomename": "Bienvenue",
 		"newpatient": "Nouveau patient",
@@ -477,7 +490,7 @@
 		"feedback": "Retour d'informations",
 		"submit": "Envoyer",
 		"reset": "Réinitialiser",
-		"yesReset": "Yes, reset",
+		"yesReset": "",
 		"search": "Recherche",
 		"searching": "Recherche en cours",
 		"patient": "Patient",
@@ -576,10 +589,10 @@
 		"restoreConfirmation": "Etes-vous sûr de vouloir restaurer cet article ?",
 		"softDelete": "Marquer comme supprimé",
 		"softDeleteConfirmation": "Êtes-vous sûr de marquer cet élément comme supprimé ?",
-		"cancelMessage": "Are you sure to cancel this operation ? All unsaved data will be lost.",
-		"back": "Back",
-		"backToEdit": "No, keep editing",
-		"discardMessage": "Are you sure to discard this operation ? All unsaved data will be lost."
+		"cancelMessage": "",
+		"back": "",
+		"backToEdit": "",
+		"discardMessage": ""
 	},
 	"permission": {
 		"denied": "Autorisation refusée",
@@ -667,6 +680,7 @@
 		"details": "Détails",
 		"code": "Code",
 		"patient": "Patient",
+		"patientname": "",
 		"years": "année(s)",
 		"inpatient": "Patient hospitalisé",
 		"outpatient": "Patient ambulatoire",
