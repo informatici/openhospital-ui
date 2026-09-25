@@ -91,6 +91,19 @@
 		"takemeback": "ናብ መእተዊ ምለሱኒ።",
 		"tryanotherusername": "ካልእ Username ፈትን።"
 	},
+	"changepassword": {
+		"title": "",
+		"description": "",
+		"expired": "",
+		"adminreset": "",
+		"newpassword": "",
+		"repeatpassword": "",
+		"submit": "",
+		"success": "",
+		"passwordsdonotmatch": "",
+		"passwordtooshort": "",
+		"passwordnotstrong": ""
+	},
 	"dashboard": {
 		"welcomename": "እንኳዕ ደሓን መፁ",
 		"newpatient": "ሓድሽ ሕሙም",
@@ -667,6 +680,7 @@
 		"details": "ዝርዝራት",
 		"code": "ኮድ",
 		"patient": "ተሓካሚ",
+		"patientname": "",
 		"years": "ዓመት(ታት) ዝዕድሚኡ",
 		"inpatient": "ኣብ ሕክምና ዝርከብ ሕሙም",
 		"outpatient": "ናይ ደገ ሕሙማት",
