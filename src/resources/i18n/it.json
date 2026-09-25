@@ -154,6 +154,7 @@
 	},
 	"patient": {
 		"address": "Indirizzo",
+		"administrativeissues": "Questioni amministrative da risolvere prima di erogare altri servizi",
 		"birthdate": "Data di nascita",
 		"bloodtype": "Gruppo Sanguigno",
 		"city": "CIttà o provenienza",
