@@ -13,6 +13,20 @@ _This project is still in early stages. For a more mature user interface of Open
 <img src="./docs/app-architecture.png"  width="70%" height="70%">
 </div>
 
+## Prerequisites
+
+In order to build, the following packages are needed:
+
+- npm - node package manager
+- node.js >= version 22.x
+
+In order to update node.js to the latest stable version (Linux operating system):
+
+```
+sudo npm install n -g
+sudo n stable
+```
+
 ## How to install dependencies
 
 To install the project dependencies, issue:

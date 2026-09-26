@@ -1,7 +1,8 @@
-@import "../../../styles/variables";
-@import "../../../../node_modules/susy/sass/susy";
-@import "../../../styles/variables";
-@import "../../../../node_modules/susy/sass/susy";
+@use "sass:color";
+@use "../../../styles/variables" as *;
+@use "susy/sass/susy" as *;
+@use "../../../styles/variables" as *;
+@use "susy/sass/susy" as *;
 
 .lab_labs {
   .lab_details {
@@ -16,7 +17,7 @@
       margin-left: 0;
       display: inline;
       text-decoration: none;
-      color: darken($c-gray, 25%);
+      color: color.adjust($c-gray, $lightness: -25%);
     }
     .label {
       font-weight: bold;
@@ -145,6 +146,6 @@
   }
 
   .active {
-    background-color: lighten($c-gray, 10);
+    background-color: color.adjust($c-gray, $lightness: 10%);
   }
 }

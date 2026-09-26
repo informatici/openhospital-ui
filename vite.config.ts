@@ -17,6 +17,14 @@ export default defineConfig(() => {
 		build: {
 			outDir: 'build',
 		},
+		css: {
+			preprocessorOptions: {
+				scss: {
+					quietDeps: true,
+					loadPaths: [path.resolve(__dirname, 'node_modules')],
+				},
+			},
+		},
 		plugins: [
 			react({
 				babel: {
