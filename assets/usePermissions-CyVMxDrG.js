@@ -1,0 +1,1 @@
+import{s as e}from"./consts-Dwl5SFUf.js";import{ut as t}from"./Button-K28MSy35.js";var n=t(e=>e.main.authentication?.data?.permissions,e=>e||[]),r=()=>e(n);export{r as t};

@@ -1,0 +1,1 @@
+import{t as e}from"./usePermission-BFxDHVLm.js";var t=({children:t,require:n})=>e(n)?t:null;export{t};

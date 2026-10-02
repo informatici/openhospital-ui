@@ -1,0 +1,1 @@
+import{o as e}from"./rolldown-runtime-C0FnF6B9.js";import{a as t,i as n,t as r}from"./useTranslation-C3DxmeK-.js";import{W as i}from"./consts-Dwl5SFUf.js";var a=n(),o=i((0,a.jsx)(`path`,{d:`M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z`}),`CheckOutlined`),s=e(t());function c(){let{t:e}=r();return{t:(0,s.useCallback)((t,n)=>e(t,n),[e])}}export{o as n,c as t};
