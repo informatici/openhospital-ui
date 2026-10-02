@@ -1,5 +1,4 @@
 import type { PollyServer } from '@pollyjs/core';
-import { dashboardSettingDTO } from '../fixtures/dashboardSettingDTO';
 import { permissionList } from '../fixtures/permissionList';
 import { usersDTO } from '../fixtures/usersDTO';
 
@@ -39,15 +38,6 @@ export const userRoutes = (server: PollyServer) => {
 				default:
 					res.status(204);
 			}
-		});
-		server.get('/:username/settings/dashboard').intercept((_req, res) => {
-			res.status(200).json(dashboardSettingDTO);
-		});
-		server.put('/settings/:code').intercept((req, res) => {
-			res.status(200).json(req.body);
-		});
-		server.post('/settings').intercept((req, res) => {
-			res.status(200).json(req.body);
 		});
 	});
 };

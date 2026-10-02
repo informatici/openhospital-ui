@@ -28,6 +28,12 @@ export const Dashboard = () => {
 		[t('nav.dashboard')]: '',
 	};
 
+	// Private restores authentication from session in an effect after a reload.
+	// Wait for it before treating the initial empty permission list as a denial.
+	if (!userCredentials) {
+		return null;
+	}
+
 	if (!canAccessDashboard) {
 		return <Navigate to={landingPageRoute} replace />;
 	}

@@ -25,7 +25,7 @@ Cypress.Commands.add('authenticate', (url: string) => {
 			w.sessionStorage.setItem(
 				'permission',
 				JSON.stringify({
-					permission: permissionList,
+					permissions: permissionList,
 					userName: 'admin',
 				}),
 			);

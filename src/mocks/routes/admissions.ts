@@ -92,16 +92,11 @@ export const admissionRoutes = (server: PollyServer) => {
 					res.status(200).json(null);
 			}
 		});
-		server.get('/discharges').intercept((req, res) => {
-			const body = req.jsonBody();
-
-			switch (body.note) {
-				case 'fail':
-					res.status(400).json(null);
-					break;
-				default:
-					res.status(200).json({ data: admissions, pageInfo: {} });
-			}
+		server.get('/discharges').intercept((_req, res) => {
+			res.status(200).json({
+				data: admissions.filter((admission) => admission.disDate != null),
+				pageInfo: {},
+			});
 		});
 	});
 };
