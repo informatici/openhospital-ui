@@ -19,6 +19,7 @@ i18n
 		resources,
 		fallbackLng: I18N_FALLBACK_LNG,
 		supportedLngs: ['en', 'fr', 'it', 'sq', 'de'],
+		returnEmptyString: false,
 		interpolation: {
 			escapeValue: false,
 		},

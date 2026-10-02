@@ -91,6 +91,19 @@
 		"takemeback": "እንድገባ መልሰኝ።",
 		"tryanotherusername": "ሌላ የተጠቃሚ ስም ይሞክሩ"
 	},
+	"changepassword": {
+		"title": "",
+		"description": "",
+		"expired": "",
+		"adminreset": "",
+		"newpassword": "",
+		"repeatpassword": "",
+		"submit": "",
+		"success": "",
+		"passwordsdonotmatch": "",
+		"passwordtooshort": "",
+		"passwordnotstrong": ""
+	},
 	"dashboard": {
 		"welcomename": "እንኳን ደህና መጣህ",
 		"newpatient": "አዲስ ታካሚ",
@@ -667,6 +680,7 @@
 		"details": "ዝርዝሮች",
 		"code": "ኮድ",
 		"patient": "ታካሚ",
+		"patientname": "",
 		"years": "የዕድሜ ዓመት",
 		"inpatient": "ታካሚ",
 		"outpatient": "የተመላላሽ ታካሚ",
