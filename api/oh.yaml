@@ -6295,6 +6295,27 @@ components:
       - docs
       - nurs
       - visitDuration
+    PatientAdminIssueDTO:
+      type: object
+      description: An administrative issue the hospital raised on a patient
+      properties:
+        id:
+          type: integer
+          format: int32
+          description: Issue id
+          example: 1
+          readOnly: true
+        reason:
+          type: string
+          description: Why the patient was flagged
+          example: Identity document still to be verified
+          maxLength: 255
+        fromDate:
+          type: string
+          description: When the issue was opened
+        toDate:
+          type: string
+          description: "When the issue was resolved, null while it is still open"
     PatientDTO:
       type: object
       description: Class representing a patient
@@ -6451,6 +6472,12 @@ components:
           type: boolean
           description: Consensus service flag
           example: true
+        administrativeIssues:
+          type: array
+          description: Administrative issues still open on the patient
+          items:
+            $ref: "#/components/schemas/PatientAdminIssueDTO"
+          readOnly: true
       required:
       - age
       - bloodType
