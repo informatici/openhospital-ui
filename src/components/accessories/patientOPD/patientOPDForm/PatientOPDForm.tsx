@@ -66,6 +66,7 @@ import OperationRowForm from '../../patientOperation/operationForm/OperationRowF
 import { opRowFields } from '../../patientOperation/opRowFields';
 import TextField from '../../textField/TextField';
 import './styles.scss';
+import { FIELD_LENGTHS } from '~/consts';
 import type { TProps } from './types';
 
 const PatientOPDForm: FunctionComponent<TProps> = ({
@@ -470,7 +471,8 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
 										onBlur={formik.handleBlur}
 										type="string"
 										disabled={isLoading}
-										maxLength={65535}
+										maxLength={FIELD_LENGTHS.OpdDTO.note}
+										showRemaining
 									/>
 								</div>
 							</div>
@@ -528,7 +530,8 @@ const PatientOPDForm: FunctionComponent<TProps> = ({
 										onBlur={formik.handleBlur}
 										type="string"
 										disabled={isLoading}
-										maxLength={255}
+										maxLength={FIELD_LENGTHS.OpdDTO.prescription}
+										showRemaining
 									/>
 								</div>
 							</div>
