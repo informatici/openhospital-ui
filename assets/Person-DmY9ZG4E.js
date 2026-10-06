@@ -1,0 +1,1 @@
+import{i as e}from"./useTranslation-C3DxmeK-.js";import{W as t}from"./consts-Dwl5SFUf.js";var n=e(),r=t((0,n.jsx)(`path`,{d:`M3 18h12v-2H3zM3 6v2h18V6zm0 7h18v-2H3z`}),`Notes`),i=t((0,n.jsx)(`path`,{d:`M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4m0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4`}),`Person`);export{r as n,i as t};

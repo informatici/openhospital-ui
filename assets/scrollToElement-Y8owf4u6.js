@@ -1,0 +1,1 @@
+var e=(e,t=200,n=`smooth`)=>{window.scrollTo({top:e?e.offsetTop-t:0,behavior:n})};export{e as t};
