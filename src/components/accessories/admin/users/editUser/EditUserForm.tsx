@@ -19,6 +19,7 @@ import ConfirmationDialog from '../../../confirmationDialog/ConfirmationDialog';
 import InfoBox from '../../../infoBox/InfoBox';
 import TextField from '../../../textField/TextField';
 import './styles.scss';
+import { usePasswordPolicy } from '~/libraries/hooks/usePasswordPolicy';
 import { userSchema } from './validation';
 
 interface IProps {
@@ -52,9 +53,11 @@ export const EditUserForm = ({
 		onSubmit(userDTO);
 	};
 
+	const passwordPolicy = usePasswordPolicy();
+
 	const formik = useFormik<UserDTO & { passwd2: string }>({
 		initialValues: { ...initialValues, passwd: '', passwd2: '' },
-		validationSchema: userSchema(t),
+		validationSchema: userSchema(t, passwordPolicy),
 		onSubmit: handleFormSubmit,
 	});
 
