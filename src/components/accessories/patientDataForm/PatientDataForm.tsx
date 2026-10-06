@@ -51,6 +51,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 	shouldResetForm,
 	resetFormCallback,
 	mode = 'create',
+	anonymized = false,
 }) => {
 	const { t } = useTranslation();
 	const dispatch = useAppDispatch();
@@ -220,7 +221,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 		<div data-cy="patient-data-form" className="patientDataForm">
 			<div className="patientDataForm__profilePictureContainer">
 				<ProfilePicture
-					isEditable={!isLoading}
+					isEditable={!isLoading && !anonymized}
 					preLoadedPicture={profilePicture}
 					onChange={onProfilePictureChange}
 					shouldReset={shouldResetForm}
@@ -237,7 +238,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 							isValid={isValid('firstName')}
 							errorText={getErrorText('firstName')}
 							onBlur={formik.handleBlur}
-							disabled={isLoading}
+							disabled={isLoading || anonymized}
 							required={
 								isFieldSuggested(formCustomization, 'firstName')
 									? FIELD_VALIDATION.SUGGESTED
@@ -254,7 +255,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 							isValid={isValid('secondName')}
 							errorText={getErrorText('secondName')}
 							onBlur={formik.handleBlur}
-							disabled={isLoading}
+							disabled={isLoading || anonymized}
 							required={
 								isFieldSuggested(formCustomization, 'secondName')
 									? FIELD_VALIDATION.SUGGESTED
@@ -272,7 +273,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 							isValid={isValid('taxCode')}
 							errorText={getErrorText('taxCode')}
 							onBlur={formik.handleBlur}
-							disabled={isLoading}
+							disabled={isLoading || anonymized}
 							required={
 								isFieldSuggested(formCustomization, 'taxCode')
 									? FIELD_VALIDATION.SUGGESTED
@@ -294,7 +295,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 							onBlur={onBlurCallback('sex')}
 							options={options.sex}
 							translateOptions={true}
-							disabled={isLoading}
+							disabled={isLoading || anonymized}
 							required={
 								isFieldSuggested(formCustomization, 'sex')
 									? FIELD_VALIDATION.SUGGESTED
@@ -316,7 +317,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 								setAgeType(value as TAgeFieldName);
 							}}
 							options={ageTypeOptions}
-							disabled={isLoading}
+							disabled={isLoading || anonymized}
 							required={FIELD_VALIDATION.SUGGESTED}
 						/>
 					</div>
@@ -331,7 +332,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 								onBlur={onBlurCallback('agetype')}
 								options={ageRangeOptions ?? []}
 								translateOptions={true}
-								disabled={isLoading}
+								disabled={isLoading || anonymized}
 								required={
 									isFieldSuggested(formCustomization, 'agetype')
 										? FIELD_VALIDATION.SUGGESTED
@@ -349,7 +350,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 								isValid={isValid('age')}
 								errorText={getErrorText('age')}
 								onBlur={formik.handleBlur}
-								disabled={isLoading}
+								disabled={isLoading || anonymized}
 								type="number"
 								required={
 									isFieldSuggested(formCustomization, 'age')
@@ -371,7 +372,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 								errorText={getErrorText('birthDate')}
 								label={t('patient.birthdate')}
 								onChange={dateFieldHandleOnChange('birthDate')}
-								disabled={isLoading}
+								disabled={isLoading || anonymized}
 								required={
 									isFieldSuggested(formCustomization, 'birthDate')
 										? FIELD_VALIDATION.SUGGESTED
@@ -390,7 +391,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 							isValid={isValid('bloodType')}
 							errorText={getErrorText('bloodType')}
 							options={options.bloodType}
-							disabled={isLoading}
+							disabled={isLoading || anonymized}
 							required={
 								isFieldSuggested(formCustomization, 'bloodType')
 									? FIELD_VALIDATION.SUGGESTED
@@ -409,7 +410,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 							isValid={isValid('motherName')}
 							errorText={getErrorText('motherName')}
 							onBlur={formik.handleBlur}
-							disabled={isLoading}
+							disabled={isLoading || anonymized}
 							required={
 								isFieldSuggested(formCustomization, 'motherName')
 									? FIELD_VALIDATION.SUGGESTED
@@ -427,7 +428,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 							isValid={isValid('fatherName')}
 							errorText={getErrorText('fatherName')}
 							onBlur={formik.handleBlur}
-							disabled={isLoading}
+							disabled={isLoading || anonymized}
 							required={
 								isFieldSuggested(formCustomization, 'fatherName')
 									? FIELD_VALIDATION.SUGGESTED
@@ -447,7 +448,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 							onBlur={onBlurCallback('parentTogether')}
 							options={options.parentTogether}
 							translateOptions={true}
-							disabled={isLoading}
+							disabled={isLoading || anonymized}
 							required={
 								isFieldSuggested(formCustomization, 'parentTogether')
 									? FIELD_VALIDATION.SUGGESTED
@@ -466,7 +467,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 							isValid={isValid('address')}
 							errorText={getErrorText('address')}
 							onBlur={formik.handleBlur}
-							disabled={isLoading}
+							disabled={isLoading || anonymized}
 							required={
 								isFieldSuggested(formCustomization, 'address')
 									? FIELD_VALIDATION.SUGGESTED
@@ -485,7 +486,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 							errorText={getErrorText('city')}
 							onBlur={onBlurCallback('city')}
 							options={cityOptions ?? []}
-							disabled={isLoading}
+							disabled={isLoading || anonymized}
 							freeSolo={true}
 							autoSelect={true}
 							clearOnBlur={true}
@@ -506,7 +507,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 									errorText={getErrorText('telephone')}
 									onBlur={formik.handleBlur}
 									type="tel"
-									disabled={isLoading}
+									disabled={isLoading || anonymized}
 									required={
 										isFieldSuggested(formCustomization, 'telephone')
 											? FIELD_VALIDATION.SUGGESTED
@@ -530,7 +531,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 							onBlur={onBlurCallback('hasInsurance')}
 							options={options.hasInsurance}
 							translateOptions={true}
-							disabled={isLoading}
+							disabled={isLoading || anonymized}
 							required={
 								isFieldSuggested(formCustomization, 'hasInsurance')
 									? FIELD_VALIDATION.SUGGESTED
@@ -550,7 +551,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 							isValid={isValid('note')}
 							errorText={getErrorText('note')}
 							onBlur={formik.handleBlur}
-							disabled={isLoading}
+							disabled={isLoading || anonymized}
 							required={
 								isFieldSuggested(formCustomization, 'note')
 									? FIELD_VALIDATION.SUGGESTED
@@ -572,7 +573,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 						<Button
 							type="submit"
 							variant="contained"
-							disabled={isLoading}
+							disabled={isLoading || anonymized}
 							dataCy="patient-data-submit-button"
 						>
 							{submitButtonLabel}
@@ -582,7 +583,7 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 						<Button
 							type="reset"
 							variant="text"
-							disabled={isLoading}
+							disabled={isLoading || anonymized}
 							onClick={() => setOpenResetConfirmation(true)}
 							dataCy="patient-data-cancel-button"
 						>
