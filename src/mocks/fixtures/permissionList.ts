@@ -93,6 +93,7 @@ export const permissionList: string[] = [
 	'patientconsensus.read',
 	'patientconsensus.update',
 	'patientconsensus.delete',
+	'patient.export',
 	'patients.create',
 	'patients.read',
 	'patients.update',
