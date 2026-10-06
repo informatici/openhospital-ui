@@ -20,7 +20,7 @@ export const medicalTypesRoutes = (server: PollyServer) => {
 		server.post('/').intercept((req, res) => {
 			const body = req.jsonBody();
 			switch (body.code) {
-				case 'FAIL':
+				case 'F':
 					res.status(400).json({ message: 'Fail to create medical type' });
 					break;
 				default:
@@ -30,7 +30,7 @@ export const medicalTypesRoutes = (server: PollyServer) => {
 		server.put('/').intercept((req, res) => {
 			const body = req.jsonBody();
 			switch (body.code) {
-				case 'FAIL':
+				case 'F':
 					res.status(400).json({ message: 'Fail to update medical type' });
 					break;
 				default:
@@ -40,7 +40,7 @@ export const medicalTypesRoutes = (server: PollyServer) => {
 		server.delete('/:code').intercept((req, res) => {
 			const code = req.params.code;
 			switch (code) {
-				case 'FAIL':
+				case 'F':
 					res.status(400).json({ message: 'Fail to delete medical type' });
 					break;
 				default:

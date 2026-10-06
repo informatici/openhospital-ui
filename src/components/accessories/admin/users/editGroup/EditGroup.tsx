@@ -12,7 +12,7 @@ import type { PermissionDTO } from '~/generated/models/PermissionDTO';
 import type { UserGroupDTO } from '~/generated/models/UserGroupDTO';
 import { useAppDispatch, useAppSelector } from '~/libraries/hooks/redux';
 import checkIcon from '../../../../../assets/check-icon.png';
-import { PATHS } from '../../../../../consts';
+import { FIELD_LENGTHS, PATHS } from '../../../../../consts';
 import { usePermission } from '../../../../../libraries/permissionUtils/usePermission';
 import { getAllPermissions } from '../../../../../state/permissions';
 import {
@@ -179,6 +179,7 @@ export const EditGroup = () => {
 									onBlur={handleBlur}
 									type="text"
 									disabled
+									maxLength={FIELD_LENGTHS.UserGroupDTO.code}
 								/>
 							</div>
 							<div className="editGroupForm__item fullWidth">
@@ -189,6 +190,7 @@ export const EditGroup = () => {
 									isValid={!!touched.desc && !!errors.desc}
 									errorText={(touched.desc && errors.desc) || ''}
 									onBlur={handleBlur}
+									maxLength={FIELD_LENGTHS.UserGroupDTO.desc}
 								/>
 							</div>
 						</div>

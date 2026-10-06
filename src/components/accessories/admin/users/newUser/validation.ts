@@ -1,4 +1,5 @@
 import { boolean, object, ref, string } from 'yup';
+import { FIELD_LENGTHS } from '~/consts';
 import type { UserGroupDTO } from '../../../../../generated';
 // min 5 characters, 1 upper case letter, 1 lower case letter, 1 numeric digit.
 export const passwordRules = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}$/;
@@ -9,7 +10,7 @@ export const userSchema = (t: (key: string) => string) =>
 	object().shape({
 		userName: string()
 			.min(2)
-			.max(50)
+			.max(FIELD_LENGTHS.UserDTO.userName)
 			.matches(userNameRules, t('user.validateUserNameRegex'))
 			.required(t('user.validateUserName')),
 		userGroupName: object<UserGroupDTO>({
