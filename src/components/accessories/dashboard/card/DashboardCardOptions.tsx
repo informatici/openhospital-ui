@@ -16,14 +16,28 @@ export const DashboardCardActions = React.forwardRef<
 	const { t } = useTranslation();
 
 	const handleDownloadBtnClick = (event: React.MouseEvent<HTMLElement>) => {
+		event.stopPropagation();
 		setAnchorEl(event.currentTarget);
 	};
 	const handleClose = () => {
 		setAnchorEl(null);
 	};
 
+	const handleExpandClick = (event: React.MouseEvent<HTMLElement>) => {
+		event.stopPropagation();
+		actions.onExpand?.();
+	};
+
+	const handleCloseClick = (event: React.MouseEvent<HTMLElement>) => {
+		event.stopPropagation();
+		actions.onClose?.();
+	};
+
 	return (
-		<>
+		<div
+			className="DashboardCard-actions"
+			onMouseDown={(event) => event.stopPropagation()}
+		>
 			{actions.downloadButton}
 			{actions.onDownload && (
 				<>
@@ -45,7 +59,10 @@ export const DashboardCardActions = React.forwardRef<
 						className="Download-menu"
 						open={open}
 						onClose={handleClose}
-						onClick={handleClose}
+						onClick={(event) => {
+							event.stopPropagation();
+							handleClose();
+						}}
 						elevation={2}
 						anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
 						transformOrigin={{ horizontal: 'left', vertical: 'top' }}
@@ -62,7 +79,7 @@ export const DashboardCardActions = React.forwardRef<
 			{actions.onExpand && (
 				<IconButton
 					title={t('dashboard.togglefullscreen')}
-					onClick={actions.onExpand}
+					onClick={handleExpandClick}
 					aria-label="fullscreen"
 				>
 					<Fullscreen />
@@ -72,12 +89,12 @@ export const DashboardCardActions = React.forwardRef<
 			{actions.onClose && (
 				<IconButton
 					title={t('dashboard.removedashboard')}
-					onClick={actions.onClose}
+					onClick={handleCloseClick}
 					aria-label="close"
 				>
 					<Close />
 				</IconButton>
 			)}
-		</>
+		</div>
 	);
 });

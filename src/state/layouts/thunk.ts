@@ -10,10 +10,20 @@ const api = new UserSettingsApi(customConfiguration());
 
 export const getLayouts = createAsyncThunk(
 	'layouts/getLayouts',
-	async (_userName: string, thunkApi) =>
+	async (userName: string, thunkApi) =>
 		firstValueFrom(
 			wrapper(() => api.getUserSettingByUser({ configName: 'dashboard' })),
-		).catch((error) => thunkApi.rejectWithValue(error.response)),
+		).catch((error) => {
+			if (error.response?.message === 'No setting found') {
+				return {
+					configName: 'dashboard',
+					user: userName,
+					configValue: '',
+				} as UserSettingDTO;
+			}
+
+			return thunkApi.rejectWithValue(error.response);
+		}),
 );
 
 export const saveLayouts = createDebouncedAsyncThunk(

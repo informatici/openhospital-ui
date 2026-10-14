@@ -29,6 +29,7 @@ const DataDownloadButton: FunctionComponent<IOwnProps> = ({
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
 	const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+		event.stopPropagation();
 		setAnchorEl(event.currentTarget);
 	};
 	const handleClose = () => {
@@ -76,7 +77,10 @@ const DataDownloadButton: FunctionComponent<IOwnProps> = ({
 	};
 
 	return (
-		<>
+		<div
+			className="dashboard-download-action"
+			onMouseDown={(event) => event.stopPropagation()}
+		>
 			<IconButton
 				aria-controls="download-menu"
 				aria-haspopup="true"
@@ -90,14 +94,20 @@ const DataDownloadButton: FunctionComponent<IOwnProps> = ({
 				keepMounted
 				open={Boolean(anchorEl)}
 				onClose={handleClose}
+				onClick={(event) => event.stopPropagation()}
 			>
-				<MenuItem onClick={handleDownloadCSV}>
-					<CSVLink data={csvData} filename={title ?? 'data'}>
+				<MenuItem>
+					<CSVLink
+						className="download-link"
+						data={csvData}
+						filename={title ?? 'data'}
+						onClick={handleDownloadCSV}
+					>
 						<ListItemIcon>
 							<ViewHeadlineOutlined fontSize="small" />
 						</ListItemIcon>
+						<Typography variant="inherit">{t('dashboard.csv')}</Typography>
 					</CSVLink>
-					<Typography variant="inherit">{t('dashboard.csv')}</Typography>
 				</MenuItem>
 				<MenuItem onClick={handleDownloadPDF}>
 					<ListItemIcon>
@@ -112,7 +122,7 @@ const DataDownloadButton: FunctionComponent<IOwnProps> = ({
 					<Typography variant="inherit">{t('dashboard.png')}</Typography>
 				</MenuItem>
 			</Menu>
-		</>
+		</div>
 	);
 };
 

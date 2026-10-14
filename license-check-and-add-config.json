@@ -1,0 +1,44 @@
+{
+	"license": ".license-header.txt",
+	"licenseFormats": {
+		"ts|tsx": {
+			"file": ".license-header.txt"
+		}
+	},
+	"trailingWhitespace": "TRIM",
+	"ignoreFile": ".gitignore",
+	"ignore": [
+		"node_modules/**",
+		"build/**",
+		"dist/**",
+		"coverage/**",
+		"storybook-static/**",
+		"public/**",
+		"scripts/**",
+		"cypress/**",
+		"docs/**",
+		"docker/**",
+		"api/**",
+		"src/generated/**",
+		"src/__generated__/**",
+		"**/*.d.ts",
+		"**/*.scss",
+		"**/*.css",
+		"**/*.svg",
+		"**/*.properties",
+		"**/*.json",
+		"**/*.md",
+		"**/*.yml",
+		"**/*.yaml",
+		"**/*.js",
+		"**/*.html",
+		"**/*.xlsx",
+		"**/*.txt",
+		".*",
+		"*.config.ts",
+		"codegen.ts",
+		"vite-env.d.ts",
+		"bun.lock",
+		"tsconfig.tsbuildinfo"
+	]
+}

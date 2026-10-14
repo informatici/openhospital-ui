@@ -17,6 +17,7 @@ import {
 	saveLayouts,
 	saveLayoutsReset,
 	setBreakpoint,
+	setLayouts,
 } from '../../../../../state/layouts';
 import type { IState } from '../../../../../types';
 import InfoBox from '../../../infoBox/InfoBox';
@@ -27,9 +28,11 @@ import {
 	defaultGridLayoutCols,
 	encodeLayout,
 	getBreakpointFromWidth,
+	getDefaultLayoutConfig,
 	isEmptyLayout,
 	removeDuplicates,
 	removeWidget,
+	toolboxDashboards,
 } from '../consts';
 import { GridLayoutItem } from '../item/GridLayoutItem';
 import '../styles.scss';
@@ -44,7 +47,13 @@ const GridLayoutContainer: FC = () => {
 
 	const [mounted, setMounted] = useState(false);
 	const [canUpdateLayouts, setCanUpdateLayouts] = useState(true);
-	const [localBreakpoint, setLocalBreakpoint] = useState<string>('md');
+	// starting at 'md' would let the first frame render as a desktop layout, so on a phone
+	// dragging and resizing flash on before the first breakpoint change turns them off
+	const [localBreakpoint, setLocalBreakpoint] = useState<string>(() =>
+		typeof window !== 'undefined'
+			? getBreakpointFromWidth(window.innerWidth)
+			: 'md',
+	);
 	const [fsDashboard, setFsDashboard] = useState<
 		TDashboardComponent | undefined
 	>(undefined);
@@ -82,9 +91,23 @@ const GridLayoutContainer: FC = () => {
 	};
 
 	const onReset = () => {
-		dispatch(resetLayouts());
+		const layout = getDefaultLayoutConfig();
+		const toolbox = toolboxDashboards(layout, {});
+		const hasNoAllowedWidgets = isEmptyLayout(layout) && isEmptyLayout(toolbox);
+		const setting = {
+			...(dashboardSetting ?? {}),
+			configName: 'dashboard',
+			user: userCredentials?.username,
+			configValue: encodeLayout({ layout, toolbox }),
+		} as UserSettingDTO;
+
 		dispatch(getLayoutsReset());
 		dispatch(saveLayoutsReset());
+		dispatch(resetLayouts());
+		dispatch(setLayouts({ layouts: layout, toolbox }));
+		if (!hasNoAllowedWidgets) {
+			dispatch(saveLayouts(setting));
+		}
 	};
 
 	const onBreakpointChange = (breakpoint: string) => {
@@ -140,6 +163,7 @@ const GridLayoutContainer: FC = () => {
 		});
 
 		setCanUpdateLayouts(false);
+		dispatch(setLayouts({ layouts: layoutsTmp, toolbox: toolboxTmp }));
 
 		let setting: UserSettingDTO;
 
@@ -191,6 +215,11 @@ const GridLayoutContainer: FC = () => {
 	const saveErrorMessage = useAppSelector((state: IState) =>
 		t(state.layouts.saveLayouts.error?.message || 'dashboard.cantsaveconfig'),
 	);
+	const hasNoAllowedWidgets = isEmptyLayout(layouts) && isEmptyLayout(toolbox);
+
+	// OH2-475: on phone widths the widgets stack full-width; disable drag/resize/drop there, since those
+	// interactions are awkward on touch and would only let the user break the single-column mobile layout
+	const isTouchLayout = localBreakpoint === 'xxs';
 
 	return (
 		<div ref={gridLayoutRef}>
@@ -227,7 +256,7 @@ const GridLayoutContainer: FC = () => {
 
 			{(getLayoutsStatus === 'SUCCESS' || resetLayoutsStatus === 'SUCCESS') && (
 				<>
-					{saveLayoutsStatus === 'FAIL' && (
+					{saveLayoutsStatus === 'FAIL' && !hasNoAllowedWidgets && (
 						<div ref={infoBoxRef} className="info-box-container">
 							<InfoBox type="error" message={saveErrorMessage} />
 						</div>
@@ -239,7 +268,7 @@ const GridLayoutContainer: FC = () => {
 							style={{ textAlign: 'center' }}
 							className="info-box-container"
 						>
-							{isEmptyLayout(toolbox) ? (
+							{hasNoAllowedWidgets ? (
 								<InfoBox type="info" message={t('dashboard.noallowedwidget')} />
 							) : (
 								<InfoBox type="info" message={t('dashboard.emptylayout')} />
@@ -254,9 +283,9 @@ const GridLayoutContainer: FC = () => {
 								layouts={layouts}
 								onBreakpointChange={onBreakpointChange}
 								onLayoutChange={onLayoutChange}
-								isDraggable
-								isDroppable
-								isResizable
+								isDraggable={!isTouchLayout}
+								isDroppable={!isTouchLayout}
+								isResizable={!isTouchLayout}
 								measureBeforeMount={false}
 								useCSSTransforms={mounted}
 								draggableHandle=".DashboardCard-item-header"

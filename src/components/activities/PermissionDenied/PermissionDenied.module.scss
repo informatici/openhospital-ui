@@ -24,11 +24,11 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: calc(100vh - 120px);
+  min-height: calc(100vh - 120px);
   width: 100vw;
   background-color: $c-color-secondary;
   @include susy-media($smartphone) {
     padding: 50px 0 100px 0;
-    height: 100%;
+    min-height: 100%;
   }
 }

@@ -37,6 +37,11 @@
   .MuiCardHeader-action {
     margin-top: 0;
 
+    .DashboardCard-actions {
+      display: flex;
+      align-items: center;
+    }
+
     .MuiIconButton-root {
       padding: 5px !important;
     }

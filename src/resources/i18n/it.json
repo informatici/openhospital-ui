@@ -91,6 +91,19 @@
 		"takemeback": "Torna alla login",
 		"tryanotherusername": "Prova un altro username"
 	},
+	"changepassword": {
+		"title": "",
+		"description": "",
+		"expired": "",
+		"adminreset": "",
+		"newpassword": "",
+		"repeatpassword": "",
+		"submit": "",
+		"success": "",
+		"passwordsdonotmatch": "",
+		"passwordtooshort": "",
+		"passwordnotstrong": ""
+	},
 	"dashboard": {
 		"welcomename": "Benvenuto",
 		"newpatient": "Nuovo Paziente",

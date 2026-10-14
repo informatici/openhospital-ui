@@ -1,7 +1,7 @@
 import { useMediaQuery } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Outlet } from 'react-router';
+import { Outlet, useLocation } from 'react-router';
 import { PATHS } from '../../../consts';
 import { useAppSelector } from '../../../libraries/hooks/redux';
 import { scrollToElement } from '../../../libraries/uiUtils/scrollToElement';
@@ -20,6 +20,7 @@ const AdminActivity = () => {
 	const [expanded, setExpanded] = useState(false);
 	const { t } = useTranslation();
 	const matches = useMediaQuery('(min-width:768px)');
+	const location = useLocation();
 
 	const breadcrumbMap = {
 		[t('nav.administration')]: PATHS.admin,
@@ -32,6 +33,13 @@ const AdminActivity = () => {
 	useEffect(() => {
 		scrollToElement(null);
 	}, []);
+
+	// OH2-479: on mobile the admin section menu is a collapsible accordion.
+	// Collapse it after navigating to a section so the selected content is
+	// immediately visible instead of being pushed below the still-open menu.
+	useEffect(() => {
+		setExpanded(false);
+	}, [location.pathname]);
 
 	return (
 		<div data-cy="admin-activity" className={classes.admin}>

@@ -75,11 +75,10 @@ export const NewUser = () => {
 	}, [dispatch]);
 
 	useEffect(() => {
-		if (create.hasSucceeded) navigate(PATHS.admin_users);
 		return () => {
 			dispatch(createUserReset());
 		};
-	}, [create.hasSucceeded, dispatch, navigate]);
+	}, [dispatch]);
 
 	const handleCheckboxChange = useCallback(
 		(fieldName: string) => (value: boolean) => {
@@ -217,7 +216,7 @@ export const NewUser = () => {
 						title={t('user.createdSuccessTitle')}
 						icon={checkIcon}
 						info={t('user.createdSuccessMessage')}
-						primaryButtonLabel="Ok"
+						primaryButtonLabel={t('common.ok')}
 						handlePrimaryButtonClick={() => {
 							navigate(PATHS.admin_users, { replace: true });
 						}}
@@ -228,7 +227,7 @@ export const NewUser = () => {
 						title={t('errors.internalerror')}
 						icon={warningIcon}
 						info={create.error?.message.toString()}
-						primaryButtonLabel="Ok"
+						primaryButtonLabel={t('common.ok')}
 						handlePrimaryButtonClick={() => {
 							dispatch(createUserReset(), { replace: true });
 						}}

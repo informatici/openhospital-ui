@@ -15,6 +15,18 @@ export const layoutSlice = createSlice({
 	name: 'layouts',
 	initialState: initial,
 	reducers: {
+		setLayouts: (
+			state,
+			{
+				payload,
+			}: PayloadAction<{
+				layouts: Layouts;
+				toolbox: Layouts;
+			}>,
+		) => {
+			state.layouts = payload.layouts;
+			state.toolbox = payload.toolbox;
+		},
 		resetLayouts: (state) => {
 			/**
 			 * @todo Reset layout via API
@@ -42,6 +54,7 @@ export const layoutSlice = createSlice({
 			// Get Layouts
 			.addCase(thunks.getLayouts.pending, (state) => {
 				state.getLayouts = ApiResponse.loading();
+				state.saveLayouts = initial.saveLayouts;
 			})
 			.addCase(thunks.getLayouts.fulfilled, (state, { payload }) => {
 				let layout: Layouts;
@@ -73,6 +86,7 @@ export const layoutSlice = createSlice({
 					...payload,
 					configValue: encodeLayout({ layout, toolbox }),
 				};
+				state.saveLayouts = initial.saveLayouts;
 
 				state.layouts = layout;
 				state.toolbox = toolbox;
@@ -108,5 +122,6 @@ export const {
 	breakpointReset,
 	resetLayouts,
 	resetLayoutsReset,
+	setLayouts,
 	setBreakpoint,
 } = layoutSlice.actions;

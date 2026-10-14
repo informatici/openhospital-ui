@@ -4,9 +4,14 @@ import NavigateBefore from '@mui/icons-material/NavigateBefore';
 import { Tooltip, Typography } from '@mui/material';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import classNames from 'classnames';
-import { type FunctionComponent, useEffect, useState } from 'react';
+import {
+	type FunctionComponent,
+	useCallback,
+	useEffect,
+	useState,
+} from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '~/libraries/hooks/redux';
 import logo from '../../../assets/logo-color.svg';
@@ -40,12 +45,10 @@ const AppHeader: FunctionComponent<IOwnProps> = ({ breadcrumbMap }) => {
 	const hospital = useAppSelector(
 		(state) => state.hospital.getHospital.data,
 	) as HospitalDTO;
-	const openMenu = (isOpen: boolean) => {
-		isOpen
-			? document.body.classList.add('disable-scroll')
-			: document.body.classList.remove('disable-scroll');
-		setIsOpen(isOpen);
-	};
+	const openMenu = useCallback((open: boolean) => {
+		document.body.classList.toggle('disable-scroll', open);
+		setIsOpen(open);
+	}, []);
 	const [openLogoutConfirmation, setOpenLogoutConfirmation] = useState(false);
 	const showHelp = useShowHelp();
 	const handleLogout = () => {
@@ -53,6 +56,21 @@ const AppHeader: FunctionComponent<IOwnProps> = ({ breadcrumbMap }) => {
 		dispatch(setLogout());
 	};
 	const navigate = useNavigate();
+
+	// OH2-475: close the mobile menu (and restore body scrolling) on every route change, so tapping a
+	// nav item — or the logo/breadcrumb links — does not leave the overlay open with the body scroll-locked
+	const { pathname } = useLocation();
+	// biome-ignore lint/correctness/useExhaustiveDependencies: pathname is the intended trigger — the effect must re-run on navigation
+	useEffect(() => {
+		openMenu(false);
+	}, [pathname]);
+
+	// OH2-475: nav items close the menu explicitly too — navigating to the current route
+	// does not change the pathname, so the effect above would not fire
+	const navigateFromMenu = (path: string) => {
+		openMenu(false);
+		navigate(path);
+	};
 
 	const canAccessPatient = usePermission('patients.access');
 	const canAccessVisit = usePermission('opds.access');
@@ -136,7 +154,7 @@ const AppHeader: FunctionComponent<IOwnProps> = ({ breadcrumbMap }) => {
 							{canAccessDashboard && (
 								<div
 									className="appHeader__nav__item"
-									onClick={() => navigate(PATHS.dashboard)}
+									onClick={() => navigateFromMenu(PATHS.dashboard)}
 								>
 									{t('nav.dashboard')}
 								</div>
@@ -144,7 +162,7 @@ const AppHeader: FunctionComponent<IOwnProps> = ({ breadcrumbMap }) => {
 							{canAccessAdmin && (
 								<div
 									className="appHeader__nav__item"
-									onClick={() => navigate(PATHS.admin)}
+									onClick={() => navigateFromMenu(PATHS.admin)}
 								>
 									{t('nav.administration')}
 								</div>
@@ -152,7 +170,7 @@ const AppHeader: FunctionComponent<IOwnProps> = ({ breadcrumbMap }) => {
 							{canAccessPatient && (
 								<div
 									className="appHeader__nav__item"
-									onClick={() => navigate(PATHS.patients)}
+									onClick={() => navigateFromMenu(PATHS.patients)}
 								>
 									{t('nav.patients')}
 								</div>
@@ -160,7 +178,7 @@ const AppHeader: FunctionComponent<IOwnProps> = ({ breadcrumbMap }) => {
 							{canAccessVisit && (
 								<div
 									className="appHeader__nav__item"
-									onClick={() => navigate(PATHS.visits)}
+									onClick={() => navigateFromMenu(PATHS.visits)}
 								>
 									{t('nav.visits')}
 								</div>
@@ -168,7 +186,7 @@ const AppHeader: FunctionComponent<IOwnProps> = ({ breadcrumbMap }) => {
 							{canAccessLaboratory && (
 								<div
 									className="appHeader__nav__item"
-									onClick={() => navigate(PATHS.laboratory)}
+									onClick={() => navigateFromMenu(PATHS.laboratory)}
 								>
 									{t('nav.laboratory')}
 								</div>

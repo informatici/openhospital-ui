@@ -2,17 +2,22 @@
 @use "susy/sass/susy" as *;
 
 .login {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
   .login__background {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: calc(100vh - 120px);
+    min-height: calc(100vh - 120px);
     width: 100vw;
     background-color: $c-color-secondary;
     @include susy-media($smartphone) {
       padding: 50px 0 100px 0;
-      height: 100%;
+      min-height: auto;
+      flex: 1;
     }
   }
 

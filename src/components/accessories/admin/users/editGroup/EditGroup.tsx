@@ -274,6 +274,7 @@ export const EditGroup = () => {
 						primaryButtonLabel="Ok"
 						handlePrimaryButtonClick={() => {
 							navigate(PATHS.admin_users, {
+								replace: true,
 								state: { tab: TabOptions.groups },
 							});
 						}}
