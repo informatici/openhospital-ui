@@ -13,11 +13,26 @@ export async function enableMocking() {
 		return;
 	}
 
-	//const { worker } = await import('~/mocks'); // For MSW
+	// The E2E suite (`vite dev -m test`, see `start:ci`) still runs on PollyJS:
+	// it's invisible to Cypress's cy.intercept(), unlike MSW's service worker,
+	// so Cypress specs can keep mocking it directly. Only local dev/Storybook
+	// switch to MSW here; PollyJS is removed once the E2E suite has migrated
+	// to Cypress interceptors.
+	if (import.meta.env.MODE === 'test') {
+		makeServer();
+		return;
+	}
 
-	//await worker.start(); // For MSW
+	const { worker } = await import('~/mocks');
 
-	makeServer(); // For PollyJS
+	// `worker.start()` otherwise fetches `/mockServiceWorker.js` from the
+	// origin root, ignoring Vite's `base` — breaks registration whenever the
+	// app is served under a sub-path (e.g. VITE_PUBLIC_URL=/oh-ui).
+	await worker.start({
+		serviceWorker: {
+			url: `${import.meta.env.BASE_URL}mockServiceWorker.js`,
+		},
+	});
 }
 
 export function badRequest<T extends JsonBodyType>(response: T) {
