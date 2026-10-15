@@ -1,7 +1,12 @@
-import { EditRounded, Notes, Person } from '@mui/icons-material';
+import {
+	EditRounded,
+	FileDownloadRounded,
+	Notes,
+	Person,
+} from '@mui/icons-material';
 import classNames from 'classnames';
 import { isEmpty } from 'lodash';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
 	Navigate,
@@ -11,11 +16,15 @@ import {
 	useOutletContext,
 	useParams,
 } from 'react-router';
+import { firstValueFrom } from 'rxjs';
+import { wrapper } from '~/libraries/apiUtils/wrapper';
 import { useAppDispatch, useAppSelector } from '~/libraries/hooks/redux';
 import { PATHS } from '../../../consts';
-import { PatientDTOStatusEnum } from '../../../generated';
+import { PatientDTOStatusEnum, PatientsApi } from '../../../generated';
+import { customConfiguration } from '../../../libraries/apiUtils/configuration';
 import { renderDate } from '../../../libraries/formatUtils/dataFormatting';
 import { Permission } from '../../../libraries/permissionUtils/Permission';
+import { downloadJsonFile } from '../../../libraries/uiUtils/downloadFile';
 import { scrollToElement } from '../../../libraries/uiUtils/scrollToElement';
 import { getPatient, getPatientReset } from '../../../state/patients';
 import {
@@ -27,6 +36,7 @@ import AppHeader from '../../accessories/appHeader/AppHeader';
 import Button from '../../accessories/button/Button';
 import Footer from '../../accessories/footer/Footer';
 import { HospitalInfo } from '../../accessories/hospitalInfo/HospitalInfo';
+import InfoBox from '../../accessories/infoBox/InfoBox';
 import { ProfilePicture } from '../../accessories/profilePicture/ProfilePicture';
 import InPatientDashboardMenu from './InPatientDashboardMenu';
 import OutPatientDashboardMenu from './OutPatientDashboardMenu';
@@ -34,6 +44,31 @@ import './styles.scss';
 import type { IUserSection, TActivityTransitionState } from './types';
 
 type ContextType = { status: string | null };
+
+const patientsApi = new PatientsApi(customConfiguration());
+
+const usePatientDataExport = (code: number | undefined) => {
+	const [exportStatus, setExportStatus] = useState<'IDLE' | 'LOADING' | 'FAIL'>(
+		'IDLE',
+	);
+
+	const exportPatientData = useCallback(() => {
+		if (code === undefined) {
+			return;
+		}
+		setExportStatus('LOADING');
+		firstValueFrom(wrapper(() => patientsApi.exportPatientData({ code })))
+			.then((exportData) => {
+				downloadJsonFile(`patient_${code}_export.json`, exportData);
+				setExportStatus('IDLE');
+			})
+			.catch(() => {
+				setExportStatus('FAIL');
+			});
+	}, [code]);
+
+	return { exportPatientData, exportStatus };
+};
 
 const PatientDetailsActivity = () => {
 	const dispatch = useAppDispatch();
@@ -85,6 +120,10 @@ const PatientDetailsActivity = () => {
 	const handleOnExpanded = (section: string) => {
 		setExpanded(section === expanded ? false : section);
 	};
+
+	const { exportPatientData, exportStatus } = usePatientDataExport(
+		patient.data?.code,
+	);
 
 	const personalData = (
 		<>
@@ -259,6 +298,33 @@ const PatientDetailsActivity = () => {
 														<span>{t('patient.titleedit')}</span>
 													</Button>
 												</div>
+											</div>
+										</Permission>
+
+										<Permission require="patient.export">
+											<div className="patientDetails__personalData_edit_button_wrapper">
+												<div className="patientDetails__personalData_edit_button">
+													<Button
+														type="button"
+														variant="contained"
+														color="primary"
+														dataCy="export-patient-data"
+														disabled={exportStatus === 'LOADING'}
+														onClick={exportPatientData}
+													>
+														<FileDownloadRounded
+															fontSize="small"
+															style={{ color: 'white' }}
+														/>
+														<span>{t('patient.exportdata')}</span>
+													</Button>
+												</div>
+												{exportStatus === 'FAIL' && (
+													<InfoBox
+														type="error"
+														message={t('common.somethingwrong')}
+													/>
+												)}
 											</div>
 										</Permission>
 

@@ -767,6 +767,31 @@ paths:
                 type: boolean
       security:
       - bearerAuth: []
+  /patients/{code}/export:
+    get:
+      tags:
+      - Patients
+      description: GDPR Art. 20 - Right to data portability
+      operationId: exportPatientData
+      parameters:
+      - name: code
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PatientExportDTO"
+            text/csv:
+              schema:
+                type: string
+      security:
+      - bearerAuth: []
   /patientconsensus/{patientId}:
     get:
       tags:
@@ -6295,6 +6320,64 @@ components:
       - docs
       - nurs
       - visitDuration
+    PatientExportDTO:
+      type: object
+      description: "Aggregate of a patient record and all the records connected to\
+        \ it, for GDPR Art. 20 (right to data portability) exports"
+      properties:
+        patient:
+          $ref: "#/components/schemas/PatientDTO"
+          description: The patient record
+        admissions:
+          type: array
+          description: The admissions of the patient
+          items:
+            $ref: "#/components/schemas/AdmissionDTO"
+        opds:
+          type: array
+          description: The OPD episodes of the patient
+          items:
+            $ref: "#/components/schemas/OpdDTO"
+        laboratories:
+          type: array
+          description: The laboratory exams of the patient
+          items:
+            $ref: "#/components/schemas/LaboratoryDTO"
+        therapies:
+          type: array
+          description: The therapies of the patient
+          items:
+            $ref: "#/components/schemas/TherapyRowDTO"
+        operations:
+          type: array
+          description: The operations of the patient
+          items:
+            $ref: "#/components/schemas/OperationRowDTO"
+        vaccines:
+          type: array
+          description: The vaccines of the patient
+          items:
+            $ref: "#/components/schemas/PatientVaccineDTO"
+        examinations:
+          type: array
+          description: The examinations of the patient
+          items:
+            $ref: "#/components/schemas/PatientExaminationDTO"
+        bills:
+          type: array
+          description: The bills of the patient
+          items:
+            $ref: "#/components/schemas/BillDTO"
+        billItems:
+          type: array
+          description: The items of the patient's bills
+          items:
+            $ref: "#/components/schemas/BillItemsDTO"
+        billPayments:
+          type: array
+          description: The payments of the patient's bills
+          items:
+            $ref: "#/components/schemas/BillPaymentsDTO"
     PatientDTO:
       type: object
       description: Class representing a patient
