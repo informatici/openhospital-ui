@@ -23,6 +23,7 @@ import {
 	AccordionDetails,
 	AccordionSummary,
 } from '../../accessories/accordion/Accordion';
+import { AlertBox } from '../../accessories/alertBox/AlertBox';
 import AppHeader from '../../accessories/appHeader/AppHeader';
 import Button from '../../accessories/button/Button';
 import Footer from '../../accessories/footer/Footer';
@@ -240,6 +241,18 @@ const PatientDetailsActivity = () => {
 												</div>
 											</div>
 										</div>
+
+										{!!patient.data?.administrativeIssues?.length && (
+											<div className="patientDetails__administrativeFlag">
+												<AlertBox
+													type="warning"
+													title={t('patient.administrativeissues')}
+													message={patient.data.administrativeIssues
+														.map((issue) => issue.reason)
+														.join('\n')}
+												/>
+											</div>
+										)}
 
 										<Permission require="patients.update">
 											<div className="patientDetails__personalData_edit_button_wrapper">
