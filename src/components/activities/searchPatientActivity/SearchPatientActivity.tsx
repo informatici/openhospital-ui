@@ -8,7 +8,7 @@ import { number, object } from 'yup';
 import { useAppDispatch, useAppSelector } from '~/libraries/hooks/redux';
 import { searchPatient, searchPatientsReset } from '~/state/patients';
 import SearchIcon from '../../../assets/SearchIcon';
-import { PATHS } from '../../../consts';
+import { FIELD_LENGTHS, PATHS } from '../../../consts';
 import { formatAllFieldValues } from '../../../libraries/formDataHandling/functions';
 import { Permission } from '../../../libraries/permissionUtils/Permission';
 import { scrollToElement } from '../../../libraries/uiUtils/scrollToElement';
@@ -198,6 +198,7 @@ export const SearchPatientActivity = () => {
 											errorText={getErrorText('firstName')}
 											onBlur={formik.handleBlur}
 											disabled={isSearchById}
+											maxLength={FIELD_LENGTHS.PatientDTO.firstName}
 										/>
 									</div>
 									<div className="searchPatient__formItem">
@@ -209,6 +210,7 @@ export const SearchPatientActivity = () => {
 											errorText={getErrorText('secondName')}
 											onBlur={formik.handleBlur}
 											disabled={isSearchById}
+											maxLength={FIELD_LENGTHS.PatientDTO.secondName}
 										/>
 									</div>
 								</div>
@@ -236,6 +238,7 @@ export const SearchPatientActivity = () => {
 											errorText={getErrorText('address')}
 											onBlur={formik.handleBlur}
 											disabled={isSearchById}
+											maxLength={FIELD_LENGTHS.PatientDTO.address}
 										/>
 									</div>
 								</div>

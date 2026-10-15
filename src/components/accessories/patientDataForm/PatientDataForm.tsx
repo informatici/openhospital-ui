@@ -38,6 +38,7 @@ import { ProfilePicture } from '../profilePicture/ProfilePicture';
 import SelectField from '../selectField/SelectField';
 import TextField from '../textField/TextField';
 import './styles.scss';
+import { FIELD_LENGTHS } from '~/consts';
 import type { TAgeFieldName, TProps } from './types';
 import { useCityOptions } from './useCityOptions';
 
@@ -243,7 +244,8 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 									? FIELD_VALIDATION.SUGGESTED
 									: FIELD_VALIDATION.REQUIRED
 							}
-							maxLength={50}
+							maxLength={FIELD_LENGTHS.PatientDTO.firstName}
+							showRemaining
 						/>
 					</div>
 					<div className="patientDataForm__item">
@@ -260,7 +262,8 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 									? FIELD_VALIDATION.SUGGESTED
 									: FIELD_VALIDATION.REQUIRED
 							}
-							maxLength={50}
+							maxLength={FIELD_LENGTHS.PatientDTO.secondName}
+							showRemaining
 						/>
 					</div>
 
@@ -278,7 +281,8 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 									? FIELD_VALIDATION.SUGGESTED
 									: FIELD_VALIDATION.IDLE
 							}
-							maxLength={30}
+							maxLength={FIELD_LENGTHS.PatientDTO.taxCode}
+							showRemaining
 						/>
 					</div>
 				</div>
@@ -415,7 +419,8 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 									? FIELD_VALIDATION.SUGGESTED
 									: FIELD_VALIDATION.IDLE
 							}
-							maxLength={50}
+							maxLength={FIELD_LENGTHS.PatientDTO.motherName}
+							showRemaining
 						/>
 					</div>
 
@@ -433,7 +438,8 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 									? FIELD_VALIDATION.SUGGESTED
 									: FIELD_VALIDATION.IDLE
 							}
-							maxLength={50}
+							maxLength={FIELD_LENGTHS.PatientDTO.fatherName}
+							showRemaining
 						/>
 					</div>
 
@@ -472,7 +478,8 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 									? FIELD_VALIDATION.SUGGESTED
 									: FIELD_VALIDATION.IDLE
 							}
-							maxLength={50}
+							maxLength={FIELD_LENGTHS.PatientDTO.address}
+							showRemaining
 						/>
 					</div>
 
@@ -491,7 +498,8 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 							clearOnBlur={true}
 							selectOnFocus={true}
 							handleHomeEndKeys={true}
-							maxLength={50}
+							maxLength={FIELD_LENGTHS.PatientDTO.city}
+							showRemaining
 						/>
 					</div>
 
@@ -512,7 +520,8 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 											? FIELD_VALIDATION.SUGGESTED
 											: FIELD_VALIDATION.IDLE
 									}
-									maxLength={50}
+									maxLength={FIELD_LENGTHS.PatientDTO.telephone}
+									showRemaining
 								/>
 							</div>
 						</Tooltip>
@@ -556,7 +565,8 @@ const PatientDataForm: FunctionComponent<TProps> = ({
 									? FIELD_VALIDATION.SUGGESTED
 									: FIELD_VALIDATION.IDLE
 							}
-							maxLength={65535}
+							maxLength={FIELD_LENGTHS.PatientDTO.note}
+							showRemaining
 						/>
 					</div>
 				</div>

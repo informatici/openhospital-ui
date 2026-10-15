@@ -18,7 +18,7 @@ import { array, number, object, string } from 'yup';
 import DiscardButton from '~/components/accessories/discardButton/DiscardButton';
 import ResetButton from '~/components/accessories/resetButton/resetButton';
 import checkIcon from '../../../../../assets/check-icon.png';
-import { PATHS } from '../../../../../consts';
+import { FIELD_LENGTHS, PATHS } from '../../../../../consts';
 import {
 	formatAllFieldValues,
 	getFromFields,
@@ -246,6 +246,7 @@ const ExamForm: FC<IExamProps> = ({
 							onBlur={formik.handleBlur}
 							type="text"
 							disabled={isLoading || !creationMode}
+							maxLength={FIELD_LENGTHS.ExamDTO.code}
 						/>
 					</div>
 					<div className="examForm__item halfWidth">
@@ -258,6 +259,7 @@ const ExamForm: FC<IExamProps> = ({
 							onBlur={formik.handleBlur}
 							type="text"
 							disabled={isLoading}
+							maxLength={FIELD_LENGTHS.ExamDTO.description}
 						/>
 					</div>
 				</div>
@@ -287,6 +289,7 @@ const ExamForm: FC<IExamProps> = ({
 								onBlur={formik.handleBlur}
 								type="text"
 								disabled={isLoading || formik.values.procedure === '1'}
+								maxLength={FIELD_LENGTHS.ExamDTO.defaultResult}
 							/>
 						</div>
 					)}

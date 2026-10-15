@@ -14,7 +14,7 @@ describe('Add operation type Activity specs', () => {
 	});
 
 	it('should fail to create a new operation type', () => {
-		cy.byId('code').type('FAIL');
+		cy.byId('code').type('FA');
 		cy.byId('description').type('Operation type');
 		cy.dataCy('submit-form').click();
 		cy.dataCy('info-box').contains('Fail');

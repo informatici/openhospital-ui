@@ -5,6 +5,69 @@ export const MOBILE_BREAKPOINT = 768;
 export const TOKEN_EXPIRATION_TIMEOUT = 60000;
 export const REFRESH_TOKEN_EXPIRATION_TIMEOUT = 0;
 
+/**
+ * Maximum length the API accepts for each field, mirroring the `maxLength`
+ * constraints published in `api/oh.yaml`, which in turn match the database
+ * column sizes. Fields the specification does not constrain are not listed.
+ */
+export const FIELD_LENGTHS = {
+	AdmissionDTO: { note: 65535 },
+	AdmissionTypeDTO: { description: 50 },
+	DeliveryResultTypeDTO: { description: 50 },
+	DeliveryTypeDTO: { description: 50 },
+	DischargeTypeDTO: { description: 50 },
+	DiseaseDTO: { code: 10, description: 50 },
+	DiseaseTypeDTO: { code: 2, description: 110 },
+	ExamDTO: { code: 10, description: 100, defaultResult: 50 },
+	ExamTypeDTO: { description: 50 },
+	HospitalDTO: {
+		description: 255,
+		address: 255,
+		city: 255,
+		telephone: 50,
+		fax: 50,
+		email: 50,
+		currencyCod: 3,
+	},
+	LaboratoryDTO: { note: 255 },
+	MedicalTypeDTO: { code: 1, description: 30 },
+	OpdDTO: { note: 65535, prescription: 255 },
+	OperationDTO: { code: 10, description: 50 },
+	OperationRowDTO: { remarks: 250 },
+	OperationTypeDTO: { code: 2, description: 50 },
+	PatientDTO: {
+		firstName: 50,
+		secondName: 50,
+		address: 50,
+		city: 50,
+		telephone: 50,
+		note: 65535,
+		motherName: 50,
+		fatherName: 50,
+		taxCode: 30,
+		allergies: 255,
+		anamnesis: 255,
+	},
+	PatientExaminationDTO: { pex_note: 2000 },
+	PregnantTreatmentTypeDTO: { code: 10, description: 50 },
+	SupplierDTO: {
+		supName: 100,
+		supAddress: 150,
+		supTaxcode: 50,
+		supPhone: 20,
+		supFax: 20,
+		supEmail: 100,
+		supNote: 200,
+	},
+	TherapyRowDTO: { note: 65535 },
+	UserDTO: { userName: 50, passwd: 50, desc: 128 },
+	UserGroupDTO: { code: 50, desc: 128 },
+	VaccineDTO: { code: 10, description: 50 },
+	VaccineTypeDTO: { code: 1, description: 50 },
+	VisitDTO: { service: 45 },
+	WardDTO: { code: 3, description: 50, telephone: 50, fax: 50, email: 50 },
+} as const;
+
 export const PATHS = {
 	home: '/',
 	login: '/login',

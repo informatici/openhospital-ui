@@ -21,6 +21,7 @@ import DateField from '../../dateField/DateField';
 import SelectField from '../../selectField/SelectField';
 import TextField from '../../textField/TextField';
 import './styles.scss';
+import { FIELD_LENGTHS } from '~/consts';
 import type { OperationRowProps } from './types';
 
 const OperationRowForm: FC<OperationRowProps> = ({
@@ -241,7 +242,8 @@ const OperationRowForm: FC<OperationRowProps> = ({
 							onBlur={formik.handleBlur}
 							rows={5}
 							disabled={isLoading}
-							maxLength={250}
+							maxLength={FIELD_LENGTHS.OperationRowDTO.remarks}
+							showRemaining
 						/>
 					</div>
 				</div>

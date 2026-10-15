@@ -24,5 +24,6 @@ export interface IProps {
 	rows?: number;
 	required?: FIELD_VALIDATION;
 	maxLength?: number;
+	showRemaining?: boolean;
 	inputProps?: Record<string, unknown>;
 }

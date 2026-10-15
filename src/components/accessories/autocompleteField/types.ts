@@ -25,6 +25,7 @@ export interface IProps {
 	handleHomeEndKeys?: boolean;
 	options_limit?: number;
 	maxLength?: number;
+	showRemaining?: boolean;
 }
 export type DefaultOptionType = {
 	value: string | number | React.ReactElement;

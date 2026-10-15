@@ -21,7 +21,7 @@ describe('Edit Hospital Activity specs', () => {
 	it('should successfully save hospital infos changes', () => {
 		cy.byId('description').clear().type('St. LUKE Hospital');
 		cy.byId('email').clear().type('luke@hospital.com');
-		cy.byId('currencyCod').clear().type('FCFA');
+		cy.byId('currencyCod').clear().type('XAF');
 		cy.dataCy('submit-form').click();
 		cy.dataCy('dialog-info').contains('updated successfully');
 		cy.dataCy('approve-dialog').click();

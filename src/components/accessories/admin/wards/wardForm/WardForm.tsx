@@ -9,7 +9,7 @@ import ResetButton from '~/components/accessories/resetButton/resetButton';
 import { useAppDispatch, useAppSelector } from '~/libraries/hooks/redux';
 import { FIELD_VALIDATION } from '~/types';
 import checkIcon from '../../../../../assets/check-icon.png';
-import { PATHS } from '../../../../../consts';
+import { FIELD_LENGTHS, PATHS } from '../../../../../consts';
 import {
 	formatAllFieldValues,
 	getFromFields,
@@ -57,7 +57,10 @@ const WardForm: FC<IWardProps> = ({
 
 	const validationSchema = object({
 		code: string()
-			.max(3, t('validations.maxLength', { max: 3 }))
+			.max(
+				FIELD_LENGTHS.WardDTO.code,
+				t('validations.maxLength', { max: FIELD_LENGTHS.WardDTO.code }),
+			)
 			.required(t('common.required')),
 		description: string().required(t('common.required')),
 		email: string().email(t('validations.email')),
@@ -130,6 +133,7 @@ const WardForm: FC<IWardProps> = ({
 							type="text"
 							disabled={isLoading || !creationMode}
 							required={FIELD_VALIDATION.REQUIRED}
+							maxLength={FIELD_LENGTHS.WardDTO.code}
 						/>
 					</div>
 					<div className="wardForm__item halfWidth">
@@ -143,6 +147,7 @@ const WardForm: FC<IWardProps> = ({
 							type="text"
 							disabled={isLoading}
 							required={FIELD_VALIDATION.REQUIRED}
+							maxLength={FIELD_LENGTHS.WardDTO.description}
 						/>
 					</div>
 				</div>
@@ -157,6 +162,7 @@ const WardForm: FC<IWardProps> = ({
 							onBlur={formik.handleBlur}
 							type="text"
 							disabled={isLoading}
+							maxLength={FIELD_LENGTHS.WardDTO.email}
 						/>
 					</div>
 					<div className="wardForm__item thirdWidth">
@@ -169,6 +175,7 @@ const WardForm: FC<IWardProps> = ({
 							onBlur={formik.handleBlur}
 							type="text"
 							disabled={isLoading}
+							maxLength={FIELD_LENGTHS.WardDTO.telephone}
 						/>
 					</div>
 					<div className="wardForm__item thirdWidth">
@@ -181,6 +188,7 @@ const WardForm: FC<IWardProps> = ({
 							onBlur={formik.handleBlur}
 							type="text"
 							disabled={isLoading}
+							maxLength={FIELD_LENGTHS.WardDTO.fax}
 						/>
 					</div>
 				</div>

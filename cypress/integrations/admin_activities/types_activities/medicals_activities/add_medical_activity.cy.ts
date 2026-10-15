@@ -14,14 +14,14 @@ describe('Add medical type Activity specs', () => {
 	});
 
 	it('should fail to create a new medical type', () => {
-		cy.byId('code').type('FAIL');
+		cy.byId('code').type('F');
 		cy.byId('description').type('Medical type');
 		cy.dataCy('submit-form').click();
 		cy.dataCy('info-box').contains('Fail');
 	});
 
 	it('should successfully create a new medical type', () => {
-		cy.byId('code').clear().type('22');
+		cy.byId('code').clear().type('2');
 		cy.dataCy('submit-form').click();
 		cy.dataCy('dialog-info').contains(
 			'The medical type has been created successfully!',

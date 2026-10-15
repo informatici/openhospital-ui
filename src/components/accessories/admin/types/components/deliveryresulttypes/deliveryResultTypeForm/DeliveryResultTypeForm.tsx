@@ -8,7 +8,7 @@ import DiscardButton from '~/components/accessories/discardButton/DiscardButton'
 import ResetButton from '~/components/accessories/resetButton/resetButton';
 import { useAppDispatch, useAppSelector } from '~/libraries/hooks/redux';
 import checkIcon from '../../../../../../../assets/check-icon.png';
-import { PATHS } from '../../../../../../../consts';
+import { FIELD_LENGTHS, PATHS } from '../../../../../../../consts';
 import {
 	formatAllFieldValues,
 	getFromFields,
@@ -128,6 +128,7 @@ const DeliveryResultTypeForm: FC<IDeliveryResultTypeFormProps> = ({
 							onBlur={formik.handleBlur}
 							type="text"
 							disabled={isLoading}
+							maxLength={FIELD_LENGTHS.DeliveryResultTypeDTO.description}
 						/>
 					</div>
 				</div>

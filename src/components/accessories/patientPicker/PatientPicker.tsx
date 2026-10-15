@@ -20,6 +20,7 @@ import { TextField as MaterialComponent, Pagination } from '@mui/material';
 import { GridCloseIcon } from '@mui/x-data-grid';
 import { useFormik } from 'formik';
 import { get, has } from 'lodash';
+import { FIELD_LENGTHS } from '~/consts';
 import { useAppDispatch, useAppSelector } from '~/libraries/hooks/redux';
 import type { PatientDTO } from '../../../generated';
 import {
@@ -282,7 +283,8 @@ const PatientPicker: FC<IProps> = ({
 										onBlur={formik.handleBlur}
 										type="text"
 										disabled={isLoading}
-										maxLength={50}
+										maxLength={FIELD_LENGTHS.PatientDTO.firstName}
+										showRemaining
 									/>
 								</div>
 								<div className="patientSearchForm__item">
@@ -295,7 +297,8 @@ const PatientPicker: FC<IProps> = ({
 										onBlur={formik.handleBlur}
 										type="text"
 										disabled={isLoading}
-										maxLength={50}
+										maxLength={FIELD_LENGTHS.PatientDTO.secondName}
+										showRemaining
 									/>
 								</div>
 							</div>
@@ -310,7 +313,8 @@ const PatientPicker: FC<IProps> = ({
 										onBlur={formik.handleBlur}
 										type="text"
 										disabled={isLoading}
-										maxLength={50}
+										maxLength={FIELD_LENGTHS.PatientDTO.address}
+										showRemaining
 									/>
 								</div>
 								<div className="patientSearchForm__item">

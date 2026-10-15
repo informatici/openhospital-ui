@@ -8,6 +8,7 @@ import {
 	useState,
 } from 'react';
 import { useTranslation } from 'react-i18next';
+import { FIELD_LENGTHS } from '~/consts';
 import { useAppDispatch, useAppSelector } from '~/libraries/hooks/redux';
 import checkIcon from '../../../../assets/check-icon.png';
 import type {
@@ -248,6 +249,7 @@ export const CurrentAdmissionForm: FunctionComponent<IOwnProps> = ({
 							onBlur={formik.handleBlur}
 							rows={5}
 							disabled={isLoading}
+							maxLength={FIELD_LENGTHS.AdmissionDTO.note}
 						/>
 					</div>
 				</div>
