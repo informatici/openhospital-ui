@@ -14,4 +14,7 @@ export const initial: IMainState = {
 	settings: new ApiResponse({
 		status: 'IDLE',
 	}),
+	passwordPolicy: new ApiResponse({
+		status: 'IDLE',
+	}),
 };
