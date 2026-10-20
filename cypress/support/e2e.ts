@@ -54,6 +54,13 @@ beforeEach(() => {
 	waitForNetworkIdle();
 });
 
+// Without this, Cypress can abort a still-in-flight intercepted request the
+// moment a test ends, leaving the app stuck in a loading/error state that
+// bleeds into the next test's `beforeEach`.
+afterEach(() => {
+	waitForNetworkIdle();
+});
+
 Cypress.Commands.add('dataCy', (value) => {
 	return cy.get(`[data-cy=${value}]`);
 });
