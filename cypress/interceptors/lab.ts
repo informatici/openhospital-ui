@@ -115,8 +115,8 @@ export const lab = [
 		return jsonResponse({ laboratoryDTO: body.laboratoryDTO }, 201);
 	}),
 
-	// POST /laboratories/examRequest is handled by `labExamRequest.ts` — PollyJS
-	// registers that route after this one, so it's the one that actually wins.
+	// POST /laboratories/examRequest is handled by `labExamRequest.ts`, which is
+	// registered after this one, so it's the one that actually wins.
 
 	http.delete('/laboratories/{code}', (req) => {
 		if (lastPathSegment(req.url) === '-1') {

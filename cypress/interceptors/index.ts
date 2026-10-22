@@ -86,8 +86,9 @@ export const interceptors = [
 	...examRows,
 	...examTypes,
 	...hospitals,
-	// lab before labExamRequest: PollyJS registers labExamRequest's route last,
-	// so its POST /laboratories/examRequest handler is the one that actually wins.
+	// lab before labExamRequest: setupInterceptors() keeps the last matching
+	// registration, so labExamRequest's POST /laboratories/examRequest handler
+	// is the one that actually wins.
 	...lab,
 	...labExamRequest,
 	...medicals,

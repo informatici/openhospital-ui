@@ -2,7 +2,6 @@ import { HttpResponse, type JsonBodyType } from 'msw';
 import { createOpenApiHttp } from 'openapi-msw';
 import type { paths } from '~/__generated__/openapi';
 import { BASE_PATH } from '~/generated';
-import { makeServer } from './server';
 
 export const http = createOpenApiHttp<paths>({
 	baseUrl: BASE_PATH,
@@ -10,16 +9,6 @@ export const http = createOpenApiHttp<paths>({
 
 export async function enableMocking() {
 	if (import.meta.env.VITE_USE_MOCK_API !== 'true') {
-		return;
-	}
-
-	// The E2E suite (`vite dev -m test`, see `start:ci`) still runs on PollyJS:
-	// it's invisible to Cypress's cy.intercept(), unlike MSW's service worker,
-	// so Cypress specs can keep mocking it directly. Only local dev/Storybook
-	// switch to MSW here; PollyJS is removed once the E2E suite has migrated
-	// to Cypress interceptors.
-	if (import.meta.env.MODE === 'test') {
-		makeServer();
 		return;
 	}
 

@@ -156,12 +156,12 @@ export function queryParam(url: string, name: string): string | null {
 	return new URL(url).searchParams.get(name);
 }
 
-// Tracks in-flight intercepted requests. Unlike PollyJS (which answers inside
-// the page, same tick), a Cypress intercept round-trips through the browser's
-// network layer with real latency — long enough that a test can end, and
-// Cypress abort the still-pending request, while the app is left showing an
-// error state for the rest of the spec. `cy.authenticate` waits on this count
-// to settle before a test continues, so that race can't happen.
+// Tracks in-flight intercepted requests. A Cypress intercept round-trips
+// through the browser's network layer with real latency — long enough that a
+// test can end, and Cypress abort the still-pending request, while the app is
+// left showing an error state for the rest of the spec. `cy.authenticate`
+// waits on this count to settle before a test continues, so that race can't
+// happen.
 let pendingRequestCount = 0;
 let totalRequestsStarted = 0;
 
