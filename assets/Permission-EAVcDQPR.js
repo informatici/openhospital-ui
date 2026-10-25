@@ -1,0 +1,1 @@
+import{t as e}from"./usePermission-DB6iDNdt.js";var t=({children:t,require:n})=>e(n)?t:null;export{t};
