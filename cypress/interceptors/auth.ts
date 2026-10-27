@@ -1,3 +1,4 @@
+import { passwordPolicyDTO } from '../../src/mocks/fixtures/passwordPolicyDTO';
 import { http, jsonResponse, unauthorized } from '../utils';
 
 const TOKEN =
@@ -35,4 +36,5 @@ export const auth = [
 		}
 	}),
 	http.post('/auth/logout', () => jsonResponse(null)),
+	http.get('/auth/password-policy', () => jsonResponse(passwordPolicyDTO)),
 ];
