@@ -16,6 +16,7 @@ export const applyTokenMiddleware: Middleware = {
 		}
 		if (!userCredentials) {
 			window.location.reload();
+			return request;
 		}
 		return produce(request, (draft) => {
 			if (userCredentials.token) {
