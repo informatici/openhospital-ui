@@ -12,6 +12,13 @@ export async function enableMocking() {
 		return;
 	}
 
+	// Cypress already mocks the network via cy.intercept; starting MSW's
+	// service worker on top is redundant, and its registration can hang
+	// under Electron/headless browsers, blocking the app's first render.
+	if ('Cypress' in window) {
+		return;
+	}
+
 	const { worker } = await import('~/mocks');
 
 	// `worker.start()` otherwise fetches `/mockServiceWorker.js` from the

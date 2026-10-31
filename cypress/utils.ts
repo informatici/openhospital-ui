@@ -48,11 +48,15 @@ export function createCypressHttp(baseUrl: string = BASE_PATH) {
 				routeHandler,
 			};
 		},
+		// Same trailing wildcard as GET, for the same reason: a POST/PUT/DELETE/
+		// PATCH can carry query params alongside (or instead of) a body — e.g.
+		// `dischargePatient` sends `patientCode` as a query param — and without
+		// the wildcard those requests silently fall through to the real network.
 		post: <T extends keyof paths>(
 			path: T,
 			routeHandler?: InterceptorHandler,
 		) => {
-			const fullUrl = `${baseUrl}${toGlob(path)}`;
+			const fullUrl = `${baseUrl}${toGlob(path)}*`;
 			return {
 				method: 'POST' as const,
 				url: fullUrl,
@@ -63,7 +67,7 @@ export function createCypressHttp(baseUrl: string = BASE_PATH) {
 			path: T,
 			routeHandler?: InterceptorHandler,
 		) => {
-			const fullUrl = `${baseUrl}${toGlob(path)}`;
+			const fullUrl = `${baseUrl}${toGlob(path)}*`;
 			return {
 				method: 'PUT' as const,
 				url: fullUrl,
@@ -74,7 +78,7 @@ export function createCypressHttp(baseUrl: string = BASE_PATH) {
 			path: T,
 			routeHandler?: InterceptorHandler,
 		) => {
-			const fullUrl = `${baseUrl}${toGlob(path)}`;
+			const fullUrl = `${baseUrl}${toGlob(path)}*`;
 			return {
 				method: 'DELETE' as const,
 				url: fullUrl,
@@ -85,7 +89,7 @@ export function createCypressHttp(baseUrl: string = BASE_PATH) {
 			path: T,
 			routeHandler?: InterceptorHandler,
 		) => {
-			const fullUrl = `${baseUrl}${toGlob(path)}`;
+			const fullUrl = `${baseUrl}${toGlob(path)}*`;
 			return {
 				method: 'PATCH' as const,
 				url: fullUrl,

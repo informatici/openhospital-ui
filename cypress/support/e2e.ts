@@ -74,6 +74,13 @@ Cypress.Commands.add('byId', (value) => {
 });
 
 Cypress.Commands.add('authenticate', (url: string) => {
+	// Some specs call this from a suite-level `before()` (to visit once and
+	// share page state across sequential tests). Mocha runs all `before()`
+	// hooks — including this one, nested inside the suite — before the root
+	// `beforeEach` above that normally registers these same interceptors, so
+	// without this, `cy.visit` below would load the page with no mocks yet
+	// registered, and its on-mount fetches would hit a real, unmocked backend.
+	setupInterceptors(interceptors);
 	cy.visit(url, {
 		onBeforeLoad(w) {
 			w.sessionStorage.setItem(
