@@ -2,7 +2,7 @@
 	"errors": {
 		"somethingwrong": "Si è verificato un errore, per cortesia riprovare più tardi",
 		"incorrectcredentials": "Nome utente o password non corretti",
-		"passwordtooshort": "Password troppo breve",
+		"passwordtooshort": "Password troppo corta",
 		"badrequest": "Richiesta errata",
 		"internalerror": "Si è verificato un errore interno",
 		"lab": {
