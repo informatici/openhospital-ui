@@ -92,7 +92,7 @@
 		"tryanotherusername": "Prova un altro username"
 	},
 	"changepassword": {
-		"title": "",
+		"title": "Cambia la tua password",
 		"description": "",
 		"expired": "",
 		"adminreset": "",
