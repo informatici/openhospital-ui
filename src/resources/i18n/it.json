@@ -100,8 +100,8 @@
 		"repeatpassword": "",
 		"submit": "",
 		"success": "",
-		"passwordsdonotmatch": "",
-		"passwordtooshort": "",
+		"passwordsdonotmatch": "Le password non corrispondono",
+		"passwordtooshort": "Password troppo corta",
 		"passwordnotstrong": "Utilizzare lettere, numeri e simboli"
 	},
 	"dashboard": {
