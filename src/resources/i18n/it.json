@@ -99,7 +99,7 @@
 		"newpassword": "",
 		"repeatpassword": "",
 		"submit": "",
-		"success": "",
+		"success": "La tua password è stata modificata.",
 		"passwordsdonotmatch": "Le password non corrispondono",
 		"passwordtooshort": "Password troppo corta",
 		"passwordnotstrong": "Utilizzare lettere, numeri e simboli"
