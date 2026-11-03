@@ -102,7 +102,7 @@
 		"success": "",
 		"passwordsdonotmatch": "",
 		"passwordtooshort": "",
-		"passwordnotstrong": ""
+		"passwordnotstrong": "Utilizzare lettere, numeri e simboli"
 	},
 	"dashboard": {
 		"welcomename": "Benvenuto",
