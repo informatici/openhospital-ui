@@ -94,7 +94,7 @@
 	"changepassword": {
 		"title": "Cambia la tua password",
 		"description": "È necessario modificare la password prima di poter continuare.",
-		"expired": "",
+		"expired": "La tua password è scaduta dopo {{days}} giorni. Scegli una nuova password per continuare.",
 		"adminreset": "",
 		"newpassword": "",
 		"repeatpassword": "",
