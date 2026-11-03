@@ -47,7 +47,7 @@
 		"validateUserNeedsGroup": "Ogni utente deve appartenere almeno a un gruppo",
 		"validatePasswordNeeded": "Password mancante",
 		"validatePasswordTooShort": "La password è troppo corta.",
-		"validatePasswordTooWeak": "",
+		"validatePasswordTooWeak": "Si prega di creare una password più sicura.",
 		"validateGroupCode": "Codice gruppo non valido",
 		"validatePasswordMustMatch": "Le password devono corrispondere",
 		"validateUserName": "Nome utente obbligatorio",
