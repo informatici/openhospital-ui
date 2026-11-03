@@ -98,7 +98,7 @@
 		"adminreset": "La tua password è stata assegnata o reimpostata da un amministratore. Scegli una nuova password per continuare.",
 		"newpassword": "",
 		"repeatpassword": "",
-		"submit": "",
+		"submit": "Cambiare la password",
 		"success": "La tua password è stata modificata.",
 		"passwordsdonotmatch": "Le password non corrispondono",
 		"passwordtooshort": "Password troppo corta",
