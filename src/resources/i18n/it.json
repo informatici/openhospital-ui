@@ -46,7 +46,7 @@
 		"updatedSuccessMessage": "Uten te creato con successo",
 		"validateUserNeedsGroup": "Ogni utente deve appartenere almeno a un gruppo",
 		"validatePasswordNeeded": "Password mancante",
-		"validatePasswordTooShort": "",
+		"validatePasswordTooShort": "La password è troppo corta.",
 		"validatePasswordTooWeak": "",
 		"validateGroupCode": "Codice gruppo non valido",
 		"validatePasswordMustMatch": "Le password devono corrispondere",
