@@ -93,7 +93,7 @@
 	},
 	"changepassword": {
 		"title": "Cambia la tua password",
-		"description": "",
+		"description": "È necessario modificare la password prima di poter continuare.",
 		"expired": "",
 		"adminreset": "",
 		"newpassword": "",
