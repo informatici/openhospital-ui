@@ -1209,7 +1209,7 @@
 	"deliveryResultType": {
 		"code": "Codice",
 		"description": "Descrizione",
-		"title": "Gestisci i i tipi di esito parto",
+		"title": "Gestisci i tipi di esito parto",
 		"addDeliveryResultType": "Nuovo tipo di esito parto",
 		"deleted": "Cancellato",
 		"deleteSuccess": "Il tipo di esito parto è stato rimosso con successo",
