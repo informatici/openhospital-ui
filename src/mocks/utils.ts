@@ -2,7 +2,6 @@ import { HttpResponse, type JsonBodyType } from 'msw';
 import { createOpenApiHttp } from 'openapi-msw';
 import type { paths } from '~/__generated__/openapi';
 import { BASE_PATH } from '~/generated';
-import { makeServer } from './server';
 
 export const http = createOpenApiHttp<paths>({
 	baseUrl: BASE_PATH,
@@ -13,11 +12,23 @@ export async function enableMocking() {
 		return;
 	}
 
-	//const { worker } = await import('~/mocks'); // For MSW
+	// Cypress already mocks the network via cy.intercept; starting MSW's
+	// service worker on top is redundant, and its registration can hang
+	// under Electron/headless browsers, blocking the app's first render.
+	if ('Cypress' in window) {
+		return;
+	}
 
-	//await worker.start(); // For MSW
+	const { worker } = await import('~/mocks');
 
-	makeServer(); // For PollyJS
+	// `worker.start()` otherwise fetches `/mockServiceWorker.js` from the
+	// origin root, ignoring Vite's `base` — breaks registration whenever the
+	// app is served under a sub-path (e.g. VITE_PUBLIC_URL=/oh-ui).
+	await worker.start({
+		serviceWorker: {
+			url: `${import.meta.env.BASE_URL}mockServiceWorker.js`,
+		},
+	});
 }
 
 export function badRequest<T extends JsonBodyType>(response: T) {
