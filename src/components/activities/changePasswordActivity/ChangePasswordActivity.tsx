@@ -1,11 +1,13 @@
 import classNames from 'classnames';
 import { useFormik } from 'formik';
 import { get, has } from 'lodash';
-import { type FC, useState } from 'react';
+import { type FC, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { object, ref, string } from 'yup';
+import { passwordPolicySchema } from '~/libraries/authUtils/passwordPolicy';
 import { useAppDispatch } from '~/libraries/hooks/redux';
+import { usePasswordPolicy } from '~/libraries/hooks/usePasswordPolicy';
 import logo from '../../../assets/logo-color.svg';
 import { AUTH_KEY } from '../../../consts';
 import { useLandingPageRoute } from '../../../libraries/hooks/useLandingPageRoute';
@@ -17,12 +19,6 @@ import TextField from '../../accessories/textField/TextField';
 import '../loginActivity/styles.scss';
 import type { IValues } from './types';
 
-// Mirrors the server-side password policy (GeneralData STRONGLENGTH default and
-// UserBrowsingManager.isPasswordStrong); the backend remains the source of truth.
-const MIN_PASSWORD_LENGTH = 6;
-const STRONG_PASSWORD_REGEX =
-	/^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[\\_$&+,:;=?@#|/'<>.^*()%!-])(?=\S+$).+$/;
-
 export const ChangePasswordActivity: FC = () => {
 	const { t } = useTranslation();
 	const dispatch = useAppDispatch();
@@ -32,20 +28,27 @@ export const ChangePasswordActivity: FC = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [errorMessage, setErrorMessage] = useState('');
 
+	const passwordPolicy = usePasswordPolicy();
+
 	const initialValues: IValues = {
 		newPassword: '',
 		repeatPassword: '',
 	};
 
-	const validationSchema = object({
-		newPassword: string()
-			.required(t('login.insertthepassword'))
-			.min(MIN_PASSWORD_LENGTH, t('changepassword.passwordtooshort'))
-			.matches(STRONG_PASSWORD_REGEX, t('changepassword.passwordnotstrong')),
-		repeatPassword: string()
-			.required(t('login.insertthepassword'))
-			.oneOf([ref('newPassword')], t('changepassword.passwordsdonotmatch')),
-	});
+	const validationSchema = useMemo(
+		() =>
+			object({
+				newPassword: passwordPolicySchema(
+					passwordPolicy,
+					t('changepassword.passwordtooshort'),
+					t('changepassword.passwordnotstrong'),
+				).required(t('login.insertthepassword')),
+				repeatPassword: string()
+					.required(t('login.insertthepassword'))
+					.oneOf([ref('newPassword')], t('changepassword.passwordsdonotmatch')),
+			}),
+		[passwordPolicy, t],
+	);
 
 	const formik = useFormik({
 		initialValues,

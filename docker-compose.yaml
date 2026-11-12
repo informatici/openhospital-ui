@@ -18,7 +18,7 @@ x-mariadb: &mariadb-env
   OH_DB_LANG: en
 x-ui: &ui-env
   <<: *repository-args
-  PUBLIC_URL: /
+  VITE_PUBLIC_URL: /
   VITE_USE_MOCK_API:
   VITE_BASE_PATH: http://localhost:8080
 x-pg-admin: &pg-admin-env

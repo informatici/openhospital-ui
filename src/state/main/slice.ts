@@ -84,6 +84,16 @@ export const mainSlice = createSlice({
 			})
 			.addCase(thunks.getUserSettings.rejected, (state, action) => {
 				state.settings = ApiResponse.error(action.payload);
+			})
+			// Get password policy
+			.addCase(thunks.getPasswordPolicy.pending, (state) => {
+				state.passwordPolicy = ApiResponse.loading();
+			})
+			.addCase(thunks.getPasswordPolicy.fulfilled, (state, action) => {
+				state.passwordPolicy = ApiResponse.value(action.payload);
+			})
+			.addCase(thunks.getPasswordPolicy.rejected, (state, action) => {
+				state.passwordPolicy = ApiResponse.error(action.payload);
 			}),
 });
 
