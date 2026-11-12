@@ -92,17 +92,17 @@
 		"tryanotherusername": "Prova un altro username"
 	},
 	"changepassword": {
-		"title": "",
-		"description": "",
-		"expired": "",
-		"adminreset": "",
-		"newpassword": "",
-		"repeatpassword": "",
-		"submit": "",
-		"success": "",
-		"passwordsdonotmatch": "",
-		"passwordtooshort": "",
-		"passwordnotstrong": ""
+		"title": "Cambia la tua password",
+		"description": "È necessario modificare la password prima di poter continuare.",
+		"expired": "La tua password è scaduta dopo {{days}} giorni. Scegli una nuova password per continuare.",
+		"adminreset": "La tua password è stata assegnata o reimpostata da un amministratore. Scegli una nuova password per continuare.",
+		"newpassword": "Nuova password",
+		"repeatpassword": "Ripeti la nuova password",
+		"submit": "Cambiare la password",
+		"success": "La tua password è stata modificata.",
+		"passwordsdonotmatch": "Le password non corrispondono",
+		"passwordtooshort": "Password troppo corta",
+		"passwordnotstrong": "Utilizzare lettere, numeri e simboli"
 	},
 	"dashboard": {
 		"welcomename": "Benvenuto",

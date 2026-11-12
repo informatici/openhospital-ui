@@ -589,10 +589,11 @@
 		"restoreConfirmation": "Etes-vous sûr de vouloir restaurer cet article ?",
 		"softDelete": "Marquer comme supprimé",
 		"softDeleteConfirmation": "Êtes-vous sûr de marquer cet élément comme supprimé ?",
-		"cancelMessage": "Êtes-vous sûr de vouloir annuler cette opération ? toutes les données non enregistrées seront perdues.",
+		"cancelMessage": "Êtes-vous sûr de vouloir abandonner cette opération ? toutes les données non enregistrées seront perdues.",
 		"back": "Retour",
 		"backToEdit": "Non, continuer à modifier",
-		"discardMessage": "Êtes-vous sûr de vouloir abandonner cette opération ? toutes les données non enregistrées seront perdues."	},
+		"discardMessage": "Êtes-vous sûr de vouloir abandonner cette opération ? toutes les données non enregistrées seront perdues."
+	},
 	"permission": {
 		"denied": "Autorisation refusée",
 		"unauthorized": "Non autorisé",
