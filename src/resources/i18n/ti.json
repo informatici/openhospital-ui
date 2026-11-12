@@ -46,7 +46,7 @@
 		"updatedSuccessMessage": "ተጠቃሚ ብዓወት ተሓዲሱ ኣሎ!",
 		"validateUserNeedsGroup": "ነፍሲ ወከፍ ተጠቃሚ ካብ ሓደ ጉጅለ ክኸውን ኣለዎ።",
 		"validatePasswordNeeded": "ፓስዎርድ ኣይተዋህበን።",
-		"validatePasswordTooShort": "",
+		"validatePasswordTooShort": "ፓስዎርድ ኣዝዩ ሓጺር እዩ - እንተወሓደ 5 ፊደላት ክኸውን ኣለዎ።",
 		"validatePasswordTooWeak": "",
 		"validateGroupCode": "ዘይሕጋዊ ናይ ጉጅለ ኮድ",
 		"validatePasswordMustMatch": "ፓስዎርድታት ክሰማምዑ ኣለዎም።",
