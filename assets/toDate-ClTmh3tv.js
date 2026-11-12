@@ -1,0 +1,1 @@
+var e=365.2425,t=6048e5,n=864e5,r=6e4,i=36e5,a=1e3,o=86400;o*7,o*e/12*3;var s=Symbol.for(`constructDateFrom`);function c(e,t){return typeof e==`function`?e(t):e&&typeof e==`object`&&s in e?e[s](t):e instanceof Date?new e.constructor(t):new Date(t)}function l(e,t){return c(t||e,e)}export{r as a,i,c as n,a as o,n as r,t as s,l as t};

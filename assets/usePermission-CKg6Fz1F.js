@@ -1,0 +1,1 @@
+import{t as e}from"./usePermissions-D8qcRo1D.js";var t=t=>(e(),!0);export{t};

@@ -1,0 +1,1 @@
+import{o as e}from"./rolldown-runtime-C0FnF6B9.js";import{a as t,i as n}from"./useTranslation-C3DxmeK-.js";var r=e(t()),i=n(),a=({title:e,children:t})=>(0,i.jsxs)(r.Fragment,{children:[(0,i.jsx)(`div`,{className:`patientDetails__content_header`,children:(0,i.jsx)(`h3`,{children:e})}),(0,i.jsx)(`div`,{className:`patientDetails__content_body`,children:t})]});export{a as t};
