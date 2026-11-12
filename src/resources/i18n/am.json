@@ -47,7 +47,7 @@
 		"validateUserNeedsGroup": "እያንዳንዱ ተጠቃሚ የአንድ ቡድን አባል መሆን አለበት።",
 		"validatePasswordNeeded": "ምንም የይለፍ ቃል አልተሰጠም።",
 		"validatePasswordTooShort": "እባክህ የበለጠ ጠንካራ የይለፍ ቃል ፍጠር፡ 1 አቢይ ሆሄያት፣ 1 ትንሽ ፊደል፣ 1 አሃዛዊ አሃዝ",
-		"validatePasswordTooWeak": "",
+		"validatePasswordTooWeak": "እባክህ የበለጠ ጠንካራ የይለፍ ቃል ፍጠር፡ 1 አቢይ ሆሄያት፣ 1 ትንሽ ፊደል፣ 1 አሃዛዊ አሃዝ",
 		"validateGroupCode": "ልክ ያልሆነ የቡድን ኮድ",
 		"validatePasswordMustMatch": "የይለፍ ቃሎች መመሳሰል አለባቸው",
 		"validateUserName": "የተጠቃሚ ስም መጥቀስ ያስፈልግዎታል",
