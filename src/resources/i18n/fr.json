@@ -589,7 +589,7 @@
 		"restoreConfirmation": "Etes-vous sûr de vouloir restaurer cet article ?",
 		"softDelete": "Marquer comme supprimé",
 		"softDeleteConfirmation": "Êtes-vous sûr de marquer cet élément comme supprimé ?",
-		"cancelMessage": "",
+		"cancelMessage": "Êtes-vous sûr de vouloir abandonner cette opération ? toutes les données non enregistrées seront perdues.",
 		"back": "",
 		"backToEdit": "",
 		"discardMessage": ""
