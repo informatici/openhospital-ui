@@ -591,7 +591,7 @@
 		"softDeleteConfirmation": "Êtes-vous sûr de marquer cet élément comme supprimé ?",
 		"cancelMessage": "Êtes-vous sûr de vouloir abandonner cette opération ? toutes les données non enregistrées seront perdues.",
 		"back": "Retour",
-		"backToEdit": "",
+		"backToEdit": "Non, continuer à modifier",
 		"discardMessage": ""
 	},
 	"permission": {
