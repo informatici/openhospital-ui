@@ -592,7 +592,7 @@
 		"cancelMessage": "Êtes-vous sûr de vouloir abandonner cette opération ? toutes les données non enregistrées seront perdues.",
 		"back": "Retour",
 		"backToEdit": "Non, continuer à modifier",
-		"discardMessage": ""
+		"discardMessage": "Êtes-vous sûr de vouloir abandonner cette opération ? toutes les données non enregistrées seront perdues."
 	},
 	"permission": {
 		"denied": "Autorisation refusée",
