@@ -162,6 +162,7 @@ export type TPermission =
 	| 'patients.read'
 	| 'patients.update'
 	| 'patients.delete'
+	| 'patient.anonymize'
 	| 'patientvaccines.create'
 	| 'patientvaccines.read'
 	| 'patientvaccines.update'
