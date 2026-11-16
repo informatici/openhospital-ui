@@ -69,7 +69,9 @@ export const patientSlice = createSlice({
 			})
 			// Get Patient
 			.addCase(thunks.getPatient.pending, (state) => {
-				state.selectedPatient = ApiResponse.loading();
+				if (!state.selectedPatient.hasSucceeded) {
+					state.selectedPatient = ApiResponse.loading();
+				}
 			})
 			.addCase(thunks.getPatient.fulfilled, (state, { payload }) => {
 				if (typeof payload === 'object' && !isEmpty(payload)) {
