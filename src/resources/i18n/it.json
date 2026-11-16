@@ -167,6 +167,7 @@
 	},
 	"patient": {
 		"address": "Indirizzo",
+		"administrativeissues": "",
 		"birthdate": "Data di nascita",
 		"bloodtype": "Gruppo Sanguigno",
 		"city": "Città o provenienza",
