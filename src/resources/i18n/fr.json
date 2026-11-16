@@ -167,6 +167,7 @@
 	},
 	"patient": {
 		"address": "Adresse",
+		"administrativeissues": "",
 		"birthdate": "Date de naissance",
 		"bloodtype": "Groupe sanguin",
 		"city": "Ville",
