@@ -167,6 +167,7 @@
 	},
 	"patient": {
 		"address": "Address",
+		"administrativeissues": "Administrative issues to be solved before providing further services",
 		"birthdate": "Birth Date",
 		"bloodtype": "Blood type",
 		"city": "City",
