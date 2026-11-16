@@ -1,0 +1,26 @@
+name: Mobile Audit
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  mobile-audit:
+    name: Mobile audit (allowed failure)
+    runs-on: ubuntu-latest
+    continue-on-error: true
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run Cypress mobile audit
+        uses: cypress-io/github-action@v6
+        with:
+          browser: chrome
+          record: false
+          start: npm run start:ci
+          wait-on: "http://localhost:5173"
+          spec: cypress/integrations/mobile_baseline_audit.cy.ts
+        env:
+          CYPRESS_MOBILE_AUDIT: true
+          CYPRESS_MOBILE_AUDIT_VIEWPORT: phone-modern
