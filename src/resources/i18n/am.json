@@ -167,6 +167,7 @@
 	},
 	"patient": {
 		"address": "አድራሻ",
+		"administrativeissues": "",
 		"birthdate": "የልደት ቀን",
 		"bloodtype": "የደም ዓይነት",
 		"city": "ከተማ",
