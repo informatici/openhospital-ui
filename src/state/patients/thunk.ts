@@ -4,6 +4,7 @@ import { firstValueFrom } from 'rxjs';
 import { wrapper } from '~/libraries/apiUtils/wrapper';
 import type { TValues } from '../../components/activities/searchPatientActivity/types';
 import {
+	type AnonymizePatientRequest,
 	type PatientDTO,
 	PatientsApi,
 	type UpdatePatientRequest,
@@ -77,5 +78,13 @@ export const updatePatient = createAsyncThunk(
 	async (payload: UpdatePatientRequest, thunkApi) =>
 		firstValueFrom(wrapper(() => api.updatePatient(payload))).catch((error) =>
 			thunkApi.rejectWithValue(error.response),
+		),
+);
+
+export const anonymizePatient = createAsyncThunk(
+	'patients/anonymizePatient',
+	async (payload: AnonymizePatientRequest, thunkApi) =>
+		firstValueFrom(wrapper(() => api.anonymizePatient(payload))).catch(
+			(error) => thunkApi.rejectWithValue(error.response),
 		),
 );
