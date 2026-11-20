@@ -1,0 +1,1 @@
+import{s as e}from"./consts-6wHcDaHE.js";import{v as t}from"./Button-VY3w4TyZ.js";var n=t(e=>e.main.authentication?.data?.permissions,e=>e||[]),r=()=>e(n);export{r as t};
