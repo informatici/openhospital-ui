@@ -1,0 +1,1 @@
+import{i as e,t}from"./consts-CQgb7t2R.js";import{o as n}from"./Button-BoxmGcBA.js";var r=()=>{let{permissions:r}=n.read(e),{username:i,token:a,mustChangePassword:o,passwordExpired:s,passwordLeaseDays:c}=n.read(t);if(!(a&&i&&r))throw Error(`unauthenticated`);return{username:i,permissions:r,token:a,mustChangePassword:o,passwordExpired:s,passwordLeaseDays:c}};export{r as t};

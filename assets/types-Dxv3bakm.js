@@ -1,0 +1,1 @@
+import{i as e,t}from"./useTranslation-Bk-6up2t.js";import{t as n}from"./InfoBox-thgw-DS7.js";import"./TypesAdmin-CfXgxEuc.js";import"./agetypes-QZPMrbzm.js";import"./components-zkqLR9mG.js";var r=e(),i=()=>{let{t:e}=t();return(0,r.jsx)(n,{type:`info`,message:e(`types.chooseATypeToStart`)})};export{i as Empty};
